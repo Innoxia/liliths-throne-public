@@ -318,7 +318,7 @@ public class DominionSuccubusDialogue {
 						"Seeing the desperate, whining form of the horny [npc.race] is proving to be too much for you to bear."
 								+ " Perhaps you could cheer [npc.herHim] up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to [npc.herHim]</b> and letting [npc.herHim] use your body?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						true, true,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),

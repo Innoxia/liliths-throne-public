@@ -11,6 +11,9 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -772,35 +775,45 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			if(character.getBody().getBodyMaterial().isRequiresPiercing()) {
 				if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
-				transformationIncompatible(character, c, clothingToRemove, "Your ears are no longer pierced, so you can't wear the "+c.getName()+"!");
+				transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] ears are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 			
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_LIP && !character.isPiercedLip()){
-					transformationIncompatible(character, c, clothingToRemove, "Your lips are no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] lips are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NIPPLE && !character.isPiercedNipple()){
-					transformationIncompatible(character, c, clothingToRemove, "Your nipples are no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] nipples are no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NOSE && !character.isPiercedNose()){
-					transformationIncompatible(character, c, clothingToRemove, "Your nose is no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] nose is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.isPiercedPenis()){
-					transformationIncompatible(character, c, clothingToRemove, "Your penis is no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] penis is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_STOMACH && !character.isPiercedNavel()){
-					transformationIncompatible(character, c, clothingToRemove, "Your navel is no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] navel is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_TONGUE && !character.isPiercedTongue()){
-					transformationIncompatible(character, c, clothingToRemove, "Your tongue is no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] tongue is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 					
 				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.isPiercedVagina()){
-					transformationIncompatible(character, c, clothingToRemove, "Your vagina is no longer pierced, so you can't wear the "+c.getName()+"!");
+					transformationIncompatible(character, c, clothingToRemove, "[npc.NamePos] vagina is no longer pierced, so [npc.she] can't wear the "+c.getName()+"!");
 				}
 			}
 			if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.hasPenisIgnoreDildo()){
-				transformationIncompatible(character, c, clothingToRemove, "You no longer have a penis, so you can't wear the "+c.getName()+"!");
+				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a penis, so [npc.she] can't wear the "+c.getName()+"!");
 				
 			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.hasVagina()){
-				transformationIncompatible(character, c, clothingToRemove, "You no longer have a vagina, so you can't wear the "+c.getName()+"!");
+				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a vagina, so [npc.she] can't wear the "+c.getName()+"!");
+			}
+			
+			if (c.getClothingType().getSlot() == InventorySlot.WINGS && character.getWingType()==WingType.NONE) {
+				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any wings, so [npc.she] can't wear the "+c.getName()+"!");
+			}
+			if (c.getClothingType().getSlot() == InventorySlot.HORNS && character.getHornType()==HornType.NONE) {
+				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] any horns, so [npc.she] can't wear the "+c.getName()+"!");
+			}
+			if (c.getClothingType().getSlot() == InventorySlot.TAIL && character.getTailType()==TailType.NONE) {
+				transformationIncompatible(character, c, clothingToRemove, "[npc.Name] no longer [npc.has] a tail, so [npc.she] can't wear the "+c.getName()+"!");
 			}
 			
 		}
@@ -811,7 +824,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	private void transformationIncompatible(GameCharacter character, AbstractClothing c, List<AbstractClothing> clothingRemovalList, String description){
 		if (tempSB.length() != 0)
 			tempSB.append("<br/><br/>");
-		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
+		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
 		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getActiveWorld().getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("<br/>" + character.droppedItemText(c));
@@ -950,6 +963,20 @@ public class CharacterInventory implements Serializable, XMLSaving {
 						:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+newClothing.getName()+"!"));
 				return false;
 			}
+		}
+		
+		// Check for impossible equipping:
+		if (newClothing.getClothingType().getSlot() == InventorySlot.WINGS && characterClothingOwner.getWingType()==WingType.NONE) {
+			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any wings, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+			return false;
+		}
+		if (newClothing.getClothingType().getSlot() == InventorySlot.HORNS && characterClothingOwner.getHornType()==HornType.NONE) {
+			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have any horns, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+			return false;
+		}
+		if (newClothing.getClothingType().getSlot() == InventorySlot.TAIL && characterClothingOwner.getTailType()==TailType.NONE) {
+			equipTextSB.append(UtilText.parse(characterClothingOwner, "[npc.Name] [npc.does]n't have a tail, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+			return false;
 		}
 		
 		// Check to see if any equipped clothing is incompatible with newClothing:
@@ -1641,38 +1668,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return True if can access slot. (if byRemovingClothing is true, then it tells you if you are able to get to the slot by removing clothing, not that it is available right now).
 	 */
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
-		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
-		// If it can't, continue searching to see if another displacement type has revealed that area.
-		// If it hasn't, return false.
 		return getClothingBlockingCoverableAreaAccess(area, byRemovingClothing)==null;
-//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
-//				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
-//					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
-//						if (byRemovingClothing) {
-//							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
-//								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
-//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//										return false;
-//									}
-//								}
-//							} else {
-//								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
-//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//										return false;
-//									}
-//								}
-//							}
-//						} else {
-//							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-//								return false;
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		return true;
 	}
 	
 	/**

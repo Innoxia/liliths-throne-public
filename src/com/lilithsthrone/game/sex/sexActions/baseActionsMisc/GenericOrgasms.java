@@ -69,29 +69,18 @@ public class GenericOrgasms {
 		String orgasmText = "";
 		switch(Sex.getSexPositionSlot(characterOrgasming)) {
 			case MISSIONARY_KNEELING_BETWEEN_LEGS:
-				if(characterOrgasming.isPlayer()) {
-					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean down on top of [npc.name].";
-				} else {
-					orgasmText = "[npc.Name] lets out out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, leaning down on top of you, [npc.she] gazes down onto your face with lust in [npc.her] [npc.eyes].";
-				}
+				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].";
 				break;
 			case MISSIONARY_ON_BACK:
-				if(characterOrgasming.isPlayer()) {
-					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you spread your [pc.legs] for [npc.name] and gaze up into [npc.her] [npc.eyes+].";
-				} else {
-					orgasmText = "[npc.Name] lets out out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, gazing up at your face with lust in [npc.her] [npc.eyes], [npc.she] spreads [npc.her] [npc.legs] even wider for you.";
-				}
+				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and,"
+						+ " gazing up at [npc2.namePos] face with lust in [npc.her] [npc.eyes], [npc.she] [npc.verb(spread)] [npc.her] [npc.legs] even wider for [npc2.herHim].";
 				break;
 			case BACK_TO_WALL_AGAINST_WALL:
-				if(characterOrgasming.isPlayer()) {
-					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean back and brace yourself against the wall.";
-				} else {
-					orgasmText = "Leaning back, [npc.name] braces [npc.herself] against the wall as [npc.she] feels [npc.herself] reaching [npc.her] climax.";
-				}
+				orgasmText = "Leaning back, [npc.name] [npc.verb(brace)] [npc.herself] against the wall as [npc.she] [npc.verb(feel)] [npc.herself] reaching [npc.her] climax.";
 				break;
 			case BACK_TO_WALL_FACING_TARGET:
 				orgasmText = "Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] [npc1.verb(step)] forwards, letting out [npc1.a_moan+] as [npc1.she] "
-				+ "[npc1.verb(press)] [npc2.name] back against the wall.";
+							+ "[npc1.verb(press)] [npc2.name] back against the wall.";
 				break;
 			case CHAIR_BOTTOM:
 				orgasmText = "Wrapping [npc1.her] [npc1.arms+] around [npc2.name], [npc1.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(pull)] [npc2.herHim] down into [npc.her] lap.";
@@ -212,8 +201,8 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(spread)] [npc1.her] [npc1.legs] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case BREEDING_STALL_FUCKING:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, before stepping forwards and driving [npc1.her] [npc1.cock] deep into [npc2.name]'s [npc2.pussy+]."
-						+ " Letting out [npc1.a_moan+], [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax, and pump [npc2.name]'s womb full of [npc1.cum+].";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, before stepping forwards and driving [npc1.her] [npc1.cock] deep into [npc2.namePos] [npc2.pussy+]."
+						+ " Letting out [npc1.a_moan+], [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax, and pump [npc2.namePos] womb full of [npc1.cum+].";
 				break;
 		}
 		
@@ -247,7 +236,7 @@ public class GenericOrgasms {
 							if(characterOrgasming.isPlayer()) {
 								modifiers.add(" The wide, flared head of your [npc1.cock] swells up, and you feel your [npc1.balls+] tightening as you start to cum.");
 							} else {
-								modifiers.add(" The wide, flared head of [npc.name]'s [npc.cock] swells up, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
+								modifiers.add(" The wide, flared head of [npc.namePos] [npc.cock] swells up, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
 							}
 						}
 						break;
@@ -256,7 +245,7 @@ public class GenericOrgasms {
 							if(characterOrgasming.isPlayer()) {
 								modifiers.add(" The thick knot at the base of your [npc1.cock] swells up, and you feel your [npc1.balls+] tightening as you start to cum.");
 							} else {
-								modifiers.add(" The thick knot at the base of [npc.name]'s [npc.cock] swells up, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
+								modifiers.add(" The thick knot at the base of [npc.namePos] [npc.cock] swells up, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
 							}
 						}
 						break;
@@ -273,7 +262,7 @@ public class GenericOrgasms {
 							if(characterOrgasming.isPlayer()) {
 								modifiers.add(" The little tentacles lining your [npc1.cock] start frantically wriggling, and you feel your [npc1.balls+] tightening as you start to cum.");
 							} else {
-								modifiers.add(" The little tentacles lining [npc.name]'s [npc.cock] start frantically wriggling, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
+								modifiers.add(" The little tentacles lining [npc.namePos] [npc.cock] start frantically wriggling, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
 							}
 						}
 						break;
@@ -288,7 +277,7 @@ public class GenericOrgasms {
 				if(characterOrgasming.isPlayer()) {
 					genericOrgasmSB.append(" Your [npc1.cock+] twitches, and you feel your [npc1.balls+] tightening as you start to cum.");
 				} else {
-					genericOrgasmSB.append(" [npc.Name]'s [npc1.cock+] twitches, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
+					genericOrgasmSB.append(" [npc.NamePos] [npc1.cock+] twitches, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
 				}
 			}
 
@@ -298,100 +287,100 @@ public class GenericOrgasms {
 				switch(orificePenetrated) {
 					case ANUS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.asshole+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] [npc2.asshole+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.asshole+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.asshole+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] [npc2.asshole+]");
 							}
 						}
 						break;
 					case ASS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.name]'s ass cheeks");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.namePos] ass cheeks");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between your ass cheeks");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.name]'s ass cheeks");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.namePos] ass cheeks");
 							}
 						}
 						break;
 					case BREAST:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.name]'s [npc2.breasts+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.namePos] [npc2.breasts+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between your [npc2.breasts+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.name]'s [npc2.breasts+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.namePos] [npc2.breasts+]");
 							}
 						}
 						break;
 					case MOUTH:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s mouth");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] mouth");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your mouth");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s mouth");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] mouth");
 							}
 						}
 						break;
 					case NIPPLE:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.nipple+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] [npc2.nipple+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.nipple+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.nipple+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] [npc2.nipple+]");
 							}
 						}
 						break;
 					case THIGHS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.name]'s thighs");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out from between [npc2.namePos] thighs");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between your thighs");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.name]'s thighs");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out from between [npc2.namePos] thighs");
 							}
 						}
 						break;
 					case URETHRA_PENIS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] [npc2.penisUrethra+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.penisUrethra+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] [npc2.penisUrethra+]");
 							}
 						}
 						break;
 					case URETHRA_VAGINA:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] [npc2.vaginaUrethra+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.vaginaUrethra+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] [npc2.vaginaUrethra+]");
 							}
 						}
 						break;
 					case VAGINA:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.pussy+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.namePos] [npc2.pussy+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.pussy+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.pussy+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.namePos] [npc2.pussy+]");
 							}
 						}
 						break;
@@ -509,7 +498,7 @@ public class GenericOrgasms {
 					
 					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.name]'s "+orificeNamePlusDescriptor+"."
+							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.namePos] "+orificeNamePlusDescriptor+"."
 									+ " It's already started to swell up so much that you don't manage to get it inside on the first thrust,"
 										+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc2.her] "+orificeNamePlusDescriptor+".");
 						} else {
@@ -518,18 +507,18 @@ public class GenericOrgasms {
 										+ " It's already started to swell up so much that [npc.she] doesn't manage to get it inside on the first thrust,"
 											+ " but, after pulling back and slamming [npc1.her] [npc1.hips] forwards, [npc1.she] manages to push the thick knot into your "+orificeNamePlusDescriptor+".");
 							} else {
-								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.name]'s "+orificeNamePlusDescriptor+", [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
+								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] "+orificeNamePlusDescriptor+", [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
 							}
 						}
 						
 					} else {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Ramming your [npc1.cock+] deep into [npc2.name]'s "+orificeNamePlusDescriptor+", you let out [npc1.a_moan+] as you feel your [npc1.cock+] start to twitch.");
+							genericOrgasmSB.append(" Ramming your [npc1.cock+] deep into [npc2.namePos] "+orificeNamePlusDescriptor+", you let out [npc1.a_moan+] as you feel your [npc1.cock+] start to twitch.");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep into your "+orificeNamePlusDescriptor+", [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of you.");
 							} else {
-								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep into [npc2.name]'s "+orificeNamePlusDescriptor+", [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of [npc2.herHim].");
+								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep into [npc2.namePos] "+orificeNamePlusDescriptor+", [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of [npc2.herHim].");
 							}
 						}
 					}
@@ -545,7 +534,7 @@ public class GenericOrgasms {
 										if(characterPenetrated.isPlayer()) {
 											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the inner walls of your "+orificeName+" and causing you to let out [npc2.a_moan+].");
 										} else {
-											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the inner walls of [npc2.name]'s "+orificeName+" and causing [npc2.herHim] to let out [npc2.a_moan+].");
+											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the inner walls of [npc2.namePos] "+orificeName+" and causing [npc2.herHim] to let out [npc2.a_moan+].");
 										}
 									}
 								}
@@ -558,9 +547,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel the wide, flared head of your [npc1.cock] swell up, making a seal with which to trap your [npc1.cum] deep within [npc2.her] "+orificeName+".");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The wide, flared head of [npc1.name]'s [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep within your "+orificeName+".");
+											modifiers.add(" The wide, flared head of [npc1.namePos] [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep within your "+orificeName+".");
 										} else {
-											modifiers.add(" The wide, flared head of [npc1.name]'s [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep within [npc2.name]'s "+orificeName+".");
+											modifiers.add(" The wide, flared head of [npc1.namePos] [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep within [npc2.namePos] "+orificeName+".");
 										}
 									}
 								}
@@ -575,9 +564,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel your ribbed [npc1.cock] bumping against the inner walls of [npc2.her] "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The ribbed length of [npc1.name]'s [npc1.cock] bumps against the inner walls of your "+orificeName+", which causes you to let out [npc2.a_moan+].");
+											modifiers.add(" The ribbed length of [npc1.namePos] [npc1.cock] bumps against the inner walls of your "+orificeName+", which causes you to let out [npc2.a_moan+].");
 										} else {
-											modifiers.add(" The ribbed length of [npc1.name]'s [npc1.cock] bumps against the inner walls of [npc2.name]'s "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
+											modifiers.add(" The ribbed length of [npc1.namePos] [npc1.cock] bumps against the inner walls of [npc2.namePos] "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
 										}
 									}
 								}
@@ -592,9 +581,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel the wriggling tentacles lining your [npc1.cock] start to massage the inner walls of [npc2.her] "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The wriggling tentacles lining [npc1.name]'s [npc1.cock] start to massage the inner walls of your "+orificeName+", which causes you to let out [npc2.a_moan+].");
+											modifiers.add(" The wriggling tentacles lining [npc1.namePos] [npc1.cock] start to massage the inner walls of your "+orificeName+", which causes you to let out [npc2.a_moan+].");
 										} else {
-											modifiers.add(" The wriggling tentacles lining [npc1.name]'s [npc1.cock] start to massage the inner walls of [npc2.name]'s "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
+											modifiers.add(" The wriggling tentacles lining [npc1.namePos] [npc1.cock] start to massage the inner walls of [npc2.namePos] "+orificeName+", which causes [npc2.herHim] to let out [npc2.a_moan+].");
 										}
 									}
 								}
@@ -610,14 +599,14 @@ public class GenericOrgasms {
 					
 					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s "+orificeName+", you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
+							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.namePos] "+orificeName+", you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
 									+ " Bucking back a little, you grin as you feel [npc2.name] pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] "+orificeNamePlusDescriptor+".");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Keeping [npc1.her] [npc1.hips] pushed tightly against your "+orificeName+", [npc1.name] lets out [npc1.a_moan+] as [npc1.her] knot swells up to its full size."
 										+ " [npc.She] then bucks back a little, and you let out a startled cry as you're pulled along with [npc.herHim]; evidence that [npc1.her] [npc1.cock] is now firmly locked inside your "+orificeNamePlusDescriptor+".");
 							} else {
-								genericOrgasmSB.append(" After just a moment, [npc1.her] knot has fully swollen in size, locking [npc1.her] [npc1.cock] inside [npc2.name]'s "+orificeName+".");
+								genericOrgasmSB.append(" After just a moment, [npc1.her] knot has fully swollen in size, locking [npc1.her] [npc1.cock] inside [npc2.namePos] "+orificeName+".");
 							}
 						}
 					}
@@ -631,7 +620,7 @@ public class GenericOrgasms {
 				case MOUTH:
 					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.name]'s [npc2.face+]."
+							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.namePos] [npc2.face+]."
 									+ " It's already started to swell up so much that you don't manage to get it past [npc2.her] [npc2.lips+] on the first thrust,"
 										+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc2.her] [npc2.mouth].");
 						} else {
@@ -640,28 +629,28 @@ public class GenericOrgasms {
 										+ " It's already started to swell up so much that [npc.she] doesn't manage to get it past your [npc2.lips+] on the first thrust,"
 											+ " but, after pulling back and slamming [npc1.her] [npc1.hips] forwards, [npc1.she] manages to push the thick knot into your [npc2.mouth].");
 							} else {
-								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.name]'s mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
+								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
 							}
 						}
 						
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Ramming the knot at the base of your [npc1.cock+] into [npc2.name]'s mouth, you let out [npc1.a_moan+] as you feel it start to swell up.");
+							genericOrgasmSB.append(" Ramming the knot at the base of your [npc1.cock+] into [npc2.namePos] mouth, you let out [npc1.a_moan+] as you feel it start to swell up.");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into your mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of you.");
 							} else {
-								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.name]'s mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
+								genericOrgasmSB.append(" Ramming the knot at the base of [npc1.her] [npc1.cock+] into [npc2.namePos] mouth, [npc1.name] lets out [npc1.a_moan+] as it starts to swell up inside of [npc2.herHim].");
 							}
 						}
 						
 					} else {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Ramming your [npc1.cock+] deep down [npc2.name]'s throat, you let out [npc1.a_moan+] as you feel your [npc1.cock+] start to twitch.");
+							genericOrgasmSB.append(" Ramming your [npc1.cock+] deep down [npc2.namePos] throat, you let out [npc1.a_moan+] as you feel your [npc1.cock+] start to twitch.");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep down your throat, [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of you.");
 							} else {
-								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep down [npc2.name]'s throat, [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of [npc2.herHim].");
+								genericOrgasmSB.append(" Ramming [npc1.her] [npc1.cock+] deep down [npc2.namePos] throat, [npc1.name] lets out [npc1.a_moan+] as it starts to twitch inside of [npc2.herHim].");
 							}
 						}
 					}
@@ -677,7 +666,7 @@ public class GenericOrgasms {
 										if(characterPenetrated.isPlayer()) {
 											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the lining of your throat and causing you to let out a choking [npc2.moan].");
 										} else {
-											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the lining of [npc2.name]'s throat and causing [npc2.herHim] to let out a choking [npc2.moan].");
+											modifiers.add(" [npc1.Name] continues to make small, thrusting movements, raking [npc1.her] barbs back against the lining of [npc2.namePos] throat and causing [npc2.herHim] to let out a choking [npc2.moan].");
 										}
 									}
 								}
@@ -690,9 +679,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel the wide, flared head of your [npc1.cock] swell up, making a seal with which to trap your [npc1.cum] deep down [npc2.her] throat.");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The wide, flared head of [npc1.name]'s [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep down your throat.");
+											modifiers.add(" The wide, flared head of [npc1.namePos] [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep down your throat.");
 										} else {
-											modifiers.add(" The wide, flared head of [npc1.name]'s [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep down [npc2.name]'s throat.");
+											modifiers.add(" The wide, flared head of [npc1.namePos] [npc1.cock] swells up, making a seal with which to trap [npc1.her] [npc1.cum] deep down [npc2.namePos] throat.");
 										}
 									}
 								}
@@ -707,9 +696,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel your ribbed [npc1.cock] bumping against the lining of [npc2.her] throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The ribbed length of [npc1.name]'s [npc1.cock] bumps against the lining of your throat, which causes you to let out a muffled [npc2.moan].");
+											modifiers.add(" The ribbed length of [npc1.namePos] [npc1.cock] bumps against the lining of your throat, which causes you to let out a muffled [npc2.moan].");
 										} else {
-											modifiers.add(" The ribbed length of [npc1.name]'s [npc1.cock] bumps against the lining of [npc2.name]'s throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
+											modifiers.add(" The ribbed length of [npc1.namePos] [npc1.cock] bumps against the lining of [npc2.namePos] throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
 										}
 									}
 								}
@@ -724,9 +713,9 @@ public class GenericOrgasms {
 										modifiers.add(" You feel the wriggling tentacles lining your [npc1.cock] start to massage the lining of [npc2.her] throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
 									} else {
 										if(characterPenetrated.isPlayer()) {
-											modifiers.add(" The wriggling tentacles lining [npc1.name]'s [npc1.cock] start to massage the lining of your throat, which causes you to let out a muffled [npc2.moan].");
+											modifiers.add(" The wriggling tentacles lining [npc1.namePos] [npc1.cock] start to massage the lining of your throat, which causes you to let out a muffled [npc2.moan].");
 										} else {
-											modifiers.add(" The wriggling tentacles lining [npc1.name]'s [npc1.cock] start to massage the lining of [npc2.name]'s throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
+											modifiers.add(" The wriggling tentacles lining [npc1.namePos] [npc1.cock] start to massage the lining of [npc2.namePos] throat, which causes [npc2.herHim] to let out a muffled [npc2.moan].");
 										}
 									}
 								}
@@ -742,14 +731,14 @@ public class GenericOrgasms {
 					
 					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s [npc2.face], you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
-									+ " Bucking back a little, you grin as [npc2.name]'s pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] [npc2.mouth].");
+							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.namePos] [npc2.face], you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
+									+ " Bucking back a little, you grin as [npc2.namePos] pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] [npc2.mouth].");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Keeping [npc1.her] [npc1.hips] pushed tightly against your [npc2.face], [npc1.name] lets out [npc1.a_moan+] as [npc1.her] knot swells up to its full size."
 										+ " [npc.She] then bucks back a little, and you let out a very muffled cry as you're pulled along with [npc1.herHim]; evidence that [npc1.her] [npc1.cock] is now firmly locked inside your [npc2.mouth].");
 							} else {
-								genericOrgasmSB.append(" After just a moment, [npc1.her] knot has fully swollen in size, locking [npc1.her] [npc1.cock] inside [npc2.name]'s [npc2.mouth].");
+								genericOrgasmSB.append(" After just a moment, [npc1.her] knot has fully swollen in size, locking [npc1.her] [npc1.cock] inside [npc2.namePos] [npc2.mouth].");
 							}
 						}
 					}
@@ -778,12 +767,12 @@ public class GenericOrgasms {
 			} else {
 				if(characterPenetrated.isPlayer()) {
 					genericOrgasmSB.append("<br/>"
-							+ "Even after [npc1.name]'s [npc1.balls+] have pumped their entire load into you, [npc1.her] knot remains swollen, locking you and your partner together."
-							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.she]'s finally able to pull [npc1.her] [npc1.cock+] free.");
+							+ "Even after [npc1.namePos] [npc1.balls+] have pumped their entire load into you, [npc1.her] knot remains swollen, locking you and your partner together."
+							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.sheIs] finally able to pull [npc1.her] [npc1.cock+] free.");
 				} else {
 					genericOrgasmSB.append("<br/>"
-							+ "Even after [npc1.name]'s [npc1.balls+] have pumped their entire load into [ncp2.name], [npc1.her] knot remains swollen, locking [npc1.herHim] and [npc1.her] partner together."
-							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.she]'s finally able to pull [npc1.her] [npc1.cock+] free.");
+							+ "Even after [npc1.namePos] [npc1.balls+] have pumped their entire load into [ncp2.name], [npc1.her] knot remains swollen, locking [npc1.herHim] and [npc1.her] partner together."
+							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.sheIs] finally able to pull [npc1.her] [npc1.cock+] free.");
 				}
 			}
 		}
@@ -799,7 +788,7 @@ public class GenericOrgasms {
 		
 		String targetName = "your";
 		if(!characterOrgasming.isPlayer()) {
-			targetName = "[npc1.name]'s";
+			targetName = "[npc1.namePos]";
 		}
 		String cumQuantityDescription = targetName+" [npc1.cum+] squirts";
 		
@@ -869,11 +858,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s back."
+										" all over [npc.namePos] back."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim], and [npc.she] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.skin].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s back."
+										" all over [npc2.namePos] back."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] [npc2.skin].");
 								
@@ -892,11 +881,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s [npc.breasts]."
+										" all over [npc.namePos] [npc.breasts]."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim], and [npc.she] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.breastsSkin].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s [npc2.breasts]."
+										" all over [npc2.namePos] [npc2.breasts]."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] [npc2.breastsSkin].");
 								
@@ -915,11 +904,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s [npc.face+]."
+										" all over [npc.namePos] [npc.face+]."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim], and [npc.she] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.faceSkin].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s [npc2.face+]."
+										" all over [npc2.namePos] [npc2.face+]."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] [npc2.faceSkin].");
 								
@@ -940,11 +929,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s stomach."
+										" all over [npc.namePos] stomach."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim], and [npc.she] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.skin].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s stomach."
+										" all over [npc2.namePos] stomach."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] [npc2.skin].");
 								
@@ -980,11 +969,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s "+groinText
+										" all over [npc2.namePos] "+groinText
 										+ " You grin as your [npc1.cum+] splatters onto [npc2.herHim], and [npc2.she] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] groin.");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s "+groinText
+										" all over [npc2.namePos] "+groinText
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] groin.");
 								
@@ -1007,11 +996,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s head"+(target.getHairRawLengthValue()>0?" and [npc.hair]":"")+"."
+										" all over [npc.namePos] head"+(target.getHairRawLengthValue()>0?" and [npc.hair]":"")+"."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s head"+(target.getHairRawLengthValue()>0?" and [npc2.hair]":"")+"."
+										" all over [npc2.namePos] head"+(target.getHairRawLengthValue()>0?" and [npc2.hair]":"")+"."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.herHim].");
 								
 							}
@@ -1029,11 +1018,11 @@ public class GenericOrgasms {
 						if(!target.isPlayer()) {
 							if(characterOrgasming.isPlayer()) {
 								return UtilText.parse(target,
-										" all over [npc.name]'s [npc.legs]."
+										" all over [npc.namePos] [npc.legs]."
 										+ " You grin as your [pc.cum+] splatters onto [npc.herHim], and [npc.she] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.legsSkin].");
 							} else {
 								return UtilText.parse(characterOrgasming, target,
-										" all over [npc2.name]'s [npc2.legs]."
+										" all over [npc2.namePos] [npc2.legs]."
 										+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name],"
 											+ " and the [npc2.race] can't help but let out [npc2.a_moan] as [npc2.she] feels it running down over [npc2.her] [npc2.legsSkin].");
 								
@@ -1123,7 +1112,7 @@ public class GenericOrgasms {
 											+ " it running down over your [npc.breastsSkin].");
 						} else {
 							return UtilText.parse(characterOrgasming,
-									" all over [npc.name]'s [npc.breasts]. [npc.She] can't help but let out [npc.a_moan]"
+									" all over [npc.namePos] [npc.breasts]. [npc.She] can't help but let out [npc.a_moan]"
 											+ " as [npc.she] feels it running down over [npc.her] [npc.breastsSkin].");
 							
 						}
@@ -1138,7 +1127,7 @@ public class GenericOrgasms {
 											+ " running down over your [pc.faceSkin].");
 						} else {
 							return UtilText.parse(characterOrgasming,
-									" all over [npc.name]'s [npc.face+]. [npc.She] can't help but let out [npc.a_moan]"
+									" all over [npc.namePos] [npc.face+]. [npc.She] can't help but let out [npc.a_moan]"
 											+ " as [npc.she] feels it running down over [npc.her] [npc.faceSkin].");
 							
 						}
@@ -1161,7 +1150,7 @@ public class GenericOrgasms {
 					if(target.isPlayer()) {
 						cumTargetSB.append(" deep into your [npc2.asshole+].");
 					} else {
-						cumTargetSB.append(" deep into [npc2.name]'s [npc2.asshole+].");
+						cumTargetSB.append(" deep into [npc2.namePos] [npc2.asshole+].");
 					}
 					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -1170,7 +1159,7 @@ public class GenericOrgasms {
 										+"[pc.cum+] backs up and starts drooling out of [npc2.her] [npc2.asshole], [npc2.she] lets out [npc2.a_moan+]."
 												+ " You keep your [npc1.cock] hilted deep in [npc2.her] ass, [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 							} else {
-								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.namePos] not even close to stopping, and as you feel [npc1.her] "
 										+"[npc.cum+] backing up and drooling out of your [npc2.asshole], you let out [pc.a_moan+]."
 										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep in your ass, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 							}
@@ -1192,37 +1181,37 @@ public class GenericOrgasms {
 						cumTargetSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
 						switch(characterOrgasming.getCumFlavour()) {
 							case BEER:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] beer-flavoured");
 								break;
 							case CHOCOLATE:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] chocolate-flavoured");
 								break;
 							case CUM:
 								cumTargetSB.append(" The salty taste of");
 								break;
 							case GIRL_CUM:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] sweet");
 								break;
 							case HONEY:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] honey-flavoured");
 								break;
 							case MILK:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] milk-flavoured");
 								break;
 							case MINT:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] mint-flavoured");
 								break;
 							case PINEAPPLE:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] pineapple-flavoured");
 								break;
 							case SLIME:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] sweet");
 								break;
 							case STRAWBERRY:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] strawberry-flavoured");
 								break;
 							case VANILLA:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured");
+								cumTargetSB.append(" The unusual taste of [npc1.namePos] vanilla-flavoured");
 								break;
 						}
 						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
@@ -1267,7 +1256,7 @@ public class GenericOrgasms {
 						}
 						
 					} else {
-						cumTargetSB.append(" deep down [npc2.name]'s throat.");
+						cumTargetSB.append(" deep down [npc2.namePos] throat.");
 					}
 					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -1276,7 +1265,7 @@ public class GenericOrgasms {
 										+"[pc.cum+] backs up and starts drooling out the corners of [npc2.her] mouth, [npc2.she] lets out a desperate, muffled [npc2.moan]."
 												+ " You keep your [npc1.cock] hilted deep down [npc2.her] throat, [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 							} else {
-								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.namePos] not even close to stopping, and as you feel [npc1.her] "
 										+"[npc.cum+] backing up and drooling out the corners of your mouth, you let out a desperate, muffled [pc.moan]."
 										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep down your throat, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 							}
@@ -1293,7 +1282,7 @@ public class GenericOrgasms {
 					if(target.isPlayer()) {
 						cumTargetSB.append(" deep into your [pc.breasts+], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of your [pc.breasts+].");
 					} else {
-						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
+						cumTargetSB.append(" deep into [npc2.namePos] [npc2.breasts+].");
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
 						int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE) + characterOrgasming.getPenisRawOrgasmCumQuantity();
@@ -1306,7 +1295,7 @@ public class GenericOrgasms {
 					if(target.isPlayer()) {
 						cumTargetSB.append(" deep into your urethra.");
 					} else {
-						cumTargetSB.append(" deep into [npc2.name]'s urethra.");
+						cumTargetSB.append(" deep into [npc2.namePos] urethra.");
 					}
 					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -1315,7 +1304,7 @@ public class GenericOrgasms {
 										+"[pc.cum+] backs up and starts drooling out of [npc2.her] urethra, [npc2.she] lets out [npc2.a_moan+]."
 												+ " You keep your [npc1.cock] hilted deep inside of [npc2.herHim], [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 							} else {
-								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.namePos] not even close to stopping, and as you feel [npc1.her] "
 										+"[npc.cum+] backing up and drooling out of your urethra, you let out [pc.a_moan+]."
 										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep inside of you, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 							}
@@ -1337,9 +1326,9 @@ public class GenericOrgasms {
 						}
 					} else {
 						if(!target.isVisiblyPregnant()) {
-							cumTargetSB.append(" deep into [npc2.name]'s waiting womb.");
+							cumTargetSB.append(" deep into [npc2.namePos] waiting womb.");
 						} else {
-							cumTargetSB.append(" deep into [npc2.name]'s [npc2.pussy+].");
+							cumTargetSB.append(" deep into [npc2.namePos] [npc2.pussy+].");
 						}
 					}
 					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
@@ -1349,7 +1338,7 @@ public class GenericOrgasms {
 											+ " [npc2.she] squirms about and lets out a series of [npc2.moans+]."
 											+ " You keep your [npc1.cock] hilted deep in [npc2.her] [npc2.pussy], [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 							} else {
-								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.namePos] not even close to stopping, and as you feel [npc1.her] "
 										+"[npc1.cum+] backing up and drooling out of your [npc2.pussy], you let out [pc.a_moan+]."
 										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep in your [npc2.pussy], [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 							}
@@ -1375,10 +1364,10 @@ public class GenericOrgasms {
 				case SLIME:
 					if(characterOrgasming.isPlayer()) {
 						cumTargetSB.append("<br/>"
-								+ "As [npc2.name]'s body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
+								+ "As [npc2.namePos] body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
 					} else {
 						cumTargetSB.append("<br/>"
-								+ "As your body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
+								+ "As your body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of [npc1.namePos] [npc1.cum+] shooting up and dispersing inside of you.");
 					}
 					break;
 				case FIRE:
@@ -1399,12 +1388,12 @@ public class GenericOrgasms {
 		if(!target.isPlayer()) {
 			if(characterOrgasming.isPlayer()) {
 				return UtilText.parse(target,
-						" all over [npc.name]'s "+target.getHighestZLayerCoverableArea(area).getName()+"."
+						" all over [npc.namePos] "+target.getHighestZLayerCoverableArea(area).getName()+"."
 								+ " You grin as your [pc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 			} else {
 				return UtilText.parse(characterOrgasming, target,
-						" all over [npc2.name]'s "+target.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.name]'s clothing, making a mess of [npc2.her] outfit.");
+						" all over [npc2.namePos] "+target.getHighestZLayerCoverableArea(area).getName()+"."
+								+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.namePos] clothing, making a mess of [npc2.her] outfit.");
 			}
 		} else {
 			return UtilText.parse(characterOrgasming,
@@ -1430,16 +1419,16 @@ public class GenericOrgasms {
 	private static String getInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
 		if(characterOrgasming.isPlayer()) {
 			if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-				return ("<br/>You see [npc2.name]'s stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that you've pumped inside of [npc2.herHim]."
-						+ " Placing a [npc1.hand] on [npc2.her] huge belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s heavily pregnant.");
+				return ("<br/>You see [npc2.namePos] stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that you've pumped inside of [npc2.herHim]."
+						+ " Placing a [npc1.hand] on [npc2.her] huge belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.sheIs] heavily pregnant.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-				return ("<br/>You see [npc2.name]'s stomach swell out as it distends from the huge amount of cum that you've pumped inside of [npc2.herHim]."
-						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s pregnant.");
+				return ("<br/>You see [npc2.namePos] stomach swell out as it distends from the huge amount of cum that you've pumped inside of [npc2.herHim]."
+						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.sheIs] pregnant.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-				return ("<br/>You see [npc2.name]'s stomach swell out a little as it distends from the sheer amount of cum that you've pumped inside of [npc2.herHim]."
-						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s in the early stages of pregnancy.");
+				return ("<br/>You see [npc2.namePos] stomach swell out a little as it distends from the sheer amount of cum that you've pumped inside of [npc2.herHim]."
+						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.sheIs] in the early stages of pregnancy.");
 			}
 		} else {
 			if(target.isPlayer()) {
@@ -1457,16 +1446,16 @@ public class GenericOrgasms {
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.Name]'s stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
-							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s heavily pregnant.");
+					return ("<br/>[npc2.NamePos] stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.sheIs] heavily pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-					return ("<br/>[npc2.Name]'s stomach swells out as it distends from the huge amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
-							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s pregnant.");
+					return ("<br/>[npc2.NamePos] stomach swells out as it distends from the huge amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.sheIs] pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.Name]'s stomach swells out a little as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
-							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s in the early stages of pregnancy.");
+					return ("<br/>[npc2.NamePos] stomach swells out a little as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.sheIs] in the early stages of pregnancy.");
 				}
 			}
 		}
@@ -1476,13 +1465,13 @@ public class GenericOrgasms {
 	private static String getBreastInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
 		if(characterOrgasming.isPlayer()) {
 			if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distends from the colossal amount of cum that you've pumped inside of them.");
+				return ("<br/>You see [npc2.namePos] [npc2.breasts] swell out to a massive, over-inflated size as they distends from the colossal amount of cum that you've pumped inside of them.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out a little as they distend from the huge amount of cum that you've pumped inside of them.");
+				return ("<br/>You see [npc2.namePos] [npc2.breasts] swell out a little as they distend from the huge amount of cum that you've pumped inside of them.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that you've pumped inside of them.");
+				return ("<br/>You see [npc2.namePos] [npc2.breasts] swell out a little as they distend from the sheer amount of cum that you've pumped inside of them.");
 			}
 		} else {
 			if(target.isPlayer()) {
@@ -1497,13 +1486,13 @@ public class GenericOrgasms {
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out as they distend from the huge amount of cum that [npc1.name]'s pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out as they distend from the huge amount of cum that [npc1.namePos] pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
 				}
 			}
 		}
@@ -1516,7 +1505,7 @@ public class GenericOrgasms {
 		if(characterOrgasming.isPlayer()) {
 			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from your [npc1.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 		} else {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc1.name]'s [npc1.pussy+], and [npc1.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc1.herHim].");
+			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc1.namePos] [npc1.pussy+], and [npc1.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc1.herHim].");
 		}
 		
 		GameCharacter characterPenetrating = null;
@@ -1533,14 +1522,14 @@ public class GenericOrgasms {
 							genericOrgasmSB.append(" You curl your fingers up deep inside your [npc1.pussy+], and, while desperately stroking in a 'come-hither' motion,"
 									+ " you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around your intruding digits.");
 						} else {
-							genericOrgasmSB.append(" [npc2.Name]'s fingers carry on pumping away at your [npc1.pussy+], and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits.");
+							genericOrgasmSB.append(" [npc2.NamePos] fingers carry on pumping away at your [npc1.pussy+], and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits.");
 						}
 					} else {
 						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" [npc1.Name]'s vaginal muscles grip and squeeze around your intruding digits,"
+							genericOrgasmSB.append(" [npc1.NamePos] vaginal muscles grip and squeeze around your intruding digits,"
 									+ " and you continue to stroke and tease [npc1.her] clit, drawing out a series of [npc1.moans+] from between [npc1.her] [npc1.lips+].");
 						} else {
-							genericOrgasmSB.append(" [npc1.Name]'s vaginal muscles grip and squeeze around [npc2.name]'s intruding digits,"
+							genericOrgasmSB.append(" [npc1.NamePos] vaginal muscles grip and squeeze around [npc2.namePos] intruding digits,"
 									+ " and [npc2.she] continues to stroke and tease [npc1.her] clit, drawing out a series of [npc1.moans+] from between [npc1.her] [npc1.lips+].");
 						}
 					}
@@ -1556,7 +1545,7 @@ public class GenericOrgasms {
 						if(characterPenetrating.isPlayer()) {
 							genericOrgasmSB.append(" You carry on fucking [npc1.name] through [npc1.her] orgasm, causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around your [npc2.cock+].");
 						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on fucking [npc1.name]'s [npc1.pussy+] through [npc1.her] orgasm,"
+							genericOrgasmSB.append(" [npc2.Name] carries on fucking [npc1.namePos] [npc1.pussy+] through [npc1.her] orgasm,"
 											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around [npc2.her] [npc2.penis+].");
 						}
 					}
@@ -1573,7 +1562,7 @@ public class GenericOrgasms {
 							genericOrgasmSB.append(" You carry on tail-fucking [npc1.name] through [npc1.her] orgasm,"
 											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around the intruding object.");
 						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on tail-fucking [npc1.name]'s [npc1.pussy+] through [npc1.her] orgasm,"
+							genericOrgasmSB.append(" [npc2.Name] carries on tail-fucking [npc1.namePos] [npc1.pussy+] through [npc1.her] orgasm,"
 											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around the intruding object.");
 						}
 					}
@@ -1588,10 +1577,10 @@ public class GenericOrgasms {
 						}
 					} else {
 						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on licking and kissing [npc1.name]'s clit as [npc1.she] orgasms,"
+							genericOrgasmSB.append(" You carry on licking and kissing [npc1.namePos] clit as [npc1.she] orgasms,"
 										+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles quiver and contract at the overwhelming sensation.");
 						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on licking and kissing at [npc1.name]'s clit while [npc1.she] orgasms,"
+							genericOrgasmSB.append(" [npc2.Name] carries on licking and kissing at [npc1.namePos] clit while [npc1.she] orgasms,"
 										+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles quiver and contract at the overwhelming sensation.");
 						}
 					}
@@ -1610,7 +1599,7 @@ public class GenericOrgasms {
 							genericOrgasmSB.append(" You carry on clit-fucking [npc1.name] through [npc1.her] orgasm,"
 									+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around your [npc2.clit+].");
 						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on clit-fucking [npc1.name]'s [npc1.pussy+] through [npc1.her] orgasm,"
+							genericOrgasmSB.append(" [npc2.Name] carries on clit-fucking [npc1.namePos] [npc1.pussy+] through [npc1.her] orgasm,"
 											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around [npc2.her] [npc2.clit+].");
 						}
 					}
@@ -1623,7 +1612,7 @@ public class GenericOrgasms {
 			if(characterOrgasming.isPlayer()) {
 				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
 			} else {
-				genericOrgasmSB.append(" [npc1.Name]'s [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
+				genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
 			}
 		}
 		
@@ -1639,14 +1628,14 @@ public class GenericOrgasms {
 					LilayasRoom.lilayasPanties.setDirty(true);
 				}
 			} else {
-				genericOrgasmSB.append(" As [npc1.name]'s inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+].");
+				genericOrgasmSB.append(" As [npc1.namePos] inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+].");
 			}
 		}
 		
 		if(characterOrgasming.isPlayer()) {	
 			genericOrgasmSB.append(" With a deeply-satisfied sigh, your feminine climax starts to fade, and you take a few deep gasps of air as you seek to catch your breath.");
 		} else {
-			genericOrgasmSB.append(" With a deeply-satisfied sigh, [npc1.name]'s feminine climax starts to fade, and [npc1.she] takes a few deep gasps of air as [npc1.she] seeks to catch [npc1.her] breath.");
+			genericOrgasmSB.append(" With a deeply-satisfied sigh, [npc1.namePos] feminine climax starts to fade, and [npc1.she] takes a few deep gasps of air as [npc1.she] seeks to catch [npc1.her] breath.");
 		}
 		
 		if(characterPenetrating!=null) {
@@ -1664,7 +1653,7 @@ public class GenericOrgasms {
 		} else {
 			return UtilText.parse(characterOrgasming,
 					"With an ear-splitting scream and trembling legs, a crashing wave of pure ecstasy suddenly washes through [npc.name]."
-							+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.she]'s soon left as a panting, moaning wreck as [npc.her] intense pseudo-orgasm crashes over [npc.herHim].");
+							+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.sheIs] soon left as a panting, moaning wreck as [npc.her] intense pseudo-orgasm crashes over [npc.herHim].");
 		}
 		
 	}
@@ -1953,7 +1942,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s [npc.ass+].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.ass+].";
 		}
 
 		@Override
@@ -2002,7 +1991,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s groin.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] groin.";
 		}
 
 		@Override
@@ -2051,7 +2040,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s chest.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] chest.";
 		}
 
 		@Override
@@ -2147,7 +2136,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s face.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] face.";
 		}
 
 		@Override
@@ -2243,7 +2232,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc.name]'s [npc.hair].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc.namePos] [npc.hair].";
 		}
 
 		@Override
@@ -2291,7 +2280,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s stomach.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] stomach.";
 		}
 
 		@Override
@@ -2387,7 +2376,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s [npc.legs].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.legs].";
 		}
 
 		@Override
@@ -2435,7 +2424,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s back.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] back.";
 		}
 
 		@Override
@@ -2547,25 +2536,25 @@ public class GenericOrgasms {
 		@Override
 		public String getDescription() {
 			if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(Main.game.getPlayer())) {
-				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.namePos] cum, "
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?"[pc.speech(Fuck! Cum in me! I need your cum!)]"
 								:"[pc.speech(Breed me! Cum in me! I need your cum!)]");
 				
 			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(Main.game.getPlayer())) {
-				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum,"
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.namePos] cum,"
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
 			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(Main.game.getPlayer())) {
-				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.namePos] cum, "
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
 			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.BREAST).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.BREAST).contains(Main.game.getPlayer())) {
-				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.namePos] cum, "
 						+ " [pc.speech(Yes! Cum for me! Cover my tits with your cum!)]";
 				
 			} else {
-				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.namePos] cum, "
 						+ " [pc.speech(Cum for me! I want to taste your cum!)]";
 			}
 		}
@@ -2661,7 +2650,7 @@ public class GenericOrgasms {
 						+ "[pc.speech(Pull out! I don't want you to cum in me!)]";
 				
 			} else {
-				return "Through your desperate moans and lewd cries, you somehow manage to cry out around [npc.name]'s [npc.cock], "
+				return "Through your desperate moans and lewd cries, you somehow manage to cry out around [npc.namePos] [npc.cock], "
 						+ "[pc.speech(Pull out! I don't want to taste your cum!)]";
 			}
 		}
@@ -2703,19 +2692,19 @@ public class GenericOrgasms {
 		@Override
 		public String getDescription() {
 			if (Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(Main.game.getPlayer())) {
-				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.pussy+], and you wonder if [npc.she]'s going to pull out or"
+				return "You continue [pc.moaning+] as you feel [npc.namePos] [npc.cock+] start to twitch inside your [pc.pussy+], and you wonder if [npc.sheIs] going to pull out or"
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?" give you a fresh creampie..."
 								:" fill your womb with [npc.her] [npc.cum+]...");
 				
 			} else if (Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(Main.game.getPlayer())) {
-				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.asshole+], and you wonder if [npc.she]'s going to pull out or give you a fresh anal creampie...";
+				return "You continue [pc.moaning+] as you feel [npc.namePos] [npc.cock+] start to twitch inside your [pc.asshole+], and you wonder if [npc.sheIs] going to pull out or give you a fresh anal creampie...";
 				
 			} else if (Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && !Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(Main.game.getPlayer())) {
-				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.nipple+], and you wonder if [npc.she]'s going to pull out or give you a fresh nipple creampie...";
+				return "You continue [pc.moaning+] as you feel [npc.namePos] [npc.cock+] start to twitch inside your [pc.nipple+], and you wonder if [npc.sheIs] going to pull out or give you a fresh nipple creampie...";
 				
 			} else {
-				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch, and you wonder if [npc.she]'s going to pull out or fill you with [npc.her] [npc.cum+]...";
+				return "You continue [pc.moaning+] as you feel [npc.namePos] [npc.cock+] start to twitch, and you wonder if [npc.sheIs] going to pull out or fill you with [npc.her] [npc.cum+]...";
 			}
 		}
 
@@ -2760,11 +2749,11 @@ public class GenericOrgasms {
 					return UtilText.returnStringAtRandom("[npc.Name] starts desperately whining and panting, before blurting out, [npc.speech(N-No! Y-You're going to make me cum!)]<br/>"
 							+ "Upon hearing this, you quickly grab hold of [npc.her] [npc.arms], and, keeping [npc.herHim] held in place, prevent [npc.herHim] from stimulating [npc.herself]."
 							+ " [npc.Name] seems a little relieved that you're not going to force [npc.herHim] to orgasm, and,"
-								+ " ignoring [npc.her] continued pleas for you to leave [npc.herHim] alone, you wait until [npc.she]'s calmed down before finally loosening your grip.");
+								+ " ignoring [npc.her] continued pleas for you to leave [npc.herHim] alone, you wait until [npc.sheHas] calmed down before finally loosening your grip.");
 				default:
 					return UtilText.returnStringAtRandom("[npc.Name] starts desperately panting and [npc.moaning], before blurting out, [npc.speech(Yes! I'm going to cum!)]<br/>"
 							+ "Upon hearing this, you quickly grab hold of [npc.her] [npc.arms], and, keeping [npc.herHim] held in place, prevent [npc.herHim] from stimulating [npc.herself]."
-							+ " Ignoring [npc.her] protests and cries for you to let [npc.herHim] orgasm, you continue holding [npc.herHim] quite still, only loosening your grip once [npc.she]'s calmed down.");
+							+ " Ignoring [npc.her] protests and cries for you to let [npc.herHim] orgasm, you continue holding [npc.herHim] quite still, only loosening your grip once [npc.sheHas] calmed down.");
 			}
 		}
 		
@@ -3280,7 +3269,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s [npc.ass+].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.ass+].";
 		}
 
 		@Override
@@ -3326,7 +3315,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s groin.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] groin.";
 		}
 
 		@Override
@@ -3372,7 +3361,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s chest.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] chest.";
 		}
 
 		@Override
@@ -3463,7 +3452,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s face.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] face.";
 		}
 
 		@Override
@@ -3554,7 +3543,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc.name]'s [npc.hair].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc.namePos] [npc.hair].";
 		}
 
 		@Override
@@ -3599,7 +3588,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s stomach.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] stomach.";
 		}
 
 		@Override
@@ -3690,7 +3679,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s [npc.legs].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.legs].";
 		}
 
 		@Override
@@ -3735,7 +3724,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.name]'s back.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] back.";
 		}
 
 		@Override

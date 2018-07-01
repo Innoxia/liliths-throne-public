@@ -2093,7 +2093,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
+					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -2129,7 +2129,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
+					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sob", "scream", "cry");
 						} else {

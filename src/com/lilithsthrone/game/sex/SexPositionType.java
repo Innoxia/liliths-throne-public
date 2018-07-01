@@ -450,7 +450,7 @@ public enum SexPositionType {
 		}
 	},
 	
-		MISSIONARY("Missionary",
+	MISSIONARY("Missionary",
 			true,
 			true,
 			Util.newArrayListOfValues(Missionary.class), Util.newHashMapOfValues(
@@ -628,7 +628,8 @@ public enum SexPositionType {
 														SexActionPresets.tailToUpperTorso,
 														SexActionPresets.tentacleToUpperTorso,
 														SexActionPresets.vaginaToMouth,
-														SexActionPresets.penisToMouth))),
+														SexActionPresets.penisToMouth,
+														SexActionPresets.assToMouth))),
 								new Value<>(
 										SexPositionSlot.STOCKS_FUCKING,
 										new SexActionInteractions(
@@ -690,6 +691,26 @@ public enum SexPositionType {
 			
 			return sb.toString();
 		}
+		
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			
+			if(Sex.getSexPositionSlot(performer) == SexPositionSlot.STOCKS_LOCKED_IN_STOCKS) {
+				if((action.getActionType()==SexActionType.ONGOING
+						|| action.getActionType()==SexActionType.START_ONGOING
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
+						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED)
+							&& action.getParticipantType()==SexParticipantType.SELF
+							&& (action.getSexAreaInteractions()==null
+								|| action.getSexAreaInteractions().containsKey(SexAreaPenetration.TAIL)
+								|| action.getSexAreaInteractions().containsKey(SexAreaPenetration.TENTACLE))) {
+					return true;
+				}
+			}
+			
+			return super.isActionBlocked(performer, target, action);
+		}
 	},
 	
 	MILKING_STALL("Milking Stall",
@@ -710,7 +731,8 @@ public enum SexPositionType {
 														SexActionPresets.tailToUpperTorso,
 														SexActionPresets.tentacleToUpperTorso,
 														SexActionPresets.vaginaToMouth,
-														SexActionPresets.penisToMouth))),
+														SexActionPresets.penisToMouth,
+														SexActionPresets.assToMouth))),
 								new Value<>(
 										SexPositionSlot.MILKING_STALL_FUCKING,
 										new SexActionInteractions(
@@ -771,6 +793,26 @@ public enum SexPositionType {
 			}
 			
 			return sb.toString();
+		}
+		
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			
+			if(Sex.getSexPositionSlot(performer) == SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL) {
+				if((action.getActionType()==SexActionType.ONGOING
+						|| action.getActionType()==SexActionType.START_ONGOING
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
+						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED)
+							&& action.getParticipantType()==SexParticipantType.SELF
+							&& (action.getSexAreaInteractions()==null
+								|| action.getSexAreaInteractions().containsKey(SexAreaPenetration.TAIL)
+								|| action.getSexAreaInteractions().containsKey(SexAreaPenetration.TENTACLE))) {
+					return true;
+				}
+			}
+			
+			return super.isActionBlocked(performer, target, action);
 		}
 	},
 	
@@ -1092,6 +1134,22 @@ public enum SexPositionType {
 			} else {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position.";
 			}
+		}
+		
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			
+			if(Sex.getSexPositionSlot(performer) == SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
+				if((action.getActionType()==SexActionType.ONGOING
+						|| action.getActionType()==SexActionType.START_ONGOING
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
+						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED
+						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED)) {
+					return true;
+				}
+			}
+			
+			return super.isActionBlocked(performer, target, action);
 		}
 	},
 	

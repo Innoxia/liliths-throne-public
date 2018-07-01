@@ -922,7 +922,9 @@ public class EnchantmentDialogue {
 					for(int i=0; i<itemEffects.getElementsByTagName("effect").getLength(); i++) {
 						Element e = ((Element)itemEffects.getElementsByTagName("effect").item(i));
 						ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
-						effectsToBeAdded.add(itemEffect);
+						if(itemEffect!=null) {
+							effectsToBeAdded.add(itemEffect);
+						}
 					}
 					
 					if(doc.getElementsByTagName("itemType").item(0)!=null) {

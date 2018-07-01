@@ -2,6 +2,8 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -3547,13 +3549,18 @@ public class CharacterModificationUtils {
 					+ "Primary Colour:<br/>");
 	
 	
-			List<Colour> availablePrimaryColours = withDyeAndExtraPatterns
+			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
 															?coveringType.getAllPrimaryColours()
-															:coveringType.getNaturalColoursPrimary();
+															:coveringType.getNaturalColoursPrimary());
+			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			for (Colour c : availablePrimaryColours) {
 				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ (c.isMetallic()
+											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";")
+										+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
+									+"</div>"
 								+ "</div>");
 			}
 			contentSB.append("<br/>");
@@ -3576,7 +3583,9 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("<p>"
 						+ "<b style='color:"+activeCovering.getPrimaryColour().toWebHexString()+";"
-								+(activeCovering.isPrimaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";":"")+"'>"
+								+(activeCovering.isPrimaryGlowing()
+										?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";"
+										:"")+"'>"
 							+Util.capitaliseSentence(activeCovering.getPrimaryColour().getName())
 						+"</b>"
 					+ "</p>");
@@ -3585,9 +3594,10 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 					+ "Secondary Colour:<br/>");
 	
-			List<Colour> availableSecondaryColours = withDyeAndExtraPatterns
+			List<Colour> availableSecondaryColours = new ArrayList<>(withDyeAndExtraPatterns
 														?coveringType.getAllSecondaryColours()
-														:coveringType.getNaturalColoursSecondary();
+														:coveringType.getNaturalColoursSecondary());
+			Collections.sort(availableSecondaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			for (Colour c : availableSecondaryColours) {
 				if(activeCovering.getPattern()==CoveringPattern.NONE
 						|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
@@ -3601,7 +3611,11 @@ public class CharacterModificationUtils {
 				} else {
 					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-											+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+											+ (c.isMetallic()
+													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+													:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";")
+												+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
+											+"</div>"
 									+ "</div>");
 				}
 			}

@@ -37,37 +37,97 @@
 	
 	Patch notes:
 	
-Contributors:
-	Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies), along with related essence, book, and TF food and drink. (Tukaima)
-	Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)
-
-Other:
-	Eye transformations now affect iris and pupil shape.
-	The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
-	Event log is now sorted with the most recent events at the top of the list.
-	Converted kissing actions to NPC-on-NPC format.
-
-Bugs:
-	Fixed Ralph not starting anal when you asked for big discount.
-	Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.
-	Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.
-	Typo and parsing fixes.
-	Fixed 'Deny' sex action not working.
-	Fixed tattoos without any writing loading in as having blank 'normal grey text'.
-	Fixed the 'Age' content toggle not working.
-	Fixed blowjob not being available sometimes in sixty-nine position.
-	Fixed buttplugs not actually blocking anus.
-	Fixed NPCs choosing oral sex actions even if they hated or disliked it.
-	Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.
-	Fixed tattoos sometimes being applied with the last letter in their writing being cut off.
-	You can now end sex when starting submissive sex with a companion.
-	Fixed case where dominant NPC would refuse to take any action in sex.
+	Sex action conversion:
+		All anal fingering actions.
+		All nipple and breast actions. Improved some nipple fingering action descriptions and added actions for reacting to being nipple fingered.
+		All vaginal fingering actions. Improved structure of clit-related action.
+		All cock/ball stroking actions. Added 'handjob' as an ongoing sex action, with all associated reactions.
+		
+	Other:
+		Improved initial penetration descriptions.
+		Added 'rose gold' and 'steel' colours to fur and scale dye colours.
+		Added indication in skin/fur/hair dying menus for metallic colours.
+		Added metallic colours to feather dyes.
+		You can now resist after choosing to submit upon combat victories.
+		
+	Bugs:
+		Fixed cause of bug where walking into a milking room shows the correct management UI, but the PC stays out of the room on the map.
+		Typo/parsing fixes.
+		Fixed dirty talk referring to tits when the character was flat-chested.
+		Fixed Amber having the wrong foot fetish.
+		Fixed bug in sex where some sex actions were not being added (mainly affected kissing actions).
+		Fixed being able to equip tail/horn/wing clothing if you didn't have a tail/horns/wings.
+		Fixed penetration description errors.
+		Fixed metal buttplugs to actually use metal colours.
+	 	Added checks for enchantment loading to handle cases of old saves having clothing enchanted with the old broodmother/seeder fetishes.
+	 	Strapless dildo now correctly requires the wearer to have a vagina.
+	 	Clothing that plugs vagina/anus/nipples now correctly blocks those orifices from being used.
+	 	Fixed sex stats being inverted (e.g. performing vaginal sex was counting as receiving vaginal sex in stats).
+	 	Fixed some fox-morph descriptions referencing wolf parts.
+	 	Fixed facesitting positioning action being available even while facesitting is ongoing.
+		Fixed cultists being able to spawn in disliking/hating using their cock.
+		Fixed position changing not working in stocks scene.
+		Fixed NPCs locked in stocks (and milking stalls) being able to perform actions with their hands.
+		Fixed stocks (and milking stalls) not having anilingus options.
+		Fixed being able to perform actions in the cultist's 'sealed' sex scene.	
+		Fixed both cat-morph hair types having the same TF name.
+		Fixed kissing actions not being available if your partner was the one to initiate kissing.
+		Fixed breast groping action not applying milking effects to the correct character.
+		Characters no longer need breasts in order to be milked (they just need to be producing milk).
+	
+	
+	Sex action Conversions!
+		(Then misc ones, like dirty talk)
+		"You's wet back door is now exposed!"
 	
 	
 	
+	: the use text for Vulpine's Vineyard erroneously spells "your" as "yuor".
+	
+	Demonic hooves don't preclude the wearing of normal shoes
+	
+	brittney/lexi/diana will take anything
 	
 	NullPointer somehow when managing inventory in sex (something related to Game.restoreSavedContent(Game.java:2341))
 		The problem goes away if I remove his clothes through Management: Inventory. Only doing it from clicking him then clicking his inventory directly causes the issue
+	
+	
+	
+	Nyan isnt cycling any of the "specials" in her shop besides the color of the Mega Milk shirt. its minor...but that means no butler outfits
+	The slaver person as well, you can work around it by buying something from them, and that makes them start to cycle inventory
+	
+	 The capitalisation for her/his doesn't work in the parser
+	
+	tidy up both the bat-morph and fox-morph lore
+	
+	Make broodmother/seeder better
+	
+	a slave in the holding cells who had "use you" permission just came out of nowhere and lewded me
+	
+	"Already exposed before starting sex" still there?
+	
+	 Lilaya's Scene seems to work, but I can't get her to use her cock on my PC even after asking her to grow one and checking on her description to see if it says she has one.
+	
+	"Lilaya decides to switch positions, and, getting Lilaya to stand up, she sits down on the chair and pulls her down onto her lap.​ Looking up into her eyes, she gasps, Good girl!"
+my character is a guy, so this is super confusing lol
+	
+	 hair pulling during doggystyle and choking during missionary
+	
+	breeding stall to brothel
+	
+	I have busty boys disabled in gender preferences and for some reason the only male cheetah's that spawn are busty boys, no idea why
+	
+	Milking room bug.  If you have regular milk in the storage and change your own milk to a flavor (I was using chocolate), the room locks up when you come in (can't click buttons or move, but you can get to the system menu to reload). 
+	
+	I think I forgot to add facesitting to their available positions. I'll get that sorted for the next release. :3
+	
+	Add way to ask for feminine or masculine cients in brothel
+	
+	stop penetrations does nothing
+		My slave will not take her fingers off of her back door
+	
+	
+	
 	
 	
 	Add place descriptions
@@ -92,8 +152,10 @@ Bugs:
 	Lumi
 	
 	
+	if you have human legs it shouldn't tell you you're plantigrade
 	
-	
+	is brax keeping a feather in the primary slot and a demonstone in his inventory intentional
+		Add baton as modded weapon
 	
 	I think it's counting the slaves being in the stocks as having sex with me because a lot of my slaves say I've had sex with them over a hundred times, which is definately not true.
 	
@@ -103,7 +165,7 @@ Bugs:
 	
 	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
 	
-	add in child spawns in the bat caverns 
+	Offspring for bat caverns and submission (slimes, bat-morphs, and rat-morphs)
 		
 	taunts and dirty talk similar to that in pregnancy roulette based on fetishes,
 	 for example once the npc switches what they want to fucking your pussy they could say "Im going to take that tight kitty of yours" or "Im going to breed your pussy" if they have a pregnancy fetish.
@@ -682,7 +744,6 @@ Bugs:
 	Is breast groping supposed to be blocked until the nipples are exposed? That makes no sense and I think it was different before. Where's my groping over clothing
 	
 	I'm so disappointed that transforming into a wolf-slime-thing doesn't let you access the relevant option with Brax. I mean, alright, it's not the same, but…
-		Also on the note of slimes, how the fuck they manage to fly with goo-wings is beyond me. I didn't expect that transformation to unlock the option.
 	
 	change the "New Game (Import)" to give you the option of starting before or after the prologue.
 	

@@ -7,17 +7,18 @@ import java.util.List;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerClit;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerPenis;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisBreasts;
@@ -35,11 +36,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnu
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerPenis;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisBreasts;
@@ -246,11 +242,6 @@ public class SexActionPresets {
 		miscActions.add(PartnerTalk.class);
 
 		
-		sexActions.add(PartnerFingerAnus.class);
-		sexActions.add(PartnerFingerMouth.class);
-		sexActions.add(PartnerFingerNipple.class);
-		sexActions.add(PartnerFingerPenis.class);
-		sexActions.add(PartnerFingerVagina.class);
 		sexActions.add(PartnerPenisAnus.class);
 		sexActions.add(PartnerPenisAss.class);
 		sexActions.add(PartnerPenisBreasts.class);
@@ -269,11 +260,6 @@ public class SexActionPresets {
 		sexActions.add(PartnerTongueNipple.class);
 		sexActions.add(PartnerTongueVagina.class);
 
-		sexActions.add(PlayerFingerAnus.class);
-		sexActions.add(PlayerFingerMouth.class);
-		sexActions.add(PlayerFingerNipple.class);
-		sexActions.add(PlayerFingerPenis.class);
-		sexActions.add(PlayerFingerVagina.class);
 		sexActions.add(PlayerPenisAnus.class);
 		sexActions.add(PlayerPenisAss.class);
 		sexActions.add(PlayerPenisBreasts.class);
@@ -292,6 +278,14 @@ public class SexActionPresets {
 		sexActions.add(PlayerTongueNipple.class);
 		sexActions.add(PlayerTongueVagina.class);
 
+		
+		sexActions.add(FingerAnus.class);
+		sexActions.add(FingerBreasts.class);
+		sexActions.add(FingerNipple.class);
+		sexActions.add(FingerVagina.class);
+		sexActions.add(FingerClit.class);
+		sexActions.add(FingerPenis.class);
+		
 		sexActions.add(TongueMouth.class);
 		
 //		selfActions.add(PlayerMasturbation.class);

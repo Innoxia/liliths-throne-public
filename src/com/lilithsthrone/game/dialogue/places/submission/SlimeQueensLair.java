@@ -614,7 +614,7 @@ public class SlimeQueensLair {
 					return new ResponseSex("Submit",
 							UtilText.parse(Main.game.getSlimeRoyalGuard(), "Let [slimeRoyalGuard.name] fuck you."),
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
@@ -967,7 +967,7 @@ public class SlimeQueensLair {
 				return new ResponseSex("Submit",
 						UtilText.parse(Main.game.getSlimeRoyalGuard(), "Let [slimeRoyalGuard.name] fuck you."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-						true, true,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),

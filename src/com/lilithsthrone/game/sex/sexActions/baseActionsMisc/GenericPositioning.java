@@ -826,7 +826,7 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
 					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
 					&& Sex.isDom(Main.game.getPlayer());
 		}
@@ -875,7 +875,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedSitOnFace
-					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
 					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -918,7 +918,7 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
 					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
 					&& Sex.isDom(Main.game.getPlayer());
 		}
@@ -967,7 +967,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedFaceSitting
-					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
 					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1402,7 +1402,7 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,

@@ -26,7 +26,7 @@ import com.lilithsthrone.utils.Util.Value;
 public class CultistSexActions {
 
 	public static final SexAction PARTNER_SEALED = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
@@ -64,7 +64,7 @@ public class CultistSexActions {
 	};
 	
 	public static final SexAction PLAYER_SEALED = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,

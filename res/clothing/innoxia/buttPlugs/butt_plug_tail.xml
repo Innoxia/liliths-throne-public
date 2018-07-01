@@ -42,8 +42,8 @@
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_WHITE"/>
 		<secondaryColoursDye values="ALL"/>
-		<tertiaryColours values="JUST_BLACK"/>
-		<tertiaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL_METAL"/>
+		<tertiaryColoursDye/>
 	
 		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		  <tag>SOLD_BY_FINCH</tag>

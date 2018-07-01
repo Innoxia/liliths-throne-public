@@ -110,7 +110,9 @@ public enum HairType implements BodyPartTypeInterface {
 		switch(this){
 			case ANGEL:
 				return UtilText.returnStringAtRandom("angelic");
-			case CAT_MORPH: case CAT_MORPH_SIDEFLUFF:
+			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("cat-like");
+			case CAT_MORPH_SIDEFLUFF:
 				return UtilText.returnStringAtRandom("cat-like");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("cow-like");
@@ -160,8 +162,10 @@ public enum HairType implements BodyPartTypeInterface {
 		switch(this){
 			case ANGEL:
 				return "angelic";
-			case CAT_MORPH: case CAT_MORPH_SIDEFLUFF:
+			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_SIDEFLUFF:
+				return UtilText.returnStringAtRandom("feline sidefluff");
 			case DEMON_COMMON:
 				return "demonic";
 			case IMP:

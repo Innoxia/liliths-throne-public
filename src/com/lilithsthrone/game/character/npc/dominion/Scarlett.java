@@ -65,8 +65,8 @@ public class Scarlett extends NPC {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_RED));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLACK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
 			this.setAssVirgin(true);
@@ -98,8 +98,8 @@ public class Scarlett extends NPC {
 			getDressed();
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_RED));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLACK), true);
 		}
 		
 	}

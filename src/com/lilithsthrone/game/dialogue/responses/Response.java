@@ -327,6 +327,13 @@ public class Response {
 							SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
 						}
 						
+					} else if(getSexActionType()==SexActionType.REQUIRES_EXPOSED) {
+						if(penetrationAccess) {
+							SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+						} else {
+							SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+						}
+						
 					} else if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 						if(penetrationFree) {
 							SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ penetrationName);
@@ -372,6 +379,13 @@ public class Response {
 							SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
 						} else {
 							SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+						}
+						
+					} else if(getSexActionType()==SexActionType.REQUIRES_EXPOSED) {
+						if(orificeAccess) {
+							SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+						} else {
+							SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
 						}
 						
 					} else if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
@@ -520,14 +534,14 @@ public class Response {
 			switch(getSexActionType()){
 				case REQUIRES_NO_PENETRATION:
 					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(!sArea.isFree(characterPerformingSexAction)) {
+						if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
 							return false;
 						}
 					}
 					return true;
 				case START_ONGOING:
 					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(!sArea.isFree(characterPerformingSexAction)) {
+						if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
 							return false;
 						}
 					}
@@ -548,7 +562,7 @@ public class Response {
 			switch(getSexActionType()){
 				case REQUIRES_NO_PENETRATION_AND_EXPOSED:
 					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(!sArea.isFree(characterPerformingSexAction)) {
+						if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
 							return false;
 						}
 					}

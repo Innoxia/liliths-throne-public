@@ -571,16 +571,15 @@ public class SlaverAlleyDialogue {
 					+ "</p>");
 
 			List<String> sexAvailability = new ArrayList<>();
-			
 
-			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
 							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
-								+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
+							+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span>"
+									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
 				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
@@ -608,8 +607,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			if(index==0) {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);

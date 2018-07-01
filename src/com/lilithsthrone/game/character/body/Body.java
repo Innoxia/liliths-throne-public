@@ -2884,10 +2884,10 @@ public class Body implements Serializable, XMLSaving {
 			case FOX_MORPH:
 				if (owner.isPlayer())
 					sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, wolf-like hands, complete with sharp claws and tough leathery pads.");
+								+ " Your hands are formed into anthropomorphic, fox-like hands, complete with sharp claws and tough leathery pads.");
 				else
 					sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
-							+ " [npc.Her] hands are formed into anthropomorphic, wolf-like hands, complete with sharp claws and tough leathery pads.");
+							+ " [npc.Her] hands are formed into anthropomorphic, fox-like hands, complete with sharp claws and tough leathery pads.");
 				break;
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer())
@@ -3169,10 +3169,10 @@ public class Body implements Serializable, XMLSaving {
 			case FOX_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
-							+ " and your feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
+							+ " and your feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.");
 				else
 					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
-							+ " and [npc.her] feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
+							+ " and [npc.her] feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())

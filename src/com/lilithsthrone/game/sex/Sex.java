@@ -1234,13 +1234,13 @@ public enum Sex {
 		sexSB.append(endString);
 		
 		String s;
-		if(sexActionPlayer.getLimitation()==null
-				&& sexActionPlayer!=SexActionUtility.CLOTHING_REMOVAL
-				&& sexActionPlayer!=SexActionUtility.CLOTHING_DYE) {
+//		if(sexActionPlayer.getLimitation()==null
+//				&& sexActionPlayer!=SexActionUtility.CLOTHING_REMOVAL
+//				&& sexActionPlayer!=SexActionUtility.CLOTHING_DYE) {
 			s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString());
-		} else {
-			s = UtilText.parse(Sex.getActivePartner(), sexSB.toString());
-		}
+//		} else {
+//			s = UtilText.parse(Sex.getActivePartner(), sexSB.toString());
+//		}
 		sexSB.setLength(0);
 		sexSB.append(s);
 		
@@ -1277,13 +1277,13 @@ public enum Sex {
 	
 							sexSB.append(endString);
 							
-							if(sexActionPartner.getLimitation()==null
-									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
-									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
+//							if(sexActionPartner.getLimitation()==null
+//									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
+//									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
 								s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
-							} else {
-								s = UtilText.parse(character, sexSB.toString());
-							}
+//							} else {
+//								s = UtilText.parse(character, sexSB.toString());
+//							}
 							sexSB.setLength(0);
 							sexSB.append(s);
 							
@@ -1611,15 +1611,15 @@ public enum Sex {
 			
 			// Add actions:
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
-				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions || sexAction.getParticipantType()!=SexParticipantType.SELF)) {
+				if (sexAction.isAddedToAvailableSexActions()
+						&& (partnerAllowedToUseSelfActions || sexAction.getParticipantType()!=SexParticipantType.SELF)) {
 					
-					if(// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
-						(Main.game.isNonConEnabled()
-							&& getSexPace(activePartner)==SexPace.SUB_RESISTING
-							&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING) || sexAction.getParticipantType()==SexParticipantType.SELF))
-						// Do not add action if action does not correspond to the partner's preferred action pace
-						|| (sexAction.getSexPace()!=null && getSexPace(activePartner)!=sexAction.getSexPace())) {
-						
+					// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
+					// Do not add action if action does not correspond to the partner's preferred action pace
+					if((Main.game.isNonConEnabled()
+						&& getSexPace(activePartner)==SexPace.SUB_RESISTING
+						&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING) || sexAction.getParticipantType()==SexParticipantType.SELF))
+							|| (sexAction.getSexPace()!=null && getSexPace(activePartner)!=sexAction.getSexPace())) {
 						
 					} else {
 						// Add action as normal:
@@ -2393,9 +2393,6 @@ public enum Sex {
 	
 	public static void applyOngoingAction(GameCharacter characterPerformingAction, SexAreaInterface performerArea, GameCharacter characterTargeted, SexAreaInterface targetedArea) {
 		
-		SexType relatedSexTypePenetrator = new SexType(SexParticipantType.NORMAL, performerArea, targetedArea);
-		SexType relatedSexTypePenetrated = new SexType(SexParticipantType.NORMAL, targetedArea, performerArea);
-		
 		// Free up orifice and penetrator:
 		stopOngoingAction(characterPerformingAction, performerArea, characterTargeted, targetedArea);
 
@@ -2412,11 +2409,14 @@ public enum Sex {
 		initialPenetrations.get(characterPerformingAction).add(performerArea);
 		
 		if(characterPerformingAction != null && characterTargeted != null) {
-			characterPerformingAction.incrementSexCount(relatedSexTypePenetrated);
-			characterTargeted.incrementSexCount(relatedSexTypePenetrator);
+			SexType relatedSexTypePerformer = new SexType(SexParticipantType.NORMAL, performerArea, targetedArea);
+			SexType relatedSexTypeTargeted = new SexType(SexParticipantType.NORMAL, targetedArea, performerArea);
 			
-			characterTargeted.addSexPartner(characterPerformingAction, relatedSexTypePenetrator);
-			characterPerformingAction.addSexPartner(characterTargeted, relatedSexTypePenetrated);
+			characterPerformingAction.incrementSexCount(relatedSexTypePerformer);
+			characterTargeted.incrementSexCount(relatedSexTypeTargeted);
+
+			characterPerformingAction.addSexPartner(characterTargeted, relatedSexTypePerformer);
+			characterTargeted.addSexPartner(characterPerformingAction, relatedSexTypeTargeted);
 			
 		} else {
 			System.err.println("Warning! Sex.applyPenetration() is finding 'characterPenetrated' or 'characterPenetrating' to be null!!!");
@@ -3416,13 +3416,15 @@ public enum Sex {
 							if (action.getActionType().isOrgasmOption()) {
 								if(addedForCharacter) {
 									orgasmActionsAvailable.get(character).get(target).add(action);
-								} else if(addedForTarget) {
+								}
+								if(addedForTarget) {
 									orgasmActionsAvailable.get(target).get(character).add(action);
 								}
 							} else {
 								if(addedForCharacter) {
 									actionsAvailable.get(character).get(target).add(action);
-								} else if(addedForTarget) {
+								}
+								if(addedForTarget) {
 									actionsAvailable.get(target).get(character).add(action);
 								}
 							}

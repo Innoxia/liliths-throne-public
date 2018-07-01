@@ -264,7 +264,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
 						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
 						try {
-							defaultEffects.add(ItemEffect.loadFromXML(e, doc));
+							ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+							if(ie!=null) {
+								defaultEffects.add(ie);
+							}
 						}catch(Exception ex) {
 						}
 					}

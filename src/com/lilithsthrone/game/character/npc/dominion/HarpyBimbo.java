@@ -80,8 +80,8 @@ public class HarpyBimbo extends NPC {
 			this.addFetish(Fetish.FETISH_BIMBO);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_AQUA));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLEACH_BLONDE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 			
 			this.setFemininity(95);

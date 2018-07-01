@@ -336,7 +336,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				NodeList effectElements = element.getElementsByTagName("effect");
 				for(int i=0; i<effectElements.getLength(); i++){
 					Element e = ((Element)effectElements.item(i));
-					clothing.addEffect(ItemEffect.loadFromXML(e, doc));
+					ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+					if(ie!=null) {
+						clothing.addEffect(ie);
+					}
 				}
 			} catch(Exception ex) {
 			}

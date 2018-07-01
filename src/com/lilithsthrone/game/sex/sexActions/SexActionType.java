@@ -10,6 +10,9 @@ public enum SexActionType {
 	/**Standard ongoing action. Requires all SexAreaInterfaces to be occupied with each other.*/
 	ONGOING,
 	
+	/**Standard non-penetrative action. Requires all SexAreaInterfaces to be exposed.*/
+	REQUIRES_EXPOSED,
+	
 	/**Standard non-penetrative action. Requires all SexAreaInterfaces to be free (not involved in an ongoing action).*/
 	REQUIRES_NO_PENETRATION,
 	

@@ -189,7 +189,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 				NodeList nodeList = element.getElementsByTagName("effect");
 				for(int i = 0; i < nodeList.getLength(); i++){
 					Element e = ((Element)nodeList.item(i));
-					tat.addEffect(ItemEffect.loadFromXML(e, doc));
+					ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+					if(ie!=null) {
+						tat.addEffect(ie);
+					}
 				}
 			}
 			

@@ -4831,8 +4831,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
 				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
@@ -6414,49 +6414,96 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case ASS:
 						break;
 					case BREAST:
-						switch(Sex.getSexPace(this)) {
-							case DOM_GENTLE:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl]! Feel my cock slide up between your [npc2.breasts]!",
-										"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.breasts+]!",
-										"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck! Your tits feel so good to fuck!",
-										"Oh yes! Wrap your tits around my cock!",
-										"Your tits were made for my cock!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
-										"What a horny bitch! Using your tits to please my cock like a desperate slut!",
-										"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Use my cock! I love your tits!",
-										"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-										"Oh yes! Use me! I love your tits!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Fuck me!",
-										"Don't stop! Fuck me!",
-										"Oh yes! Fuck me!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! Get off my cock!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck me! Yes! Harder!",
-										"Oh yeah! Fuck me!",
-										"Harder! Don't stop!"));
-								break;
+						if(target.hasBreasts()) {
+							switch(Sex.getSexPace(this)) {
+								case DOM_GENTLE:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my cock slide up between your [npc2.breasts]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding up between your [npc2.breasts+]!",
+											"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
+									break;
+								case DOM_NORMAL:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your tits feel so good to fuck!",
+											"Oh yes! Wrap your tits around my cock!",
+											"Your tits were made for my cock!"));
+									break;
+								case DOM_ROUGH:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+											"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
+									break;
+								case SUB_EAGER:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your tits!",
+											"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+											"Oh yes! Use me! I love your tits!"));
+									break;
+								case SUB_NORMAL:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Fuck me!",
+											"Don't stop! Fuck me!",
+											"Oh yes! Fuck me!"));
+									break;
+								case SUB_RESISTING:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+									break;
+								default:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+									break;
+							}
+						} else {
+							switch(Sex.getSexPace(this)) {
+								case DOM_GENTLE:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Good [npc2.girl]! Feel my cock slide over your [npc2.breasts]!",
+											"That's right, be a good [npc2.girl] and moan for me! Feel my [npc1.cock] sliding over your [npc2.breasts+]!",
+											"Your [npc2.breasts] feel so good squeezing down around my [npc1.cock]!"));
+									break;
+								case DOM_NORMAL:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck! Your [npc2.breasts] feel so good to fuck!",
+											"Oh yes! Feel my [npc1.cock] sliding over your [npc2.breasts]!",
+											"Your [npc2.breasts] were made for my cock!"));
+									break;
+								case DOM_ROUGH:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"That's right slut, pleasure my cock! Push your [npc2.breasts] together and make this good for me!",
+											"What a horny bitch! Using your [npc2.breasts] to please my cock like a desperate slut!",
+											"You like this, fuck toy?! Squeezing your [npc2.breasts] around my cock and pleasing me like the slut you are?!"));
+									break;
+								case SUB_EAGER:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Use my cock! I love your [npc2.breasts]!",
+											"Don't stop! Yes, yes, yes!",
+											"Oh yes! Use me! I love your [npc2.breasts]!"));
+									break;
+								case SUB_NORMAL:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Yes! Let me fuck your [npc2.breasts]!",
+											"Don't stop! Oh yes!",
+											"Oh yes! I love your [npc2.breasts]!"));
+									break;
+								case SUB_RESISTING:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"I don't want to do this! Please let me stop!",
+											"Let me go! Get off my cock!",
+											"Please! Stop! I don't want this!"));
+									break;
+								default:
+									availableLines.add(UtilText.returnStringAtRandom(
+											"Fuck me! Yes! Harder!",
+											"Oh yeah! Fuck me!",
+											"Harder! Don't stop!"));
+									break;
+							}
 						}
 						break;
 					case MOUTH:
@@ -8873,34 +8920,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				switch(Sex.getSexPace(characterPenetrating)) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"Your soft [pc.moans] are muffled into [npc.name]'s mouth as you continue kissing [npc.herHim].",
-								"You gently press your [pc.lips+] against [npc.name]'s as you continue kissing [npc.herHim].",
-								"Gently pressing your [pc.lips+] against [npc.name]'s, you continue making out with [npc.herHim].");
+								"Your soft [pc.moans] are muffled into [npc.namePos] mouth as you continue kissing [npc.herHim].",
+								"You gently press your [pc.lips+] against [npc.namePos] as you continue kissing [npc.herHim].",
+								"Gently pressing your [pc.lips+] against [npc.namePos], you continue making out with [npc.herHim].");
 					case DOM_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"Your [pc.moans+] are muffled into [npc.name]'s mouth as you continue passionately kissing [npc.herHim].",
-								"You eagerly press your [pc.lips+] against [npc.name]'s as you continue passionately kissing [npc.herHim].",
-								"Passionately pressing your [pc.lips+] against [npc.name]'s, you continue making out with [npc.herHim].");
+								"Your [pc.moans+] are muffled into [npc.namePos] mouth as you continue passionately kissing [npc.herHim].",
+								"You eagerly press your [pc.lips+] against [npc.namePos] as you continue passionately kissing [npc.herHim].",
+								"Passionately pressing your [pc.lips+] against [npc.namePos], you continue making out with [npc.herHim].");
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"Your [pc.moans+] are muffled into [npc.name]'s mouth as you continue forcefully snogging [npc.herHim].",
-								"You roughly grind your [pc.lips+] against [npc.name]'s as you continue forcefully snogging [npc.herHim].",
-								"Roughly grinding your [pc.lips+] against [npc.name]'s, you continue making out with [npc.herHim].");
+								"Your [pc.moans+] are muffled into [npc.namePos] mouth as you continue forcefully snogging [npc.herHim].",
+								"You roughly grind your [pc.lips+] against [npc.namePos] as you continue forcefully snogging [npc.herHim].",
+								"Roughly grinding your [pc.lips+] against [npc.namePos], you continue making out with [npc.herHim].");
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"Your [pc.moans+] are muffled into [npc.name]'s mouth as you continue passionately kissing [npc.herHim].",
-								"You eagerly press your [pc.lips+] against [npc.name]'s as you continue passionately kissing [npc.herHim].",
-								"Passionately pressing your [pc.lips+] against [npc.name]'s, you continue making out with [npc.herHim].");
+								"Your [pc.moans+] are muffled into [npc.namePos] mouth as you continue passionately kissing [npc.herHim].",
+								"You eagerly press your [pc.lips+] against [npc.namePos] as you continue passionately kissing [npc.herHim].",
+								"Passionately pressing your [pc.lips+] against [npc.namePos], you continue making out with [npc.herHim].");
 					case SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"Your [pc.moans] are muffled into [npc.name]'s mouth as you continue kissing [npc.herHim].",
-								"You press your [pc.lips+] against [npc.name]'s as you continue kissing [npc.herHim].",
-								"Pressing your [pc.lips+] against [npc.name]'s, you continue making out with [npc.herHim].");
+								"Your [pc.moans] are muffled into [npc.namePos] mouth as you continue kissing [npc.herHim].",
+								"You press your [pc.lips+] against [npc.namePos] as you continue kissing [npc.herHim].",
+								"Pressing your [pc.lips+] against [npc.namePos], you continue making out with [npc.herHim].");
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"Your [pc.sobs+] are muffled into [npc.name]'s mouth as you desperately try to push [npc.herHim] away from you.",
-								"You try to pull your [pc.lips+] away from [npc.name]'s as you struggle against [npc.herHim].",
-								"Trying to pull your [pc.lips+] away from [npc.name]'s, you continue struggling against [npc.her] unwanted kiss.");
+								"Your [pc.sobs+] are muffled into [npc.namePos] mouth as you desperately try to push [npc.herHim] away from you.",
+								"You try to pull your [pc.lips+] away from [npc.namePos] as you struggle against [npc.herHim].",
+								"Trying to pull your [pc.lips+] away from [npc.namePos], you continue struggling against [npc.her] unwanted kiss.");
 				}
 				
 			} else if(characterPenetrated.isPlayer()) {
@@ -8941,34 +8988,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				switch(Sex.getSexPace(characterPenetrating)) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s soft [npc.moans] are muffled into [npc2.name]'s mouth as [npc.she] continues kissing [npc2.herHim].",
-								"[npc.Name] gently presses [npc.her] [npc.lips+] against [npc2.name]'s as [npc.she] continues kissing [npc2.herHim].",
-								"Gently pressing [npc.her] [npc.lips+] against [npc2.name]'s, [npc.name] continues making out with [npc2.herHim].");
+								"[npc.Name]'s soft [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
+								"[npc.Name] gently presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
+								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case DOM_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.name]'s mouth as [npc.she] continues passionately kissing [npc2.herHim].",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.name]'s as [npc.she] continues passionately kissing [npc2.herHim].",
-								"Passionately pressing [npc.her] [npc.lips+] against [npc2.name]'s, [npc.name] continues making out with [npc2.herHim].");
+								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
+								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
+								"Passionately pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.name]'s mouth as [npc.she] continues forcefully snogging [npc2.herHim].",
-								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against [npc2.name]'s as [npc.she] continues forcefully snogging [npc2.herHim].",
-								"Roughly grinding [npc.her] [npc.lips+] against [npc2.name]'s, [npc.name] continues making out with [npc2.herHim].");
+								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues forcefully snogging [npc2.herHim].",
+								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues forcefully snogging [npc2.herHim].",
+								"Roughly grinding [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.name]'s mouth as [npc.she] continues passionately kissing [npc2.herHim].",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.name]'s as [npc.she] continues passionately kissing [npc2.herHim].",
-								"Passionately pressing [npc.her] [npc.lips+] against [npc2.name]'s, [npc.name] continues making out with [npc2.herHim].");
+								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
+								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
+								"Passionately pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans] are muffled into [npc2.name]'s mouth as [npc.she] continues kissing [npc2.herHim].",
-								"[npc.Name] presses [npc.her] [npc.lips+] against [npc2.name]'s as [npc.she] continues kissing [npc2.herHim].",
-								"Pressing [npc.her] [npc.lips+] against [npc2.name]'s, [npc.name] continues making out with [npc2.herHim].");
+								"[npc.Name]'s [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
+								"[npc.Name] presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
+								"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.sobs+] are muffled into [npc2.name]'s mouth as [npc.she] desperately tries to push away from [npc2.herHim].",
-								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from [npc2.name]'s as [npc.she] struggles against [npc2.herHim].",
-								"Trying to pull [npc.her] [npc.lips+] away from [npc2.name]'s, [npc.name] continues struggling against the unwanted kiss.");
+								"[npc.Name]'s [npc.sobs+] are muffled into [npc2.namePos] mouth as [npc.she] desperately tries to push away from [npc2.herHim].",
+								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from [npc2.namePos] as [npc.she] struggles against [npc2.herHim].",
+								"Trying to pull [npc.her] [npc.lips+] away from [npc2.namePos], [npc.name] continues struggling against the unwanted kiss.");
 				}
 			}
 		}
@@ -9042,7 +9089,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slides", "pumps", "thrusts");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] drifts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] drifts out from between [npc.namePos] [npc.lips+]");
 			break;
 			case DOM_NORMAL:
 				penetratingQualifier = UtilText.returnStringAtRandom("eagerly", "enthusiastically", "readily", "happily");
@@ -9051,7 +9098,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.namePos] [npc.lips+]");
 			break;
 			case DOM_ROUGH:
 				penetratingQualifier = UtilText.returnStringAtRandom("roughly", "forcefully", "mercilessly");
@@ -9060,7 +9107,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps", "pistons");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.namePos] [npc.lips+]");
 			break;
 			case SUB_EAGER:
 				penetratingQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
@@ -9069,7 +9116,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.namePos] [npc.lips+]");
 			break;
 			case SUB_NORMAL:
 				penetratingQualifier = UtilText.returnStringAtRandom("happily", "willingly");
@@ -9078,7 +9125,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] drifts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] drifts out from between [npc.namePos] [npc.lips+]");
 			break;
 			case SUB_RESISTING:
 				penetratingQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
@@ -9087,7 +9134,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:UtilText.returnStringAtRandom("slides", "pushes", "drives");
 				penetratingPrefix = characterPenetrating.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
+						:UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.A_moan+] bursts out from between [npc.namePos] [npc.lips+]");
 			break;
 		}
 		
@@ -9095,7 +9142,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case DOM_GENTLE:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.name]'s [npc2.lips+]");
+						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to drift out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
@@ -9103,7 +9150,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case DOM_NORMAL:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.name]'s [npc2.lips+]");
+						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
@@ -9111,7 +9158,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case DOM_ROUGH:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.name]'s [npc2.lips+]");
+						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
@@ -9119,7 +9166,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SUB_EAGER:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.name]'s [npc2.lips+]");
+						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
@@ -9127,7 +9174,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SUB_NORMAL:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.name]'s [npc2.lips+]");
+						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to drift out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
@@ -9169,8 +9216,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					UtilText.returnStringAtRandom(
 					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.her] "+orificeName+".",
 					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.her] "+orificeName+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+", "+penetratedPostfix+".",
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+", "+penetratedPostfix+"."));
 			
 		// NPC penetrating PC:
 		} else if(!characterPenetrating.isPlayer() && characterPenetrated.isPlayer()) {
@@ -9185,10 +9232,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else if(!characterPenetrating.isPlayer() && !characterPenetrated.isPlayer() && !characterPenetrating.equals(characterPenetrated)) {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+".",
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+".",
-					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
-					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+".",
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+".",
+					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+", "+penetratedPostfix+".",
+					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.namePos] "+orificeName+", "+penetratedPostfix+"."));
 			
 		// PC self-penetrating:
 		} else if(characterPenetrating.isPlayer() && characterPenetrating.equals(characterPenetrated)) {
@@ -9214,61 +9261,31 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private String getGenericInitialPenetration(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		String penetrationVerb=" slides", penetrationAdverb="";
 		
-		if(characterPenetrating.isPlayer()) {
-			switch(Sex.getSexPace(Main.game.getPlayer())) {
-				case DOM_GENTLE:
-					penetrationAdverb = UtilText.returnStringAtRandom(" slowly", " gently");
-					penetrationVerb = UtilText.returnStringAtRandom(" slide", " push", " glide");
-					break;
-				case DOM_NORMAL:
-					penetrationAdverb = "";
-					penetrationVerb = UtilText.returnStringAtRandom(" push");
-					break;
-				case DOM_ROUGH:
-					penetrationAdverb = UtilText.returnStringAtRandom(" roughly", " violently", " forcefully");
-					penetrationVerb = UtilText.returnStringAtRandom(" slam", " grind");
-					break;
-				case SUB_EAGER:
-					penetrationAdverb = UtilText.returnStringAtRandom(" eagerly", " desperately", " enthusiastically");
-					penetrationVerb = UtilText.returnStringAtRandom(" slam", " grind");
-					break;
-				case SUB_NORMAL:
-					penetrationAdverb = "";
-					penetrationVerb = UtilText.returnStringAtRandom(" pushes");
-					penetrationVerb = UtilText.returnStringAtRandom(" push");
-					break;
-				case SUB_RESISTING:
-					penetrationAdverb = UtilText.returnStringAtRandom(" reluctantly", " hesitantly");
-					penetrationVerb = UtilText.returnStringAtRandom(" push");
-					break;
-			}
-		} else {
-			switch(Sex.getSexPace(characterPenetrating)) {
-				case DOM_GENTLE:
-					penetrationAdverb = UtilText.returnStringAtRandom(" slowly", " gently");
-					penetrationVerb = UtilText.returnStringAtRandom(" slides", " pushes", " glides");
-					break;
-				case DOM_NORMAL:
-					penetrationAdverb = "";
-					penetrationVerb = UtilText.returnStringAtRandom(" pushes");
-					break;
-				case DOM_ROUGH:
-					penetrationAdverb = UtilText.returnStringAtRandom(" roughly", " violently", " forcefully");
-					penetrationVerb = UtilText.returnStringAtRandom(" slams", " grinds");
-					break;
-				case SUB_EAGER:
-					penetrationAdverb = UtilText.returnStringAtRandom(" eagerly", " desperately", " enthusiastically");
-					penetrationVerb = UtilText.returnStringAtRandom(" slams", " grinds");
-					break;
-				case SUB_NORMAL:
-					penetrationAdverb = "";
-					penetrationVerb = UtilText.returnStringAtRandom(" pushes");
-					break;
-				case SUB_RESISTING:
-					penetrationAdverb = UtilText.returnStringAtRandom(" reluctantly", " hesitantly");
-					penetrationVerb = UtilText.returnStringAtRandom(" pushes");
-					break;
-			}
+		switch(Sex.getSexPace(characterPenetrating)) {
+			case DOM_GENTLE:
+				penetrationAdverb = UtilText.returnStringAtRandom("slowly", "gently");
+				penetrationVerb = UtilText.returnStringAtRandom("slide", "push", "glide");
+				break;
+			case DOM_NORMAL:
+				penetrationAdverb = "";
+				penetrationVerb = UtilText.returnStringAtRandom("push");
+				break;
+			case DOM_ROUGH:
+				penetrationAdverb = UtilText.returnStringAtRandom("roughly", "violently", "forcefully");
+				penetrationVerb = UtilText.returnStringAtRandom("slam", "grind");
+				break;
+			case SUB_EAGER:
+				penetrationAdverb = UtilText.returnStringAtRandom("eagerly", "desperately", "enthusiastically");
+				penetrationVerb = UtilText.returnStringAtRandom("slam", "grind");
+				break;
+			case SUB_NORMAL:
+				penetrationAdverb = "";
+				penetrationVerb = UtilText.returnStringAtRandom("push");
+				break;
+			case SUB_RESISTING:
+				penetrationAdverb = UtilText.returnStringAtRandom("reluctantly", "hesitantly");
+				penetrationVerb = UtilText.returnStringAtRandom("push");
+				break;
 		}
 		
 		String penetrationAdjective = "into";
@@ -9288,17 +9305,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 		}
 		
-		if(characterPenetrating.isPlayer()) {
-			return "You let out [pc.a_moan+] as you"+penetrationAdverb+penetrationVerb+" your "
-					+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" "+(characterPenetrated.isPlayer()?"your ":"[npc.name]'s ")+orifice.getName(characterPenetrated)+".";
-		} else {
-			return "[npc.Name] lets out [npc.a_moan+] as [npc.she]"+penetrationAdverb+penetrationVerb+" [npc.her] "
-					+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" "+(characterPenetrated.isPlayer()?"your ":"[npc.her] ")+orifice.getName(characterPenetrated)+".";
-		}
+		return UtilText.parse(characterPenetrating, characterPenetrated,
+				"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb("+penetrationAdverb+penetrationVerb+")] [npc.her] "
+						+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" [npc2.namePos] "+orifice.getName(characterPenetrated)+".");
+		
 	}
 	
 	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		List<String> initialDescriptions = new ArrayList<>();
+		StringBuilder penetrationSB = new StringBuilder();
 		
 		if(orifice == SexAreaOrifice.ASS) {
 
@@ -9317,382 +9332,295 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			
 		} else if(orifice == SexAreaOrifice.ANUS) {
-			if(characterPenetrated.isPlayer()) {
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.asshole+].");
-								for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
-									switch(mod) {
-										case BARBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.asshole+].");
-											break;
-										case BLUNT:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
-											break;
-										case FLARED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
-											break;
-										case KNOTTED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.asshole+] as [npc.she] fully penetrates you in one thrust.");
-											break;
-										case PREHENSILE:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.asshole+].");
-											break;
-										case RIBBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.asshole+].");
-											break;
-										case SHEATHED:
-											break;
-										case TAPERED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.asshole+].");
-											break;
-										case VEINY:
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+			if(initialPenetration) {
+				switch(penetrationType) {
+					case PENIS:
+						initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] push into [npc2.her] [npc2.asshole+].");
+						for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
+							switch(mod) {
+								case BARBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the little barbs lining [npc.namePos] [npc.cock] rake the insides of [npc2.her] [npc2.asshole+].");
+									break;
+								case BLUNT:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the blunt head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.asshole+].");
+									break;
+								case FLARED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the flared head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.asshole+].");
+									break;
+								case KNOTTED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the fat knot at the base of [npc.namePos] [npc.cock] bump up against [npc2.her] [npc2.asshole+] as [npc.she] fully [npc.verb(penetrate)] [npc2.herHim] in one thrust.");
+									break;
+								case PREHENSILE:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] prehensile [npc2.cock] exploring the insides of [npc2.her] [npc2.asshole+].");
+									break;
+								case RIBBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] ribbed [npc2.cock] push into [npc2.her] [npc2.asshole+].");
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the tapered head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.asshole+].");
+									break;
+								case TENTACLED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the little tentacles lining [npc.namePos] [npc.cock] squirm and wriggle against the insides of [npc2.her] [npc2.asshole+].");
+									break;
+								case VEINY:
+									break;
 							}
-							break;
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-			
-			} else {
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("[npc.Name] lets out [npc.a_moan+] as you sink your [pc.cock+] into [npc.her] [npc.asshole+].");
-								for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
-									switch(mod) {
-										case MUSCLE_CONTROL:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
-													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
-											break;
-										case PUFFY:
-											break;
-										case RIBBED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
-													+ " you feel the ribbed interior bumping down against your throbbing length.");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
-													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
+						
+						initialDescriptions.clear();
+						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.asshole+] squeezes down around [npc.her] [npc.cock+].");
+						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+							switch(mod) {
+								case MUSCLE_CONTROL:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.asshole+],"
+											+ " [npc.she] [npc.verb(feel)] a series of internal muscles instantly start to grip and squeeze down on [npc.her] throbbing length.");
+									break;
+								case PUFFY:
+									break;
+								case RIBBED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.asshole+],"
+											+ " [npc.she] [npc.verb(feel)] the ribbed interior bumping down against [npc.her] throbbing length.");
+									break;
+								case TENTACLED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.asshole+],"
+											+ " [npc.she] [npc.verb(feel)] a series of little writhing tentacles start to massage and stroke [npc.her] throbbing length.");
+									break;
 							}
-							break;
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
+						
+						return UtilText.parse(characterPenetrating, characterPenetrated, penetrationSB.toString());
+					default:
+						break;
 				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			}
+			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			
 			
 		} else if(orifice == SexAreaOrifice.VAGINA) {
-
-			if(characterPenetrated.isPlayer()) {
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.pussy+].");
-								for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
-									switch(mod) {
-										case BARBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.pussy+].");
-											break;
-										case BLUNT:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
-											break;
-										case FLARED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
-											break;
-										case KNOTTED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.pussy+] as [npc.she] fully penetrates you in one thrust.");
-											break;
-										case PREHENSILE:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.pussy+].");
-											break;
-										case RIBBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.pussy+].");
-											break;
-										case SHEATHED:
-											break;
-										case TAPERED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.pussy+].");
-											break;
-										case VEINY:
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+			if(initialPenetration) {
+				switch(penetrationType) {
+					case PENIS:
+						initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] push into [npc2.her] [npc2.vagina+].");
+						for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
+							switch(mod) {
+								case BARBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the little barbs lining [npc.namePos] [npc.cock] rake the insides of [npc2.her] [npc2.vagina+].");
+									break;
+								case BLUNT:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the blunt head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.vagina+].");
+									break;
+								case FLARED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the flared head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.vagina+].");
+									break;
+								case KNOTTED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the fat knot at the base of [npc.namePos] [npc.cock] bump up against [npc2.her] [npc2.vagina+] as [npc.she] fully [npc.verb(penetrate)] [npc2.herHim] in one thrust.");
+									break;
+								case PREHENSILE:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] prehensile [npc2.cock] exploring the insides of [npc2.her] [npc2.vagina+].");
+									break;
+								case RIBBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] ribbed [npc2.cock] push into [npc2.her] [npc2.vagina+].");
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the tapered head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.vagina+].");
+									break;
+								case TENTACLED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the little tentacles lining [npc.namePos] [npc.cock] squirm and wriggle against the insides of [npc2.her] [npc2.vagina+].");
+									break;
+								case VEINY:
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
-			} else {
-				
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("[npc.Name] lets out [npc.a_moan+] as you sink your [pc.cock+] into [npc.her] [npc.pussy+].");
-								for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
-									switch(mod) {
-										case MUSCLE_CONTROL:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
-													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
-											break;
-										case PUFFY:
-											break;
-										case RIBBED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
-													+ " you feel the ribbed interior bumping down against your throbbing length.");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
-													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+						initialDescriptions.clear();
+						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.vagina+] squeezes down around [npc.her] [npc.cock+].");
+						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+							switch(mod) {
+								case MUSCLE_CONTROL:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.vagina+],"
+											+ " [npc.she] [npc.verb(feel)] a series of internal muscles instantly start to grip and squeeze down on [npc.her] throbbing length.");
+									break;
+								case PUFFY:
+									break;
+								case RIBBED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.vagina+],"
+											+ " [npc.she] [npc.verb(feel)] the ribbed interior bumping down against [npc.her] throbbing length.");
+									break;
+								case TENTACLED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.vagina+],"
+											+ " [npc.she] [npc.verb(feel)] a series of little writhing tentacles start to massage and stroke [npc.her] throbbing length.");
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+						return UtilText.parse(characterPenetrating, characterPenetrated, penetrationSB.toString());
+					default:
+						break;
 				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			}
 			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			
 		} else if(orifice == SexAreaOrifice.NIPPLE) {
-
-			if(characterPenetrated.isPlayer()) {
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.nipple+].");
-								for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
-									switch(mod) {
-										case BARBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.nipple+].");
-											break;
-										case BLUNT:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
-											break;
-										case FLARED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
-											break;
-										case KNOTTED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.nipple+] as [npc.she] fully penetrates you in one thrust.");
-											break;
-										case PREHENSILE:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.nipple+].");
-											break;
-										case RIBBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.nipple+].");
-											break;
-										case SHEATHED:
-											break;
-										case TAPERED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.nipple+].");
-											break;
-										case VEINY:
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+			if(initialPenetration) {
+				switch(penetrationType) {
+					case PENIS:
+						initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] push into [npc2.her] [npc2.nipple+].");
+						for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
+							switch(mod) {
+								case BARBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the little barbs lining [npc.namePos] [npc.cock] rake the insides of [npc2.her] [npc2.nipple+].");
+									break;
+								case BLUNT:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the blunt head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.nipple+].");
+									break;
+								case FLARED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the flared head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.nipple+].");
+									break;
+								case KNOTTED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the fat knot at the base of [npc.namePos] [npc.cock] bump up against [npc2.her] [npc2.nipple+] as [npc.she] fully [npc.verb(penetrate)] [npc2.herHim] in one thrust.");
+									break;
+								case PREHENSILE:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] prehensile [npc2.cock] exploring the insides of [npc2.her] [npc2.nipple+].");
+									break;
+								case RIBBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] ribbed [npc2.cock] push into [npc2.her] [npc2.nipple+].");
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the tapered head of [npc.namePos] [npc.cock] push inside [npc2.her] [npc2.nipple+].");
+									break;
+								case TENTACLED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the little tentacles lining [npc.namePos] [npc.cock] squirm and wriggle against the insides of [npc2.her] [npc2.nipple+].");
+									break;
+								case VEINY:
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
-			} else {
-				
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] into [npc.name]'s [npc.nipple+].");
-								for(OrificeModifier mod : characterPenetrating.getNippleOrificeModifiers()) {
-									switch(mod) {
-										case MUSCLE_CONTROL:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
-													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
-											break;
-										case PUFFY:
-											break;
-										case RIBBED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
-													+ " you feel the ribbed interior bumping down against your throbbing length.");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
-													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+						initialDescriptions.clear();
+						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.nipple+] squeezes down around [npc.her] [npc.cock+].");
+						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+							switch(mod) {
+								case MUSCLE_CONTROL:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.nipple+],"
+											+ " [npc.she] [npc.verb(feel)] a series of internal muscles instantly start to grip and squeeze down on [npc.her] throbbing length.");
+									break;
+								case PUFFY:
+									break;
+								case RIBBED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.nipple+],"
+											+ " [npc.she] [npc.verb(feel)] the ribbed interior bumping down against [npc.her] throbbing length.");
+									break;
+								case TENTACLED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] [npc2.nipple+],"
+											+ " [npc.she] [npc.verb(feel)] a series of little writhing tentacles start to massage and stroke [npc.her] throbbing length.");
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+						return UtilText.parse(characterPenetrating, characterPenetrated, penetrationSB.toString());
+					default:
+						break;
 				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			}
+			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			
 		} else if(orifice == SexAreaOrifice.MOUTH) {
-
-			if(characterPenetrated.isPlayer()) {
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as [npc.name]'s [npc.cock+] pushes its way down into your throat.");
-								for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
-									switch(mod) {
-										case BARBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your throat.");
-											break;
-										case BLUNT:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push down into your throat.");
-											break;
-										case FLARED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push down into your throat.");
-											break;
-										case KNOTTED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump against your [pc.lips+] as [npc.she] fully penetrates you in one thrust.");
-											break;
-										case PREHENSILE:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your throat.");
-											break;
-										case RIBBED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push down into your throat.");
-											break;
-										case SHEATHED:
-											break;
-										case TAPERED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push down into your throat.");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your throat.");
-											break;
-										case VEINY:
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+			if(initialPenetration) {
+				switch(penetrationType) {
+					case PENIS:
+						initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] slide down into [npc2.her] throat.");
+						for(PenetrationModifier mod : characterPenetrating.getPenisModifiers()) {
+							switch(mod) {
+								case BARBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the little barbs lining [npc.namePos] [npc.cock] rake the insides of [npc2.her] throat.");
+									break;
+								case BLUNT:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the blunt head of [npc.namePos] [npc.cock] push deep down [npc2.her] throat.");
+									break;
+								case FLARED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the flared head of [npc.namePos] [npc.cock] push deep down [npc2.her] throat.");
+									break;
+								case KNOTTED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the fat knot at the base of [npc.namePos] [npc.cock] bump against [npc2.her] [npc2.lips+] as [npc.she] fully [npc.verb(hilt)] [npc.herself] down [npc2.her] throat in one thrust.");
+									break;
+								case PREHENSILE:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] prehensile [npc2.cock] exploring the insides of [npc2.her] throat.");
+									break;
+								case RIBBED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] [npc2.namePos] ribbed [npc2.cock] push deep down [npc2.her] throat.");
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)] the tapered head of [npc.namePos] [npc.cock] push deep down [npc2.her] throat.");
+									break;
+								case TENTACLED:
+									initialDescriptions.add("[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(feel)]"
+											+ " the little tentacles lining [npc.namePos] [npc.cock] squirm and wriggle against the insides of [npc2.her] throat.");
+									break;
+								case VEINY:
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
-			} else {
-				if(penetrationType!=SexAreaPenetration.TONGUE && !characterPenetrated.isPlayer()) {
-					characterPenetrated.getPlayerKnowsAreas().add(CoverableArea.MOUTH);
-				}
-				
-				if(initialPenetration) {
-					switch(penetrationType) {
-						case PENIS:
-							if(!characterPenetrating.isPlayer()) {
-								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] down into [npc.name]'s throat.");
-								for(OrificeModifier mod : characterPenetrating.getFaceOrificeModifiers()) {
-									switch(mod) {
-										case MUSCLE_CONTROL:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
-													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
-											break;
-										case PUFFY:
-											break;
-										case RIBBED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
-													+ " you feel the ribbed interior bumping down against your throbbing length.");
-											break;
-										case TENTACLED:
-											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
-													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
-											break;
-									}
-								}
-								if(initialDescriptions.isEmpty()) {
-									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
-								}
+						initialDescriptions.clear();
+						initialDescriptions.add(" [npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] throat squeezes down around [npc.her] [npc.cock+].");
+						for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+							switch(mod) {
+								case MUSCLE_CONTROL:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] throat,"
+											+ " [npc.she] [npc.verb(feel)] a series of internal muscles instantly start to grip and squeeze down on [npc.her] throbbing length.");
+									break;
+								case PUFFY:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] throat,"
+											+ " [npc.she] [npc.verb(feel)] [npc2.namePos] extra-puffy [npc2.lips] wrap around [npc.her] throbbing length.");
+									break;
+								case RIBBED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] throat,"
+											+ " [npc.she] [npc.verb(feel)] the ribbed interior bumping down against [npc.her] throbbing length.");
+									break;
+								case TENTACLED:
+									initialDescriptions.add(" As the [npc.cockHead+] of [npc.namePos] [npc.cock+] pushes its way into [npc2.namePos] throat,"
+											+ " [npc.she] [npc.verb(feel)] a series of little writhing tentacles start to massage and stroke [npc.her] throbbing length.");
+									break;
 							}
-							break;
+						}
+						penetrationSB.append(initialDescriptions.get(Util.random.nextInt(initialDescriptions.size())));
 						
-						default:
-							break;
-					}
-					return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+						return UtilText.parse(characterPenetrating, characterPenetrated, penetrationSB.toString());
+					default:
+						break;
 				}
-				
-				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
-				
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			}
+			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			
 		} else if(orifice == SexAreaOrifice.THIGHS) {
 
@@ -9769,7 +9697,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						"You slide your "+penetrationName+" out of your "+orificeName+".");
 			} else {
 				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of [npc2.name]'s "+orificeName+".");
+						"You slide your "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
 			}
 			
 		} else {
@@ -9781,7 +9709,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc.her] "+orificeName+".");
 			} else {
 				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc2.name]'s "+orificeName+".");
+						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
 			}
 		}
 	}
@@ -9902,7 +9830,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't believe what's happening."
-						+ " As [npc.name]'s "+(Sex.getFirstContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
+						+ " As [npc.namePos] "+(Sex.getFirstContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
 						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
@@ -9987,7 +9915,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
-							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
+							+ "You let out a painful cry as you feel [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
 							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
 						+ "</p>");
 				
@@ -9995,7 +9923,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				 // Wet:
 				StringBuilderSB.append(
 						"<p>"
-							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
+							+ "You let out a painful cry as you feel [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
 							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
 							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
 						+ "</p>");
@@ -10037,7 +9965,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			// Ending:
 			StringBuilderSB.append(
 					"<p>"
-						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
 							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
 					+ "</p>");
 		}
@@ -10114,7 +10042,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
-							+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ "As [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
 							+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
 								+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
 						+ "</p>");
@@ -10123,7 +10051,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				 // Wet:
 				StringBuilderSB.append(
 							"<p>"
-								+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
+								+ "As [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
 								+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
 									+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
 							+ "</p>");
@@ -10167,13 +10095,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				StringBuilderSB.append(
 						"<p>"
 							+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
-							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
 								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
 						+ "</p>");
 			} else {
 				StringBuilderSB.append(
 						"<p>"
-							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
 								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
 						+ "</p>");
 			}
@@ -10329,10 +10257,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] fingers down [npc.her] throat."));
 						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s fingers down your throat.")
+								?UtilText.parse(partner, "You're struggling to fit [npc.namePos] fingers down your throat.")
 								:(partner.isPlayer()
 										?UtilText.parse(this, "[npc.Name] is struggling to fit your fingers down [npc.her] throat.")
-										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s fingers down [npc.her] throat.")));
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.namePos] fingers down [npc.her] throat.")));
 					case PENIS:
 						if(partner.equals(this)) {
 							return formatStretching(this.isPlayer()
@@ -10340,10 +10268,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] [npc.cock+] down [npc.her] throat."));
 						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s [npc.cock+] down your throat.")
+								?UtilText.parse(partner, "You're struggling to fit [npc.namePos] [npc.cock+] down your throat.")
 								:(partner.isPlayer()
 										?UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.cock+] down [npc.her] throat.")
-										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s [npc2.cock+] down [npc.her] throat.")));
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.namePos] [npc2.cock+] down [npc.her] throat.")));
 					case TAIL:
 						if(partner.equals(this)) {
 							return formatStretching(this.isPlayer()
@@ -10351,10 +10279,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] [npc.tail] down [npc.her] throat."));
 						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s [npc.tail] down your throat.")
+								?UtilText.parse(partner, "You're struggling to fit [npc.namePos] [npc.tail] down your throat.")
 								:(partner.isPlayer()
 										?UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.tail] down [npc.her] throat.")
-										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s [npc2.tail] down [npc.her] throat.")));
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.namePos] [npc2.tail] down [npc.her] throat.")));
 					default:
 						return "Your throat is being stretched out.";
 				}
@@ -11019,7 +10947,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return (UtilText.parse(this,
 							"<p>"
-								+ "Due to [npc.name]'s <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] takes"
+								+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] takes"
 								+ " <b>"+(-manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] struggles to control [npc.her] arousal!"
 							+ "</p>"));
 				}
@@ -11771,16 +11699,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public String addedItemToInventoryText(AbstractCoreItem item) {
-		String returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.name]'s ")+"inventory:</b> <b>" + item.getName() + "</b>";
+		String returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + item.getName() + "</b>";
 		
 		if(item instanceof AbstractItem) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.name]'s ")+"inventory:</b> <b>" + ((AbstractItem)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractItem)item).getDisplayName(true) + "</b>";
 			
 		} else if(item instanceof AbstractClothing) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to "+(this.isPlayer()?"":"[npc.name]'s ")+"inventory:</b> <b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
 			
 		} else if(item instanceof AbstractWeapon) {
-			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapon added to "+(this.isPlayer()?"":"[npc.name]'s ")+"inventory:</b> <b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
+			returnString = "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapon added to "+(this.isPlayer()?"":"[npc.namePos] ")+"inventory:</b> <b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
 		}
 		
 		return UtilText.parse(this, returnString);
@@ -12987,6 +12915,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean isCoverableAreaExposed(CoverableArea area) {
+		if(area == CoverableArea.VAGINA
+				|| area == CoverableArea.ANUS
+				|| area == CoverableArea.NIPPLES) {
+			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+				if(area == CoverableArea.VAGINA && clothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
+					return false;
+				}
+				if(area == CoverableArea.ANUS && clothing.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
+					return false;
+				}
+				if(area == CoverableArea.NIPPLES && clothing.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
+					return false;
+				}
+			}
+		}
 		return inventory.isCoverableAreaExposed(area);
 	}
 	

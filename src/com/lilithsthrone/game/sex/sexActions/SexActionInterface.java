@@ -458,6 +458,35 @@ public interface SexActionInterface {
 				return convertToResponse();
 				
 				
+			} else if(getActionType()==SexActionType.REQUIRES_EXPOSED) {
+
+				// Check penetrations:
+				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
+					if(!Sex.getCharacterPerformingAction().isPenetrationTypeExposed(sArea)) {
+						return convertToNullResponse();
+					}
+				}
+				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isPenetrationTypeExposed(sArea)) {
+						return convertToNullResponse();
+					}
+				}
+				
+				// Check orifices:
+				for(SexAreaOrifice sArea : this.getPerformingCharacterOrifices()) {
+					if(!Sex.getCharacterPerformingAction().isOrificeTypeExposed(sArea)) {
+						return convertToNullResponse();
+					}
+				}
+				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isOrificeTypeExposed(sArea)) {
+						return convertToNullResponse();
+					}
+				}
+				
+				return convertToResponse();
+				
+				
 			} else if(getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 
 				// Check penetrations:
