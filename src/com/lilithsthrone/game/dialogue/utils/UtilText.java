@@ -4825,9 +4825,13 @@ public class UtilText {
 			command = command.split("_")[1];
 			parseAddPronoun = true;
 		} 
-			
-		if(Character.isUpperCase(command.charAt(0))) {
-			parseCapitalise = true;
+		for(int i=0; i<command.length(); i++){
+			if(Character.isLetter(command.charAt(i))){
+				if(Character.isUpperCase(command.charAt(i))) {
+					parseCapitalise = true;
+				}
+				break;
+			}
 		}
 		
 		ParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
