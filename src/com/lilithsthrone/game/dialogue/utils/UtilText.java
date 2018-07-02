@@ -680,7 +680,7 @@ public class UtilText {
 					}
 				}
 				
-				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ' || c!=Character.MIN_VALUE)) {
+				if (openBrackets>0 && (Character.isLetterOrDigit(c) || c=='+' || c=='.' || c=='[')) {
 					sb.append(c);
 				}
 				
