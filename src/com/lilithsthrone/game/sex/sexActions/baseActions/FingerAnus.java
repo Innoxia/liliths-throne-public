@@ -263,7 +263,7 @@ public class FingerAnus {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] eagerly [npc.verb(sink)] [npc.her] [npc2.fingers+] deep into [npc2.namePos] [npc2.asshole+], causing [npc2.herHim] to desperately try to recoil away from [npc.her] touch,"
+							"[npc.Name] eagerly [npc.verb(sink)] [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], causing [npc2.herHim] to desperately try to recoil away from [npc.her] touch,"
 									+ " letting out [npc2.a_sob+] as [npc2.she] weakly [npc2.verb(attempt)] to struggle away from [npc.namePos] intruding [npc.fingers].",
 
 
@@ -334,7 +334,7 @@ public class FingerAnus {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] roughly slams [npc.her] [npc2.fingers+] deep into [npc2.namePos] [npc2.asshole+], causing [npc2.name] to desperately try to recoil away from [npc.her] touch,"
+							"[npc.Name] roughly slams [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], causing [npc2.name] to desperately try to recoil away from [npc.her] touch,"
 									+ " letting out [npc2.a_sob+] as [npc2.she] weakly [npc2.verb(attempt)] to struggle away from [npc.namePos] intruding [npc.fingers].",
 
 

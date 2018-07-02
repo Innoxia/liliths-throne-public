@@ -207,7 +207,7 @@ public class FingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Pinch and tug at [npc.namePos] [npc2.nipples+] in order to coax [npc.her] [npc2.milk+] out.";
+			return "Pinch and tug at [npc.namePos] [npc2.nipples+] in order to coax [npc.her] [npc.milk+] out.";
 		}
 
 		@Override

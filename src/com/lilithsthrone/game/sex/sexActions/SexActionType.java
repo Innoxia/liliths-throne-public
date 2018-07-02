@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.1.65
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum SexActionType {

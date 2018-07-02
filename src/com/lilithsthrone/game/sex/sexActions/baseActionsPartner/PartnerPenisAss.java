@@ -311,7 +311,7 @@ public class PartnerPenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.she] [npc.verb(start)] using [npc2.namePos] ass, eagerly bucking [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc2.name] [npc2.verb(help)] to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks.",
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, desperately [npc2.verb(help)]ing to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, desperately helping to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -323,13 +323,13 @@ public class PartnerPenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.she] [npc.verb(start)] using [npc2.namePos] ass, eagerly bucking [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc2.name] [npc2.verb(help)] to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks.",
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, desperately [npc2.verb(help)]ing to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, desperately helping to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.she] [npc.verb(start)] using [npc2.namePos] ass, bucking [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc2.name] [npc2.verb(help)] to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks.",
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, [npc2.verb(help)]ing to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.namePos] [npc2.ass] into [npc.her] crotch, helping to sink [npc.her] [npc.cock+] even deeper between [npc2.namePos] ass cheeks."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -386,7 +386,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] slowly [npc.verb(push)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] gently [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] gently [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to gently buck [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
 					break;
@@ -406,7 +406,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] slowly [npc.verb(push)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] gently [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] gently [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to gently buck [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
 					break;
@@ -457,7 +457,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc.verb(push)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] rapidly [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] rapidly [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Enthusiastically thrusting [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to eagerly buck [npc.her] [npc.hips] forwards,"
 									+ " breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
@@ -466,7 +466,7 @@ public class PartnerPenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] eagerly  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, causing [npc2.name] to let out [npc2.a_sob+]. With tears streaming down [npc2.namePos] [npc2.face], [npc2.name] weakly [npc2.verb(beg)] for [npc.herHim] to stop.",
 
-							"[npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+							"[npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
 									+ " and with tears streaming down [npc2.namePos] [npc2.face], [npc2.name] desperately [npc2.verb(plead)] for [npc.herHim] to stop.",
 
 							"Enthusiastically thrusting [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] eagerly bucks [npc.her] [npc.hips] forwards as [npc2.name] weakly struggle against [npc.herHim],"
@@ -478,7 +478,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc.verb(push)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] rapidly [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] rapidly [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Enthusiastically thrusting [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to rapidly buck [npc.her] [npc.hips] forwards,"
 									+ " breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
@@ -530,7 +530,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] roughly slams [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] brutally [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] brutally [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Ruthlessly thrusting [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to roughly slam [npc.her] [npc.hips] forwards,"
 									+ " breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
@@ -551,7 +551,7 @@ public class PartnerPenisAss {
 									+ " grinning as [npc.she] feels [npc2.name] pushing [npc2.namePos] [npc2.ass] back against [npc.herHim].",
 
 							"[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc.name] roughly slams [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] brutally [npc2.verb(thrust)]s into [npc2.namePos] ass cleavage.",
+									+ " and [npc2.name] find [npc2.herself] pushing [npc2.namePos] [npc2.hips] back against [npc.herHim] as [npc.she] brutally [npc2.verb(thrust)] into [npc2.namePos] ass cleavage.",
 
 							"Ruthlessly thrusting [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to roughly slam [npc.her] [npc.hips] forwards,"
 									+ " breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
@@ -602,7 +602,7 @@ public class PartnerPenisAss {
 							"Sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] a soft [npc2.moan] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] [npc2.verb(start)] gently pushing [npc2.namePos] [npc2.ass] back against [npc.her] groin.",
 
-							"A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+							"A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
 									+ " and [npc2.name] can't [npc2.verb(help)] but gently [npc2.verb(push)] [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc.she] carries on fucking [npc2.namePos] ass cleavage.",
 
 							"Sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to thrust [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] softly [npc2.moan] in pleasure."));
@@ -612,8 +612,8 @@ public class PartnerPenisAss {
 							"Sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] [npc2.a_moan+] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] roughly [npc.verb(command)] [npc2.herHim] to continue fucking [npc2.namePos] ass cleavage.",
 
-							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and, roughly thrusting [npc2.namePos] [npc2.ass] back into [npc.her] groin, [npc2.name] order [npc.herHim] to continue fucking [npc2.namePos] ass cleavage.",
+							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+									+ " and, roughly thrusting [npc2.namePos] [npc2.ass] back into [npc.her] groin, [npc2.name] [npc2.verb(order)] [npc.herHim] to continue fucking [npc2.namePos] ass cleavage.",
 
 							"Sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to thrust [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
 					break;
@@ -622,7 +622,7 @@ public class PartnerPenisAss {
 							"Sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] [npc2.a_moan+] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] [npc2.verb(start)] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.her] groin.",
 
-							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] [npc.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
 									+ " and [npc2.name] can't [npc2.verb(help)] but greedily [npc2.verb(push)] [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc.she] carries on fucking [npc2.namePos] ass cleavage.",
 
 							"Sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to thrust [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] softly [npc2.moan] in pleasure."));
@@ -672,7 +672,7 @@ public class PartnerPenisAss {
 							"Desperately sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] a soft [npc2.moan] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] eagerly bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] [npc2.verb(start)] gently pushing [npc2.namePos] [npc2.ass] back against [npc.her] groin.",
 
-							"A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+							"A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
 									+ " and [npc2.name] can't [npc2.verb(help)] but gently [npc2.verb(push)] [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc.she] carries on enthusiastically fucking [npc2.namePos] ass cleavage.",
 
 							"Eagerly pushing [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to rapidly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] softly [npc2.moan] in pleasure."));
@@ -682,8 +682,8 @@ public class PartnerPenisAss {
 							"Desperately sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] [npc2.a_moan+] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] eagerly bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] roughly [npc.verb(command)] [npc2.herHim] to continue fucking [npc2.namePos] ass cleavage.",
 
-							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
-									+ " and, roughly thrusting [npc2.namePos] [npc2.ass] back into [npc.her] groin, [npc2.name] order [npc.herHim] to continue fucking [npc2.namePos] ass cleavage.",
+							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+									+ " and, roughly thrusting [npc2.namePos] [npc2.ass] back into [npc.her] groin, [npc2.name] [npc2.verb(order)] [npc.herHim] to continue fucking [npc2.namePos] ass cleavage.",
 
 							"Eagerly sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to rapidly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] [npc2.moanVerb+] in pleasure."));
 					break;
@@ -692,7 +692,7 @@ public class PartnerPenisAss {
 							"Desperately sinking [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(draw)] [npc2.a_moan+] from [npc2.namePos] [npc2.lips+] as [npc.she] [npc.verb(start)] eagerly bucking [npc.her] [npc.hips],"
 									+ " letting out [npc.a_moan] of [npc.her] own as [npc2.name] [npc2.verb(start)] greedily pushing [npc2.namePos] [npc2.ass] back against [npc.her] groin.",
 
-							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
+							"[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks,"
 									+ " and [npc2.name] can't [npc2.verb(help)] but greedily [npc2.verb(push)] [npc2.namePos] [npc2.ass] back against [npc.herHim] as [npc.she] carries on enthusiastically fucking [npc2.namePos] ass cleavage.",
 
 							"Eagerly sliding [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks, [npc.name] [npc.verb(start)] to rapidly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, breathing in [npc2.namePos] [npc2.scent] as [npc2.name] softly [npc2.moan] in pleasure."));
@@ -928,13 +928,13 @@ public class PartnerPenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out a soft [npc.moan], gently bucking [npc.her] [npc.hips] forwards as [npc.she] [npc.verb(start)] to fuck [npc2.namePos] ass cheeks.",
 
-							" With a soft [npc.moan], [npc.name] gently [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
+							" With a soft [npc.moan], [npc.name] gently [npc2.verb(thrust)] [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+], eagerly bucking [npc.her] [npc.hips] as [npc.she] [npc.verb(start)] enthusiastically fucking [npc2.namePos] ass cheeks.",
 
-							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
+							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -947,13 +947,13 @@ public class PartnerPenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+], eagerly bucking [npc.her] [npc.hips] forwards as [npc.she] [npc.verb(start)] enthusiastically fucking [npc2.namePos] ass cheeks.",
 
-							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
+							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+], bucking [npc.her] [npc.hips] forwards as [npc.she] [npc.verb(start)] fucking [npc2.namePos] ass cheeks.",
 
-							" With [npc.a_moan+], [npc.name] [npc.verb(thrust)]s [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
+							" With [npc.a_moan+], [npc.name] [npc.verb(thrust)] [npc.her] [npc.hips] forwards and  [npc.verb(sink)] [npc.her] [npc.cock+] between [npc2.namePos] ass cheeks."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1118,7 +1118,7 @@ public class PartnerPenisAss {
 
 		@Override
 		public String getActionDescription() {
-			return "[npc2.verb(push)] [npc2.namePos] [npc2.ass+] out against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)]s between [npc2.namePos] ass cheeks.";
+			return "[npc2.verb(push)] [npc2.namePos] [npc2.ass+] out against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)] between [npc2.namePos] ass cheeks.";
 		}
 
 		@Override
@@ -1162,7 +1162,7 @@ public class PartnerPenisAss {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly [npc2.verb(push)] [npc2.namePos] [npc2.ass+] out against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)]s between [npc2.namePos] ass cheeks.";
+			return "Eagerly [npc2.verb(push)] [npc2.namePos] [npc2.ass+] out against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)] between [npc2.namePos] ass cheeks.";
 		}
 
 		@Override

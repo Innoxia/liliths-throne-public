@@ -171,7 +171,7 @@ public class PartnerPenisThighs {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs, [npc.name] then [npc.verb(start)] bucking [npc.her] [npc.hips] forwards, softly bumping [npc.her] groin against [npc2.name] with every [npc2.verb(thrust)].",
 
-					"Slowly pushing [npc.her] [npc.cock+] between [npc2.namePos] [npc2.legs+], [npc.name] gently [npc2.verb(thrust)]s [npc.her] [npc.hips] against [npc2.herHim], letting out a little [npc.moan] as [npc.she] fucks [npc2.namePos] thighs.",
+					"Slowly pushing [npc.her] [npc.cock+] between [npc2.namePos] [npc2.legs+], [npc.name] gently [npc2.verb(thrust)] [npc.her] [npc.hips] against [npc2.herHim], letting out a little [npc.moan] as [npc.she] fucks [npc2.namePos] thighs.",
 
 					"Sliding [npc.her] [npc.cock+] between [npc2.namePos] [npc2.legs+], [npc.name] [npc.verb(let)] out a little [npc.moan] before starting to gently buck [npc.her] [npc.hips] against [npc2.herHim], breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly fucks [npc2.namePos] thighs."));
 			
@@ -405,7 +405,7 @@ public class PartnerPenisThighs {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] violently [npc2.verb(thrust)] [npc2.namePos] [npc2.hips] out in response, letting out [npc2.a_moan+] as [npc2.name] roughly demand that [npc.name] [npc.verb(continue)].",
 
-							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], and, roughly thrusting [npc2.namePos] [npc2.hips] out against [npc.her] groin, [npc2.name] order [npc.name] to continue.",
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], and, roughly thrusting [npc2.namePos] [npc2.hips] out against [npc.her] groin, [npc2.name] [npc2.verb(order)] [npc.name] to continue.",
 
 							" [npc2.Name] roughly [npc2.verb(grind)] [npc2.herself] against [npc.name], ordering [npc.herHim] to continue as [npc2.name] aggressively squeeze [npc2.namePos] [npc2.legs+] down around [npc.her] [npc.cock+]."));
 					break;
@@ -475,7 +475,7 @@ public class PartnerPenisThighs {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] violently [npc2.verb(thrust)] [npc2.namePos] [npc2.hips] out in response, letting out [npc2.a_moan+] as [npc2.name] roughly demand that [npc.name] [npc.verb(continue)].",
 
-							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], and, roughly thrusting [npc2.namePos] [npc2.hips] out against [npc.her] groin, [npc2.name] order [npc.name] to continue.",
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], and, roughly thrusting [npc2.namePos] [npc2.hips] out against [npc.her] groin, [npc2.name] [npc2.verb(order)] [npc.name] to continue.",
 
 							" [npc2.Name] roughly [npc2.verb(grind)] [npc2.herself] against [npc.name], ordering [npc.herHim] to continue as [npc2.name] aggressively squeeze [npc2.namePos] [npc2.legs+] down around [npc.her] [npc.cock+]."));
 					break;
@@ -724,13 +724,13 @@ public class PartnerPenisThighs {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out a soft [npc.moan] in response, gently bucking [npc.her] [npc.hips] into [npc2.name] as [npc.she] [npc.verb(start)] to fuck [npc2.namePos] thighs.",
 
-							" With a soft [npc.moan], [npc.name] gently [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] gently fucking them."));
+							" With a soft [npc.moan], [npc.name] gently [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] gently fucking them."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+] in response, eagerly bucking [npc.her] [npc.hips] into [npc2.name] as [npc.she] [npc.verb(start)] to fuck [npc2.namePos] thighs.",
 
-							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] energetically fucking them."));
+							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] energetically fucking them."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -742,13 +742,13 @@ public class PartnerPenisThighs {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+] in response, eagerly bucking [npc.her] [npc.hips] into [npc2.name] as [npc.she] [npc.verb(start)] to fuck [npc2.namePos] thighs.",
 
-							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)]s [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] energetically fucking them."));
+							" With [npc.a_moan+], [npc.name] eagerly [npc2.verb(thrust)] [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] energetically fucking them."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.verb(let)] out [npc.a_moan+] in response, bucking [npc.her] [npc.hips] into [npc2.name] as [npc.she] [npc.verb(start)] to fuck [npc2.namePos] thighs.",
 
-							" With [npc.a_moan+], [npc.name] [npc.verb(thrust)]s [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] fucking them."));
+							" With [npc.a_moan+], [npc.name] [npc.verb(thrust)] [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] between [npc2.namePos] thighs as [npc.she] [npc.verb(start)] fucking them."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -914,7 +914,7 @@ public class PartnerPenisThighs {
 
 		@Override
 		public String getActionDescription() {
-			return "Buck [npc2.namePos] hips against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)]s between [npc2.namePos] [npc2.thighs].";
+			return "Buck [npc2.namePos] hips against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)] between [npc2.namePos] [npc2.thighs].";
 		}
 
 		@Override
@@ -955,7 +955,7 @@ public class PartnerPenisThighs {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly buck [npc2.namePos] hips against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)]s between [npc2.namePos] [npc2.thighs].";
+			return "Eagerly buck [npc2.namePos] hips against [npc.name] as [npc.her] [npc.cock] [npc2.verb(thrust)] between [npc2.namePos] [npc2.thighs].";
 		}
 
 		@Override

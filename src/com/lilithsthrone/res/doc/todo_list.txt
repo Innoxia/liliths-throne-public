@@ -42,6 +42,11 @@
 		All nipple and breast actions. Improved some nipple fingering action descriptions and added actions for reacting to being nipple fingered.
 		All vaginal fingering actions. Improved structure of clit-related action.
 		All cock/ball stroking actions. Added 'handjob' as an ongoing sex action, with all associated reactions.
+		All anilingus actions. Fixed some incorrect descriptions in anilingus actions.
+		All cunnilingus actions. Separated clit and 'genderless mound' actions from vaginal actions.
+		All breast kissing and breastfeeding actions.
+		All tail-anal actions. Fixed several (long-standing) errors in these actions, such as incorrect references to vaginas and some actions being incorrectly blocked for subs. Expanded tail-pegging reaction descriptions.
+		All tail-vaginal actions. Improved and expanded several old descriptions.
 		
 	Other:
 		Improved initial penetration descriptions.
@@ -76,11 +81,23 @@
 		Characters no longer need breasts in order to be milked (they just need to be producing milk).
 	
 	
+	
+	
+	
+	
 	Sex action Conversions!
 		(Then misc ones, like dirty talk)
 		"You's wet back door is now exposed!"
+		
+	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
 	
+	did you really not fix slaves washing themselves wiping out pregnancies
 	
+	Lilaya keeps changing position every time I try to assert control
+	
+	Well that was weird, started sex with Kate and no fuck option until she forced me to swap 
+	
+	If you transform a demon before sex using the menu and then transform yourself using the transformation menu afterwards it soft defaults to the options you changed on the demon. Meaning it doesn't change your current settings, but the changes are kept
 	
 	: the use text for Vulpine's Vineyard erroneously spells "your" as "yuor".
 	
@@ -92,9 +109,9 @@
 		The problem goes away if I remove his clothes through Management: Inventory. Only doing it from clicking him then clicking his inventory directly causes the issue
 	
 	
-	
 	Nyan isnt cycling any of the "specials" in her shop besides the color of the Mega Milk shirt. its minor...but that means no butler outfits
 	The slaver person as well, you can work around it by buying something from them, and that makes them start to cycle inventory
+	
 	
 	 The capitalisation for her/his doesn't work in the parser
 	

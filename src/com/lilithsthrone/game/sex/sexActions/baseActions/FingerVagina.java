@@ -458,7 +458,7 @@ public class FingerVagina {
 								+ " letting out a delighted [npc2.moan] as [npc2.she] [npc2.verb(start)] enthusiastically imploring [npc.name] to continue fingering [npc2.herHim].",
 	
 						" A delighted [npc2.moan] bursts out from between [npc2.namePos] [npc2.lips+],"
-								+ " and, eagerly thrusting [npc2.namePos] [npc2.hips] out against [npc.her] touch, [npc2.she] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
+								+ " and, eagerly thrusting [npc2.her] [npc2.hips] out against [npc.her] touch, [npc2.she] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(grind)] down against [npc.namePos] [npc.hand],"
 								+ " eagerly begging for [npc.herHim] to continue as [npc2.her] movements drive [npc.her] [npc.fingers] ever deeper into [npc2.her] [npc2.pussy+]."));
@@ -469,10 +469,10 @@ public class FingerVagina {
 								+ " [npc2.name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] weakly [npc2.verb(try)] to struggle away from [npc.namePos] intruding [npc.fingers].",
 	
 						" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc2.she] weakly [npc2.verb(try)] to push [npc.name] away,"
-								+ " squirming and protesting as [npc.she] [npc.verb(continue)] to gently finger [npc2.namePos] [npc2.pussy+].",
+								+ " squirming and protesting as [npc.she] [npc.verb(continue)] to finger [npc2.namePos] [npc2.pussy+].",
 	
 						" [npc2.Sobbing] in distress, [npc2.name] [npc2.verb(try)], in vain, to recoil away from [npc.namePos] touch,"
-								+ " struggling against [npc.herHim] as [npc.her] [npc.fingers+] [npc.verb(continue)] gently sliding deep into [npc2.namePos] [npc2.pussy+]."));
+								+ " struggling against [npc.herHim] as [npc.her] [npc.fingers+] [npc.verb(continue)] sliding deep into [npc2.namePos] [npc2.pussy+]."));
 				break;
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
