@@ -652,7 +652,7 @@ public class UtilText {
 						
 						} else if (c == '(') {
 							if(command == null) {
-								command = sb.toString().substring(1); // Cut off the '(' at the start.
+								command = sb.toString().substring(1); // Cut off the '.' at the start.
 								sb.setLength(0);
 							}
 							
