@@ -622,7 +622,7 @@ public class ItemEffectType {
 						return UtilText.parse(target,
 								"<p>"
 									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Seeing as [npc.she]'s already in the final stage of pregnancy, nothing happens..."
+									+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
 								+ "</p>");
 					} else {
 						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
@@ -645,14 +645,14 @@ public class ItemEffectType {
 						return UtilText.parse(target,
 								"<p>"
 									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Although [npc.she] don't know if [npc.she]'s actually pregnant yet, [npc.she] starts to feel a soothing warmth spreading throughout [npc.her] abdomen..."
+									+ " Although [npc.she] don't know if [npc.sheIs] actually pregnant yet, [npc.she] starts to feel a soothing warmth spreading throughout [npc.her] abdomen..."
 								+ "</p>");
 						
 					} else {
 						return UtilText.parse(target,
 								"<p>"
 									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Seeing as [npc.she]'s not pregnant, nothing happens..."
+									+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
 								+ "</p>");
 					}
 				}
@@ -1062,7 +1062,7 @@ public class ItemEffectType {
 						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
 						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
 						+"</p>";
 				
 			} else {
@@ -1074,7 +1074,7 @@ public class ItemEffectType {
 						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
 						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
 						+"</p>";
 			}
 		}
@@ -2462,7 +2462,7 @@ public class ItemEffectType {
 										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
 										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
 								+"</p>";
 						
 					} else {
@@ -2483,7 +2483,7 @@ public class ItemEffectType {
 										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
 										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
 								+"</p>";	
 					} else {
 						return "<p>"
@@ -2628,7 +2628,7 @@ public class ItemEffectType {
 										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
 										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
 								+"</p>";
 					} else {
 						return "<p>"
@@ -2648,7 +2648,7 @@ public class ItemEffectType {
 										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
 											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
 										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
 								+"</p>";
 					} else {
 						return "<p>"

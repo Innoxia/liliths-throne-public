@@ -634,7 +634,7 @@ public class Breast implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
-								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] production [style.boldShrink(drying up)].<br/>"
+								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.sheIs] feeling [npc.her] [npc.milk] production [style.boldShrink(drying up)].<br/>"
 							+ "[npc.Name] is now able to produce [style.boldSex(" + lactationDescriptor + " [npc.milk])]."
 						+ "</p>");
 			}
@@ -741,7 +741,7 @@ public class Breast implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
-								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] regeneration [style.boldShrink(decreasing)].<br/>"
+								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.sheIs] feeling [npc.her] [npc.milk] regeneration [style.boldShrink(decreasing)].<br/>"
 							+ "[npc.Name]'s rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 						+ "</p>");
 			}

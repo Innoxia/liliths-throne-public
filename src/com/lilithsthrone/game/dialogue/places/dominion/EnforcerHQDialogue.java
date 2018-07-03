@@ -293,7 +293,7 @@ public class EnforcerHQDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[brax.name]'s accusation is interrupted by a violent tug on his leash. Candi's face has gone bright red, and she looks absolutely furious as she starts to shout,"
-								+ " [candi.speechNoEffects(Bad pet! Bad, bad, BAD! How <i>dare</i> you treat a visitor like that! Like, [pc.she]'s even a friend of yours, remember?!"
+								+ " [candi.speechNoEffects(Bad pet! Bad, bad, BAD! How <i>dare</i> you treat a visitor like that! Like, [pc.sheIs] even a friend of yours, remember?!"
 								+ " If you say <i>one more word</i>, I'm going to, like, get the ballgag out, and no more talking for a week!)]"
 							+ "</p>"
 							+ "<p>"

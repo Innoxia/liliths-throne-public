@@ -96,7 +96,7 @@ public class ConChairPositionsLilaya {
 		@Override
 		public String getActionDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"Switch positions with [npc.name], so that [npc.she]'s the one sitting down.");
+					"Switch positions with [npc.name], so that [npc.sheIs] the one sitting down.");
 		}
 
 		@Override

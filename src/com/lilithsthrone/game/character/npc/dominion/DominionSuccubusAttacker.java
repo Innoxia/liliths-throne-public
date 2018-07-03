@@ -242,7 +242,7 @@ public class DominionSuccubusAttacker extends NPC {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 									+ "</p>";
 						}
 						
@@ -265,7 +265,7 @@ public class DominionSuccubusAttacker extends NPC {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
-									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 								+ "</p>";
 					}
 					
@@ -284,7 +284,7 @@ public class DominionSuccubusAttacker extends NPC {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 										+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]<br/>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 									+ "</p>";
 						}
 						

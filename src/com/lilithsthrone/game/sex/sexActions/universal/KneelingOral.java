@@ -366,7 +366,7 @@ public class KneelingOral {
 				
 				switch (Sex.getActivePartner().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
-						UtilText.nodeContentSB.append(", you see that [npc.she]'s not able to produce even one drop of cum.");
+						UtilText.nodeContentSB.append(", you see that [npc.sheIs] not able to produce even one drop of cum.");
 						break;
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts out onto the floor above your head.");
@@ -452,11 +452,11 @@ public class KneelingOral {
 
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
 			if(Sex.getActivePartner().isWearingCondom()) {
-				UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out into the condom that [npc.she]'s wearing.");
+				UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out into the condom that [npc.sheIs] wearing.");
 			} else {
 				switch (Sex.getActivePartner().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
-						UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
+						UtilText.nodeContentSB.append(", you realise that [npc.sheIs] not able to produce even one drop of cum.");
 						break;
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(", you feel a small trickle of [npc.cum+] squirting down your throat into your stomach.");
@@ -556,7 +556,7 @@ public class KneelingOral {
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
 			switch (Sex.getActivePartner().getPenisOrgasmCumQuantity()) {
 				case ZERO_NONE:
-					UtilText.nodeContentSB.append(", you see that [npc.she]'s not able to produce even one drop of cum.");
+					UtilText.nodeContentSB.append(", you see that [npc.sheIs] not able to produce even one drop of cum.");
 					break;
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts out all over your [pc.face+].");

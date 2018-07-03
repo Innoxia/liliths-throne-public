@@ -56,7 +56,7 @@ public class CultistSexActions {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] tries to make a move, but the Witch's Seal is too strong, and [npc.she] collapses back onto the altar, stunned.",
 					"The purple glow of a pentagram materialises beneath [npc.name]'s body as [npc.she] tries to make a move; proof that the Witch's Seal is still keeping [npc.herHim] bound in place.",
-					"[npc.Name] tries and sit up on the altar, but [npc.she]'s only able to squirm about a little under the immobilising effects of the Witch's Seal.",
+					"[npc.Name] tries and sit up on the altar, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 					"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] struggles to make a move.",
 					"[npc.speech(~Mmm!~)] [npc.name] moans, struggling in vain against the Witch's Seal.",
 					"[npc.speech(~Aah!~)] [npc.name] whimpers, squirming about on the altar as the With's Seal keeps her locked in place.");

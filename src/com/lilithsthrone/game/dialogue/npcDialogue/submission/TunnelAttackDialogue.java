@@ -57,13 +57,13 @@ public class TunnelAttackDialogue {
 					} else {
 						return "<p>"
 								+ "Assaulted again by the [npc.fullRace(true)]!"
-								+ " [npc.She]'s still pregnant."
+								+ " [npc.sheIs] still pregnant."
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
 											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
+									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
 											+ " and will most likely only rob you if you were to lose this fight.")
 							+ "</p>";
 					}
@@ -77,7 +77,7 @@ public class TunnelAttackDialogue {
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
 											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
+									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
 											+ " and will most likely only rob you if you were to lose this fight.")
 							+ "</p>";
 				}
@@ -90,7 +90,7 @@ public class TunnelAttackDialogue {
 					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 						?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
 								+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-						:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
+						:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
 								+ " and will most likely only rob you if you were to lose this fight.")
 					+ "</p>";
 			}
@@ -180,7 +180,7 @@ public class TunnelAttackDialogue {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
-							+ " [npc.She] looks up at you, and you see that [npc.she]'s still got that same hungry look in [npc.her] eyes, despite [npc.her] defeat."
+							+ " [npc.She] looks up at you, and you see that [npc.sheIs] still got that same hungry look in [npc.her] eyes, despite [npc.her] defeat."
 							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
 						+ "</p>"
 						+ "<p>"
@@ -561,7 +561,7 @@ public class TunnelAttackDialogue {
 								AFTER_SEX_DEFEAT,
 								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
-									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 								+ "</p>");
 						
 					} else if (index == 2) {
@@ -582,7 +582,7 @@ public class TunnelAttackDialogue {
 								AFTER_SEX_DEFEAT,
 								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 								+ "</p>");
 						
 					} else if (index == 3 && Main.game.isNonConEnabled()) {
@@ -604,7 +604,7 @@ public class TunnelAttackDialogue {
 								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 								+ "</p>");
 						
 					} else {
@@ -681,7 +681,7 @@ public class TunnelAttackDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 2) {
@@ -702,7 +702,7 @@ public class TunnelAttackDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
@@ -724,7 +724,7 @@ public class TunnelAttackDialogue {
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 							+ "</p>");
 					
 				} else {
@@ -791,7 +791,7 @@ public class TunnelAttackDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 2) {
@@ -812,7 +812,7 @@ public class TunnelAttackDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
@@ -834,7 +834,7 @@ public class TunnelAttackDialogue {
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 							+ "</p>");
 					
 				} else {

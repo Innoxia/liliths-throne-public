@@ -82,7 +82,7 @@ public class HarpyNestsAttacker extends NPC {
 			setName(Name.getRandomTriplet(Race.HARPY));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
-					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.she]'s prepared to fight you in order to teach you a lesson..."));
+					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.sheIs] prepared to fight you in order to teach you a lesson..."));
 	
 			// Add fetishes:
 			CharacterUtils.addFetishes(this);

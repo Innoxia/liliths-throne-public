@@ -100,7 +100,7 @@ public class ConChairBottom {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[npc.Name] slides down so that [npc.she]'s sitting on your thigh, and as you look up into [npc.her] [npc.eyes+], [npc.she] starts grinding [npc.her] groin down against your [pc.leg+].",
+					"[npc.Name] slides down so that [npc.sheIs] sitting on your thigh, and as you look up into [npc.her] [npc.eyes+], [npc.she] starts grinding [npc.her] groin down against your [pc.leg+].",
 					
 					"[npc.Name] sits down on your [pc.leg+], gazing hungrily into your [pc.eyes+] as [npc.she] starts grinding [npc.her] groin down against your thigh.",
 					
@@ -483,7 +483,7 @@ public class ConChairBottom {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that [npc.she]'s your little fuck-toy.";
+			return "Tell [npc.name] that [npc.sheIs] your little fuck-toy.";
 		}
 
 		@Override
@@ -935,8 +935,8 @@ public class ConChairBottom {
 
 		@Override
 		public String getDescription() {
-			return "Stepping forwards, [npc.name] slides down into your lap, lowering [npc.herself] down so that [npc.she]'s hovering over your [pc.cock+]."
-					+ " Sensing what [npc.she]'s about to do, you let out a pleading whine, which soon turns into [pc.a_moan+] as [npc.she] lines [npc.her] [npc.pussy+] up to your [pc.cockHead] and drops down,"
+			return "Stepping forwards, [npc.name] slides down into your lap, lowering [npc.herself] down so that [npc.sheIs] hovering over your [pc.cock+]."
+					+ " Sensing what [npc.sheIs] about to do, you let out a pleading whine, which soon turns into [pc.a_moan+] as [npc.she] lines [npc.her] [npc.pussy+] up to your [pc.cockHead] and drops down,"
 					+ " spearing [npc.herself] on your [pc.cock+].";
 		}
 	};
@@ -1052,7 +1052,7 @@ public class ConChairBottom {
 		@Override
 		public String getDescription() {
 			return "Stepping forwards, [npc.name] slides down into your lap, lowering [npc.herself] down so that [npc.her] [npc.ass] is hovering over your [pc.cock+]."
-					+ " Sensing what [npc.she]'s about to do, you let out a pleading whine, which soon turns into [pc.a_moan+] as [npc.she] lines [npc.her] [npc.asshole+] up to your [pc.cockHead] and drops down,"
+					+ " Sensing what [npc.sheIs] about to do, you let out a pleading whine, which soon turns into [pc.a_moan+] as [npc.she] lines [npc.her] [npc.asshole+] up to your [pc.cockHead] and drops down,"
 					+ " spearing [npc.herself] on your [pc.cock+].";
 		}
 		
@@ -1696,7 +1696,7 @@ public class ConChairBottom {
 					
 					"You let out a little pleading whine, and as [npc.name] looks down at you, you bite your [pc.lip] and send a series of psychic moans into [npc.her] mind.",
 					
-					"You bat your eyes up at [npc.name], making sure that [npc.she]'s looking right at you before bringing one of your slender,"
+					"You bat your eyes up at [npc.name], making sure that [npc.sheIs] looking right at you before bringing one of your slender,"
 							+ " delicate fingers up to playfully pull down on your lower lip, using your demonic powers to send [pc.a_moan+] directly into [npc.her] mind at the same time.",
 					
 					"Winking at [npc.name] as [npc.she] looks down at you, you bring your hand up to your [pc.lips+] and blow [npc.herHim] a kiss, sending [pc.a_moan+] directly into [npc.her] mind as you let out a little giggle.");

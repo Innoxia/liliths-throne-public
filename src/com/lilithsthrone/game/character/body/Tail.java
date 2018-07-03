@@ -647,7 +647,7 @@ public class Tail implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "A tingling feeling spreads over [npc.name]'s [npc.tails], before moving down and concentrating into [npc.her] lower back."
 							+ " [npc.She] can't help but let out a little cry as [npc.she] feels some of them [style.boldShrink(shrinking away)] and disappearing back down into [npc.her] [npc.skin].<br/>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("
 									+(tailCount==1
 										?"a single [npc.tail]"
 										:Util.intToString(tailCount)+" [npc.tails]")
@@ -672,7 +672,7 @@ public class Tail implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "A tingling feeling spreads over [npc.name]'s [npc.tails], before moving down and concentrating into [npc.her] lower back."
 							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.tails] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.skin].<br/>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("
 									+(tailCount==1
 										?"a single [npc.tail]"
 										:Util.intToString(tailCount)+" [npc.tails]")

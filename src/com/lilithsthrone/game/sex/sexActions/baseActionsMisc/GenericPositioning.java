@@ -1974,7 +1974,7 @@ public class GenericPositioning {
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
 					+ " Stepping around behind you, [npc.she] similarly drops down onto all fours, shuffling forwards to bring [npc.her] [npc.face] up against your [pc.ass+]."
-					+ " Once [npc.she]'s in position, [npc.she] [npc.moans], "
+					+ " Once [npc.sheIs] in position, [npc.she] [npc.moans], "
 					+ "[npc.speech(Good [pc.girl]! Now hold still and enjoy this!)]";
 		}
 
@@ -2041,7 +2041,7 @@ public class GenericPositioning {
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
 					+ " Stepping around in front of you, [npc.she] similarly drops down onto all fours, shuffling backwards to bring [npc.her] [npc.ass+] up against your [pc.face+]."
-					+ " Once [npc.she]'s in position, [npc.she] [npc.moans], "
+					+ " Once [npc.sheIs] in position, [npc.she] [npc.moans], "
 					+ "[npc.speech(Good [pc.girl]! Now put that tongue of yours to use!)]";
 		}
 
@@ -2305,7 +2305,7 @@ public class GenericPositioning {
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
 					+ " [npc.She] then lowers [npc.herself] down on top of you, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
-					+ " Once [npc.she]'s made [npc.herself] comfortable, [npc.she] grins down at you, "
+					+ " Once [npc.sheIs] made [npc.herself] comfortable, [npc.she] grins down at you, "
 					+ "[npc.speech(Good [pc.girl]! Now let's have some fun!)]";
 		}
 

@@ -47,6 +47,9 @@
 		All breast kissing and breastfeeding actions.
 		All tail-anal actions. Fixed several (long-standing) errors in these actions, such as incorrect references to vaginas and some actions being incorrectly blocked for subs. Expanded tail-pegging reaction descriptions.
 		All tail-vaginal actions. Improved and expanded several old descriptions.
+		All vaginal sex actions.
+		All anal sex actions.
+		All blowjob sex actions. Fixed several old errors in descriptions, and changed the 'deep throat' actions to be independent of pace.
 		
 	Other:
 		Improved initial penetration descriptions.
@@ -82,12 +85,39 @@
 	
 	
 	
-	
+	Monday:
+		Penis vagina
+		Penis anus
+		Write up all Nightlife framework, completely functional without descriptions
+		
+	Tuesday:
+		Spend all day doing Nightlife descriptions
+		
+	Wednesday:
+		Purely bugfixes, merges and minor things
+		
 	
 	
 	Sex action Conversions!
 		(Then misc ones, like dirty talk)
 		"You's wet back door is now exposed!"
+	
+	Even though i set Angels as the only ones to use the Artisanal milking room, on occasion the room will spontaneously generate human girlcum
+		just looked and one of my angel slaves has human hair
+		which somehow makes them produce human girlcum
+		can't say that makes sense to me
+	
+	Kanzashi stays on your head even if your hair length becomes 0
+		i think hair slot should be blocked if you have no hair
+	
+	add dialogue if you cum upon insertion 'Already?'
+		
+	Check sexman slave bug saves
+	importing an older save into this version added slave collars to a majority of my NPC slaves.  I dunno if that is part of the problem
+	
+	Beaten 298 times, says only beaten once
+	
+	 I keep having issues with trying to give tf elixirs to NPCs. It'll use it, but the inventory screen won't update. I mean: the transformation effects will go through if allowed, but I won't find out what's changed unless I mouse over the NPC's race icon, and it won't decrease the number of items of that type I have until I exit and re-enter the inventory screen. Only occasionally will it actually display the text for using an elixir, but only the most recent one, and I think only after using multiples
 		
 	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
 	

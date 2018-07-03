@@ -28,7 +28,7 @@ public enum PersonalityTrait {
 	AGREEABLENESS("Agreeableness",
 			"How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.",
 			Colour.BASE_GREEN,
-			"Selfish", "[npc.Name] treats others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, [npc.she]'s far more likely to act in a competitive manner.",
+			"Selfish", "[npc.Name] treats others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, [npc.sheIs] far more likely to act in a competitive manner.",
 			"Average", "[npc.Name] is friendly towards new people, but is also liable to drop any pretence of cooperation and compassion if that person turns out to be less-than-amicable.",
 			"Trusting", "[npc.Name] is very trusting, and always tries [npc.her] best to be friendly towards other people.",
 			"Selfish", "You treat others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, you're far more likely to act in a competitive manner.",

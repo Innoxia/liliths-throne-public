@@ -218,7 +218,7 @@ public class SlimeCavernAttacker extends NPC {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.Name]'s days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
-							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 		} else {
 			return (UtilText.parse(this,
 					"[npc.Name] is a resident of the bat caverns, and loves nothing more than getting high on mushrooms, attacking innocent travellers, and having sex."));

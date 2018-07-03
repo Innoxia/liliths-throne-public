@@ -347,7 +347,7 @@ public class Ear implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(
 								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of [npc.her] head."
-								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.she]'s left with the ears of an alligator-morph."
+								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.sheIs] left with the ears of an alligator-morph."
 								+ "<br/>"
 								+ "[npc.Name] now has [style.boldGatorMorph(internal, scale-covered alligator ears)]."
 							+ "</p>");
@@ -398,7 +398,7 @@ public class Ear implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(
 								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of [npc.her] head."
-								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.she]'s left with a pair of beautifully-feathered harpy ears."
+								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.sheIs] left with a pair of beautifully-feathered harpy ears."
 								+ "<br/>"
 								+ "[npc.Name] now has [style.boldHarpy(internal, feather-covered harpy ears)]."
 							+ "</p>");

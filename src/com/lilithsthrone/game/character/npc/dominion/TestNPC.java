@@ -264,10 +264,10 @@ public class TestNPC extends NPC {
 			return "<p>"
 						+ "You step forwards, and, quietly pushing the door open, you step into a cozy little back room."
 						+ " In front of you, with [test.her] back to the door, a small-framed [test.race] is sitting in front of a desk."
-						+ " Scrunched up pieces of paper litter the floor around [test.her], and you notice that [test.she]'s so engrossed in [test.her] writing that [test.she] didn't hear your entry."
+						+ " Scrunched up pieces of paper litter the floor around [test.her], and you notice that [test.sheIs] so engrossed in [test.her] writing that [test.she] didn't hear your entry."
 					+ "</p>"
 					+ "<p>"
-						+ "You could greet [test.herHim] and try to find out what [test.she]'s writing, or step back outside and leave [test.herHim] to [test.her] work."
+						+ "You could greet [test.herHim] and try to find out what [test.sheIs] writing, or step back outside and leave [test.herHim] to [test.her] work."
 						+ (Main.game.isNonConEnabled()
 								?" As you realise how vulnerable [test.she] is back here, far from help, a dark thought flashes through your mind, and you realise that there's always another option..."
 								:"")
@@ -277,7 +277,7 @@ public class TestNPC extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.she]'s doing.", TEST_DIALOGUE_GREET) {
+				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.sheIs] doing.", TEST_DIALOGUE_GREET) {
 						@Override
 						public void effects() {
 							TestNPC.resisting = false;
@@ -405,7 +405,7 @@ public class TestNPC extends NPC {
 						+ " [test.speech(I-It's not like I meant for you to see them!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Looking up at the [test.race], you see that [test.she]'s blushing profusely, and, somewhat amusingly, staring down at your groin."
+						+ "Looking up at the [test.race], you see that [test.sheIs] blushing profusely, and, somewhat amusingly, staring down at your groin."
 						+ " All of this erotic writing must really have got her worked-up, and you grin as you hear the next words that come out of [test.her] mouth."
 					+ "</p>"
 					+ "<p>"

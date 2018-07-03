@@ -621,7 +621,7 @@ public class FingerAnus {
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(pull)]s [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
 
 
 							" [npc2.A_moan+] escapes from between [npc2.namePos] [npc2.lips+], betraying [npc2.namePos] desire for more of [npc.namePos] attention."));

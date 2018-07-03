@@ -225,7 +225,7 @@ public class Brax extends NPC {
 		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 			return "The one-time 'Chief of Dominion Operations', [brax.name] is almost unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, you've transformed [brax.herHim] into a wolf-girl."
-					+ " Where once [brax.she] was muscular and dominant, [brax.she]'s now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
+					+ " Where once [brax.she] was muscular and dominant, [brax.sheIs] now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
 			
 		} else {
 			return "The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.";

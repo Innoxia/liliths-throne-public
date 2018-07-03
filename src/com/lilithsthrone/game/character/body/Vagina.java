@@ -254,7 +254,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 						+ "<p>"
 							+ "Just as [npc.she] starts to think that the transformation is over, a warm, tingling feeling shoots up into [npc.her] lower abdomen,"
 								+ " and [npc.she] can't help but let out a desperate squeal as [npc.she] feels a full female reproductive system rapidly growing inside of [npc.herHim]."
-							+ " As [npc.her] transformation finally comes to an end, [npc.she]'s left panting and covered in sweat, and [npc.she] lets out a lewd moan as [npc.she] feels that [npc.her] new cunt is already soaking wet from arousal."
+							+ " As [npc.her] transformation finally comes to an end, [npc.sheIs] left panting and covered in sweat, and [npc.she] lets out a lewd moan as [npc.she] feels that [npc.her] new cunt is already soaking wet from arousal."
 							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldTfSex(vagina)]!"
 						+ "</p>"));

@@ -1031,7 +1031,7 @@ public enum Perk {
 			if (owner.isPlayer()) {
 				return "Your seed is incredibly weak, and you are highly unlikely to ever get anyone pregnant.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name]'s seed is incredibly weak, and [npc.she]'s highly unlikely to ever get anyone pregnant.");
+				return UtilText.parse(owner, "[npc.Name]'s seed is incredibly weak, and [npc.sheIs] highly unlikely to ever get anyone pregnant.");
 			}
 		}
 	},

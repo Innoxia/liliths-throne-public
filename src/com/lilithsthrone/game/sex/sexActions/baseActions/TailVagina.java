@@ -55,7 +55,7 @@ public class TailVagina {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+],"
 									+ " [npc.name] [npc.verb(start)] slowly teasing the [npc.tailTip+] up and down between [npc2.her] [npc2.labia+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With a soft [npc.moan], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to gently slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
+							"With a soft [npc.moan], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to gently slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
 
 							"Gently sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.vagina+],"
 									+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -66,7 +66,7 @@ public class TailVagina {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+],"
 									+ " [npc.name] [npc.verb(start)] eagerly sliding the [npc.tailTip+] up and down between [npc2.her] [npc2.labia+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With [npc.a_moan+], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to eagerly slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to eagerly slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
 
 							"Eagerly sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.vagina+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -87,7 +87,7 @@ public class TailVagina {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+],"
 									+ " [npc.name] [npc.verb(start)] sliding the [npc.tailTip+] up and down between [npc2.her] [npc2.labia+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With [npc.a_moan+], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.pussy+], before starting to slide the [npc.tailTip] up and down between [npc2.her] [npc2.labia+].",
 
 							"Sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.vagina+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -99,39 +99,39 @@ public class TailVagina {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.vagina+] being stimulated,"
-									+ " and [npc2.she] gently [npcc2.verb(push)] [npc2.her] [npc2.vagina+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] gently [npc2.verb(push)] [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.vagina+] back against [npc.namePos] [npc.tail].",
+							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and gently [npc2.verb(push)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and gently [npc2.verb(push)] [npc.her] [npc.hips+] out in response."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.vagina+] being stimulated,"
-									+ " and [npc2.she] eagerly [npcc2.verb(push)] [npc2.her] [npc2.labia+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] eagerly [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.vagina+] back against [npc.namePos] [npc.tail].",
+							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and desperately [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and desperately [npc2.verb(buck)] [npc.her] [npc.hips+] out in response."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.vagina+] being stimulated,"
-									+ " and [npc2.she] forcefully [npcc2.verb(thrust)] [npc2.her] [npc2.labia+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] forcefully [npc2.verb(thrust)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.vagina+] back against [npc.namePos] [npc.tail].",
+							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and violently [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and violently [npc2.verb(buck)] [npc.her] [npc.hips+] out in response."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.vagina+] being stimulated,"
-									+ " and [npc2.she] [npcc2.verb(push)] [npc2.her] [npc2.labia+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.vagina+] back against [npc.namePos] [npc.tail].",
+							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.vagina+], and [npc2.verb(buck)] [npc.her] [npc.hips+] out in response."));
 					break;
 				case SUB_RESISTING:
 					if(Sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
@@ -432,7 +432,7 @@ public class TailVagina {
 								+ " and, eagerly thrusting [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(beg)] for [npc.name] to carry on tail-fucking [npc2.herHim].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(thrust)] [npc2.her] [npc2.hips+] back,"
-								+ " eagerly begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]"));
+								+ " eagerly begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]."));
 				break;
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -443,7 +443,7 @@ public class TailVagina {
 								+ " tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to pull out of [npc2.her] [npc2.vagina+].",
 	
 						" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
-								+ " [npc2.name] weakly struggle against [npc.name], pleading and crying for [npc.herHim] to pull out of [npc2.her] [npc2.vagina+]"));
+								+ " [npc2.name] weakly [npc2.verb(struggle)] against [npc.name], pleading and crying for [npc.herHim] to pull out of [npc2.her] [npc2.vagina+]."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -454,7 +454,7 @@ public class TailVagina {
 								+ " and, thrusting [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(beg)] for [npc.name] to carry on tail-fucking [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(push)] [npc2.her] [npc2.hips+] back,"
-								+ " begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]"));
+								+ " begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]."));
 				break;
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -465,7 +465,7 @@ public class TailVagina {
 								+ " and, slowly bucking [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(implore)] [npc.name] to carry on tail-fucking [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] gently [npc2.verb(push)] [npc2.her] [npc2.hips+] back,"
-								+ " begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]"));
+								+ " begging for [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]."));
 				break;
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -476,7 +476,7 @@ public class TailVagina {
 								+ " and, roughly slamming [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(order)] [npc.name] to carry on tail-fucking [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips+] back,"
-								+ " ordering [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements force [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]"));
+								+ " ordering [npc.name] to continue tail-fucking [npc2.herHim] as [npc2.her] movements force [npc.her] [npc.tail+] deep into [npc2.her] [npc2.vagina+]."));
 				break;
 		}
 		return "";
@@ -508,13 +508,13 @@ public class TailVagina {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(start)] sliding it in and out, letting out a little [npc.moan] with every thrust as [npc.she] slowly tail-fucks [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] sliding it in and out, letting out a little [npc.moan] with every thrust as [npc.she] slowly [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Slowly pushing [npc.her] [npc.tail+] into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] softly [npc2.verb(thrust)] it in and out, letting out a little [npc.moan] as [npc.she] gently tail-fucks [npc2.herHim].",
+							+ " [npc.name] softly [npc2.verb(thrust)] it in and out, letting out a little [npc.moan] as [npc.she] gently [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Sliding [npc.her] [npc.tail+] into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] [npc.verb(start)] to gently pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly tail-fucks [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] [npc.verb(start)] to gently pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly [npc.verb(tail-fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 					
@@ -549,13 +549,13 @@ public class TailVagina {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-fucks [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Enthusiastically pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily tail-fucks [npc2.herHim].",
+							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately tail-fucks [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(tail-fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -590,13 +590,13 @@ public class TailVagina {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Roughly slamming [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(start)] roughly pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] brutally tail-fucks [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] roughly pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] brutally [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Violently thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc2.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully tail-fucks [npc2.herHim].",
+							+ " [npc.name] [npc2.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Forcefully driving [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently tail-fucks [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently [npc.verb(tail-fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -621,7 +621,7 @@ public class TailVagina {
 
 		@Override
 		public String getActionDescription() {
-			return "[npc.verb(continue)] fucking [npc2.namePos] [npc2.vagina+].";
+			return "Continue fucking [npc2.namePos] [npc2.vagina+] with your [npc.tail].";
 		}
 
 		@Override
@@ -631,13 +631,13 @@ public class TailVagina {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(start)] pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-fucks [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly tail-fucks [npc2.herHim].",
+							+ " [npc.name] [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] tail-fucks [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(tail-fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -672,13 +672,13 @@ public class TailVagina {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-fucks [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Enthusiastically pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily tail-fucks [npc2.herHim].",
+							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately tail-fucks [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(tail-fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -901,7 +901,7 @@ public class TailVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.herHim], pushing [npc2.her] [npc2.tail] forwards as [npc2.she] [npc2.verb(start)] tail-fucking [npc.namePos] [npc.vagina+].",
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards, sinking it deep into [npc.namePos] [npc.vagina+] as [npc2.she] [npc2.verb(start)] tail-fuck [npc.herHim]."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards, sinking it deep into [npc.namePos] [npc.vagina+] as [npc2.she] [npc2.verb(start)] tail-fucking [npc.herHim]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

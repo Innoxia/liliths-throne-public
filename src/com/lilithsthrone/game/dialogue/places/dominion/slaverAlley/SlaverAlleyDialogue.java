@@ -414,7 +414,7 @@ public class SlaverAlleyDialogue {
 			if(biddingRounds==0) {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.she]'s up for auction."
+							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.sheIs] up for auction."
 							+ " Thankfully, you don't have to wait long, and soon enough you see the [npc.race], stark naked except for the slave collar around [npc.her] neck, being led up onto the platform."
 						+ "</p>"
 						+ "<p>"

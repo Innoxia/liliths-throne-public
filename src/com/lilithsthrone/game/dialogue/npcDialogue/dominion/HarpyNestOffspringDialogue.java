@@ -77,14 +77,14 @@ public class HarpyNestOffspringDialogue {
 					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
-									+ "From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.she]'s a prostitute."
+									+ "From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.sheIs] a prostitute."
 									+ " As [npc.she] notices your approach, [npc.she] steps out to block your path, and in a sultry tone, confirms your suspicions,"
 									+ " [npc.speech(Hey babe! You lookin' for a good time? "+Util.capitaliseSentence(Util.intToString(price))+" flames for an hour's ride with [npc.name]!)]"
 								+ "</p>");
 					} else {
 						UtilText.nodeContentSB.append(
 								"<p>"
-									+ "From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.she]'s a prostitute."
+									+ "From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.sheIs] a prostitute."
 									+ " As [npc.she] notices your approach, [npc.she] looks over at you, and in a sultry tone, confirms your suspicions,"
 									+ " [npc.speech(You lookin' for a good time? Only "+Util.intToString(price)+" flames and [npc.name]'s all yours for an hour!)]"
 								+ "</p>");
@@ -115,7 +115,7 @@ public class HarpyNestOffspringDialogue {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "Whether by some natural instinct, or perhaps some curious quirk of the arcane, you're instantly left with no doubt in your mind that the [npc.woman] in front of you is your [npc.daughter]."
-								+ " From [npc.her] reaction, it's quite apparent that [npc.she]'s recognised you as well, and as [npc.her] [npc.hands] reach up to cover [npc.her] [npc.mouth] in shock, you're left to decide how best to respond..."
+								+ " From [npc.her] reaction, it's quite apparent that [npc.sheIs] recognised you as well, and as [npc.her] [npc.hands] reach up to cover [npc.her] [npc.mouth] in shock, you're left to decide how best to respond..."
 							+ "</p>");
 					
 					
@@ -131,7 +131,7 @@ public class HarpyNestOffspringDialogue {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "Whether by some natural instinct, or perhaps some curious quirk of the arcane, you're instantly left with no doubt in your mind that the [npc.race] in front of you is your [npc.daughter]."
-								+ " From [npc.her] reaction, it's quite apparent that [npc.she]'s recognised you as well, and as [npc.her] [npc.hands] reach up to cover [npc.her] [npc.mouth] in shock, you're left to decide how best to respond..."
+								+ " From [npc.her] reaction, it's quite apparent that [npc.sheIs] recognised you as well, and as [npc.her] [npc.hands] reach up to cover [npc.her] [npc.mouth] in shock, you're left to decide how best to respond..."
 							+ "</p>");
 				}
 				
@@ -315,20 +315,20 @@ public class HarpyNestOffspringDialogue {
 					switch(offspring().getAffectionLevel(Main.game.getPlayer())) {
 						case NEGATIVE_FIVE_LOATHE: case NEGATIVE_FOUR_HATE: case NEGATIVE_THREE_STRONG_DISLIKE: case NEGATIVE_TWO_DISLIKE:
 							UtilText.nodeContentSB.append(
-									"Coming to a halt in front of your [npc.daughter], you see that [npc.she]'s sunk into a slight crouch, as though [npc.she]'s prepared to attack you at any moment."
+									"Coming to a halt in front of your [npc.daughter], you see that [npc.sheIs] sunk into a slight crouch, as though [npc.sheIs] prepared to attack you at any moment."
 									+ " You're not entirely surprised by [npc.her] reaction, and considering what you did to [npc.herHim], you're lucky that [npc.she] didn't run away or attempt to fight you the moment [npc.she] saw you."
 									+ " Realising that you're not going to be able to have a proper conversation with [npc.herHim] until you've sincerely apologised, you're only left with a few options...");
 							break;
 						case NEGATIVE_ONE_ANNOYED:
 							UtilText.nodeContentSB.append(
-									"Coming to a halt in front of your [npc.daughter], you see that [npc.she]'s avoiding looking directly at you, as though [npc.she]'s disinterested in anything you have to say."
-									+ " You're not entirely surprised by [npc.her] reaction, and considering what you did to [npc.herHim], you're lucky that [npc.she]'s tolerating your presence in such a dignified manner."
+									"Coming to a halt in front of your [npc.daughter], you see that [npc.sheIs] avoiding looking directly at you, as though [npc.sheIs] disinterested in anything you have to say."
+									+ " You're not entirely surprised by [npc.her] reaction, and considering what you did to [npc.herHim], you're lucky that [npc.sheIs] tolerating your presence in such a dignified manner."
 									+ " Realising that you're not going to be able to have a proper conversation with [npc.herHim] until you've apologised for your actions, you're only left with a few options...");
 							break;
 						case ZERO_NEUTRAL: case POSITIVE_ONE_FRIENDLY: case POSITIVE_TWO_LIKE: case POSITIVE_THREE_CARING: case POSITIVE_FOUR_LOVE: case POSITIVE_FIVE_WORSHIP:
 							UtilText.nodeContentSB.append(
-									"Coming to a halt in front of your [npc.daughter], you get the sense that [npc.she]'s slightly uneasy in your presence, despite [npc.her] amicable greeting."
-									+ " You're not entirely surprised by this, and considering what you did to [npc.herHim], you're lucky that [npc.she]'s still treating you in such a friendly manner."
+									"Coming to a halt in front of your [npc.daughter], you get the sense that [npc.sheIs] slightly uneasy in your presence, despite [npc.her] amicable greeting."
+									+ " You're not entirely surprised by this, and considering what you did to [npc.herHim], you're lucky that [npc.sheIs] still treating you in such a friendly manner."
 									+ " Realising that you're not going to be able to have a proper conversation with [npc.herHim] until you've apologised for your actions, you're only left with a few options...");
 							break;
 						default:
@@ -341,35 +341,35 @@ public class HarpyNestOffspringDialogue {
 					switch(offspring().getAffectionLevel(Main.game.getPlayer())) {
 						case NEGATIVE_FIVE_LOATHE: case NEGATIVE_FOUR_HATE:
 							UtilText.nodeContentSB.append(
-									"Coming to a halt in front of your [npc.daughter], you see that [npc.she]'s sunk into a slight crouch, as though [npc.she]'s prepared to attack you at any moment."
+									"Coming to a halt in front of your [npc.daughter], you see that [npc.sheIs] sunk into a slight crouch, as though [npc.sheIs] prepared to attack you at any moment."
 									+ " It really seems as though [npc.she] hates you, and you consider that you're quite lucky that [npc.she] didn't run away or attempt to fight you the moment [npc.she] saw you."
 									+ " Realising that you're not going to be able to have a proper conversation with [npc.herHim] until you've apologised for the way you've acted towards [npc.herHim], you're only left with a few options...");
 							break;
 							
 						case NEGATIVE_THREE_STRONG_DISLIKE: case NEGATIVE_TWO_DISLIKE:
 							UtilText.nodeContentSB.append(
-									"Coming to a halt in front of your [npc.daughter], you see that [npc.she]'s making a point of not looking in your direction, and with head held high, [npc.she] lets out a derisive hum."
+									"Coming to a halt in front of your [npc.daughter], you see that [npc.sheIs] making a point of not looking in your direction, and with head held high, [npc.she] lets out a derisive hum."
 									+ " It really seems as though [npc.she] dislikes you, and if you wanted to have a proper conversation with [npc.herHim], it looks like you'll have to apologise for the way you've acted towards [npc.herHim]...");
 							break;
 						case NEGATIVE_ONE_ANNOYED:
 							UtilText.nodeContentSB.append(
 									"As you come to a halt in front of your [npc.daughter], [npc.she] steps forwards and looks into your [pc.eyes]."
-									+ " [npc.She] seems to be mildly annoyed with you at the moment, and you wonder how best to greet [npc.herHim] while [npc.she]'s like this...");
+									+ " [npc.She] seems to be mildly annoyed with you at the moment, and you wonder how best to greet [npc.herHim] while [npc.sheIs] like this...");
 							break;
 						case ZERO_NEUTRAL: case POSITIVE_ONE_FRIENDLY:
 							UtilText.nodeContentSB.append(
 									"As you come to a halt in front of your [npc.daughter], [npc.she] steps forwards, and with a smile on [npc.her] face, looks into your [pc.eyes]."
-									+ " [npc.She] seems to be happy to see you, and you wonder how best to greet [npc.herHim] while [npc.she]'s like this...");
+									+ " [npc.She] seems to be happy to see you, and you wonder how best to greet [npc.herHim] while [npc.sheIs] like this...");
 							break;
 						case POSITIVE_TWO_LIKE:case POSITIVE_THREE_CARING:
 							UtilText.nodeContentSB.append(
 									"As you come to a halt in front of your [npc.daughter], [npc.she] bounces forwards, and with a big smile on [npc.her] face, [npc.she] looks expectantly at you as [npc.she] waits for your greeting."
-									+ " It's quite obvious that's [npc.she]'s very happy to see you, and you wonder how best to greet [npc.herHim] while [npc.she]'s like this...");
+									+ " It's quite obvious that's [npc.sheIs] very happy to see you, and you wonder how best to greet [npc.herHim] while [npc.sheIs] like this...");
 							break;
 						case POSITIVE_FOUR_LOVE: case POSITIVE_FIVE_WORSHIP:
 							UtilText.nodeContentSB.append(
 									"As you come to a halt in front of your [npc.daughter], [npc.she] bounces forwards, and with a big smile on [npc.her] face, [npc.she] gazes lovingly into your [pc.eyes]."
-									+ " It's quite obvious that's [npc.she]'s more than happy to see you, and you wonder how best to greet [npc.herHim] while [npc.she]'s like this...");
+									+ " It's quite obvious that's [npc.sheIs] more than happy to see you, and you wonder how best to greet [npc.herHim] while [npc.sheIs] like this...");
 							break;
 						default:
 							break;
@@ -406,7 +406,7 @@ public class HarpyNestOffspringDialogue {
 					};
 					
 				} else if (index == 8) {
-					return new Response("Sex", "There's no way [npc.she]'ll consider having sex with you when [npc.she]'s this angry.", null) {
+					return new Response("Sex", "There's no way [npc.she]'ll consider having sex with you when [npc.sheIs] this angry.", null) {
 						@Override
 						public void effects() {
 							setOffspringFlags();
@@ -563,7 +563,7 @@ public class HarpyNestOffspringDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "You're the first to recover from the shock of your surprise meeting, and, with one thought in your mind, you step forwards, before wrapping your [pc.arms] around [npc.name]'s back."
-												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.she]'s expecting nothing more than a loving hug."
+												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.sheIs] expecting nothing more than a loving hug."
 											+ "</p>"
 											+ "<p>"
 												+ "That's not quite what you have in mind, however, and as [npc.she] leans forwards to return your embrace, you quickly press your [pc.lips+] against [npc.hers]."
@@ -594,7 +594,7 @@ public class HarpyNestOffspringDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "You're the first to recover from the shock of your surprise meeting, and, with one thought in your mind, you step forwards, before wrapping your [pc.arms] around [npc.name]'s back."
-												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.she]'s expecting nothing more than a loving hug."
+												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.sheIs] expecting nothing more than a loving hug."
 											+ "</p>"
 											+ "<p>"
 												+ "That's not quite what you have in mind, however, and as [npc.she] leans forwards to return your embrace, you quickly press your [pc.lips+] against [npc.hers]."
@@ -625,7 +625,7 @@ public class HarpyNestOffspringDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "Deciding that your [npc.daughter]'s in need of some intimate parental love, you step forwards and wrap your [pc.arms] around [npc.her] back."
-												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.she]'s expecting nothing more than a loving hug."
+												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.sheIs] expecting nothing more than a loving hug."
 											+ "</p>"
 											+ "<p>"
 												+ "That's not quite what you have in mind, however, and as [npc.she] leans forwards to return your embrace, you quickly press your [pc.lips+] against [npc.hers]."
@@ -656,7 +656,7 @@ public class HarpyNestOffspringDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "Deciding that your [npc.daughter]'s in need of some intimate parental love, you step forwards and wrap your [pc.arms] around [npc.her] back."
-												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.she]'s expecting nothing more than a loving hug."
+												+ " [npc.She] smiles fondly at you, [npc.her] innocent [npc.eyes] informing you that [npc.sheIs] expecting nothing more than a loving hug."
 											+ "</p>"
 											+ "<p>"
 												+ "That's not quite what you have in mind, however, and as [npc.she] leans forwards to return your embrace, you quickly press your [pc.lips+] against [npc.hers]."
@@ -703,7 +703,7 @@ public class HarpyNestOffspringDialogue {
 					
 				} if (index == 5) {
 					return new Response("Scold [npc.herHim]",
-							"Ask [npc.name] just what [npc.she] thinks [npc.she]'s doing!"
+							"Ask [npc.name] just what [npc.she] thinks [npc.sheIs] doing!"
 									+(offspring().getHistory()==History.PROSTITUTE
 											?" (This will voice disapproval about [npc.herHim] being a prostitute.)"
 											:" (This will voice disapproval about [npc.herHim] being a mugger.)"),
@@ -1117,7 +1117,7 @@ public class HarpyNestOffspringDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-					+ "Just because [npc.she]'s your [npc.daughter], that doesn't mean [npc.she]'s any better than the rest of the aggressive harpies living in these nests."
+					+ "Just because [npc.sheIs] your [npc.daughter], that doesn't mean [npc.sheIs] any better than the rest of the aggressive harpies living in these nests."
 					+ " So as to avoid interference from the other harpies in the nest, you ask your [npc.daughter] to step down onto a nearby walkway, before dropping down into a combat stance."
 					+ " [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]"
 				+ "</p>");
@@ -1170,7 +1170,7 @@ public class HarpyNestOffspringDialogue {
 			footerSB.append(
 					"<p>"
 						+ "<i>You notice [npc.name]'s gaze flick down as [npc.she] tries to take an unnoticed peek at your body."
-						+ " From the hungry look in [npc.her] [npc.eyes], you can tell that [npc.she]'s attracted to you...</i>"
+						+ " From the hungry look in [npc.her] [npc.eyes], you can tell that [npc.sheIs] attracted to you...</i>"
 					+ "</p>");
 		} else {
 			footerSB.append(
@@ -1365,7 +1365,7 @@ public class HarpyNestOffspringDialogue {
 											+ " you reply, looking up and down over you [npc.daughter]'s body."
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Yes, [npc.pcName]...)] [npc.she] obediently answers, clearly comfortable with doing whatever [npc.she]'s told."
+											+ "[npc.speech(Yes, [npc.pcName]...)] [npc.she] obediently answers, clearly comfortable with doing whatever [npc.sheIs] told."
 										+ "</p>");
 								Main.mainController.openInventory(offspring(), InventoryInteraction.FULL_MANAGEMENT);
 							}
@@ -1472,7 +1472,7 @@ public class HarpyNestOffspringDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Deciding that you'd like to get to know [npc.name] a little better, you ask [npc.herHim] about how [npc.she]'s doing,"
+						+ "Deciding that you'd like to get to know [npc.name] a little better, you ask [npc.herHim] about how [npc.sheIs] doing,"
 						+ " [pc.speech(Tell me about your life! How's everything going for you right now?)]"
 					+ "</p>");
 			
@@ -1511,7 +1511,7 @@ public class HarpyNestOffspringDialogue {
 									+ " I mean, Dominion's a pretty great place for my line of work... erm... being a prostitute, that is...)]"
 							+ "</p>"
 							+ "<p>"
-								+ "From [npc.her] attitude, you can tell that [npc.she] has no qualms about selling [npc.her] body, although [npc.she]'s a little nervous talking to you about it."
+								+ "From [npc.her] attitude, you can tell that [npc.she] has no qualms about selling [npc.her] body, although [npc.sheIs] a little nervous talking to you about it."
 								+ " Before you can offer a response, [npc.she] continues,"
 								+ " [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]"
 							+ "</p>"
@@ -1566,7 +1566,7 @@ public class HarpyNestOffspringDialogue {
 									+ " I mean, if they didn't want to get mugged, they wouldn't come trying to bother our matriarch, right?)]"
 							+ "</p>"
 							+ "<p>"
-								+ "From [npc.her] blase attitude, you can tell that [npc.she] has absolutely no qualms about beating people up and stealing their money, although [npc.she]'s a little nervous talking to you about it."
+								+ "From [npc.her] blase attitude, you can tell that [npc.she] has absolutely no qualms about beating people up and stealing their money, although [npc.sheIs] a little nervous talking to you about it."
 								+ " Before you can offer a response, [npc.she] continues,"
 								+ " [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]"
 							+ "</p>"
@@ -1803,7 +1803,7 @@ public class HarpyNestOffspringDialogue {
 						+ "<p>"
 							+ "You don't like [npc.her] insolent attitude, and after [npc.she] stops speaking, you start to berate [npc.her] some more."
 							+ " Reiterating what you've just said, you tell your [npc.daughter] that you expect far more from [npc.herHim], and that you don't want [npc.herHim] picking fights with intruders any longer."
-							+ " You're not sure if your words really have any effect, but at least [npc.she] now knows that [npc.her] [pc.mother] doesn't approve of the way in which [npc.she]'s living [npc.her] life."
+							+ " You're not sure if your words really have any effect, but at least [npc.she] now knows that [npc.her] [pc.mother] doesn't approve of the way in which [npc.sheIs] living [npc.her] life."
 						+ "</p>");
 				
 			} else {
@@ -1815,7 +1815,7 @@ public class HarpyNestOffspringDialogue {
 						+ "<p>"
 							+ "You don't like [npc.her] insolent attitude, and after [npc.she] stops speaking, you start to berate [npc.her] some more."
 							+ " Reiterating what you've just said, you tell your [npc.daughter] that you expect far more from [npc.herHim], and that you don't want [npc.herHim] picking fights with intruders any longer."
-							+ " You're not sure if your words really have any effect, but at least [npc.she] now knows that [npc.her] [pc.mother] doesn't approve of the way in which [npc.she]'s living [npc.her] life."
+							+ " You're not sure if your words really have any effect, but at least [npc.she] now knows that [npc.her] [pc.mother] doesn't approve of the way in which [npc.sheIs] living [npc.her] life."
 						+ "</p>");
 			}
 			
@@ -1850,7 +1850,7 @@ public class HarpyNestOffspringDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "You decide to ask [npc.name] to call you by a different name."
-						+ " At the moment, [npc.she]'s calling you '[npc.pcName]'."
+						+ " At the moment, [npc.sheIs] calling you '[npc.pcName]'."
 					+ "</p>"
 					
 					// TODO align this properly
@@ -1948,7 +1948,7 @@ public class HarpyNestOffspringDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "From the moment you entered [npc.name]'s apartment, you haven't been able to take your [pc.eyes] off of [npc.herHim]."
-						+ " The fact that [npc.she]'s your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmigly")+" at you once more, you can't help but act."
+						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmigly")+" at you once more, you can't help but act."
 					+ "</p>");
 			
 			if(offspring().getHistory()==History.PROSTITUTE){
@@ -1982,12 +1982,12 @@ public class HarpyNestOffspringDialogue {
 							+ " [npc.speech(Well, I <i>could</i> take you as a client, but this is strictly professional, ok? I do love you, but not quite in the same way that I think you love me...)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Although you're disappointed to hear that [npc.she]'s not interested in having sex with you, you're nonetheless relieved to hear that there's still an opportunity to get what you want."
+							+ "Although you're disappointed to hear that [npc.sheIs] not interested in having sex with you, you're nonetheless relieved to hear that there's still an opportunity to get what you want."
 							+ " Before you can respond, your [npc.daughter] continues,"
 							+ " [npc.speech(Usually I charge fifty flames for an hour, but it's kind of weird the way you're my [pc.mom] and all, so I'm going to have to charge double.)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You wonder if you should pay [npc.name] the 100 flames that [npc.she]'s asking for, or just forget it and do something else..."
+							+ "You wonder if you should pay [npc.name] the 100 flames that [npc.sheIs] asking for, or just forget it and do something else..."
 						+ "</p>");
 				
 			} else {
@@ -1997,7 +1997,7 @@ public class HarpyNestOffspringDialogue {
 							+ " [npc.speech([npc.pcName]?! What the hell?! I'm not going to have sex with my own [pc.mother]!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().isFeminine()?"You pout":"You frown") + " at your [npc.daughter], upset that [npc.she]'s not interested in what you had in mind,"
+							+ (Main.game.getPlayer().isFeminine()?"You pout":"You frown") + " at your [npc.daughter], upset that [npc.sheIs] not interested in what you had in mind,"
 								+ " [pc.speech(Well, the offer's out there, if you ever change your mind.)]"
 						+ "</p>"
 						+ "<p>"
@@ -2430,11 +2430,11 @@ public class HarpyNestOffspringDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] packs up [npc.her] things and prepares to move out."
-										+ " After a short while, [npc.she]'s ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
+										+ " After a short while, [npc.sheIs] ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
 										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
 									+ "</p>"
 									+ "<p>"
-										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off onto the walkways once again..."
+										+ "With that, [npc.sheIs] gone, and you're left with little else to do but set off onto the walkways once again..."
 									+ "</p>");
 							
 						} else {
@@ -2450,7 +2450,7 @@ public class HarpyNestOffspringDialogue {
 										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
 									+ "</p>"
 									+ "<p>"
-										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off onto the walkways once again..."
+										+ "With that, [npc.sheIs] gone, and you're left with little else to do but set off onto the walkways once again..."
 									+ "</p>");
 							
 						}
@@ -2555,7 +2555,7 @@ public class HarpyNestOffspringDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Time for some fun, [npc.pcName]!)]"
@@ -2585,7 +2585,7 @@ public class HarpyNestOffspringDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Time for some fun, [npc.pcName]!)]"
@@ -2615,7 +2615,7 @@ public class HarpyNestOffspringDialogue {
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Time for some fun, [npc.pcName]!)]"
@@ -2858,11 +2858,11 @@ public class HarpyNestOffspringDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] packs up [npc.her] things and prepares to move out."
-										+ " After a short while, [npc.she]'s ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
+										+ " After a short while, [npc.sheIs] ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
 										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
 									+ "</p>"
 									+ "<p>"
-										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the nests once again..."
+										+ "With that, [npc.sheIs] gone, and you're left with little else to do but set off into the nests once again..."
 									+ "</p>");
 							
 						} else {
@@ -2878,7 +2878,7 @@ public class HarpyNestOffspringDialogue {
 										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
 									+ "</p>"
 									+ "<p>"
-										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the nests once again..."
+										+ "With that, [npc.sheIs] gone, and you're left with little else to do but set off into the nests once again..."
 									+ "</p>");
 							
 						}
@@ -2911,7 +2911,7 @@ public class HarpyNestOffspringDialogue {
 				return UtilText.parse(
 						"<p>"
 							+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink down onto the sofa, totally worn out from [npc.her] dominant treatment of you."
-							+ " Once [npc.she]'s finished getting [npc.her] things in order, [npc.she] walks over and looks down at you, smirking in a very satisfied manner."
+							+ " Once [npc.sheIs] finished getting [npc.her] things in order, [npc.she] walks over and looks down at you, smirking in a very satisfied manner."
 							+ " Leaning down, [npc.she] pats you on the head."
 							+ " [npc.speech(Silly [npc.pcName]! This is what happens if you try attacking me!)]"
 						+ "</p>"
@@ -2930,7 +2930,7 @@ public class HarpyNestOffspringDialogue {
 				return UtilText.parse(
 						"<p>"
 							+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink down onto the ground, totally worn out from [npc.her] dominant treatment of you."
-							+ " Once [npc.she]'s finished getting [npc.her] things in order, [npc.she] walks over and looks down at you, smirking in a very satisfied manner."
+							+ " Once [npc.sheIs] finished getting [npc.her] things in order, [npc.she] walks over and looks down at you, smirking in a very satisfied manner."
 							+ " Leaning down, [npc.she] pats you on the head."
 							+ " [npc.speech(Silly [npc.pcName]! This is what happens if you try attacking me!)]"
 						+ "</p>"

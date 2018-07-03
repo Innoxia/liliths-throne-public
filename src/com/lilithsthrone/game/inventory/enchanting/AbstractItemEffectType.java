@@ -1370,13 +1370,13 @@ public abstract class AbstractItemEffectType {
 			if(target.isPlayer()) {
 				return "A soothing warmth spreads all throughout your body, and with a deeply satisfied sigh, you find yourself feeling a lot healthier than you did just a moment ago.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] lets out a satisfied sigh, and you notice that [npc.she]'s suddenly looking a lot healthier than [npc.she] did just a moment ago.");
+				return UtilText.parse(target, "[npc.Name] lets out a satisfied sigh, and you notice that [npc.sheIs] suddenly looking a lot healthier than [npc.she] did just a moment ago.");
 			}
 		} else {
 			if(target.isPlayer()) {
 				return "A sickly warmth creeps its way all throughout your body, and with a feeble cough, you find yourself feeling weaker than you did just a moment ago.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] lets out a feeble cough, and you notice that [npc.she]'s suddenly looking a little weaker than [npc.she] did just a moment ago.");
+				return UtilText.parse(target, "[npc.Name] lets out a feeble cough, and you notice that [npc.sheIs] suddenly looking a little weaker than [npc.she] did just a moment ago.");
 			}
 		}
 	}
@@ -1453,7 +1453,7 @@ public abstract class AbstractItemEffectType {
 					if(target.isPlayer()) {
 						return "A soothing warmth spreads all throughout your body, and with a deeply satisfied sigh, you find yourself feeling a lot healthier than you did just a moment ago.";
 					} else {
-						return UtilText.parse(target, "[npc.Name] lets out a satisfied sigh, and you notice that [npc.she]'s suddenly looking a lot healthier than [npc.she] did just a moment ago.");
+						return UtilText.parse(target, "[npc.Name] lets out a satisfied sigh, and you notice that [npc.sheIs] suddenly looking a lot healthier than [npc.she] did just a moment ago.");
 					}
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {

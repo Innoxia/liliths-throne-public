@@ -249,7 +249,7 @@ public class Arm implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 										+ " [npc.she] sees [npc.her] hair growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
-								+ " Despite their appearance, [npc.she]'s relieved to discover that [npc.her] hands have lost none of their dexterity."
+								+ " Despite their appearance, [npc.sheIs] relieved to discover that [npc.her] hands have lost none of their dexterity."
 								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new hair smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
 								+ "[npc.Name] is left with anthropomorphic, [style.boldHorseMorph(horse-like arms and hands)], which are covered in [npc.armFullDescription]."
 							+ "</p>");
@@ -268,7 +268,7 @@ public class Arm implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 										+ " [npc.she] sees [npc.her] fur growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
-								+ " Despite their appearance, [npc.she]'s relieved to discover that [npc.her] hands have lost none of their dexterity."
+								+ " Despite their appearance, [npc.sheIs] relieved to discover that [npc.her] hands have lost none of their dexterity."
 								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
 								+ "[npc.Name] is left with anthropomorphic, [style.boldReindeerMorph(reindeer-like arms and hands)], which are covered in [npc.armFullDescription]."
 							+ "</p>");
@@ -287,7 +287,7 @@ public class Arm implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 										+ " [npc.she] sees [npc.her] hair growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
-								+ " Despite their appearance, [npc.she]'s relieved to discover that [npc.her] hands have lost none of their dexterity."
+								+ " Despite their appearance, [npc.sheIs] relieved to discover that [npc.her] hands have lost none of their dexterity."
 								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new hair smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
 								+ "[npc.Name] is left with anthropomorphic, [style.boldCowMorph(cow-like arms and hands)], which are covered in [npc.armFullDescription]."
 							+ "</p>");

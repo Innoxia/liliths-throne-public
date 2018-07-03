@@ -815,13 +815,13 @@ public class PartnerPenisAss {
 							"Roughly yanking [npc.her] [npc.cock+] out of [npc2.namePos] ass cleavage,"
 									+ " [npc.name] dominantly slides the [npc.cockHead] of [npc.her] [npc.cock] up and down over [npc2.namePos] [npc2.ass+] one last time before pulling [npc.her] [npc.hips] back.",
 
-							"thrusting deep inside of [npc2.namePos] ass cleavage one last time, [npc.name] then [npc2.verb(pull)]s back, putting an end to [npc2.namePos] hotdogging."));
+							"thrusting deep inside of [npc2.namePos] ass cleavage one last time, [npc.name] then [npc2.verb(pull)] back, putting an end to [npc2.namePos] hotdogging."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding [npc.her] [npc.cock] out of [npc2.namePos] ass cleavage, [npc.name] slides the [npc.cockHead] of [npc.her] [npc.cock] up and down over [npc2.namePos] [npc2.ass+] one last time before pulling [npc.her] [npc.hips] back.",
 
-							"Pushing deep inside of [npc2.namePos] ass cleavage one last time, [npc.name] then [npc2.verb(pull)]s back, putting an end to [npc2.namePos] hotdogging."));
+							"Pushing deep inside of [npc2.namePos] ass cleavage one last time, [npc.name] then [npc2.verb(pull)] back, putting an end to [npc2.namePos] hotdogging."));
 					break;
 			}
 			

@@ -1827,7 +1827,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 	
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
-								UtilText.parse(slave, "You cannot move [npc.name] to this location, as you don't own [npc.herHim], as well as due to the fact that [npc.she]'s already here!"));
+								UtilText.parse(slave, "You cannot move [npc.name] to this location, as you don't own [npc.herHim], as well as due to the fact that [npc.sheIs] already here!"));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					

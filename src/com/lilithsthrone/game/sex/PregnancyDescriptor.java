@@ -101,7 +101,7 @@ public enum PregnancyDescriptor {
 							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a small chance [npc.she] is now!</b>"
-											:"there's a small chance [npc.she]'s going to get pregnant!</b>")
+											:"there's a small chance [npc.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
@@ -113,7 +113,7 @@ public enum PregnancyDescriptor {
 								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a small chance [npc2.she] is now!</b>"
-												:"there's a small chance that [npc2.she]'s going to get pregnant!</b>")
+												:"there's a small chance that [npc2.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				}
 			}
@@ -148,7 +148,7 @@ public enum PregnancyDescriptor {
 							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a chance [npc.she] is now!</b>"
-											:"there's a chance [npc.she]'s going to get pregnant!</b>")
+											:"there's a chance [npc.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
@@ -160,7 +160,7 @@ public enum PregnancyDescriptor {
 								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a chance [npc2.she] is now!</b>"
-												:"there's a chance that [npc2.she]'s going to get pregnant!</b>")
+												:"there's a chance that [npc2.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				}
 			}
@@ -195,7 +195,7 @@ public enum PregnancyDescriptor {
 							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a high chance [npc.she] is now!</b>"
-											:"there's a high chance [npc.she]'s going to get pregnant!</b>")
+											:"there's a high chance [npc.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
@@ -207,7 +207,7 @@ public enum PregnancyDescriptor {
 								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a high chance [npc2.she] is now!</b>"
-												:"there's a high chance that [npc2.she]'s going to get pregnant!</b>")
+												:"there's a high chance that [npc2.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				}
 			}
@@ -242,7 +242,7 @@ public enum PregnancyDescriptor {
 							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, [npc.she] certainly is now!</b>"
-											:"it's a certainty that [npc.she]'s going to get pregnant!</b>")
+											:"it's a certainty that [npc.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
@@ -254,7 +254,7 @@ public enum PregnancyDescriptor {
 								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, [npc2.she] certainly is now!</b>"
-												:"it's a certainty that [npc2.she]'s going to get pregnant!</b>")
+												:"it's a certainty that [npc2.sheIs] going to get pregnant!</b>")
 							+ "</p>");
 				}
 			}

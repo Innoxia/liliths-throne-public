@@ -55,7 +55,7 @@ public class TailAnus {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(start)] slowly teasing the [npc.tailTip+] up and down over [npc2.her] [npc2.asshole+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With a soft [npc.moan], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to gently slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
+							"With a soft [npc.moan], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to gently slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
 
 							"Gently sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -66,7 +66,7 @@ public class TailAnus {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(start)] eagerly sliding the [npc.tailTip+] up and down over [npc2.her] [npc2.asshole+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With [npc.a_moan+], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to eagerly slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to eagerly slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
 
 							"Eagerly sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -87,7 +87,7 @@ public class TailAnus {
 							"Snaking [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(start)] sliding the [npc.tailTip+] up and down over [npc2.her] [npc2.asshole+], ready to penetrate [npc2.herHim] at any moment.",
 
-							"With [npc.a_moan+], [npc.name] snakes [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(snake)] [npc.her] [npc.tail+] up to [npc2.namePos] [npc2.ass+], before starting to slide the [npc.tailTip] up and down over [npc2.her] [npc2.asshole+].",
 
 							"Sliding the [npc.tailTip+] of [npc.her] [npc.tail] up and down over [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] at the thought of being able to penetrate [npc2.herHim] whenever [npc.she] [npc.verb(feel)] like it."));
@@ -99,7 +99,7 @@ public class TailAnus {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.asshole+] being stimulated,"
-									+ " and [npc2.she] gently [npcc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] gently [npc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently bucking [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
@@ -109,7 +109,7 @@ public class TailAnus {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.asshole+] being stimulated,"
-									+ " and [npc2.she] eagerly [npcc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] eagerly [npc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
@@ -118,7 +118,7 @@ public class TailAnus {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.asshole+] being stimulated,"
-									+ " and [npc2.she] forcefully [npcc2.verb(thrust)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] forcefully [npc2.verb(thrust)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
@@ -127,7 +127,7 @@ public class TailAnus {
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.asshole+] being stimulated,"
-									+ " and [npc2.she] [npcc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
+									+ " and [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
 							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
@@ -432,7 +432,7 @@ public class TailAnus {
 								+ " and, eagerly thrusting [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(beg)] for [npc.name] to carry on tail-pegging [npc2.herHim].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(thrust)] [npc2.her] [npc2.hips+] back,"
-								+ " eagerly begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]"));
+								+ " eagerly begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]."));
 				break;
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -443,7 +443,7 @@ public class TailAnus {
 								+ " tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to pull out of [npc2.her] [npc2.asshole+].",
 	
 						" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
-								+ " [npc2.name] weakly struggle against [npc.name], pleading and crying for [npc.herHim] to pull out of [npc2.her] [npc2.asshole+]"));
+								+ " [npc2.name] weakly [npc2.verb(struggle)] against [npc.name], pleading and crying for [npc.herHim] to pull out of [npc2.her] [npc2.asshole+]."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -454,7 +454,7 @@ public class TailAnus {
 								+ " and, thrusting [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(beg)] for [npc.name] to carry on tail-pegging [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(push)] [npc2.her] [npc2.hips+] back,"
-								+ " begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]"));
+								+ " begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]."));
 				break;
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -465,7 +465,7 @@ public class TailAnus {
 								+ " and, slowly bucking [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(implore)] [npc.name] to carry on tail-pegging [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] gently [npc2.verb(push)] [npc2.her] [npc2.hips+] back,"
-								+ " begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]"));
+								+ " begging for [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements help to sink [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]."));
 				break;
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -476,7 +476,7 @@ public class TailAnus {
 								+ " and, roughly slamming [npc2.her] [npc2.hips] back, [npc2.she] [npc2.verb(order)] [npc.name] to carry on tail-pegging [npc2.herHim].",
 
 						" [npc2.Moaning] in delight, [npc2.name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips+] back,"
-								+ " ordering [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements force [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]"));
+								+ " ordering [npc.name] to continue tail-pegging [npc2.herHim] as [npc2.her] movements force [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+]."));
 				break;
 		}
 		return "";
@@ -508,13 +508,13 @@ public class TailAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(start)] sliding it in and out, letting out a little [npc.moan] with every thrust as [npc.she] slowly tail-pegs [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] sliding it in and out, letting out a little [npc.moan] with every thrust as [npc.she] slowly [npc.verb(tail-peg)] [npc2.name].",
 
 					"Slowly pushing [npc.her] [npc.tail+] into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] softly [npc2.verb(thrust)] it in and out, letting out a little [npc.moan] as [npc.she] gently tail-pegs [npc2.herHim].",
+							+ " [npc.name] softly [npc2.verb(thrust)] it in and out, letting out a little [npc.moan] as [npc.she] gently [npc.verb(tail-peg)] [npc2.herHim].",
 
 					"Sliding [npc.her] [npc.tail+] into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] [npc.verb(start)] to gently pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly tail-pegs [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] [npc.verb(start)] to gently pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly [npc.verb(tail-peg)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 					
@@ -549,13 +549,13 @@ public class TailAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-pegs [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-peg)] [npc2.name].",
 
 					"Enthusiastically pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily tail-pegs [npc2.herHim].",
+							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(tail-peg)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately tail-pegs [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(tail-peg)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -590,13 +590,13 @@ public class TailAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Roughly slamming [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(start)] roughly pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] brutally tail-pegs [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] roughly pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] brutally [npc.verb(tail-peg)] [npc2.name].",
 
 					"Violently thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc2.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully tail-pegs [npc2.herHim].",
+							+ " [npc.name] [npc2.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(tail-peg)] [npc2.herHim].",
 
 					"Forcefully driving [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently tail-pegs [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently [npc.verb(tail-peg)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -621,7 +621,7 @@ public class TailAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "[npc.verb(continue)] fucking [npc2.namePos] [npc2.asshole+].";
+			return "Continue fucking [npc2.namePos] [npc2.asshole+].";
 		}
 
 		@Override
@@ -631,13 +631,13 @@ public class TailAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(start)] pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-pegs [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-peg)] [npc2.name].",
 
 					"Pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly tail-pegs [npc2.herHim].",
+							+ " [npc.name] [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(tail-peg)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] tail-pegs [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(tail-peg)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -672,13 +672,13 @@ public class TailAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly sinking [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily tail-pegs [npc2.name].",
+							+ " [npc.name] [npc.verb(start)] enthusiastically pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-peg)] [npc2.name].",
 
 					"Enthusiastically pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily tail-pegs [npc2.herHim].",
+							+ " [npc.name] frantically [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(tail-peg)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.asshole+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately tail-pegs [npc2.herHim]."));
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(tail-peg)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -904,7 +904,7 @@ public class TailAnus {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.herHim], pushing [npc2.her] [npc2.tail] forwards as [npc2.she] [npc2.verb(start)] tail-fucking [npc.namePos] [npc.asshole+].",
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards, sinking it deep into [npc.namePos] [npc.asshole+] as [npc2.she] [npc2.verb(start)] tail-peg [npc.herHim]."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(thrust)] [npc2.her] [npc2.tail] forwards, sinking it deep into [npc.namePos] [npc.asshole+] as [npc2.she] [npc2.verb(start)] tail-pegging [npc.herHim]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

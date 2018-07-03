@@ -1360,15 +1360,15 @@ public class PartnerPenisBreasts {
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Roughly pushing [npc2.name] away, [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breasts+].",
+								"Roughly pushing [npc2.name] away, [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breasts+].",
 
-								"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breasts+]."));
+								"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breasts+]."));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breasts+].",
+								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breasts+].",
 
-								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breasts+]."));
+								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breasts+]."));
 						break;
 				}
 			} else {
@@ -1376,30 +1376,30 @@ public class PartnerPenisBreasts {
 					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"Roughly pushing [npc2.name] away, [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage and tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts].",
+									"Roughly pushing [npc2.name] away, [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage and tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts].",
 
-									"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage, [npc.name] tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts]."));
+									"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts]."));
 							break;
 						default:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage and tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts].",
+									"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage and tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts].",
 
-									"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage, [npc.name] tells [npc2.name] that [npc.she]'s had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts]."));
+									"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] tiny amount of cleavage, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of fucking [npc2.namePos] [npc2.breastSize] [npc2.breasts]."));
 							break;
 					}
 				} else {
 					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"Roughly pushing [npc2.name] away, [npc.name] takes [npc.her] [npc.cock+] away from [npc2.namePos] chest and tells [npc2.name] that [npc.she]'s had enough of grinding against [npc2.herHim].",
+									"Roughly pushing [npc2.name] away, [npc.name] takes [npc.her] [npc.cock+] away from [npc2.namePos] chest and tells [npc2.name] that [npc.sheIs] had enough of grinding against [npc2.herHim].",
 
-									"Roughly pulling [npc.her] [npc.cock+] away from [npc2.namePos] chest, [npc.name] tells [npc2.name] that [npc.she]'s had enough of grinding against [npc2.herHim]."));
+									"Roughly pulling [npc.her] [npc.cock+] away from [npc2.namePos] chest, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of grinding against [npc2.herHim]."));
 							break;
 						default:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"[npc.Name] takes [npc.her] [npc.cock+] away from [npc2.namePos] chest and tells [npc2.name] that [npc.she]'s had enough of grinding against [npc2.herHim].",
+									"[npc.Name] takes [npc.her] [npc.cock+] away from [npc2.namePos] chest and tells [npc2.name] that [npc.sheIs] had enough of grinding against [npc2.herHim].",
 
-									"Pulling [npc.her] [npc.cock+] away from [npc2.namePos] chest, [npc.name] tells [npc2.name] that [npc.she]'s had enough of grinding against [npc2.herHim]."));
+									"Pulling [npc.her] [npc.cock+] away from [npc2.namePos] chest, [npc.name] tells [npc2.name] that [npc.sheIs] had enough of grinding against [npc2.herHim]."));
 							break;
 					}
 				}

@@ -4756,7 +4756,7 @@ public class ItemType {
 									+"</p>"
 									+ "<p>"
 										+ UtilText.parse(target,
-												"Reading through the spell book again, [npc.name] quickly discovers that [npc.she]'s already learned all there is to know about the spell '"+s.getName()+"'."
+												"Reading through the spell book again, [npc.name] quickly discovers that [npc.sheIs] already learned all there is to know about the spell '"+s.getName()+"'."
 												+ " Apart from some well-detailed diagrams of a demon casting this spell, there's nothing within the tome's pages to hold [npc.her] attention,"
 													+ " and [npc.she] closes it after just a couple of minutes, having not learned anything new...")
 									+ "</p>";

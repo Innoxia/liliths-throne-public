@@ -121,7 +121,7 @@ public class AlleywayProstituteDialogue {
 											"[npc.speech(Hey again... We don't need to fight this time, ok? I can show you a real good time!)]")
 								+"</p>"
 								+ "<p>"
-									+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.she]'s still working as a prostitute."
+									+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.sheIs] still working as a prostitute."
 									+ " You've seen plenty of other hookers offering their services out in the main streets of Dominion, and you wonder why this particular one would be hiding so far away from the safety of those areas."
 									+ " You assume that [npc.she] must have run afoul of the law, for there's no other reason to be working in a place as dangerous and client-starved as these alleyways."
 								+ "</p>"
@@ -179,7 +179,7 @@ public class AlleywayProstituteDialogue {
 											"[npc.speech(Hey again, good lookin'! I can show you a real good time!)]")
 								+"</p>"
 								+ "<p>"
-									+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.she]'s still working as a prostitute."
+									+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.sheIs] still working as a prostitute."
 									+ " You've seen plenty of other hookers offering their services out in the main streets of Dominion, and you wonder why this particular one would be hiding so far away from the safety of those areas."
 									+ " You assume that [npc.she] must have run afoul of the law, for there's no other reason to be working in a place as dangerous and client-starved as these alleyways."
 								+ "</p>"
@@ -215,7 +215,7 @@ public class AlleywayProstituteDialogue {
 								"[npc.speech(Hey, good lookin'! I can show you a real good time!)]")
 					+"</p>"
 					+ "<p>"
-						+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.she]'s a prostitute."
+						+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.sheIs] a prostitute."
 						+ " You've seen plenty of other hookers offering their services out in the main streets of Dominion, and you wonder why this particular one would be hiding so far away from the safety of those areas."
 						+ " You assume that [npc.she] must have run afoul of the law, for there's no other reason to be working in a place as dangerous and client-starved as these alleyways."
 					+ "</p>"
@@ -341,7 +341,7 @@ public class AlleywayProstituteDialogue {
 				}
 				
 			} else if (index == 4) {
-				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.she]'s run afoul of the law, as you assume [npc.she] has, then [npc.she]'s fair game!", ALLEY_PROSTITUTE_FIGHT) {
+				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!", ALLEY_PROSTITUTE_FIGHT) {
 					@Override
 					public boolean isCombatHighlight() {
 						return true;
@@ -443,7 +443,7 @@ public class AlleywayProstituteDialogue {
 							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
+							+ "Realising that [npc.sheIs] been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
 							+ " [npc.speech(I'll never be a slave! Fuck you!)]"
 						+ "</p>";
 		}
@@ -479,10 +479,10 @@ public class AlleywayProstituteDialogue {
 					+ "<p>"
 						+ "Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]."
 						+ " Even as [npc.she] begs for you to have mercy, you see [npc.herHim] glance down hungrily at your body."
-						+ " Seemingly unaware of what [npc.she]'s doing, [npc.her] [npc.hands] suddenly drop down between [npc.her] [npc.legs], and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]."
+						+ " Seemingly unaware of what [npc.sheIs] doing, [npc.her] [npc.hands] suddenly drop down between [npc.her] [npc.legs], and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]."
 					+ "</p>"
 					+ "<p>"
-						+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once you leave.</i>"
+						+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once you leave.</i>"
 					+ "</p>");
 		}
 		
@@ -606,7 +606,7 @@ public class AlleywayProstituteDialogue {
 							+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once [npc.she]'s had [npc.her] fun with you.</i>"
+							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once [npc.sheIs] had [npc.her] fun with you.</i>"
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -643,7 +643,7 @@ public class AlleywayProstituteDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 2) {
@@ -664,7 +664,7 @@ public class AlleywayProstituteDialogue {
 							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
@@ -686,7 +686,7 @@ public class AlleywayProstituteDialogue {
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 							+ "</p>");
 					
 				} else {
@@ -756,7 +756,7 @@ public class AlleywayProstituteDialogue {
 				};
 				
 			} if (index == 2) {
-				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.she]'s run afoul of the law, as you assume [npc.she] has, then [npc.she]'s fair game!", AFTER_SEX_PAID_FIGHT) {
+				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!", AFTER_SEX_PAID_FIGHT) {
 					@Override
 					public boolean isCombatHighlight() {
 						return true;
@@ -803,7 +803,7 @@ public class AlleywayProstituteDialogue {
 							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
+							+ "Realising that [npc.sheIs] been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
 							+ " [npc.speech(I'll never be a slave! Fuck you!)]"
 						+ "</p>";
 		}
@@ -907,7 +907,7 @@ public class AlleywayProstituteDialogue {
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>"
 						+ "<p>"
-							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once you leave.</i>"
+							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once you leave.</i>"
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -916,7 +916,7 @@ public class AlleywayProstituteDialogue {
 							+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
 						+ "</p>"
 						+ "<p>"
-							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once you leave.</i>"
+							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once you leave.</i>"
 						+ "</p>");
 			}
 			
@@ -973,7 +973,7 @@ public class AlleywayProstituteDialogue {
 						+ " It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way."
 					+ "</p>"
 					+ "<p>"
-						+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this was the last time you'll ever see [npc.herHim], as [npc.she]'s sure to move on to a new location.</i>"
+						+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this was the last time you'll ever see [npc.herHim], as [npc.sheIs] sure to move on to a new location.</i>"
 					+ "</p>");
 		}
 

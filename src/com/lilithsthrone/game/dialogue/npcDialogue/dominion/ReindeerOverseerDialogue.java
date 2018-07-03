@@ -29,7 +29,7 @@ public class ReindeerOverseerDialogue {
 	
 	private static Response getDefaultResponses(int index) {
 		if(index == 1) {
-			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.she]'s selling.", reindeer()) {
+			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.sheIs] selling.", reindeer()) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());

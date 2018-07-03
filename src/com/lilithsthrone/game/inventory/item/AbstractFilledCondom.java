@@ -160,12 +160,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 			if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
 				return "<p>"
 							+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily gulps down the slimy fluid."
-							+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately licks up every last drop of cum; only discarding the condom once [npc.she]'s sure that's it's completely empty."
+							+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately licks up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
 						+ "</p>"
 						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			} else {
 				return "<p>"
-							+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] gulps down the slimy fluid, trying [npc.her] best not to think about what [npc.she]'s just done as [npc.she] throws the now-empty condom to the floor..."
+							+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] gulps down the slimy fluid, trying [npc.her] best not to think about what [npc.sheIs] just done as [npc.she] throws the now-empty condom to the floor..."
 						+ "</p>"
 						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			}

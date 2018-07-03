@@ -150,7 +150,7 @@ public class PartnerSelfFingerVagina {
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] lets out a little whimper as [npc.she] starts stroking [npc.her] vaginal walls.",
 					
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
 	};
@@ -192,7 +192,7 @@ public class PartnerSelfFingerVagina {
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts stroking [npc.her] vaginal walls.",
 					
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
 	};
@@ -234,7 +234,7 @@ public class PartnerSelfFingerVagina {
 					
 					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts roughly grinding [npc.her] fingertips up against [npc.her] vaginal walls.",
 					
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 
 	};
@@ -276,7 +276,7 @@ public class PartnerSelfFingerVagina {
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts stroking [npc.her] vaginal walls.",
 					
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
 	};
@@ -318,7 +318,7 @@ public class PartnerSelfFingerVagina {
 					
 					"Desperately curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts eagerly grinding [npc.her] fingertips up against [npc.her] vaginal walls.",
 					
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] eagerly starts slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] eagerly starts slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 
 	};

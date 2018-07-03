@@ -870,7 +870,7 @@ public class PlayerPenisBreasts {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"You slide your [pc.cock+] up into [npc.name]'s cleavage, letting out [pc.a_moan+] as [npc.she] roughly presses [npc.her] [npc.breasts+] together and orders you to keep going.",
-								"You thrust up between [npc.name]'s [npc.breasts+], causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+								"You thrust up between [npc.name]'s [npc.breasts+], causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 								"Thrusting your [pc.cock+] between [npc.name]'s cleavage, you let out [pc.a_moan+] as [npc.she] forcefully pushes [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
 						break;
 					default: // DOM_NORMAL and in case anything goes wrong:
@@ -897,7 +897,7 @@ public class PlayerPenisBreasts {
 									"You slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
 											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts] together and orders you to keep going.",
 									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts],"
-											+ " causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+											+ " causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] forcefully tries to push [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
 							break;
@@ -922,7 +922,7 @@ public class PlayerPenisBreasts {
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You slide your [pc.cock+] against [npc.name]'s chest, letting out [pc.a_moan+] as [npc.she] roughly orders you to keep going.",
-									"You thrust down against [npc.name]'s chest, causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+									"You thrust down against [npc.name]'s chest, causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 									"Thrusting your [pc.cock+] against [npc.name]'s chest, you let out [pc.a_moan+] as [npc.she] forcefully demands that you pick up the pace."));
 							break;
 						default: // DOM_NORMAL and in case anything goes wrong:
@@ -990,7 +990,7 @@ public class PlayerPenisBreasts {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"You eagerly slide your [pc.cock+] up into [npc.name]'s cleavage, letting out [pc.a_moan+] as [npc.she] roughly presses [npc.her] [npc.breasts+] together and orders you to keep going.",
-								"You enthusiastically thrust up between [npc.name]'s [npc.breasts+], causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+								"You enthusiastically thrust up between [npc.name]'s [npc.breasts+], causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 								"Desperately thrusting your [pc.cock+] between [npc.name]'s cleavage, you let out [pc.a_moan+] as [npc.she] forcefully pushes [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
 						break;
 					default: // DOM_NORMAL and in case anything goes wrong:
@@ -1017,7 +1017,7 @@ public class PlayerPenisBreasts {
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
 											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts] together and orders you to keep going.",
 									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts],"
-											+ " causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+											+ " causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] forcefully tries to push [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
 							break;
@@ -1042,7 +1042,7 @@ public class PlayerPenisBreasts {
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] against [npc.name]'s chest, letting out [pc.a_moan+] as [npc.she] roughly orders you to keep going.",
-									"You enthusiastically thrust down against [npc.name]'s chest, causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
+									"You enthusiastically thrust down against [npc.name]'s chest, causing [npc.herHim] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.sheIs] still in charge.",
 									"Desperately thrusting your [pc.cock+] against [npc.name]'s chest, you let out [pc.a_moan+] as [npc.she] forcefully demands that you pick up the pace."));
 							break;
 						default: // DOM_NORMAL and in case anything goes wrong:

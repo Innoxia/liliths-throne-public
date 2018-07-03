@@ -773,12 +773,12 @@ public class PrologueDialogue {
 						+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseNPCSpeech("Oh shit, [pc.she]'s alive!", Femininity.MASCULINE_STRONG)
+						+ UtilText.parseNPCSpeech("Oh shit, [pc.sheIs] alive!", Femininity.MASCULINE_STRONG)
 						+ " someone says."
 					+ "</p>"
 					+ "<p>"
 						+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see [pc.herHim] just fall out of mid-air?!"
-								+ " [pc.She]'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
+								+ " [pc.sheIs] obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
 						+ " a rather worried-sounding man replies."
 					+ "</p>"
 
@@ -792,9 +792,9 @@ public class PrologueDialogue {
 					+ " the two voices say in unison.</p>"
 
 					+ "<p>"
-					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.She]'s human, get it? Since when could a human use that kind of arcane power?"
+					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.sheIs] human, get it? Since when could a human use that kind of arcane power?"
 							+ " Hell, only a Lilin could just teleport themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact [pc.she] didn't understand."
-							+ " In other words, [pc.she]'s fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
+							+ " In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
 					+ "</p>"
 
 					+ "<p>"
@@ -1350,7 +1350,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 						+ "Lilaya makes a soothing hushing sound before patting her on the head. "
-						+ "[lilaya.speech(Shh, it's alright, Rose, [pc.she]'s a guest of mine, you can calm down,)]"
+						+ "[lilaya.speech(Shh, it's alright, Rose, [pc.sheIs] a guest of mine, you can calm down,)]"
 						+ " she says, before pulling Rose into a surprisingly intimate hug. "
 						+ "[lilaya.speech(Why don't you go make us some tea, you can bring it down to us in the lab.)]"
 					+ "</p>"

@@ -1731,10 +1731,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+clothingToSteal.getName()+"...",
-										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.she]'s currently wearing, [npc.speech(Y-You pervert!)]",
+										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing, [npc.speech(Y-You pervert!)]",
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing, [pc.speech(Y-You pervert!)]",
-										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.she]'s currently wearing, [npc2.speech(Y-You pervert!)]")
+										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing, [npc2.speech(Y-You pervert!)]")
 								+ "</p>"
 								+ caster.addClothing(clothingToSteal, true));
 					}
@@ -1855,10 +1855,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+clothingToSteal.getName()+"...",
-										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.she]'s currently wearing!",
+										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing!",
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing!",
-										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.she]'s currently wearing!")
+										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing!")
 								+ "</p>"
 								+ caster.addClothing(clothingToSteal, true));
 						

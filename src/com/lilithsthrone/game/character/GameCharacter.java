@@ -8645,7 +8645,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
 				return "<p>"+
-						"[npc.Name] grins as [npc.she] reveals the fact that [npc.she]'s wearing a strap-on. "
+						"[npc.Name] grins as [npc.she] reveals the fact that [npc.sheIs] wearing a strap-on. "
 						+ "[npc.speech(Time for a little extra fun!)]"
 					+ "</p>";
 			}
@@ -13084,7 +13084,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.F_P_V_B_FUTANARI);
 						
 				} else if(visibleVagina) {
@@ -13093,14 +13093,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_B_FUTANARI);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_B_FUTANARI);
 					}
 					
@@ -13109,7 +13109,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_B_FEMALE);
 						
 					} else {
@@ -13117,7 +13117,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_B_FEMALE);
 					}
 					
@@ -13126,7 +13126,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.F_P_B_SHEMALE);
 					
 				} else {
@@ -13135,14 +13135,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_B_SHEMALE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_B_SHEMALE);
 					}
 					
@@ -13151,7 +13151,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your feminine appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_B_FEMALE);
 						
 					} else if(hasVagina()) {
@@ -13159,7 +13159,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your feminine appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_V_B_FEMALE);
 						
 					} else {
@@ -13167,14 +13167,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your feminine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.F_B_DOLL);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your feminine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.F_V_B_FEMALE);
 						}
 					}
@@ -13187,7 +13187,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.F_P_V_FUTANARI);
 						
 				} else if(visibleVagina) {
@@ -13196,14 +13196,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_FUTANARI);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_FUTANARI);
 					}
 					
@@ -13212,7 +13212,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_FEMALE);
 						
 					} else {
@@ -13220,7 +13220,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_FEMALE);
 					}
 					
@@ -13229,7 +13229,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.F_P_TRAP);
 					
 				} else {
@@ -13238,14 +13238,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_TRAP);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_TRAP);
 					}
 					
@@ -13254,7 +13254,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your feminine appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.F_V_FEMALE);
 						
 					} else if(hasVagina()) {
@@ -13262,7 +13262,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your feminine appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_V_FEMALE);
 						
 					} else {
@@ -13270,14 +13270,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your feminine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] feminine appearance, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] feminine appearance, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.F_DOLL);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your feminine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] feminine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.F_V_FEMALE);
 						}
 					}
@@ -13292,7 +13292,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.N_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -13301,14 +13301,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_B_HERMAPHRODITE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_B_HERMAPHRODITE);
 					}
 					
@@ -13317,7 +13317,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_B_TOMBOY);
 						
 					} else {
@@ -13325,7 +13325,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_B_TOMBOY);
 					}
 					
@@ -13334,7 +13334,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.N_P_B_SHEMALE);
 					
 				} else {
@@ -13343,14 +13343,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_B_SHEMALE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_B_SHEMALE);
 					}
 					
@@ -13359,7 +13359,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your androgynous appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_B_TOMBOY);
 						
 					} else if(hasVagina()) {
@@ -13367,7 +13367,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your androgynous appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_V_B_TOMBOY);
 						
 					} else {
@@ -13375,14 +13375,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your androgynous appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.N_B_DOLL);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your androgynous appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.N_V_B_TOMBOY);
 						}
 					}
@@ -13395,7 +13395,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.N_P_V_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -13404,14 +13404,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_HERMAPHRODITE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_HERMAPHRODITE);
 					}
 					
@@ -13420,7 +13420,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_TOMBOY);
 						
 					} else {
@@ -13428,7 +13428,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_TOMBOY);
 					}
 					
@@ -13437,7 +13437,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.N_P_TRAP);
 					
 				} else {
@@ -13446,14 +13446,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_TRAP);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_TRAP);
 					}
 					
@@ -13462,7 +13462,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your androgynous appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.N_V_TOMBOY);
 						
 					} else if(hasVagina()) {
@@ -13470,7 +13470,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your androgynous appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_V_TOMBOY);
 						
 					} else {
@@ -13478,14 +13478,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your androgynous appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]"
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] androgynous appearance, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] androgynous appearance, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.N_NEUTER);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your androgynous appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] androgynous appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.N_V_TOMBOY);
 						}
 					}
@@ -13500,7 +13500,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.M_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -13509,14 +13509,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_B_HERMAPHRODITE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_B_HERMAPHRODITE);
 					}
 					
@@ -13525,7 +13525,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_V_B_BUTCH);
 						
 					} else {
@@ -13533,7 +13533,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina] and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_V_B_BUTCH);
 					}
 					
@@ -13542,7 +13542,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.M_P_B_BUSTYBOY);
 					
 				} else {
@@ -13551,14 +13551,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 					}
 					
@@ -13567,7 +13567,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_P_B_BUSTYBOY);
 						
 					} else if(hasVagina()) {
@@ -13575,7 +13575,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your masculine appearance and [pc.breastSize] breasts leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 						
 					} else {
@@ -13583,14 +13583,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your masculine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.M_B_MANNEQUIN);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.M_V_B_BUTCH);
 						}
 					}
@@ -13603,7 +13603,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.she]'s [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.M_P_V_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -13612,14 +13612,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_HERMAPHRODITE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_HERMAPHRODITE);
 					}
 					
@@ -13628,7 +13628,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_V_CUNTBOY);
 						
 					} else {
@@ -13636,7 +13636,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_V_CUNTBOY);
 					}
 					
@@ -13645,7 +13645,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 							Gender.M_P_MALE);
 					
 				} else {
@@ -13654,14 +13654,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 					}
 					
@@ -13670,7 +13670,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your masculine appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
 								Gender.M_P_MALE);
 						
 					} else if(hasVagina()) {
@@ -13678,7 +13678,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"Your masculine appearance leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 						
 					} else {
@@ -13686,14 +13686,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is exposed, so, due to your masculine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] masculine appearance, everyone can tell that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] genderless mound being exposed, combined with [npc.her] masculine appearance, everyone can tell that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.M_MANNEQUIN);
 							
 						} else {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your masculine appearance, strangers treat you as [pc.a_appearsAsGender("+colouredGender+")]."
-									:	"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+									:	"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
 									Gender.M_P_MALE);
 						}
 					}
@@ -14002,7 +14002,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							+ "</p>";
 			} else {
 				beardLoss = "<p>"
-								+ "As [npc.her] body shifts into a more feminine form, [npc.her] facial hair falls out; evidence that [npc.she]'s no longer able to grow a beard."
+								+ "As [npc.her] body shifts into a more feminine form, [npc.her] facial hair falls out; evidence that [npc.sheIs] no longer able to grow a beard."
 							+ "</p>";
 			}
 		}
@@ -14222,7 +14222,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>"
 						: UtilText.parse(this,
 							"<p class='center'>"
-								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.she]'s just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
+								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.sheIs] just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "</p>");
 			}
 			
@@ -14862,12 +14862,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			} else {
 				tfDescription = UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name]'s cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.she]'s suffering from an intense heat stroke."
+							+ "[npc.Name]'s cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.sheIs] suffering from an intense heat stroke."
 							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little little rivulets of cool, "
 								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
 						+ "</p>"
 						+ "<p>"
-							+ "Despite [npc.her] body's best efforts at cooling [npc.her] down, [npc.she] lets out a heavy sigh, and [npc.her] [npc.legs] collapse out from under [npc.herHim] as [npc.she]'s beaten down by the intense heat [npc.she]'s feeling."
+							+ "Despite [npc.her] body's best efforts at cooling [npc.her] down, [npc.she] lets out a heavy sigh, and [npc.her] [npc.legs] collapse out from under [npc.herHim] as [npc.sheIs] beaten down by the intense heat [npc.sheIs] feeling."
 							+ " Lifting [npc.a_hand] to [npc.her] face to wipe the sweat from [npc.her] [npc.eyes], [npc.her] heat-addled mind suddenly realises that something's very wrong, and [npc.she] exclaims,"
 							+ " [npc.speech(Wait... Why is my sweat "+colourBasic+"?!"
 									+ " What's happening?!)]"
@@ -14878,7 +14878,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>"
 						+ "<p>"
 							+ "Thrashing around in a frenzied state of panic, [npc.her] efforts to escape this mysterious goo prove to be completely fruitless, and within a matter of seconds [npc.her] entire body is covered in slime."
-							+ " What's more, [npc.she] suddenly realises that [npc.she]'s gotten a lot smaller, and, looking down,"
+							+ " What's more, [npc.she] suddenly realises that [npc.sheIs] gotten a lot smaller, and, looking down,"
 								+ " [npc.she] sees that [npc.her] [npc.legs] have completely melted away to form more of the goo that's quickly overtaking [npc.herHim]."
 							+ " [npc.Her] struggles only seem to speed this alarming process up, and after just a minute more, [npc.her] [npc.arms] have suffered the same fate as [npc.her] [npc.legs], having melted away into yet more of the "
 								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid."

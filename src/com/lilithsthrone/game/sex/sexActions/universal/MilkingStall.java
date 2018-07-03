@@ -57,7 +57,7 @@ public class MilkingStall {
 
 		@Override
 		public String getDescription() {
-			return "Deciding that you want to fuck [npc.name] while [npc.she]'s locked in the stocks, you step step up behind [npc.herHim] and start grinding your groin up against [npc.her] [npc.ass+]."
+			return "Deciding that you want to fuck [npc.name] while [npc.sheIs] locked in the stocks, you step step up behind [npc.herHim] and start grinding your groin up against [npc.her] [npc.ass+]."
 					+ " Taking hold of [npc.her] [npc.hips+], you [pc.moan], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}

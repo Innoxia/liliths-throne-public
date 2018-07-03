@@ -731,7 +731,7 @@ public class DoggyStyle {
 							tailSpecial2,
 							"You let out [pc.a_moan+] as [npc.name] starts roughly slapping your [pc.ass+], and you hear [npc.herHim] growling in glee as [npc.she] watches you squirm beneath [npc.her] stinging blows.",
 							"You let out a startled cry as [npc.name] starts to roughly slap your [pc.ass+], growling in glee as you squirm and squeal under [npc.her] relentless blows.",
-							"[npc.Name] growls down that [npc.she]'s going to put you in your place, before starting to aggressively slap your [pc.ass+], causing you to squeal and cry out as you squirm beneath [npc.her] stinging blows."));
+							"[npc.Name] growls down that [npc.sheIs] going to put you in your place, before starting to aggressively slap your [pc.ass+], causing you to squeal and cry out as you squirm beneath [npc.her] stinging blows."));
 			}
 		}
 	};

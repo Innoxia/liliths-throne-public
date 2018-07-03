@@ -189,7 +189,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Due to your "+Fetish.FETISH_ANAL_GIVING.getName(owner)+" fetish, you're able to seduce your opponents by telling them how you're going to use their ass.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.she]'s going to use your ass in an attempt to seduce you!");
+				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.sheIs] going to use your ass in an attempt to seduce you!");
 			}
 		}
 
@@ -339,7 +339,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Due to your "+Fetish.FETISH_VAGINAL_GIVING.getName(owner)+" fetish, you're able to seduce your opponents by telling them how you're going to use their pussy.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.she]'s going to use your pussy in an attempt to seduce you!");
+				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.sheIs] going to use your pussy in an attempt to seduce you!");
 			}
 		}
 
@@ -2004,7 +2004,7 @@ public enum SpecialAttack {
 				return "A powerful, primal energy bubbles just beneath the surface of your wolf-like body, and although you're able to keep it under control, you could always tap into it to deliver a savage attack.";
 			else
 				return UtilText.parse(owner,
-						"A powerful, primal energy bubbles just beneath the surface of [npc.name]'s wolf-like body, and [npc.she]'s able to use it to deliver a savage attack.");
+						"A powerful, primal energy bubbles just beneath the surface of [npc.name]'s wolf-like body, and [npc.sheIs] able to use it to deliver a savage attack.");
 		}
 
 		@Override
@@ -2207,7 +2207,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic horse-like legs are very strong, and you're able to use them to deliver a powerful kick.";
 			else
-				return UtilText.parse(owner, owner.getName("The") + "'s anthropomorphic horse-like legs are very strong, and [npc.she]'s able to use them to deliver a powerful kick.");
+				return UtilText.parse(owner, owner.getName("The") + "'s anthropomorphic horse-like legs are very strong, and [npc.sheIs] able to use them to deliver a powerful kick.");
 		}
 
 		@Override

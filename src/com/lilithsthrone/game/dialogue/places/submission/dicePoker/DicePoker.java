@@ -476,7 +476,7 @@ public class DicePoker {
 							responseContent = "<p>"
 												+ (diceRerolled
 														?"As the dice come clattering to a halt, [npc.name] lets out a defeated sigh as [npc.she] sees that you've won."
-														:"As both you and [npc.name] choose not to reroll any dice, [npc.she]'s already resigned [npc.herself] to a loss, and lets out a frustrated little sigh.")
+														:"As both you and [npc.name] choose not to reroll any dice, [npc.sheIs] already resigned [npc.herself] to a loss, and lets out a frustrated little sigh.")
 													+ " [npc.speech(Damn it... Well, good game...)]"
 												+ "</p>"
 												+ "<p>"
@@ -492,7 +492,7 @@ public class DicePoker {
 						} else {
 							responseContent =  "<p>"
 												+ (diceRerolled
-														?"As the dice come clattering to a halt, [npc.name] lets out a triumphant laugh as [npc.she] sees that [npc.she]'s won."
+														?"As the dice come clattering to a halt, [npc.name] lets out a triumphant laugh as [npc.she] sees that [npc.sheIs] won."
 														:"As both you and [npc.name] choose not to reroll any dice, you've already resigned yourself to a loss, and try not to feel too unhappy as your opponent lets out a triumphant laugh.")
 													+ " [npc.speech(Hah! Good game, but you never stood a chance!)]"
 												+ "</p>"

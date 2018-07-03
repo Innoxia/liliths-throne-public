@@ -547,7 +547,7 @@ public enum StatusEffect {
 			if (owner.isPlayer()) {
 				return "You are completely uncorrupted, and aside from performing the most conservative of sexual acts with the person you love, you're not really interested in sex at all.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.she]'s not really interested in sex at all.");
+				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.sheIs] not really interested in sex at all.");
 			}
 		}
 
@@ -2799,7 +2799,7 @@ public enum StatusEffect {
 						+ " You find yourself incredibly embarrassed to be walking around in such filthy clothing.";
 			else
 				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly embarrassed to be walking around in such filthy clothing.";
+						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.";
 		}
 
 		@Override
@@ -2836,7 +2836,7 @@ public enum StatusEffect {
 						+ " You find yourself incredibly turned on to be walking around in such filthy clothing.";
 			} else {
 				return UtilText.parse(target, "Some of [npc.name]'s clothes have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on to be walking around in such filthy clothing.");
+						+ " [npc.sheIs] feeling incredibly turned on to be walking around in such filthy clothing.");
 			}
 		}
 
@@ -2912,7 +2912,7 @@ public enum StatusEffect {
 						+ " You find yourself incredibly embarrassed to be walking around in such a filthy state.";
 			} else {
 				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly embarrassed to be walking around in such a filthy state.");
+						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such a filthy state.");
 			}
 		}
 
@@ -2943,7 +2943,7 @@ public enum StatusEffect {
 						+ " You find yourself feeling incredibly turned on by walking around in such a filthy state.";
 			} else {
 				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on by walking around in such a filthy state.");
+						+ " [npc.sheIs] feeling incredibly turned on by walking around in such a filthy state.");
 			}
 		}
 
@@ -3865,7 +3865,7 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(target,
 						"After recently having unprotected sex, there's a risk that "+target.getName("the")+" will get pregnant!"
-							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.she]'s pregnant within a matter of hours.");
+							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.sheIs] pregnant within a matter of hours.");
 			}
 		}
 
@@ -4061,7 +4061,7 @@ public enum StatusEffect {
 							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.");
 			} else {
 				return UtilText.parse(target,
-							"From one of [npc.name]'s recent sexual encounters, [npc.she]'s been impregnated!"
+							"From one of [npc.name]'s recent sexual encounters, [npc.sheIs] been impregnated!"
 								+ (target.getBodyMaterial()==BodyMaterial.SLIME
 									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
@@ -4158,7 +4158,7 @@ public enum StatusEffect {
 							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.");
 			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.she]'s expecting to give birth soon."
+							"[npc.Name]'s stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.sheIs] expecting to give birth soon."
 								+ (target.getBodyMaterial()==BodyMaterial.SLIME
 									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
@@ -4264,7 +4264,7 @@ public enum StatusEffect {
 							:" It might be a good idea to visit Lilaya so that she can help you to give birth.");
 			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s belly has inflated to a colossal size, and [npc.she]'s finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks."
+							"[npc.Name]'s belly has inflated to a colossal size, and [npc.sheIs] finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks."
 								+ (target.getBodyMaterial()==BodyMaterial.SLIME
 									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
 										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+", just as big as [npc.her] own..."
@@ -5643,7 +5643,7 @@ public enum StatusEffect {
 						+ " As a result, you're feeling extremely horny and frustrated...";
 			} else {
 				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
-						+ " As a result, [npc.she]'s feeling extremely horny and frustrated...");
+						+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
 			}
 		}
 		
@@ -7093,7 +7093,7 @@ public enum StatusEffect {
 				return "You are absolutely desperate for sex, but thanks to the strength of your arcane aura, you are able to resist giving up right here on the spot!";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.she]'s able to resist giving up right here on the spot!");
+						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.sheIs] able to resist giving up right here on the spot!");
 			}
 		}
 
@@ -7125,7 +7125,7 @@ public enum StatusEffect {
 				return "Your head is spinning and you're struggling to stay upright.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright..");
+						target.getName("The") + "'s head is spinning and [npc.sheIs] struggling to stay upright..");
 		}
 
 		
@@ -7151,7 +7151,7 @@ public enum StatusEffect {
 				return "Your head is spinning and you're struggling to stay upright. You're finding it incredibly difficult to land a hit on your opponent or dodge one of their attacks.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright. [npc.She]'s finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
+						target.getName("The") + "'s head is spinning and [npc.sheIs] struggling to stay upright. [npc.sheIs] finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
 		}
 
 		
@@ -7176,7 +7176,7 @@ public enum StatusEffect {
 				return "You've been temporarily crippled, and you're struggling to do as much damage with your attacks as you're usually able to.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s been temporarily crippled, and [npc.she]'s struggling to do as much damage with [npc.her] attacks as [npc.she]'s usually able to.");
+						target.getName("The") + "'s been temporarily crippled, and [npc.sheIs] struggling to do as much damage with [npc.her] attacks as [npc.sheIs] usually able to.");
 		}
 
 		
@@ -7394,7 +7394,7 @@ public enum StatusEffect {
 				return "The blinding flash of light has left you temporarily stunned, and you're unable to make any sort of move as you struggle to regain control of your senses.";
 			} else {
 				return UtilText.parse(target,
-						"The blinding flash of light has left [npc.name] temporarily stunned, and [npc.she]'s unable to make any sort of move as [npc.she] struggles to regain control of [npc.her] senses.");
+						"The blinding flash of light has left [npc.name] temporarily stunned, and [npc.sheIs] unable to make any sort of move as [npc.she] struggles to regain control of [npc.her] senses.");
 			}
 		}
 		
@@ -9509,7 +9509,7 @@ public enum StatusEffect {
 				return "Arousing images and thoughts keep on pushing their way to the front of your mind, causing you to lose focus on what it is you're trying to hit.";
 			} else {
 				return UtilText.parse(target,
-						"Arousing images and thoughts keep on pushing their way to the front of [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.she]'s trying to hit.");
+						"Arousing images and thoughts keep on pushing their way to the front of [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.sheIs] trying to hit.");
 			}
 		}
 
@@ -9542,7 +9542,7 @@ public enum StatusEffect {
 						+ " You hear the occasional phantasmal whisper in your [pc.ear], promising that you'll have a good time if you simply submit...";
 			} else {
 				return UtilText.parse(target,
-						"Arousing images keep on pushing their way into [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.she]'s trying to hit."
+						"Arousing images keep on pushing their way into [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.sheIs] trying to hit."
 								+ " [npc.She] hears the occasional phantasmal whisper in [npc.her] [npc.ear], promising that [npc.she]'ll have a good time if [npc.she] simply submits.");
 			}
 		}
@@ -10262,7 +10262,7 @@ public enum StatusEffect {
 			if(target.isPlayer())
 				return "Because you're wearing a condom, sex doesn't feel quite as good...";
 			else
-				return "Because [npc.she]'s wearing a condom, sex doesn't feel quite as good for [npc.name]...";
+				return "Because [npc.sheIs] wearing a condom, sex doesn't feel quite as good for [npc.name]...";
 		}
 		
 		@Override

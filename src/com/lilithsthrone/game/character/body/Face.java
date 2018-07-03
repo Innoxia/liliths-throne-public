@@ -200,7 +200,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic canine muzzle, and [npc.her] tongue flattens and grows wider, turning into a dog-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldDogMorph(dog-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldDogMorph(flat, dog-like tongue)]."
 							+ "</p>"));
 				}
@@ -215,7 +215,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic vulpine muzzle, and [npc.her] tongue flattens and shiifts into a pink fox-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldFoxMorph(fox-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldFoxMorph(flat, fox-like tongue)]."
 							+ "</p>"));
 				}
@@ -230,7 +230,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic lupine muzzle, and [npc.her] tongue flattens and grows wider, turning into a wolf-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldWolfMorph(wolf-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldWolfMorph(flat, wolf-like tongue)]."
 							+ "</p>"));
 				}
@@ -245,7 +245,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic feline muzzle, and [npc.her] tongue flattens and shifts into a little pink cat-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldCatMorph(cat-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)]."
 							+ "</p>"));
 				}
@@ -260,7 +260,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic bovine muzzle, and [npc.her] tongue flattens and shifts into a cow-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldCowMorph(cow-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldCowMorph(flat, cow-like tongue)]."
 							+ "</p>"));
 				}
@@ -275,7 +275,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reptile muzzle, and [npc.her] tongue flattens out, turning into an alligator-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldGatorMorph(alligator-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldGatorMorph(flat, alligator-like tongue)]."
 							+ "</p>"));
 				}
@@ -290,7 +290,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic equine muzzle, and [npc.her] tongue grows thicker and stronger, turning into a horse-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldHorseMorph(horse-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldHorseMorph(strong, horse-like tongue)]."
 							+ "</p>"));
 				}
@@ -305,7 +305,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reindeer-like muzzle, and [npc.her] tongue grows thicker and stronger, turning into a rangiferine tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [npc.faceFullDescription],"
 									+ " and within [npc.her] mouth, [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
 							+ "</p>"));
@@ -321,7 +321,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic squirrel-like muzzle, and [npc.her] tongue flattens and shifts into a little pink squirrel-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldSquirrelMorph(squirrel-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldSquirrelMorph(little squirrel-like tongue)]."
 							+ "</p>"));
 				}
@@ -336,7 +336,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic rat-like muzzle, and [npc.her] tongue flattens and shifts into a little pink rat-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldRatMorph(rat-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldRatMorph(little rat-like tongue)]."
 							+ "</p>"));
 				}
@@ -351,7 +351,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic rabbit-like muzzle, and [npc.her] tongue flattens and shifts into a little pink rabbit-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldRabbitMorph(rabbit-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldRabbitMorph(little rabbit-like tongue)]."
 							+ "</p>"));
 				}
@@ -366,7 +366,7 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic bat-like muzzle, and [npc.her] tongue flattens and shifts into a little pink bat-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldBatMorph(bat-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldBatMorph(little bat-like tongue)]."
 							+ "</p>"));
 				}
@@ -382,8 +382,8 @@ public class Face implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" [npc.Her] nose and mouth twitch and transform as they fuse together and push out into a short beak, and [npc.her] tongue grows longer and thinner, turning into a bird-like tongue."
-								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath."
-								+ " [npc.She] finds, much to [npc.her] relief, that [npc.she]'s able to harden or soften the edges of [npc.her] beak,"
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath."
+								+ " [npc.She] finds, much to [npc.her] relief, that [npc.sheIs] able to harden or soften the edges of [npc.her] beak,"
 									+ " allowing [npc.herHim] to portray facial emotions as well as wrap [npc.her] beak's edges around anything [npc.she] might want to put in [npc.her] mouth<br/>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldHarpy(bird-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldHarpy(thin, bird-like tongue)]."
 							+ "</p>"));
@@ -468,7 +468,7 @@ public class Face implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You're too feminine to be able to grow a beard...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.She]'s too feminine to be able to grow a beard...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.sheIs] too feminine to be able to grow a beard...)]</p>");
 			}
 		}
 		

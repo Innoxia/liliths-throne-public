@@ -137,7 +137,7 @@ public class PartnerSelfTailVagina {
 					
 					"Driving [npc.her] [npc.tail] deep inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts happily fucking [npc.herself].",
 
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
 		}
 		
 	};
@@ -179,7 +179,7 @@ public class PartnerSelfTailVagina {
 					
 					"Driving [npc.her] [npc.tail] deep inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts roughly grinding it up inside [npc.herself].",
 
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts roughly slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts roughly slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
 		}
 
 	};
@@ -221,7 +221,7 @@ public class PartnerSelfTailVagina {
 					
 					"Driving [npc.her] [npc.tail] deep inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts happily fucking [npc.herself].",
 
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
 		}
 		
 	};
@@ -263,7 +263,7 @@ public class PartnerSelfTailVagina {
 					
 					"Desperately driving [npc.her] [npc.tail] deep inside [npc.her] [npc.pussy], [npc.name] lets out [npc.a_moan] as [npc.she] starts eagerly grinding it up inside [npc.herself].",
 
-					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] eagerly starts slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
+					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] eagerly starts slamming [npc.her] [npc.tail] in and out of [npc.her] [npc.pussy+].");
 		}
 
 	};

@@ -124,7 +124,7 @@ public class GenericActions {
 								+ " a little spurt of precum shoots out onto your stomach."
 						:"[npc.Name] lets out a little giggle, and as you look down at [npc.her] groin, you see a huge bulge quickly form beneath the fabric of [npc.her] "
 								+Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"."
-								+ " Before you have any time to change your mind, [npc.name] lets out [npc.a_moan+], and you realise that [npc.she]'s now got a huge demonic cock hiding beneath [npc.her] clothing.");
+								+ " Before you have any time to change your mind, [npc.name] lets out [npc.a_moan+], and you realise that [npc.sheIs] now got a huge demonic cock hiding beneath [npc.her] clothing.");
 		}
 
 		@Override
@@ -361,7 +361,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
+					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.sheIs] lost a good portion of [npc.her] arousal.");
 		}
 		
 		@Override
@@ -871,7 +871,7 @@ public class GenericActions {
 					+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
 				+ "</p>"
 				+ "<p>"
-					+ "You can't help but agree with what [npc.she]'s saying, and you haltingly answer,"
+					+ "You can't help but agree with what [npc.sheIs] saying, and you haltingly answer,"
 					+ " [pc.speech(Yes... I... I don't know why I'm having sex with you...)]"
 				+ "</p>"
 				+ "<p>"
@@ -925,7 +925,7 @@ public class GenericActions {
 						+ " [npc.speech(You love having sex with me, don't you?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You can't help but agree with what [npc.she]'s saying, and you haltingly answer,"
+						+ "You can't help but agree with what [npc.sheIs] saying, and you haltingly answer,"
 						+ " [pc.speech(Yes... I... I love having sex with you...)]"
 					+ "</p>"
 					+ "<p>"
@@ -1242,7 +1242,7 @@ public class GenericActions {
 		
 		@Override
 		public String getDescription() {
-			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from your clutches, before stating that [npc.she]'s had enough for now.";
+			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from your clutches, before stating that [npc.sheIs] had enough for now.";
 		}
 		
 		@Override

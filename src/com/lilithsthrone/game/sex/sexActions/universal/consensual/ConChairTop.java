@@ -489,7 +489,7 @@ public class ConChairTop {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that [npc.she]'s your little fuck-toy.";
+			return "Tell [npc.name] that [npc.sheIs] your little fuck-toy.";
 		}
 
 		@Override
@@ -1635,12 +1635,12 @@ public class ConChairTop {
 					"[npc.Name] reaches up and starts to eagerly pinch and rub at your [pc.nipples+], quickly causing you to release a series of [pc.moans+] as you beg [npc.herHim] not to stop.",
 					
 					"Your [pc.breasts+] are fully on display, and prove to be too tempting a target for [npc.name] to ignore."
-					+ " Before you know what's happening, [npc.she]'s reaching up to tug and pinch at your [pc.nipples+], causing you to let out a series of [pc.moans+].",
+					+ " Before you know what's happening, [npc.sheIs] reaching up to tug and pinch at your [pc.nipples+], causing you to let out a series of [pc.moans+].",
 						
 					"[npc.Name] teases [npc.her] fingers around your [pc.breastRows] [pc.nipples]."
 					+ " Not satisfied with the intensity of your resulting [pc.moans], [npc.she] suddenly starts pinching and tugging at them instead, which causes you to let out a desperate [pc.moan] of ecstasy.",
 							
-					"Your [pc.breastRows] [pc.breasts+] lie fully exposed above [npc.name], and before you know what's happening, [npc.she]'s pinching and squeezing your [pc.nipples+], causing you to cry out in pleasure."));
+					"Your [pc.breastRows] [pc.breasts+] lie fully exposed above [npc.name], and before you know what's happening, [npc.sheIs] pinching and squeezing your [pc.nipples+], causing you to cry out in pleasure."));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:

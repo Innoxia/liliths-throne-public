@@ -162,7 +162,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
 			
@@ -176,7 +176,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].<br/>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
 		}

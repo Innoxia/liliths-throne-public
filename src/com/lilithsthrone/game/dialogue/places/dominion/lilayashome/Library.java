@@ -58,7 +58,7 @@ public class Library {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 								" [npc.She] "));
@@ -67,7 +67,7 @@ public class Library {
 					switch(slave.getObedience()) {
 						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is not even bothering to pretend that [npc.she]'s working."
+										" is not even bothering to pretend that [npc.sheIs] working."
 									+ "</p>"));
 							break;
 						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
