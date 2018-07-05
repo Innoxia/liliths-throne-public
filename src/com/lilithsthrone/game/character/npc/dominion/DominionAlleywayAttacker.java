@@ -90,6 +90,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case DEMON:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
@@ -126,6 +127,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

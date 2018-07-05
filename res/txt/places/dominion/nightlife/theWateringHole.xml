@@ -49,49 +49,624 @@
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
 	<p>
-		Entrance
+		[style.italicsBad(All descriptions are placeholders. Full descriptions will be in a hotfix!)]
+	</p>
+	<p>
+		There's a winding queue inside the entrance hall to the nightclub. At the front of the queue, a pair of imposing zebra-boys are standing guard.
+	</p>
+	<p>
+		The larger of the two zebra-boys sees you enter, and calls out, [jules.speech(Hey! You at the back! You can skip the queue if you want!)]
+	</p>
+	<p>
+		Sensing that something's not quite right, you raise an eyebrow, but before you can reply, the zebra-boy continues, [jules.speech(All you've got to do is come over here and suck my cock!)]
+	</p>
+	<p>
+		The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [genericMale.speech(Come on Jules, knock it off. Kruger's already warned you about scaring customers off.)]
+	</p>
+	<p>
+		It looks like you'll have to wait in the queue to get into the club, which will take about half an hour. Then again, you could always take Jules up on his offer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_REPEAT"><![CDATA[
+	<p>
+		[style.italicsBad(All descriptions are placeholders. Full descriptions will be in a hotfix!)]
+	</p>
+	<p>
+		Once again you find yourself stepping into the entrance hall of the nightclub, 'The Watering Hole'. There's a winding queue leading up to an interior pair of doors.
+	</p>
+	<p>
+		The same two zebra-boys are standing guard, and as Jules sees you enter, he calls out, [jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
+	</p>
+	<p>
+		It looks like you'll have to wait in the queue to get into the club, which will take about half an hour. Then again, you could always take Jules up on his offer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_PASSED"><![CDATA[
+	<p>
+		You find  yourself standing beside the pair of doors that lead back out to the club's entrance hall. From here, you could choose to take your leave, or turn around and head back into the club.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_START_BLOWJOB"><![CDATA[
+	<p>
+		[pc.speech(Sure, I don't mind doing that!)] you happily call out, before starting to make your way towards the large zebra-boy.
+	</p>
+	<p>
+		[jules.speech(Hah! It actually worked! I told you it would!)] Jules happily states to his partner, before turning back towards you. [jules.speech(Go on then, get down on your knees.)]
+	</p>
+	<p>
+		Doing as you're told, you drop down onto your knees in front of Jules, and, right in front of all the people in the queue, you prepare to suck his cock in order to get immediate entry to the club.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_WAITING"><![CDATA[
+	<p>
+		Deciding that you're definitely not going to suck Jules's cock, you step forwards and take your place at the back of the queue.
+	</p>
+	<p>
+		It takes about thirty minutes before you're standing before the zebra-boy bouncers. After just a minute more, Jules stands to one side to let you pass. [jules.speech(It'd have been a lot faster if you'd just got on with giving me a blowjob. Whatever. Go on in.)]
+	</p>
+	<p>
+		Stepping through the double doors, you enter the club proper. The interior is absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		The interior looks to have an 'African safari' type theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_JULES_BLOWJOB"><![CDATA[
+	<p>
+		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass. [jules.speech(Good job slut. Go on in, I'm sure you'll find plenty more cocks to service inside.)]
+	</p>
+	<p>
+		Stepping through the double doors, you enter the club proper. The interior is absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		The interior looks to have an 'African safari' type theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
 	<p>
-		Main club - people
+		The interior of 'The Watering Hole' is absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		The interior looks to have an 'African safari' type theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_TALK"><![CDATA[
+	<p>
+		You lean in towards [npc.name], and, over the background noise, spend the next few minutes chatting with [npc.herHim]. [npc.She] seems to appreciate you taking the time to get to know [npc.herHim] a little better.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_FLIRT"><![CDATA[
+	<p>
+		You step up close to [npc.name], and, in order to make yourself heard over the background noise, lean in towards [npc.herHim]. You spend the next few minutes flirting with [npc.herHim] and complimenting [npc.her] appearance. From [npc.her] laughter and playful responses, you can tell that you're making a good impression on [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_KISS"><![CDATA[
+	<p>
+		Stepping up to [npc.name], you lean forwards and press your [pc.lips+] against [npc.hers]. [npc.She] immediately leans back into you, pushing [npc.her] [npc.tongue] into your mouth as [npc.she] happily returns your kiss. You spend the next few minutes making out with one another, before stepping back and catching your breath. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_KISS_REJECTED"><![CDATA[
+	<p>
+		Stepping up to [npc.name], you lean forwards and try to kiss [npc.herHim]. Before your [pc.lips] can find their target, [npc.name] pulls away with an astonished look of disapproval on [npc.her] face.
+	</p>
+	<p>
+		[npc.speech(Hey! Watch it!)] [npc.she] shouts, frowning at you and backing off a little.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_GROPE"><![CDATA[
+	<p>
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before working your way down between [npc.her] [npc.legs]. As you start groping and fondling [npc.her] body, [npc.name] lets out [npc.a_moan+], before leaning into you and [npc.moaning] into your [pc.ear], [npc.speech(~Aah!~ Yeah, keep it going!)]
+	</p>
+	<p>
+		You spend the next few minutes fondling and groping one another, before finally stepping back and wondering what to do next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_GROPE_REJECTED"><![CDATA[
+	<p>
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your way down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the background racket, [npc.speech(What the fuck?! Keep your [pc.hands] to yourself!)]
+	</p>
+	<p>
+		You step back, giving [npc.name] some space and letting [npc.her] cool off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN_LOSE_COMPANY"><![CDATA[
+	<p>
+		Deciding that [npc.name] isn't all you were hoping [npc.she]'d be, you call out over the background noise of the club, [pc.speech(I've got to head off for a while, maybe I'll catch you later?)]
+	</p>
+	<p>
+		[npc.Name] seems a little deflated, but as you move away from [npc.herHim], [npc.she] shrugs [npc.her] shoulders and moves off into the crowd.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEARCH_GENDER"><![CDATA[
+	<p>
+		There are so many different sorts of people in the club that you're sure of being able to find the type of person you want. First you need to decide what gender you'd like your partner to be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEARCH_RACE"><![CDATA[
+	<p>
+		Having narrowed your search down, you now need to decide what race your partner should be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE"><![CDATA[
+	<p>
+		Having decided upon the sort of person you'd like to find, you set about searching through the crowds of people. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort you were after! Walking up to [npc.herHim], you introduce yourself as [pc.name], and get the name '[npc.name]' in return. After chatting to one another for a minute, [npc.she] seems to be happy to follow you around.
+	</p>
+	<p>
+		With your new partner in tow, you wonder where you should head to next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_SEATING"><![CDATA[
 	<p>
-		Seating area
+		Around the edges of the club, there are several jungle-themed seating areas. The enclosure is made up of numerous small, semi-enclosed booths, each one surrounded by fake plants and wooden fencing. In each of these booths, a semi-circular leather sofa surrounds a clean wooden table. Most of these sofas are occupied by couples, who are either talking or making out with one another.
+	</p>
+	<p>
+		This area would be of use if you had someone to sit with. If you were to find someone out in the main area of the club, you could come back and sit with them in one of these booths.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="WATERING_HOLE_VIP"><![CDATA[
+	<htmlContent tag="WATERING_HOLE_SEATING_WITH_PARTNER"><![CDATA[
 	<p>
-		VIP area
+		Around the edges of the club, there are several jungle-themed seating areas. The enclosure is made up of numerous small, semi-enclosed booths, each one surrounded by fake plants and wooden fencing. In each of these booths, a semi-circular leather sofa surrounds a clean wooden table. Most of these sofas are occupied by couples, who are either talking or making out with one another.
+	</p>
+	<p>
+		Leading [npc.name] over to an empty booth, you sit down with [npc.herHim], before leaning forwards over the table and starting to chat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE"><![CDATA[
+	<p>
+		Lifting your [pc.foot] up under the table, you run it up the length of one of [npc.namePos] [npc.legs]. [npc.She] lets out a laugh, before reciprocating your gesture and using [npc.her] [npc.feet] to play with your free one.
+	</p>
+	<p>
+		Continuing to lift your [pc.foot] up, you gently start to press into [npc.namePos] groin, causing [npc.herHim] to let out [npc.a_moan+]. Spreading [npc.her] [npc.legs], [npc.she] encourages you to continue, and for the next few minutes, you continue playing with [npc.herHim] under the table.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE_REJECTED"><![CDATA[
+	<p>
+		Lifting your [pc.foot] up under the table, you run it up the length of one of [npc.namePos] [npc.legs]. [npc.She] lets out a shocked cry, before reaching down under the table and pushing your [pc.foot] away.
+	</p>
+	<p>
+		[npc.speech(Keep your [pc.feet] to yourself!)] [npc.she] angrily shouts, before crossing [npc.her] [npc.arms] and leaning back into the sofa.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB"><![CDATA[
+	<p>
+		Sliding around on the sofa, you lean in against [npc.name], making [npc.herHim] let out a little [npc.moan]. Taking that as a sign of consent, you lift yourself up and sit in [npc.her] lap, before leaning forwards and giving [npc.herHim] a passionate kiss.
+	</p>
+	<p>
+		[npc.She] responds by pulling you into [npc.herHim], and, with [npc.a_moan+], starts having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED"><![CDATA[
+	<p>
+		Sliding around on the sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away, [npc.she] scolds, [npc.speech(Keep to your own side!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM"><![CDATA[
+	<p>
+		Sliding around on the sofa, you lean in against [npc.name], making [npc.herHim] let out a little [npc.moan]. Taking that as a sign of consent, you wrap your [pc.arms] around [npc.herHim] and pull [npc.herHim] into your lap, before leaning forwards and giving [npc.herHim] a passionate kiss.
+	</p>
+	<p>
+		[npc.She] responds by leaning down into you, and, with [npc.a_moan+], [npc.she] lets you take charge as you start having sex with [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED"><![CDATA[
+	<p>
+		Sliding around on the sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away, [npc.she] scolds, [npc.speech(Keep to your own side!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX"><![CDATA[
+	<p>
+		Having had a good time with [npc.name], you disentangle yourself from [npc.her] clutches.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_LOSE_COMPANY"><![CDATA[
+	<p>
+		Deciding that [npc.name] isn't all you were hoping [npc.she]'d be, you call out over the background noise of the club, [pc.speech(I've got to head off for a while, maybe I'll catch you later?)]
+	</p>
+	<p>
+		[npc.Name] seems a little deflated, but as you move away from [npc.herHim], [npc.she] shrugs [npc.her] shoulders and stand up, before moving off into the crowd.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_TALK"><![CDATA[
+	<p>
+		You lean in over the table towards [npc.name], and, over the background noise, spend the next few minutes chatting with [npc.herHim]. [npc.She] seems to appreciate you taking the time to get to know [npc.herHim] a little better.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING_FLIRT"><![CDATA[
+	<p>
+		You slide around on the sofa to get a little closer to [npc.name], and, in order to make yourself heard over the background noise, lean in towards [npc.herHim]. You spend the next few minutes flirting with [npc.herHim] and complimenting [npc.her] appearance. From [npc.her] laughter and playful responses, you can tell that you're making a good impression on [npc.herHim].
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_BAR"><![CDATA[
 	<p>
-		bar
+		The bar is staffed by lionesses and zebra-girls. One of the lionesses looks to be in charge. She's the one nearest to where you're standing, so if you want to get served, you could call out to her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_REPEAT"><![CDATA[
+	<p>
+		The bar is staffed by lionesses and zebra-girls. Kalahari is the one nearest to where you're standing, so if you want to get served, you could call out to her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_INTRO"><![CDATA[
+	<p>
+		The lioness is introduced as Kalahari. She is the senior barmaid. She smiles and leans forwards over the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_TALK"><![CDATA[
+	<p>
+		You talk to [npc.name] at the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_FLIRT"><![CDATA[
+	<p>
+		You flirt with [npc.name] at the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KISS"><![CDATA[
+	<p>
+		You lean in to [npc.name] and kiss [npc.herHim] at the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KISS_REJECTED"><![CDATA[
+	<p>
+		You lean in to [npc.name] and try to kiss [npc.herHim] at the bar. [npc.She] pulls away and tells you to stop.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_GROPE"><![CDATA[
+	<p>
+		You grope and feel up [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_GROPE_REJECTED"><![CDATA[
+	<p>
+		You try to grope and feel up [npc.name]. [npc.She] pulls away and angrily tells you to stop.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_LOSE_COMPANY"><![CDATA[
+	<p>
+		Having had enough of [npc.name], you leave [npc.herHim] at the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI"><![CDATA[
+	<p>
+		You get Kalahari's attention. She smiles and leans forwards over the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_TALK"><![CDATA[
+	<p>
+		You talk with Kalahari for a little while. Although there are customers waiting, she ignores them a little in order to continue chatting with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_FLIRT"><![CDATA[
+	<p>
+		You flirt with Kalahari for a little while. Although there are customers waiting, she gets caught up in flirting back with you, and ignores them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO"><![CDATA[
+	<p>
+		You ask Kalahari if she's going to have a break soon, and if she'd like to spend it with you. She answers in the affirmative to both of your questions.
+	</p>
+	<p>
+		Kalahari leads you to VIP area. The lion bouncers stand to one side and let the two of you in. Kalahari introduces you to Kruger, who is the owner of the club. It's revealed here that Kalahari and Kruger used to be a couple, but are no longer together. Kruger seems friendly enough, if a little dismissive.
+	</p>
+	<p>
+		You and Kalahari sit in an unoccupied booth together, out of sight of Kruger and the bouncers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK"><![CDATA[
+	<p>
+		You ask Kalahari if she's going to have a break soon, and if she'd like to spend it with you. She answers in the affirmative to both of your questions.
+	</p>
+	<p>
+		Kalahari leads you to VIP area. The lion bouncers stand to one side and let the two of you in. You see Kruger again, who seems friendly enough, if a little dismissive.
+	</p>
+	<p>
+		You and Kalahari sit in an unoccupied booth together, out of sight of Kruger and the bouncers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_TALK"><![CDATA[
+	<p>
+		You talk to Kalahari for a little while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_FLIRT"><![CDATA[
+	<p>
+		You flirt with Kalahari for a little while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_KISS"><![CDATA[
+	<p>
+		You lean in against Kalahari and kiss her. She happily responds in kind, and the two of you make out with one another for a little while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_GROPE"><![CDATA[
+	<p>
+		You lean in against Kalahari and start to grope and feel her up. She starts softly moaning and panting, leaning in over your shoulder and begging you to continue.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"><![CDATA[
+	<p>
+		You pull Kalahari into your lap and start having sex with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"><![CDATA[
+	<p>
+		You slide into Kalahari's lap and start having sex with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX"><![CDATA[
+	<p>
+		After sex with Kalahari.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_END"><![CDATA[
+	<p>
+		You and Kalahari return to the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME"><![CDATA[
+	<p>
+		Kalahari has used up her break time. You both return to the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP"><![CDATA[
+	<p>
+		VIP area. You see Kruger, and the lion bouncers recognise you from before, allowing you in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_BLOCKED"><![CDATA[
+	<p>
+		VIP area. A pair of lion bouncers block the way, and don't let you in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_TALK"><![CDATA[
+	<p>
+		You talk with Kruger for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_FLIRT"><![CDATA[
+	<p>
+		You flirt with with Kruger.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_KISSED"><![CDATA[
+	<p>
+		You lean in towards Kruger, and he dominantly takes hold of your head and pulls you into a kiss.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_FELT_UP"><![CDATA[
+	<p>
+		You slide up next to Kruger. Taking the hint, he slides one of his hands down between your legs, while simultaneously groping your chest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"><![CDATA[
+	<p>
+		You slide into Kruger's lap and start having sex with him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_AFTER_SEX"><![CDATA[
+	<p>
+		You end sex with Kruger.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_LEAVE"><![CDATA[
+	<p>
+		You tell Kruger that you have to go.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR"><![CDATA[
 	<p>
-		Dance floor
+		The middle of the club is occupied by a large dance floor, which is currently occupied by a huge crowd of revellers. It's from here that the bassy background music originates, and, looking up towards the ceiling, you see a series of arcane-powered loudspeakers, which are clearly responsible for blaring out the generic club music.
+	</p>
+	<p>
+		Although there are many people on the dance floor, there's still some space left. You could walk forwards and start to dance if you wanted to.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_DANCE_SOLO"><![CDATA[
+	<p>
+		You dance for a while by yourself.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_DANCE"><![CDATA[
+	<p>
+		You dance with [npc.name] for a little while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_KISS"><![CDATA[
+	<p>
+		You lean forwards and kiss [npc.name]. [npc.She] happily throws [npc.her] [npc.arms] around you and returns your kiss, pushing [npc.her] tongue into your mouth and [npc.moaning] as the crowd continues to dance around you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_KISS_REJECTED"><![CDATA[
+	<p>
+		You lean forwards and try to kiss [npc.name]. [npc.She] backs away and looks annoyed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE"><![CDATA[
+	<p>
+		You lean in against [npc.name] and start groping and feeling [npc.herHim] up. [npc.She] happily leans in against you, [npc.moaning] into your [pc.ear] and begging for you to continue.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE_REJECTED"><![CDATA[
+	<p>
+		You lean in against [npc.name] and try to grope and feel [npc.herHim] up. [npc.She] moves away and frowns angrily at you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY"><![CDATA[
+	<p>
+		You decide that you've had enough of [npc.name], and leave [npc.herHim] dancing on the dance floor.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
-		Toilets
+		The club's toilets are very large and spacious, with at least twenty individual stalls running down the left-hand side. Opposite these, sinks and mirrors provide a place for the club's revellers to clean themselves.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_SEX"><![CDATA[
+	<p>
+		You and [npc.name] enter one of the stalls, ready to have sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX"><![CDATA[
+	<p>
+		You and [npc.name] end sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_SEX_REJECTED"><![CDATA[
+	<p>
+		You try to get [npc.name] to enter one of the stalls and have sex, but [npc.she] angrily pushes you away, shouting, [npc.speech(I'm not going to fuck you in a toilet!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_USE"><![CDATA[
+	<p>
+		You use the toilet and freshen up at the sinks.
 	</p>
 	]]>
 	</htmlContent>

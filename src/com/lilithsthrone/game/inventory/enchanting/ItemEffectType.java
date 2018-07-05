@@ -675,12 +675,11 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 			
 			return "<p style='text-align:center;'>"
-						+(target.isPlayer()
-							?"A powerful wave of arcane energy washes over you......"
-							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-						+ "<br/>"
-						+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
+					+(target.isPlayer()
+						?"A powerful wave of arcane energy washes over you..."
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ target.incrementAlcoholLevel(0.15f);
 		}
 	};
@@ -705,11 +704,11 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-						+(target.isPlayer()
-							?"A powerful wave of arcane energy washes over you......"
-							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-						+ "<br/>"
-						+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
+					+(target.isPlayer()
+						?"A powerful wave of arcane energy washes over you..."
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>";
 		}
 	};
@@ -726,11 +725,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A powerful wave of arcane energy washes over you......"
+						?"A powerful wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.4f);
 		}
 	};
@@ -747,9 +745,8 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+"A powerful wave of arcane energy washes over you..."
-					+ "<br/>"
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.5f);
 		}
 	};
@@ -765,10 +762,9 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-					+"A powerful wave of arcane energy washes over you..."
-					+ "<br/>"
+						+"A powerful wave of arcane energy washes over you..."
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.5f);
 		}
 	};
@@ -787,11 +783,10 @@ public class ItemEffectType {
 			
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A cool wave of arcane energy washes over you......"
+						?"A cool wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.1f);
 		}
 	};
@@ -810,9 +805,8 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"Your senses are heightened..."
 						:UtilText.parse(target, "[npc.Name]'s senses are heightened..."))
-					+ "</br>"
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.1f);
 		}
 	};
@@ -828,11 +822,10 @@ public class ItemEffectType {
 			
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-							?"A cool wave of arcane energy washes over you......"
+							?"A cool wave of arcane energy washes over you..."
 							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	};
 	
@@ -850,11 +843,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you......"
+						?"A soothing wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>"
 					+ target.incrementAlcoholLevel(0.05f);
 		}
 	};
@@ -870,11 +862,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you......"
+						?"A soothing wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	};
 	
@@ -889,11 +880,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you......"
+						?"A soothing wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	};
 	
@@ -908,11 +898,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you......"
+						?"A soothing wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	};
 	
@@ -925,13 +914,12 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you......"
+						?"A soothing wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "<br/>"
 					+ target.incrementFemininity(1)
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
 		}
 	};
 	
@@ -945,7 +933,7 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you......"
+						?"A warm wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ (target.hasVagina()?target.incrementVaginaWetness(1):"")
@@ -964,7 +952,7 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you......"
+						?"A warm wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.FERTILITY, 5)
@@ -982,13 +970,11 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you......"
+						?"A warm wave of arcane energy washes over you..."
 						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-							+ target.addPotionEffect(Attribute.DAMAGE_LUST, 1)
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 1)
+					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1);
 		}
 	};
 	
@@ -1007,11 +993,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you......"
+						?"A sickly wave of corruptive arcane energy washes over you..."
 						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1);
 		}
 	};
 
@@ -1026,11 +1011,10 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you......"
+						?"A sickly wave of corruptive arcane energy washes over you..."
 						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5)
-					+"</p>";
+					+ "</p>"
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
 		}
 	};
 	
@@ -1348,12 +1332,12 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return (target.isPlayer()
-						?"You start to feel a lot healthier..."
-						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
-					+ "<br/>"
+			return "<p style='text-align:center;'>"
+						+(target.isPlayer()
+							?"You start to feel a lot healthier..."
+							:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
+					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	};

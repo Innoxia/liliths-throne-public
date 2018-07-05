@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallBack;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallFront;
@@ -995,6 +996,114 @@ public enum SexPositionType {
 		}
 	},
 	
+	OVER_TABLE_KRUGER_THREESOME("Coffee table threesome",
+			true,
+			false,
+			Util.newArrayListOfValues(DoggyStyle.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.DOGGY_ON_ALL_FOURS,
+							Util.newHashMapOfValues(
+								new Value<>(
+										SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND,
+										new SexActionInteractions(
+												Util.mergeMaps(
+														SexActionPresets.tailToAllAreas,
+														SexActionPresets.tentacleToAllAreas,
+														SexActionPresets.kissing))),
+								new Value<>(
+										SexPositionSlot.DOGGY_BEHIND,
+										new SexActionInteractions(
+												Util.mergeMaps(
+														SexActionPresets.tailToAllAreas,
+														SexActionPresets.tentacleToAllAreas,
+														SexActionPresets.vaginaToPenis,
+														SexActionPresets.assToPenis))),
+								new Value<>(
+										SexPositionSlot.DOGGY_BEHIND_ORAL,
+										new SexActionInteractions(
+												Util.mergeMaps(
+														SexActionPresets.tailToUpperTorso,
+														SexActionPresets.tentacleToUpperTorso,
+														SexActionPresets.vaginaToMouth,
+														SexActionPresets.assToMouth,
+														SexActionPresets.penisToMouth))),
+								new Value<>(
+										SexPositionSlot.DOGGY_INFRONT,
+										new SexActionInteractions(null)),
+								new Value<>(
+										SexPositionSlot.DOGGY_INFRONT_ANAL,
+										new SexActionInteractions(null)))),
+					new Value<>(
+							SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND,
+							Util.newHashMapOfValues(
+									new Value<>(
+											SexPositionSlot.DOGGY_ON_ALL_FOURS,
+											new SexActionInteractions(
+													Util.mergeMaps(
+															SexActionPresets.tailToAllAreas,
+															SexActionPresets.tentacleToAllAreas,
+															SexActionPresets.kissing))),
+									new Value<>(
+											SexPositionSlot.DOGGY_BEHIND,
+											new SexActionInteractions(
+													Util.mergeMaps(
+															SexActionPresets.tailToAllAreas,
+															SexActionPresets.tentacleToAllAreas,
+															SexActionPresets.vaginaToPenis,
+															SexActionPresets.assToPenis))),
+									new Value<>(
+											SexPositionSlot.DOGGY_BEHIND_ORAL,
+											new SexActionInteractions(
+													Util.mergeMaps(
+															SexActionPresets.tailToUpperTorso,
+															SexActionPresets.tentacleToUpperTorso,
+															SexActionPresets.vaginaToMouth,
+															SexActionPresets.assToMouth,
+															SexActionPresets.penisToMouth))),
+									new Value<>(
+											SexPositionSlot.DOGGY_INFRONT,
+											new SexActionInteractions(null)),
+									new Value<>(
+											SexPositionSlot.DOGGY_INFRONT_ANAL,
+											new SexActionInteractions(null)))),
+					new Value<>(
+							SexPositionSlot.DOGGY_BEHIND,
+							Util.newHashMapOfValues(
+								new Value<>(
+									SexPositionSlot.DOGGY_INFRONT,
+										new SexActionInteractions(
+												Util.mergeMaps(
+														SexActionPresets.fingerToUpperTorso,
+														SexActionPresets.kissing))),
+								new Value<>(
+										SexPositionSlot.DOGGY_INFRONT_ANAL,
+										new SexActionInteractions(null)),
+								new Value<>(
+										SexPositionSlot.DOGGY_ON_ALL_FOURS,
+										new SexActionInteractions(
+												SexActionPresets.appendagesToAllAreas)),
+								new Value<>(
+										SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND,
+										new SexActionInteractions(
+												SexActionPresets.appendagesToAllAreas)))),
+					new Value<>(
+							SexPositionSlot.DOGGY_BEHIND_ORAL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.DOGGY_ON_ALL_FOURS,
+									new SexActionInteractions(
+											SexActionPresets.fingerToLowerHalf)),
+							new Value<>(
+									SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND,
+									new SexActionInteractions(
+											SexActionPresets.fingerToLowerHalf)))))) {
+		@Override
+		public String getDescription() {
+			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
+					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
+		}
+	},
+	
 	KNEELING_ORAL_CULTIST("Kneeling",
 			true,
 			false,
@@ -1219,6 +1328,127 @@ public enum SexPositionType {
 		}
 	},
 	
+	STANDING_STALL("Standing",
+			true,
+			false,
+			Util.newArrayListOfValues(ToiletStall.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.STANDING_DOMINANT,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.STANDING_SUBMISSIVE,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.kissing,
+													SexActionPresets.mouthToBreasts,
+													SexActionPresets.breastsToMouth))))),
+					new Value<>(
+							SexPositionSlot.STANDING_SUBMISSIVE,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.STANDING_DOMINANT,
+									new SexActionInteractions(
+													SexActionPresets.appendagesToAllAreas)))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.STANDING_DOMINANT), Sex.getCharacterInPosition(SexPositionSlot.STANDING_SUBMISSIVE),
+					"[npc.NameIsFull] standing face-to-face with [npc2.name] in one of the toilet's stalls.");
+		}
+	},
+	
+	BACK_TO_WALL_STALL("Back-to-wall",
+			true,
+			false,
+			Util.newArrayListOfValues(ToiletStall.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.BACK_TO_WALL_AGAINST_WALL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BACK_TO_WALL_FACING_TARGET,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.groinToGroin,
+													SexActionPresets.kissing,
+													SexActionPresets.mouthToBreasts,
+													SexActionPresets.breastsToMouth))))),
+					new Value<>(
+							SexPositionSlot.BACK_TO_WALL_FACING_TARGET,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BACK_TO_WALL_AGAINST_WALL,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas))))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.BACK_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexPositionSlot.BACK_TO_WALL_FACING_TARGET),
+					"[npc2.NameIsFull] pinning [npc1.name] back against the wall of the toilet, ready to step forwards and start having some fun...");
+		}
+	},
+	
+	FACING_WALL_STALL("Facing wall",
+			true,
+			false,
+			Util.newArrayListOfValues(ToiletStall.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.FACE_TO_WALL_AGAINST_WALL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.FACE_TO_WALL_FACING_TARGET,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.tailToAllAreas,
+													SexActionPresets.tentacleToAllAreas,
+													SexActionPresets.vaginaToPenis,
+													SexActionPresets.assToPenis,
+													SexActionPresets.kissing))))),
+					new Value<>(
+							SexPositionSlot.FACE_TO_WALL_FACING_TARGET,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.FACE_TO_WALL_AGAINST_WALL,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas))))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.FACE_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexPositionSlot.FACE_TO_WALL_FACING_TARGET),
+					"[npc2.NameIsFull] pinning [npc1.name] up against the wall of the toilet, ready to step forwards and start having some fun...");
+		}
+	},
+	
+	KNEELING_ORAL_STALL("Kneeling",
+			true,
+			false,
+			Util.newArrayListOfValues(ToiletStall.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.KNEELING_PERFORMING_ORAL,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.tailToUpperTorso,
+											SexActionPresets.tentacleToUpperTorso,
+											SexActionPresets.vaginaToMouth,
+											SexActionPresets.penisToMouth,
+											SexActionPresets.penisToBreasts))))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.KNEELING_RECEIVING_ORAL,
+									new SexActionInteractions(
+											Util.mergeMaps(
+												SexActionPresets.fingerToLowerHalf))))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
+					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+		}
+	},
 	;
 	
 	private String name;

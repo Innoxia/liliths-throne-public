@@ -403,9 +403,9 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Wolf Whiskey",
-			"Wolf Whiskeys",
-			"Although labelled as a whiskey, the liquid inside the glass bottle looks more like a thick cream."
-					+ " The label on the front shows a greater wolf-boy ejaculating into a bottle just like this one, making it quite clear what this 'whiskey' really is.",
+			"Wolf Whiskies",
+			"Filled with a strong, alcoholic whiskey, this glass bottle has a label on the front which depicts a greater wolf-boy having sex with a trio of female humans."
+					+ " A slogan written above this reads: 'Wolf Whiskey; For a real alpha!'",
 			"attributeWolfMorphDrink",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			null,
@@ -439,9 +439,9 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' up to your lips."
 						+ " A thick, musky scent rises from the opening, and with a gulp, you start downing the liquid, discovering that the liquid's taste is almost identical to its pungent aroma.",
-					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the thick liquid.",
+					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the alcoholic liquid.",
 					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
-					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the thick liquid."
+					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the alcoholic liquid."
 						+ " You soon discover that the musky, pungent aroma rising from the bottle's opening is almost identical to the whiskey's rather unpleasant taste.");
 		}
 	};
@@ -550,7 +550,7 @@ public class ItemType {
 			"Feline's Fancy",
 			"Feline's Fancies",
 			"A delicate glass bottle filled with a thick, cream-like liquid."
-				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's thighs.",
+				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's legs.",
 			"attributeCatMorphDrink",
 			Colour.ATTRIBUTE_ARCANE,
 			null,
@@ -728,12 +728,12 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pop off the cap and start drinking the bottle of 'Canine Crush'."
-						+ " It doesn't taste anything like any other beer you've ever drank, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
+						+ " It doesn't taste anything like any other beer you've ever had, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
 						+ " As the last few drops slide down your throat, a strange, musky aftertaste lingers on your tongue.",
 					"Popping off the cap, you bring the bottle of 'Canine Crush' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a bottle of 'Canine Crush', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Canine Crush', and, after quickly popping off the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-						+ " It doesn't taste anything like any other beer you've ever drank, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
+						+ " It doesn't taste anything like any other beer you've ever had, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
 							+ " As the last few drops slide down your throat, a strange, musky aftertaste lingers on your tongue.");
 		}
 	};

@@ -3225,7 +3225,9 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3258,6 +3260,7 @@ public class Lab {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3334,7 +3337,9 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3367,6 +3372,7 @@ public class Lab {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3443,7 +3449,9 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3476,6 +3484,7 @@ public class Lab {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3552,7 +3561,9 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3585,6 +3596,7 @@ public class Lab {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

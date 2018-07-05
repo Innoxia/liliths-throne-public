@@ -640,6 +640,9 @@ public class Game implements Serializable, XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
 						gen.worldGeneration(WorldType.BAT_CAVERNS);
 					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
+						gen.worldGeneration(WorldType.NIGHTLIFE_CLUB);
+					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
 					}
@@ -782,10 +785,15 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.addNPC(new Axel(), false);
 					Main.game.addNPC(new Epona(), false);
 				}
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { // Add nightclub NPCs:
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Jules.class))) { // Add nightclub NPCs:
 					Main.game.addNPC(new Jules(), false);
 					Main.game.addNPC(new Kruger(), false);
 					Main.game.addNPC(new Kalahari(), false);
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
+					Main.game.getJules().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_ENTRANCE);
+					Main.game.getKruger().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
+					Main.game.getKalahari().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
@@ -2024,12 +2032,18 @@ public class Game implements Serializable, XMLSaving {
 										:"style='color:"+Colour.TEXT_HALF_GREY.toWebHexString()+";'"))
 							+" id='tab_" + responsePageCounter + "'>"
 							+(responsePageCounter==responseTab-1
-								?"<b class='hotkey-icon'>"+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB).getFullName()) + "</b>"
+								?"<b class='hotkey-icon'>"
+									+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB) == null
+										? "" 
+										: Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB).getFullName()) + "</b>"
 								:(responsePageCounter==responseTab+1
-									?"<b class='hotkey-icon'>"+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB).getFullName()) + "</b>"
+									?"<b class='hotkey-icon'>"
+										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB) == null
+											? ""
+											: Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB).getFullName()) + "</b>"
 									:""))
 //							+ (responseTab==responsePageCounter+1?"<b class='hotkey-icon'>" + KeyboardAction.RESPOND_PREVIOUS_PAGE + "</b>" : "" )
-							+ node.getResponseTabTitle(responsePageCounter)
+							+ UtilText.parse(node.getResponseTabTitle(responsePageCounter))
 						+"</div>");
 				responsePageCounter++;
 			}

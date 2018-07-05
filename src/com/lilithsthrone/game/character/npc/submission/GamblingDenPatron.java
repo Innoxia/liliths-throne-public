@@ -96,6 +96,7 @@ public class GamblingDenPatron extends NPC {
 					case DOG_MORPH_BORDER_COLLIE:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HORSE_MORPH:
 					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
@@ -143,6 +144,7 @@ public class GamblingDenPatron extends NPC {
 					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

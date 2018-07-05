@@ -1394,7 +1394,7 @@ public class PenisMouth {
 							"With a soft, muffled [npc.moan], [npc.name] gently [npc.verb(lean)] forwards,"
 									+ " parting [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] as much of [npc2.namePos] [npc2.cock+] down [npc.her] throat as [npc.she] can.",
 
-							"Slowly sliding [npc.her] head forwards, [npc.name] gently [npc.verb(part)] [npc.her] [npc.lips+], before sliding [npc2.namePos] [npc.cock+] deep down [npc.her] throat."));
+							"Slowly sliding [npc.her] head forwards, [npc.name] gently [npc.verb(part)] [npc.her] [npc.lips+], before sliding [npc2.namePos] [npc2.cock+] deep down [npc.her] throat."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -1405,7 +1405,7 @@ public class PenisMouth {
 							"With a muffled, [npc.moan+], [npc.name] eagerly [npc.verb(lean)] forwards,"
 									+ " parting [npc.her] [npc.lips+] as [npc.she] desperately [npc.verb(take)] as much of [npc2.namePos] [npc2.cock+] down [npc.her] throat as [npc.she] can.",
 
-							"Greedily sliding [npc.her] head forwards, [npc.name] readily [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] [npc2.namePos] [npc.cock+] deep down [npc.her] throat."));
+							"Greedily sliding [npc.her] head forwards, [npc.name] readily [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] [npc2.namePos] [npc2.cock+] deep down [npc.her] throat."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1415,7 +1415,7 @@ public class PenisMouth {
 							"With a muffled, [npc.moan+], [npc.name] quickly [npc.verb(lean)] forwards,"
 									+ " parting [npc.her] [npc.lips+] as [npc.she] roughly [npc.verb(force)] as much of [npc2.namePos] [npc2.cock+] down [npc.her] throat as [npc.she] can.",
 
-							"Aggressively pushing [npc.her] head forwards, [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(force)] [npc2.namePos] [npc.cock+] deep down [npc.her] throat."));
+							"Aggressively pushing [npc.her] head forwards, [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(force)] [npc2.namePos] [npc2.cock+] deep down [npc.her] throat."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1425,7 +1425,7 @@ public class PenisMouth {
 							"With a muffled, [npc.moan+], [npc.name] [npc.verb(lean)] forwards,"
 									+ " parting [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] as much of [npc2.namePos] [npc2.cock+] down [npc.her] throat as [npc.she] can.",
 
-							"Sliding [npc.her] head forwards, [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] [npc2.namePos] [npc.cock+] deep down [npc.her] throat."));
+							"Sliding [npc.her] head forwards, [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] as [npc.she] [npc.verb(take)] [npc2.namePos] [npc2.cock+] deep down [npc.her] throat."));
 					break;
 				default:
 					break;
@@ -1515,7 +1515,7 @@ public class PenisMouth {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.name] a loving blowjob.",
+					"Gently wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.herHim] a loving blowjob.",
 
 					"With a soft, muffled [npc.moan], [npc.name] gently [npc.verb(start)] bobbing [npc.her] head up and down,"
 							+ " wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+] as [npc.she] [npc.verb(give)] [npc2.herHim] head.",
@@ -1553,7 +1553,7 @@ public class PenisMouth {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.name] an enthusiastic blowjob.",
+					"Eagerly wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic blowjob.",
 
 					"With a muffled, [npc.moan+], [npc.name] quickly [npc.verb(start)] bobbing [npc.her] head up and down,"
 							+ " greedily wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+] as [npc.she] [npc.verb(give)] [npc2.herHim] head.",
@@ -1591,7 +1591,7 @@ public class PenisMouth {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Forcefully gripping [npc.her] [npc.lips+] down around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] aggressively bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.name] a rough blowjob.",
+					"Forcefully gripping [npc.her] [npc.lips+] down around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] aggressively bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.herHim] a rough blowjob.",
 
 					"With a muffled, [npc.moan+], [npc.name] violently [npc.verb(start)] bobbing [npc.her] head up and down,"
 							+ " roughly wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+] as [npc.she] [npc.verb(give)] [npc2.herHim] head.",
@@ -1694,7 +1694,7 @@ public class PenisMouth {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.name] a blowjob.",
+					"Wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.herHim] a blowjob.",
 
 					"With a muffled, [npc.moan+], [npc.name] quickly [npc.verb(start)] bobbing [npc.her] head up and down,"
 							+ " wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+] as [npc.she] [npc.verb(give)] [npc2.herHim] head.",
@@ -1732,7 +1732,7 @@ public class PenisMouth {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.name] an enthusiastic blowjob.",
+					"Eagerly wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] rapidly bobbing [npc.her] head up and down as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic blowjob.",
 
 					"With a muffled, [npc.moan+], [npc.name] quickly [npc.verb(start)] bobbing [npc.her] head up and down,"
 							+ " greedily wrapping [npc.her] [npc.lips+] around [npc2.namePos] [npc2.cock+] as [npc.she] [npc.verb(give)] [npc2.herHim] head.",

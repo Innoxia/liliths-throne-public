@@ -37,6 +37,9 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added 'The Watering Hole' nightclub to Nightlife. The descriptions are all placeholders at the moment, but I will get them written in fully for a hotfix.
+	
 	Sex action conversion:
 		All anal fingering actions.
 		All nipple and breast actions. Improved some nipple fingering action descriptions and added actions for reacting to being nipple fingered.
@@ -51,12 +54,18 @@
 		All anal sex actions.
 		All blowjob sex actions. Fixed several old errors in descriptions, and changed the 'deep throat' actions to be independent of pace.
 		
+	Contributors:
+		Fixed issues with stocks sex not working. (CognitiveMist)
+		
 	Other:
 		Improved initial penetration descriptions.
 		Added 'rose gold' and 'steel' colours to fur and scale dye colours.
 		Added indication in skin/fur/hair dying menus for metallic colours.
 		Added metallic colours to feather dyes.
 		You can now resist after choosing to submit upon combat victories.
+		Changed big cat icons.
+		Changed Wolf Whiskey's description.
+		Added harpy subspecies 'bald-eagle'. (Dark brown feathers on body, with white head feathers.)
 		
 	Bugs:
 		Fixed cause of bug where walking into a milking room shows the correct management UI, but the PC stays out of the room on the map.
@@ -85,22 +94,47 @@
 	
 	
 	
-	Monday:
-		Penis vagina
-		Penis anus
-		Write up all Nightlife framework, completely functional without descriptions
+	
+	
+	Broken condom
 		
-	Tuesday:
-		Spend all day doing Nightlife descriptions
+	PRs and bugs
 		
-	Wednesday:
-		Purely bugfixes, merges and minor things
+	Preset outfits
+		Club
+		Slut
+		Casual
+		Smart
+		Exhibitionist
+	
+	Check new cat-morph TF descriptions (especially face)
+	
+	Need to define races & body parts as "equine", "feline", etc.
+	
+	Need to make subspecies changer items
+		Feline's Fancy:
+			Tiger strike
+			Lion's roar
+			Leopard's lemonade
+			Leopard's lemonade (ice)
+			Cheetah dash
+			Lynx's lime
+			Cranberry caracal
+	
+	Make subspecies-specific SEs
+	
+	Improve cat icons
+		
+	biojuice canister corruption supposed to be a potion effect?
+		
 		
 	
 	
 	Sex action Conversions!
 		(Then misc ones, like dirty talk)
 		"You's wet back door is now exposed!"
+		
+		pull out on their soles
 	
 	Even though i set Angels as the only ones to use the Artisanal milking room, on occasion the room will spontaneously generate human girlcum
 		just looked and one of my angel slaves has human hair
@@ -172,29 +206,6 @@ my character is a guy, so this is super confusing lol
 	
 	stop penetrations does nothing
 		My slave will not take her fingers off of her back door
-	
-	
-	
-	
-	
-	Add place descriptions
-	Add location actions
-	Add pickup mechanics
-	
-	Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
-	Club - The Watering Hole (Male lion runs it, with lionesses and zebra-girls/boys as staff)
-		Internal map: Entrance, dancefloor, bar, seating area, VIP area, toilets
-		Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
-		-> Go home with him/her
-			If rough/rapist, they try to sex in alley
-			Else go home and have sex
-		-> Go into toilets (sex)
-	
-	
-	
-	Convert groping actions so threesome can interact
-	
-	Convert oral actions
 	
 	Lumi
 	

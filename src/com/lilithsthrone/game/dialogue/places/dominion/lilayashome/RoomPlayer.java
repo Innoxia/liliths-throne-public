@@ -5,28 +5,35 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -542,6 +549,105 @@ public class RoomPlayer {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+
+	
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNodeOld("Your room", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 30;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Home with clubber."
+					+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex("Sex (dom)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have dominant sex with [npc.name]."),
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_CLUBBER_SEX,
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(),
+						"<p>"
+							+ "Stepping forwards, you wrap your [pc.arms] around [npc.name] and pull [npc.herHim] into your chest."
+							+ " Leaning into [npc.herHim], you press your [pc.lips+] against [npc.hers] and get ready to have some real fun..."
+						+ "</p>"));
+				
+			} else if(index==2) {
+				return new ResponseSex("Sex (sub)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_CLUBBER_SEX,
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(),
+						"<p>"
+							+ "Stepping forwards, you wrap your [pc.arms] around [npc.name] and lean into [npc.her] chest."
+							+ " Pulling you close, [npc.she] presses [npc.her] [npc.lips+] against yours and gets ready to have some real fun..."
+						+ "</p>"));
+				
+			} else if(index==5) {
+				return new Response("Send home", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind and send [npc.herHim] home."), ROOM) {
+					@Override
+					public void effects() {
+						for(GameCharacter clubber : NightlifeDistrict.getClubbersPresent()) {
+							Main.game.banishNPC((NPC) clubber);
+						}
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_CLUBBER_SEX = new DialogueNodeOld("The Watering Hole", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 30;
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parse(NightlifeDistrict.getClubbersPresent(),
+					"<p>"
+						+ "You collapse down onto your bed beside [npc.name]."
+						+ " Having had a satisfying conclusion to [npc.her] night out, [npc.she] soon stands back up, before getting [npc.her] things in order and heading towards the door."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(Maybe I'll see you in the club some other time, [pc.name]!)] [npc.she] calls from the doorway, before taking [npc.her] leave."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Get up", "You decide to get up off the bed.", Main.game.getDefaultDialogueNoEncounter()) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_LOSE_COMPANY", NightlifeDistrict.getClubbersPresent()));
+						for(GameCharacter clubber : NightlifeDistrict.getClubbersPresent()) {
+							Main.game.banishNPC((NPC) clubber);
+						}
+					}
+				};
+			}
+			return null;
 		}
 	};
 }

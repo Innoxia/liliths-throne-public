@@ -238,6 +238,14 @@ public enum Colour {
 	AGE_FORTIES(false, Util.newColour(0xA4D246), Util.newColour(0x41590D), "green", Util.newArrayListOfValues("ageForties")),
 	
 	ALCOHOL(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("alcohol")),
+
+	ALCOHOL_LEVEL_ZERO(false, Util.newColour(0xF2E8C0), Util.newColour(0x967F22), "light yellow"),
+	ALCOHOL_LEVEL_ONE(false,  Util.newColour(0xEDDFAB), Util.newColour(0x967F22), "light yellow"),
+	ALCOHOL_LEVEL_TWO(false,  Util.newColour(0xE8D696), Util.newColour(0x967F22), "yellow"),
+	ALCOHOL_LEVEL_THREE(false,  Util.newColour(0xE3CE82), Util.newColour(0x967F22), "yellow"),
+	ALCOHOL_LEVEL_FOUR(false,  Util.newColour(0xDEC66E), Util.newColour(0x967F22), "yellow"),
+	ALCOHOL_LEVEL_FIVE(false, Util.newColour(0xD9BD59), Util.newColour(0x967F22), "gold"),
+	
 	PSYCHOACTIVE(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("psychoactive")),
 
 	TRANSFORMATION_SHRINK(false, BaseColour.RED, "red", Util.newArrayListOfValues("tfShrink", "shrink", "tfShrunk", "shrunk", "tfShrinking", "shrinking")),

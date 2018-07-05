@@ -71,7 +71,7 @@ public class Kruger extends NPC {
 		if(!isImported) {
 			this.setBody(Gender.M_P_MALE, Subspecies.CAT_MORPH_LION, RaceStage.GREATER);
 			this.setFemininity(0);
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
 			Colour primaryColour = Colour.COVERING_TAN;
 			Colour secondaryColour = Colour.COVERING_BLACK;
@@ -114,6 +114,7 @@ public class Kruger extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -2589,6 +2590,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case HARPY_RAVEN:
 				subspeciesMap.remove(Subspecies.SLIME_HARPY_RAVEN);
 				break;
+			case HARPY_BALD_EAGLE:
+				subspeciesMap.remove(Subspecies.SLIME_HARPY_BALD_EAGLE);
+				break;
 			case HORSE_MORPH:
 				subspeciesMap.remove(Subspecies.SLIME_HORSE);
 				break;
@@ -2663,6 +2667,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SLIME_DOG_DOBERMANN:
 			case SLIME_HARPY:
 			case SLIME_HARPY_RAVEN:
+			case SLIME_HARPY_BALD_EAGLE:
 			case SLIME_HORSE:
 			case SLIME_IMP:
 			case SLIME_RABBIT:
@@ -3496,6 +3501,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	/**
+	 * Gets the character's non-elemental companion NPCs, if any.
+	 */
+	public List<GameCharacter> getNonElementalCompanions() {
+		List<GameCharacter> listToReturn = getCompanions();
+		listToReturn.removeIf((com) -> com instanceof Elemental);
+		return listToReturn;
+	}
+	
+	/**
 	 * @return true if there is space for more party members. Elemental companions do not take up a companion slot.
 	 */
 	public boolean canHaveMoreCompanions() {
@@ -3940,13 +3954,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if(isPlayer()) {
 			if(potionAttributes.get(att)<0) {
-				return "<p>"
+				return "<p style='text-align:center;'>"
 							+ "You now have [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
 							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
 							+" for as long as you can maintain your potion effects!"
 						+ "</p>";
 			} else {
-				return "<p>"
+				return "<p style='text-align:center;'>"
 							+ "You now have [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
 							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
 							+" for as long as you can maintain your potion effects!"
@@ -3954,14 +3968,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		} else {
 			if(potionAttributes.get(att)<0) {
-				return "<p>"
+				return "<p style='text-align:center;'>"
 							+ UtilText.parse(this,
 							"[npc.Name] now has [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
 							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
 							+" for as long as [npc.she] can maintain [npc.her] potion effects!")
 						+ "</p>";
 			} else {
-				return "<p>"
+				return "<p style='text-align:center;'>"
 							+ UtilText.parse(this,
 							"[npc.Name] now has [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
 							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
@@ -10617,7 +10631,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return fluidIngestionSB.toString();
 	}
 	
-	public float getAlcoholLevel() {
+	public AlcoholLevel getAlcoholLevel() {
+		return AlcoholLevel.getAlcoholLevelFromValue(alcoholLevel);
+	}
+	
+	public float getAlcoholLevelValue() {
 		return alcoholLevel;
 	}
 	
@@ -10648,9 +10666,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.3f
 						?"very dizzy and light headed as the alcohol quickly enters [npc.her] system."
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system."))
+						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system.")
 					+"<br/>"
-					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%"
+					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%")
 				+ "</p>";
 		}
 	}
@@ -10660,7 +10678,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public float getIntoxicationPercentage() {
-		return getAlcoholLevel()*100;
+		return getAlcoholLevelValue()*100;
 	}
 	
 	public Addiction getAddiction(FluidType fluid) {

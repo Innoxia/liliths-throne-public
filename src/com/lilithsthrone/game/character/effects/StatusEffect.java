@@ -11,6 +11,7 @@ import java.util.Set;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -3305,7 +3306,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>0 && target.getAlcoholLevel()<0.2f;
+			return target.getAlcoholLevel()==AlcoholLevel.ONE_TIPSY;
 		}
 	},
 	
@@ -3346,7 +3347,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.2f && target.getAlcoholLevel()<0.4f;
+			return target.getAlcoholLevel()==AlcoholLevel.TWO_MERRY;
 		}
 	},
 	
@@ -3386,7 +3387,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.4f && target.getAlcoholLevel()<0.6f;
+			return target.getAlcoholLevel()==AlcoholLevel.THREE_DRUNK;
 		}
 	},
 	
@@ -3427,7 +3428,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.6f && target.getAlcoholLevel()<0.8f;
+			return target.getAlcoholLevel()==AlcoholLevel.FOUR_HAMMERED;
 		}
 	},
 	
@@ -3468,7 +3469,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.8f;
+			return target.getAlcoholLevel()==AlcoholLevel.FIVE_WASTED;
 		}
 	},
 	

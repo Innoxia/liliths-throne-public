@@ -346,8 +346,8 @@ public enum Subspecies {
 	},
 	
 	FOX_ASCENDANT_FENNEC("statusEffects/raceFoxMorph",
-			"fennec-youko-morph",
-			"fennec-youko-morphs",
+			"fennec-youko",
+			"fennec-youko",
 			"fennec-youko-boy",
 			"fennec-youko-girl",
 			"fennec-youko-boys",
@@ -468,9 +468,9 @@ public enum Subspecies {
 			"snow leopard-morph",
 			"snow leopard-morphs",
 			"snow leopard",
-			"snow leopard",
+			"snow leopardess",
 			"snow leopards",
-			"snow leopards",
+			"snow leopardesses",
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LEOPARD_SNOW,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -503,9 +503,9 @@ public enum Subspecies {
 			"leopard-morph",
 			"leopard-morphs",
 			"leopard",
+			"leopardess",
 			"leopard",
-			"leopard",
-			"leopard",
+			"leopardesses",
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LEOPARD,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -534,9 +534,9 @@ public enum Subspecies {
 			"lion-morph",
 			"lion-morphs",
 			"lion",
-			"lion",
+			"lioness",
 			"lions",
-			"lions",
+			"lionesses",
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LION,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -568,9 +568,9 @@ public enum Subspecies {
 			"tiger-morph",
 			"tiger-morphs",
 			"tiger",
-			"tiger",
+			"tigress",
 			"tigers",
-			"tigers",
+			"tigresses",
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -1157,7 +1157,7 @@ public enum Subspecies {
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a harpy-morph.",
+			"A slime that's taken on the form of a harpy.",
 			Util.newArrayListOfValues(
 					WorldType.SUBMISSION,
 					WorldType.BAT_CAVERNS)) {
@@ -1177,13 +1177,33 @@ public enum Subspecies {
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a raven-harpy-morph.",
+			"A slime that's taken on the form of a raven-harpy.",
 			Util.newArrayListOfValues(
 					WorldType.SUBMISSION,
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_RAVEN, RaceStage.GREATER);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	SLIME_HARPY_BALD_EAGLE("statusEffects/raceSlime",
+			"bald-eagle-slime",
+			"bald-eagle-slimes",
+			"bald-eagle-slime-boy",
+			"bald-eagle-slime-girl",
+			"bald-eagle-slime-boys",
+			"bald-eagle-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a bald-eagle-harpy.",
+			Util.newArrayListOfValues(
+					WorldType.SUBMISSION,
+					WorldType.BAT_CAVERNS)) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_BALD_EAGLE, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -1438,6 +1458,26 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
+		}
+	},
+
+	HARPY_BALD_EAGLE("statusEffects/raceHarpy",
+			"bald-eagle-harpy",
+			"bald-eagle-harpies",
+			"bald-eagle-harpy",
+			"bald-eagle-harpy",
+			"bald-eagle-harpies",
+			"bald-eagle-harpies",
+			Race.HARPY,
+			Colour.BASE_WHITE,
+			SubspeciesPreference.ONE_LOW,
+			"A harpy that has dark brown feathers covering their body, with white feathers on their head, resembling the colouring of a bald eagle.",
+			Util.newArrayListOfValues(WorldType.HARPY_NEST)) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
 		}
 	},
 	
@@ -1819,6 +1859,10 @@ public enum Subspecies {
 				subspecies = Subspecies.HARPY;
 				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BLACK) {
 					subspecies = Subspecies.HARPY_RAVEN;
+				}
+				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BROWN_DARK
+						&& body.getCoverings().get(BodyCoveringType.HAIR_HARPY).getPrimaryColour()==Colour.COVERING_WHITE) {
+					subspecies = Subspecies.HARPY_BALD_EAGLE;
 				}
 				break;
 			case FOX_MORPH:

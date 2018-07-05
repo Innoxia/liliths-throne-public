@@ -1322,6 +1322,7 @@ public class OptionsDialogue {
 					case IMP_ALPHA:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HUMAN:
 					case SLIME:
 					case SLIME_ALLIGATOR:
@@ -1343,6 +1344,7 @@ public class OptionsDialogue {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

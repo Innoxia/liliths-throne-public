@@ -119,9 +119,9 @@ public class UtilText {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
 		
-		if(Main.game.getPlayer().getAlcoholLevel()>0.75f) {
+		if(Main.game.getPlayer().getAlcoholLevelValue()>0.75f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
-		} else if(Main.game.getPlayer().getAlcoholLevel()>0.5f) {
+		} else if(Main.game.getPlayer().getAlcoholLevelValue()>0.5f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
 		}
 		
@@ -174,9 +174,9 @@ public class UtilText {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
 		
-		if(target.getAlcoholLevel()>0.75f) {
+		if(target.getAlcoholLevelValue()>0.75f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
-		} else if(target.getAlcoholLevel()>0.5f) {
+		} else if(target.getAlcoholLevelValue()>0.5f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
 		}
 		
@@ -1271,6 +1271,7 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"fullRace",
+						"raceFull",
 						"femininityRace"),
 				true,
 				true,

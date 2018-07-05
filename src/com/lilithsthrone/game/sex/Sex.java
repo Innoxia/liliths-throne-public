@@ -169,6 +169,8 @@ public enum Sex {
 	private static Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>>> ongoingActionsMap;
 	
 	private static Map<GameCharacter, Integer> orgasmCountMap;
+
+	private static Map<GameCharacter, Map<GameCharacter, Integer>> cummedInsideMap;
 	
 	private static Set<SexAreaOrifice> penetrationRequestsPlayer;
 	
@@ -239,6 +241,7 @@ public enum Sex {
 		sexFinished = false;
 		partnerAllowedToUseSelfActions = true;
 		orgasmCountMap = new HashMap<>();
+		cummedInsideMap = new HashMap<>();
 		
 		charactersAbleToRemoveSelfClothing = new HashSet<>();
 		charactersAbleToRemoveOthersClothing = new HashSet<>();
@@ -1796,8 +1799,9 @@ public enum Sex {
 					if(cumProvidor.getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 						if (sexAction.getAreasCummedIn(cumProvidor, cumTarget) != null) {
 							if(!cumProvidor.isWearingCondom() || sexAction.ignoreCondom(cumProvidor)){
+								Sex.incrementTimesCummedInside(cumProvidor, cumTarget, 1);
+								
 								for(SexAreaOrifice ot : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
-									
 									cumTarget.incrementCumCount(new SexType(SexParticipantType.NORMAL, ot, SexAreaPenetration.PENIS));
 									cumProvidor.incrementCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot));
 									sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getPenisRawOrgasmCumQuantity(), cumProvidor.getCum().getFluidModifiers()));
@@ -3619,6 +3623,23 @@ public enum Sex {
 		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
+	}
+	
+	public static int getTimesCummedInside(GameCharacter character, GameCharacter target) {
+		cummedInsideMap.putIfAbsent(character, new HashMap<>());
+		cummedInsideMap.get(character).putIfAbsent(target, 0);
+		return cummedInsideMap.get(character).get(target);
+	}
+	
+	public static void setTimesCummedInside(GameCharacter character, GameCharacter target, int count) {
+		cummedInsideMap.putIfAbsent(character, new HashMap<>());
+		cummedInsideMap.get(character).put(target, count);
+	}
+	
+	public static void incrementTimesCummedInside(GameCharacter character, GameCharacter target, int increment) {
+		cummedInsideMap.putIfAbsent(character, new HashMap<>());
+		cummedInsideMap.get(character).putIfAbsent(target, 0);
+		cummedInsideMap.get(character).put(target, cummedInsideMap.get(character).get(target)+increment);
 	}
 	
 	public static SexPositionType getPosition() {

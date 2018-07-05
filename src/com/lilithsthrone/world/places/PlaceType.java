@@ -1017,14 +1017,14 @@ public enum PlaceType {
 		}
 	},
 
-	WATERING_HOLE_MAIN_AREA("The Watering Hole", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_MAIN, null, false, true, true, "in 'The Watering Hole'") {
+	WATERING_HOLE_MAIN_AREA("The Watering Hole", null, BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_MAIN, null, false, true, true, "in 'The Watering Hole'") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
 		}
 	},
 
-	WATERING_HOLE_SEATING_AREA("Seating Area", "dominion/nightLife/seatingArea", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_SEATING, null, false, true, true, "in 'The Watering Hole'") {
+	WATERING_HOLE_SEATING_AREA("Seating Area", "dominion/nightLife/seatingArea", BaseColour.BLUE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_SEATING, null, false, true, true, "in 'The Watering Hole'") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);

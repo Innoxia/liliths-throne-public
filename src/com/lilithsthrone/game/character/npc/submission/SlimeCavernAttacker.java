@@ -97,6 +97,7 @@ public class SlimeCavernAttacker extends NPC {
 					case FOX_ASCENDANT_FENNEC:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HORSE_MORPH:
 					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
@@ -139,6 +140,7 @@ public class SlimeCavernAttacker extends NPC {
 					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

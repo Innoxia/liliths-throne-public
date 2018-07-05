@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable, XMLSaving {
@@ -30,6 +30,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public int ralphDiscount;
 	public int scarlettPrice;
 	public int eponaStamps;
+	public long kalahariBreakStartTime;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -52,6 +53,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		slaveTrader = null;
 		
 		ralphDiscountStartTime = -1;
+		kalahariBreakStartTime = -1;
 		ralphDiscount = 0;
 		
 		eponaStamps = 0;
@@ -67,6 +69,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
+		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
@@ -100,12 +104,18 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		newFlags.ralphDiscountStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value"));
 		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
 		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
+		
 		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
 		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
 		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
 		try {
 			newFlags.eponaStamps = Integer.valueOf(((Element)parentElement.getElementsByTagName("eponaStamps").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
+		try {
+			newFlags.kalahariBreakStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 		

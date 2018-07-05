@@ -35,7 +35,7 @@ public class FingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Pinch [npc2.namePos] [npc.nipples+].";
+			return "Pinch [npc2.namePos] [npc2.nipples+].";
 		}
 
 		@Override
@@ -716,7 +716,7 @@ public class FingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Continue fingering [npc2.namePos] [npc.nipple+].";
+			return "Continue fingering [npc2.namePos] [npc2.nipple+].";
 		}
 		
 		@Override
@@ -889,7 +889,7 @@ public class FingerNipple {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc.nipple+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
@@ -900,7 +900,7 @@ public class FingerNipple {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc.nipple+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
@@ -911,7 +911,7 @@ public class FingerNipple {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc.nipple+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"

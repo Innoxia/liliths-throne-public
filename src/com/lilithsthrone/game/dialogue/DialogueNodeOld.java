@@ -80,6 +80,9 @@ public abstract class DialogueNodeOld implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Starts at 0.
+	 */
 	public String getResponseTabTitle(int index) {
 		return null;
 	}
