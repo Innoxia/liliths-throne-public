@@ -74,7 +74,7 @@ public class SexActionUtility {
 				case SUB_RESISTING:
 					return UtilText.returnStringAtRandom(
 							"You continue struggling against [npc.name], refusing to make any sort of move on [npc.herHim].",
-							"Struggling and [pc.sobbing], you try to wriggle out of [npc.name]'s grasp, dreading what [npc.her] next move might be.",
+							"Struggling and [pc.sobbing], you try to wriggle out of [npc.namePos] grasp, dreading what [npc.her] next move might be.",
 							"You try to push [npc.name] away from you, [pc.sobbing] and struggling in distress as you refuse to submit.");
 				default:
 					return "You remain in position, content to simply wait and see what [npc.name] does next.";

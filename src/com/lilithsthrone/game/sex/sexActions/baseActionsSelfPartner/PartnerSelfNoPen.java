@@ -170,7 +170,7 @@ public class PartnerSelfNoPen {
 						"Reaching down between [npc.her] [npc.legs], [npc.name] runs [npc.her] fingertips over [npc.her] doll-like mound, [npc.moaning+] as [npc.she] teases the sensitive area.",
 						"[npc.Name] teases [npc.her] fingers over the sensitive doll-like mound between [npc.her] legs, [npc.moaning+] as [npc.she] stimulates [npc.herself].",
 						"With probing fingers, [npc.name] reaches down and starts to pinch and rub at [npc.her] delicate genderless crotch.",
-						"Despite lacking genitalia, [npc.name]'s crotch remains a highly sensitive erogenous zone, and [npc.she] eagerly starts rubbing and pressing down on it with greedy fingers.");
+						"Despite lacking genitalia, [npc.namePos] crotch remains a highly sensitive erogenous zone, and [npc.she] eagerly starts rubbing and pressing down on it with greedy fingers.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(

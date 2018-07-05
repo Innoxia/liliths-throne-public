@@ -123,7 +123,7 @@ public class Face implements BodyPartInterface, Serializable {
 			} else {
 				UtilText.transformationContentSB.append(
 						"<p>"
-							+ "An intense tingling sensation suddenly sweeps across [npc.name]'s [npc.face], and [npc.she] scrunches up [npc.her] [npc.eyes] as [npc.she] feels it start to transform."
+							+ "An intense tingling sensation suddenly sweeps across [npc.namePos] [npc.face], and [npc.she] scrunches up [npc.her] [npc.eyes] as [npc.she] feels it start to transform."
 							+ " With an audible crunch, [npc.her] facial bones start to restructure themselves, and although the feeling isn't painful, it's enough of a shock to cause [npc.herHim] to let out an involuntary cry.");
 			}
 		}
@@ -424,7 +424,7 @@ public class Face implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.nose] is now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.nose] is now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.nose] is now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -443,7 +443,7 @@ public class Face implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.nose] is [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.nose] is [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}

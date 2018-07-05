@@ -91,7 +91,7 @@ public class Wing implements BodyPartInterface, Serializable {
 				} else {
 					UtilText.transformationContentSB.append(
 							"<p>"
-								+ "[npc.Name]'s [npc.wings] suddenly start to twitch and flap with a mind of their own, and [npc.she] lets out a gasp as [npc.she] feels them start to transform.");
+								+ "[npc.NamePos] [npc.wings] suddenly start to twitch and flap with a mind of their own, and [npc.she] lets out a gasp as [npc.she] feels them start to transform.");
 				}
 				
 			}
@@ -199,7 +199,7 @@ public class Wing implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have any wings, so nothing happens...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name]'s doesn't have any wings, so nothing happens...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.NamePos] doesn't have any wings, so nothing happens...)]</p>");
 			}
 		}
 		
@@ -208,7 +208,7 @@ public class Wing implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.wings] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.wings] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.wings] doesn't change...)]</p>");
 			}
 		}
 		

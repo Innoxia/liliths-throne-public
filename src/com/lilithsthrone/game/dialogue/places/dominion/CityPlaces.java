@@ -212,7 +212,7 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
-								+ UtilText.parse(npc, "You remember that [npc.name]'s chapel is near here, and, if you were so inclined, you could easily find it again...")
+								+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and, if you were so inclined, you could easily find it again...")
 							+ "</p>");
 					break;
 				}
@@ -240,7 +240,7 @@ public class CityPlaces {
 			List<Response> responses = new ArrayList<>();
 			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				if(npc instanceof Cultist) {
-					responses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.name]'s chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
+					responses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.namePos] chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
 							@Override
 							public void effects() {
 								Main.game.setActiveNPC(npc);

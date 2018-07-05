@@ -97,7 +97,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Start slapping [npc.name]'s ass.";
+			return "Start slapping [npc.namePos] ass.";
 		}
 
 		@Override
@@ -107,10 +107,10 @@ public class DoggyStyle {
 			if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
@@ -119,7 +119,7 @@ public class DoggyStyle {
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
 					default:
-						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you grab the base of [npc.name]'s [npc.tail+] in one [pc.hand],"
+						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you grab the base of [npc.namePos] [npc.tail+] in one [pc.hand],"
 											+ " roughly yanking [npc.her] [npc.ass+] up high in the air before starting to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}
@@ -129,16 +129,16 @@ public class DoggyStyle {
 							tailSpecial1,
 							tailSpecial2,
 							"[npc.Name] lets out [npc.a_moan+] as you start slapping [npc.her] [npc.ass+] in time with your powerful thrusts into [npc.her] [npc.pussy+].",
-							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
-							"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
+							"Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
+							"While you continue pounding away at [npc.namePos] [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
@@ -147,7 +147,7 @@ public class DoggyStyle {
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
 					default:
-						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you grab the base of [npc.name]'s [npc.tail+] in one [pc.hand],"
+						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you grab the base of [npc.namePos] [npc.tail+] in one [pc.hand],"
 											+ " roughly yanking [npc.her] [npc.ass+] up high in the air before starting to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}
@@ -157,26 +157,26 @@ public class DoggyStyle {
 							tailSpecial1,
 							tailSpecial2,
 							"[npc.Name] lets out [npc.a_moan+] as you start slapping [npc.her] [npc.ass+] in time with your powerful thrusts into [npc.her] [npc.asshole+].",
-							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
-							"While you continue pounding away at [npc.name]'s [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
+							"Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
+							"While you continue pounding away at [npc.namePos] [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Growling down into [npc.name]'s [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
+						tailSpecial1 = "Growling down into [npc.namePos] [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
 											+ " while using your other to deliver a series of stinging slaps to [npc.her] [npc.ass+].";
 						break;
 					default:
-						tailSpecial1 = "Growling down into [npc.name]'s ear, you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Growling down into [npc.namePos] ear, you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 									+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial2 = "You reach down and grab [npc.name]'s waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
+						tailSpecial2 = "You reach down and grab [npc.namePos] waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial2 = "You reach down and grab the base of [npc.name]'s [npc.tail+], causing [npc.herHim] to let out a surprised yelp as you roughly yank upwards,"
+						tailSpecial2 = "You reach down and grab the base of [npc.namePos] [npc.tail+], causing [npc.herHim] to let out a surprised yelp as you roughly yank upwards,"
 											+ " forcing [npc.herHim] to push [npc.her] [npc.ass+] up high in the air as you start to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}
@@ -216,7 +216,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Cum over [npc.name]'s ass and back.";
+			return "Cum over [npc.namePos] ass and back.";
 		}
 
 		@Override
@@ -229,11 +229,11 @@ public class DoggyStyle {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(!Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.name]'s ass."
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.namePos] ass."
 						+ " Grabbing [npc.her] hips, you slide backwards, slipping your cock free from [npc.her] well-used hole, and brace for your orgasm. ");
 				
 			} else {
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.name]'s ass."
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.namePos] ass."
 						+ " Grabbing [npc.her] hips, you shuffle forwards, lining your [pc.cock+] up to [npc.her] [npc.ass+], and brace for your orgasm. ");
 			}
 			
@@ -241,15 +241,15 @@ public class DoggyStyle {
 			
 			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
-										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your thick knot swells up.";
+										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.namePos] ass, furiously masturbating as your thick knot swells up.";
 			}
 			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.BARBED)) {
 				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
-						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
+						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.namePos] ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
 			}
 			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.FLARED)) {
 				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
-						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your flared head swells up.";
+						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.namePos] ass, furiously masturbating as your flared head swells up.";
 			}
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -257,7 +257,7 @@ public class DoggyStyle {
 					knottedSpecial,
 					barbedSpecial,
 					"Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
-							+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as you let out [pc.a_moan+]."));
+							+ " Grabbing your [pc.cock] in one hand, you point it at [npc.namePos] ass, furiously masturbating as you let out [pc.a_moan+]."));
 			
 			if(Main.game.getPlayer().isWearingCondom()) {
 				UtilText.nodeContentSB.append(" As your [pc.balls+] tense up");
@@ -298,31 +298,31 @@ public class DoggyStyle {
 						UtilText.nodeContentSB.append(" Unfortunately, you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 						break;
 					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" A small trickle of [pc.cum+] squirts onto [npc.name]'s ass, and you groan in satisfaction as you see your [pc.cum] sliding down over [npc.her] "
+						UtilText.nodeContentSB.append(" A small trickle of [pc.cum+] squirts onto [npc.namePos] ass, and you groan in satisfaction as you see your [pc.cum] sliding down over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" A small amount of [pc.cum+] squirts onto [npc.name]'s ass, and you groan in satisfaction as you see your sticky seed sliding down over [npc.her] "
+						UtilText.nodeContentSB.append(" A small amount of [pc.cum+] squirts onto [npc.namePos] ass, and you groan in satisfaction as you see your sticky seed sliding down over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case THREE_AVERAGE:
-						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.name]'s ass and lower back, before dripping down over [npc.her] "
+						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.namePos] ass and lower back, before dripping down over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case FOUR_LARGE:
-						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.name]'s ass and lower back, before dripping down over [npc.her] "
+						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.namePos] ass and lower back, before dripping down over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case FIVE_HUGE:
-						UtilText.nodeContentSB.append(" Your large load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] splatter all over [npc.name]'s ass and lower back, before sliding down over [npc.her] "
+						UtilText.nodeContentSB.append(" Your large load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] splatter all over [npc.namePos] ass and lower back, before sliding down over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case SIX_EXTREME:
-						UtilText.nodeContentSB.append(" Your huge load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely cover [npc.name]'s ass and back, before sliding down all over [npc.her] "
+						UtilText.nodeContentSB.append(" Your huge load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely cover [npc.namePos] ass and back, before sliding down all over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case SEVEN_MONSTROUS:
-						UtilText.nodeContentSB.append(" Your enormous load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely drenching [npc.name]'s ass and back,"
+						UtilText.nodeContentSB.append(" Your enormous load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely drenching [npc.namePos] ass and back,"
 								+ " before pouring down all over [npc.her] "
 								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+" to form a puddle around [npc.her] knees.");
 						break;
@@ -334,12 +334,12 @@ public class DoggyStyle {
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
 				UtilText.nodeContentSB.append("<br/>"
 						+ "As you grasp your softening member in your [pc.hand], you feel a second orgasm building deep in your groin."
-						+ " Grabbing [npc.name]'s [npc.hips] to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
+						+ " Grabbing [npc.namePos] [npc.hips] to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex joins in on the fun."
 						+ " Panting heavily, you soon come down from your second climax and start to recover.");
 			} else {
 				UtilText.nodeContentSB.append("<br/>"
-						+ "You pant heavily as you pull your softening member out of [npc.name]'s used hole, before giving [npc.her] [npc.ass] a slap.");
+						+ "You pant heavily as you pull your softening member out of [npc.namePos] used hole, before giving [npc.her] [npc.ass] a slap.");
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -387,7 +387,7 @@ public class DoggyStyle {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append("As you feel [npc.name]'s [npc.asshole+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
+			UtilText.nodeContentSB.append("As you feel [npc.namePos] [npc.asshole+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
 					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] ass, grinning devilishly as [npc.she] lets out [npc.a_moan+]."
 					+ "<br/><br/>"
 					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
@@ -402,25 +402,25 @@ public class DoggyStyle {
 					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
 					break;
 				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", your load pours out deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.name]'s ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				default:
 					break;
@@ -428,19 +428,19 @@ public class DoggyStyle {
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
 				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.name]'s well-used ass, you feel a second orgasm building deep in your groin."
+						+ "As you slide your softening member out from [npc.namePos] well-used ass, you feel a second orgasm building deep in your groin."
 						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
+						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
 				
 			} else {
 				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.name]'s well-used ass, you look down, grinning, at the mess you've made of [npc.herHim]."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
+						+ "As you slide your softening member out from [npc.namePos] well-used ass, you look down, grinning, at the mess you've made of [npc.herHim]."
+						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
 			}
 			
 			UtilText.nodeContentSB.append("<br/><br/>"
-					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
+					+ "Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
 					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "<br/>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
@@ -499,7 +499,7 @@ public class DoggyStyle {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append("As you feel [npc.name]'s [npc.pussy+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
+			UtilText.nodeContentSB.append("As you feel [npc.namePos] [npc.pussy+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
 					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] [npc.pussy], grinning devilishly as [npc.she] lets out [npc.a_moan+]."
 					+ "<br/><br/>"
 					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
@@ -514,25 +514,25 @@ public class DoggyStyle {
 					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
 					break;
 				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", your load pours out deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.name]'s [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
 					break;
 				default:
 					break;
@@ -540,19 +540,19 @@ public class DoggyStyle {
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
 				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.name]'s well-used [npc.pussy], you feel a second orgasm building deep in your groin."
+						+ "As you slide your softening member out from [npc.namePos] well-used [npc.pussy], you feel a second orgasm building deep in your groin."
 						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
+						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
 				
 			} else {
 				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.name]'s well-used [npc.pussy], you look down, grinning, at the mess you've made of [npc.herHim]."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
+						+ "As you slide your softening member out from [npc.namePos] well-used [npc.pussy], you look down, grinning, at the mess you've made of [npc.herHim]."
+						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
 			}
 			
 			UtilText.nodeContentSB.append("<br/><br/>"
-					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
+					+ "Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
 					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "<br/>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");

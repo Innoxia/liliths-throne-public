@@ -378,7 +378,7 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseEffectsOnly("Call ("+UtilText.formatAsMoney(getRaiseAmount(), "span")+")", UtilText.parse(gambler, "Match [npc.name]'s raise of "+UtilText.formatAsMoney(getRaiseAmount(), "span")+".")) {
+				return new ResponseEffectsOnly("Call ("+UtilText.formatAsMoney(getRaiseAmount(), "span")+")", UtilText.parse(gambler, "Match [npc.namePos] raise of "+UtilText.formatAsMoney(getRaiseAmount(), "span")+".")) {
 					@Override
 					public void effects() {
 						moneyPool+=getRaiseAmount();
@@ -392,7 +392,7 @@ public class DicePoker {
 								+ "[npc.speech(Fine,)] [npc.name] huffs, [npc.speech(that's only going to be more money for me! Now, let's finish this!)]"
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
-								+ "<i>You <b>called</b> [npc.name]'s raise!<br/>"
+								+ "<i>You <b>called</b> [npc.namePos] raise!<br/>"
 								+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 							+ "</p>";
 						calculateGamblerRerolls();
@@ -402,7 +402,7 @@ public class DicePoker {
 				};
 				
 			} else if(index==2) {
-				return new ResponseEffectsOnly("Fold", UtilText.parse(gambler, "Surrender to [npc.name]'s and let [npc.herHim] take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+".")) {
+				return new ResponseEffectsOnly("Fold", UtilText.parse(gambler, "Surrender to [npc.namePos] and let [npc.herHim] take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+".")) {
 					@Override
 					public void effects() {
 						moneyPool+=getRaiseAmount();
@@ -480,7 +480,7 @@ public class DicePoker {
 													+ " [npc.speech(Damn it... Well, good game...)]"
 												+ "</p>"
 												+ "<p>"
-													+ "You collect your winnings and return [npc.name]'s polite remark, before moving off and taking your leave..."
+													+ "You collect your winnings and return [npc.namePos] polite remark, before moving off and taking your leave..."
 												+ "</p>"
 												+ "<p style='text-align:center;'>"
 													+ "[style.colourExcellent(You won!)]</i>"

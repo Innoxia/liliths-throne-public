@@ -81,7 +81,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.append(
 					"<p>"
-						+ "[npc.Name]'s [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively scrunches them up tight as [npc.she] reaches up to rub at them.");
+						+ "[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively scrunches them up tight as [npc.she] reaches up to rub at them.");
 		}
 
 		// Parse existing content before transformation:
@@ -339,7 +339,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.namePos] [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels some of them [style.boldShrink(disappearing)] into the [npc.faceSkin] above [npc.her] main pair.<br/>"
 							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
@@ -355,7 +355,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.namePos] [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels the strange sensation of new [npc.eyes] [style.boldGrow(growing)] out of the [npc.faceSkin] above [npc.her] main pair.<br/>"
 							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
@@ -383,7 +383,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "An irritable itchy feeling rises up into [npc.name]'s [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
+						+ "An irritable itchy feeling rises up into [npc.namePos] [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.irisShape] irises)]!"
 					+ "</p>");
 		}
@@ -409,7 +409,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "An irritable itchy feeling rises up into [npc.name]'s [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
+						+ "An irritable itchy feeling rises up into [npc.namePos] [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.pupilShape] pupils)]!"
 					+ "</p>");
 		}

@@ -165,8 +165,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "A soothing warmth spreads down into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.Name]'s [pc.girlcum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "A soothing warmth spreads down into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a contented little sigh.<br/>"
+						+ "[npc.NamePos] [pc.girlcum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>");
 		}
 	}
@@ -196,8 +196,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, pulsating heat takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(addictive)]!"
+								+ "A strange, pulsating heat takes root deep within [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
@@ -209,8 +209,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(alcoholic)]!"
+								+ "A strange, soothing warmth takes root deep within [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
@@ -222,8 +222,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A light, bubbly feeling rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(bubbly)]!"
+								+ "A light, bubbly feeling rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
@@ -235,8 +235,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of strange pulses shoot up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(psychoactive)]!"
+								+ "A series of strange pulses shoot up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -248,8 +248,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A slow, creeping warmth rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(musky)]!"
+								+ "A slow, creeping warmth rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
@@ -261,8 +261,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(slimy)]!"
+								+ "A strange, soothing warmth flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
@@ -274,8 +274,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A thick, sickly warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(sticky)]!"
+								+ "A thick, sickly warmth flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
@@ -287,8 +287,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A heavy heat slowly rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(viscous)]!"
+								+ "A heavy heat slowly rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
 		}
@@ -313,8 +313,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer addictive)]!"
+								+ "A soft coolness spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
@@ -326,8 +326,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer alcoholic)]!"
+								+ "A soft coolness spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
@@ -339,8 +339,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calm, settling feeling spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer bubbly)]!"
+								+ "A calm, settling feeling spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
@@ -352,8 +352,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of soothing waves wash up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer psychoactive)]!"
+								+ "A series of soothing waves wash up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -365,8 +365,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A gentle coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a soft sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer musky)]!"
+								+ "A gentle coolness rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a soft sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
@@ -378,8 +378,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calming coolness flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer slimy)]!"
+								+ "A calming coolness flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
@@ -391,8 +391,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer sticky)]!"
+								+ "A soft warmth flows up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
@@ -404,8 +404,8 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer viscous)]!"
+								+ "A soft coolness rises up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>");
 				}
 		}

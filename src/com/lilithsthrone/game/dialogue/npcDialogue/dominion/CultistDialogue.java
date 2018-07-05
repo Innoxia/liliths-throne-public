@@ -73,11 +73,11 @@ public class CultistDialogue {
 									+ " [pc.speech(I don't have time right now.)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You see a brief flash of anger in [npc.name]'s [npc.eyes+], but it only lasts for a moment before the smile returns to her face."
+									+ "You see a brief flash of anger in [npc.namePos] [npc.eyes+], but it only lasts for a moment before the smile returns to her face."
 									+ " [npc.speech(Just remember to praise Lilith, or else we'll find out!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[npc.Name]'s words are followed by a little laugh, but despite her attempt to pass off her remark as a joke, you detect the distinct hint of malice in her tone."
+									+ "[npc.NamePos] words are followed by a little laugh, but despite her attempt to pass off her remark as a joke, you detect the distinct hint of malice in her tone."
 									+ " Not wanting to get caught up in conversation with this overbearing cultist, you turn around and carry on your way."
 								+ "</p>"));
 					}
@@ -203,7 +203,7 @@ public class CultistDialogue {
 								+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 							+ "</p>"
 							+ "<p>"
-								+ "You slowly trace your fingers over your pussy, drawing [npc.name]'s eyes down between your [pc.legs+]."
+								+ "You slowly trace your fingers over your pussy, drawing [npc.namePos] eyes down between your [pc.legs+]."
 								+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 								+ " [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with imps soon enough!)]"
 							+ "</p>"
@@ -248,7 +248,7 @@ public class CultistDialogue {
 							+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You slowly turn to one side, tracing your fingers over your ass in order to draw [npc.name]'s eyes down to your rear end."
+							+ "You slowly turn to one side, tracing your fingers over your ass in order to draw [npc.namePos] eyes down to your rear end."
 							+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 							+ " [npc.speech(What better way to praise Lilith than by filling some slut's ass with my seed?!)]"
 						+ "</p>"
@@ -327,7 +327,7 @@ public class CultistDialogue {
 			return "<p>"
 						+ "Leaving [npc.name] panting and exhausted on the altar, you turn to make your exit."
 						+ " As you're walking towards the door, you notice that there's a spare Witch's outfit neatly folded on one of the empty benches."
-						+ " There's even a spare broomstick lying beside it, and you wonder if you should help yourself to these rare items as way of compensation for [npc.name]'s behaviour..."
+						+ " There's even a spare broomstick lying beside it, and you wonder if you should help yourself to these rare items as way of compensation for [npc.namePos] behaviour..."
 					+ "</p>"
 					+ "<p>"
 						+ "<i>Open your inventory to view the items.</i>"
@@ -419,7 +419,7 @@ public class CultistDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
 						ENCOUNTER_CHAPEL_POST_DOM_SEX,
 						"<p>"
-							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.name]'s legs."
+							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.namePos] legs."
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you."
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
 						+ "</p>") {
@@ -437,7 +437,7 @@ public class CultistDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
 						ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
 						"<p>"
-							+ "As you pick up [npc.name]'s broomstick, you feel a powerful surge of arcane energy flowing into your body."
+							+ "As you pick up [npc.namePos] broomstick, you feel a powerful surge of arcane energy flowing into your body."
 							+ " Without even needing to be told, you instantly know exactly how to harness the spells within this powerful weapon."
 							+" As you gain knowledge of the spell 'Witch's Seal', you realise that you have the opportunity to give [npc.name] a taste of her own medicine..."
 						+ "</p>"
@@ -518,7 +518,7 @@ public class CultistDialogue {
 						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
 						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
-								+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
+								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 								+ " [npc.speech(There we go! Now let's both find out how much you love being my fuck-toy!)]"
 							+ "</p>"

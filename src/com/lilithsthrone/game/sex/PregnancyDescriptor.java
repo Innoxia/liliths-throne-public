@@ -21,7 +21,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 					return UtilText.parse(characterProvidingCum,
 							"<p>"
-								+ "You feel [npc.name]'s [npc.cum+] "
+								+ "You feel [npc.namePos] [npc.cum+] "
 									+(isSlime
 										?"dispersing through your slimy body, seeking to impregnate your core"
 										:"deep in your [pc.pussy+]")
@@ -36,7 +36,7 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "[npc2.Name] is already pregnant, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>so there's no chance that [npc1.name]'s knocked [npc2.herHim] up!</b>"
+								+ "[npc2.Name] is already pregnant, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>so there's no chance that [npc1.namePos] knocked [npc2.herHim] up!</b>"
 							+ "</p>");
 				}
 			}
@@ -51,7 +51,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 					return UtilText.parse(characterProvidingCum,
 							"<p>"
-								+ "Despite feeling [npc.name]'s [npc.cum+] "
+								+ "Despite feeling [npc.namePos] [npc.cum+] "
 									+(isSlime
 										?"dispersing through your slimy body, seeking to impregnate your core"
 										:"deep in your womb")
@@ -81,7 +81,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 				return UtilText.parse(characterProvidingCum,
 						"<p>"
-							+ "You feel [npc.name]'s [npc.cum+] "
+							+ "You feel [npc.namePos] [npc.cum+] "
 							+(isSlime
 									?"dispersing through your slimy body, seeking to impregnate your core"
 									:"deep in your womb")
@@ -94,7 +94,7 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+ "After depositing your [pc.cum+] in [npc.namePos] "
 							+(isSlime
 									?"slimy body"
 									:"womb")
@@ -106,7 +106,7 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
 								+(isSlime
 										?"slimy body"
 										:"womb")
@@ -128,7 +128,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 				return UtilText.parse(characterProvidingCum,
 						"<p>"
-						+ "You feel [npc.name]'s [npc.cum+] "
+						+ "You feel [npc.namePos] [npc.cum+] "
 						+(isSlime
 								?"dispersing through your slimy body, seeking to impregnate your core"
 								:"deep in your womb")
@@ -141,7 +141,7 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+ "After depositing your [pc.cum+] in [npc.namePos] "
 							+(isSlime
 									?"slimy body"
 									:"womb")
@@ -153,7 +153,7 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
 								+(isSlime
 										?"slimy body"
 										:"womb")
@@ -175,7 +175,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 				return UtilText.parse(characterProvidingCum,
 						"<p>"
-						+ "You feel [npc.name]'s [npc.cum+] "+
+						+ "You feel [npc.namePos] [npc.cum+] "+
 						(isSlime
 								?"dispersing through your slimy body, seeking to impregnate your core"
 								:"deep in your womb")
@@ -188,7 +188,7 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+ "After depositing your [pc.cum+] in [npc.namePos] "
 							+(isSlime
 									?"slimy body"
 									:"womb")
@@ -200,7 +200,7 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
 								+(isSlime
 										?"slimy body"
 										:"womb")
@@ -222,7 +222,7 @@ public enum PregnancyDescriptor {
 			if(characterBeingImpregnated.isPlayer()){
 				return UtilText.parse(characterProvidingCum,
 						"<p>"
-							+ "You feel [npc.name]'s [npc.cum+] "
+							+ "You feel [npc.namePos] [npc.cum+] "
 							+(isSlime
 									?"dispersing through your slimy body, seeking to impregnate your core"
 									:"deep in your womb")
@@ -235,7 +235,7 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+ "After depositing your [pc.cum+] in [npc.namePos] "
 							+(isSlime
 									?"slimy body"
 									:"womb")
@@ -247,7 +247,7 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
 								+(isSlime
 										?"slimy body"
 										:"womb")

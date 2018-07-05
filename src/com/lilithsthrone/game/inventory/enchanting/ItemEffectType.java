@@ -804,7 +804,7 @@ public class ItemEffectType {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
 						?"Your senses are heightened..."
-						:UtilText.parse(target, "[npc.Name]'s senses are heightened..."))
+						:UtilText.parse(target, "[npc.NamePos] senses are heightened..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
 					+ target.incrementAlcoholLevel(0.1f);
@@ -1114,7 +1114,7 @@ public class ItemEffectType {
 					if(target.isPlayer()) {
 						sb.append("Your slimy body starts [style.boldTfGeneric(glowing)]!");
 					} else {
-						sb.append(UtilText.parse(target, "[npc.Name]'s slimy body starts [style.boldTfGeneric(glowing)]!"));
+						sb.append(UtilText.parse(target, "[npc.NamePos] slimy body starts [style.boldTfGeneric(glowing)]!"));
 					}
 					
 					target.getCovering(BodyCoveringType.SLIME).setPrimaryGlowing(true);
@@ -1151,7 +1151,7 @@ public class ItemEffectType {
 					if(target.isPlayer()) {
 						sb.append("The interiors of all of your orifices start to [style.boldTfGeneric(glow)]!");
 					} else {
-						sb.append(UtilText.parse(target, "The interiors of all of [npc.name]'s orifices start to [style.boldTfGeneric(glow)]!"));
+						sb.append(UtilText.parse(target, "The interiors of all of [npc.namePos] orifices start to [style.boldTfGeneric(glow)]!"));
 					}
 
 					target.getCovering(BodyCoveringType.MOUTH).setSecondaryGlowing(true);
@@ -1168,7 +1168,7 @@ public class ItemEffectType {
 				if(target.isPlayer()) {
 					sb.append("Multi-coloured stars and spots start to fade in and out of your vision, and you feel your head spinning as you start to [style.boldPsychoactive(trip out)]!");
 				} else {
-					sb.append(UtilText.parse(target, "Multi-coloured stars and spots start to fade in and out of [npc.name]'s vision, and [npc.she] feels [npc.her] head spinning as [npc.she] starts to [style.boldPsychoactive(trip out)]!"));
+					sb.append(UtilText.parse(target, "Multi-coloured stars and spots start to fade in and out of [npc.namePos] vision, and [npc.she] feels [npc.her] head spinning as [npc.she] starts to [style.boldPsychoactive(trip out)]!"));
 				}
 			sb.append("</p>");
 			
@@ -1924,7 +1924,7 @@ public class ItemEffectType {
 				} else {
 					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
-								+ "A giggle escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than how, like, super awesome bimbos are and stuff!"
+								+ "A giggle escapes from between [npc.namePos] [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than how, like, super awesome bimbos are and stuff!"
 								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the bimbo fetish!</b>"
 							+ "</p>"));
 				}
@@ -2018,7 +2018,7 @@ public class ItemEffectType {
 				} else {
 					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
-								+ "A desperate moan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than sex, sex, and more sex!"
+								+ "A desperate moan escapes from between [npc.namePos] [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than sex, sex, and more sex!"
 								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the nymphomaniac perk!</b>"
 							+ "</p>"));
 				}
@@ -2116,7 +2116,7 @@ public class ItemEffectType {
 				} else {
 					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
-								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
+								+ "A deep groan escapes from between [npc.namePos] [npc.lips], and [npc.she] suddenly finds [npc.herself] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
 								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the dominant fetish!</b>"
 							+ "</p>"));
 				}

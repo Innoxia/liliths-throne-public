@@ -1095,7 +1095,7 @@ public enum RenderingEngine {
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 							+ "<div class='full-width-container' style='text-align:center;'>"
 									+ "<p>"
-										+ (getCharacterToRender()==null?"No Character":UtilText.parse(getCharacterToRender(), "[npc.Name]'s Inventory"))
+										+ (getCharacterToRender()==null?"No Character":UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
 									+ "</p>"
 							+ "</div>"
 						+ "</div>");

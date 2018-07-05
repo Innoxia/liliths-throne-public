@@ -51,7 +51,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's wetness doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.name]'s throat doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] throat doesn't change...)]</p>");
 			}
 		}
 		
@@ -65,7 +65,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name]'s throat suddenly fills with saliva, and [npc.she] gulps as [npc.she] realises that it's permanently [style.boldGrow(got wetter)].<br/>"
+							+ "[npc.NamePos] throat suddenly fills with saliva, and [npc.she] gulps as [npc.she] realises that it's permanently [style.boldGrow(got wetter)].<br/>"
 							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>");
 			}
@@ -109,7 +109,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's capacity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s throat doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] throat doesn't change...)]</p>");
 			}
 		}
 		
@@ -171,7 +171,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's elasticity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.name]'s throat doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] throat doesn't change...)]</p>");
 			}
 		}
 		
@@ -221,7 +221,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's plasticity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.name]'s throat doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] throat doesn't change...)]</p>");
 			}
 		}
 		
@@ -292,7 +292,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] throat is now lined with [style.boldGrow(extra muscles)],"
 									+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex([npc.Name]'s throat is now lined with an intricate series of muscles!)]"
+								+ "[style.boldSex([npc.NamePos] throat is now lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -307,7 +307,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 							+ " Shifting [npc.her] throat around a little, [npc.she] discovers that the inside of [npc.her] throat is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
 								+ " which provide extreme pleasure when stimulated.<br/>"
-							+ "[style.boldSex([npc.Name]'s throat is now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "[style.boldSex([npc.NamePos] throat is now lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
@@ -321,7 +321,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] throat is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The inside of [npc.name]'s throat is now filled with little tentacles, which wriggle with a mind of their own!)]"
+								+ "[style.boldSex(The inside of [npc.namePos] throat is now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -333,7 +333,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over your mouth, before [npc.her] lips swell out and [style.boldGrow(puff up)].<br/>"
-								+ "[style.boldSex([npc.Name]'s lips are now extremely puffy!)]"
+								+ "[style.boldSex([npc.NamePos] lips are now extremely puffy!)]"
 							+ "</p>";
 				}
 		}
@@ -362,7 +362,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] throat has lost its [style.boldShrink(extra muscles)].<br/>"
-								+ "[style.boldSex([npc.Name]'s throat is no longer lined with an intricate series of muscles!)]"
+								+ "[style.boldSex([npc.NamePos] throat is no longer lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -376,7 +376,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 					return "<p>"
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 							+ " Shifting [npc.her] throat around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] throat have vanished.<br/>"
-							+ "[style.boldSex([npc.Name]'s throat is no longer lined with fleshy, pleasure-inducing ribs!)]"
+							+ "[style.boldSex([npc.NamePos] throat is no longer lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
@@ -390,7 +390,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] throat have all disappeared.<br/>"
-								+ "[style.boldSex(The inside of [npc.name]'s throat is no longer filled with little tentacles!)]"
+								+ "[style.boldSex(The inside of [npc.namePos] throat is no longer filled with little tentacles!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -402,7 +402,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] lips, before they suddenly [style.boldShrink(deflate)] into a more normal-looking size.<br/>"
-								+ "[style.boldSex([npc.Name]'s lips are no longer extremely puffy!)]"
+								+ "[style.boldSex([npc.NamePos] lips are no longer extremely puffy!)]"
 							+ "</p>";
 				}
 		}

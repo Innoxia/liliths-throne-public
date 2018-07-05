@@ -290,9 +290,9 @@ public class GenericSexualPartner extends NPC {
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 			StringBuilderSB.append(
 							"<p>"
-								+"As [npc.name]'s [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+								+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
 								+ " Being so enamoured with the idea of being a pure virgin, you don't know what on Earth possessed you to sign up for pregnancy roulette,"
-									+ " but as [npc.name]'s [npc.cock+] claims your previous virginity, you don't have any time to reflect on your poor choice."
+									+ " but as [npc.namePos] [npc.cock+] claims your previous virginity, you don't have any time to reflect on your poor choice."
 								+ " The only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
 							+ "</p>"
 							+ "<p>"
@@ -313,8 +313,8 @@ public class GenericSexualPartner extends NPC {
 		} else {
 			StringBuilderSB.append(
 					"<p>"
-						+"As [npc.name]'s [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
-						+ " As [npc.name]'s [npc.cock+] claims your virginity, the only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
+						+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+						+ " As [npc.namePos] [npc.cock+] claims your virginity, the only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
 					+ "</p>"
 					+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)
 							?"<p>"
@@ -363,7 +363,7 @@ public class GenericSexualPartner extends NPC {
 						+ "If this [npc.race] doesn't knock me up, I hope one of the other breeders makes me a Mommy...")
 				+ "</p>"
 				+ "<p>"
-					+ "You're vaguely aware of [npc.name]'s taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
+					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
 					+ " With a desperate moan, you spread your legs and resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");

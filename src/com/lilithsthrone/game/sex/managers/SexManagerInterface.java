@@ -216,7 +216,7 @@ public interface SexManagerInterface {
 							"You hear someone in the crowd wolf-whistling as they watch you having sex.",
 							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
 							"You hear the crowd that's gathered to watch you commenting on your performance.",
-							"You hear the crowd that's gathered to watch you commenting on [npc.name]'s performance.",
+							"You hear the crowd that's gathered to watch you commenting on [npc.namePos] performance.",
 							"Cheering and laughing, the crowd of onlookers watch as you continue having sex with [npc.name].",
 							"You glance across to see several members of the crowd touching themselves as they watch you and [npc.name] go at it.",
 							"The crowd cheers you on as you and [npc.name] carry on having sex in front of them.",

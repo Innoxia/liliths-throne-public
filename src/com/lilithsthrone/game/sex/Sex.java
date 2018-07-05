@@ -886,7 +886,7 @@ public enum Sex {
 						&& Main.game.isInNewWorld()) {
 					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
-						sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
+						sexSB.append("<p style='text-align:center'><b>[npc.NamePos] arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
 						
 					} else {
 						
@@ -899,9 +899,9 @@ public enum Sex {
 											"<p>"
 												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
 													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-												+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Quickly realising that you're somehow able to see [npc.namePos] arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
 												+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
-												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.namePos] aura shoots into your chest."
 											+ "</p>"
 											+ "<p>"
 												+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
@@ -915,9 +915,9 @@ public enum Sex {
 											"<p>"
 												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
 													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-												+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Quickly realising that you're somehow able to see [npc.namePos] arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
 												+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
-												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.namePos] aura shoots into your chest."
 											+ "</p>"
 											+ "<p>"
 												+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
@@ -928,7 +928,7 @@ public enum Sex {
 							}
 						}
 						
-						sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.name]'s orgasm...</p>"
+						sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.namePos] orgasm...</p>"
 								+"<div class='container-full-width' style='text-align:center;'>"
 									+ (Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)
 											?Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4, true)
@@ -1237,13 +1237,13 @@ public enum Sex {
 		sexSB.append(endString);
 		
 		String s;
-//		if(sexActionPlayer.getLimitation()==null
-//				&& sexActionPlayer!=SexActionUtility.CLOTHING_REMOVAL
-//				&& sexActionPlayer!=SexActionUtility.CLOTHING_DYE) {
+		if(sexActionPlayer.getLimitation()==null
+				&& sexActionPlayer!=SexActionUtility.CLOTHING_REMOVAL
+				&& sexActionPlayer!=SexActionUtility.CLOTHING_DYE) {
 			s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString());
-//		} else {
-//			s = UtilText.parse(Sex.getActivePartner(), sexSB.toString());
-//		}
+		} else {
+			s = UtilText.parse(Sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString());
+		}
 		sexSB.setLength(0);
 		sexSB.append(s);
 		
@@ -1280,13 +1280,13 @@ public enum Sex {
 	
 							sexSB.append(endString);
 							
-//							if(sexActionPartner.getLimitation()==null
-//									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
-//									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
+							if(sexActionPartner.getLimitation()==null
+									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
+									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
 								s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
-//							} else {
-//								s = UtilText.parse(character, sexSB.toString());
-//							}
+							} else {
+								s = UtilText.parse(Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
+							}
 							sexSB.setLength(0);
 							sexSB.append(s);
 							
@@ -1997,7 +1997,7 @@ public enum Sex {
 				activePartner.setArousal(20);
 				activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
 				sexSB.append(UtilText.parse(activePartner,
-						"<p style='text-align:center'>Without producing any cum, [npc.name]'s climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
+						"<p style='text-align:center'>Without producing any cum, [npc.namePos] climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
 			}
 
 			// Reset appropriate flags:
@@ -2149,8 +2149,8 @@ public enum Sex {
 					sexSB.append(
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
-											?"[npc.Name]'s [npc.asshole+] was already exposed before starting sex!"
-											:"[npc.Name]'s [npc.asshole+] is now exposed!"))
+											?"[npc.NamePos] [npc.asshole+] was already exposed before starting sex!"
+											:"[npc.NamePos] [npc.asshole+] is now exposed!"))
 							+ sexManager.getPartnerAssRevealReaction()
 							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.ANUS)));
 					areasExposed.get(characterBeingExposed).add(CoverableArea.ANUS);
@@ -2162,8 +2162,8 @@ public enum Sex {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
-												?"[npc.Name]'s [npc.cock+] was already exposed before starting sex!"
-												:"[npc.Name]'s [npc.cock+] is now exposed!"))
+												?"[npc.NamePos] [npc.cock+] was already exposed before starting sex!"
+												:"[npc.NamePos] [npc.cock+] is now exposed!"))
 								+ sexManager.getPartnerPenisRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaPenetration.PENIS)));
 					}
@@ -2176,8 +2176,8 @@ public enum Sex {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
-												?"[npc.Name]'s [npc.pussy+] was already exposed before starting sex!"
-												:"[npc.Name]'s [npc.pussy+] is now exposed!"))
+												?"[npc.NamePos] [npc.pussy+] was already exposed before starting sex!"
+												:"[npc.NamePos] [npc.pussy+] is now exposed!"))
 								+ sexManager.getPartnerVaginaRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.VAGINA)));
 	
@@ -2185,8 +2185,8 @@ public enum Sex {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
-												?"[npc.Name]'s doll-like mound was already exposed before starting sex!"
-												:"[npc.Name]'s doll-like mound is now exposed!"))
+												?"[npc.NamePos] doll-like mound was already exposed before starting sex!"
+												:"[npc.NamePos] doll-like mound is now exposed!"))
 								+ sexManager.getPartnerMoundRevealReaction());
 					}
 					areasExposed.get(characterBeingExposed).add(CoverableArea.VAGINA);
@@ -2197,8 +2197,8 @@ public enum Sex {
 					sexSB.append(
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
-											?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
-											:"[npc.Name]'s [npc.nipples+] are now exposed!"))
+											?"[npc.NamePos] [npc.nipples+] were already exposed before starting sex!"
+											:"[npc.NamePos] [npc.nipples+] are now exposed!"))
 								+ sexManager.getPartnerBreastsRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.NIPPLE)));
 					areasExposed.get(characterBeingExposed).add(CoverableArea.NIPPLES);
@@ -2344,7 +2344,7 @@ public enum Sex {
 		if(wetAreas.get(character).get(area).isEmpty()) {
 			return "";
 		}
-		StringBuilder description = new StringBuilder((character.isPlayer() ?"Your " :"[npc.Name]'s ")+area.getName(character) +" "+(area.isPlural()?"are":"is")+" lubricated with ");
+		StringBuilder description = new StringBuilder((character.isPlayer() ?"Your " :"[npc.NamePos] ")+area.getName(character) +" "+(area.isPlural()?"are":"is")+" lubricated with ");
 		List<String> lubes = new ArrayList<>();
 		for(LubricationType lube : wetAreas.get(character).get(area)) {
 			lubes.add(lube.getName());
@@ -2367,7 +2367,7 @@ public enum Sex {
 		
 		if(wetAreas.get(character).get(orifice).add(lubrication)){
 			if(appendDescription && appendTextToSex) {
-				sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.Name]'s ")+orifice.getName(character)+" "+(orifice.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
+				sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.NamePos] ")+orifice.getName(character)+" "+(orifice.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
 			}
 		}
 	}
@@ -2387,7 +2387,7 @@ public enum Sex {
 					: true)) { // Can't lubricate if covered by condom
 			if(wetAreas.get(character).get(penetrationType).add(lubrication)){
 				if(appendDescription && appendTextToSex) {
-					sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.Name]'s ")+penetrationType.getName(character)+" "+(penetrationType.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
+					sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.NamePos] ")+penetrationType.getName(character)+" "+(penetrationType.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
 				}
 			}
 		}

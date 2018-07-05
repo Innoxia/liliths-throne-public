@@ -134,7 +134,7 @@ public class CharactersPresentDialogue {
 						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 						
 					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.name]'s inventory.") {
+						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
 									@Override
 									public void effects() {
 										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
@@ -168,7 +168,7 @@ public class CharactersPresentDialogue {
 					} else {
 						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
 							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
 								@Override
 								public void effects() {
 									if(characterViewed.isElementalSummoned()) {
@@ -182,7 +182,7 @@ public class CharactersPresentDialogue {
 							};
 						} else {
 							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
 									MENU){
 								@Override
 								public void effects() {
@@ -314,7 +314,7 @@ public class CharactersPresentDialogue {
 									},
 									AFTER_SEX,
 									"<p>"
-										+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+										+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 										+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 										+ " [npc.speech(Looking for some fun, hmm?)]"
 									+ "</p>") {

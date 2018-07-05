@@ -170,7 +170,7 @@ public class GenericActions {
 					+ " [pc.speech(You aren't really interested in having sex with me, are you?)]"
 				+ "</p>"
 				+ "<p>"
-					+ "[npc.Name]'s [npc.eyes] glaze over a little as [npc.she] answers,"
+					+ "[npc.NamePos] [npc.eyes] glaze over a little as [npc.she] answers,"
 					+ " [npc.speech(Yes... I... I don't know why I'm having sex with you...)]"
 				+ "</p>"
 				+ "<p>"
@@ -179,9 +179,9 @@ public class GenericActions {
 				+ "</p>"
 				+ "<p>"
 					+ (Sex.isDom(Sex.getActivePartner())
-							?"As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot calmer, and sighs,"
+							?"As the hypnotic suggestion sinks into [npc.namePos] head, [npc.she] starts to sound a lot calmer, and sighs,"
 								+ " [npc.speech(This isn't really all that fun...)]"
-							:"As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot more distressed, and cries out,"
+							:"As the hypnotic suggestion sinks into [npc.namePos] head, [npc.she] starts to sound a lot more distressed, and cries out,"
 								+ " [npc.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
 				+ "</p>";
 		}
@@ -224,7 +224,7 @@ public class GenericActions {
 						+ " [pc.speech(You love having sex with me, don't you?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.Name]'s [npc.eyes] glaze over a little as [npc.she] answers,"
+						+ "[npc.NamePos] [npc.eyes] glaze over a little as [npc.she] answers,"
 						+ " [npc.speech(Yes... I... I love having sex with you...)]"
 					+ "</p>"
 					+ "<p>"
@@ -232,7 +232,7 @@ public class GenericActions {
 						+ " [pc.speech(You love begging for me to fuck you, isn't that right?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot more eager, and [npc.moansVerb],"
+						+ "As the hypnotic suggestion sinks into [npc.namePos] head, [npc.she] starts to sound a lot more eager, and [npc.moansVerb],"
 						+ " [npc.speech(Yes [pc.name]! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
 					+ "</p>";
 		}
@@ -304,7 +304,7 @@ public class GenericActions {
 				
 			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				return UtilText.returnStringAtRandom(
-						"You try to push [npc.name]'s groin away from your [pc.face], but your efforts prove to be in vain as [npc.she] grabs hold of your head and pulls you back into [npc.her] crotch.",
+						"You try to push [npc.namePos] groin away from your [pc.face], but your efforts prove to be in vain as [npc.she] grabs hold of your head and pulls you back into [npc.her] crotch.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to pull your [pc.face] away from [npc.her] groin, but [npc.her] grasp on your head is too strong, and you're quickly forced back into position.",
 						"Begging for [npc.herHim] to leave you alone, you desperately struggle against [npc.name], [pc.sobbing] in distress as [npc.she] pulls your [pc.face] back into [npc.her] groin.");
 				
@@ -536,7 +536,7 @@ public class GenericActions {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
-					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
+					UtilText.nodeContentSB.append("As you put an end to [npc.namePos] self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			
@@ -805,7 +805,7 @@ public class GenericActions {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
-					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
+					UtilText.nodeContentSB.append("As you put an end to [npc.namePos] self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			

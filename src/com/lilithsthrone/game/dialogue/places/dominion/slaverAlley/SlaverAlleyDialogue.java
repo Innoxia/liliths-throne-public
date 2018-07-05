@@ -458,7 +458,7 @@ public class SlaverAlleyDialogue {
 			} else {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.name]'s asking price up to "+UtilText.formatAsMoney(biddingPrice, "span")+"."
+							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.namePos] asking price up to "+UtilText.formatAsMoney(biddingPrice, "span")+"."
 						+ "</p>"
 						+ "<p>"
 							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice, "span")+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100, "span")+" to get in the lead for buying [npc.name].</i>"
@@ -719,7 +719,7 @@ public class SlaverAlleyDialogue {
 						+ " [finch.speech(What can I help you with today?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Walking forwards, you return [finch.name]'s greeting,"
+						+ "Walking forwards, you return [finch.namePos] greeting,"
 						+ " [pc.speech(Hi, [finch.name].)]"
 					+ "</p>"
 					+ "<p>"
@@ -788,7 +788,7 @@ public class SlaverAlleyDialogue {
 							+ " [finch.speech(Can I help you with anything?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Walking forwards, you return [finch.name]'s greeting,"
+							+ "Walking forwards, you return [finch.namePos] greeting,"
 							+ " [pc.speech(Hello, I was just looking around.)]"
 						+ "</p>"
 						+ "<p>"
@@ -869,7 +869,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you ask,"
+						+ "Walking up to [finch.namePos] desk, you ask,"
 						+ " [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]"
 					+ "</p>"
 					+ "<p>"
@@ -905,7 +905,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you place the letter of recommendation down in front of him."
+						+ "Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him."
 						+ " [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]"
 					+ "</p>"
 					+ "<p>"

@@ -444,7 +444,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", false) {
+	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -587,7 +587,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -616,7 +616,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

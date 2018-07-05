@@ -77,7 +77,7 @@ public class Ear implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.append(
 					"<p>"
-							+ "[npc.Name]'s [npc.ears] start to involuntarily twitch and itch, and, feeling them start to transform, [npc.she] lets out a little gasp and reaches up to rub at them.");
+							+ "[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and, feeling them start to transform, [npc.she] lets out a little gasp and reaches up to rub at them.");
 		}
 
 		// Parse existing content before transformation:
@@ -430,7 +430,7 @@ public class Ear implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.ears] are now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.ears] are now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.ears] are now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -449,7 +449,7 @@ public class Ear implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.ears] are [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.ears] are [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}

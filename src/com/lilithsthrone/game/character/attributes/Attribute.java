@@ -126,7 +126,7 @@ public enum Attribute {
 									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum energy</b>.";
 							else
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s physical health.");
+										"A measure of [npc.namePos] physical health.");
 						}
 					},
 
@@ -145,7 +145,7 @@ public enum Attribute {
 									+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum Aura</b>.";
 							else
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s affinity with the arcane.");
+										"A measure of [npc.namePos] affinity with the arcane.");
 						}
 					},
 
@@ -164,7 +164,7 @@ public enum Attribute {
 								return "Corruption is a measure of your perversion and depravity, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>which sex actions you are comfortable performing</b>.";
 							} else {
 								return UtilText.parse(owner,
-										"Corruption is a measure of [npc.name]'s perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
+										"Corruption is a measure of [npc.namePos] perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
 							}
 						}
 					},
@@ -751,7 +751,7 @@ public enum Attribute {
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-							+ "[npc.Name]'s <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
+							+ "[npc.NamePos] <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
 						+ "</p>");
 			}
 		}

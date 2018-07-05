@@ -1140,42 +1140,42 @@ public class Brax extends NPC {
 				if(orifice == SexAreaOrifice.VAGINA) {
 					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.pussy+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
-								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.name]'s [npc.penis+].");
+								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.pussy+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.namePos] [npc.penis+].");
 					} else if(penetrationType == SexAreaPenetration.TONGUE && characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.name]'s head, moaning softly as he carries on eating you out.",
-								"With a little giggle, you grind your [pc.pussy+] down on [brax.name]'s wolf-like muzzle.",
-								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.pussy+].",
-								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
+								"You hold the top of [brax.namePos] head, moaning softly as he carries on eating you out.",
+								"With a little giggle, you grind your [pc.pussy+] down on [brax.namePos] wolf-like muzzle.",
+								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.pussy+].",
+								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
 					}
 				}
 				
 				if(orifice == SexAreaOrifice.ANUS) {
 					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.asshole+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
-								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.name]'s [npc.penis+].");
+								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.asshole+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.namePos] [npc.penis+].");
 						
 					} else if(characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.name]'s head, moaning softly as he carries on licking your [pc.asshole+].",
-								"With a little giggle, you grind your [pc.asshole+] down on [brax.name]'s wolf-like muzzle.",
-								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.asshole+].",
-								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
+								"You hold the top of [brax.namePos] head, moaning softly as he carries on licking your [pc.asshole+].",
+								"With a little giggle, you grind your [pc.asshole+] down on [brax.namePos] wolf-like muzzle.",
+								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.asshole+].",
+								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
 					}
 				}
 			}
 			
 			if(penetrationType == SexAreaPenetration.PENIS && orifice == SexAreaOrifice.ANUS && characterPenetrated.equals(this)) {
 				return UtilText.returnStringAtRandom(
-						"You carry on slamming your [pc.penis+] into [brax.name]'s [npc.asshole+].",
-						"Holding his hips, you carry on fucking [brax.name]'s [npc.asshole+].",
-						"You feel [brax.name]'s [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
+						"You carry on slamming your [pc.penis+] into [brax.namePos] [npc.asshole+].",
+						"Holding his hips, you carry on fucking [brax.namePos] [npc.asshole+].",
+						"You feel [brax.namePos] [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
 						"[brax.name] gasps and groans as you carry on spearing your [pc.penis+] into his [npc.asshole+].");
 			}
 		}

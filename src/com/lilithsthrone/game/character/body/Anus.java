@@ -111,14 +111,14 @@ public class Anus implements BodyPartInterface, Serializable {
 				return "<p>[style.boldTfSex(Your asshole is now bleached!)]</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.Name]'s asshole is now bleached!)]</p>");
+						"<p>[style.boldTfSex([npc.NamePos] asshole is now bleached!)]</p>");
 			}
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>[style.boldTfSex(Your asshole is no longer bleached!)]</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.Name]'s asshole is no longer bleached!)]</p>");
+						"<p>[style.boldTfSex([npc.NamePos] asshole is no longer bleached!)]</p>");
 			}
 		}
 	}
@@ -173,7 +173,7 @@ public class Anus implements BodyPartInterface, Serializable {
 			} else {
 				switch(assHair) {
 					case ZERO_NONE:
-						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.name]'s asshole.</p>");
+						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.namePos] asshole.</p>");
 						break;
 					case ONE_STUBBLE:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");

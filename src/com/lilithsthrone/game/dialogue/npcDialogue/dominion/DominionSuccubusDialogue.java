@@ -289,7 +289,7 @@ public class DominionSuccubusDialogue {
 						AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Satisfied with how [npc.name] looks, you decide to give [npc.herHim] what [npc.she] wants, and, stepping forwards, you allow [npc.herHim] to move towards you, grinning as [npc.she] starts grinding [npc.herself] up against you."
-							+ " Pressing your [pc.lips] to [npc.hers] and delivering a passionate kiss, you reach around and grope [npc.name]'s ass as [npc.she] moans hotly into your mouth..."
+							+ " Pressing your [pc.lips] to [npc.hers] and delivering a passionate kiss, you reach around and grope [npc.namePos] ass as [npc.she] moans hotly into your mouth..."
 						+ "</p>");
 				
 			} else if (index == 3) {
@@ -347,7 +347,7 @@ public class DominionSuccubusDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you really know what's going on, [npc.sheIs] pulled you up to your feet, and as [npc.her] body presses up tightly against yours, you feel a strange bulge digging into your leg."
-							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection between [npc.name]'s legs."
+							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection between [npc.namePos] legs."
 							+ " You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.sheIs] growing [npc.herself] a cock to fuck you with."
 						+ "</p>"
 						+ "<p>"
@@ -1142,7 +1142,7 @@ public class DominionSuccubusDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.namePos] clothing and items..."){
 					@Override
 					public void effects() {
 						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
@@ -1227,7 +1227,7 @@ public class DominionSuccubusDialogue {
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "TODO<br/>"
-						+ "You clasp the collar around [npc.name]'s neck.<br/>"
+						+ "You clasp the collar around [npc.namePos] neck.<br/>"
 						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
 					+ "</p>"
 					+ "<p>"

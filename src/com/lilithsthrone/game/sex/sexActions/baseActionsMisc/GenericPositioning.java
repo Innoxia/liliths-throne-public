@@ -113,7 +113,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down onto [npc.her] back."
 					+ " Kneeling down between [npc.her] [npc.legs], you [pc.moan] as you look down into [npc.her] [npc.eyes+], "
 					+ "[pc.speech(That's right, spread your legs for me...)]";
 		}
@@ -163,7 +163,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "You reach up to take hold of [npc.name]'s shoulders, and, pushing down, you try to get [npc.herHim] to lie down on [npc.her] back.";
+			return "You reach up to take hold of [npc.namePos] shoulders, and, pushing down, you try to get [npc.herHim] to lie down on [npc.her] back.";
 		}
 
 		@Override
@@ -204,7 +204,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] knees."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down onto [npc.her] knees."
 					+ " Kneeling down before [npc.herHim], you then lie down onto your back, spreading your [pc.legs] and looking up into [npc.her] [npc.eyes+] as you [pc.moanVerb], "
 					+ "[pc.speech(Come and take me!)]";
 		}
@@ -297,7 +297,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] up against a nearby wall."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] up against a nearby wall."
 					+ " Grinding your body up against [npc.her] back, you [pc.moan] into [npc.her] [npc.ear], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}
@@ -390,7 +390,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] back against a nearby wall."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] back against a nearby wall."
 					+ " Grinding your body up against [npc.hers], you [pc.moan] into [npc.her] [npc.ear], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}
@@ -481,7 +481,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you quite quickly force [npc.herHim] to [npc.her] knees before you."
+			return "Taking hold of [npc.namePos] shoulders, you quite quickly force [npc.herHim] to [npc.her] knees before you."
 					+ " Grinning down at [npc.her] submissive form, you [pc.moan], "
 					+ "[pc.speech(Time to put your mouth to use!)]";
 		}
@@ -618,7 +618,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Lifting your [pc.arms], you take hold of [npc.name]'s shoulders, and, with a little pressure, try to get [npc.herHim] to kneel before you.";
+			return "Lifting your [pc.arms], you take hold of [npc.namePos] shoulders, and, with a little pressure, try to get [npc.herHim] to kneel before you.";
 		}
 
 		@Override
@@ -659,7 +659,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down onto [npc.her] back."
 					+ " You then lower yourself down onto all fours over the top of [npc.herHim], lowering your crotch down to [npc.her] face as you similarly position your own head over [npc.her] groin."
 					+ " Looking back beneath you, you [pc.moan], "
 					+ "[pc.speech(Good [npc.girl]! Now let's have some fun!)]";
@@ -751,7 +751,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down onto [npc.her] back."
 					+ " You then lower yourself down on top of [npc.herHim], bringing your crotch down to [npc.hers] as you straddle [npc.herHim] in the cowgirl position."
 					+ " Once you've made yourself comfortable, you grin down at [npc.name], "
 					+ "[pc.speech(Good [npc.girl]! Now let's have some fun!)]";
@@ -843,9 +843,9 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down onto [npc.her] back."
 					+ " You then lower yourself down on top of [npc.herHim], bringing your crotch down over [npc.her] face."
-					+ " Once you've made yourself comfortable, you allow your legs to give way, firmly planting your groin down against [npc.name]'s mouth.";
+					+ " Once you've made yourself comfortable, you allow your legs to give way, firmly planting your groin down against [npc.namePos] mouth.";
 			
 		}
 
@@ -892,7 +892,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Reaching up to take hold of [npc.name]'s shoulders, you try to push [npc.herHim] down onto [npc.her] back, pleading, "
+			return "Reaching up to take hold of [npc.namePos] shoulders, you try to push [npc.herHim] down onto [npc.her] back, pleading, "
 					+ "[pc.speech(Please, let me sit on your face!)]";
 		}
 
@@ -935,9 +935,9 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s [npc.arms], you pull [npc.herHim] down with you as you lie down on your back."
+			return "Taking hold of [npc.namePos] [npc.arms], you pull [npc.herHim] down with you as you lie down on your back."
 					+ " Reaching around to grab [npc.her] thighs, you pull [npc.herHim] down on top of you, bringing [npc.her] crotch down over your face."
-					+ " [npc.Name]'s [npc.legs] suddenly give way, causing [npc.herHim] to firmly plant [npc.her] groin down against your mouth.";
+					+ " [npc.NamePos] [npc.legs] suddenly give way, causing [npc.herHim] to firmly plant [npc.her] groin down against your mouth.";
 			
 		}
 
@@ -984,7 +984,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s [npc.hands], you move to lie down on your back, pleading, "
+			return "Taking hold of [npc.namePos] [npc.hands], you move to lie down on your back, pleading, "
 					+ "[pc.speech(Please, sit on my face!)]";
 		}
 
@@ -1026,7 +1026,7 @@ public class GenericPositioning {
 		
 			@Override
 			public String getDescription() {
-				return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down on all fours."
+				return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down on all fours."
 						+ " Stepping around behind [npc.herHim], you drop down onto your knees, shuffling forwards to grind your crotch against [npc.her] [npc.ass+]."
 						+ " Grabbing hold of [npc.her] [npc.hips+], you [pc.moan], "
 						+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you like the bitch you are!)]";
@@ -1129,7 +1129,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] towards the ground, making [npc.herHim] kneel."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] towards the ground, making [npc.herHim] kneel."
 					+ " You move in front of [npc.herHim] and position yourself on all fours, suggestively shaking your [pc.hips] and softly tracing your finger over your [pc.ass] to entice [npc.herHim]. "
 					+ "[pc.speech(Get to work, [npc.girl]!)]";
 		}
@@ -1189,7 +1189,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down on all fours."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down on all fours."
 					+ " Stepping around behind [npc.herHim], you drop down onto all fours yourself, crawling forwards to your face up against [npc.her] [npc.ass+]."
 					+ " Grinning at the sight in front of you, you [pc.moan], "
 					+ "[pc.speech(Be a good [npc.girl] and enjoy this!)]";
@@ -1246,7 +1246,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down on all fours."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] down on all fours."
 					+ " Stepping around in front of [npc.herHim], you drop down onto all fours yourself, shuffling backwards to press your [pc.ass+] up against [npc.her] [npc.face+]."
 					+ " Looking back over your shoulder, you [pc.moan], "
 					+ "[pc.speech(Be a good [npc.girl] and put your tongue to use!)]";
@@ -1387,7 +1387,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Lifting your [pc.arms], you take hold of [npc.name]'s shoulders, and with a little pressure, try to get [npc.herHim] to drop down onto all fours so that you can fuck [npc.herHim] doggy-style.";
+			return "Lifting your [pc.arms], you take hold of [npc.namePos] shoulders, and with a little pressure, try to get [npc.herHim] to drop down onto all fours so that you can fuck [npc.herHim] doggy-style.";
 		}
 
 		@Override
@@ -1575,7 +1575,7 @@ public class GenericPositioning {
 									+ " Much to your surprise, and delight, [npc.she] then drops down onto all fours in front of you, before shuffling back and rubbing [npc.her] [npc.ass+] against your crotch,"
 									+ " [npc.speech(You want to fuck me, you little bitch?! Come on then, let's see if you've got what to takes to satisfy me!)]";
 						default:
-							return "A devious grin spreads across [npc.name]'s face as [npc.she] realises what it is you want."
+							return "A devious grin spreads across [npc.namePos] face as [npc.she] realises what it is you want."
 									+ " Much to your delight, [npc.she] does exactly what you want, and drops down onto all fours in front of you, before shuffling back and rubbing [npc.her] [npc.ass+] against your crotch,"
 									+ " [npc.speech(Come on then! This is what you wanted, isn't it?!)]";
 					}

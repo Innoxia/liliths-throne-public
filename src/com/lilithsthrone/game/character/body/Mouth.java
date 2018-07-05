@@ -115,7 +115,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.lips] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.lips] doesn't change...)]</p>");
 			}
 		}
 		
@@ -163,7 +163,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.lips] are now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.lips] are now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.lips] are now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -182,7 +182,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.lips] are [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.lips] are [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}

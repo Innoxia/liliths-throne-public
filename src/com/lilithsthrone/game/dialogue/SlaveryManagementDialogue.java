@@ -1097,14 +1097,14 @@ public class SlaveryManagementDialogue {
 				}
 				
 				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
-					return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "Manage [npc.name]'s inventory.")){
+					return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "Manage [npc.namePos] inventory.")){
 						@Override
 						public void effects() {
 							Main.mainController.openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
 				} else {
-					return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You can't manage [npc.name]'s inventory, as you don't own [npc.herHim]!"), null);
+					return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You can't manage [npc.namePos] inventory, as you don't own [npc.herHim]!"), null);
 				}
 				
 			} else if(index == 0) {
@@ -1468,7 +1468,7 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name]'s Job");
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.NamePos] Job");
 		}
 		
 		@Override
@@ -1755,7 +1755,7 @@ public class SlaveryManagementDialogue {
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
 			if(!BodyChanging.getTarget().getBodyMaterial().isAbleToWearMakeup()) {
-				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.name]'s body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
+				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.namePos] body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
 				
 			} else {
 				return new Response("Makeup",
@@ -1879,10 +1879,10 @@ public class SlaveryManagementDialogue {
 							true, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on [npc.name]'s [npc.hands].", true, true)
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on [npc.namePos] [npc.hands].", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on [npc.name]'s [npc.feet].", true, true)
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on [npc.namePos] [npc.feet].", true, true)
 					);
 		}
 		
@@ -1895,7 +1895,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Makeup",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s makeup!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] makeup!"),
 						null);
 				
 			} else {
@@ -1924,9 +1924,9 @@ public class SlaveryManagementDialogue {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.name]'s able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair], the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.name]'s [npc.hair] length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair] length.")
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
@@ -1946,7 +1946,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 2) {
 				return new Response("Hair",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s hair!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] hair!"),
 						null);
 				
 			} else {
@@ -2002,7 +2002,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 3) {
 				return new Response("Piercings",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s piercings!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] piercings!"),
 						null);
 				
 			} else {
@@ -2051,7 +2051,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 4) {
 				return new Response("Eyes",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s eyes!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] eyes!"),
 						null);
 				
 			} else {
@@ -2084,35 +2084,35 @@ public class SlaveryManagementDialogue {
 				BodyCoveringType bct = entry.getKey();
 				
 				String title = Util.capitaliseSentence(bct.getName(BodyChanging.getTarget()));
-				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.name]'s "+Util.stringsToStringList(entry.getValue(), false)+".";
+				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".";
 				
 				if(bct == BodyCoveringType.ANUS) {
 					title = "Anus";
-					description = "This is the skin that's currently covering [npc.name]'s anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
+					description = "This is the skin that's currently covering [npc.namePos] anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
 					
 				} else if(bct == BodyCoveringType.VAGINA) {
 					title = "Vagina";
-					description = "This is the skin that's currently covering [npc.name]'s labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
+					description = "This is the skin that's currently covering [npc.namePos] labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
 					
 				} else if(bct == BodyCoveringType.PENIS) {
 					title = "Penis";
-					description = "This is the skin that's currently covering [npc.name]'s penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
+					description = "This is the skin that's currently covering [npc.namePos] penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
 					
 				} else if(bct == BodyCoveringType.NIPPLES) {
 					title = "Nipples";
-					description = "This is the skin that's currently covering [npc.name]'s nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
+					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
 				} else if(bct == BodyCoveringType.MOUTH) {
 					title = "Lips & Throat";
 					if(BodyChanging.getTarget().getFaceType() == FaceType.HARPY) {
-						description = "This is the colour of [npc.name]'s beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
+						description = "This is the colour of [npc.namePos] beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
 					} else {
-						description = "This is the skin that's currently covering [npc.name]'s lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
+						description = "This is the skin that's currently covering [npc.namePos] lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
 					}
 					
 				} else if(bct == BodyCoveringType.TONGUE) {
 					title = "Tongue";
-					description = "This is the skin that's currently covering [npc.name]'s tongue.";
+					description = "This is the skin that's currently covering [npc.namePos] tongue.";
 				}
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
@@ -2137,7 +2137,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 5) {
 				return new Response("Coverings",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s coverings!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] coverings!"),
 						null);
 				
 			} else {
@@ -2169,20 +2169,20 @@ public class SlaveryManagementDialogue {
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
 					+(Main.game.isFacialHairEnabled()
-							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face." 
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.namePos] face." 
 									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around [npc.name]'s sex organs and crotch.")
+							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around [npc.namePos] sex organs and crotch.")
 							:"")
 					
 					+(Main.game.isBodyHairEnabled()
-							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in [npc.name]'s armpits.")
+							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in [npc.namePos] armpits.")
 							:"")
 					
 					+(Main.game.isAssHairEnabled()
-							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around [npc.name]'s asshole.")
+							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around [npc.namePos] asshole.")
 							:"")
 					);
 			
@@ -2209,7 +2209,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
 				return new Response("Other",
-						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s other features!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.namePos] other features!"),
 						null);
 				
 			} else {
@@ -2230,7 +2230,7 @@ public class SlaveryManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 7) {
 				return new Response("Tattoos",
-						UtilText.parse(BodyChanging.getTarget(), "You are already managing [npc.name]'s tattoos!"),
+						UtilText.parse(BodyChanging.getTarget(), "You are already managing [npc.namePos] tattoos!"),
 						null);
 				
 			} else if(index==11) {

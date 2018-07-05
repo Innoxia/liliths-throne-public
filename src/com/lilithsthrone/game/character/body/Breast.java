@@ -86,7 +86,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A strange tingling feeling rises up into [npc.name]'s [npc.breasts+], but as [npc.she] doesn't have any breasts, nothing seems to happen...<br/>"
+							+ "A strange tingling feeling rises up into [npc.namePos] [npc.breasts+], but as [npc.she] doesn't have any breasts, nothing seems to happen...<br/>"
 							+ "If [npc.she] ever grows any, [npc.name] will now have [style.boldSex("+shape.getName()+" breasts)]!"
 						+ "</p>");
 			}
@@ -100,7 +100,7 @@ public class Breast implements BodyPartInterface, Serializable {
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "A strange tingling feeling rises up into [npc.name]'s [npc.breasts+], and before [npc.she] knows what's happening, they're shifting and rearranging themselves into a new shape...<br/>"
+						+ "A strange tingling feeling rises up into [npc.namePos] [npc.breasts+], and before [npc.she] knows what's happening, they're shifting and rearranging themselves into a new shape...<br/>"
 						+ "[npc.Name] now has [style.boldSex("+shape.getName()+" breasts)]!"
 					+ "</p>");
 		}
@@ -538,7 +538,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.breasts] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.breasts] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.breasts] doesn't change...)]</p>");
 			}
 		}
 		
@@ -677,9 +677,9 @@ public class Breast implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 								+ UtilText.returnStringAtRandom(
-										lactationChange+"ml of [npc.name]'s [npc.milk] squirts out of [npc.her] [npc.nipples+].",
-										lactationChange+"ml of [npc.milk+] leaks out of [npc.name]'s [npc.nipples+].",
-										lactationChange+"ml of [npc.milk+] drips out of [npc.name]'s [npc.nipples+].")
+										lactationChange+"ml of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
+										lactationChange+"ml of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
+										lactationChange+"ml of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
 							?"<br/><i>[npc.Name] now has no more [pc.milk] stored in [npc.her] breasts!</i>"
@@ -711,7 +711,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your rate of [pc.milk] regeneration doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.name]'s rate of [npc.milk] regeneration doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] rate of [npc.milk] regeneration doesn't change...)]</p>");
 			}
 		}
 		
@@ -728,7 +728,7 @@ public class Breast implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "[npc.Name] feels an alarming bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 								+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] regeneration has [style.boldGrow(increased)].<br/>"
-							+ "[npc.Name]'s rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+							+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 						+ "</p>");
 			}
 		} else {
@@ -742,7 +742,7 @@ public class Breast implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
 								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.sheIs] feeling [npc.her] [npc.milk] regeneration [style.boldShrink(decreasing)].<br/>"
-							+ "[npc.Name]'s rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+							+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 						+ "</p>");
 			}
 		}

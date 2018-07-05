@@ -104,7 +104,7 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] up against a nearby wall."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] up against a nearby wall."
 					+ " Grinding your body up against [npc.her] back, you [pc.moan] into [npc.her] [npc.ear], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}
@@ -197,7 +197,7 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] back against a nearby wall."
+			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] back against a nearby wall."
 					+ " Grinding your body up against [npc.hers], you [pc.moan] into [npc.her] [npc.ear], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}
@@ -289,7 +289,7 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you quite quickly force [npc.herHim] to [npc.her] knees before you."
+			return "Taking hold of [npc.namePos] shoulders, you quite quickly force [npc.herHim] to [npc.her] knees before you."
 					+ " Grinning down at [npc.her] submissive form, you [pc.moan], "
 					+ "[pc.speech(Time to put your mouth to use!)]";
 		}
@@ -426,7 +426,7 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Lifting your [pc.arms], you take hold of [npc.name]'s shoulders, and, with a little pressure, try to get [npc.herHim] to kneel before you.";
+			return "Lifting your [pc.arms], you take hold of [npc.namePos] shoulders, and, with a little pressure, try to get [npc.herHim] to kneel before you.";
 		}
 
 		@Override
@@ -610,7 +610,7 @@ public class ToiletStall {
 									+ " Much to your surprise, and delight, [npc.she] then drops down onto all fours in front of you, before shuffling back and rubbing [npc.her] [npc.ass+] against your crotch,"
 									+ " [npc.speech(You want to fuck me, you little bitch?! Come on then, let's see if you've got what to takes to satisfy me!)]";
 						default:
-							return "A devious grin spreads across [npc.name]'s face as [npc.she] realises what it is you want."
+							return "A devious grin spreads across [npc.namePos] face as [npc.she] realises what it is you want."
 									+ " Much to your delight, [npc.she] does exactly what you want, and drops down onto all fours in front of you, before shuffling back and rubbing [npc.her] [npc.ass+] against your crotch,"
 									+ " [npc.speech(Come on then! This is what you wanted, isn't it?!)]";
 					}

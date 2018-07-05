@@ -8040,7 +8040,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+										+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8071,7 +8071,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 							} else {
 								return "<p>"
-										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+										+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8095,13 +8095,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								return UtilText.parse(this,
-											"[npc.Name]'s eyes light up as your [pc.breastSize] breasts are revealed, "
+											"[npc.NamePos] eyes light up as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Oh fuck yeah... Look at the size of those tits!)]")
 										+ "</p>";
 								
 							} else {
 								return UtilText.parse(this,
-											"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+											"[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]")
 										+ "</p>";
 							}
@@ -8130,7 +8130,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8164,7 +8164,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 							} else {
 								return "<p>"
-										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+										+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8195,7 +8195,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 							} else {
 								return "<p>"
-										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+										+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8231,7 +8231,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(How did you manage to get your tits to be that huge?! What a fucking tit-cow!)]"
 										+ "</p>";
 							}
@@ -8260,7 +8260,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
@@ -8365,7 +8365,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"+
-											"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
+											"[npc.NamePos] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Holy shit! I didn't think [pc.gender]s could get cocks like that!)]"
 										+ "</p>";
 							}
@@ -8397,7 +8397,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"+
-											"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
+											"[npc.NamePos] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Holy shit! Now <i>that's</i> a cock!)]"
 										+ "</p>";
 							}
@@ -8531,7 +8531,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Holy shit! I didn't think "+characterBeingRevealed.getGender().getName()+"s could get cocks that big!)]"
 										+ "</p>";
 							}
@@ -8603,7 +8603,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Holy shit! I didn't think [pc.gender]s could get cocks that big!)]"
 										+ "</p>";
 							}
@@ -8641,7 +8641,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								
 							} else {
 								return "<p>"
-											+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.NamePos] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Fuck...)]"
 										+ "</p>";
 							}
@@ -8778,7 +8778,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							+ "</p>";
 				case SUB_EAGER:
 					return "<p>"
-							+ "[npc.Name]'s eyes light up when [npc.she] sees "
+							+ "[npc.NamePos] eyes light up when [npc.she] sees "
 							+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] betraying your arousal."
 									: "your [pc.pussy].")
@@ -8968,32 +8968,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				switch(Sex.getSexPace(characterPenetrating)) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s soft [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
+								"[npc.NamePos] soft [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
 								"[npc.Name] gently presses [npc.her] [npc.lips+] against yours as [npc.she] continues kissing you.",
 								"Gently pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 					case DOM_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
+								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
 								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against yours as [npc.she] continues passionately kissing you.",
 								"Passionately pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into your mouth as [npc.she] continues forcefully snogging you.",
+								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues forcefully snogging you.",
 								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against yours as [npc.she] continues forcefully snogging you.",
 								"Roughly grinding [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
+								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
 								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against yours as [npc.she] continues passionately kissing you.",
 								"Passionately pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 					case SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
+								"[npc.NamePos] [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
 								"[npc.Name] presses [npc.her] [npc.lips+] against yours as [npc.she] continues kissing you.",
 								"Pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
+								"[npc.NamePos] [npc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
 								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from yours as [npc.she] struggles against you.",
 								"Trying to pull [npc.her] [npc.lips+] away from yours, [npc.name] continues struggling against your unwanted kiss.");
 				}
@@ -9002,32 +9002,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				switch(Sex.getSexPace(characterPenetrating)) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s soft [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
+								"[npc.NamePos] soft [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
 								"[npc.Name] gently presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case DOM_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
+								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
 								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
 								"Passionately pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues forcefully snogging [npc2.herHim].",
+								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues forcefully snogging [npc2.herHim].",
 								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues forcefully snogging [npc2.herHim].",
 								"Roughly grinding [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
+								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
 								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
 								"Passionately pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
+								"[npc.NamePos] [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
 								"[npc.Name] presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] continues making out with [npc2.herHim].");
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name]'s [npc.sobs+] are muffled into [npc2.namePos] mouth as [npc.she] desperately tries to push away from [npc2.herHim].",
+								"[npc.NamePos] [npc.sobs+] are muffled into [npc2.namePos] mouth as [npc.she] desperately tries to push away from [npc2.herHim].",
 								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from [npc2.namePos] as [npc.she] struggles against [npc2.herHim].",
 								"Trying to pull [npc.her] [npc.lips+] away from [npc2.namePos], [npc.name] continues struggling against the unwanted kiss.");
 				}
@@ -10255,7 +10255,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case TOES: case CLIT:
 					return formatStretching(this.isPlayer()
 							?"Your [pc.asshole+] is being stretched."
-							:UtilText.parse(this, "[npc.Name]'s [npc.asshole+] is being stretched."));
+							:UtilText.parse(this, "[npc.NamePos] [npc.asshole+] is being stretched."));
 				}
 				break;
 			case ASS:
@@ -10305,7 +10305,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case TOES: case CLIT:
 						return formatStretching(this.isPlayer()
 								?"Your [pc.nipples+] are being stretched."
-								:UtilText.parse(this, "[npc.Name]'s [npc.nipples+] are being stretched."));
+								:UtilText.parse(this, "[npc.NamePos] [npc.nipples+] are being stretched."));
 				}
 				break;
 			case THIGHS:
@@ -10315,7 +10315,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case TOES: case CLIT:
 					return formatStretching(this.isPlayer()
 							?"Your urethra is being stretched."
-							:UtilText.parse(this, "[npc.Name]'s urethra is being stretched."));
+							:UtilText.parse(this, "[npc.NamePos] urethra is being stretched."));
 				}
 				break;
 			case VAGINA:
@@ -10323,7 +10323,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE: case TOES: case CLIT:
 						return formatStretching(this.isPlayer()
 								?"Your [pc.pussy+] is being stretched."
-								:UtilText.parse(this, "[npc.Name]'s [npc.pussy+] is being stretched."));
+								:UtilText.parse(this, "[npc.NamePos] [npc.pussy+] is being stretched."));
 				}
 		}
 		return "";
@@ -10534,7 +10534,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(charactersFluid.isPlayer()) {
 					fluidIngestionSB.append(UtilText.parse(this,
 							"<p>"
-								+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
+								+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
 								+ (curedWithdrawal
 									?" [npc.She] feels deeply grateful to you for providing [npc.herHim] with what [npc.she] needed most..."
 											+ "</p>"
@@ -10545,7 +10545,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					fluidIngestionSB.append(UtilText.parse(this, charactersFluid,
 							"<p>"
-								+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
+								+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
 								+ (curedWithdrawal
 									?" [npc.She] feels deeply grateful to [npc2.name] for providing [npc.herHim] with what [npc.she] needed most..."
 											+ "</p>"
@@ -10610,7 +10610,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			} else {
 				fluidIngestionSB.append(UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+" has been satisfied!"
+							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+" has been satisfied!"
 						+ "</p>"));
 			}
 		}
@@ -10668,7 +10668,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
 						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system.")
 					+"<br/>"
-					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%")
+					+ "[npc.NamePos] [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%")
 				+ "</p>";
 		}
 	}
@@ -14036,7 +14036,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p>"
-								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.<br/>"
+								+ "[npc.NamePos] body subtly shifts to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
@@ -14053,7 +14053,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p>"
-								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.<br/>"
+								+ "[npc.NamePos] body subtly shifts to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
@@ -14067,7 +14067,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s femininity doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.NamePos] femininity doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -14098,7 +14098,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p class='center'>"
-								+ "[npc.Name]'s body shifts and expands as <b style='color:" + Colour.BODY_SIZE_THREE.toWebHexString() + ";'>[npc.she] grows larger</b>.<br/>"
+								+ "[npc.NamePos] body shifts and expands as <b style='color:" + Colour.BODY_SIZE_THREE.toWebHexString() + ";'>[npc.she] grows larger</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true) + "</b>, "
 										+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving [npc.herHim] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>");
@@ -14115,7 +14115,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p class='center'>"
-								+ "[npc.Name]'s body shifts and narrows down as <b style='color:" + Colour.BODY_SIZE_ONE.toWebHexString() + ";'>[npc.she] gets slimmer</b>.<br/>"
+								+ "[npc.NamePos] body shifts and narrows down as <b style='color:" + Colour.BODY_SIZE_ONE.toWebHexString() + ";'>[npc.she] gets slimmer</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true) + "</b>, "
 										+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving [npc.herHim] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>");
@@ -14129,7 +14129,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s body doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.NamePos] body doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -14160,7 +14160,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p class='center'>"
-								+ "[npc.Name]'s body shifts as <b style='color:" + Colour.MUSCLE_THREE.toWebHexString() + ";'>[npc.she] gets more muscular</b>.<br/>"
+								+ "[npc.NamePos] body shifts as <b style='color:" + Colour.MUSCLE_THREE.toWebHexString() + ";'>[npc.she] gets more muscular</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 										+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving [npc.her] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>");
@@ -14177,7 +14177,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p class='center'>"
-								+ "[npc.Name]'s body shifts as <b style='color:" + Colour.MUSCLE_ONE.toWebHexString() + ";'>[npc.she] loses some of [npc.her] muscle</b>.<br/>"
+								+ "[npc.NamePos] body shifts as <b style='color:" + Colour.MUSCLE_ONE.toWebHexString() + ";'>[npc.she] loses some of [npc.her] muscle</b>.<br/>"
 								+ "[npc.She] now has <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 										+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving [npc.her] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>");
@@ -14191,7 +14191,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s muscles don't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.NamePos] muscles don't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -14265,7 +14265,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s height doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.NamePos] height doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -14880,7 +14880,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			} else {
 				tfDescription = UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name]'s cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.sheIs] suffering from an intense heat stroke."
+							+ "[npc.NamePos] cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.sheIs] suffering from an intense heat stroke."
 							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little little rivulets of cool, "
 								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
 						+ "</p>"
@@ -14912,7 +14912,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								+ " albeit now being composed entirely of slime."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.Name]'s entire being is now condensed into a [style.boldSlime(slime core)]!<br/><i>"
+							+ "[npc.NamePos] entire being is now condensed into a [style.boldSlime(slime core)]!<br/><i>"
 							+ "- [npc.She] has complete control over all of the slime which surrounds [npc.herHim], allowing [npc.herHim] to morph [npc.her] body parts at will!<br/>"
 							+ "- The wetness of [npc.her] pussy and asshole can never be anything less than "+Wetness.SEVEN_DROOLING.getDescriptor()+"!<br/>"
 							+ "- [npc.She] is unable to apply any makeup to [npc.her] slimy body!<br/>"
@@ -14937,14 +14937,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			} else {
 				tfDescription = UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name]'s slimy body starts to tingle all over, and as [npc.she] looks down at [npc.her] [npc.arms], [npc.she] sees the slime that they're made up of starting to get more and more opaque."
+							+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] looks down at [npc.her] [npc.arms], [npc.she] sees the slime that they're made up of starting to get more and more opaque."
 							+ " As her slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
 						+ "</p>"
 						+ "<p>"
 							+ "With a sharp gasp, [npc.she] feels the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.Name]'s body is now made out of [style.boldTfGeneric(flesh)]!"
+							+ "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"
 						+ "</p>");
 			}
 		}

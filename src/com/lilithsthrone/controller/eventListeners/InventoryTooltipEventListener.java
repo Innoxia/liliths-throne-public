@@ -357,7 +357,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
-														?"[npc.Name]'s vagina has not been pierced."
+														?"[npc.NamePos] vagina has not been pierced."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
 									}
@@ -368,7 +368,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedEar()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your ears have not been pierced.",
-													"[npc.Name]'s ears have not been pierced."));
+													"[npc.NamePos] ears have not been pierced."));
 											piercingBlocked=true;
 										}
 									}
@@ -379,7 +379,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedLip()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your lips have not been pierced.",
-													"[npc.Name]'s lips have not been pierced."));
+													"[npc.NamePos] lips have not been pierced."));
 											piercingBlocked=true;
 										}
 									}
@@ -391,8 +391,8 @@ public class InventoryTooltipEventListener implements EventListener {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nipples have not been pierced.",
 													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-															?"[npc.Name]'s nipples have not been pierced."
-															:"You don't know if [npc.name]'s nipples have been pierced.")));
+															?"[npc.NamePos] nipples have not been pierced."
+															:"You don't know if [npc.namePos] nipples have been pierced.")));
 											piercingBlocked=true;
 										}
 									}
@@ -403,7 +403,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedNose()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nose has not been pierced.",
-													"[npc.Name]'s nose has not been pierced."));
+													"[npc.NamePos] nose has not been pierced."));
 											piercingBlocked=true;
 										}
 									}
@@ -422,7 +422,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
-														?"[npc.Name]'s penis has not been pierced."
+														?"[npc.NamePos] penis has not been pierced."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 									}
@@ -433,7 +433,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedNavel()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your navel has not been pierced.",
-													"[npc.Name]'s navel has not been pierced."));
+													"[npc.NamePos] navel has not been pierced."));
 											piercingBlocked=true;
 										}
 									}
@@ -444,7 +444,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedTongue()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your tongue has not been pierced.",
-													"[npc.Name]'s tongue has not been pierced."));
+													"[npc.NamePos] tongue has not been pierced."));
 											piercingBlocked=true;
 										}
 									}

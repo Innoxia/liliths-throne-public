@@ -55,7 +55,7 @@ public class CultistSexActions {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] tries to make a move, but the Witch's Seal is too strong, and [npc.she] collapses back onto the altar, stunned.",
-					"The purple glow of a pentagram materialises beneath [npc.name]'s body as [npc.she] tries to make a move; proof that the Witch's Seal is still keeping [npc.herHim] bound in place.",
+					"The purple glow of a pentagram materialises beneath [npc.namePos] body as [npc.she] tries to make a move; proof that the Witch's Seal is still keeping [npc.herHim] bound in place.",
 					"[npc.Name] tries and sit up on the altar, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 					"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] struggles to make a move.",
 					"[npc.speech(~Mmm!~)] [npc.name] moans, struggling in vain against the Witch's Seal.",
@@ -128,7 +128,7 @@ public class CultistSexActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Stand up so that you're positioned between [npc.name]'s [npc.legs].";
+			return "Stand up so that you're positioned between [npc.namePos] [npc.legs].";
 		}
 
 		@Override
@@ -184,12 +184,12 @@ public class CultistSexActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Drop down onto your knees and position your face between [npc.name]'s legs.";
+			return "Drop down onto your knees and position your face between [npc.namePos] legs.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Dropping down to your knees, you position your head between [npc.name]'s [npc.legs], ready to pleasure [npc.herHim] with your mouth,"
+			return "Dropping down to your knees, you position your head between [npc.namePos] [npc.legs], ready to pleasure [npc.herHim] with your mouth,"
 					+ " [pc.speech(Ready for some fun?)]";
 		}
 
@@ -241,7 +241,7 @@ public class CultistSexActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Drop down onto your knees and position your face between [pc.name]'s legs.";
+			return "Drop down onto your knees and position your face between [pc.namePos] legs.";
 		}
 
 		@Override
@@ -298,7 +298,7 @@ public class CultistSexActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Stand up so that you're positioned between [pc.name]'s [pc.legs].";
+			return "Stand up so that you're positioned between [pc.namePos] [pc.legs].";
 		}
 
 		@Override

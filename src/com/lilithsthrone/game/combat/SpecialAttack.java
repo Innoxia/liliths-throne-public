@@ -149,10 +149,10 @@ public enum SpecialAttack {
 						"You grin at [npc.name], before moving your gaze down to [npc.her] [npc.ass+] and [pc.moaning],"
 							+" [pc.speech(Your ass looks like it needs a good fuck!)]",
 
-						"You hungrily stare at [npc.name]'s [npc.ass+], [pc.moaning],"
+						"You hungrily stare at [npc.namePos] [npc.ass+], [pc.moaning],"
 							+" [pc.speech(I'm going to fuck that ass so hard!)]",
 
-						"Gazing lustfully at [npc.name]'s [npc.ass+], you let out [pc.a_moan+],"
+						"Gazing lustfully at [npc.namePos] [npc.ass+], you let out [pc.a_moan+],"
 							+" [pc.speech(I'm going to pound that sweet ass into the ground!)]")));
 				
 			} else if(target.isPlayer()){
@@ -173,10 +173,10 @@ public enum SpecialAttack {
 						"[npc.Name] grins at [npc2.name], before moving [npc.her] gaze down to [npc2.her] [npc2.ass+] and [npc.moaning],"
 							+" [npc.speech(Your ass looks like it needs a good fuck!)]",
 
-						"[npc.Name] hungrily stares at [npc2.name]'s [npc2.ass+], [npc.moaning],"
+						"[npc.Name] hungrily stares at [npc2.namePos] [npc2.ass+], [npc.moaning],"
 							+" [npc.speech(I'm going to fuck that ass so hard!)]",
 
-						"Gazing lustfully at [npc2.name]'s [npc2.ass+], [npc.name] lets out [npc.a_moan+],"
+						"Gazing lustfully at [npc2.namePos] [npc2.ass+], [npc.name] lets out [npc.a_moan+],"
 							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]")));
 			}
 			
@@ -299,10 +299,10 @@ public enum SpecialAttack {
 						"You grin at [npc.name], before moving your gaze down between [npc.her] [npc.legs] and [pc.moaning],"
 							+" [pc.speech(Your pussy looks like it needs a good fuck!)]",
 
-						"You hungrily stare between [npc.name]'s [npc.legs], [pc.moaning],"
+						"You hungrily stare between [npc.namePos] [npc.legs], [pc.moaning],"
 							+" [pc.speech(I'm going to fuck that pussy so hard!)]",
 
-						"Gazing lustfully between [npc.name]'s [npc.legs], you let out [pc.a_moan+],"
+						"Gazing lustfully between [npc.namePos] [npc.legs], you let out [pc.a_moan+],"
 							+" [pc.speech(I'm going to pound that sweet pussy into the ground!)]")));
 				
 			} else if(target.isPlayer()) {
@@ -323,10 +323,10 @@ public enum SpecialAttack {
 						"[npc.Name] grins at [npc2.name], before moving [npc.her] gaze down to between [npc2.her] [npc2.legs] and [npc.moaning],"
 							+" [npc.speech(Your pussy looks like it needs a good fuck!)]",
 
-						"[npc.Name] hungrily stares between [npc2.name]'s [npc2.legs], [npc.moaning],"
+						"[npc.Name] hungrily stares between [npc2.namePos] [npc2.legs], [npc.moaning],"
 							+" [npc.speech(I'm going to fuck that pussy so hard!)]",
 
-						"Gazing lustfully between [npc2.name]'s [npc2.legs], [npc.name] lets out [npc.a_moan+],"
+						"Gazing lustfully between [npc2.namePos] [npc2.legs], [npc.name] lets out [npc.a_moan+],"
 							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]")));
 			}
 			
@@ -766,10 +766,10 @@ public enum SpecialAttack {
 						"You grin at [npc.name], gazing at [npc.her] [npc.lips+] as you [pc.moanVerb],"
 							+" [pc.speech(I can't wait to put your [npc.lips] to use!)]",
 
-						"You hungrily stare at [npc.name]'s [npc.lips+], [pc.moaning],"
+						"You hungrily stare at [npc.namePos] [npc.lips+], [pc.moaning],"
 							+" [pc.speech(Your tongue belongs between my [pc.legs]!)]",
 
-						"Gazing lustfully at [npc.name]'s [npc.lips+], you let out [pc.a_moan+],"
+						"Gazing lustfully at [npc.namePos] [npc.lips+], you let out [pc.a_moan+],"
 							+" [pc.speech(I'm going to put your [npc.lips] to good use!)]")));
 				
 			} else if(target.isPlayer()) {
@@ -790,10 +790,10 @@ public enum SpecialAttack {
 						"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.lips+] as [npc.she] [npc.moansVerb],"
 							+" [npc.speech(I can't wait to put your [npc2.lips] to use!)]",
 
-						"[npc.Name] hungrily stares at [npc2.name]'s [npc2.lips+], [npc.moaning],"
+						"[npc.Name] hungrily stares at [npc2.namePos] [npc2.lips+], [npc.moaning],"
 							+" [npc.speech(Your tongue belongs between my [npc.legs]!)]",
 
-						"Gazing lustfully at [npc2.name]'s [npc2.lips+], [npc.name] lets out [npc.a_moan+],"
+						"Gazing lustfully at [npc2.namePos] [npc2.lips+], [npc.name] lets out [npc.a_moan+],"
 							+" [npc.speech(I'm going to put your [npc2.lips] to good use!)]")));
 			}
 			
@@ -936,15 +936,15 @@ public enum SpecialAttack {
 							"You grin at [npc.name], gazing at [npc.her] [npc.breasts+] as you [pc.moanVerb],"
 								+" [pc.speech(I can't wait to get my [pc.hands] on your [npc.breasts]!)]",
 	
-							"You hungrily stare at [npc.name]'s [npc.breasts+], [pc.moaning],"
+							"You hungrily stare at [npc.namePos] [npc.breasts+], [pc.moaning],"
 								+" [pc.speech(I'm going to have fun playing with those!)]",
 	
-							"Gazing lustfully at [npc.name]'s [npc.breasts+], you let out [pc.a_moan+],"
+							"Gazing lustfully at [npc.namePos] [npc.breasts+], you let out [pc.a_moan+],"
 								+" [pc.speech(I'm going to have fun with those [npc.breasts+] of yours!)]")));
 					
 				} else { //TODO
 					attackText = UtilText.parse(target,
-							"Gazing at [npc.name]'s chest, you let out an annoyed huff,"
+							"Gazing at [npc.namePos] chest, you let out an annoyed huff,"
 									+ " [pc.speech(I wish you had a nice pair of tits that I could use!)]");
 				}
 				
@@ -974,15 +974,15 @@ public enum SpecialAttack {
 							"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
 								+" [npc.speech(I can't wait to get my [npc.hands] on your [npc2.breasts]!)]",
 	
-							"[npc.Name] hungrily stares at [npc2.name]'s [npc2.breasts+], [npc.moaning],"
+							"[npc.Name] hungrily stares at [npc2.namePos] [npc2.breasts+], [npc.moaning],"
 								+" [npc.speech(I'm going to have fun playing with those!)]",
 	
-							"Gazing lustfully at [npc2.name]'s [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
+							"Gazing lustfully at [npc2.namePos] [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
 									+" [npc.speech(I'm going to have fun with those [npc2.breasts+] of yours!)]")));
 					
 				} else { //TODO
 					attackText = UtilText.parse(caster, target,
-							"Gazing at [npc2.name]'s chest, [npc.name] lets out an annoyed huff,"
+							"Gazing at [npc2.namePos] chest, [npc.name] lets out an annoyed huff,"
 									+ " [npc.speech(I wish you had a nice pair of tits that I could use!)]");
 				}
 			}
@@ -1126,15 +1126,15 @@ public enum SpecialAttack {
 							"You grin at [npc.name], gazing at [npc.her] [npc.breasts+] as you [pc.moanVerb],"
 								+" [pc.speech(I'm going to have fun milking your udders!)]",
 	
-							"You hungrily stare at [npc.name]'s [npc.breasts+], [pc.moaning],"
+							"You hungrily stare at [npc.namePos] [npc.breasts+], [pc.moaning],"
 								+" [pc.speech(I can't wait to give you a good milking!)]",
 	
-							"Gazing lustfully at [npc.name]'s [npc.breasts+], you let out [pc.a_moan+],"
+							"Gazing lustfully at [npc.namePos] [npc.breasts+], you let out [pc.a_moan+],"
 								+" [pc.speech(I'm going to have fun milking those [npc.breasts+] of yours!)]")));
 					
 				} else { //TODO
 					attackText = UtilText.parse(target,
-							"Gazing at [npc.name]'s chest, you let out an annoyed huff,"
+							"Gazing at [npc.namePos] chest, you let out an annoyed huff,"
 									+ " [pc.speech(I wish you had a nice pair of tits that I could milk!)]");
 				}
 				
@@ -1164,15 +1164,15 @@ public enum SpecialAttack {
 							"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
 								+" [npc.speech(I'm going to have fun milking your udders!)]",
 	
-							"[npc.Name] hungrily stares at [npc2.name]'s [npc2.breasts+], [npc.moaning],"
+							"[npc.Name] hungrily stares at [npc2.namePos] [npc2.breasts+], [npc.moaning],"
 								+" [npc.speech(I can't wait to give you a good milking!)]",
 	
-							"Gazing lustfully at [npc2.name]'s [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
+							"Gazing lustfully at [npc2.namePos] [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
 									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
 					
 				} else { //TODO
 					attackText = UtilText.parse(caster, target,
-							"Gazing at [npc2.name]'s chest, [npc.name] lets out an annoyed huff,"
+							"Gazing at [npc2.namePos] chest, [npc.name] lets out an annoyed huff,"
 									+ " [npc.speech(I wish you had a nice pair of tits that I could milk!)]");
 				}
 			}
@@ -1778,7 +1778,7 @@ public enum SpecialAttack {
 									?"[npc.speech(Please! Treat me like your little bitch!)]"
 									:"[npc.speech(Please! Make me your little fuck-toy!)]"),
 
-						"[npc.Name] puts on [npc.her] most innocent look as [npc.she] gazes up lustfully into [npc2.name]'s [npc2.eyes], "
+						"[npc.Name] puts on [npc.her] most innocent look as [npc.she] gazes up lustfully into [npc2.namePos] [npc2.eyes], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I'll be your little slave!)]"
 									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]"))));
@@ -1850,7 +1850,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic dog-like muzzle can be used to deliver a powerful bite.";
 			else
-				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
+				return UtilText.parse(owner, "[npc.NamePos] anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
 		}
 
 		@Override
@@ -1900,7 +1900,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Your anthropomorphic cow-like head and horns can be used to deliver a powerful attack.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic cow-like head and horns can be used to deliver a powerful attack.");
+				return UtilText.parse(owner, "[npc.NamePos] anthropomorphic cow-like head and horns can be used to deliver a powerful attack.");
 			}
 		}
 
@@ -1951,7 +1951,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Your anthropomorphic reindeer-like head and antlers can be used to deliver a powerful attack.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic reindeer-like head and antlers can be used to deliver a powerful attack.");
+				return UtilText.parse(owner, "[npc.NamePos] anthropomorphic reindeer-like head and antlers can be used to deliver a powerful attack.");
 			}
 		}
 
@@ -2004,7 +2004,7 @@ public enum SpecialAttack {
 				return "A powerful, primal energy bubbles just beneath the surface of your wolf-like body, and although you're able to keep it under control, you could always tap into it to deliver a savage attack.";
 			else
 				return UtilText.parse(owner,
-						"A powerful, primal energy bubbles just beneath the surface of [npc.name]'s wolf-like body, and [npc.sheIs] able to use it to deliver a savage attack.");
+						"A powerful, primal energy bubbles just beneath the surface of [npc.namePos] wolf-like body, and [npc.sheIs] able to use it to deliver a savage attack.");
 		}
 
 		@Override
@@ -2106,7 +2106,7 @@ public enum SpecialAttack {
 				return "Your powerful alligator-like tail can be swung at someone to cause huge damage!";
 			else
 				return UtilText.parse(owner,
-						"[npc.Name]'s powerful alligator-like tail can be swung at someone to cause huge damage!");
+						"[npc.NamePos] powerful alligator-like tail can be swung at someone to cause huge damage!");
 		}
 
 		@Override
@@ -2381,7 +2381,7 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because you have "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
+								+ " you find yourself unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
 								+ "<b>You take " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
 								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b>"
 							+ "</p>"));
@@ -2389,7 +2389,7 @@ public enum SpecialAttack {
 					descriptionSB.append(
 							UtilText.parse(caster,
 							"<p>"
-								+ "[npc.Name]'s display is quite arousing...<br/><br/>"
+								+ "[npc.NamePos] display is quite arousing...<br/><br/>"
 								+ "<b>You take " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
 								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b>"
 							+ "</p>"));
@@ -2402,7 +2402,7 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because [npc2.name] has "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
+								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
 								+ "<b>[npc2.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
 								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b>"
 							+ "</p>"));
@@ -2410,7 +2410,7 @@ public enum SpecialAttack {
 					descriptionSB.append(
 							UtilText.parse(caster, target,
 							"<p>"
-								+ "[npc2.Name] finds [npc.name]'s display to be quite arousing...<br/><br/>"
+								+ "[npc2.Name] finds [npc.namePos] display to be quite arousing...<br/><br/>"
 								+ "<b>[npc2.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
 								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b>"
 							+ "</p>"));
@@ -2447,14 +2447,14 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because you have "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
+								+ " you find yourself unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
 								+ "<b>You gain " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>!"
 							+ "</p>"));
 				} else {
 					descriptionSB.append(
 							UtilText.parse(caster,
 							"<p>"
-								+ "[npc.Name]'s display is quite arousing...<br/><br/>"
+								+ "[npc.NamePos] display is quite arousing...<br/><br/>"
 								+ "<b>You gain " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>."
 							+ "</p>"));
 				}
@@ -2466,14 +2466,14 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because [npc2.name] has "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
+								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
 								+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>!"
 							+ "</p>"));
 				} else {
 					descriptionSB.append(
 							UtilText.parse(caster, target,
 							"<p>"
-								+ "[npc2.Name] finds [npc.name]'s display to be quite arousing...<br/><br/>"
+								+ "[npc2.Name] finds [npc.namePos] display to be quite arousing...<br/><br/>"
 								+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>."
 							+ "</p>"));
 				}	

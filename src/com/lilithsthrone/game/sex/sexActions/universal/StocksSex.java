@@ -150,12 +150,12 @@ public class StocksSex {
 
 		@Override
 		public String getActionDescription() {
-			return "Decide to use [npc.name]'s mouth.";
+			return "Decide to use [npc.namePos] mouth.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Deciding that you want to use [npc.name]'s mouth, you step back, before moving around in front of [npc.her] [npc.face]."
+			return "Deciding that you want to use [npc.namePos] mouth, you step back, before moving around in front of [npc.her] [npc.face]."
 					+ " Bringing your groin up to [npc.her] mouth, you [pc.moan], "
 					+ "[pc.speech(You're going to love this!)]";
 		}
@@ -199,7 +199,7 @@ public class StocksSex {
 
 		@Override
 		public String getActionDescription() {
-			return "Start slapping [npc.name]'s ass.";
+			return "Start slapping [npc.namePos] ass.";
 		}
 
 		@Override
@@ -209,10 +209,10 @@ public class StocksSex {
 			if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
@@ -221,7 +221,7 @@ public class StocksSex {
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
 					default:
-						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you grab the base of [npc.name]'s [npc.tail+] in one [pc.hand],"
+						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you grab the base of [npc.namePos] [npc.tail+] in one [pc.hand],"
 											+ " roughly yanking [npc.her] [npc.ass+] up high in the air before starting to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}
@@ -231,16 +231,16 @@ public class StocksSex {
 							tailSpecial1,
 							tailSpecial2,
 							"[npc.Name] lets out [npc.a_moan+] as you start slapping [npc.her] [npc.ass+] in time with your powerful thrusts into [npc.her] [npc.pussy+].",
-							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
-							"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
+							"Hilting your [pc.cock+] deep inside [npc.namePos] [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
+							"While you continue pounding away at [npc.namePos] [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole+], you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
@@ -249,7 +249,7 @@ public class StocksSex {
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
 					default:
-						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you grab the base of [npc.name]'s [npc.tail+] in one [pc.hand],"
+						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you grab the base of [npc.namePos] [npc.tail+] in one [pc.hand],"
 											+ " roughly yanking [npc.her] [npc.ass+] up high in the air before starting to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}
@@ -259,26 +259,26 @@ public class StocksSex {
 							tailSpecial1,
 							tailSpecial2,
 							"[npc.Name] lets out [npc.a_moan+] as you start slapping [npc.her] [npc.ass+] in time with your powerful thrusts into [npc.her] [npc.asshole+].",
-							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
-							"While you continue pounding away at [npc.name]'s [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
+							"Hilting your [pc.cock+] deep inside [npc.namePos] [npc.asshole], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
+							"While you continue pounding away at [npc.namePos] [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial1 = "Growling down into [npc.name]'s [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
+						tailSpecial1 = "Growling down into [npc.namePos] [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
 											+ " while using your other to deliver a series of stinging slaps to [npc.her] [npc.ass+].";
 						break;
 					default:
-						tailSpecial1 = "Growling down into [npc.name]'s ear, you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
+						tailSpecial1 = "Growling down into [npc.namePos] ear, you roughly grab the base of [npc.her] [npc.tail+] and yank upwards,"
 									+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
-						tailSpecial2 = "You reach down and grab [npc.name]'s waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
+						tailSpecial2 = "You reach down and grab [npc.namePos] waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
 						break;
 					default:
-						tailSpecial2 = "You reach down and grab the base of [npc.name]'s [npc.tail+], causing [npc.herHim] to let out a surprised yelp as you roughly yank upwards,"
+						tailSpecial2 = "You reach down and grab the base of [npc.namePos] [npc.tail+], causing [npc.herHim] to let out a surprised yelp as you roughly yank upwards,"
 											+ " forcing [npc.herHim] to push [npc.her] [npc.ass+] up high in the air as you start to aggressively slap [npc.her] exposed cheeks.";
 						break;
 				}

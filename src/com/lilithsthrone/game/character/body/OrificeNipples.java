@@ -73,7 +73,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The capacity of your [pc.nipples] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
@@ -175,7 +175,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The elasticity of your [pc.nipples] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
@@ -225,7 +225,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.nipples]'s plasticity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
@@ -293,10 +293,10 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.name]'s [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
 									+ " growing down into the lining of [npc.her] [npc.nipples]."
 								+ " [npc.sheIs] shocked to discover that [npc.she] has an incredible amount of control over them, allowing [npc.her] to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are now lined with an intricate series of muscles!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -309,10 +309,10 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.name]'s [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(fleshy, highly-sensitive ribs)]"
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(fleshy, highly-sensitive ribs)]"
 									+ " growing down into the lining of [npc.her] [npc.nipples]."
 								+ " Shifting [npc.her] [npc.breasts] around a little, a jolt of pleasure shoots through [npc.her] torso as [npc.she] feels [npc.her] new additions rub over one another, causing [npc.herHim] to let out another [npc.moan+].<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are now lined with fleshy, pleasure-inducing ribs!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now lined with fleshy, pleasure-inducing ribs!)]"
 							+ "</p>";
 				}
 			case TENTACLED:
@@ -325,10 +325,10 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.name]'s [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a strange tingling sensation deep down in [npc.her] [npc.nipples]."
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a strange tingling sensation deep down in [npc.her] [npc.nipples]."
 								+ " The tingling sensation grows stronger, and a surprised cry bursts out from [npc.her] mouth as [npc.she] suddenly discovers that the insides of [npc.her] [npc.nipples] are now filled with"
 										+ " [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are now filled with little tentacles, which wriggle with a mind of their own!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -340,7 +340,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.nipples], before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.nipples] are now extremely puffy!)]"
+								+ "[style.boldSex([npc.NamePos] [npc.nipples] are now extremely puffy!)]"
 							+ "</p>";
 				}
 		}
@@ -366,9 +366,9 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing warmth slowly washes up through [npc.name]'s torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(extra muscles)]"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(extra muscles)]"
 									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are no longer lined with an intricate series of muscles!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -379,9 +379,9 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing warmth slowly washes up through [npc.name]'s torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(fleshy, highly-sensitive ribs)]"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(fleshy, highly-sensitive ribs)]"
 									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are no longer ribbed!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer ribbed!)]"
 							+ "</p>";
 				}
 			case TENTACLED:
@@ -392,9 +392,9 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing warmth slowly washes up through [npc.name]'s torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(little wriggling tentacles)]"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(little wriggling tentacles)]"
 									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
-								+ "[style.boldSex(The interior of [npc.name]'s [npc.nipples] are no longer filled with little tentacles!)]"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer filled with little tentacles!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -406,7 +406,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little sigh as [npc.her] [npc.nipples] [style.boldShrink(shrink down)] and lose their puffiness.<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.nipples] are no longer extremely puffy!)]"
+								+ "[style.boldSex([npc.NamePos] [npc.nipples] are no longer extremely puffy!)]"
 							+ "</p>";
 				}
 		}

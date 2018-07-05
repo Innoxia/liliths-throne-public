@@ -56,7 +56,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s wetness doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 			}
 		}
 
@@ -65,7 +65,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", your [pc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.name]'s [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.namePos] [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
 			}
 		}
 		
@@ -79,7 +79,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 						+ "</p>";
 			} else {
 				transformation = "<p>"
-							+ "[npc.Name]'s [npc.eyes] widen as [npc.she] feels moisture beading around [npc.her] asshole,"
+							+ "[npc.NamePos] [npc.eyes] widen as [npc.she] feels moisture beading around [npc.her] asshole,"
 								+ " and [npc.she] lets out [npc.a_moan+] as [npc.she] realises that [npc.her] rear entrance is lubricating itself and [style.boldGrow(getting wetter)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
 						+ "</p>";
@@ -124,7 +124,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s capacity doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 			}
 		}
 		
@@ -186,7 +186,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s elasticity doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 			}
 		}
 		
@@ -236,7 +236,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s plasticity doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 			}
 		}
 		
@@ -307,7 +307,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] [npc.asshole] is now lined with [style.boldGrow(extra muscles)],"
 									+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex([npc.Name]'s asshole is now lined with an intricate series of muscles!)]"
+								+ "[style.boldSex([npc.NamePos] asshole is now lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -322,7 +322,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 							+ " Shifting [npc.her] [npc.ass] around a little, [npc.she] discovers that the inside of [npc.her] [npc.asshole] is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
 								+ " which provide extreme pleasure when stimulated.<br/>"
-							+ "[style.boldSex([npc.Name]'s asshole is now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "[style.boldSex([npc.NamePos] asshole is now lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
@@ -336,7 +336,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] [npc.asshole] is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The inside of [npc.name]'s asshole is now filled with little tentacles, which wriggle with a mind of their own!)]"
+								+ "[style.boldSex(The inside of [npc.namePos] asshole is now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -348,7 +348,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.ass], before the rim of [npc.her] [npc.asshole] [style.boldGrow(puffs up)] into a doughnut-like ring.<br/>"
-								+ "[style.boldSex(The rim of [npc.name]'s asshole is now swollen and puffy!)]"
+								+ "[style.boldSex(The rim of [npc.namePos] asshole is now swollen and puffy!)]"
 							+ "</p>";
 				}
 		}
@@ -377,7 +377,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] [npc.asshole] has lost its [style.boldShrink(extra muscles)].<br/>"
-								+ "[style.boldSex([npc.Name]'s asshole is no longer lined with an intricate series of muscles!)]"
+								+ "[style.boldSex([npc.NamePos] asshole is no longer lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
@@ -391,7 +391,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 					return "<p>"
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 							+ " Shifting [npc.her] [npc.ass] around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] [npc.asshole] have vanished.<br/>"
-							+ "[style.boldSex([npc.Name]'s asshole is no longer lined with fleshy, pleasure-inducing ribs!)]"
+							+ "[style.boldSex([npc.NamePos] asshole is no longer lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
@@ -405,7 +405,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.ass], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] [npc.asshole] have all disappeared.<br/>"
-								+ "[style.boldSex(The inside of [npc.name]'s asshole is no longer filled with little tentacles!)]"
+								+ "[style.boldSex(The inside of [npc.namePos] asshole is no longer filled with little tentacles!)]"
 							+ "</p>";
 				}
 			case PUFFY:
@@ -418,7 +418,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.ass],"
 									+ " before the puffy rim of [npc.her] [npc.asshole] [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
-								+ "[style.boldSex(The rim of [npc.name]'s asshole is no longer swollen and puffy!)]"
+								+ "[style.boldSex(The rim of [npc.namePos] asshole is no longer swollen and puffy!)]"
 							+ "</p>";
 				}
 		}

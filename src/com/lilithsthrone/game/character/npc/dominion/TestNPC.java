@@ -219,7 +219,7 @@ public class TestNPC extends NPC {
 		public String getContent() {
 			return "<p>"
 						+ "Reaching the back of the shop, you finish your exploration of this store's wares, finding that there's nothing in here that's worth buying."
-						+ " As you turn to make your exit, you see that a door marked '[test.name]'s room: Private!' has been left slightly ajar, and you hear a frustrated little exclamation come out of it,"
+						+ " As you turn to make your exit, you see that a door marked '[test.namePos] room: Private!' has been left slightly ajar, and you hear a frustrated little exclamation come out of it,"
 						+ " [test.speech(Argh! It shouldn't be like that... I'll have to re-write it...)]"
 					+ "</p>"
 					+ "<p>"

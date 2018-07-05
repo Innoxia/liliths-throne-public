@@ -334,7 +334,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			if(character.isPlayer()) {
 				return UtilText.parse(target,
 						UtilText.returnStringAtRandom(
-							"Darting forwards, you deliver a solid punch to [npc.name]'s [npc.arm].",
+							"Darting forwards, you deliver a solid punch to [npc.namePos] [npc.arm].",
 							"You throw a punch at [npc.name], grinning as you feel it connect with [npc.her] [npc.arm].",
 							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
 				
@@ -348,9 +348,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 				} else {
 					return UtilText.parse(character, target,
 							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc1.name] delivers a solid punch to [npc2.name]'s [npc2.arm].",
+								"Darting forwards, [npc1.name] delivers a solid punch to [npc2.namePos] [npc2.arm].",
 								"[npc1.Name] throws a punch at [npc2.name], grinning as [npc1.her] attack connects with [npc2.her] [npc2.arm].",
-								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.name]'s [npc2.leg]."));
+								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.namePos] [npc2.leg]."));
 				}
 			}
 			
@@ -358,7 +358,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			if(character.isPlayer()) {
 				return UtilText.parse(target,
 						UtilText.returnStringAtRandom(
-							"Darting forwards, you try to deliver a punch to [npc.name]'s [npc.arm], but [npc.she] manages to step out of the way in time.",
+							"Darting forwards, you try to deliver a punch to [npc.namePos] [npc.arm], but [npc.she] manages to step out of the way in time.",
 							"You try to throw a punch at [npc.name], but fail to make contact with any part of [npc.her] body.",
 							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
 				
@@ -372,7 +372,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 				} else {
 					return UtilText.parse(character, target,
 							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc1.name] tries to deliver a punch to [npc2.name]'s [npc2.arm], but [npc2.she] manages to step out of the way in time.",
+								"Darting forwards, [npc1.name] tries to deliver a punch to [npc2.namePos] [npc2.arm], but [npc2.she] manages to step out of the way in time.",
 								"[npc1.Name] throws a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.",
 								"[npc1.Name] kicks out at [npc2.name], but [npc1.her] [npc1.foot] sails harmlessly through the air."));
 				}
@@ -394,14 +394,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 					return UtilText.parse(character,
 							UtilText.returnStringAtRandom(
 								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
-								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.namePos] fist to connect with your [pc.arm].",
 								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
 				} else {
 					return UtilText.parse(character, target,
 							UtilText.returnStringAtRandom(
 								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to strike [npc2.her] [npc2.arm].",
-								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to connect with [npc2.her] [npc2.arm].",
-								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to connect with [npc2.name]'s [npc2.leg]."));
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.namePos] fist to connect with [npc2.her] [npc2.arm].",
+								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to connect with [npc2.namePos] [npc2.leg]."));
 				}
 			}
 			
@@ -418,13 +418,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 					return UtilText.parse(character,
 							UtilText.returnStringAtRandom(
 								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
-								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.namePos] fist to sail harmlessly through the air as you dodge [npc.her] attack.",
 								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
 				} else {
 					return UtilText.parse(character,
 							UtilText.returnStringAtRandom(
 								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
-								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.namePos] fist to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
 								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack."));
 				}
 			}
@@ -458,7 +458,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ UtilText.parse(user, "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.name]'s aura!")
+							+ UtilText.parse(user, "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.namePos] aura!")
 						+ "</p>";
 			}
 		} else {

@@ -981,8 +981,8 @@ public class WeaponType {
 				if(character.isPlayer()) {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
-								"You whack [npc.name]'s [npc.arm] with your broom.",
-								"You swipe your broom at [npc.name]'s [npc.legs], and manage to hit [npc.herHim] in the shins.",
+								"You whack [npc.namePos] [npc.arm] with your broom.",
+								"You swipe your broom at [npc.namePos] [npc.legs], and manage to hit [npc.herHim] in the shins.",
 								"You swing your broom at [npc.name], grinning as the end makes contact with [npc.her] torso."));
 					
 				} else {
@@ -998,7 +998,7 @@ public class WeaponType {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
 								"You try to whack [npc.name] with your broom, but [npc.she] manages to grab the shaft and push you away.",
-								"You attempt to swipe your broom at [npc.name]'s [npc.legs], but [npc.she] jumps back and manages to avoid the blow.",
+								"You attempt to swipe your broom at [npc.namePos] [npc.legs], but [npc.she] jumps back and manages to avoid the blow.",
 								"You swing your broom at [npc.name], but [npc.she] manages to duck at the last moment and avoid the blow."));
 					
 				} else {
@@ -1073,8 +1073,8 @@ public class WeaponType {
 				if(character.isPlayer()) {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
-								"You tickle [npc.name]'s [npc.arm] with your feather duster.",
-								"You swipe your feather duster at [npc.name]'s [npc.legs], and manage to tickle [npc.her] shins.",
+								"You tickle [npc.namePos] [npc.arm] with your feather duster.",
+								"You swipe your feather duster at [npc.namePos] [npc.legs], and manage to tickle [npc.her] shins.",
 								"You swing your feather duster at [npc.name], grinning as you tickle [npc.her] torso."));
 					
 				} else {
@@ -1090,7 +1090,7 @@ public class WeaponType {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
 								"You try to tickle [npc.name] with your feather duster, but [npc.she] manages to push you away.",
-								"You attempt to swipe your feather duster at [npc.name]'s [npc.legs], but [npc.she] jumps back and manages to avoid the tickling.",
+								"You attempt to swipe your feather duster at [npc.namePos] [npc.legs], but [npc.she] jumps back and manages to avoid the tickling.",
 								"You swing your feather duster at [npc.name], but [npc.she] manages to duck at the last moment and avoid the tickling."));
 					
 				} else {

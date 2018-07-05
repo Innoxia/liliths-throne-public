@@ -135,7 +135,7 @@ public class PrologueDialogue {
 		public String getContent() {
 			if(femalePrologueNPC()) {
 				return "<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.name]'s eyes, she's having the same problem as you are."
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.namePos] eyes, she's having the same problem as you are."
 							+ " Stepping forwards, she half-speaks, half-moans,"
 							+ " [prologueFemale.speech(All this talk's got me pretty turned on... I don't usually do things like this, but everyone's busy around the stage right now. I'm sure one of the rooms around here is empty, if you want to have some fun...)]"
 						+ "</p>"
@@ -146,7 +146,7 @@ public class PrologueDialogue {
 				
 			} else {
 				return "<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.name]'s eyes, he's having the same problem as you are."
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.namePos] eyes, he's having the same problem as you are."
 							+ " Stepping forwards, he half-speaks, half-groans,"
 							+ " [prologueMale.speech(All this talk's got me pretty turned on... I don't usually do things like this, but everyone's busy around the stage right now. I'm sure one of the rooms around here is empty, if you want to have some fun...)]"
 						+ "</p>"
@@ -251,7 +251,7 @@ public class PrologueDialogue {
 									+ "You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body..."
 								+ "</p>")
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>You can click on both your and [prologueFemale.name]'s clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
+								+ "<i>You can click on both your and [prologueFemale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
 							+ "</div>") {
 						@Override
 						public void effects() {
@@ -282,10 +282,10 @@ public class PrologueDialogue {
 							+ "</p>"
 							+"<div class='container-full-width' style='text-align:center;'>"
 								+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>"
-									+ "([prologueMale.name]'s penis will need to be exposed before it can be used!)</i>"
+									+ "([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>"
 							+ "</div>"
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>You can click on both your and [prologueMale.name]'s clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
+								+ "<i>You can click on both your and [prologueMale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
 							+ "</div>") {
 						@Override
 						public void effects() {
@@ -1517,7 +1517,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot. [lilaya.speech([pc.Name]'s c-clothes have gone!)]"
+						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot. [lilaya.speech([pc.NamePos] c-clothes have gone!)]"
 					+ "</p>"
 						
 					+ "<p>"

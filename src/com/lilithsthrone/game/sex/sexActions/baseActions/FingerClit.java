@@ -182,7 +182,7 @@ public class FingerClit {
 										+ " gently squeezing and rubbing it as [npc.she] [npc.verb(lean)] in against [npc2.name] and [npc.verb(let)] out a little [npc.moan].",
 	
 								"Gently tracing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+],"
-										+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] homes in on [npc2.namePos] [npc2.clit+], before starting to softly rub and pinch it.",
+										+ " [npc.name] [npc.verb(let)] out a little [npc.moan] as [npc.she] [npc.verb(home)] in on [npc2.namePos] [npc2.clit+], before starting to softly rub and pinch it.",
 	
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.pussy+],"
 										+ " a little [npc.moan] escapes from between [npc.namePos] [npc.lips] as [npc.she] [npc.verb(start)] to gently rub and pinch at [npc2.namePos] [npc2.clit+]."));
@@ -193,7 +193,7 @@ public class FingerClit {
 										+ " eagerly squeezing and rubbing it as [npc.she] [npc.verb(lean)] in against [npc2.name] and [npc.verb(let)] out [npc.a_moan+].",
 	
 								"Firmly tracing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+],"
-										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] homes in on [npc2.namePos] [npc2.clit+], before starting to eagerly rub and pinch it.",
+										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(home)] in on [npc2.namePos] [npc2.clit+], before starting to eagerly rub and pinch it.",
 	
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.pussy+],"
 										+ " [npc.a_moan+] escapes from between [npc.namePos] [npc.lips] as [npc.she] [npc.verb(start)] to eagerly rub and pinch at [npc2.namePos] [npc2.clit+]."));
@@ -204,7 +204,7 @@ public class FingerClit {
 										+ " cruelly squeezing and pinching it as [npc.she] [npc.verb(lean)] in against [npc2.name] and [npc.verb(let)] out [npc.a_moan+].",
 	
 								"Greedily tracing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+],"
-										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] homes in on [npc2.namePos] [npc2.clit+], before starting to roughly rub and pinch it.",
+										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(home)] in on [npc2.namePos] [npc2.clit+], before starting to roughly rub and pinch it.",
 	
 								"Grinding [npc.her] [npc.fingers] over [npc2.namePos] [npc2.pussy+],"
 										+ " [npc.a_moan+] escapes from between [npc.namePos] [npc.lips] as [npc.she] [npc.verb(start)] to roughly rub and pinch at [npc2.namePos] [npc2.clit+]."));
@@ -215,7 +215,7 @@ public class FingerClit {
 										+ " eagerly squeezing and rubbing it as [npc.she] [npc.verb(lean)] in against [npc2.name] and [npc.verb(let)] out [npc.a_moan+].",
 	
 								"Firmly tracing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+],"
-										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] homes in on [npc2.namePos] [npc2.clit+], before starting to eagerly rub and pinch it.",
+										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(home)] in on [npc2.namePos] [npc2.clit+], before starting to eagerly rub and pinch it.",
 	
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.pussy+],"
 										+ " [npc.a_moan+] escapes from between [npc.namePos] [npc.lips] as [npc.she] [npc.verb(start)] to eagerly rub and pinch at [npc2.namePos] [npc2.clit+]."));
@@ -226,7 +226,7 @@ public class FingerClit {
 										+ " squeezing and rubbing it as [npc.she] [npc.verb(lean)] in against [npc2.name] and [npc.verb(let)] out [npc.a_moan+].",
 	
 								"Tracing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+],"
-										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] homes in on [npc2.namePos] [npc2.clit+], before starting to rub and pinch it.",
+										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(home)] in on [npc2.namePos] [npc2.clit+], before starting to rub and pinch it.",
 	
 								"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.pussy+],"
 										+ " [npc.a_moan+] escapes from between [npc.namePos] [npc.lips] as [npc.she] [npc.verb(start)] to rub and pinch at [npc2.namePos] [npc2.clit+]."));

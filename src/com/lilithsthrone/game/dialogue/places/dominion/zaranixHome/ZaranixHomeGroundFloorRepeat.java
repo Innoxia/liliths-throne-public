@@ -1953,7 +1953,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					} else {
 						// Player performing oral:
 						return new ResponseSex("Perform oral",
-								"Do as Amber commands and get ready to suck [npc.name]'s [npc.cock+].",
+								"Do as Amber commands and get ready to suck [npc.namePos] [npc.cock+].",
 								null, null, null, null, null, null,
 								true, false,
 								new SMPetOral(

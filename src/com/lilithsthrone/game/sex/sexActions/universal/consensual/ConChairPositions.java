@@ -52,7 +52,7 @@ public class ConChairPositions {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"You reach up and grab [npc.name]'s [npc.hipSize] hips, and with a determined push, you cause [npc.herHim] to take a step back."
+					"You reach up and grab [npc.namePos] [npc.hipSize] hips, and with a determined push, you cause [npc.herHim] to take a step back."
 					+ " Still holding [npc.her] hips, you stand up, moving [npc.herHim] around before pushing [npc.herHim] down into the space that you just vacated."
 					+ " [npc.She] smiles up at you as you step forwards between [npc.her] legs,"
 					+ " [npc.speech(You want a go on the top, huh?)]");
@@ -103,7 +103,7 @@ public class ConChairPositions {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"You reach down and grab [npc.name]'s [npc.hipSize] hips, and with a determined pull, you cause [npc.herHim] to stand up."
+					"You reach down and grab [npc.namePos] [npc.hipSize] hips, and with a determined pull, you cause [npc.herHim] to stand up."
 					+ " Still holding [npc.her] hips, you move [npc.herHim] to one side, sitting down in the space that [npc.she] just vacated before pulling [npc.herHim] forwards into your crotch."
 					+ " Looking down at you, [npc.she] smiles,"
 					+ " [npc.speech(You want a go on the bottom, huh?)]");

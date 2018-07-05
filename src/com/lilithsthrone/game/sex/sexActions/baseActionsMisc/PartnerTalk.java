@@ -79,7 +79,7 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [pc.a_moan+] escapes from between [npc.name]'s [npc.lips+], ",
+								"Turning [npc.her] head to look back at you, [pc.a_moan+] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan+] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
@@ -89,7 +89,7 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
@@ -169,17 +169,17 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"A desperate [npc.moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"A desperate [npc.moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] lets out a desperate [npc.moan] before addressing you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"A protesting whine escapes from between [npc.name]'s [npc.lips+] as [npc.she] struggles against you, ",
+								"A protesting whine escapes from between [npc.namePos] [npc.lips+] as [npc.she] struggles against you, ",
 								"[npc.Name] lets out a distressed whining noise as [npc.she] tries to shuffle away from you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.A_moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"[npc.A_moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] lets out [npc.a_moan] before addressing you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}

@@ -1675,7 +1675,7 @@ public class CharacterCreation {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "As the two of you continue to talk, first about work, and then about more general subjects, you find yourself getting more and more turned on."
-							+ " What's more, you begin to notice that [prologueFemale.name]'s cheeks are starting to flush red, and she keeps on glancing hungrily down at your body when she thinks that you aren't looking."
+							+ " What's more, you begin to notice that [prologueFemale.namePos] cheeks are starting to flush red, and she keeps on glancing hungrily down at your body when she thinks that you aren't looking."
 						+ "</p>"
 						+ "<p>"
 							+ "As final evidence that she's getting just as turned on as you are, she starts openly talking about her sex life."
@@ -1689,7 +1689,7 @@ public class CharacterCreation {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "As the two of you continue to talk, first about work, and then about more general subjects, you find yourself getting more and more turned on."
-							+ " What's more, you begin to notice that [prologueMale.name]'s cheeks are starting to flush red, and he keeps on glancing hungrily down at your body when he thinks that you aren't looking."
+							+ " What's more, you begin to notice that [prologueMale.namePos] cheeks are starting to flush red, and he keeps on glancing hungrily down at your body when he thinks that you aren't looking."
 						+ "</p>"
 						+ "<p>"
 							+ "As final evidence that he's getting just as turned on as you are, he starts openly talking about his sex life."

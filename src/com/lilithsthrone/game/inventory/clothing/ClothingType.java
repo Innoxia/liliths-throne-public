@@ -36,7 +36,7 @@ public class ClothingType {
 	private static String braEquipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		return AbstractClothingType.getEquipDescriptions(clothingOwner, clothingRemover, rough,
 				"You place the bra over your chest before fastening the straps at your back.",
-				"You place the bra over [npc.name]'s chest before fastening the straps at [npc.her] back.",
+				"You place the bra over [npc.namePos] chest before fastening the straps at [npc.her] back.",
 				null,
 				"[npc.Name] places the bra over [npc.her] chest before fastening the straps at [npc.her] back.",
 				"[npc.Name] places the bra over your chest before fastening the straps at your back.",
@@ -46,7 +46,7 @@ public class ClothingType {
 	private static String braUnequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		return AbstractClothingType.getEquipDescriptions(clothingOwner, clothingRemover, rough,
 				"You unclasp the bra and take it off.",
-				"You unclasp [npc.name]'s bra and take it off.",
+				"You unclasp [npc.namePos] bra and take it off.",
 				null,
 				"[npc.Name] unclasps [npc.her] bra and takes it off.",
 				"[npc.Name] unclasps your bra and takes it off.",
@@ -110,8 +110,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the circlet on your head.",
-					"You place the circlet on [npc.name]'s head.",
-					"You force the circlet onto [npc.name]'s head.",
+					"You place the circlet on [npc.namePos] head.",
+					"You force the circlet onto [npc.namePos] head.",
 					"[npc.Name] places the circlet on [npc.her] head.",
 					"[npc.Name] places the circlet on your head.",
 					"[npc.Name] forces the circlet onto your head.", null, null);
@@ -121,8 +121,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your circlet.",
-					"You take off [npc.name]'s circlet.",
-					"You grab [npc.name]'s circlet and throw it to the floor.",
+					"You take off [npc.namePos] circlet.",
+					"You grab [npc.namePos] circlet and throw it to the floor.",
 					"[npc.Name] takes off [npc.her] circlet.",
 					"[npc.Name] takes off your circlet.",
 					"[npc.Name] grabs your circlet and throws it to the floor.", null, null);
@@ -157,7 +157,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip the earrings into place.",
-					"You clip [npc.name]'s new earrings into place.",
+					"You clip [npc.namePos] new earrings into place.",
 					null,
 					"[npc.Name] clips [npc.her] earrings into place.",
 					"[npc.Name] clips your new earrings into place.",
@@ -168,7 +168,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your earrings.",
-					"You unclip [npc.name]'s earrings.",
+					"You unclip [npc.namePos] earrings.",
 					null,
 					"[npc.Name] unclips [npc.her] earrings.",
 					"[npc.Name] unclips your earrings.",
@@ -203,7 +203,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip the hoop earrings into place.",
-					"You clip [npc.name]'s new hoop earrings into place.",
+					"You clip [npc.namePos] new hoop earrings into place.",
 					null,
 					"[npc.Name] clips [npc.her] hoop earrings into place.",
 					"[npc.Name] clips your new hoop earrings into place.",
@@ -214,7 +214,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your hoop earrings.",
-					"You unclip [npc.name]'s hoop earrings.",
+					"You unclip [npc.namePos] hoop earrings.",
 					null,
 					"[npc.Name] unclips [npc.her] hoop earrings.",
 					"[npc.Name] unclips your hoop earrings.",
@@ -250,7 +250,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose ring into place.",
-					"You slide [npc.name]'s new nose ring into place.",
+					"You slide [npc.namePos] new nose ring into place.",
 					null,
 					"[npc.Name] slides [npc.her] nose ring into place.",
 					"[npc.Name] slides your new nose ring into place.",
@@ -261,7 +261,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose ring out.",
-					"You slide [npc.name]'s nose ring out.",
+					"You slide [npc.namePos] nose ring out.",
 					null,
 					"[npc.Name] slides [npc.her] nose ring out.",
 					"[npc.Name] slides your nose ring out.",
@@ -298,7 +298,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the lip rings into place.",
-					"You slide [npc.name]'s new lip rings into place.",
+					"You slide [npc.namePos] new lip rings into place.",
 					null,
 					"[npc.Name] slides [npc.her] lip rings into place.",
 					"[npc.Name] slides your new lip rings into place.",
@@ -309,7 +309,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the lip rings out.",
-					"You slide [npc.name]'s lip rings out.",
+					"You slide [npc.namePos] lip rings out.",
 					null,
 					"[npc.Name] slides [npc.her] lip rings out.",
 					"[npc.Name] slides your lip rings out.",
@@ -344,7 +344,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the tongue bar into place.",
-					"You slide [npc.name]'s new tongue bar into place.",
+					"You slide [npc.namePos] new tongue bar into place.",
 					null,
 					"[npc.Name] slides [npc.her] tongue bar into place.",
 					"[npc.Name] slides your new tongue bar into place.",
@@ -355,7 +355,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the tongue bar out.",
-					"You slide [npc.name]'s tongue bar out.",
+					"You slide [npc.namePos] tongue bar out.",
 					null,
 					"[npc.Name] slides [npc.her] tongue bar out.",
 					"[npc.Name] slides your tongue bar out.",
@@ -391,7 +391,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the navel barbell into place.",
-					"You slide [npc.name]'s new navel barbell into place.",
+					"You slide [npc.namePos] new navel barbell into place.",
 					null,
 					"[npc.Name] slides [npc.her] navel barbell into place.",
 					"[npc.Name] slides your new navel barbell into place.",
@@ -402,7 +402,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the navel barbell out.",
-					"You slide [npc.name]'s navel barbell out.",
+					"You slide [npc.namePos] navel barbell out.",
 					null,
 					"[npc.Name] slides [npc.her] navel barbell out.",
 					"[npc.Name] slides your navel barbell out.",
@@ -438,7 +438,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nipple bars into place.",
-					"You slide [npc.name]'s new nipple bars into place.",
+					"You slide [npc.namePos] new nipple bars into place.",
 					null,
 					"[npc.Name] slides [npc.her] nipple bars into place.",
 					"[npc.Name] slides your new nipple bars into place.",
@@ -449,7 +449,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nipple bars out.",
-					"You slide [npc.name]'s nipple bars out.",
+					"You slide [npc.namePos] nipple bars out.",
 					null,
 					"[npc.Name] slides [npc.her] nipple bars out.",
 					"[npc.Name] slides your nipple bars out.",
@@ -490,7 +490,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the barbell into place.",
-					"You slide [npc.name]'s new barbell into place.",
+					"You slide [npc.namePos] new barbell into place.",
 					null,
 					"[npc.Name] slides [npc.her] barbell into place.",
 					"[npc.Name] slides your new barbell into place.",
@@ -501,7 +501,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the barbell out.",
-					"You slide [npc.name]'s barbell out.",
+					"You slide [npc.namePos] barbell out.",
 					null,
 					"[npc.Name] slides [npc.her] barbell out.",
 					"[npc.Name] slides your barbell out.",
@@ -536,7 +536,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pop out the removable segment and slide the piercing ring into place.",
-					"You pop out the removable segment and slide [npc.name]'s new piercing ring into place.",
+					"You pop out the removable segment and slide [npc.namePos] new piercing ring into place.",
 					null,
 					"[npc.Name] pops out the removable segment and slides [npc.her] piercing ring into place.",
 					"[npc.Name] pops out the removable segment and slides your new piercing ring into place.",
@@ -547,7 +547,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pop out the removable segment and slide the piercing ring out.",
-					"You pop out the removable segment and slide [npc.name]'s piercing ring out.",
+					"You pop out the removable segment and slide [npc.namePos] piercing ring out.",
 					null,
 					"[npc.Name] pops out the removable segment and slides [npc.her] piercing ring out.",
 					"[npc.Name] pops out the removable segment and slides your piercing ring out.",
@@ -583,7 +583,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the circlet on your head.",
-					"You place the circlet on [npc.name]'s head.",
+					"You place the circlet on [npc.namePos] head.",
 					null,
 					"[npc.Name] places the circlet on [npc.her] head.",
 					"[npc.Name] places the circlet on your head.",
@@ -594,7 +594,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your circlet.",
-					"You take off [npc.name]'s circlet.",
+					"You take off [npc.namePos] circlet.",
 					null,
 					"[npc.Name] takes [npc.her] circlet off.",
 					"[npc.Name] takes your circlet off.",
@@ -630,7 +630,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the tiara on your head.",
-					"You place the tiara on [npc.name]'s head.",
+					"You place the tiara on [npc.namePos] head.",
 					null,
 					"[npc.Name] places the tiara on [npc.her] head.",
 					"[npc.Name] places the tiara on your head.",
@@ -641,7 +641,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your tiara.",
-					"You take off [npc.name]'s tiara.",
+					"You take off [npc.namePos] tiara.",
 					null,
 					"[npc.Name] takes [npc.her] tiara off.",
 					"[npc.Name] takes your tiara off.",
@@ -676,7 +676,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the headband.",
-					"You push the headband onto [npc.name]'s head.",
+					"You push the headband onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the headband onto [npc.her] head.",
 					"[npc.Name] pushes the headband onto your head.",
@@ -687,7 +687,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your headband.",
-					"You take off [npc.name]'s headband.",
+					"You take off [npc.namePos] headband.",
 					null,
 					"[npc.Name] takes [npc.her] headband off.",
 					"[npc.Name] takes your headband off.",
@@ -722,7 +722,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the headband.",
-					"You push the headband onto [npc.name]'s head.",
+					"You push the headband onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the headband onto [npc.her] head.",
 					"[npc.Name] pushes the headband onto your head.",
@@ -733,7 +733,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your headband.",
-					"You take off [npc.name]'s headband.",
+					"You take off [npc.namePos] headband.",
 					null,
 					"[npc.Name] takes [npc.her] headband off.",
 					"[npc.Name] takes your headband off.",
@@ -768,7 +768,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the sweatband.",
-					"You push the sweatband onto [npc.name]'s head.",
+					"You push the sweatband onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the sweatband onto [npc.her] head.",
 					"[npc.Name] pushes the sweatband onto your head.",
@@ -779,7 +779,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your sweatband.",
-					"You take off [npc.name]'s sweatband.",
+					"You take off [npc.namePos] sweatband.",
 					null,
 					"[npc.Name] takes [npc.her] sweatband off.",
 					"[npc.Name] takes your sweatband off.",
@@ -820,7 +820,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the cap.",
-					"You push the cap onto [npc.name]'s head.",
+					"You push the cap onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the cap onto [npc.her] head.",
 					"[npc.Name] pushes the cap onto your head.",
@@ -831,7 +831,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your cap.",
-					"You take off [npc.name]'s cap.",
+					"You take off [npc.namePos] cap.",
 					null,
 					"[npc.Name] takes [npc.her] cap off.",
 					"[npc.Name] takes your cap off.",
@@ -872,7 +872,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the cowboy hat.",
-					"You push the cowboy hat onto [npc.name]'s head.",
+					"You push the cowboy hat onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the cowboy hat onto [npc.her] head.",
 					"[npc.Name] pushes the cowboy hat onto your head.",
@@ -883,7 +883,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your cowboy hat.",
-					"You take off [npc.name]'s cowboy hat.",
+					"You take off [npc.namePos] cowboy hat.",
 					null,
 					"[npc.Name] takes [npc.her] cowboy hat off.",
 					"[npc.Name] takes your cowboy hat off.",
@@ -918,7 +918,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the antler headband.",
-					"You push the antler headband onto [npc.name]'s head.",
+					"You push the antler headband onto [npc.namePos] head.",
 					null,
 					"[npc.Name] pulls the antler headband onto [npc.her] head.",
 					"[npc.Name] pushes the antler headband onto your head.",
@@ -929,7 +929,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your antler headband.",
-					"You take off [npc.name]'s antler headband.",
+					"You take off [npc.namePos] antler headband.",
 					null,
 					"[npc.Name] takes [npc.her] antler headband off.",
 					"[npc.Name] takes your antler headband off.",
@@ -965,7 +965,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on your glasses.",
-					"You push the glasses onto [npc.name]'s face.",
+					"You push the glasses onto [npc.namePos] face.",
 					null,
 					"[npc.Name] puts on [npc.her] glasses.",
 					"[npc.Name] pushes the pair of glasses onto your face.",
@@ -976,8 +976,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your glasses.",
-					"You take off [npc.name]'s glasses.",
-					"You grab [npc.name]'s glasses and roughly pull them off.", // Rude!
+					"You take off [npc.namePos] glasses.",
+					"You grab [npc.namePos] glasses and roughly pull them off.", // Rude!
 					"[npc.Name] takes [npc.her] glasses off.",
 					"[npc.Name] takes your glasses off.",
 					"[npc.Name] grabs your glasses and roughly pulls them off.", null, null);
@@ -1010,7 +1010,7 @@ public class ClothingType {
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You put on your aviators.",
-						"You push the aviators onto [npc.name]'s face.",
+						"You push the aviators onto [npc.namePos] face.",
 						null,
 						"[npc.Name] puts on [npc.her] aviators.",
 						"[npc.Name] pushes the pair of aviators onto your face.",
@@ -1021,8 +1021,8 @@ public class ClothingType {
 			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You take off your aviators.",
-						"You take off [npc.name]'s aviators.",
-						"You grab [npc.name]'s aviators and roughly pull them off.", // Rude!
+						"You take off [npc.namePos] aviators.",
+						"You grab [npc.namePos] aviators and roughly pull them off.", // Rude!
 						"[npc.Name] takes [npc.her] aviators off.",
 						"[npc.Name] takes your aviators off.",
 						"[npc.Name] grabs your aviators and roughly pulls them off.", null, null);
@@ -1056,7 +1056,7 @@ public class ClothingType {
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You fasten the eye patch around your head, before moving it into place to cover your eye.",
-						"You fasten the eye patch around [npc.name]'s head, before moving it into place to cover [npc.her] eye.",
+						"You fasten the eye patch around [npc.namePos] head, before moving it into place to cover [npc.her] eye.",
 						null,
 						"[npc.Name] fastens the eye patch around [npc.her] head, before moving it into place to cover [npc.her] eye.",
 						"[npc.Name] fastens the eye patch around your head, before moving it into place to cover your eye.",
@@ -1067,8 +1067,8 @@ public class ClothingType {
 			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You take off your eye patch.",
-						"You take off [npc.name]'s eye patch.",
-						"You grab [npc.name]'s eye patch and roughly pull it off.",
+						"You take off [npc.namePos] eye patch.",
+						"You grab [npc.namePos] eye patch and roughly pull it off.",
 						"[npc.Name] takes [npc.her] eye patch off.",
 						"[npc.Name] takes your eye patch off.",
 						"[npc.Name] grabs your eye patch and roughly pulls it off.", null, null);
@@ -1117,7 +1117,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You position the bandana over your [pc.face], before reaching back and tying the ends together.",
-					"You hold [npc.name]'s head still as you tie the bandana around [npc.her] [npc.face].",
+					"You hold [npc.namePos] head still as you tie the bandana around [npc.her] [npc.face].",
 					null,
 					"[npc.Name] positions a bandana over [npc.her] [npc.face], before reaching back and tying the ends together.",
 					"[npc.Name] holds your head still and ties a bandana around your [pc.face].",
@@ -1128,7 +1128,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You untie the ends of your bandana and take it off.",
-					"You untie the ends of [npc.name]'s bandana and take it off.",
+					"You untie the ends of [npc.namePos] bandana and take it off.",
 					null,
 					"[npc.Name] unties the ends of [npc.her] bandana and takes it off.",
 					"[npc.Name] unties the ends of your bandana and takes it off.",
@@ -1139,7 +1139,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your bandana.",
-					"You pull down [npc.name]'s bandana.",
+					"You pull down [npc.namePos] bandana.",
 					null,
 					"[npc.Name] pulls down [npc.her] bandana.",
 					"[npc.Name] pulls your bandana down.",
@@ -1150,7 +1150,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your bandana back up.",
-					"You pull [npc.name]'s bandana back up.",
+					"You pull [npc.namePos] bandana back up.",
 					null,
 					"[npc.Name] pulls [npc.her] bandana back up.",
 					"[npc.Name] pulls your bandana back up.",
@@ -1188,8 +1188,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.name]'s neck.",
-					"You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.",
+					"fasten the necklace around [npc.namePos] neck.",
+					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
 					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
 					"[npc.Name] clips a necklace around your neck.",
 					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
@@ -1199,8 +1199,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your necklace and take it off.",
-					"You unclip [npc.name]'s necklace and take it off.",
-					"You grab [npc.name]'s necklace and yank it from [npc.her] neck.",
+					"You unclip [npc.namePos] necklace and take it off.",
+					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
 					"[npc.Name] unclips [npc.her] necklace and takes it off.",
 					"[npc.Name] unclips your necklace and removes it.",
 					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
@@ -1234,8 +1234,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on the ankh necklace, before reaching back and clipping the chain together behind your neck.",
-					"You place the ankh necklace around [npc.name]'s neck, before reaching back and clipping the chain together.",
-					"You hold [npc.name]'s head still as you fasten the ankh necklace around [npc.her] neck.",
+					"You place the ankh necklace around [npc.namePos] neck, before reaching back and clipping the chain together.",
+					"You hold [npc.namePos] head still as you fasten the ankh necklace around [npc.her] neck.",
 					"[npc.Name] puts on the ankh necklace, before reaching around and clipping the chain together behind [npc.her] neck.",
 					"[npc.Name] places the ankh necklace around your neck, before reaching around and clipping the chain together.",
 					"[npc.Name] holds your head still and fastens an ankh necklace around your neck.", null, null);
@@ -1245,8 +1245,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your ankh necklace and take it off.",
-					"You unclip [npc.name]'s ankh necklace and take it off.",
-					"You grab [npc.name]'s ankh necklace and yank it from [npc.her] neck.",
+					"You unclip [npc.namePos] ankh necklace and take it off.",
+					"You grab [npc.namePos] ankh necklace and yank it from [npc.her] neck.",
 					"[npc.Name] unclips [npc.her] ankh necklace and takes it off.",
 					"[npc.Name] unclips your ankh necklace and removes it.",
 					"[npc.Name] grabs your ankh necklace and yanks it from your neck.", null, null);
@@ -1280,7 +1280,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fasten the bell collar around your neck.",
-					"You fasten the bell collar around [npc.name]'s neck.",
+					"You fasten the bell collar around [npc.namePos] neck.",
 					null,
 					"[npc.Name] fastens the bell collar around [npc.her] neck.",
 					"[npc.Name] fastens the bell collar around your neck.",
@@ -1291,7 +1291,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your bell collar.",
-					"You take off [npc.name]'s bell collar.",
+					"You take off [npc.namePos] bell collar.",
 					null,
 					"[npc.Name] takes [npc.her] bell collar off.",
 					"[npc.Name] takes your bell collar off.",
@@ -1326,7 +1326,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the scarf around your neck.",
-					"You wrap the scarf around [npc.name]'s neck.",
+					"You wrap the scarf around [npc.namePos] neck.",
 					null,
 					"[npc.Name] wraps a scarf around [npc.her] neck.",
 					"[npc.Name] wraps a scarf around your neck.",
@@ -1337,7 +1337,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your scarf.",
-					"You take off [npc.name]'s scarf.",
+					"You take off [npc.namePos] scarf.",
 					null,
 					"[npc.Name] takes [npc.her] scarf off.",
 					"[npc.Name] takes your scarf off.",
@@ -1372,7 +1372,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fasten the tie around your neck.",
-					"You fasten the tie around [npc.name]'s neck.",
+					"You fasten the tie around [npc.namePos] neck.",
 					null,
 					"[npc.Name] fastens the tie around [npc.her] neck.",
 					"[npc.Name] fasten the tie around your neck.",
@@ -1383,7 +1383,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your tie.",
-					"You take off [npc.name]'s tie.",
+					"You take off [npc.namePos] tie.",
 					null,
 					"[npc.Name] takes [npc.her] tie off.",
 					"[npc.Name] takes your tie off.",
@@ -1415,7 +1415,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fasten the collar bowtie around your neck.",
-					"You fasten the collar bowtie around [npc.name]'s neck.",
+					"You fasten the collar bowtie around [npc.namePos] neck.",
 					null,
 					"[npc.Name] fastens the collar bowtie around [npc.her] neck.",
 					"[npc.Name] fasten the collar bowtie around your neck.",
@@ -1426,7 +1426,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your collar bowtie.",
-					"You take off [npc.name]'s collar bowtie.",
+					"You take off [npc.namePos] collar bowtie.",
 					null,
 					"[npc.Name] takes [npc.her] collar bowtie off.",
 					"[npc.Name] takes your collar bowtie off.",
@@ -1471,7 +1471,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You can't help but let out a small, needy moan as you fasten the enchanted collar around your neck.",
-					"A small, needy moan drifts out from [npc.name]'s mouth as you fasten the enchanted collar around [npc.her] neck.",
+					"A small, needy moan drifts out from [npc.namePos] mouth as you fasten the enchanted collar around [npc.her] neck.",
 					null,
 					"[npc.Name] can't help but let out a small, needy moan as [npc.she] fastens the collar around [npc.her] neck.",
 					"You can't help but let out a small, needy moan as [npc.name] fastens the collar around your neck.",
@@ -1482,7 +1482,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your collar.",
-					"You take off [npc.name]'s collar.",
+					"You take off [npc.namePos] collar.",
 					null,
 					"[npc.Name] takes [npc.her] collar off.",
 					"[npc.Name] takes your collar off.",
@@ -1541,7 +1541,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put your [pc.arms] through the shirt's sleeves and button it up.",
-					"You push [npc.name]'s [npc.arms] through the shirt's sleeves and button it up.",
+					"You push [npc.namePos] [npc.arms] through the shirt's sleeves and button it up.",
 					null,
 					"[npc.Name] pushes [npc.her] [npc.arms] through the shirt's sleeves and buttons it up.",
 					"[npc.Name] pushes your [pc.arms] through the shirt's sleeves and buttons it up.",
@@ -1552,7 +1552,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"You unbutton [npc.name]'s shirt and pull it off.",
+					"You unbutton [npc.namePos] shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pulls it off.",
@@ -1563,8 +1563,8 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt, leaving it hanging open.",
-					"You unbutton [npc.name]'s shirt.",
-					"You roughly pull open [npc.name]'s shirt, almost tearing the buttons off in the process.",
+					"You unbutton [npc.namePos] shirt.",
+					"You roughly pull open [npc.namePos] shirt, almost tearing the buttons off in the process.",
 					"[npc.Name] unbuttons [npc.her] shirt, leaving it hanging open.",
 					"[npc.Name] unbuttons your shirt.",
 					"[npc.Name] roughly pulls open your shirt, almost tearing the buttons right off", null, null);
@@ -1574,8 +1574,8 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You button up your shirt.",
-					"You button up [npc.name]'s shirt.",
-					"You roughly button up [npc.name]'s shirt.",
+					"You button up [npc.namePos] shirt.",
+					"You roughly button up [npc.namePos] shirt.",
 					"[npc.Name] buttons up [npc.her] shirt.",
 					"[npc.Name] buttons up your shirt.",
 					"[npc.Name] roughly buttons up your shirt", null, null);
@@ -1625,7 +1625,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put your [pc.arms] through the shirt's sleeves and button it up.",
-					"You push [npc.name]'s [npc.arms] through the shirt's sleeves and button it up.",
+					"You push [npc.namePos] [npc.arms] through the shirt's sleeves and button it up.",
 					null,
 					"[npc.Name] pushes [npc.her] [npc.arms] through the shirt's sleeves and buttons it up.",
 					"[npc.Name] pushes your [pc.arms] through the shirt's sleeves and buttons it up.",
@@ -1636,7 +1636,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"You unbuttons [npc.name]'s shirt and pull it off.",
+					"You unbuttons [npc.namePos] shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pulls it off.",
@@ -1647,8 +1647,8 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt, leaving it hanging open.",
-					"You unbutton [npc.name]'s shirt.",
-					"You roughly pull open [npc.name]'s shirt, almost tearing the buttons off in the process.",
+					"You unbutton [npc.namePos] shirt.",
+					"You roughly pull open [npc.namePos] shirt, almost tearing the buttons off in the process.",
 					"[npc.Name] unbuttons [npc.her] shirt, leaving it hanging open.",
 					"[npc.Name] unbuttons your shirt.",
 					"[npc.Name] roughly pulls open your shirt, almost tearing the buttons right off", null, null);
@@ -1658,8 +1658,8 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You button up your shirt.",
-					"You button up [npc.name]'s shirt.",
-					"You roughly button up [npc.name]'s shirt.",
+					"You button up [npc.namePos] shirt.",
+					"You roughly button up [npc.namePos] shirt.",
 					"[npc.Name] buttons up [npc.her] shirt.",
 					"[npc.Name] buttons up your shirt.",
 					"[npc.Name] roughly buttons up your shirt", null, null);
@@ -1710,7 +1710,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the hoodie.",
-					"You guide [npc.name]'s [npc.arms] through the hoodie's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the hoodie's sleeves as you pull it on [npc.herHim].",
 					"You hold [npc.name] still as you roughly force the hoodie down over [npc.her] head, before pushing [npc.her] [npc.arms] through the sleeves.",
 					"[npc.Name] pulls on the hoodie.",
 					"[npc.Name] guides your [pc.arms] through the hoodie's sleeves as [npc.she] pulls it on you.",
@@ -1721,8 +1721,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your hoodie.",
-					"You pull off [npc.name]'s hoodie.",
-					"You grab hold of [npc.name]'s hoodie and roughly pull it off over [npc.her] head.",
+					"You pull off [npc.namePos] hoodie.",
+					"You grab hold of [npc.namePos] hoodie and roughly pull it off over [npc.her] head.",
 					"[npc.Name] takes [npc.her] hoodie off.",
 					"[npc.Name] pulls your hoodie off.",
 					"[npc.Name] grabs hold of your hoodie and roughly pulls it off over your head", null, null);
@@ -1732,8 +1732,8 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your hoodie up to just below your chin, letting the elastic rim hold it in place.",
-					"You pull up [npc.name]'s hoodie.",
-					"You roughly yank up [npc.name]'s hoodie.",
+					"You pull up [npc.namePos] hoodie.",
+					"You roughly yank up [npc.namePos] hoodie.",
 					"[npc.Name] pulls [npc.her] hoodie up to just below [npc.her] chin, letting the elastic rim hold it in place.",
 					"[npc.Name] pulls up your hoodie.",
 					"[npc.Name] roughly yanks up your hoodie.", null, null);
@@ -1743,8 +1743,8 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your hoodie back down, covering your torso.",
-					"You pull down [npc.name]'s hoodie.",
-					"You roughly pull down [npc.name]'s hoodie.",
+					"You pull down [npc.namePos] hoodie.",
+					"You roughly pull down [npc.namePos] hoodie.",
 					"[npc.Name] pulls [npc.her] hoodie back down to cover [npc.her] torso.",
 					"[npc.Name] pulls down your hoodie.",
 					"[npc.Name] roughly pulls down your hoodie.", null, null);
@@ -1784,7 +1784,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the cardigan.",
-					"You guide [npc.name]'s [npc.arms] through the cardigan's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the cardigan's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the cardigan.",
 					"[npc.Name] guides your [pc.arms] through the cardigan's sleeves as [npc.she] pulls it on you.",
@@ -1795,7 +1795,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your cardigan.",
-					"You pull off [npc.name]'s cardigan.",
+					"You pull off [npc.namePos] cardigan.",
 					null,
 					"[npc.Name] takes [npc.her] cardigan off.",
 					"[npc.Name] pulls your cardigan off.",
@@ -1847,7 +1847,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the blazer.",
-					"You guide [npc.name]'s [npc.arms] through the blazer's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the blazer's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the blazer.",
 					"[npc.Name] guides your [pc.arms] through the blazer's sleeves as [npc.she] pulls it on you.",
@@ -1858,7 +1858,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your blazer.",
-					"You pull off [npc.name]'s blazer.",
+					"You pull off [npc.namePos] blazer.",
 					null,
 					"[npc.Name] takes [npc.her] blazer off.",
 					"[npc.Name] pulls your blazer off.",
@@ -1912,7 +1912,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the leather jacket.",
-					"You guide [npc.name]'s [npc.arms] through the leather jacket's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the leather jacket's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the leather jacket.",
 					"[npc.Name] guides your [pc.arms] through the leather jacket's sleeves as [npc.she] pulls it on you.",
@@ -1923,7 +1923,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your leather jacket.",
-					"You pull off [npc.name]'s leather jacket.",
+					"You pull off [npc.namePos] leather jacket.",
 					null,
 					"[npc.Name] takes [npc.her] leather jacket off.",
 					"[npc.Name] pulls your leather jacket off.",
@@ -1976,7 +1976,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the suit jacket.",
-					"You guide [npc.name]'s [npc.arms] through the suit jacket's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the suit jacket's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the suit jacket.",
 					"[npc.Name] guides your [pc.arms] through the suit jacket's sleeves as [npc.she] pulls it on you.",
@@ -1987,7 +1987,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your suit jacket.",
-					"You pull off [npc.name]'s suit jacket.",
+					"You pull off [npc.namePos] suit jacket.",
 					null,
 					"[npc.Name] takes [npc.her] suit jacket off.",
 					"[npc.Name] pulls your suit jacket off.",
@@ -2040,7 +2040,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the dress coat.",
-					"You guide [npc.name]'s [npc.arms] through the dress coat's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the dress coat's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the dress coat.",
 					"[npc.Name] guides your [pc.arms] through the dress coat's sleeves as [npc.she] pulls it on you.",
@@ -2051,7 +2051,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your dress coat.",
-					"You pull off [npc.name]'s dress coat.",
+					"You pull off [npc.namePos] dress coat.",
 					null,
 					"[npc.Name] takes [npc.her] dress coat off.",
 					"[npc.Name] pulls your dress coat off.",
@@ -2159,7 +2159,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your cloak.",
-					"You pull off [npc.name]'s cloak.",
+					"You pull off [npc.namePos] cloak.",
 					null,
 					"[npc.Name] takes [npc.her] cloak off.",
 					"[npc.Name] pulls your cloak off.",
@@ -2389,7 +2389,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the T-shirt.",
-					"You guide [npc.name]'s [npc.arms] through the T-shirt's sleeves as you pull down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the T-shirt's sleeves as you pull down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the T-shirt.",
 					"[npc.Name] guides your [pc.arms] through the T-shirt's sleeves as [npc.she] pulls it down over your head.",
@@ -2400,7 +2400,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your T-shirt.",
-					"You pull off [npc.name]'s T-shirt.",
+					"You pull off [npc.namePos] T-shirt.",
 					null,
 					"[npc.Name] takes [npc.her] T-shirt off.",
 					"[npc.Name] pulls your T-shirt off.",
@@ -2411,7 +2411,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your t-shirt up to just below your chin, exposing your torso.",
-					"You pull up [npc.name]'s t-shirt.",
+					"You pull up [npc.namePos] t-shirt.",
 					null,
 					"[npc.Name] pulls [npc.her] t-shirt up to just below [npc.her] chin, exposing [npc.her] torso.",
 					"[npc.Name] pulls up your t-shirt.",
@@ -2422,7 +2422,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your t-shirt back down, covering your torso.",
-					"You pull down [npc.name]'s t-shirt.",
+					"You pull down [npc.namePos] t-shirt.",
 					null,
 					"[npc.Name] pulls [npc.her] t-shirt back down to cover [npc.her] torso.",
 					"[npc.Name] pulls down your t-shirt.",
@@ -2474,7 +2474,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the crop top.",
-					"You guide [npc.name]'s [npc.arms] through the crop top's sleeves as you pull it down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the crop top's sleeves as you pull it down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the crop top.",
 					"[npc.Name] guides your [pc.arms] through the crop top's sleeves as [npc.she] pulls it down over your head.",
@@ -2485,7 +2485,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your crop top.",
-					"You slide [npc.name]'s crop top up and over [npc.her] head.",
+					"You slide [npc.namePos] crop top up and over [npc.her] head.",
 					null,
 					"[npc.Name] pulls off [npc.her] crop top.",
 					"[npc.Name] slides your crop top up and over your head.",
@@ -2535,7 +2535,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the crop top.",
-					"You guide [npc.name]'s [npc.arms] through the crop top's sleeves as you pull it down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the crop top's sleeves as you pull it down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the crop top.",
 					"[npc.Name] guides your [pc.arms] through the crop top's sleeves as [npc.she] pulls it down over your head.",
@@ -2546,7 +2546,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your crop top.",
-					"You slide [npc.name]'s crop top up and over [npc.her] head.",
+					"You slide [npc.namePos] crop top up and over [npc.her] head.",
 					null,
 					"[npc.Name] pulls off [npc.her] crop top.",
 					"[npc.Name] slides your crop top up and over your head.",
@@ -2594,7 +2594,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the fishnet top.",
-					"You guide [npc.name]'s [npc.arms] through the fishnet top's sleeves as you pull it down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the fishnet top's sleeves as you pull it down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the fishnet top.",
 					"[npc.Name] guides your [pc.arms] through the fishnet top's sleeves as [npc.she] pulls it down over your head.",
@@ -2605,7 +2605,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your fishnet top.",
-					"You slide [npc.name]'s fishnet top up and over [npc.her] head.",
+					"You slide [npc.namePos] fishnet top up and over [npc.her] head.",
 					null,
 					"[npc.Name] pulls off [npc.her] fishnet top.",
 					"[npc.Name] slides your fishnet top up and over your head.",
@@ -2659,7 +2659,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the blouse.",
-					"You guide [npc.name]'s [npc.arms] through the blouse's sleeves as you pull it down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the blouse's sleeves as you pull it down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the blouse.",
 					"[npc.Name] guides your [pc.arms] through the blouse's sleeves as [npc.she] pulls it down over your head.",
@@ -2670,7 +2670,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your blouse.",
-					"You slide [npc.name]'s blouse up and over [npc.her] head.",
+					"You slide [npc.namePos] blouse up and over [npc.her] head.",
 					null,
 					"[npc.Name] pulls off [npc.her] blouse.",
 					"[npc.Name] slides your blouse up and over your head.",
@@ -2770,7 +2770,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the skater dress, tidying the skirt down before moving the straps into a comfortable position on your shoulders.",
-					"You pull the skater dress over [npc.name]'s head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
+					"You pull the skater dress over [npc.namePos] head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
 					null,
 					"[npc.Name] pulls on the skater dress, tidying the skirt down before moving the straps into a comfortable position on [npc.her] shoulders.",
 					"[npc.Name] pulls the skater dress over your head and down around your torso, tidying the skirt before moving the straps to sit comfortably on your shoulders.",
@@ -2781,7 +2781,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your skater dress up over your head and take it off.",
-					"You pull [npc.name]'s skater dress up over [npc.her] head and take it off.",
+					"You pull [npc.namePos] skater dress up over [npc.her] head and take it off.",
 					null,
 					"[npc.Name] pulls [npc.her] skater dress up over [npc.her] head and takes it off.",
 					"[npc.Name] pulls your skater dress up over your head and takes it off.",
@@ -2792,7 +2792,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the skirt of your skater dress.",
-					"You pull up the skirt of [npc.name]'s skater dress.",
+					"You pull up the skirt of [npc.namePos] skater dress.",
 					null,
 					"[npc.Name] pulls up the skirt of [npc.her] skater dress.",
 					"[npc.Name] pulls up the skirt of your skater dress.",
@@ -2803,7 +2803,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your skater dress back down into its proper position.",
-					"You pull [npc.name]'s skater dress back down into its proper position.",
+					"You pull [npc.namePos] skater dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] skater dress back down into its proper position.",
 					"[npc.Name] your skater dress back down into its proper position.",
@@ -2875,7 +2875,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You untie the corset dress's strings and take it off.",
-					"You untie the strings on the front of [npc.name]'s corset dress, before taking it off.",
+					"You untie the strings on the front of [npc.namePos] corset dress, before taking it off.",
 					null,
 					"[npc.Name] unties [npc.her] corset dress's strings and takes it off.",
 					"[npc.Name] unties the strings on the front of your corset dress, before taking it off.",
@@ -2979,7 +2979,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the slip dress and pull it up around your torso. Once in place, you reach back and zip yourself up.",
-					"You guide the slip dress up around [npc.name]'s [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
+					"You guide the slip dress up around [npc.namePos] [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
 					null,
 					"[npc.Name] steps into the slip dress, before pulling it up around [npc.her] torso. Once in place, [npc.she] reaches back to zip [npc.herself] up.",
 					"[npc.Name] guides the slip dress up around your [pc.legs], before pulling it up around your torso. One it's in place, [npc.she] zips you up at the back.",
@@ -2990,7 +2990,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unzip your slip dress and wriggle out of it as it drops to your feet.",
-					"You unzip [npc.name]'s slip dress and pull it down off [npc.her] body and past [npc.her] feet.",
+					"You unzip [npc.namePos] slip dress and pull it down off [npc.her] body and past [npc.her] feet.",
 					null,
 					"[npc.Name] unzips [npc.her] slip dress and wriggles out of it as it drops to [npc.her] feet.",
 					"[npc.Name] unzips your slip dress and pulls it down your body and past your feet.",
@@ -3001,7 +3001,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the lower half of your slip dress.",
-					"You pull up the lower half of [npc.name]'s slip dress.",
+					"You pull up the lower half of [npc.namePos] slip dress.",
 					null,
 					"[npc.Name] pulls up the lower half of [npc.her] slip dress.",
 					"[npc.Name] pulls up the lower half of your slip dress.",
@@ -3012,7 +3012,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your slip dress back down into its proper position.",
-					"You pull [npc.name]'s slip dress back down into its proper position.",
+					"You pull [npc.namePos] slip dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] slip dress back down into its proper position.",
 					"[npc.Name] your slip dress back down into its proper position.",
@@ -3066,7 +3066,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the plunge dress and pull it up around your torso. Once in place, you reach back and zip yourself up.",
-					"You guide the plunge dress up around [npc.name]'s [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
+					"You guide the plunge dress up around [npc.namePos] [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
 					null,
 					"[npc.Name] steps into the plunge dress, before pulling it up around [npc.her] torso. Once in place, [npc.she] reaches back to zip [npc.herself] up.",
 					"[npc.Name] guides the plunge dress up around your [pc.legs], before pulling it up around your torso. One it's in place, [npc.she] zips you up at the back.",
@@ -3077,7 +3077,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unzip your plunge dress and wriggle out of it as it drops to your feet.",
-					"You unzip [npc.name]'s plunge dress and pull it down off [npc.her] body and past [npc.her] feet.",
+					"You unzip [npc.namePos] plunge dress and pull it down off [npc.her] body and past [npc.her] feet.",
 					null,
 					"[npc.Name] unzips [npc.her] plunge dress and wriggles out of it as it drops to [npc.her] feet.",
 					"[npc.Name] unzips your plunge dress and pulls it down your body and past your feet.",
@@ -3088,7 +3088,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the lower half of your plunge dress.",
-					"You pull up the lower half of [npc.name]'s plunge dress.",
+					"You pull up the lower half of [npc.namePos] plunge dress.",
 					null,
 					"[npc.Name] pulls up the lower half of [npc.her] plunge dress.",
 					"[npc.Name] pulls up the lower half of your plunge dress.",
@@ -3099,7 +3099,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your plunge dress back down into its proper position.",
-					"You pull [npc.name]'s plunge dress back down into its proper position.",
+					"You pull [npc.namePos] plunge dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] plunge dress back down into its proper position.",
 					"[npc.Name] your plunge dress back down into its proper position.",
@@ -3157,7 +3157,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the long-sleeved dress and pull it up around your torso. Once in place, you reach back and zip yourself up.",
-					"You guide the long-sleeved dress up around [npc.name]'s [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
+					"You guide the long-sleeved dress up around [npc.namePos] [npc.legs], before pulling it up around [npc.her] torso. Once it's in place, you zip [npc.herHim] up at the back.",
 					null,
 					"[npc.Name] steps into the long-sleeved dress, before pulling it up around [npc.her] torso. Once in place, [npc.she] reaches back to zip [npc.herself] up.",
 					"[npc.Name] guides the long-sleeved dress up around your [pc.legs], before pulling it up around your torso. One it's in place, [npc.she] zips you up at the back.",
@@ -3168,7 +3168,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unzip your long-sleeved dress and wriggle out of it as it drops to your feet.",
-					"You unzip [npc.name]'s long-sleeved dress and pull it down off [npc.her] body and past [npc.her] feet.",
+					"You unzip [npc.namePos] long-sleeved dress and pull it down off [npc.her] body and past [npc.her] feet.",
 					null,
 					"[npc.Name] unzips [npc.her] long-sleeved dress and wriggles out of it as it drops to [npc.her] feet.",
 					"[npc.Name] unzips your long-sleeved dress and pulls it down your body and past your feet.",
@@ -3179,7 +3179,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the lower half of your long-sleeved dress.",
-					"You pull up the lower half of [npc.name]'s long-sleeved dress.",
+					"You pull up the lower half of [npc.namePos] long-sleeved dress.",
 					null,
 					"[npc.Name] pulls up the lower half of [npc.her] long-sleeved dress.",
 					"[npc.Name] pulls up the lower half of your long-sleeved dress.",
@@ -3190,7 +3190,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your long-sleeved dress back down into its proper position.",
-					"You pull [npc.name]'s long-sleeved dress back down into its proper position.",
+					"You pull [npc.namePos] long-sleeved dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] long-sleeved dress back down into its proper position.",
 					"[npc.Name] your long-sleeved dress back down into its proper position.",
@@ -3264,7 +3264,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fully unzip your frontal-zip dress and shrug it off.",
-					"You fully unzip [npc.name]'s frontal-zip dress and pull it off.",
+					"You fully unzip [npc.namePos] frontal-zip dress and pull it off.",
 					null,
 					"[npc.Name] fully unzips [npc.her] frontal-zip dress and shrugs it off.",
 					"[npc.Name] fully unzips your frontal-zip dress and pulls it off.",
@@ -3277,7 +3277,7 @@ public class ClothingType {
 				case PULLS_UP:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull up the bottom of your frontal-zip dress.",
-							"You pull up the bottom of [npc.name]'s frontal-zip dress.",
+							"You pull up the bottom of [npc.namePos] frontal-zip dress.",
 							null,
 							"[npc.Name] pulls up the bottom of [npc.her] frontal-zip dress.",
 							"[npc.Name] pulls up the bottom of your frontal-zip dress.",
@@ -3285,7 +3285,7 @@ public class ClothingType {
 				case UNZIPS:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You fully unzip the front of your dress.",
-							"You fully unzip the front of [npc.name]'s dress.",
+							"You fully unzip the front of [npc.namePos] dress.",
 							null,
 							"[npc.Name] fully unzips the front of [npc.her] dress.",
 							"[npc.Name] fully unzips the front of your dress.",
@@ -3301,7 +3301,7 @@ public class ClothingType {
 				case PULLS_UP:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull the bottom of your frontal-zip dress back down.",
-							"You pull the bottom of [npc.name]'s frontal-zip dress back down.",
+							"You pull the bottom of [npc.namePos] frontal-zip dress back down.",
 							null,
 							"[npc.Name] pulls the bottom of [npc.her] frontal-zip dress back down.",
 							"[npc.Name] pulls the bottom of your frontal-zip dress back down.",
@@ -3309,7 +3309,7 @@ public class ClothingType {
 				case UNZIPS:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You zip up the front of your dress.",
-							"You zip up the front of [npc.name]'s dress.",
+							"You zip up the front of [npc.namePos] dress.",
 							null,
 							"[npc.Name] zips up the front of [npc.her] dress.",
 							"[npc.Name] zips up the front of your dress.",
@@ -3395,7 +3395,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the swimsuit's straps down your [pc.arms] and tug it off your [pc.legs].",
-					"You tug down [npc.name]'s swimsuit, before sliding it off [npc.her] [npc.legs].",
+					"You tug down [npc.namePos] swimsuit, before sliding it off [npc.her] [npc.legs].",
 					null,
 					"[npc.Name] slides the swimsuit's straps down [npc.her] [npc.arms] and tugs it off [npc.her] [npc.legs].",
 					"[npc.Name] tugs your swimsuit down, before sliding it off your [pc.legs].",
@@ -3408,7 +3408,7 @@ public class ClothingType {
 				case PULLS_DOWN:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull down the top half of your swimsuit.",
-							"You pull down the top half of [npc.name]'s swimsuit.",
+							"You pull down the top half of [npc.namePos] swimsuit.",
 							null,
 							"[npc.Name] pulls down the top half of [npc.her] swimsuit.",
 							"[npc.Name] pulls down the top half of your swimsuit.",
@@ -3416,7 +3416,7 @@ public class ClothingType {
 				case SHIFTS_ASIDE:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull the lower part of your swimsuit to one side.",
-							"You pull the lower part of [npc.name]'s swimsuit to one side.",
+							"You pull the lower part of [npc.namePos] swimsuit to one side.",
 							null,
 							"[npc.Name] pulls the lower part of [npc.her] swimsuit to one side.",
 							"[npc.Name] pulls the lower part of your swimsuit to one side.",
@@ -3432,7 +3432,7 @@ public class ClothingType {
 				case PULLS_DOWN:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull your swimsuit back up into its correct position.",
-							"You pull [npc.name]'s swimsuit back up into its correct position.",
+							"You pull [npc.namePos] swimsuit back up into its correct position.",
 							null,
 							"[npc.Name] pulls [npc.her] swimsuit up into its correct position.",
 							"[npc.Name] pulls your swimsuit back up into its correct position.",
@@ -3440,7 +3440,7 @@ public class ClothingType {
 				case SHIFTS_ASIDE:
 					return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 							"You pull the lower part of your swimsuit back into its correct position.",
-							"You pull the lower part of [npc.name]'s swimsuit back into its correct position.",
+							"You pull the lower part of [npc.namePos] swimsuit back into its correct position.",
 							null,
 							"[npc.Name] pulls the lower part of [npc.her] swimsuit back into its correct position.",
 							"[npc.Name] pulls the lower part of your swimsuit back into its correct position.",
@@ -3493,7 +3493,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the tube top.",
-					"You guide [npc.name]'s [npc.arms] through the tube top's sleeves as you pull it down over [npc.her] head.",
+					"You guide [npc.namePos] [npc.arms] through the tube top's sleeves as you pull it down over [npc.her] head.",
 					null,
 					"[npc.Name] pulls on the tube top.",
 					"[npc.Name] guides your [pc.arms] through the tube top's sleeves as [npc.she] pulls it down over your head.",
@@ -3504,7 +3504,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your tube top.",
-					"You slide [npc.name]'s tube top up and over [npc.her] head.",
+					"You slide [npc.namePos] tube top up and over [npc.her] head.",
 					null,
 					"[npc.Name] pulls off [npc.her] tube top.",
 					"[npc.Name] slides your tube top up and over your head.",
@@ -3562,7 +3562,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off the chemise.",
-					"You pull off [npc.name]'s chemise.",
+					"You pull off [npc.namePos] chemise.",
 					null,
 					"[npc.Name] pulls [npc.her] chemise off.",
 					"[npc.Name] pulls your chemise off.",
@@ -3762,7 +3762,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull the sports bra down over your head, before securing it around your chest.",
-					"You pull the sports bra down over [npc.name]'s head, before securing it around [npc.her] chest.",
+					"You pull the sports bra down over [npc.namePos] head, before securing it around [npc.her] chest.",
 					null,
 					"[npc.Name] pulls the sports bra down over [npc.her] head, before securing it around [npc.her] chest.",
 					"[npc.Name] pulls the sports bra down over your head, before securing it around your chest.",
@@ -3773,7 +3773,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull the sports bra off over your head.",
-					"You pull [npc.name]'s sports bra off over [npc.her] head.",
+					"You pull [npc.namePos] sports bra off over [npc.her] head.",
 					null,
 					"[npc.Name] pulls [npc.her] sports bra off over [npc.her] head.",
 					"[npc.Name] pulls your sports bra off over your head.",
@@ -3819,7 +3819,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull the croptop bra down over your head, before securing it around your chest.",
-					"You pull the croptop bra down over [npc.name]'s head, before securing it around [npc.her] chest.",
+					"You pull the croptop bra down over [npc.namePos] head, before securing it around [npc.her] chest.",
 					null,
 					"[npc.Name] pulls the croptop bra down over [npc.her] head, before securing it around [npc.her] chest.",
 					"[npc.Name] pulls the croptop bra down over your head, before securing it around your chest.",
@@ -3830,7 +3830,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull the croptop bra off over your head.",
-					"You pull [npc.name]'s croptop bra off over [npc.her] head.",
+					"You pull [npc.namePos] croptop bra off over [npc.her] head.",
 					null,
 					"[npc.Name] pulls [npc.her] croptop bra off over [npc.her] head.",
 					"[npc.Name] pulls your croptop bra off over your head.",
@@ -3941,7 +3941,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your nursing bra's cups and pull them down, exposing your [pc.nipples+].",
-					"You unclip the cups on [npc.name]'s nursing bra and pull them down, exposing [npc.her] [npc.nipples+].",
+					"You unclip the cups on [npc.namePos] nursing bra and pull them down, exposing [npc.her] [npc.nipples+].",
 					null,
 					"[npc.Name] unclips [npc.her] nursing bra's cups and pulls them down, exposing [npc.her] [npc.nipples+].",
 					"[npc.Name] unclips your nursing bra's cups and pulls them down, exposing your [pc.nipples+].",
@@ -3952,7 +3952,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip your nursing bra's cups back up to cover your [pc.nipples].",
-					"You clip [npc.name]'s nursing bra's cups back up to cover [npc.her] [npc.nipples].",
+					"You clip [npc.namePos] nursing bra's cups back up to cover [npc.her] [npc.nipples].",
 					null,
 					"[npc.Name] clips [npc.her] nursing bra's cups back up to cover [npc.her] [npc.nipples].",
 					"[npc.Name] clips your nursing bra's cups back up to cover your [pc.nipples].",
@@ -3997,7 +3997,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the bra over your chest before tying up the strings at your back.",
-					"You place the bra over [npc.name]'s chest before tying up the strings at [npc.her] back.",
+					"You place the bra over [npc.namePos] chest before tying up the strings at [npc.her] back.",
 					null,
 					"[npc.Name] places the bra over [npc.her] chest before tying up the strings at [npc.her] back.",
 					"[npc.Name] places the bra over your chest before tying up the strings at your back.",
@@ -4008,7 +4008,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You untie the bra's strings and take it off.",
-					"You untie [npc.name]'s bra's strings and take it off.",
+					"You untie [npc.namePos] bra's strings and take it off.",
 					null,
 					"[npc.Name] unties [npc.her] bra's strings and takes it off.",
 					"[npc.Name] unties your bra's strings and takes it off.",
@@ -4054,7 +4054,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the bikini top over your chest before tying up the strings at your back.",
-					"You place the bikini top over [npc.name]'s chest before tying up the strings at [npc.her] back.",
+					"You place the bikini top over [npc.namePos] chest before tying up the strings at [npc.her] back.",
 					null,
 					"[npc.Name] places the bikini top over [npc.her] chest before tying up the strings at [npc.her] back.",
 					"[npc.Name] places the bikini top over your chest before tying up the strings at your back.",
@@ -4065,7 +4065,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You untie the bikini top's strings and take it off.",
-					"You untie [npc.name]'s bikini top's strings and take it off.",
+					"You untie [npc.namePos] bikini top's strings and take it off.",
 					null,
 					"[npc.Name] unties [npc.her] bikini top's strings and takes it off.",
 					"[npc.Name] unties your bikini top's strings and takes it off.",
@@ -4076,7 +4076,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide your bikini top's straps off your shoulders before tugging it down to reveal your chest.",
-					"You slide the straps of [npc.name]'s bikini top off [npc.her] shoulders before tugging it down to reveal [npc.her] chest.",
+					"You slide the straps of [npc.namePos] bikini top off [npc.her] shoulders before tugging it down to reveal [npc.her] chest.",
 					null,
 					"[npc.Name] slides [npc.her] bikini top's straps off [npc.her] shoulders before tugging it down to reveal [npc.her] chest.",
 					"[npc.Name] slides your bikini top's straps off your shoulders before tugging it down to reveal your chest.",
@@ -4087,7 +4087,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your bikini top back up to cover your chest.",
-					"You pull [npc.name]'s bikini top back up to cover [npc.her] chest.",
+					"You pull [npc.namePos] bikini top back up to cover [npc.her] chest.",
 					null,
 					"[npc.Name] pulls [npc.her] bikini top back up to cover [npc.her] chest.",
 					"[npc.Name] pulls your bikini top back up to cover your chest.",
@@ -4130,7 +4130,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the sarashi tightly around your chest.",
-					"You wrap the sarashi tightly around [npc.name]'s chest.",
+					"You wrap the sarashi tightly around [npc.namePos] chest.",
 					null,
 					"[npc.Name] wraps the sarashi tightly around [npc.her] chest.",
 					"[npc.Name] wraps the sarashi tightly around your chest.",
@@ -4141,7 +4141,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unwrap the sarashi and remove it from around your chest.",
-					"You unwrap the sarashi from around [npc.name]'s chest.",
+					"You unwrap the sarashi from around [npc.namePos] chest.",
 					null,
 					"[npc.Name] unwraps the sarashi from around [npc.her] chest.",
 					"[npc.Name] unwraps the sarashi from around your chest.",
@@ -4195,7 +4195,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You stick the tape crosses over your [pc.nipples].",
-					"You stick the tape crosses over [npc.name]'s [npc.nipples].",
+					"You stick the tape crosses over [npc.namePos] [npc.nipples].",
 					null,
 					"[npc.Name] sticks the tape crosses over [npc.her] [npc.nipples].",
 					"[npc.Name] sticks the tape crosses over your [pc.nipples].",
@@ -4285,7 +4285,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] tugs your bodysuit down, sliding it off your legs.";
 				else
-					return UtilText.parse(clothingOwner, "You tug down [npc.name]'s bodysuit, sliding it off [npc.her] legs.");
+					return UtilText.parse(clothingOwner, "You tug down [npc.namePos] bodysuit, sliding it off [npc.her] legs.");
 			}
 		}
 
@@ -4300,7 +4300,7 @@ public class ClothingType {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] pulls down the top half of your bodysuit.";
 					else
-						return UtilText.parse(clothingOwner, "You pull down the top half of [npc.name]'s bodysuit.");
+						return UtilText.parse(clothingOwner, "You pull down the top half of [npc.namePos] bodysuit.");
 				}
 			} else {
 				if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
@@ -4311,7 +4311,7 @@ public class ClothingType {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] pulls the lower part of your bodysuit to one side.";
 					else
-						return UtilText.parse(clothingOwner, "You pull the lower part of [npc.name]'s bodysuit to one side.");
+						return UtilText.parse(clothingOwner, "You pull the lower part of [npc.namePos] bodysuit to one side.");
 				}
 			}
 		}
@@ -4381,7 +4381,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] unties your corset's laces and removes it from your stomach.";
 				else
-					return UtilText.parse(clothingOwner, "You untie [npc.name]'s corset's laces and remove it from [npc.her] stomach.");
+					return UtilText.parse(clothingOwner, "You untie [npc.namePos] corset's laces and remove it from [npc.her] stomach.");
 			}
 		}
 	};
@@ -4442,7 +4442,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] unties your corset's laces and removes it from your stomach.";
 				else
-					return UtilText.parse(clothingOwner, "You untie [npc.name]'s corset's laces and remove it from [npc.her] stomach.");
+					return UtilText.parse(clothingOwner, "You untie [npc.namePos] corset's laces and remove it from [npc.her] stomach.");
 			}
 		}
 	};
@@ -4497,7 +4497,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] unwraps your sarashi and removes it from around your stomach.");
 				} else {
-					return UtilText.parse(clothingOwner, "You unwrap [npc.name]'s sarashi and remove it from around [npc.her] stomach.");
+					return UtilText.parse(clothingOwner, "You unwrap [npc.namePos] sarashi and remove it from around [npc.her] stomach.");
 				}
 			}
 		}
@@ -4552,7 +4552,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your gloves off.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s gloves off.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
 			}
 		}
 	};
@@ -4605,7 +4605,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your gloves off.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s gloves off.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
 			}
 		}
 	};
@@ -4658,7 +4658,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your gloves off.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s gloves off.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
 			}
 		}
 	};
@@ -4698,7 +4698,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the strip of thick cotton around your [pc.arms].",
-					"You wrap the strip of thick cotton around [npc.name]'s [npc.arms].",
+					"You wrap the strip of thick cotton around [npc.namePos] [npc.arms].",
 					null,
 					"[npc.Name] wraps the strip of thick cotton around [npc.her] [npc.arms].",
 					"[npc.Name] wraps the strip of thick cotton around your [pc.arms].",
@@ -4709,7 +4709,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unwrap the strip of thick cotton from around your [pc.arms].",
-					"You unwrap the strip of thick cotton from around [npc.name]'s [npc.arms].",
+					"You unwrap the strip of thick cotton from around [npc.namePos] [npc.arms].",
 					null,
 					"[npc.Name] unwraps the strip of thick cotton from around [npc.her] [npc.arms].",
 					"[npc.Name] unwraps the strip of thick cotton from around your [pc.arms].",
@@ -4770,7 +4770,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls off your fishnet gloves.");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s fishnet gloves.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] fishnet gloves.");
 				}
 			}
 		}
@@ -4827,7 +4827,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] unfastens your watch's strap and takes it off.";
 				else
-					return UtilText.parse(clothingOwner, "You unfasten the strap on [npc.name]'s watch and take it off.");
+					return UtilText.parse(clothingOwner, "You unfasten the strap on [npc.namePos] watch and take it off.");
 			}
 		}
 	};
@@ -4880,7 +4880,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] unfastens your watch's strap and takes it off.";
 				else
-					return UtilText.parse(clothingOwner, "You unfasten the strap on [npc.name]'s watch and take it off.");
+					return UtilText.parse(clothingOwner, "You unfasten the strap on [npc.namePos] watch and take it off.");
 			}
 		}
 	};
@@ -4918,7 +4918,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the bangle onto your wrist.",
-					"You slide the bangle onto [npc.name]'s wrist.",
+					"You slide the bangle onto [npc.namePos] wrist.",
 					null,
 					"[npc.Name] slides the bangle onto [npc.her] wrist.",
 					"[npc.Name] slides the bangle onto your wrist.",
@@ -4929,7 +4929,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide your bangle off of your wrist.",
-					"You slide [npc.name]'s bangle off of [npc.her] wrist.",
+					"You slide [npc.namePos] bangle off of [npc.her] wrist.",
 					null,
 					"[npc.Name] slides [npc.her] bangle off of [npc.her] wrist.",
 					"[npc.Name] slides your bangle off of your wrist.",
@@ -4968,7 +4968,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fasten the suit cuffs around your wrists.",
-					"You fasten the suit cuffs around [npc.name]'s wrists.",
+					"You fasten the suit cuffs around [npc.namePos] wrists.",
 					null,
 					"[npc.Name] fastens the suit cuffs around [npc.her] wrists.",
 					"[npc.Name] fastens the suit cuffs around your wrists.",
@@ -4979,7 +4979,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten your suit cuffs and take them off.",
-					"You unfasten [npc.name]'s suit cuffs and take them off.",
+					"You unfasten [npc.namePos] suit cuffs and take them off.",
 					null,
 					"[npc.Name] unfastens [npc.her] suit cuffs and takes them off.",
 					"[npc.Name] unfastens your suit cuffs and takes them off.",
@@ -5020,7 +5020,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You fasten the wristband around your wrists.",
-					"You fasten the wristband around [npc.name]'s wrists.",
+					"You fasten the wristband around [npc.namePos] wrists.",
 					null,
 					"[npc.Name] fastens the wristband around [npc.her] wrists.",
 					"[npc.Name] fastens the wristband around your wrists.",
@@ -5031,7 +5031,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten your wristband and take them off.",
-					"You unfasten [npc.name]'s wristband and take them off.",
+					"You unfasten [npc.namePos] wristband and take them off.",
 					null,
 					"[npc.Name] unfastens [npc.her] wristband and takes them off.",
 					"[npc.Name] unfastens your wristband and takes them off.",
@@ -5087,7 +5087,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your ring.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s ring.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] ring.");
 			}
 		}
 	};
@@ -5144,7 +5144,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls your belt down and slides it off your [pc.feet].");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s belt down and slide it off [npc.her] [npc.feet].");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] belt down and slide it off [npc.her] [npc.feet].");
 				}
 			}
 		}
@@ -5192,7 +5192,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your suspender belt and take it off.",
-					"You pull down [npc.name]'s suspender belt and take it off.",
+					"You pull down [npc.namePos] suspender belt and take it off.",
 					null,
 					"[npc.Name] pulls down [npc.her] suspender belt and takes it off.",
 					"[npc.Name] pulls down your suspender belt and takes it off.",
@@ -5252,7 +5252,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your skirt down and slides it off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s skirt down and slide it off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] skirt down and slide it off [npc.her] feet.");
 			}
 		}
 
@@ -5266,7 +5266,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your skirt up.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s skirt up.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] skirt up.");
 			}
 		}
 
@@ -5329,7 +5329,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your skirt down and slides it off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s skirt down and slide it off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] skirt down and slide it off [npc.her] feet.");
 			}
 		}
 
@@ -5343,7 +5343,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your skirt up.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s skirt up.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] skirt up.");
 			}
 		}
 
@@ -5391,7 +5391,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the miniskirt before pulling it up to your waist.",
-					"You slide the miniskirt up [npc.name]'s [npc.legs] to rest around [npc.her] waist.",
+					"You slide the miniskirt up [npc.namePos] [npc.legs] to rest around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the miniskirt before pulling it up to [npc.her] waist.",
 					"[npc.Name] slides the miniskirt up your [pc.legs] to rest around your waist.",
@@ -5402,7 +5402,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your miniskirt and kick it off your [pc.feet].",
-					"You pull [npc.name]'s miniskirt down and slide it off [npc.her] [npc.feet].",
+					"You pull [npc.namePos] miniskirt down and slide it off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls down [npc.her] miniskirt before kicking it off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your miniskirt down and slides it off your [pc.feet].",
@@ -5460,7 +5460,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s microskirt down and slide it off [npc.her] [npc.feet].");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] microskirt down and slide it off [npc.her] [npc.feet].");
 				}
 			}
 		}
@@ -5516,7 +5516,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s microskirt down and slide it off [npc.her] [npc.feet].");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] microskirt down and slide it off [npc.her] [npc.feet].");
 				}
 			}
 		}
@@ -5570,7 +5570,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the shorts before pulling them up to your waist.",
-					"You pull the shorts up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the shorts up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the shorts up your [pc.legs] and buttons them up around your waist.",
@@ -5581,7 +5581,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your shorts and kick them off your feet.",
-					"You pull [npc.name]'s shorts down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] shorts down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] shorts, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your shorts down, before sliding them off your feet.",
@@ -5631,7 +5631,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the bike shorts before pulling them up to your waist.",
-					"You pull the bike shorts up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					"You pull the bike shorts up [npc.namePos] [npc.legs] to [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the bike shorts before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the bike shorts up your [pc.legs] to your waist.",
@@ -5642,7 +5642,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your bike shorts and kick them off your feet.",
-					"You pull [npc.name]'s bike shorts down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] bike shorts down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] bike shorts, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your bike shorts down, before sliding them off your feet.",
@@ -5692,7 +5692,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the shorts before pulling them up to your waist.",
-					"You pull the shorts up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the shorts up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the shorts up your [pc.legs] and buttons them up around your waist.",
@@ -5703,7 +5703,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your shorts and kick them off your feet.",
-					"You pull [npc.name]'s shorts down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] shorts down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] shorts, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your shorts down, before sliding them off your feet.",
@@ -5753,7 +5753,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the hotpants before pulling them up to your waist.",
-					"You pull the hotpants up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					"You pull the hotpants up [npc.namePos] [npc.legs] to [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the hotpants before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the hotpants up your [pc.legs] to your waist.",
@@ -5764,7 +5764,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your hotpants and kick them off your feet.",
-					"You pull [npc.name]'s hotpants down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] hotpants down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] hotpants, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your hotpants down, before sliding them off your feet.",
@@ -5822,7 +5822,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the tight jeans before pulling them up to your waist.",
-					"You pull the tight jeans up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the tight jeans up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the tight jeans before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the tight jeans up your [pc.legs] and buttons them up around your waist.",
@@ -5833,7 +5833,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your tight jeans and kick them off your feet.",
-					"You pull [npc.name]'s tight jeans down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] tight jeans down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] tight jeans, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your tight jeans down, before sliding them off your feet.",
@@ -5891,7 +5891,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the jeans before pulling them up to your waist.",
-					"You pull the jeans up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the jeans up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the jeans before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the jeans up your [pc.legs] and buttons them up around your waist.",
@@ -5902,7 +5902,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your jeans and kick them off your feet.",
-					"You pull [npc.name]'s jeans down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] jeans down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] jeans, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your jeans down, before sliding them off your feet.",
@@ -5960,7 +5960,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the trousers before pulling them up to your waist.",
-					"You pull the trousers up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the trousers up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the trousers before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the trousers up your [pc.legs] and buttons them up around your waist.",
@@ -5971,7 +5971,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your trousers and kick them off your feet.",
-					"You pull [npc.name]'s trousers down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] trousers down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] trousers, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your trousers down, before sliding them off your feet.",
@@ -6030,7 +6030,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the cargo trousers before pulling them up to your waist.",
-					"You pull the cargo trousers up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the cargo trousers up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the cargo trousers before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the cargo trousers up your [pc.legs] and buttons them up around your waist.",
@@ -6041,7 +6041,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your cargo trousers and kick them off your feet.",
-					"You pull [npc.name]'s cargo trousers down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] cargo trousers down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] cargo trousers, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your cargo trousers down, before sliding them off your feet.",
@@ -6092,7 +6092,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the yoga pants before pulling them up to your waist.",
-					"You pull the yoga pants up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					"You pull the yoga pants up [npc.namePos] [npc.legs] and button them up around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the yoga pants before pulling them up to [npc.her] waist.",
 					"[npc.Name] pulls the yoga pants up your [pc.legs] and buttons them up around your waist.",
@@ -6103,7 +6103,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your yoga pants and kick them off your feet.",
-					"You pull [npc.name]'s yoga pants down and slide them off [npc.her] feet.",
+					"You pull [npc.namePos] yoga pants down and slide them off [npc.her] feet.",
 					null,
 					"[npc.Name] pulls down [npc.her] yoga pants, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your yoga pants down, before sliding them off your feet.",
@@ -6173,7 +6173,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your assless chaps down and slides them off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s assless chaps down and slide them off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] assless chaps down and slide them off [npc.her] feet.");
 			}
 		}
 
@@ -6187,7 +6187,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your assless chaps down.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s assless chaps down.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] assless chaps down.");
 			}
 		}
 
@@ -6252,7 +6252,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your crotchless chaps down and slides them off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s crotchless chaps down and slide them off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] crotchless chaps down and slide them off [npc.her] feet.");
 			}
 		}
 	};
@@ -6302,7 +6302,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the panties before pulling them up to cover your private parts.",
-					"You pull the panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the panties up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the panties before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the panties up your [pc.legs] to cover your private parts.",
@@ -6313,7 +6313,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your panties and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s panties and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] panties and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] panties down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your panties down and slides them off your [pc.feet].",
@@ -6363,7 +6363,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the panties before pulling them up to cover your private parts.",
-					"You pull the panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the panties up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the panties before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the panties up your [pc.legs] to cover your private parts.",
@@ -6374,7 +6374,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your panties and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s panties and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] panties and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] panties down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your panties down and slides them off your [pc.feet].",
@@ -6425,7 +6425,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the panties before pulling them up to cover your private parts.",
-					"You pull the panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the panties up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the panties before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the panties up your [pc.legs] to cover your private parts.",
@@ -6436,7 +6436,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your panties and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s panties and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] panties and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] panties down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your panties down and slides them off your [pc.feet].",
@@ -6486,7 +6486,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the v-string panties before pulling them up to cover your private parts.",
-					"You pull the v-string panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the v-string panties up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the v-string panties before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the v-string panties up your [pc.legs] to cover your private parts.",
@@ -6497,7 +6497,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your v-string panties and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s v-string panties and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] v-string panties and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] v-string panties down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your v-string panties down and slides them off your [pc.feet].",
@@ -6550,7 +6550,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the thong before pulling them up to cover your private parts.",
-					"You pull the thong up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the thong up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the thong before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the thong up your [pc.legs] to cover your private parts.",
@@ -6561,7 +6561,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your thong and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s thong and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] thong and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] thong down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your thong down and slides them off your [pc.feet].",
@@ -6613,7 +6613,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the bikini bottoms before pulling them up to cover your private parts.",
-					"You pull the bikini bottoms up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the bikini bottoms up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the bikini bottoms before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the bikini bottoms up your [pc.legs] to cover your private parts.",
@@ -6624,7 +6624,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your bikini bottoms and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s bikini bottoms and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] bikini bottoms and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] bikini bottoms down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your bikini bottoms down and slides them off your [pc.feet].",
@@ -6676,7 +6676,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the boyshorts before pulling them up to cover your private parts.",
-					"You pull the boyshorts up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the boyshorts up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the boyshorts before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the boyshorts up your [pc.legs] to cover your private parts.",
@@ -6687,7 +6687,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your boyshorts and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s boyshorts and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] boyshorts and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] boyshorts down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your boyshorts down and slides them off your [pc.feet].",
@@ -6738,7 +6738,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the briefs before pulling them up to cover your private parts.",
-					"You pull the briefs up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the briefs up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the briefs before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the briefs up your [pc.legs] to cover your private parts.",
@@ -6749,7 +6749,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your briefs and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s briefs and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] briefs and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] briefs down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your briefs down and slides them off your [pc.feet].",
@@ -6806,7 +6806,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the boxers before pulling them up to cover your private parts.",
-					"You pull the boxers up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the boxers up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the boxers before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the boxers up your [pc.legs] to cover your private parts.",
@@ -6817,7 +6817,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your boxers and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s boxers and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] boxers and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] boxers down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your boxers down and slides them off your [pc.feet].",
@@ -6865,7 +6865,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the jockstrap before pulling them up to cover your private parts.",
-					"You pull the jockstrap up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					"You pull the jockstrap up [npc.namePos] [npc.legs] to cover [npc.her] private parts.",
 					null,
 					"[npc.Name] steps into the jockstrap before pulling them up to cover [npc.her] private parts.",
 					"[npc.Name] pulls the jockstrap up your [pc.legs] to cover your private parts.",
@@ -6876,7 +6876,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your jockstrap and kick them off your [pc.feet].",
-					"You pull down [npc.name]'s jockstrap and slide them off [npc.her] [npc.feet].",
+					"You pull down [npc.namePos] jockstrap and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] jockstrap down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your jockstrap down and slides them off your [pc.feet].",
@@ -6944,7 +6944,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your panties down and slides them off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s panties down and slide them off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] panties down and slide them off [npc.her] feet.");
 			}
 		}
 
@@ -6958,7 +6958,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] shifts your panties to one side.";
 				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s panties to one side.");
+					return UtilText.parse(clothingOwner, "You shift [npc.namePos] panties to one side.");
 			}
 		}
 
@@ -7021,7 +7021,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your panties down and slides them off your feet.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s panties down and slide them off [npc.her] feet.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] panties down and slide them off [npc.her] feet.");
 			}
 		}
 	};
@@ -7073,7 +7073,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your thong.",
-					"You take off [npc.name]'s thong.",
+					"You take off [npc.namePos] thong.",
 					null,
 					"[npc.Name] takes [npc.her] thong off.",
 					"[npc.Name] takes your thong off.",
@@ -7135,7 +7135,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your briefs before before sliding them off your [pc.feet].");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s briefs down before before sliding them off [npc.her] [npc.feet].");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] briefs down before before sliding them off [npc.her] [npc.feet].");
 				}
 			}
 		}
@@ -7150,7 +7150,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] shifts your briefs to one side.");
 				} else {
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s briefs to one side.");
+					return UtilText.parse(clothingOwner, "You shift [npc.namePos] briefs to one side.");
 				}
 			}
 		}
@@ -7200,8 +7200,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the socks.",
-					"You pull the socks onto [npc.name]'s [npc.feet].",
-					"You force the socks onto [npc.name]'s [npc.feet].",
+					"You pull the socks onto [npc.namePos] [npc.feet].",
+					"You force the socks onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pulls on the socks.",
 					"[npc.Name] pushes your [pc.feet] into the socks.",
 					"[npc.Name] forces the socks onto your [pc.feet].", null, null);
@@ -7211,8 +7211,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your socks.",
-					"You pull [npc.name]'s socks off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] socks off.",
+					"You pull [npc.namePos] socks off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] socks off.",
 					"[npc.Name] pulls off [npc.her] socks.",
 					"[npc.Name] pulls off your socks.",
 					"[npc.Name] grabs your [pc.feet] and pulls your socks off.", null, null);
@@ -7251,8 +7251,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the socks.",
-					"You pull the socks onto [npc.name]'s [npc.feet].",
-					"You force the socks onto [npc.name]'s [npc.feet].",
+					"You pull the socks onto [npc.namePos] [npc.feet].",
+					"You force the socks onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pulls on the socks.",
 					"[npc.Name] pushes your [pc.feet] into the socks.",
 					"[npc.Name] forces the socks onto your [pc.feet].", null, null);
@@ -7262,8 +7262,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your socks.",
-					"You pull [npc.name]'s socks off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] socks off.",
+					"You pull [npc.namePos] socks off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] socks off.",
 					"[npc.Name] pulls off [npc.her] socks.",
 					"[npc.Name] pulls off your socks.",
 					"[npc.Name] grabs your [pc.feet] and pulls your socks off.", null, null);
@@ -7319,7 +7319,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your socks.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s socks.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] socks.");
 			}
 		}
 	};
@@ -7370,7 +7370,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your socks.",
-					"You pull off [npc.name]'s socks.",
+					"You pull off [npc.namePos] socks.",
 					null,
 					"[npc.Name] pulls off [npc.her] socks.",
 					"[npc.Name] pulls off your socks.",
@@ -7425,7 +7425,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your stockings.",
-					"You pull off [npc.name]'s stockings.",
+					"You pull off [npc.namePos] stockings.",
 					null,
 					"[npc.Name] pulls off [npc.her] stockings.",
 					"[npc.Name] pulls off your stockings.",
@@ -7481,7 +7481,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your stockings.",
-					"You pull off [npc.name]'s stockings.",
+					"You pull off [npc.namePos] stockings.",
 					null,
 					"[npc.Name] pulls off [npc.her] stockings.",
 					"[npc.Name] pulls off your stockings.",
@@ -7534,7 +7534,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your socks.",
-					"You pull off [npc.name]'s socks.",
+					"You pull off [npc.namePos] socks.",
 					null,
 					"[npc.Name] pulls off [npc.her] socks.",
 					"[npc.Name] pulls off your socks.",
@@ -7603,7 +7603,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your pantyhose.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s pantyhose.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] pantyhose.");
 			}
 		}
 
@@ -7617,7 +7617,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls the top part of your pantyhose down.";
 				else
-					return UtilText.parse(clothingOwner, "You pull the top part of [npc.name]'s pantyhose down.");
+					return UtilText.parse(clothingOwner, "You pull the top part of [npc.namePos] pantyhose down.");
 			}
 		}
 
@@ -7679,7 +7679,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your fishnet stockings.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s fishnet stockings.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] fishnet stockings.");
 			}
 		}
 	};
@@ -7733,7 +7733,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] unfastens and removes your anklet.";
 				else
-					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.name]'s anklet.");
+					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.namePos] anklet.");
 			}
 		}
 	};
@@ -7786,7 +7786,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] unfastens and removes your shin guards.");
 				} else {
-					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.name]'s shin guards.");
+					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.namePos] shin guards.");
 				}
 			}
 		}
@@ -7827,8 +7827,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the heels.",
-					"You push [npc.name]'s [npc.feet] into the heels.",
-					"You force the heels onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the heels.",
+					"You force the heels onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the heels.",
 					"[npc.Name] pushes your [pc.feet] into the heels.",
 					"[npc.Name] forces the heels onto your [pc.feet].", null, null);
@@ -7838,8 +7838,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip off your heels.",
-					"You slip [npc.name]'s heels off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] heels off.",
+					"You slip [npc.namePos] heels off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] heels off.",
 					"[npc.Name] slips off [npc.her] heels.",
 					"[npc.Name] slips off your heels.",
 					"[npc.Name] grabs your [pc.feet] and pulls your heels off.", null, null);
@@ -7879,8 +7879,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the heels.",
-					"You push [npc.name]'s [npc.feet] into the heels.",
-					"You force the heels onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the heels.",
+					"You force the heels onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the heels.",
 					"[npc.Name] pushes your [pc.feet] into the heels.",
 					"[npc.Name] forces the heels onto your [pc.feet].", null, null);
@@ -7890,8 +7890,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip off your heels.",
-					"You slip [npc.name]'s heels off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] heels off.",
+					"You slip [npc.namePos] heels off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] heels off.",
 					"[npc.Name] slips off [npc.her] heels.",
 					"[npc.Name] slips off your heels.",
 					"[npc.Name] grabs your [pc.feet] and pulls your heels off.", null, null);
@@ -7946,7 +7946,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your ankle boots.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s ankle boots.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] ankle boots.");
 			}
 		}
 	};
@@ -7999,7 +7999,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your ankle boots.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s ankle boots.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] ankle boots.");
 			}
 		}
 	};
@@ -8052,7 +8052,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your platform boots.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s platform boots.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] platform boots.");
 			}
 		}
 	};
@@ -8106,7 +8106,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your thigh high boots.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s thigh high boots.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] thigh high boots.");
 			}
 		}
 	};
@@ -8158,7 +8158,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your shoes.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s shoes.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] shoes.");
 			}
 		}
 	};
@@ -8210,7 +8210,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] pulls your boots off.");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s boots.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] boots.");
 				}
 			}
 		}
@@ -8250,8 +8250,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the trainers and tie up the laces.",
-					"You push [npc.name]'s [npc.feet] into the trainers and tie up the laces.",
-					"You force the trainers onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the trainers and tie up the laces.",
+					"You force the trainers onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the trainers and ties up the laces.",
 					"[npc.Name] pushes your [pc.feet] into the trainers and ties up the laces.",
 					"[npc.Name] forces the trainers onto your [pc.feet].", null, null);
@@ -8261,8 +8261,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip off your trainers.",
-					"You slip [npc.name]'s trainers off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] trainers off.",
+					"You slip [npc.namePos] trainers off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] trainers off.",
 					"[npc.Name] slips off [npc.her] trainers.",
 					"[npc.Name] slips off your trainers.",
 					"[npc.Name] grabs your [pc.feet] and pulls your trainers off.", null, null);
@@ -8302,8 +8302,8 @@ public class ClothingType {
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You push your [pc.feet] into the shoes and tie up the laces.",
-						"You push [npc.name]'s [npc.feet] into the shoes and tie up the laces.",
-						"You force the shoes onto [npc.name]'s [npc.feet].",
+						"You push [npc.namePos] [npc.feet] into the shoes and tie up the laces.",
+						"You force the shoes onto [npc.namePos] [npc.feet].",
 						"[npc.Name] pushes [npc.her] [npc.feet] into the shoes and ties up the laces.",
 						"[npc.Name] pushes your [pc.feet] into the shoes and ties up the laces.",
 						"[npc.Name] forces the shoes onto your [pc.feet].", null, null);
@@ -8313,8 +8313,8 @@ public class ClothingType {
 			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You slip off your shoes.",
-						"You slip [npc.name]'s shoes off.",
-						"You grab [npc.name]'s [npc.feet] and pull [npc.her] shoes off.",
+						"You slip [npc.namePos] shoes off.",
+						"You grab [npc.namePos] [npc.feet] and pull [npc.her] shoes off.",
 						"[npc.Name] slips off [npc.her] shoes.",
 						"[npc.Name] slips off your shoes.",
 						"[npc.Name] grabs your [pc.feet] and pulls your shoes off.", null, null);
@@ -8371,8 +8371,8 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You tear open the packet and roll the condom down the length of your [pc.penis].",
-					"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
-					"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+					"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
+					"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
 					"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 					"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 					"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
@@ -8382,8 +8382,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip off your condom and throw it away.",
-					"You slip [npc.name]'s condom off and throw it away.",
-					"You grab [npc.name]'s [npc.penis] and pull [npc.her] condom off, before throwing it away.",
+					"You slip [npc.namePos] condom off and throw it away.",
+					"You grab [npc.namePos] [npc.penis] and pull [npc.her] condom off, before throwing it away.",
 					"[npc.Name] slips off [npc.her] condom and throws it away.",
 					"[npc.Name] slips off your condom and throws it away.",
 					"[npc.Name] grabs your [pc.penis] and pulls your condom off, before throwing it away.", null, null);
@@ -8428,7 +8428,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the headpiece into place.",
-					"You slide the headpiece onto [npc.name]'s head.",
+					"You slide the headpiece onto [npc.namePos] head.",
 					null,
 					"[npc.Name] slides the headpiece into place.",
 					"[npc.Name] slides the headpiece onto your head.",
@@ -8439,7 +8439,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your headpiece.",
-					"You pull off [npc.name]'s headpiece.",
+					"You pull off [npc.namePos] headpiece.",
 					null,
 					"[npc.Name] takes [npc.her] headpiece off.",
 					"[npc.Name] pulls your headpiece off.",
@@ -8511,7 +8511,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You reach back and unzip your Maid's dress, pulling your arms out before sliding it down your body and stepping out.",
-					"You unzip the back of [npc.name]'s Maid's dress, before pulling [npc.her] [npc.arms] free to allow the dress to fall to the floor.",
+					"You unzip the back of [npc.namePos] Maid's dress, before pulling [npc.her] [npc.arms] free to allow the dress to fall to the floor.",
 					null,
 					"[npc.Name] reaches back and unzips [npc.her] Maid's dress, pulling [npc.her] arms out before sliding it down [npc.her] body and stepping out.",
 					"[npc.Name] unzips the back of your Maid's dress, before pulling your arms free to allow the dress to fall to the floor.",
@@ -8529,7 +8529,7 @@ public class ClothingType {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] unzips the back of your dress and pulls the top half down.";
 					else
-						return UtilText.parse(clothingOwner, "You unzip the back of [npc.name]'s dress and pull the top half down.");
+						return UtilText.parse(clothingOwner, "You unzip the back of [npc.namePos] dress and pull the top half down.");
 				}
 			} else {
 				if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
@@ -8540,7 +8540,7 @@ public class ClothingType {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] pulls up your dress's skirt.";
 					else
-						return UtilText.parse(clothingOwner, "You pull up the skirt of [npc.name]'s dress.");
+						return UtilText.parse(clothingOwner, "You pull up the skirt of [npc.namePos] dress.");
 				}
 			}
 		}
@@ -8595,7 +8595,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the stockings.",
-					"You pull the stockings onto [npc.name]'s [npc.feet].",
+					"You pull the stockings onto [npc.namePos] [npc.feet].",
 					null,
 					"[npc.Name] pulls on the stockings.",
 					"[npc.Name] pulls the stockings onto your [pc.feet].",
@@ -8606,7 +8606,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your stockings.",
-					"You pull off [npc.name]'s stockings.",
+					"You pull off [npc.namePos] stockings.",
 					null,
 					"[npc.Name] pulls off [npc.her] stockings.",
 					"[npc.Name] pulls off your stockings.",
@@ -8646,7 +8646,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip on the heels and buckle up the straps.",
-					"You pull the heels onto [npc.name]'s [npc.feet] and buckle up the straps.",
+					"You pull the heels onto [npc.namePos] [npc.feet] and buckle up the straps.",
 					null,
 					"[npc.Name] pulls on the heels and buckles up the straps.",
 					"[npc.Name] pulls the heels onto your [pc.feet] and buckles up the straps.",
@@ -8657,7 +8657,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbuckle your heels and slip them off.",
-					"You unbuckle [npc.name]'s heels and pull them off.",
+					"You unbuckle [npc.namePos] heels and pull them off.",
 					null,
 					"[npc.Name] unbuckles [npc.her] heels and slips them off.",
 					"[npc.Name] unbuckles your heels and pulls them off.",
@@ -8697,7 +8697,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the sleeves.",
-					"You pull the sleeves onto [npc.name]'s [npc.arms].",
+					"You pull the sleeves onto [npc.namePos] [npc.arms].",
 					null,
 					"[npc.Name] pulls on the sleeves.",
 					"[npc.Name] pulls the sleeves onto your [pc.arms].",
@@ -8708,7 +8708,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your sleeves.",
-					"You pull off [npc.name]'s sleeves.",
+					"You pull off [npc.namePos] sleeves.",
 					null,
 					"[npc.Name] pulls [npc.her] sleeves off.",
 					"[npc.Name] pulls your sleeves off.",
@@ -8765,7 +8765,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clasp the heavy metal collar around your neck.",
-					"You clasp the heavy metal collar around [npc.name]'s neck.",
+					"You clasp the heavy metal collar around [npc.namePos] neck.",
 					null,
 					"[npc.Name] clasps the heavy metal collar around [npc.her] neck.",
 					"[npc.Name] clasps the heavy metal collar around your neck.",
@@ -8776,7 +8776,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your metal collar.",
-					"You take off [npc.name]'s metal collar.",
+					"You take off [npc.namePos] metal collar.",
 					null,
 					"[npc.Name] takes [npc.her] metal collar off.",
 					"[npc.Name] takes your metal collar off.",
@@ -8824,7 +8824,7 @@ public class ClothingType {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You open your mouth wide and slide in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
-					"You push the ball gag into [npc.name]'s mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
+					"You push the ball gag into [npc.namePos] mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
 					null,
 					"[npc.Name] opens [npc.her] mouth wide and slides in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
@@ -8838,7 +8838,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the ball gag's straps and take it out of your mouth.",
-					"You unfasten the ball gag's straps and take it out of [npc.name]'s mouth.",
+					"You unfasten the ball gag's straps and take it out of [npc.namePos] mouth.",
 					null,
 					"[npc.Name] unfastens the ball gag's straps and takes it out of [npc.her] mouth.",
 					"[npc.Name] unfastens the ball gag's straps and takes it out of your mouth.",
@@ -8887,7 +8887,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You open your mouth wide and slide in the ring gag, before reaching back and fastening the buckles to keep it in place.",
-					"You push the ring gag into [npc.name]'s mouth, before reaching back and fastening the buckles to keep it in place.",
+					"You push the ring gag into [npc.namePos] mouth, before reaching back and fastening the buckles to keep it in place.",
 					null,
 					"[npc.Name] opens [npc.her] mouth wide and slides in the ring gag, before reaching back and fastening the buckles to keep it in place.",
 					"[npc.Name] pushes the ring gag into your mouth, before reaching back and fastening the buckles to keep it in place.",
@@ -8898,7 +8898,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the ring gag's straps and take it out of your mouth.",
-					"You unfasten the ring gag's straps and take it out of [npc.name]'s mouth.",
+					"You unfasten the ring gag's straps and take it out of [npc.namePos] mouth.",
 					null,
 					"[npc.Name] unfastens the ring gag's straps and takes it out of [npc.her] mouth.",
 					"[npc.Name] unfastens the ring gag's straps and takes it out of your mouth.",
@@ -8941,7 +8941,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the choker around your neck and fasten the buckle.",
-					"You wrap the choker around [npc.name]'s neck and fasten the buckle.",
+					"You wrap the choker around [npc.namePos] neck and fasten the buckle.",
 					null,
 					"[npc.Name] wraps the choker around [npc.her] neck and fastens the buckle.",
 					"[npc.Name] wraps the choker around your neck and fastens the buckle.",
@@ -8952,7 +8952,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the choker's buckle and remove it from around your neck.",
-					"You unfasten the choker's buckle and remove it from around [npc.name]'s neck.",
+					"You unfasten the choker's buckle and remove it from around [npc.namePos] neck.",
 					null,
 					"[npc.Name] unfastens the choker's buckle and removes it from around [npc.her] neck.",
 					"[npc.Name] unfastens the choker's buckle and removes it from around your neck.",
@@ -9000,7 +9000,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You buckle the restraints around your wrists.",
-					"You buckle the restraints around [npc.name]'s wrists.",
+					"You buckle the restraints around [npc.namePos] wrists.",
 					null,
 					"[npc.Name] buckles the restraints around [npc.her] wrists.",
 					"[npc.Name] buckles the restraints around your wrists.",
@@ -9011,7 +9011,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the restraints and remove them from your wrists.",
-					"You unfasten the restraints and remove them from [npc.name]'s wrists.",
+					"You unfasten the restraints and remove them from [npc.namePos] wrists.",
 					null,
 					"[npc.Name] unfastens the restraints and removes them from [npc.her] wrists.",
 					"[npc.Name] unfastens the restraints and removes them from your wrists.",
@@ -9064,7 +9064,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the spreader bar's restraints around your ankles and fasten the straps, leaving your [pc.legs] wide open.",
-					"You wrap the spreader bar's restraints around [npc.name]'s ankles and fasten the straps, leaving [npc.her] [npc.legs] wide open.",
+					"You wrap the spreader bar's restraints around [npc.namePos] ankles and fasten the straps, leaving [npc.her] [npc.legs] wide open.",
 					null,
 					"[npc.Name] wraps the spreader bar's restraints around [npc.her] ankles and fastens the straps, leaving [npc.her] [npc.legs] wide open.",
 					"[npc.Name] wraps the spreader bar's restraints around your ankles and fastens the straps, leaving your [pc.legs] wide open.",
@@ -9075,7 +9075,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the spreader bar's restraints and remove it from around your ankles.",
-					"You unfasten the spreader bar's restraints and remove it from around [npc.name]'s ankles.",
+					"You unfasten the spreader bar's restraints and remove it from around [npc.namePos] ankles.",
 					null,
 					"[npc.Name] unfastens the spreader bar's restraints and removes it from around [npc.her] ankles.",
 					"[npc.Name] unfastens the spreader bar's restraints and removes it from around your ankles.",
@@ -9123,7 +9123,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the chastity belt and clip the locks into place.",
-					"You pull the chastity belt up around [npc.name]'s groin, before clipping the locks into place.",
+					"You pull the chastity belt up around [npc.namePos] groin, before clipping the locks into place.",
 					null,
 					"[npc.Name] pulls on the chastity belt and clips the locks into place.",
 					"[npc.Name] pulls the chastity belt up around your groin, before clipping the locks into place.",
@@ -9134,7 +9134,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the chastity belt's locks and take it off.",
-					"You unfasten the chastity belt's locks and take it off of [npc.Name]'s groin.",
+					"You unfasten the chastity belt's locks and take it off of [npc.NamePos] groin.",
 					null,
 					"[npc.Name] unfastens the chastity belt's locks and takes it off.",
 					"[npc.Name] unfastens the chastity belt's locks and takes it off of your groin.",
@@ -9183,7 +9183,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the chastity belt and clip the locks into place.",
-					"You pull the chastity belt up around [npc.name]'s groin, before clipping the locks into place.",
+					"You pull the chastity belt up around [npc.namePos] groin, before clipping the locks into place.",
 					null,
 					"[npc.Name] pulls on the chastity belt and clips the locks into place.",
 					"[npc.Name] pulls the chastity belt up around your groin, before clipping the locks into place.",
@@ -9194,7 +9194,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the chastity belt's locks and take it off.",
-					"You unfasten the chastity belt's locks and take it off of [npc.Name]'s groin.",
+					"You unfasten the chastity belt's locks and take it off of [npc.NamePos] groin.",
 					null,
 					"[npc.Name] unfastens the chastity belt's locks and takes it off.",
 					"[npc.Name] unfastens the chastity belt's locks and takes it off of your groin.",
@@ -9239,7 +9239,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the chastity cage down over your [pc.cock] and clip it into place.",
-					"You slide the chastity cage down over [npc.name]'s [npc.cock] and clip it into place.",
+					"You slide the chastity cage down over [npc.namePos] [npc.cock] and clip it into place.",
 					null,
 					"[npc.Name] slides the chastity cage down over [npc.her] [npc.cock] and clips it into place.",
 					"[npc.Name] slides the chastity cage down over your [pc.cock] and clips it into place.",
@@ -9250,7 +9250,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip the chastity cage and take it off.",
-					"You unclip [npc.name]'s chastity cage and take it off.",
+					"You unclip [npc.namePos] chastity cage and take it off.",
 					null,
 					"[npc.Name] unclips [npc.her] chastity cage and takes it off.",
 					"[npc.Name] unclips your chastity cage and takes it off.",
@@ -9296,26 +9296,26 @@ public class ClothingType {
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You fit the strap-on around your waist.",
-						"You fit the strap-on around [npc.name]'s waist.",
-						"You force the strap-on around [npc.name]'s waist.",
+						"You fit the strap-on around [npc.namePos] waist.",
+						"You force the strap-on around [npc.namePos] waist.",
 						"[npc.Name] fits the strap-on around [npc.her] waist.",
 						"[npc.Name] fits the strap-on around your waist.",
 						"[npc.Name] forces the strap-on around your waist.",
-						"[npc1.Name] fits the strap-on around [npc2.name]'s waist.",
-						"[npc1.Name] forces the strap-on around [npc2.name]'s waist.");
+						"[npc1.Name] fits the strap-on around [npc2.namePos] waist.",
+						"[npc1.Name] forces the strap-on around [npc2.namePos] waist.");
 			}
 
 			@Override
 			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You take off your strap-on.",
-						"You take off [npc.name]'s strap-on.",
+						"You take off [npc.namePos] strap-on.",
 						"You grab [npc.name] [npc.hips] and roughly take [npc.her] strap-on off.",
 						"[npc.Name] takes off [npc.her] strap-on.",
 						"[npc.Name] takes off your strap-on.",
 						"[npc.Name] grabs your [pc.hips] and roughly takes your strap-on off.",
-						"[npc1.Name] takes off [npc2.name]'s strap-on.",
-						"[npc1.Name] grabs [npc2.name]'s [npc2.hips] and roughly takes [npc2.her] strap-on off.");
+						"[npc1.Name] takes off [npc2.namePos] strap-on.",
+						"[npc1.Name] grabs [npc2.namePos] [npc2.hips] and roughly takes [npc2.her] strap-on off.");
 			}
 	};
 	
@@ -9358,7 +9358,7 @@ public class ClothingType {
 			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You hang the rope around your neck, and as you do so, it snakes and slides around your body with a mind of its own, forming a tight karada within a matter of seconds.",
-					"You hang the rope around [npc.name]'s neck, watching as it snakes and slides around [npc.her] body with a mind of its own, forming a tight karada within a matter of seconds.",
+					"You hang the rope around [npc.namePos] neck, watching as it snakes and slides around [npc.her] body with a mind of its own, forming a tight karada within a matter of seconds.",
 					null,
 					"[npc.Name] hangs the rope around [npc.her] neck, smiling as it snakes and slides around [npc.her] body with a mind of its own, forming a tight karada within a matter of seconds.",
 					"[npc.Name] hangs the rope around your neck, smiling as it snakes and slides around your body with a mind of its own, forming a tight karada within a matter of seconds.",
@@ -9369,7 +9369,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You untie the karada and take it off.",
-					"You untie [npc.name]'s karada and take it off.",
+					"You untie [npc.namePos] karada and take it off.",
 					null,
 					"[npc.Name] unties [npc.her] karada and takes it off.",
 					"[npc.Name] unties your karada and takes it off.",
@@ -9438,7 +9438,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"You unbutton [npc.name]'s shirt and pull it off.",
+					"You unbutton [npc.namePos] shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pull it off.",
@@ -9499,7 +9499,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the shorts before pulling them up to your waist.",
-					"You pull the shorts all the way up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					"You pull the shorts all the way up [npc.namePos] [npc.legs] to [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
 					"[npc.Name] pull the shorts all the way up your [pc.legs] to your waist.",
@@ -9510,7 +9510,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your shorts and kick them off your [pc.feet].",
-					"You pull [npc.name]'s shorts down and slide them off [npc.her] [npc.feet].",
+					"You pull [npc.namePos] shorts down and slide them off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls [npc.her] shorts down and kicks them off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your shorts down and slides them off your [pc.feet].",
@@ -9558,7 +9558,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You step into the miniskirt before pulling it up to your waist.",
-					"You slide the miniskirt up [npc.name]'s [npc.legs] to rest around [npc.her] waist.",
+					"You slide the miniskirt up [npc.namePos] [npc.legs] to rest around [npc.her] waist.",
 					null,
 					"[npc.Name] steps into the miniskirt before pulling it up to [npc.her] waist.",
 					"[npc.Name] slides the miniskirt up your [pc.legs] to rest around your waist.",
@@ -9569,7 +9569,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull down your miniskirt and kick it off your [pc.feet].",
-					"You pull [npc.name]'s miniskirt down and slide it off [npc.her] [npc.feet].",
+					"You pull [npc.namePos] miniskirt down and slide it off [npc.her] [npc.feet].",
 					null,
 					"[npc.Name] pulls down [npc.her] miniskirt before kicking it off [npc.her] [npc.feet].",
 					"[npc.Name] pulls your miniskirt down and slides it off your [pc.feet].",
@@ -9608,7 +9608,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip the tag into place.",
-					"You clip [npc.name]'s new tag into place.",
+					"You clip [npc.namePos] new tag into place.",
 					null,
 					"[npc.Name] clips [npc.her] tag into place.",
 					"[npc.Name] clips your new tag into place.",
@@ -9619,7 +9619,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your tag.",
-					"You unclip [npc.name]'s tag.",
+					"You unclip [npc.namePos] tag.",
 					null,
 					"[npc.Name] unclips [npc.her] tag.",
 					"[npc.Name] unclips your tag.",
@@ -9658,7 +9658,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose ring into place.",
-					"You slide [npc.name]'s new nose ring into place.",
+					"You slide [npc.namePos] new nose ring into place.",
 					null,
 					"[npc.Name] slides [npc.her] nose ring into place.",
 					"[npc.Name] slides your new nose ring into place.",
@@ -9669,7 +9669,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose ring out.",
-					"You slide [npc.name]'s nose ring out.",
+					"You slide [npc.namePos] nose ring out.",
 					null,
 					"[npc.Name] slides [npc.her] nose ring out.",
 					"[npc.Name] slides your nose ring out.",
@@ -9719,7 +9719,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the cowbell collar and take it off.",
-					"You unfasten [npc.name]'s cowbell collar and remove it from [npc.her] neck.",
+					"You unfasten [npc.namePos] cowbell collar and remove it from [npc.her] neck.",
 					null,
 					"[npc.Name] unfastens [npc.her] cowbell collar and takes it off.",
 					"[npc.Name] unfastens your cowbell collar and removes it from around your neck.",
@@ -9816,7 +9816,7 @@ public class ClothingType {
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You pull on the headband.",
-						"You push the headband onto [npc.name]'s head.",
+						"You push the headband onto [npc.namePos] head.",
 						null,
 						"[npc.Name] pulls the headband onto [npc.her] head.",
 						"[npc.Name] pushes the headband onto your head.",
@@ -9827,7 +9827,7 @@ public class ClothingType {
 			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 						"You take off your headband.",
-						"You take off [npc.name]'s headband.",
+						"You take off [npc.namePos] headband.",
 						null,
 						"[npc.Name] takes [npc.her] headband off.",
 						"[npc.Name] takes your headband off.",
@@ -9867,7 +9867,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the kerchief on your head, before tying up the strings beneath your chin.",
-					"You place the kerchief on [npc.name]'s head, before tying up the strings beneath [npc.her] chin.",
+					"You place the kerchief on [npc.namePos] head, before tying up the strings beneath [npc.her] chin.",
 					null,
 					"[npc.Name] places the kerchief on [npc.her] head, before tying up the strings beneath [npc.her] chin.",
 					"[npc.Name] places the kerchief on your head, before tying up the strings beneath your chin.",
@@ -9878,7 +9878,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your kerchief.",
-					"You take off [npc.name]'s kerchief.",
+					"You take off [npc.namePos] kerchief.",
 					null,
 					"[npc.Name] takes [npc.her] kerchief off.",
 					"[npc.Name] takes your kerchief off.",
@@ -9935,7 +9935,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls off your rainbow stockings.";
 				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s rainbow stockings.");
+					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] rainbow stockings.");
 			}
 		}
 	};
@@ -9990,7 +9990,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your gloves off.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s gloves off.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] gloves off.");
 			}
 		}
 	};
@@ -10055,7 +10055,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your t-shirt.",
-					"You take off [npc.name]'s t-shirt.",
+					"You take off [npc.namePos] t-shirt.",
 					null,
 					"[npc.Name] takes [npc.her] t-shirt off.",
 					"[npc.Name] takes your t-shirt off.",
@@ -10096,7 +10096,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on the witch's hat.",
-					"You place the witch's hat onto [npc.name]'s head.",
+					"You place the witch's hat onto [npc.namePos] head.",
 					null,
 					"[npc.Name] puts on the witch's hat.",
 					"[npc.Name] places the witch's hat onto your head.",
@@ -10107,7 +10107,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your witch's hat.",
-					"You take off [npc.name]'s witch's hat.",
+					"You take off [npc.namePos] witch's hat.",
 					null,
 					"[npc.Name] takes [npc.her] witch's hat off.",
 					"[npc.Name] takes your witch's hat off.",
@@ -10168,7 +10168,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the witch's dress, tidying the skirt down before moving the straps into a comfortable position on your shoulders.",
-					"You pull the witch's dress over [npc.name]'s head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
+					"You pull the witch's dress over [npc.namePos] head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
 					null,
 					"[npc.Name] pulls on the witch's dress, tidying the skirt down before moving the straps into a comfortable position on [npc.her] shoulders.",
 					"[npc.Name] pulls the witch's dress over your head and down around your torso, tidying the skirt before moving the straps to sit comfortably on your shoulders.",
@@ -10179,7 +10179,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your witch's dress up over your head and take it off.",
-					"You pull [npc.name]'s witch's dress up over [npc.her] head and take it off.",
+					"You pull [npc.namePos] witch's dress up over [npc.her] head and take it off.",
 					null,
 					"[npc.Name] pulls [npc.her] witch's dress up over [npc.her] head and takes it off.",
 					"[npc.Name] pulls your witch's dress up over your head and takes it off.",
@@ -10190,7 +10190,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the skirt of your witch's dress.",
-					"You pull up the skirt of [npc.name]'s witch's dress.",
+					"You pull up the skirt of [npc.namePos] witch's dress.",
 					null,
 					"[npc.Name] pulls up the skirt of [npc.her] witch's dress.",
 					"[npc.Name] pulls up the skirt of your witch's dress.",
@@ -10201,7 +10201,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your witch's dress back down into its proper position.",
-					"You pull [npc.name]'s witch's dress back down into its proper position.",
+					"You pull [npc.namePos] witch's dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] witch's dress back down into its proper position.",
 					"[npc.Name] your witch's dress back down into its proper position.",
@@ -10243,8 +10243,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the boots.",
-					"You push [npc.name]'s [npc.feet] into the boots.",
-					"You force the boots onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the boots.",
+					"You force the boots onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the boots.",
 					"[npc.Name] pushes your [pc.feet] into the boots.",
 					"[npc.Name] forces the boots onto your [pc.feet].", null, null);
@@ -10254,8 +10254,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your boots.",
-					"You pull [npc.name]'s boots off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] boots off.",
+					"You pull [npc.namePos] boots off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] boots off.",
 					"[npc.Name] pulls off [npc.her] boots.",
 					"[npc.Name] pulls off your boots.",
 					"[npc.Name] grabs your [pc.feet] and pulls your boots off.", null, null);
@@ -10296,8 +10296,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the boots.",
-					"You push [npc.name]'s [npc.feet] into the boots.",
-					"You force the boots onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the boots.",
+					"You force the boots onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the boots.",
 					"[npc.Name] pushes your [pc.feet] into the boots.",
 					"[npc.Name] forces the boots onto your [pc.feet].", null, null);
@@ -10307,8 +10307,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your boots.",
-					"You pull [npc.name]'s boots off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] boots off.",
+					"You pull [npc.namePos] boots off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] boots off.",
 					"[npc.Name] pulls off [npc.her] boots.",
 					"[npc.Name] pulls off your boots.",
 					"[npc.Name] grabs your [pc.feet] and pulls your boots off.", null, null);
@@ -10344,7 +10344,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You tie up your [pc.hair] and fasten the kanzashi in place.",
-					"You tie up [npc.name]'s [npc.hair] and fasten the kanzashi in place.",
+					"You tie up [npc.namePos] [npc.hair] and fasten the kanzashi in place.",
 					null,
 					"[npc.Name] ties up [npc.her] [npc.hair] and fastens the kanzashi in place.",
 					"[npc.Name] ties up your [pc.hair] and fastens the kanzashi in place.",
@@ -10355,7 +10355,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your kanzashi.",
-					"You take off [npc.name]'s kanzashi.",
+					"You take off [npc.namePos] kanzashi.",
 					null,
 					"[npc.Name] takes [npc.her] kanzashi off.",
 					"[npc.Name] takes your kanzashi off.",
@@ -10440,7 +10440,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your kimono.",
-					"You pull off [npc.name]'s kimono.",
+					"You pull off [npc.namePos] kimono.",
 					null,
 					"[npc.Name] takes [npc.her] kimono off.",
 					"[npc.Name] takes your kimono off.",
@@ -10480,8 +10480,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip your [pc.feet] into the geta.",
-					"You push [npc.name]'s [npc.feet] into the geta.",
-					"You force the geta onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the geta.",
+					"You force the geta onto [npc.namePos] [npc.feet].",
 					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
 					"[npc.Name] pushes your [pc.feet] into the geta.",
 					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
@@ -10491,8 +10491,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide off your geta.",
-					"You pull [npc.name]'s geta off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] geta off.",
+					"You pull [npc.namePos] geta off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
 					"[npc.Name] slides off [npc.her] geta.",
 					"[npc.Name] pulls off your geta.",
 					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
@@ -10580,7 +10580,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your kimono.",
-					"You pull off [npc.name]'s kimono.",
+					"You pull off [npc.namePos] kimono.",
 					null,
 					"[npc.Name] takes [npc.her] kimono off.",
 					"[npc.Name] takes your kimono off.",
@@ -10625,7 +10625,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the haori.",
-					"You guide [npc.name]'s [npc.arms] through the haori's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the haori's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the haori.",
 					"[npc.Name] guides your [pc.arms] through the haori's sleeves as [npc.she] pulls it on you.",
@@ -10636,7 +10636,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your haori.",
-					"You pull off [npc.name]'s haori.",
+					"You pull off [npc.namePos] haori.",
 					null,
 					"[npc.Name] takes [npc.her] haori off.",
 					"[npc.Name] pulls your haori off.",
@@ -10678,8 +10678,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slip your [pc.feet] into the geta.",
-					"You push [npc.name]'s [npc.feet] into the geta.",
-					"You force the geta onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the geta.",
+					"You force the geta onto [npc.namePos] [npc.feet].",
 					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
 					"[npc.Name] pushes your [pc.feet] into the geta.",
 					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
@@ -10689,8 +10689,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide off your geta.",
-					"You pull [npc.name]'s geta off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] geta off.",
+					"You pull [npc.namePos] geta off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
 					"[npc.Name] slides off [npc.her] geta.",
 					"[npc.Name] pulls off your geta.",
 					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
@@ -10730,7 +10730,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on J&oacute;lnir's hat.",
-					"You place J&oacute;lnir's hat onto [npc.name]'s head.",
+					"You place J&oacute;lnir's hat onto [npc.namePos] head.",
 					null,
 					"[npc.Name] puts on J&oacute;lnir's hat.",
 					"[npc.Name] places J&oacute;lnir's hat onto your head.",
@@ -10741,7 +10741,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off J&oacute;lnir's hat.",
-					"You take off [npc.name]'s J&oacute;lnir's hat.",
+					"You take off [npc.namePos] J&oacute;lnir's hat.",
 					null,
 					"[npc.Name] takes J&oacute;lnir's hat off.",
 					"[npc.Name] takes your J&oacute;lnir's hat off.",
@@ -10785,7 +10785,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the coat.",
-					"You guide [npc.name]'s [npc.arms] through the coat's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the coat's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the coat.",
 					"[npc.Name] guides your [pc.arms] through the coat's sleeves as [npc.she] pulls it on you.",
@@ -10796,7 +10796,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your coat.",
-					"You pull off [npc.name]'s coat.",
+					"You pull off [npc.namePos] coat.",
 					null,
 					"[npc.Name] takes [npc.her] coat off.",
 					"[npc.Name] pulls your coat off.",
@@ -10856,7 +10856,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the J&oacute;lnir's dress, tidying the skirt down before moving the straps into a comfortable position on your shoulders.",
-					"You pull the J&oacute;lnir's dress over [npc.name]'s head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
+					"You pull the J&oacute;lnir's dress over [npc.namePos] head and down around [npc.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc.her] shoulders.",
 					null,
 					"[npc.Name] pulls on the J&oacute;lnir's dress, tidying the skirt down before moving the straps into a comfortable position on [npc.her] shoulders.",
 					"[npc.Name] pulls the J&oacute;lnir's dress over your head and down around your torso, tidying the skirt before moving the straps to sit comfortably on your shoulders.",
@@ -10867,7 +10867,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your J&oacute;lnir's dress up over your head and take it off.",
-					"You pull [npc.name]'s J&oacute;lnir's dress up over [npc.her] head and take it off.",
+					"You pull [npc.namePos] J&oacute;lnir's dress up over [npc.her] head and take it off.",
 					null,
 					"[npc.Name] pulls [npc.her] J&oacute;lnir's dress up over [npc.her] head and takes it off.",
 					"[npc.Name] pulls your J&oacute;lnir's dress up over your head and takes it off.",
@@ -10878,7 +10878,7 @@ public class ClothingType {
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull up the skirt of your J&oacute;lnir's dress.",
-					"You pull up the skirt of [npc.name]'s J&oacute;lnir's dress.",
+					"You pull up the skirt of [npc.namePos] J&oacute;lnir's dress.",
 					null,
 					"[npc.Name] pulls up the skirt of [npc.her] J&oacute;lnir's dress.",
 					"[npc.Name] pulls up the skirt of your J&oacute;lnir's dress.",
@@ -10889,7 +10889,7 @@ public class ClothingType {
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull your J&oacute;lnir's dress back down into its proper position.",
-					"You pull [npc.name]'s J&oacute;lnir's dress back down into its proper position.",
+					"You pull [npc.namePos] J&oacute;lnir's dress back down into its proper position.",
 					null,
 					"[npc.Name] pulls [npc.her] J&oacute;lnir's dress back down into its proper position.",
 					"[npc.Name] your J&oacute;lnir's dress back down into its proper position.",
@@ -10929,8 +10929,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the boots.",
-					"You push [npc.name]'s [npc.feet] into the boots.",
-					"You force the boots onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the boots.",
+					"You force the boots onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the boots.",
 					"[npc.Name] pushes your [pc.feet] into the boots.",
 					"[npc.Name] forces the boots onto your [pc.feet].", null, null);
@@ -10940,8 +10940,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your boots.",
-					"You pull [npc.name]'s boots off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] boots off.",
+					"You pull [npc.namePos] boots off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] boots off.",
 					"[npc.Name] pulls off [npc.her] boots.",
 					"[npc.Name] pulls off your boots.",
 					"[npc.Name] grabs your [pc.feet] and pulls your boots off.", null, null);
@@ -10980,8 +10980,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You push your [pc.feet] into the boots.",
-					"You push [npc.name]'s [npc.feet] into the boots.",
-					"You force the boots onto [npc.name]'s [npc.feet].",
+					"You push [npc.namePos] [npc.feet] into the boots.",
+					"You force the boots onto [npc.namePos] [npc.feet].",
 					"[npc.Name] pushes [npc.her] [npc.feet] into the boots.",
 					"[npc.Name] pushes your [pc.feet] into the boots.",
 					"[npc.Name] forces the boots onto your [pc.feet].", null, null);
@@ -10991,8 +10991,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull off your boots.",
-					"You pull [npc.name]'s boots off.",
-					"You grab [npc.name]'s [npc.feet] and pull [npc.her] boots off.",
+					"You pull [npc.namePos] boots off.",
+					"You grab [npc.namePos] [npc.feet] and pull [npc.her] boots off.",
 					"[npc.Name] pulls off [npc.her] boots.",
 					"[npc.Name] pulls off your boots.",
 					"[npc.Name] grabs your [pc.feet] and pulls your boots off.", null, null);
@@ -11060,7 +11060,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You pull on the lab coat.",
-					"You guide [npc.name]'s [npc.arms] through the lab coat's sleeves as you pull it on [npc.herHim].",
+					"You guide [npc.namePos] [npc.arms] through the lab coat's sleeves as you pull it on [npc.herHim].",
 					null,
 					"[npc.Name] pulls on the lab coat.",
 					"[npc.Name] guides your [pc.arms] through the lab coat's sleeves as [npc.she] pulls it on you.",
@@ -11071,7 +11071,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your lab coat.",
-					"You pull off [npc.name]'s lab coat.",
+					"You pull off [npc.namePos] lab coat.",
 					null,
 					"[npc.Name] takes [npc.her] lab coat off.",
 					"[npc.Name] pulls your lab coat off.",
@@ -11124,14 +11124,14 @@ public class ClothingType {
 						return "[npc.Name] holds you by the chin and pushes " + clothing.getName(true) + " onto your face, before looping the elastic strap over your head.";
 					else
 						return UtilText.parse(clothingOwner,
-								"You firmly hold [npc.name]'s chin and push the safety goggles onto [npc.her] face," + " before looping the elastic strap over [npc.her] head.");
+								"You firmly hold [npc.namePos] chin and push the safety goggles onto [npc.her] face," + " before looping the elastic strap over [npc.her] head.");
 				} else {
 					if (clothingOwner.isPlayer())
 						return UtilText.parse(clothingOwner,
 								"[npc.Name] places " + clothing.getName(true) + " onto your face," + " before looping the elastic strap over your head.");
 					else
 						return UtilText.parse(clothingOwner,
-								"You place the safety goggles onto [npc.name]'s face," + " before looping the elastic strap over your head.");
+								"You place the safety goggles onto [npc.namePos] face," + " before looping the elastic strap over your head.");
 				}
 			}
 		}
@@ -11147,12 +11147,12 @@ public class ClothingType {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] grabs your safety goggles and pulls them off.";
 					else
-						return "You grab [npc.name]'s safety goggles and pull them off.";
+						return "You grab [npc.namePos] safety goggles and pull them off.";
 				} else {
 					if (clothingOwner.isPlayer())
 						return "[npc.Name] takes your safety goggles off.";
 					else
-						return "You take off [npc.name]'s safety goggles.";
+						return "You take off [npc.namePos] safety goggles.";
 				}
 			}
 		}
@@ -11167,7 +11167,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls up your safety goggles.";
 				else
-					return UtilText.parse(clothingOwner, "You pull up [npc.name]'s safety goggles.");
+					return UtilText.parse(clothingOwner, "You pull up [npc.namePos] safety goggles.");
 			}
 		}
 
@@ -11181,7 +11181,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer())
 					return "[npc.Name] pulls your safety goggles down over your eyes.";
 				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s safety goggles down over [npc.her] eyes.");
+					return UtilText.parse(clothingOwner, "You pull [npc.namePos] safety goggles down over [npc.her] eyes.");
 			}
 		}
 	};
@@ -11220,8 +11220,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.name]'s neck.",
-					"You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.",
+					"fasten the necklace around [npc.namePos] neck.",
+					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
 					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
 					"[npc.Name] clips a necklace around your neck.",
 					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
@@ -11231,8 +11231,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your necklace and take it off.",
-					"You unclip [npc.name]'s necklace and take it off.",
-					"You grab [npc.name]'s necklace and yank it from [npc.her] neck.",
+					"You unclip [npc.namePos] necklace and take it off.",
+					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
 					"[npc.Name] unclips [npc.her] necklace and takes it off.",
 					"[npc.Name] unclips your necklace and removes it.",
 					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
@@ -11270,7 +11270,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip the earrings into place.",
-					"You clip [npc.name]'s new earrings into place.",
+					"You clip [npc.namePos] new earrings into place.",
 					null,
 					"[npc.Name] clips [npc.her] earrings into place.",
 					"[npc.Name] clips your new earrings into place.",
@@ -11281,7 +11281,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your earrings.",
-					"You unclip [npc.name]'s earrings.",
+					"You unclip [npc.namePos] earrings.",
 					null,
 					"[npc.Name] unclips [npc.her] earrings.",
 					"[npc.Name] unclips your earrings.",
@@ -11321,7 +11321,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose stud into place.",
-					"You slide [npc.name]'s new nose stud into place.",
+					"You slide [npc.namePos] new nose stud into place.",
 					null,
 					"[npc.Name] slides [npc.her] nose stud into place.",
 					"[npc.Name] slides your new nose stud into place.",
@@ -11332,7 +11332,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose stud out.",
-					"You slide [npc.name]'s nose stud out.",
+					"You slide [npc.namePos] nose stud out.",
 					null,
 					"[npc.Name] slides [npc.her] nose stud out.",
 					"[npc.Name] slides your nose stud out.",
@@ -11373,8 +11373,8 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.name]'s neck.",
-					"You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.",
+					"fasten the necklace around [npc.namePos] neck.",
+					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
 					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
 					"[npc.Name] clips a necklace around your neck.",
 					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
@@ -11384,8 +11384,8 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your necklace and take it off.",
-					"You unclip [npc.name]'s necklace and take it off.",
-					"You grab [npc.name]'s necklace and yank it from [npc.her] neck.",
+					"You unclip [npc.namePos] necklace and take it off.",
+					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
 					"[npc.Name] unclips [npc.her] necklace and takes it off.",
 					"[npc.Name] unclips your necklace and removes it.",
 					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
@@ -11422,7 +11422,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clip the earrings into place.",
-					"You clip [npc.name]'s new earrings into place.",
+					"You clip [npc.namePos] new earrings into place.",
 					null,
 					"[npc.Name] clips [npc.her] earrings into place.",
 					"[npc.Name] clips your new earrings into place.",
@@ -11433,7 +11433,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unclip your earrings.",
-					"You unclip [npc.name]'s earrings.",
+					"You unclip [npc.namePos] earrings.",
 					null,
 					"[npc.Name] unclips [npc.her] earrings.",
 					"[npc.Name] unclips your earrings.",
@@ -11474,7 +11474,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose stud into place.",
-					"You slide [npc.name]'s new nose stud into place.",
+					"You slide [npc.namePos] new nose stud into place.",
 					null,
 					"[npc.Name] slides [npc.her] nose stud into place.",
 					"[npc.Name] slides your new nose stud into place.",
@@ -11485,7 +11485,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You slide the nose stud out.",
-					"You slide [npc.name]'s nose stud out.",
+					"You slide [npc.namePos] nose stud out.",
 					null,
 					"[npc.Name] slides [npc.her] nose stud out.",
 					"[npc.Name] slides your nose stud out.",
@@ -11533,7 +11533,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You wrap the choker around your neck and fasten the buckle.",
-					"You wrap the choker around [npc.name]'s neck and fasten the buckle.",
+					"You wrap the choker around [npc.namePos] neck and fasten the buckle.",
 					null,
 					"[npc.Name] wraps the choker around [npc.her] neck and fastens the buckle.",
 					"[npc.Name] wraps the choker around your neck and fastens the buckle.",
@@ -11544,7 +11544,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unfasten the choker's buckle and remove it from around your neck.",
-					"You unfasten the choker's buckle and remove it from around [npc.name]'s neck.",
+					"You unfasten the choker's buckle and remove it from around [npc.namePos] neck.",
 					null,
 					"[npc.Name] unfastens the choker's buckle and removes it from around [npc.her] neck.",
 					"[npc.Name] unfastens the choker's buckle and removes it from around your neck.",
@@ -11594,7 +11594,7 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You place the tiara on your head.",
-					"You place the tiara on [npc.name]'s head.",
+					"You place the tiara on [npc.namePos] head.",
 					null,
 					"[npc.Name] places the tiara on [npc.her] head.",
 					"[npc.Name] places the tiara on your head.",
@@ -11605,7 +11605,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You take off your tiara.",
-					"You take off [npc.name]'s tiara.",
+					"You take off [npc.namePos] tiara.",
 					null,
 					"[npc.Name] takes [npc.her] tiara off.",
 					"[npc.Name] takes your tiara off.",

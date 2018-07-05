@@ -773,7 +773,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 										AFTER_SEX,
 										"<p>"
-											+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 											+ " [npc.speech(Looking for some fun, hmm?)]"
 										+ "</p>") {
@@ -867,7 +867,7 @@ public class SlaveDialogue {
 						};
 					case 2:
 						return new Response("Job",
-								"Set [npc.name]'s job and work hours.",
+								"Set [npc.namePos] job and work hours.",
 								SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getActiveNPC())) {
 							@Override
 							public void effects() {
@@ -876,7 +876,7 @@ public class SlaveDialogue {
 						};
 					case 3:
 						return new Response("Permissions",
-								"Manage [npc.name]'s permissions.",
+								"Manage [npc.namePos] permissions.",
 								SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getActiveNPC())) {
 							@Override
 							public void effects() {
@@ -885,7 +885,7 @@ public class SlaveDialogue {
 						};
 					case 4:
 						return new ResponseEffectsOnly("Inventory",
-								"Manage [npc.name]'s inventory.") {
+								"Manage [npc.namePos] inventory.") {
 									@Override
 									public void effects() {
 										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
@@ -1363,7 +1363,7 @@ public class SlaveDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-						+ "You decide that [npc.name]'s in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
+						+ "You decide that [npc.namePos] in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
 			
 			switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
 				case DISLIKE:
@@ -1579,7 +1579,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You do as [npc.she] asks, and continue stroking and patting [npc.her] head for quite some time."
-										+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+										+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 									+ "</p>");
 							break;
 						case NEUTRAL:
@@ -1589,7 +1589,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
-									+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+									+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 								+ "</p>");
 							break;
 						case OBEDIENT:
@@ -1599,7 +1599,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
-									+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+									+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 								+ "</p>");
 							break;
 					}
@@ -1619,7 +1619,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You do as [npc.she] asks, and continue stroking and patting [npc.her] head for quite some time."
-										+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+										+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 									+ "</p>");
 							break;
 						case NEUTRAL:
@@ -1629,7 +1629,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You do as [npc.she] asks, and continue stroking and patting [npc.her] head for quite some time."
-										+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+										+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 									+ "</p>");
 							break;
 						case OBEDIENT:
@@ -1639,7 +1639,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
-										+ " Eventually, however, you feel as though [npc.name]'s had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
+										+ " Eventually, however, you feel as though [npc.namePos] had enough for now, and take your [pc.hand] away, smiling as your slave lets out a very contented sigh."
 									+ "</p>");
 							break;
 					}
@@ -1796,7 +1796,7 @@ public class SlaveDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-							+ "Deciding that you'd like to inspect [npc.name]'s body, you order [npc.herHim] to strip naked, before taking a step back in order to get a better view of [npc.herHim]."
+							+ "Deciding that you'd like to inspect [npc.namePos] body, you order [npc.herHim] to strip naked, before taking a step back in order to get a better view of [npc.herHim]."
 						+ "</p>"
 						+ "<p>");
 			
@@ -2173,7 +2173,7 @@ public class SlaveDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-						+ "Not being able to resist the allure of [npc.name]'s [npc.feminine] body, you walk around behind [npc.her] back, before stepping forwards and wrapping your [pc.arms] around [npc.herHim].");
+						+ "Not being able to resist the allure of [npc.namePos] [npc.feminine] body, you walk around behind [npc.her] back, before stepping forwards and wrapping your [pc.arms] around [npc.herHim].");
 
 			
 			String firstCry = "a horrified cry";
@@ -2322,14 +2322,14 @@ public class SlaveDialogue {
 			
 			if(slave().hasBreasts()) {
 				UtilText.nodeContentSB.append(
-							" Your [pc.hands] reach up to cup and squeeze [npc.her] [npc.breasts+], drawing "+firstCry+" from [npc.name]'s mouth as [npc.she] "+firstReaction+","
+							" Your [pc.hands] reach up to cup and squeeze [npc.her] [npc.breasts+], drawing "+firstCry+" from [npc.namePos] mouth as [npc.she] "+firstReaction+","
 							+ " [npc.speech("+firstSpeech+")]"
 						+ "</p>"
 						+ "<p>"
 							+ firstPCReaction+", and, with one [pc.hand] still squeezing [npc.her] [npc.breasts+], you slip the other down between [npc.her] [npc.legs].");
 			} else {
 				UtilText.nodeContentSB.append(
-						" Your [pc.hands] reach up to run over [npc.her] chest, drawing "+firstCry+" from [npc.name]'s mouth as [npc.she] "+firstReaction+","
+						" Your [pc.hands] reach up to run over [npc.her] chest, drawing "+firstCry+" from [npc.namePos] mouth as [npc.she] "+firstReaction+","
 						+ " [npc.speech("+firstSpeech+")]"
 					+ "</p>"
 					+ "<p>"
@@ -2381,11 +2381,11 @@ public class SlaveDialogue {
 												?" being both a submissive and turned on by non-consensual encounters,"
 												:" being a submissive,")
 										:" being turned on by non-consensual encounters,")
-								+ " your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] liking you more!</i>"
+								+ " your dominant, non-consensual use of [npc.namePos] body has resulted in [npc.herHim] liking you more!</i>"
 							+ "</p>");
 				} else {
 					UtilText.nodeContentSB.append(
-							" As [npc.sheIs] attracted to you, your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
+							" As [npc.sheIs] attracted to you, your dominant, non-consensual use of [npc.namePos] body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
 						+ "</p>");
 				}
 			} else {
@@ -2397,11 +2397,11 @@ public class SlaveDialogue {
 											?" by being both a submissive and turned on by non-consensual encounters,"
 											:" by being a submissive,")
 									:" by being turned on by non-consensual encounters,")
-							+ " your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
+							+ " your dominant, non-consensual use of [npc.namePos] body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
 						+ "</p>");
 				} else {
 					UtilText.nodeContentSB.append(
-							" As [npc.sheIs] not attracted to you, your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] losing a lot of affection towards you!</i>"
+							" As [npc.sheIs] not attracted to you, your dominant, non-consensual use of [npc.namePos] body has resulted in [npc.herHim] losing a lot of affection towards you!</i>"
 						+ "</p>");
 				}
 			}
@@ -2493,7 +2493,7 @@ public class SlaveDialogue {
 							+ " [npc.speech(Who's the bitch now?!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Looking up into [npc.name]'s grinning face as [npc.she] pulls you forward into [npc.her] [npc.arms], you let out a surprised little cry."
+							+ "Looking up into [npc.namePos] grinning face as [npc.she] pulls you forward into [npc.her] [npc.arms], you let out a surprised little cry."
 							+ " [pc.speech(I-I'm your [pc.master]! You can't d-)]"
 						+ "</p>"
 						+ "<p>"
@@ -2516,7 +2516,7 @@ public class SlaveDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						SLAVE_USES_YOU_POST_SEX,
 						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
+							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
 				
@@ -2537,7 +2537,7 @@ public class SlaveDialogue {
 						},
 						SLAVE_USES_YOU_POST_SEX,
 						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
+							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
 				
@@ -2558,7 +2558,7 @@ public class SlaveDialogue {
 						},
 						SLAVE_USES_YOU_POST_SEX,
 						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
+							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
 						+ "</p>");

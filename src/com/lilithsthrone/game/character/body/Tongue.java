@@ -96,7 +96,7 @@ public class Tongue implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.tongue] is now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.tongue] is now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.tongue] is now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -115,7 +115,7 @@ public class Tongue implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.tongue] is [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.tongue] is [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}
@@ -139,7 +139,7 @@ public class Tongue implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The length of your [pc.tongue] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.name]'s [npc.tongue] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.tongue] doesn't change...)]</p>");
 			}
 		}
 		
@@ -183,9 +183,9 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure builds up in [npc.name]'s [npc.tongue], but before [npc.she] has a chance to panic, it suddenly fades away,"
+								+ "An intense pressure builds up in [npc.namePos] [npc.tongue], but before [npc.she] has a chance to panic, it suddenly fades away,"
 									+ " leaving [npc.herHim] with a series of [style.boldGrow(hard, fleshy ribs)] lining [npc.her] [npc.tongue].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is now ribbed!)]"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is now ribbed!)]"
 							+ "</p>";
 				}
 			case TENTACLED:
@@ -196,8 +196,8 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure builds up in [npc.name]'s [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldGrow(a series of little wriggling tentacles)] grow up all over [npc.her] [npc.tongue].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is now covered with little tentacles, which wriggle with a mind of their own!)]"
+								+ "An intense pressure builds up in [npc.namePos] [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldGrow(a series of little wriggling tentacles)] grow up all over [npc.her] [npc.tongue].<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is now covered with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
 			case BIFURCATED:
@@ -208,8 +208,8 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure builds up in [npc.name]'s [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldGrow(it split in two)].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is now bifurcated, like a snake's!)]"
+								+ "An intense pressure builds up in [npc.namePos] [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldGrow(it split in two)].<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is now bifurcated, like a snake's!)]"
 							+ "</p>";
 				}
 		}
@@ -234,8 +234,8 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An soft coolness rises up into [npc.name]'s [npc.tongue], but before [npc.she] has a chance to react, it suddenly fades away, [style.boldShrink(removing)] [npc.her] hard, fleshy ribs in the process.<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is no longer ribbed!)]"
+								+ "An soft coolness rises up into [npc.namePos] [npc.tongue], but before [npc.she] has a chance to react, it suddenly fades away, [style.boldShrink(removing)] [npc.her] hard, fleshy ribs in the process.<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer ribbed!)]"
 							+ "</p>";
 				}
 			case TENTACLED:
@@ -246,8 +246,8 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soft coolness rises up into [npc.name]'s [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [npc.her] [style.boldShrink(little wriggling tentacles disappear)].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is no longer covered with little tentacles!)]"
+								+ "A soft coolness rises up into [npc.namePos] [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [npc.her] [style.boldShrink(little wriggling tentacles disappear)].<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer covered with little tentacles!)]"
 							+ "</p>";
 				}
 			case BIFURCATED:
@@ -258,8 +258,8 @@ public class Tongue implements BodyPartInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soft coolness rises up into [npc.name]'s [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldShrink(it fuse back into a single point)].<br/>"
-								+ "[style.boldSex([npc.Name]'s [npc.tongue] is no longer bifurcated!)]"
+								+ "A soft coolness rises up into [npc.namePos] [npc.tongue], and [npc.she] lets out a gasp as [npc.she] feels [style.boldShrink(it fuse back into a single point)].<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer bifurcated!)]"
 							+ "</p>";
 				}
 		}

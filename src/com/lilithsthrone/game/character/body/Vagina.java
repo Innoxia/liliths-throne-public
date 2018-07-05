@@ -177,7 +177,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									?"<b>the possibility of being pregnant has prevented [npc.her] vagina from transforming</b>!"
 									:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from transforming</b>!")
 							+ "<br/>"
-							+ "[npc.Name]'s pussy remains [style.boldTfSex(unchanged)]."
+							+ "[npc.NamePos] pussy remains [style.boldTfSex(unchanged)]."
 						+ "</p>"));
 			}
 			return UtilText.transformationContentSB.toString()
@@ -974,7 +974,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your labia doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s labia doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] labia doesn't change...)]</p>");
 			}
 		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
@@ -1025,7 +1025,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.pussy] is now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.pussy] is now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.pussy] is now [style.boldGrow(pierced)]!</p>");
 			}
 		} else {
 			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_VAGINA);
@@ -1043,7 +1043,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.pussy] is [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.pussy] is [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}
