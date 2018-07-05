@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.7.8",
+	public static final String VERSION_NUMBER = "0.2.8",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -80,8 +80,9 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Due to some issues I've been having this week, I'm afraid that I haven't managed to get much progress done since last Friday's hotfix."
-			+ " As a result, I'll release this week's version as another 'progress update', and will release the finished version of 0.2.8 (publicly again) next week."
+			+ "For this version, I've got the vast majority of sex actions converted to the NPC-on-NPC format, which will very soon allow me to add sex scenes with NPCs interacting with one another."
+			+ " I've also got all of the mechanics and placeholder descriptions added for the club in Nightlife."
+			+ " I'll be finishing the descriptions and fixing bugs over the next three days, and will release a public hotfix (v0.2.8.1) on Sunday night. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -254,6 +255,66 @@ public class Main extends Application {
 			+"<ul>Fixed tattoos sometimes being applied with the last letter in their writing being cut off.</ul>"
 			+"<ul>You can now end sex when starting submissive sex with a companion.</ul>"
 			+"<ul>Fixed case where dominant NPC would refuse to take any action in sex.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'The Watering Hole' nightclub to Nightlife. The descriptions are all placeholders at the moment, but I will get them written in fully for a hotfix.</ul>"
+			
+			+"<li>Sex action conversion:</li>"
+			+"<ul>All anal fingering actions.</ul>"
+			+"<ul>All nipple and breast actions. Improved some nipple fingering action descriptions and added actions for reacting to being nipple fingered.</ul>"
+			+"<ul>All vaginal fingering actions. Improved structure of clit-related action.</ul>"
+			+"<ul>All cock/ball stroking actions. Added 'handjob' as an ongoing sex action, with all associated reactions.</ul>"
+			+"<ul>All anilingus actions. Fixed some incorrect descriptions in anilingus actions.</ul>"
+			+"<ul>All cunnilingus actions. Separated clit and 'genderless mound' actions from vaginal actions.</ul>"
+			+"<ul>All breast kissing and breastfeeding actions.</ul>"
+			+"<ul>All tail-anal actions. Fixed several (long-standing) errors in these actions, such as incorrect references to vaginas and some actions being incorrectly blocked for subs. Expanded tail-pegging reaction descriptions.</ul>"
+			+"<ul>All tail-vaginal actions. Improved and expanded several old descriptions.</ul>"
+			+"<ul>All vaginal sex actions.</ul>"
+			+"<ul>All anal sex actions.</ul>"
+			+"<ul>All blowjob sex actions. Fixed several old errors in descriptions, and changed the 'deep throat' actions to be independent of pace.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issues with stocks sex not working. (CognitiveMist)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Improved initial penetration descriptions.</ul>"
+			+"<ul>Added 'rose gold' and 'steel' colours to fur and scale dye colours.</ul>"
+			+"<ul>Added indication in skin/fur/hair dying menus for metallic colours.</ul>"
+			+"<ul>Added metallic colours to feather dyes.</ul>"
+			+"<ul>You can now resist after choosing to submit upon combat victories.</ul>"
+			+"<ul>Changed big cat icons.</ul>"
+			+"<ul>Changed Wolf Whiskey's description.</ul>"
+			+"<ul>Added harpy subspecies 'bald-eagle'. (Dark brown feathers on body, with white head feathers.)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed cause of bug where walking into a milking room shows the correct management UI, but the PC stays out of the room on the map.</ul>"
+			+"<ul>Typo/parsing fixes.</ul>"
+			+"<ul>Fixed dirty talk referring to tits when the character was flat-chested.</ul>"
+			+"<ul>Fixed Amber having the wrong foot fetish.</ul>"
+			+"<ul>Fixed bug in sex where some sex actions were not being added (mainly affected kissing actions).</ul>"
+			+"<ul>Fixed being able to equip tail/horn/wing clothing if you didn't have a tail/horns/wings.</ul>"
+			+"<ul>Fixed penetration description errors.</ul>"
+			+"<ul>Fixed metal buttplugs to actually use metal colours.</ul>"
+			+"<ul>Added checks for enchantment loading to handle cases of old saves having clothing enchanted with the old broodmother/seeder fetishes.</ul>"
+			+"<ul>Strapless dildo now correctly requires the wearer to have a vagina.</ul>"
+			+"<ul>Clothing that plugs vagina/anus/nipples now correctly blocks those orifices from being used.</ul>"
+			+"<ul>Fixed sex stats being inverted (e.g. performing vaginal sex was counting as receiving vaginal sex in stats).</ul>"
+			+"<ul>Fixed some fox-morph descriptions referencing wolf parts.</ul>"
+			+"<ul>Fixed facesitting positioning action being available even while facesitting is ongoing.</ul>"
+			+"<ul>Fixed cultists being able to spawn in disliking/hating using their cock.</ul>"
+			+"<ul>Fixed position changing not working in stocks scene.</ul>"
+			+"<ul>Fixed NPCs locked in stocks (and milking stalls) being able to perform actions with their hands.</ul>"
+			+"<ul>Fixed stocks (and milking stalls) not having anilingus options.</ul>"
+			+"<ul>Fixed being able to perform actions in the cultist's 'sealed' sex scene.</ul>"
+			+"<ul>Fixed both cat-morph hair types having the same TF name.</ul>"
+			+"<ul>Fixed kissing actions not being available if your partner was the one to initiate kissing.</ul>"
+			+"<ul>Fixed breast groping action not applying milking effects to the correct character.</ul>"
+			+"<ul>Characters no longer need breasts in order to be milked (they just need to be producing milk).</ul>"
 		+ "</list>"
 		;
 	
