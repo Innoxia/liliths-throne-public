@@ -53,9 +53,9 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringPattern.NONE),
 			CoveringPattern.allHairCoveringPatterns,
 			Util.newArrayListOfValues(Colour.COVERING_WHITE),
-			Colour.dyeFeatherColours,
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours),
 			Util.newArrayListOfValues(Colour.COVERING_WHITE),
-			Colour.dyeFeatherColours),
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours)),
 	
 	DEMON_COMMON(BodyCoveringTemplateFactory.createTopSkin(
 			Util.newArrayListOfValues(CoveringPattern.NONE),
@@ -287,7 +287,13 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
 			null,
 			null,
-			CoveringPattern.allStandardCoveringPatterns,
+			Util.newArrayListOfValues(
+					CoveringPattern.NONE,
+					CoveringPattern.HIGHLIGHTS,
+					CoveringPattern.STRIPED,
+					CoveringPattern.SPOTTED,
+					CoveringPattern.MOTTLED,
+					CoveringPattern.MARKED),
 			Util.newArrayListOfValues(Colour.ORIFICE_INTERIOR),
 			Colour.allSkinColours,
 			Util.newArrayListOfValues(Colour.ORIFICE_INTERIOR),

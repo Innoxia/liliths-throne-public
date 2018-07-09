@@ -133,9 +133,7 @@ public class Bunny extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			this.returnToHome();
-		}
+	public void endSex() {
+		this.returnToHome();
 	}
 }

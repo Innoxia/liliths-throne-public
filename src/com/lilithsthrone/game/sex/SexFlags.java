@@ -121,6 +121,11 @@ public class SexFlags implements Serializable {
 		requestedMissionaryOnBack = false;
 		requestedSitOnFace = false;
 		requestedFaceSitting = false;
+		
+		requestedChairBottom = false;
+		requestedChairTop = false;
+		requestedChairOralGiving = false;
+		requestedChairOralReceiving = false;
 	}
 
 }

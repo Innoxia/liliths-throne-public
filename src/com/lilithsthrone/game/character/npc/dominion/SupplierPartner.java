@@ -120,12 +120,9 @@ public class SupplierPartner extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			setPendingClothingDressing(true);
-		}
+	public void endSex() {
+		setPendingClothingDressing(true);
 	}
-	
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {

@@ -131,15 +131,13 @@ public class Rose extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
-				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
-				if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
-					this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
-				}
-				this.replaceAllClothing();
+	public void endSex() {
+		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
+			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
+			if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
 			}
+			this.replaceAllClothing();
 		}
 	}
 	

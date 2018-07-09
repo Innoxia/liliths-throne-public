@@ -57,7 +57,7 @@ public class GenericFemaleNPC extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 

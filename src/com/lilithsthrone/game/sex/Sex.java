@@ -129,7 +129,6 @@ public enum Sex {
 	private static boolean consensual;
 	private static boolean subHasEqualControl;
 	private static boolean publicSex;
-	private static boolean positionChangingAllowed;
 
 	private static Map<GameCharacter, SexPositionSlot> dominants;
 	private static Map<GameCharacter, SexPositionSlot> submissives;
@@ -137,6 +136,7 @@ public enum Sex {
 	private static NPC activePartner;
 	private static GameCharacter characterPerformingAction;
 	private static SexManagerInterface sexManager;
+	private static SexManagerInterface initialSexManager;
 	private static String sexDescription, unequipClothingText, dyeClothingText, usingItemText;
 	private static AbstractClothing clothingBeingRemoved;
 	private static StringBuilder sexSB = new StringBuilder();
@@ -200,7 +200,6 @@ public enum Sex {
 		
 		Sex.consensual = consensual;
 		Sex.subHasEqualControl = subHasEqualControl;
-		Sex.positionChangingAllowed = sexManager.isPositionChangingAllowed();
 		
 //		Main.game.setActiveNPC(activePartner);
 
@@ -219,6 +218,7 @@ public enum Sex {
 		forceSexPaceMap = new HashMap<>();
 		
 		setSexManager(sexManager);
+		initialSexManager = sexManager;
 		characterPerformingAction = Main.game.getPlayer();
 		
 		publicSex = sexManager.isPublicSex();
@@ -270,11 +270,11 @@ public enum Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasExposed.put(character, new ArrayList<>());
 			
-			for (CoverableArea area : CoverableArea.values()) {
-				if (character.isAbleToAccessCoverableArea(area, false)) {
-					areasExposed.get(character).add(area);
-				}
-			}
+//			for (CoverableArea area : CoverableArea.values()) {
+//				if (character.isAbleToAccessCoverableArea(area, false)) {
+//					areasExposed.get(character).add(area);
+//				}
+//			}
 		}
 		
 		penetrationRequestsPlayer = new HashSet<>();
@@ -387,30 +387,29 @@ public enum Sex {
 		sexSB.append(sexManager.getStartSexDescription());
 		
 		if(Sex.isPublicSex()) {
-			sexSB.append(Sex.getSexManager().getPublicSexStartingDescription());
+			sexSB.append(Sex.getInitialSexManager().getPublicSexStartingDescription());
 		}
 
 		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b><br/>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
 		
-		// Starting exposed:
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			handleExposedDescriptions(character, true);
-		}
 		
 		// This method appends wet descriptions to the sexSB StringBuilder: TODO
 		calculateWetAreas(true);
 
-		sexDescription = sexSB.toString();
+		for(Entry<GameCharacter, List<CoverableArea>> entry : sexManager.exposeAtStartOfSexMap().entrySet()) {
+			for(CoverableArea ca : entry.getValue()) {
+				entry.getKey().displaceClothingForAccess(ca);
+			}
+		}
+		
+		// Starting exposed:
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			handleExposedDescriptions(character, true);
+		}
 
 		Main.game.setInSex(true);
 		
-		//TODO why was this here?
-		// The reason has long been lost in time, like... tears in rain...
-//		Main.mainController.openInventory();
-
-		// Main.mainController.updateUI();
-
 		// Store status of all clothes for both partners (so they can be restored afterwards):
 		clothingPreSexMap = new HashMap<>();
 		
@@ -418,7 +417,6 @@ public enum Sex {
 			clothingPreSexMap.put(character, new HashMap<>());
 			for (AbstractClothing c : character.getClothingCurrentlyEquipped()) {
 				clothingPreSexMap.get(character).put(c, new ArrayList<>(c.getDisplacedList()));
-//				System.out.println(c.getName()+": "+clothingPreSexMap.get(character).get(c));
 			}
 		}
 
@@ -446,11 +444,7 @@ public enum Sex {
 			}
 		}
 		
-		for(Entry<GameCharacter, List<CoverableArea>> entry : sexManager.exposeAtStartOfSexMap().entrySet()) {
-			for(CoverableArea ca : entry.getValue()) {
-				entry.getKey().displaceClothingForAccess(ca);
-			}
-		}
+		sexDescription = sexSB.toString();
 
 		// Populate available SexAction list:
 		populatePlayerSexLists();
@@ -489,7 +483,7 @@ public enum Sex {
 		for(GameCharacter participant : Sex.getAllParticipants()) {
 			if(participant instanceof NPC) {
 				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
-				((NPC)participant).endSex(true);
+				((NPC)participant).endSex();
 			}
 		}
 	}
@@ -1285,7 +1279,7 @@ public enum Sex {
 									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
 								s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
 							} else {
-								s = UtilText.parse(Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
+								s = UtilText.parse(Sex.getCharacterPerformingAction(), sexSB.toString());
 							}
 							sexSB.setLength(0);
 							sexSB.append(s);
@@ -1309,7 +1303,7 @@ public enum Sex {
 			}
 			
 			if(Sex.isPublicSex()) {
-				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
+				sexSB.append(Sex.getInitialSexManager().getRandomPublicSexDescription());
 				sexDescription = sexSB.toString();
 			}
 			
@@ -2142,15 +2136,16 @@ public enum Sex {
 					areasExposed.get(Main.game.getPlayer()).add(CoverableArea.NIPPLES);
 				}
 			}
+			
 		} else {
 			// Partner:
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.ANUS)) {
 				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
-					sexSB.append(
+					sexSB.append(UtilText.parse(characterBeingExposed,
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
 											?"[npc.NamePos] [npc.asshole+] was already exposed before starting sex!"
-											:"[npc.NamePos] [npc.asshole+] is now exposed!"))
+											:"[npc.NamePos] [npc.asshole+] is now exposed!")))
 							+ sexManager.getPartnerAssRevealReaction()
 							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.ANUS)));
 					areasExposed.get(characterBeingExposed).add(CoverableArea.ANUS);
@@ -2159,11 +2154,11 @@ public enum Sex {
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.PENIS)) {
 				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
 					if (characterBeingExposed.hasPenis()) {
-						sexSB.append(
+						sexSB.append(UtilText.parse(characterBeingExposed,
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
 												?"[npc.NamePos] [npc.cock+] was already exposed before starting sex!"
-												:"[npc.NamePos] [npc.cock+] is now exposed!"))
+												:"[npc.NamePos] [npc.cock+] is now exposed!")))
 								+ sexManager.getPartnerPenisRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaPenetration.PENIS)));
 					}
@@ -2173,20 +2168,20 @@ public enum Sex {
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.VAGINA)) {
 				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
 					if (characterBeingExposed.hasVagina()) {
-						sexSB.append(
+						sexSB.append(UtilText.parse(characterBeingExposed,
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
 												?"[npc.NamePos] [npc.pussy+] was already exposed before starting sex!"
-												:"[npc.NamePos] [npc.pussy+] is now exposed!"))
+												:"[npc.NamePos] [npc.pussy+] is now exposed!")))
 								+ sexManager.getPartnerVaginaRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.VAGINA)));
 	
 					} else if (characterBeingExposed.getVaginaType() == VaginaType.NONE && characterBeingExposed.getPenisType() == PenisType.NONE) {
-						sexSB.append(
+						sexSB.append(UtilText.parse(characterBeingExposed,
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
 												?"[npc.NamePos] doll-like mound was already exposed before starting sex!"
-												:"[npc.NamePos] doll-like mound is now exposed!"))
+												:"[npc.NamePos] doll-like mound is now exposed!")))
 								+ sexManager.getPartnerMoundRevealReaction());
 					}
 					areasExposed.get(characterBeingExposed).add(CoverableArea.VAGINA);
@@ -2194,11 +2189,11 @@ public enum Sex {
 			}
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.NIPPLES)) {
 				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-					sexSB.append(
+					sexSB.append(UtilText.parse(characterBeingExposed,
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
 											?"[npc.NamePos] [npc.nipples+] were already exposed before starting sex!"
-											:"[npc.NamePos] [npc.nipples+] are now exposed!"))
+											:"[npc.NamePos] [npc.nipples+] are now exposed!")))
 								+ sexManager.getPartnerBreastsRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.NIPPLE)));
 					areasExposed.get(characterBeingExposed).add(CoverableArea.NIPPLES);
@@ -2844,11 +2839,7 @@ public enum Sex {
 		if(!characterWantingToChangePosition.isPlayer() && SexFlags.positioningBlockedPartner) {
 			return false;
 		}
-		return positionChangingAllowed;
-	}
-
-	public static void setPositionChangingAllowed(boolean positionChangingAllowed) {
-		Sex.positionChangingAllowed = positionChangingAllowed;
+		return Sex.getInitialSexManager().isPositionChangingAllowed(characterWantingToChangePosition);
 	}
 	
 	
@@ -3093,8 +3084,11 @@ public enum Sex {
 		return ongoingActionsMap.get(character).get(sexArea);
 	}
 	
-	public static Set<SexAreaInterface> getAllContactingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
-		Set<SexAreaInterface> returnList = new HashSet<>();
+	/**
+	 * Get all of the SexAreaInterfaces that this character's area is in contact with.
+	 */
+	public static List<SexAreaInterface> getAllContactingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
+		List<SexAreaInterface> returnList = new ArrayList<>();
 		for(Set<SexAreaInterface> set : ongoingActionsMap.get(character).get(sexArea).values()) {
 			returnList.addAll(set);
 		}
@@ -3183,7 +3177,7 @@ public enum Sex {
 	/**
 	 * Returns a set, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
-	public static List<GameCharacter> getCharactersBeingPenetratedBy(GameCharacter characterPenetrating, SexAreaPenetration penetration) {
+	public static List<GameCharacter> getCharactersHavingOngoingActionWith(GameCharacter characterPenetrating, SexAreaPenetration penetration) {
 		return new ArrayList<>(ongoingActionsMap.get(characterPenetrating).get(penetration).keySet());
 	}
 	
@@ -3217,6 +3211,10 @@ public enum Sex {
 
 	public static SexManagerInterface getSexManager() {
 		return sexManager;
+	}
+
+	public static SexManagerInterface getInitialSexManager() {
+		return initialSexManager;
 	}
 
 	public static void setSexManager(SexManagerInterface sexManager) {

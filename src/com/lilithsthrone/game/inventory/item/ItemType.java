@@ -3106,12 +3106,13 @@ public class ItemType {
 	
 	// Crafting outputs:
 	
-	public static AbstractItemType POTION = new AbstractItemType(500,
+	public static AbstractItemType POTION = new AbstractItemType(750,
 			"",
 			false,
 			"potion",
 			"potions",
-			"Refined potion.",
+			"Created by infusing arcane essences with a consumable item, potions such as these can hold a huge number of restorative effects or performance enhancements."
+					+ " As potion creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_potion_container",
 			Colour.CLOTHING_PINK,
 			null,
@@ -3154,12 +3155,13 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType ELIXIR = new AbstractItemType(1000,
+	public static AbstractItemType ELIXIR = new AbstractItemType(1500,
 			"",
 			false,
 			"elixir",
 			"elixirs",
-			"Refined elixir.",
+			"Created by infusing arcane essences with a consumable item, elixirs such as these can hold a huge number of transformative effects."
+					+ " As elixir creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_elixir_container",
 			Colour.CLOTHING_PINK,
 			null,

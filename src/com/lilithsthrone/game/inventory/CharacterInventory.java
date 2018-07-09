@@ -710,7 +710,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				if(!c.getDisplacedList().contains(bp.displacementType)) {
 					itemConcealed.addAll(bp.concealedSlots);
 					for(InventorySlot invSlot : bp.concealedSlots) {
-						if(this.getClothingInSlot(invSlot)!=null && this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
+						if(this.getClothingInSlot(invSlot)!=null
+								&& this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
 							itemRevealed.add(invSlot);
 						}
 					}
@@ -723,6 +724,13 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			for(InventorySlot slot : itemConcealed) {
 				concealedMap.putIfAbsent(slot, new ArrayList<>());
 				concealedMap.get(slot).add(c);
+			}
+		}
+		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			for(InventorySlot is : c.getClothingType().getIncompatibleSlots()) {
+				if(concealedMap.containsKey(c.getClothingType().getSlot()) && !concealedMap.containsKey(is)) {
+					concealedMap.remove(c.getClothingType().getSlot());
+				}
 			}
 		}
 		return concealedMap;

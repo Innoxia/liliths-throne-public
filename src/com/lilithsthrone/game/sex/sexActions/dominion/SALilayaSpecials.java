@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.dominion.lilaya;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;

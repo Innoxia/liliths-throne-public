@@ -50,7 +50,7 @@ public class HarpyNestsAttackerDialogue {
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ " [npc.Her] belly is clearly swollen; proof that you ended up getting [npc.her] pregnant from your previous encounter."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -74,7 +74,7 @@ public class HarpyNestsAttackerDialogue {
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ " [npc.Her] belly is clearly swollen; proof that you ended up getting [npc.her] pregnant from your previous encounter."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -98,7 +98,7 @@ public class HarpyNestsAttackerDialogue {
 							+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 							+ " [npc.Her] belly is still clearly swollen; clear proof of your previous encounter with [npc.herHim]."
 						+ "</p>"
-						+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
+						+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()
 							?"<p>"
 								+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 								+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -122,7 +122,7 @@ public class HarpyNestsAttackerDialogue {
 								+ "As you travel along the narrow walkways, you find yourself passing the home of that aggressive [npc.race] who attacked you before."
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -142,7 +142,7 @@ public class HarpyNestsAttackerDialogue {
 									+ "As you travel along the narrow walkways, you find yourself passing the home of that aggressive [npc.race] who attacked you before."
 									+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ "</p>"
-								+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
+								+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()
 									?"<p>"
 										+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 										+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -158,7 +158,7 @@ public class HarpyNestsAttackerDialogue {
 						
 					} else {
 
-						if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()) {
+						if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToArcaneStorm()) {
 							return 
 								"<p>"
 									+ "As you travel along the deserted walkways, you keep on catching glimpses of movement behind you."

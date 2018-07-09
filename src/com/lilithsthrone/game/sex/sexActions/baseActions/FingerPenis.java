@@ -588,8 +588,8 @@ public class FingerPenis {
 	
 	public static final SexAction COCK_MASTURBATED_START = new SexAction(
 			SexActionType.START_ONGOING,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
@@ -613,42 +613,42 @@ public class FingerPenis {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking a gentle, but firm, grip on [npc2.namePos] [npc2.hand], [npc.name] slowly [npc.verb(guide)] [npc2.her] [npc2.fingers] around [npc.her] [npc.cock+],"
-									+ " letting out a little [npc.moan] before making [npc.herHim] start giving [npc.herHim] a handjob.",
+									+ " letting out a little [npc.moan] before making [npc2.herHim] start giving [npc.herHim] a handjob.",
 							
 							"Taking hold of [npc2.namePos] [npc2.hand], [npc.name] [npc.verb(guide)] [npc2.her] [npc2.fingers] around [npc.her] [npc.cock+], and with a slow, steady pressure,"
-									+ " [npc.she] gently [npc.verb(make)] [npc.herHim] start giving [npc.herHim] a handjob."));
+									+ " [npc.she] gently [npc.verb(make)] [npc2.herHim] start giving [npc.herHim] a handjob."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With a firm grip on [npc2.her] [npc2.hand], [npc.name] eagerly [npc.verb(guide)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+],"
-									+ " letting out [npc.a_moan+] before greedily making [npc.herHim] start giving [npc.herHim] a handjob.",
+									+ " letting out [npc.a_moan+] before greedily making [npc2.herHim] start giving [npc.herHim] a handjob.",
 
 							"Taking hold of [npc2.namePos] [npc2.hand], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] around [npc.her] [npc.cock+], and with a determined pressure,"
-									+ " [npc.she] greedily [npc.verb(make)] [npc.herHim] start giving [npc.herHim] a handjob."));
+									+ " [npc.she] greedily [npc.verb(make)] [npc2.herHim] start giving [npc.herHim] a handjob."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With a vice-like grip on [npc2.her] [npc2.hand], [npc.name] [npc.verb(grind)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+],"
-									+ " letting out [npc.a_moan+] before roughly forcing [npc2.her] digits into [npc.her] [npc.nipple+].",
+									+ " letting out [npc.a_moan+] before roughly forcing [npc2.herHim] to start giving [npc.herHim] a handjob.",
 
 							"Grabbing [npc2.namePos] [npc2.hand], [npc.name] forcefully [npc.verb(push)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+], and with a dominant, jerking motion,"
-									+ " [npc.she] roughly [npc.verb(force)] [npc.herHim] start giving [npc.herHim] a handjob."));
+									+ " [npc.she] roughly [npc.verb(force)] [npc2.herHim] start giving [npc.herHim] a handjob."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With a firm grip on [npc2.her] [npc2.hand], [npc.name] eagerly [npc.verb(guide)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+],"
-									+ " letting out [npc.a_moan+] before greedily making [npc.herHim] start giving [npc.herHim] a handjob.",
+									+ " letting out [npc.a_moan+] before greedily making [npc2.herHim] start giving [npc.herHim] a handjob.",
 
 							"Taking hold of [npc2.namePos] [npc2.hand], [npc.name] eagerly [npc.verb(guide)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+], and with a determined pressure,"
-									+ " [npc.she] greedily [npc.verb(make)] [npc.herHim] start giving [npc.herHim] a handjob."));
+									+ " [npc.she] greedily [npc.verb(make)] [npc2.herHim] start giving [npc.herHim] a handjob."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With a firm grip on [npc2.her] [npc2.hand], [npc.name] [npc.verb(guide)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+],"
-									+ " letting out [npc.a_moan+] before making [npc.herHim] start giving [npc.herHim] a handjob.",
+									+ " letting out [npc.a_moan+] before making [npc2.herHim] start giving [npc.herHim] a handjob.",
 
 							"Taking hold of [npc2.namePos] [npc2.hand], [npc.name] [npc.verb(guide)] [npc2.namePos] [npc2.fingers] around [npc.her] [npc.cock+], and with a determined pressure,"
-									+ " [npc.she] [npc.verb(make)] [npc.herHim] start giving [npc.herHim] a handjob."));
+									+ " [npc.she] [npc.verb(make)] [npc2.herHim] start giving [npc.herHim] a handjob."));
 					break;
 				default:
 					break;

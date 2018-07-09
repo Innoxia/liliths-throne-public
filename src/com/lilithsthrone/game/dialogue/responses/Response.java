@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -80,8 +81,8 @@ public class Response {
 			GameCharacter characterPenetrated,
 			Collection<SexAreaInterface> sexAreaAccessRequiredForTargeted) {
 		
-		this.title = UtilText.parse(title);
-		this.tooltipText = UtilText.parse(tooltipText);
+		this.title = title;
+		this.tooltipText = tooltipText;
 		this.nextDialogue = nextDialogue;
 		
 		this.fetishesRequired = fetishesForUnlock;
@@ -105,11 +106,19 @@ public class Response {
 	}
 
 	public String getTitle() {
-		return title;
+		if(Main.game.isInSex() && !Sex.isMasturbation()) {
+			return UtilText.parse(characterPerformingSexAction, characterTargetedForSexAction, title);
+		} else {
+			return UtilText.parse(title);
+		}
 	}
 
 	public String getTooltipText() {
-		return tooltipText;
+		if(Main.game.isInSex() && !Sex.isMasturbation()) {
+			return UtilText.parse(characterPerformingSexAction, characterTargetedForSexAction, tooltipText);
+		} else {
+			return UtilText.parse(tooltipText);
+		}
 	}
 
 	public DialogueNodeOld getNextDialogue() {

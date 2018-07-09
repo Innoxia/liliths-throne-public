@@ -205,7 +205,7 @@ public class Roxy extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			c.getDisplacedList().clear();
 		}

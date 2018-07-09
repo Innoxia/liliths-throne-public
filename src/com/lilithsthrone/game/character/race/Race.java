@@ -1496,7 +1496,7 @@ public enum Race {
 		return preferredAttacks;
 	}
 
-	public boolean isVulnerableToLilithsLustStorm() {
+	public boolean isVulnerableToArcaneStorm() {
 		return vulnerableToLilithsLustStorm;
 	}
 

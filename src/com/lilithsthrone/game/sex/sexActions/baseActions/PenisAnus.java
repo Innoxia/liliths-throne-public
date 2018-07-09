@@ -181,7 +181,7 @@ public class PenisAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "Tease [npc2.name] by sliding the [npc2.cockHead] of [npc2.her] [npc2.cock] over your [npc2.asshole+].";
+			return "Tease [npc2.name] by sliding the [npc2.cockHead] of [npc2.her] [npc2.cock] over your [npc.asshole+].";
 		}
 
 		@Override

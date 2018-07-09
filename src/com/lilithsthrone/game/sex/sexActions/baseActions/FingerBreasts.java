@@ -383,7 +383,7 @@ public class FingerBreasts {
 
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES)){
+			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 
 				UtilText.nodeContentSB.setLength(0);
 				

@@ -5,193 +5,163 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum History {
 	
-	/*
-	 * Sociable:
-	Prostitute
-	Stripper
-	Barmaid/tender
-	Massage therapist
-	Waitress
-	Receptionist
-	Beautician
-	Musician/singer
-	Fitness trainer
-	
-Dominant:
-	Mugger
-	Gang leader
-	Construction worker
-	Mechanic
-	Teacher
-	Enforcer (low rank)
-	Enforcer (high rank)
-	
-Compliant:
-	Con-artist
-	Librarian
-	University student
-	Writer
-	Engineer
-	Architect
-	Lawyer
-	Doctor
-	Arcane researcher
-	
-Calm:
-	Loafer
-	Maid/Butler
-	Receptionist
-	Shop assistant
-	Painter
-	Nurse
-	Chef
-	Athlete
-	Model
-	 */
-	
 	// Unique:
 
-	REINDEER_OVERSEER(false, true, null, "overseer", "-"),
+	REINDEER_OVERSEER(false, false, null, "overseer", "-"),
 	
-	// Partner histories:
+	// NPC histories:
 
-	UNEMPLOYED(true, true, Perk.JOB_UNEMPLOYED, "unemployed", "You've been out of work for a little while now."),
+	UNEMPLOYED_NPC(false, false, Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed."),
 	
 	// Sociable personality:
 	
-	PROSTITUTE(false, true, Perk.JOB_PROSTITUTE, "prostitute", "-"),
-//	STRIPPER(false, true, "stripper", "-", null),
-//	BAR_TENDER(false, true, "barmaid", "-", null),
-//	MASSAGE_THERAPIST(false, true, "massage therapist", "-", null),
-//	WAITRESS(false, true, "waitress", "-", null),
-//	BEAUTICIAN(false, true, "beautician", "-", null),
-//	MUSICIAN(false, true, "musician", "-", null),
-//	FITNESS_INSTRUCTOR(false, true, "fitness instructor", "-", null),
+	NPC_PROSTITUTE(false, true, Perk.JOB_PROSTITUTE, "prostitute", "[npc.NameIsFull] a prostitute, making a living by selling [npc.her] body."),
+	
+	NPC_STRIPPER(false, false, Perk.JOB_MISC, "stripper", "[npc.Name] [npc.verb(work)] as a stripper."),
+	
+	NPC_BAR_TENDER(false, false, Perk.JOB_MISC, "barmaid", "[npc.Name] [npc.verb(work)] as a bar."),
+	
+	NPC_MASSAGE_THERAPIST(false, false, Perk.JOB_MISC, "massage therapist", "[npc.Name] [npc.verb(work)] at a spa as a massage therapist."),
+	
+	NPC_WAITRESS(false, false, Perk.JOB_MISC, "waitress", "[npc.Name] [npc.verb(work)] as a waitress in a restaurant."),
+	
+	NPC_BEAUTICIAN(false, false, Perk.JOB_MISC, "beautician", "[npc.Name] [npc.verb(work)] as a beautician in a spa."),
+	
+	NPC_MUSICIAN(false, false, Perk.JOB_MISC, "musician", "[npc.Name] [npc.verb(work)] as a musician."),
+	
+	NPC_FITNESS_INSTRUCTOR(false, false, Perk.JOB_MISC, "fitness instructor", "-"),
+	
 	
 	// Commanding personality:
 	
-	MUGGER(false, true, Perk.JOB_MUGGER, "mugger", "-"),
-//	CONSTRUCTION_WORKER(false, true, "construction worker", "-", null),
-//	MECHANIC(false, true, "mechanic", "-", null),
-//	TEACHER(false, true, "teacher", "-", null),
-//	ENFORCER(false, true, "enforcer", "-", null),
-//	HIGH_RANKING_ENFORCER(false, true, "enforcer chief", "-", null),
+	NPC_MUGGER(false, true, Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions."),
+	
+	NPC_CONSTRUCTION_WORKER(false, false, Perk.JOB_MISC, "construction worker", "-"),
+	
+	NPC_MECHANIC(false, false, Perk.JOB_MISC, "mechanic", "-"),
+	
+	NPC_TEACHER(false, false, Perk.JOB_MISC, "teacher", "-"),
+	
+	NPC_ENFORCER(false, false, Perk.JOB_MISC, "enforcer", "-"),
+	
+//	NPC_HIGH_RANKING_ENFORCER(false, false, Perk.JOB_MISC, "enforcer chief", "-"),
 	
 	// Analytical personality:
 
-//	CON_ARTIST(false, true, "con-artist", "-", null),
-//	LIBRARIAN(false, true, "librarian", "-", null),
-//	UNIVERSITY_STUDENT(false, true, "university student", "-", null),
-//	WRITER(false, true, "writer", "-", null),
-//	ENGINEER(false, true, "engineer", "-", null),
-//	ARCHITECT(false, true, "architect", "-", null),
-//	DOCTOR(false, true, "doctor", "-", null),
-//	ARCANE_RESEARCHER(false, true, "arcane researcher", "-", null),
+//	CON_ARTIST(false, Perk.JOB_MISC, "con-artist", "-"),
+	NPC_LIBRARIAN(false, false, Perk.JOB_MISC, "librarian", "-"),
+	
+	NPC_UNIVERSITY_STUDENT(false, false, Perk.JOB_MISC, "university student", "-"),
+	
+	NPC_WRITER(false, false, Perk.JOB_MISC, "writer", "-"),
+	
+	NPC_ENGINEER(false, false, Perk.JOB_MISC, "engineer", "-"),
+	
+	NPC_ARCHITECT(false, false, Perk.JOB_MISC, "architect", "-"),
+	
+	NPC_DOCTOR(false, false, Perk.JOB_MISC, "doctor", "-"),
+	
+	NPC_ARCANE_RESEARCHER(false, false, Perk.JOB_MISC, "arcane researcher", "-"),
+	
 	
 	// Calm personality:
 
-//	MAID(false, true, "maid", "-", null),
-//	RECEPTIONIST(false, true, "receptionist", "-", null),
-//	SHOP_ASSISTANT(false, true, "shop assistant", "-", null),
-//	ARTIST(false, true, "artist", "-", null),
-//	NURSE(false, true, "nurse", "-", null),
-//	CHEF(false, true, "chef", "-", null),
-//	ATHLETE(false, true, "athlete", "-", null),
-//	MODEL(false, true, "model", "-", null),
+	NPC_MAID(false, false, Perk.JOB_MISC, "maid", "-"),
+	
+	NPC_RECEPTIONIST(false, false, Perk.JOB_MISC, "receptionist", "-"),
+	
+	NPC_SHOP_ASSISTANT(false, false, Perk.JOB_MISC, "shop assistant", "-"),
+	
+	NPC_ARTIST(false, false, Perk.JOB_MISC, "artist", "-"),
+	
+	NPC_NURSE(false, false, Perk.JOB_MISC, "nurse", "-"),
+	
+	NPC_CHEF(false, false, Perk.JOB_MISC, "chef", "-"),
+	
+	NPC_ATHLETE(false, false, Perk.JOB_MISC, "athlete", "-"),
+	
+	NPC_MODEL(false, false, Perk.JOB_MISC, "model", "-"),
 	
 	
 	
 	// Player histories:
+
+	UNEMPLOYED(true,
+			false,
+			Perk.JOB_UNEMPLOYED,
+			"unemployed", "You've been out of work for a little while now."),
 	
-	// Salaryman/woman - inspired by your work ethic, slaves earn 25% more money
 	OFFICE_WORKER(true,
 			false,
 			Perk.JOB_OFFICE_WORKER,
-			"office worker",
-			"You work in a local office, handling paperwork, answering phonecalls and emails, and generally doing a little bit of everything."),
+			"office worker", "You work in a local office, handling paperwork, answering phonecalls and emails, and generally doing a little bit of everything."),
 	
-	// Student discount - 25% discount in all shops
 	STUDENT(true,
 			false,
 			Perk.JOB_STUDENT,
-			"student",
-			"You're a student at the city's university, but you haven't quite decided what to take as your major just yet."),
+			"student", "You're a student at the city's university, but you haven't quite decided what to take as your major just yet."),
 
-	// Arcane Composition - All utility spells have double length
 	MUSICIAN(true,
 			false,
 			Perk.JOB_MUSICIAN,
-			"musician",
-			"You're a musician, and as well as being able to play a wide variety of instruments, you are also a very good singer."),
+			"musician", "You're a musician, and as well as being able to play a wide variety of instruments, you are also a very good singer."),
 	
-	// In Control - Slaves gain obedience 10% faster
 	TEACHER(true,
 			false,
 			Perk.JOB_TEACHER,
-			"teacher",
-			"You're a teacher, and have been working at a local school for a few years."),
+			"teacher", "You're a teacher, and have been working at a local school for a few years."),
 	
-	// Meditations - You keep a diary and do your best to learn from past mistakes +25% xp gains
 	WRITER(true,
 			false,
 			Perk.JOB_WRITER,
-			"writer",
-			"You're a writer, and have been working on your latest novel for the last few months."),
+			"writer", "You're a writer, and have been working on your latest novel for the last few months."),
 	
-	// Fine Taste - Doubles all potion effects
 	CHEF(true,
 			false,
 			Perk.JOB_CHEF,
-			"chef",
-			"You're the head chef at a local restaurant."),
+			"chef", "You're the head chef at a local restaurant."),
 	
-	// Combat Drill - Your first attack in combat does triple damage. 
 	SOLDIER(true,
 			false,
 			Perk.JOB_SOLDIER,
-			"soldier",
-			"You're a soldier, and are currently making the most of your leave."),
+			"soldier", "You're a soldier, and are currently making the most of your leave."),
 	
-	// 10-second barrier - Always escape on first try
 	ATHLETE(true,
 			false,
 			Perk.JOB_ATHLETE,
-			"athlete",
-			"You're an athlete, and are currently training for your next big event."),
+			"athlete", "You're an athlete, and are currently training for your next big event."),
 	
-	// Special maid outfit effects (make it OP as fuck)
 	MAID(true,
 		false,
 		Perk.JOB_MAID,
-		"maid",
-		"You're a maid, hired by a wealthy family to keep their mansion clean.") {
+		"maid", "You're a maid, hired by a wealthy family to keep their mansion clean.") {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return character.isFeminine();
 		}
 	},
 	
-	// Special butler outfit effects (make it OP as fuck)
 	BUTLER(true,
 			false,
 			Perk.JOB_BUTLER,
-			"butler",
-			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.") {
+			"butler", "You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.") {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
 		}
-	},
+	};
 	
-	;
+	
+	
 
 	private static List<History> historiesList;
 	
@@ -199,7 +169,7 @@ Calm:
 		historiesList = new ArrayList<>();
 
 		for(History history : History.values()) {
-			if(history.isAvailable(character) && (character.isPlayer()?history.isAvailableToPlayer():true) && (!character.isPlayer()?history.isAvailableToPartner():true)) {
+			if(history.isAvailable(character) && (character.isPlayer()?history.isAvailableToPlayer():history.isAvailableToPartner())) {
 				historiesList.add(history);
 			}
 		}
@@ -208,16 +178,22 @@ Calm:
 	}
 
 
-	private String name, descriptionPlayer;
-	private boolean availableToPlayer, availableToPartner;
+	private String name;
+	private String description;
+	private boolean playerStartingHistory;
 	private Perk associatedPerk;
+	private boolean lowlife;
 
-	private History(boolean availableToPlayer, boolean availableToPartner, Perk associatedPerk, String name, String descriptionPlayer) {
-		this.availableToPlayer = availableToPlayer;
-		this.availableToPartner = availableToPartner;
+	private History(boolean playerStartingHistory,
+			boolean lowlife,
+			Perk associatedPerk,
+			String name,
+			String description) {
+		this.playerStartingHistory = playerStartingHistory;
+		this.lowlife = lowlife;
 		this.associatedPerk = associatedPerk;
 		this.name = name;
-		this.descriptionPlayer = descriptionPlayer;
+		this.description = description;
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
@@ -231,11 +207,11 @@ Calm:
 	}
 
 	public boolean isAvailableToPlayer() {
-		return availableToPlayer;
+		return playerStartingHistory;
 	}
 	
 	public boolean isAvailableToPartner() {
-		return availableToPartner;
+		return !playerStartingHistory;
 	}
 
 	public Perk getAssociatedPerk() {
@@ -245,8 +221,12 @@ Calm:
 		return name;
 	}
 
-	public String getDescriptionPlayer() {
-		return descriptionPlayer;
+	public String getDescription(GameCharacter character) {
+		return UtilText.parse(character, description);
+	}
+
+	public boolean isLowlife() {
+		return lowlife;
 	}
 
 }

@@ -43,7 +43,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -53,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Nyan extends NPC {
@@ -235,7 +234,7 @@ public class Nyan extends NPC {
 		specials.clear();
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
 				if(clothing.getRarity() == Rarity.COMMON) {
 					if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
 						if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
@@ -405,12 +404,7 @@ public class Nyan extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(Sex.getNumberOfOrgasms(Main.game.getNyan())==0) {
-				Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), -15));
-			}
-		}
+	public void endSex() {
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {

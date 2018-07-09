@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.dominion.brax;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import java.util.List;
 

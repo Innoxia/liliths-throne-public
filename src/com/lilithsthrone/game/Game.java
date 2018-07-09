@@ -643,6 +643,9 @@ public class Game implements Serializable, XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
 						gen.worldGeneration(WorldType.NIGHTLIFE_CLUB);
 					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
+						gen.worldGeneration(WorldType.EMPTY);
+					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
 					}
@@ -789,6 +792,9 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.addNPC(new Jules(), false);
 					Main.game.addNPC(new Kruger(), false);
 					Main.game.addNPC(new Kalahari(), false);
+					Main.game.getKalahari().setFather(Main.game.getKruger());
+					Main.game.getKalahari().setAffection(Main.game.getKruger(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+					Main.game.getKruger().setAffection(Main.game.getKalahari(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 				}
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
 					Main.game.getJules().setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_ENTRANCE);
@@ -1071,6 +1077,9 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Jules(), false);
 			addNPC(new Kruger(), false);
 			addNPC(new Kalahari(), false);
+			Main.game.getKalahari().setFather(Main.game.getKruger());
+			Main.game.getKalahari().setAffection(Main.game.getKruger(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			Main.game.getKruger().setAffection(Main.game.getKalahari(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1260,7 +1269,7 @@ public class Game implements Serializable, XMLSaving {
 			// Prostitutes stay on promiscuity pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
 			if((!npc.isPregnant()
 					&& !npc.isSlave()
-					&& npc.getHistory()==History.PROSTITUTE
+					&& npc.getHistory()==History.NPC_PROSTITUTE
 					&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 					&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
 					|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS))) {
@@ -1303,7 +1312,11 @@ public class Game implements Serializable, XMLSaving {
 			
 			if(newDay) {
 				npc.resetDaysOrgasmCount();
-				npc.dailyReset();
+				try {
+					npc.dailyReset();
+				} catch(Exception ex) {
+					System.err.println("Issue in method: dailyReset(), for character ID: "+npc.getId()+"\n"+ex.getMessage());
+				}
 			}
 			
 			// Companions:
@@ -2487,6 +2500,12 @@ public class Game implements Serializable, XMLSaving {
 		return charactersPresent;
 	}
 	
+	public List<NPC> getCharactersPresent(WorldType worldType, PlaceType placeType) {
+		Cell cell = worlds.get(worldType).getCell(placeType);
+		
+		return getCharactersPresent(cell);
+	}
+	
 	public String getWeatherImage() {
 		if (isDayTime()) {
 			switch (currentWeather) {
@@ -3023,6 +3042,7 @@ public class Game implements Serializable, XMLSaving {
 	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
+			
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
 		}

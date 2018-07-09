@@ -110,7 +110,8 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_BREASTS,
-					OrgasmCumTarget.SELF_LEGS)),
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
 	
 	/* Sixty-nine */
 	

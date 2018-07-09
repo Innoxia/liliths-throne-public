@@ -151,8 +151,10 @@ public enum DialogueFlagValue {
 	
 	// Nightlife:
 	julesIntroduced,
+	suckedJulesCock,
 	passedJules,
 	kalahariIntroduced,
+	kalahariWantsSex,
 	krugerIntroduced,
 	
 	

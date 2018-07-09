@@ -769,15 +769,15 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBannedFromSexManager() {
-		for(SexAreaInterface sArea : this.getPerformingCharacterOrifices()) {
-			if (Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterPerformingAction()) != null
-					&& Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterPerformingAction()).contains(sArea)) {
+		for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+			if (Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()) != null
+					&& Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(sArea)) {
 				return true;
 			}
 		}
-		for(SexAreaInterface sArea : this.getTargetedCharacterOrifices()) {
-			if (Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction(this)) != null
-					&& Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
+		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
+			if (Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)) != null
+					&& Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
 				return true;
 			}
 		}
