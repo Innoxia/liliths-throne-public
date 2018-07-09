@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.8.1",
+	public static final String VERSION_NUMBER = "0.2.8.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -368,6 +368,26 @@ public class Main extends Application {
 			+"<ul>Prevented use of tails in breeding stalls to stop the target from blocking their vagina with their tail.</ul>"
 			+"<ul>Slaves in the holding cells at slaver alley will no longer be able to attack you in Lilaya's house.</ul>"
 			+"<ul>Fixed combat win/loss stats not saving & loading correctly.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.8.2</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Added ongoing descriptions for handjobs.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul><b>Fixed:</b> A couple of causes of the game soft-locking upon orgasm.</ul>"
+			+"<ul>Fixed 'Resist fingering' being available while fingering your partner's anus.</ul>"
+			+"<ul>Fixed tooltips not working correctly in the final action of sex.</ul>"
+			+"<ul>Fixed a cause of a lot of parsing errors in the nightclub.</ul>"
+			+"<ul>Fixed incorrect ongoing kissing descriptions.</ul>"
+			+"<ul>Fixed issue where you'd be unable to move after telling Kruger that you're leaving.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed incorrect initial penis penetration parsing.</ul>"
+			+"<ul>Fixed incorrect descriptions of having your parts revealed in sex. (Things like 'You lets out a moan as...', instead of 'Lilaya lets out a moan as...')</ul>"
+			+"<ul>Fixed incorrect descriptions of targeted areas in orgasm tooltips.</ul>"
 		+ "</list>"
 		;
 	

@@ -1297,7 +1297,7 @@
 		As this is the origin of the loud music which blares out throughout the club, you have to raise your voice to a shout in order to communicate with [npc.name]. Leaning in over [npc.her] shoulder, you ask, [pc.speech(Do you want to have a go at dancing for a while?)]
 	</p>
 	<p>
-		From the happy smile and nod of [npc.her] head, you're sure that your suggestion is well approved of. Reaching down to take hold of [npc.namePos] [npc.hand], you lead her onto the dance floor, before turning to return [npc.her] smile. 
+		From the happy smile and nod of [npc.her] head, you're sure that your suggestion is well approved of. Reaching down to take hold of [npc.namePos] [npc.hand], you lead [npc.herHim] onto the dance floor, before turning to return [npc.her] smile. 
 	</p>
 	<p>
 		For the next several minutes, you and [npc.name] dance with one another, smiling and laughing as you get into the flow of the music and start to really enjoy yourselves. After a while of this, however, you both start to get a little worn out and thirsty, and when you see [npc.namePos] [npc.arms] drop to [npc.her] sides, you know that [npc.sheHas] had enough.

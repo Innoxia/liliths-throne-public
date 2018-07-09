@@ -37,9 +37,20 @@
 	
 	Patch notes:
 	
+	Other:
+		Added ongoing descriptions for handjobs.
 	
-	
-	
+	Bugs:
+		<b>Fixed:</b> A couple of causes of the game soft-locking upon orgasm.
+		Fixed 'Resist fingering' being available while fingering your partner's anus.
+		Fixed tooltips not working correctly in the final action of sex.
+		Fixed a cause of a lot of parsing errors in the nightclub.
+		Fixed incorrect ongoing kissing descriptions.
+		Fixed issue where you'd be unable to move after telling Kruger that you're leaving.
+		Typo fixes.
+		Fixed incorrect initial penis penetration parsing.
+		Fixed incorrect descriptions of having your parts revealed in sex. (Things like 'You lets out a moan as...', instead of 'Lilaya lets out a moan as...')
+		Fixed incorrect descriptions of targeted areas in orgasm tooltips.
 	
 	
 	
@@ -51,6 +62,24 @@
 	
 	
 	Clubber harpies spawning in as greater
+	
+	!!!Major parsing problem!!!
+		you grope and squeeze one of his no pecs
+		Hi! I'm the rabbit-boy!
+		(It seems as though conditional parsing is being done using activeNPC, instead of the npc that normal parsing is using)
+	
+	
+	
+	
+	
+	it said I lost my penile virginity despite not even having a penis
+	
+	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
+	
+	Dress under jacket not visible
+	
+	"about his job as an unemployed." nightclub
+	
 	
 	Broken condom
 	

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -584,8 +585,13 @@ public interface SexActionInterface {
 	
 	public default Response convertToResponse() {
 		if(getCategory() != SexActionCategory.CHARACTER_SWITCH) {
-			return new Response(getActionTitle(),
-					getActionDescription(),
+			return new Response(
+					this.endsSex()
+						?getActionTitle()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+					this.endsSex()
+						?getActionDescription()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
 					Sex.SEX_DIALOGUE,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -655,7 +661,14 @@ public interface SexActionInterface {
 		}
 		
 		if(getActionType()==SexActionType.POSITIONING) {
-			return new Response(getActionTitle(), getActionDescription(), null,
+			return new Response(
+					this.endsSex()
+						?getActionTitle()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+					this.endsSex()
+						?getActionDescription()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
+					null,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
 					null, null, null,
@@ -740,7 +753,14 @@ public interface SexActionInterface {
 		}
 		
 		
-		return new Response(getActionTitle(), getActionDescription(), null,
+		return new Response(
+				this.endsSex()
+					?getActionTitle()
+					:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+				this.endsSex()
+					?getActionDescription()
+					:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
+				null,
 				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),
 				null, null, null,

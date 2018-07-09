@@ -235,35 +235,35 @@ public interface SexManagerInterface {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerVaginaRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerBreastsRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerPenisRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerMoundRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer()));
 	}
 
 	// Partner:
@@ -273,7 +273,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -284,7 +284,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -295,7 +295,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -306,7 +306,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -318,7 +318,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}

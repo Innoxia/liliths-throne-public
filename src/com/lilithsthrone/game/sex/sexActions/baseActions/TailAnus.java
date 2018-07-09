@@ -331,7 +331,7 @@ public class TailAnus {
 							"Slowly teasing the [npc.tailTip+] of [npc.her] [npc.tail] over [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(let)] out a little [npc.moan] before slowly pushing forwards, sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
+							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
 									+ " and with a slow, steady pressure, [npc.she] gently [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_NORMAL:
@@ -339,7 +339,7 @@ public class TailAnus {
 							"Eagerly teasing the [npc.tailTip+] of [npc.her] [npc.tail] over [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks, "
+							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks, "
 									+ "and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_ROUGH:
@@ -347,7 +347,7 @@ public class TailAnus {
 							"Roughly grinding the [npc.tailTip+] of [npc.her] [npc.tail] over [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
+							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
 									+ " and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_EAGER:
@@ -355,7 +355,7 @@ public class TailAnus {
 							"Eagerly teasing the [npc.tailTip+] of [npc.her] [npc.tail] over [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
+							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
 									+ " and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_NORMAL:
@@ -363,7 +363,7 @@ public class TailAnus {
 							"Teasing the [npc.tailTip+] of [npc.her] [npc.tail] over [npc2.namePos] [npc2.ass+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
+							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
 									+ " and with a little [npc2.verb(thrust)], [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				default:
