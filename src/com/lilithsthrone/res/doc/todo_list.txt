@@ -51,6 +51,9 @@
 		Added harpies, alligator-morphs, and rat-morphs to the subspecies found in the nightclub, and removed Youko. (Youko are special subspecies, and will be found only in special areas in the Fields.)
 		Removed 'freckled' pattern from tongue.
 		Fixed NPCs spawning in hating some fetishes which are related to fetishes they already have.
+		Slightly improved self-taking virginity text.
+		Demonic hoofs now prevent you from wearing footwear.
+		Biojuice canister's corruption increase is now permanent.
 		
 	Bugs:
 		Fixed sexual area exposed descriptions not being shown at start of sex.
@@ -75,24 +78,28 @@
 		Fixed 'self' sex actions not having masturbation fetish associated with them.
 		Improved clothing concealment method to fix issues such as the one where pulling up someone's skirt wouldn't reveal their swimsuit (even though it should then be visible), if the swimsuit's main slot (chest) was concealed. 
 		(Hopefully) fixed the issue where Nyan, Finch, and the Winter Reindeer wouldn't restock their clothing properly.
+		Prevented use of tails in breeding stalls to stop the target from blocking their vagina with their tail.
+		Slaves in the holding cells at slaver alley will no longer be able to attack you in Lilaya's house.
+		Fixed combat win/loss stats not saving & loading correctly.
 	
 	
 	
-	Add import to club
+	
+	
+	Add character import to club
 	Gloryholes
 	Kalahari & Kruger drink spiking to give incest fetish for threesome
 	Dom partner
 	
 	
 	
-	"you let out a desperate squeal as you lean down on top of you."
 	
-	kissing is a consistent action but theres no buttons during kissing
+	Broken condom
 	
-	The imp lets out a lewd moan as she pushes her tail into her mouth.​
-	The imp has given the imp her first oral experience!
-	The imp's saliva quickly lubricates the imp's tail.​
-
+	PRs
+	
+	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
+	
 	
 	
 	Make sex advance time per action (Need to check for SE interruptions)
@@ -102,40 +109,22 @@
 	If resolve Zaranix quest peacefully, it makes no sense for Amber to be so angry on repeat visit.
 	
 	
-	
-	
 	(Can't reproduce) it seems that modifying vaginal urethra stats applies to the penile urethra
 	
 	if you don't turn off their permission to wash their body, it wipes their pregnancy when they clean their creampie, and it will display in the phone as ready to birth.
 	
 
-	cum & mikl regen as ints:
+	cum & milk regen as int:
 	This means any character with a "realistic" capacity will have full balls in only minutes, while extreme capacities instead take (the likely intended) ~6 hours
-
-	"as the lolipop's effects start to make themselves known, you start to feel very light-headed..." (should be she)
 
 	So I have an imported character and it always gives me the "you should talk to Lily" text after I defeat someone, but I can't actually talk to her about it anymore. I was pretty sure I already talked to her about it one this save
 
-	"from whence she came"
-	
 	When I entered Zaranix's house, it was telling me I needed to respond to the maid before going up the stairs... When she wasn't in the same tile as me and hadn't said anything to me.
-	
-	I think I just found a way to cheat Prenancy Roulette
-	You can tail fuck yourself, resulting in the current dude not managing to creampie you
-	So you can just do that until the one you bet on wins
 	
 	Loading saves also returns the image of an enchanted hypno-watch to the regular one
 	
-	Slaves that you own but are still in Slaver's Nest can rape you at home if they have the "use you" permission
+	brittney/lexi/diana will take anything?
 	
-	Every time I try to bring someone to orgasm with a handjob the game freezes. I say 'might' since I don't know for sure
-	
-	You looks down at you as you kneel beneath you, "Oh yeah!"
-	
-	Broken condom
-		
-	PRs and bugs
-		
 	Preset outfits
 		Club
 		Slut
@@ -161,11 +150,7 @@
 	
 	Improve cat icons
 		
-	biojuice canister corruption supposed to be a potion effect?
-		
-		
-	
-		pull out on their soles
+	pull out on their soles
 	
 	Even though i set Angels as the only ones to use the Artisanal milking room, on occasion the room will spontaneously generate human girlcum
 		just looked and one of my angel slaves has human hair
@@ -180,25 +165,11 @@
 	Check sexman slave bug saves
 	importing an older save into this version added slave collars to a majority of my NPC slaves.  I dunno if that is part of the problem
 	
-	Beaten 298 times, says only beaten once
-	
-	 I keep having issues with trying to give tf elixirs to NPCs. It'll use it, but the inventory screen won't update. I mean: the transformation effects will go through if allowed, but I won't find out what's changed unless I mouse over the NPC's race icon, and it won't decrease the number of items of that type I have until I exit and re-enter the inventory screen. Only occasionally will it actually display the text for using an elixir, but only the most recent one, and I think only after using multiples
-		
-	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
-	
 	did you really not fix slaves washing themselves wiping out pregnancies
 	
-	Lilaya keeps changing position every time I try to assert control
+	If you transform a demon before sex using the menu and then transform yourself using the transformation menu afterwards it soft defaults to the options you changed on the demon.
+	 Meaning it doesn't change your current settings, but the changes are kept
 	
-	Well that was weird, started sex with Kate and no fuck option until she forced me to swap 
-	
-	If you transform a demon before sex using the menu and then transform yourself using the transformation menu afterwards it soft defaults to the options you changed on the demon. Meaning it doesn't change your current settings, but the changes are kept
-	
-	: the use text for Vulpine's Vineyard erroneously spells "your" as "yuor".
-	
-	Demonic hooves don't preclude the wearing of normal shoes
-	
-	brittney/lexi/diana will take anything
 	
 	NullPointer somehow when managing inventory in sex (something related to Game.restoreSavedContent(Game.java:2341))
 		The problem goes away if I remove his clothes through Management: Inventory. Only doing it from clicking him then clicking his inventory directly causes the issue

@@ -1288,10 +1288,38 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BREEDING_STALL_FRONT) {
-				return "You're lying on your front on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond.";
+				return "You're lying on your front on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond."
+						+ (Main.game.getPlayer().hasTail()
+								?" As you get into position, someone on the other side of the wall fastens your "
+									+(Main.game.getPlayer().getTailCount()>1?"[pc.tailCount] [pc.tails] to the wall by means of metal clamps":" [pc.tail] to the wall by means of a metal clamp")
+									+ ", in order to prevent you from using"+(Main.game.getPlayer().getTailCount()>1?"them":"it")+" to block your [pc.pussy+]."
+								:"");
 			} else {
-				return "[npc.Name] is lying on [npc.her] front on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding.";
+				GameCharacter character = Sex.getCharacterInPosition(SexPositionSlot.BREEDING_STALL_FRONT);
+				if(character!=null) {
+					return "[npc.Name] is lying on [npc.her] front on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding."
+							+ (character.hasTail()
+									?" As [npc.she] gets into position, Epona steps forwards and fastens [npc.her] "
+										+(character.getTailCount()>1?"[npc.tailCount] [npc.tails] to the wall by means of metal clamps":" [npc.tail] to the wall by means of a metal clamp")
+										+ ", in order to prevent [npc.herHim] from using"+(character.getTailCount()>1?"them":"it")+" to block [npc.her] [npc.pussy+]."
+									:"");
+				} else {
+					return "";
+				}
 			}
+		}
+
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			if((Sex.getSexPositionSlot(performer)==SexPositionSlot.BREEDING_STALL_FRONT
+					&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.TAIL))
+				|| (Sex.getSexPositionSlot(performer)==SexPositionSlot.BREEDING_STALL_FUCKING
+						&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.TAIL)
+						&& action.getParticipantType()!=SexParticipantType.SELF)) {
+				return true;
+			}
+			
+			return super.isActionBlocked(performer, target, action);
 		}
 	},
 	
@@ -1320,11 +1348,39 @@ public enum SexPositionType {
 													SexActionPresets.groinToAss))))))) {
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BREEDING_STALL_BACK) {
-				return "You're lying on your back on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond.";
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BREEDING_STALL_FRONT) {
+				return "You're lying on your back on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond."
+						+ (Main.game.getPlayer().hasTail()
+								?" As you get into position, someone on the other side of the wall fastens your "
+									+(Main.game.getPlayer().getTailCount()>1?"[pc.tailCount] [pc.tails] to the wall by means of metal clamps":" [pc.tail] to the wall by means of a metal clamp")
+									+ ", in order to prevent you from using"+(Main.game.getPlayer().getTailCount()>1?"them":"it")+" to block your [pc.pussy+]."
+								:"");
 			} else {
-				return "[npc.Name] is lying on [npc.her] back on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding.";
+				GameCharacter character = Sex.getCharacterInPosition(SexPositionSlot.BREEDING_STALL_FRONT);
+				if(character!=null) {
+					return "[npc.Name] is lying on [npc.her] back on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding."
+							+ (character.hasTail()
+									?" As [npc.she] gets into position, Epona steps forwards and fastens [npc.her] "
+										+(character.getTailCount()>1?"[npc.tailCount] [npc.tails] to the wall by means of metal clamps":" [npc.tail] to the wall by means of a metal clamp")
+										+ ", in order to prevent [npc.herHim] from using"+(character.getTailCount()>1?"them":"it")+" to block [npc.her] [npc.pussy+]."
+									:"");
+				} else {
+					return "";
+				}
 			}
+		}
+
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			if((Sex.getSexPositionSlot(performer)==SexPositionSlot.BREEDING_STALL_BACK
+					&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.TAIL))
+				|| (Sex.getSexPositionSlot(performer)==SexPositionSlot.BREEDING_STALL_FUCKING
+						&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.TAIL)
+						&& action.getParticipantType()!=SexParticipantType.SELF)) {
+				return true;
+			}
+			
+			return super.isActionBlocked(performer, target, action);
 		}
 	},
 	
