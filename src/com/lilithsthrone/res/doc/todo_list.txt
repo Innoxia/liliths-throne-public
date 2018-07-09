@@ -37,51 +37,20 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Finished all descriptions in the new club area, and improved several actions.
-		Added more options to the club, allowing you to save characters you meet in order to see them there again.
-		
 	Other:
-		Increased maximum age of randomly spawned NPCs from 26 to 38.
-		NPCs will no longer insist on stopping kissing before penetrating in sex.
-		Improved elixir and potion descriptions, and increased base prices from 1000->1500 and 500->750, respectively.
-		Foxes now spawn in with red cocks.
-		Added all feather colours to angel wings. (You can still only get angel parts through the debug menu. Type 'buggy' during gameplay to bring it up.)
-		Added self-legs and self-groin as orgasm targets.
-		Added harpies, alligator-morphs, and rat-morphs to the subspecies found in the nightclub, and removed Youko. (Youko are special subspecies, and will be found only in special areas in the Fields.)
-		Removed 'freckled' pattern from tongue.
-		Fixed NPCs spawning in hating some fetishes which are related to fetishes they already have.
-		Slightly improved self-taking virginity text.
-		Demonic hoofs now prevent you from wearing footwear.
-		Biojuice canister's corruption increase is now permanent.
-		
-	Bugs:
-		Fixed sexual area exposed descriptions not being shown at start of sex.
-		Fixed handjob orgasms causing sex scenes to break.
-		Fixed hooded cloak's 'Pull Up' displacement not revealing lower body clothing slots.
-		Fixed Kalahari generating a new outfit after sex.
-		Fixed closing time text not displaying correctly in the club.
-		Fixed incorrect descriptions for buying your partner a drink in the club.
-		Fixed several cases of 'command_unknown' being displayed in (and out of) sex.
-		Fixed tooltip descriptions being very broken in sex.
-		Fixed some incorrect labels on actions in sex (such as penis+vagina being labelled as 'Tail-fucked', and cunnilingus being labelled as 'anilingus').
-		Fixed clitoris girth and TF modifiers sometimes not working.
-		Fixed clitoris and vagina modifiers not being saved/loaded correctly.
-		Fixed issues with chair sex scene positioning.
-		Fixed broken formatting of ongoing and initial penetration descriptions.
-		Fixed broken descriptions of areas being exposed during sex.
-		Minor typo and parsing fixes.
-		Fixed 'no_clothing_covering_nipples' errors in breast groping action.
-		Fixed game referring to your breasts in orgasm scene, even if you didn't have breasts.
-		Fixed 'Beg to stop' action returning incorrect dialogue.
-		Converted positioning, orgasming, miscellaneous, and dirty talk actions to new format, so parsing bugs in those actions should have been fixed.
-		Fixed 'self' sex actions not having masturbation fetish associated with them.
-		Improved clothing concealment method to fix issues such as the one where pulling up someone's skirt wouldn't reveal their swimsuit (even though it should then be visible), if the swimsuit's main slot (chest) was concealed. 
-		(Hopefully) fixed the issue where Nyan, Finch, and the Winter Reindeer wouldn't restock their clothing properly.
-		Prevented use of tails in breeding stalls to stop the target from blocking their vagina with their tail.
-		Slaves in the holding cells at slaver alley will no longer be able to attack you in Lilaya's house.
-		Fixed combat win/loss stats not saving & loading correctly.
+		Added ongoing descriptions for handjobs.
 	
+	Bugs:
+		<b>Fixed:</b> A couple of causes of the game soft-locking upon orgasm.
+		Fixed 'Resist fingering' being available while fingering your partner's anus.
+		Fixed tooltips not working correctly in the final action of sex.
+		Fixed a cause of a lot of parsing errors in the nightclub.
+		Fixed incorrect ongoing kissing descriptions.
+		Fixed issue where you'd be unable to move after telling Kruger that you're leaving.
+		Typo fixes.
+		Fixed incorrect initial penis penetration parsing.
+		Fixed incorrect descriptions of having your parts revealed in sex. (Things like 'You lets out a moan as...', instead of 'Lilaya lets out a moan as...')
+		Fixed incorrect descriptions of targeted areas in orgasm tooltips.
 	
 	
 	
@@ -91,6 +60,29 @@
 	Kalahari & Kruger drink spiking to give incest fetish for threesome
 	Dom partner
 	
+	
+	
+	!!!Major parsing problem!!!
+		you grope and squeeze one of his no pecs
+		Hi! I'm the rabbit-boy!
+		(It seems as though conditional parsing is being done using activeNPC, instead of the npc that normal parsing is using)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	it said I lost my penile virginity despite not even having a penis
+	
+	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
+	
+	Dress under jacket not visible
+	
+	"about his job as an unemployed." nightclub
 	
 	
 	

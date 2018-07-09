@@ -1860,11 +1860,9 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(Main.game.getPlayer().getPenisType()==PenisType.DILDO) {
-				return false;
-			}
-			
-			if(Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
+			if(Main.game.getPlayer().getPenisType()==PenisType.DILDO
+					|| !Sex.getCharacterPerformingAction().isPlayer()
+					|| Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
 			
@@ -1890,26 +1888,10 @@ public class GenericOrgasms {
 						return true;
 				}
 			} else {
-//				switch((SexAreaPenetration)areaContacted) {
-//					case CLIT:
-//						break;
-//					case FINGER:
-//						return true;
-//					case PENIS:
-//						break;
-//					case TAIL:
-//						break;
-//					case TENTACLE:
-//						break;
-//					case TOES:
-//						return true;
-//					case TONGUE:
-//						break;
-//				}
+				return false;
 			}
 			
-			return Sex.getCharacterPerformingAction().isPlayer();
-			
+			return false;
 		}
 
 		@Override
@@ -2020,6 +2002,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_ASS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2069,6 +2055,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_GROIN = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2167,6 +2157,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_BREASTS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2263,6 +2257,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_FACE = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2359,6 +2357,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_HAIR = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2407,6 +2409,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_STOMACH = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2503,6 +2509,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_LEGS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2600,6 +2610,10 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_BACK = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -3332,43 +3346,30 @@ public class GenericOrgasms {
 			
 
 			SexAreaInterface areaContacted = Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-
+			
+			boolean isPenetratingSuitableOrifice  = false;
+			
 			if(areaContacted.isOrifice()) {
 				switch((SexAreaOrifice)areaContacted) {
-					case ANUS:
-						return true;
 					case ASS:
-						break;
 					case BREAST:
-						break;
-					case MOUTH:
-						return true;
-					case NIPPLE:
-						return true;
 					case THIGHS:
-						break;
+						return false;
+					case ANUS:
+					case MOUTH:
+					case NIPPLE:
 					case URETHRA_PENIS:
 					case URETHRA_VAGINA:
 					case VAGINA:
-						return true;
+						isPenetratingSuitableOrifice = true;
+						break;
 				}
 			} else {
-//				switch((SexAreaPenetration)areaContacted) {
-//					case CLIT:
-//						break;
-//					case FINGER:
-//						return true;
-//					case PENIS:
-//						break;
-//					case TAIL:
-//						break;
-//					case TENTACLE:
-//						break;
-//					case TOES:
-//						return true;
-//					case TONGUE:
-//						break;
-//				}
+				return false;
+			}
+			
+			if(!isPenetratingSuitableOrifice) {
+				return false;
 			}
 			
 			// Will not use if obeying the player and player asked for pull out:
