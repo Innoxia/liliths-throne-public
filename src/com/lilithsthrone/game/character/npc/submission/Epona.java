@@ -172,7 +172,7 @@ public class Epona extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

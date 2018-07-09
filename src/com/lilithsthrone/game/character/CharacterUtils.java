@@ -109,7 +109,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia, tukaima
  */
 public class CharacterUtils {
@@ -1112,7 +1112,7 @@ public class CharacterUtils {
 		}
 		
 		//Ass:
-		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==History.PROSTITUTE) {
+		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==History.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -1147,7 +1147,7 @@ public class CharacterUtils {
 		}
 		
 		// Face:
-		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==History.PROSTITUTE) {
+		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==History.NPC_PROSTITUTE) {
 			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);
@@ -1184,7 +1184,7 @@ public class CharacterUtils {
 		if(character.hasPenis() || character.getRace()==Race.DEMON || character.getRace()==Race.IMP) {
 			character.setPenisVirgin(true);
 			if(Math.random()>0.15f
-					|| character.getHistory()==History.PROSTITUTE
+					|| character.getHistory()==History.NPC_PROSTITUTE
 					|| character.hasFetish(Fetish.FETISH_CUM_STUD)
 					|| character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
 					|| character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -1220,13 +1220,13 @@ public class CharacterUtils {
 		
 		// Vagina:
 		if(character.hasVagina()) {
-			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN) && character.getHistory()!=History.PROSTITUTE) {
+			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN) && character.getHistory()!=History.NPC_PROSTITUTE) {
 				character.setVaginaVirgin(true);
 				int capacity = Capacity.ZERO_IMPENETRABLE.getMinimumValue() + Util.random.nextInt(Capacity.TWO_TIGHT.getMaximumValue()-Capacity.ZERO_IMPENETRABLE.getMinimumValue());
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
-				if(Math.random()>0.25f || character.getHistory()==History.PROSTITUTE) {
+				if(Math.random()>0.25f || character.getHistory()==History.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
@@ -1276,58 +1276,71 @@ public class CharacterUtils {
 	 * Sets the History for the supplied character.
 	 * @param character
 	 */
-	public static void setHistoryAndPersonality(GameCharacter character) {
-		
-		double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
-		 			
-		 if(character.isFeminine()) {
-			prostituteChance += 0.10f; // Bonus for femininity
-		 }
-		 
-		 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
-		 
-		 if(character.hasPenis()) {
-			prostituteChance += Math.min((character.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
-		 } 
-		 
-		 if(character.hasVagina()) {
-			prostituteChance += 0.15f; // Bonus for vagina.
-		 }
-		 
-		 if(character.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
-			prostituteChance += 0.05f; //Bonus for fuckable nipples.
-		 }
-		 
-		 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			prostituteChance = 0.03f; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
-		 }
-		 
-		 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
-		 
-		 if(Math.random()<prostituteChance) {
-		 	character.setHistory(History.PROSTITUTE);
-		 	
-		 	character.setAssVirgin(false);
-		 	character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
-		 	character.setAssStretchedCapacity(character.getAssRawCapacityValue());
-		 	
-		 	if(character.hasVagina()) {
-		 		character.setVaginaVirgin(false);
-		 		character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
-		 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
-		 	}
-		 	
-		 	character.setPenisVirgin(false);
-		 	
-		 	character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		 	character.setName(Name.getRandomProstituteTriplet());
-		 	character.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), character, false);
-		 	
-		 } else {
-		 	character.setHistory(History.MUGGER);
-		 }
-		 
+	public static void setHistoryAndPersonality(GameCharacter character, boolean lowlife) {
+
 		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
+		
+		if(lowlife) {
+			double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
+			 			
+			 if(character.isFeminine()) {
+				prostituteChance += 0.10f; // Bonus for femininity
+			 }
+			 
+			 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
+			 
+			 if(character.hasPenis()) {
+				prostituteChance += Math.min((character.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
+			 } 
+			 
+			 if(character.hasVagina()) {
+				prostituteChance += 0.15f; // Bonus for vagina.
+			 }
+			 
+			 if(character.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
+				prostituteChance += 0.05f; //Bonus for fuckable nipples.
+			 }
+			 
+			 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				prostituteChance = 0.03f; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
+			 }
+			 
+			 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
+
+			if (Math.random() < prostituteChance) {
+				character.setHistory(History.NPC_PROSTITUTE);
+
+				character.setAssVirgin(false);
+				character.setAssCapacity(character.getAssRawCapacityValue()
+						* 1.2f,
+						true);
+				character.setAssStretchedCapacity(character.getAssRawCapacityValue());
+
+				if (character.hasVagina()) {
+					character.setVaginaVirgin(false);
+					character.setVaginaCapacity(character.getVaginaRawCapacityValue()
+							* 1.2f,
+							true);
+					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+				}
+
+				character.setPenisVirgin(false);
+
+				character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				character.setName(Name.getRandomProstituteTriplet());
+				character.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+						character,
+						false);
+
+			} else {
+				character.setHistory(History.NPC_MUGGER);
+			}
+			
+		} else {
+			List<History> histories = History.getAvailableHistories(character);
+			histories.removeIf((his) -> his.isLowlife());
+			character.setHistory(Util.randomItemFrom(histories));
+		}
 			
 	}
 	
@@ -1336,7 +1349,7 @@ public class CharacterUtils {
 		
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && (character.getHistory()!=History.PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
+				if(character.hasVagina() && (character.getHistory()!=History.NPC_PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
 					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BIMBO) {
@@ -1484,6 +1497,9 @@ public class CharacterUtils {
 				case FETISH_IMPREGNATION:
 					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 					break;
+				case FETISH_NON_CON_SUB:
+					availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+					break;
 			}
 			desiresAssigned++;
 		}
@@ -1544,8 +1560,8 @@ public class CharacterUtils {
 							
 							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
 							
-							if(character.getHistory()==History.PROSTITUTE) {
-								clothingToUse = suitableFeminineClothing.get(History.PROSTITUTE);
+							if(character.getHistory()==History.NPC_PROSTITUTE) {
+								clothingToUse = suitableFeminineClothing.get(History.NPC_PROSTITUTE);
 							}
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 							
@@ -1673,7 +1689,7 @@ public class CharacterUtils {
 					Colour.COVERING_PINK,
 					Colour.COVERING_BLUE);
 			
-			if(character.getHistory()==History.PROSTITUTE) {
+			if(character.getHistory()==History.NPC_PROSTITUTE) {
 				colours.remove(Colour.COVERING_NONE);
 				colours.remove(Colour.COVERING_CLEAR);
 			}
@@ -1725,7 +1741,7 @@ public class CharacterUtils {
 	private static Map<History, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();
 	
 	static {
-		suitableFeminineClothing.put(History.PROSTITUTE,
+		suitableFeminineClothing.put(History.NPC_PROSTITUTE,
 				Util.newArrayListOfValues(
 						ClothingType.ANKLE_BRACELET,
 						ClothingType.CHEST_LACY_PLUNGE_BRA,

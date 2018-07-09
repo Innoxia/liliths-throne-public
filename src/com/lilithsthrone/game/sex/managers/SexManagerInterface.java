@@ -16,8 +16,8 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -28,7 +28,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -75,9 +75,9 @@ public interface SexManagerInterface {
 	}
 	
 	/**
-	 * @return true by default. If set to return false, no position-changing actions at all are available in the sex scene.
+	 * @return true by default. If returns false, no position-changing actions at all are available for the character passed in to the method.
 	 */
-	public default boolean isPositionChangingAllowed() {
+	public default boolean isPositionChangingAllowed(GameCharacter character) {
 		return true;
 	}
 	
@@ -226,7 +226,7 @@ public interface SexManagerInterface {
 				+"</p>";
 	}
 	
-	public Map<GameCharacter, List<SexAreaOrifice>> getOrificesBannedMap();
+	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();
 	
 	// Revealing CoverableAreas:
 

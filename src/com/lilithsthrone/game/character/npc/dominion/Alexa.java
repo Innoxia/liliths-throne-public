@@ -167,7 +167,7 @@ public class Alexa extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

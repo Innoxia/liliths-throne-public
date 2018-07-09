@@ -2011,10 +2011,10 @@ public enum Spell {
 					success = Math.random()<0.75f;
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_1)) {
-					success = Math.random()<0.5f && target.getRace().isVulnerableToLilithsLustStorm();
+					success = Math.random()<0.5f && target.getRace().isVulnerableToArcaneStorm();
 					
 				} else {
-					success = Math.random()<0.25f && target.getRace().isVulnerableToLilithsLustStorm();
+					success = Math.random()<0.25f && target.getRace().isVulnerableToArcaneStorm();
 				}
 				
 				descriptionSB.append("<p>");
@@ -2040,7 +2040,7 @@ public enum Spell {
 						descriptionSB.append(
 								"You shake your head and jump back as you resist the effects of Lilith's Command!");
 						
-					} else if(target.getRace().isVulnerableToLilithsLustStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
+					} else if(target.getRace().isVulnerableToArcaneStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] shakes [npc.her] head and jumps back as [npc.she] resists the effects of Lilith's Command!"));
 					} else {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] grins as [npc.she] taunts, [npc.speech(That cheap trick isn't going to affect [npc.a_race] like me!)]"));

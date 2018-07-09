@@ -1516,7 +1516,7 @@ public class CharacterCreation {
 							+ "</div>"
 							+"<div class='container-full-width' style='margin:0 8px; width: calc(90% - 16px);'>"
 								+ "<p>"
-									+ history.getDescriptionPlayer()
+									+ history.getDescription(Main.game.getPlayer())
 								+ "</p>"
 							+ "</div>"
 						+ "</div>");
@@ -1539,7 +1539,7 @@ public class CharacterCreation {
 //								+"<div class='container-full-width' style='margin:0 8px; width: calc(75% - 16px);'>"
 //									+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
 //									+ "<p>"
-//										+ history.getDescriptionPlayer()
+//										+ history.getDescription()
 //									+ "</p>"
 //								+ "</div>"
 //							+ "</div>");
@@ -1617,9 +1617,6 @@ public class CharacterCreation {
 							+ " you explain,"
 							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
 					break;
-				case MUGGER:
-					// "I beat people up and steal their money! :D"
-					break;
 				case MUSICIAN:
 					UtilText.nodeContentSB.append(
 							"[pc.speech(I'm a member of the city orchestra,)]"
@@ -1631,9 +1628,6 @@ public class CharacterCreation {
 							"[pc.speech(I work in one of the corporate offices in the centre of the city,)]"
 							+ " you explain,"
 							+ " [pc.speech(mostly doing admin and paper work.)]");
-					break;
-				case PROSTITUTE:
-					// "I'm a whore! Want to know my rates? :D"
 					break;
 				case REINDEER_OVERSEER:
 					// "Well, if you hadn't already noticed, I'm actually an anthropomorphic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
@@ -1667,6 +1661,8 @@ public class CharacterCreation {
 							"[pc.speech(I'm a professional author,)]" // I write erotic novels... :3
 							+ " you explain,"
 							+ " [pc.speech(and I'm currently waiting to hear back from my publisher about my latest novel.)]");
+					break;
+				default:
 					break;
 			}
 			UtilText.nodeContentSB.append("</p>");

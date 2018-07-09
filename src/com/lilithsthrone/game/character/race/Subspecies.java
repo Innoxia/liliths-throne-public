@@ -48,7 +48,9 @@ public enum Subspecies {
 			Colour.RACE_HUMAN,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical human.",
-			Util.newArrayListOfValues(WorldType.DOMINION)),
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)),
 
 	// ANGEL:
 	ANGEL("statusEffects/raceAngel",
@@ -76,7 +78,9 @@ public enum Subspecies {
 			Colour.RACE_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical demon.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -167,7 +171,9 @@ public enum Subspecies {
 			Colour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal cow-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)),
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)),
 	
 	// CANIDS:
 	DOG_MORPH("statusEffects/raceDogMorph",
@@ -181,7 +187,9 @@ public enum Subspecies {
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal dog-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 				@Override
 				public void applySpeciesChanges(Body body) {
 					if(body.getPenis().getType()==PenisType.CANINE) {
@@ -202,7 +210,9 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A particularly energetic and intelligent dog-morph which resembles an anthropomorphised border collie."
 					+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folder ears, and fluffy, black fur with white markings.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 				@Override
 				public void applySpeciesChanges(Body body) {
 					if(body.getPenis().getType()==PenisType.CANINE) {
@@ -230,7 +240,9 @@ public enum Subspecies {
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.CANINE) {
@@ -267,13 +279,14 @@ public enum Subspecies {
 			Colour.RACE_WOLF_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal wolf-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.LUPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
-			
 		}
 	},
 	
@@ -288,10 +301,15 @@ public enum Subspecies {
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal fox-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Subspecies.applyFoxColoring(body);
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
 		}
 	},
 	
@@ -306,7 +324,9 @@ public enum Subspecies {
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A bipedal fox-morph with tan or bleach blonde fur and distinctive large ears.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour fennecColour = Colour.COVERING_BLEACH_BLONDE;
@@ -320,6 +340,9 @@ public enum Subspecies {
 			body.updateCoverings(true, true, true, true);
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
 				body.getEar().setType(null, EarType.FOX_MORPH_BIG);
+			}
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
 		}
 	},
@@ -341,6 +364,9 @@ public enum Subspecies {
 			Subspecies.applyFoxColoring(body);
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
 				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+			}
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
 		}
 	},
@@ -373,6 +399,9 @@ public enum Subspecies {
 			}
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
 				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+			}
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
 		}
 	},
@@ -425,7 +454,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal cat-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub
@@ -445,7 +476,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_LYNX,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised lynx. To be identified as a Lynx-morph, a character must be a cat-morph that has fluffy fur, tufted ears, short tail and side-fluff hair type.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_BROWN;
@@ -475,7 +508,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_LEOPARD_SNOW,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised snow leopard. To be identified as a snow leopard-morph, a character must be a cat-morph that has fluffy spotted fur, normal tail and panther face.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_WHITE;
@@ -510,7 +545,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_LEOPARD,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised leopard. To be identified as a leopard-morph, a character must be a cat-morph that has short spotted fur, normal tail and panther face.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_ORANGE;
@@ -541,7 +578,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_LION,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised lion. To be identified as a lion-morph, a character must be a cat-morph that has short fur, tufted tail and panther face.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_TAN;
@@ -575,7 +614,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised tuger. To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_ORANGE;
@@ -609,7 +650,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_CHEETAH,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised cheetah. To be identified as a cheetah-morph, a character must be a cat-morph that has short, spotted fur and not identified as other feline morphs.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = Colour.COVERING_ORANGE;
@@ -653,7 +696,9 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH_CARACAL,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised caracal. To be identified as a caracal-morph, a character must be a cat-morph with tufted ears.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getEar().setType(null, EarType.CAT_MORPH_TUFTED);
@@ -672,7 +717,9 @@ public enum Subspecies {
 			Colour.RACE_HORSE_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal horse-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)),
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)),
 
 	HORSE_MORPH_ZEBRA("statusEffects/raceHorseMorphZebra",
 			"zebra-morph",
@@ -685,7 +732,9 @@ public enum Subspecies {
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
 			"A bipedal horse-morph which has black-and-white striped fur. To be identified as a zebra-morph, a character must be a horse-morph that has black-and-white striped hair, with a zebra-morph's tail.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false));
@@ -710,7 +759,9 @@ public enum Subspecies {
 			Colour.RACE_REINDEER_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal reindeer-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)),
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)),
 	
 	//CENTAUR(Race.CENTAUR.getName(), Race.HORSE_MORPH, RacialBody.CENTAUR, SubspeciesPreference.TWO_LOW,
 	//		"A "+Race.HORSE_MORPH.getName()+" with a bestial lower body that walks on four legs"),
@@ -727,7 +778,9 @@ public enum Subspecies {
 			Colour.RACE_ALLIGATOR_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal alligator-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)),
+			Util.newArrayListOfValues(
+					WorldType.SUBMISSION,
+					WorldType.NIGHTLIFE_CLUB)),
 	//LIZARD_MORPH(Race.LIZARD_MORPH.getName(), Race.LIZARD_MORPH, RacialBody.LIZARD_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.LIZARD_MORPH.getName()),
 	//LAMIA(Race.LAMIA.getName(), Race.LIZARD_MORPH, RacialBody.LAMIA, SubspeciesPreference.TWO_LOW,
@@ -1362,7 +1415,9 @@ public enum Subspecies {
 			Colour.RACE_SQUIRREL_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal squirrel-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)),
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)),
 	
 	//MOUSE_MORPH(Race.MOUSE_MORPH.getName(), Race.MOUSE_MORPH, RacialBody.MOUSE_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.MOUSE_MORPH.getName()),
@@ -1378,7 +1433,9 @@ public enum Subspecies {
 			Colour.RACE_RAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal rat-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)),
+			Util.newArrayListOfValues(
+					WorldType.SUBMISSION,
+					WorldType.NIGHTLIFE_CLUB)),
 
 	RABBIT_MORPH("statusEffects/raceRabbitMorph",
 			"rabbit-morph",
@@ -1391,7 +1448,9 @@ public enum Subspecies {
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal rabbit-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)), //TODO move to fields
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)), //TODO move to fields
 
 	RABBIT_MORPH_LOP("statusEffects/raceRabbitLopMorph",
 			"lop-rabbit-morph",
@@ -1404,7 +1463,9 @@ public enum Subspecies {
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A bipedal rabbit-morph, with floppy ears instead of the usual upright ones.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {  //TODO move to fields
+			Util.newArrayListOfValues(
+					WorldType.DOMINION,
+					WorldType.NIGHTLIFE_CLUB)) {  //TODO move to fields
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
@@ -1426,7 +1487,8 @@ public enum Subspecies {
 			"A typical bipedal bat-morph.",
 			Util.newArrayListOfValues(
 					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)),
+					WorldType.BAT_CAVERNS,
+					WorldType.NIGHTLIFE_CLUB)),
 	
 	// AVIAN:
 	HARPY("statusEffects/raceHarpy",
@@ -1440,7 +1502,9 @@ public enum Subspecies {
 			Colour.RACE_HARPY,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical harpy.",
-			Util.newArrayListOfValues(WorldType.HARPY_NEST)),
+			Util.newArrayListOfValues(
+					WorldType.HARPY_NEST,
+					WorldType.NIGHTLIFE_CLUB)),
 	
 	HARPY_RAVEN("statusEffects/raceHarpy",
 			"raven-harpy",
@@ -1453,7 +1517,9 @@ public enum Subspecies {
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
 			"A harpy that has dark black feathers, resembling those of a raven.",
-			Util.newArrayListOfValues(WorldType.HARPY_NEST)) {
+			Util.newArrayListOfValues(
+					WorldType.HARPY_NEST,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
@@ -1472,7 +1538,9 @@ public enum Subspecies {
 			Colour.BASE_WHITE,
 			SubspeciesPreference.ONE_LOW,
 			"A harpy that has dark brown feathers covering their body, with white feathers on their head, resembling the colouring of a bald eagle.",
-			Util.newArrayListOfValues(WorldType.HARPY_NEST)) {
+			Util.newArrayListOfValues(
+					WorldType.HARPY_NEST,
+					WorldType.NIGHTLIFE_CLUB)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
@@ -1598,7 +1666,7 @@ public enum Subspecies {
 				worldSpecies.putIfAbsent(type, new ArrayList<>());
 				worldSpecies.get(type).add(species);
 
-				if(type == WorldType.DOMINION && !species.getRace().isVulnerableToLilithsLustStorm()) {
+				if(type == WorldType.DOMINION && !species.getRace().isVulnerableToArcaneStorm()) {
 					dominionStormImmuneSpecies.add(species);
 				}
 			}

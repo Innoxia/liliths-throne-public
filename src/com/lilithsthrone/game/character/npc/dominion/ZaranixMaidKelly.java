@@ -182,7 +182,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -338,7 +339,7 @@ public class LilayasRoom {
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},
@@ -515,7 +516,7 @@ public class LilayasRoom {
 										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},

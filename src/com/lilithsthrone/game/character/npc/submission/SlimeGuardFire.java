@@ -127,11 +127,9 @@ public class SlimeGuardFire extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

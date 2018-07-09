@@ -430,7 +430,7 @@ public abstract class SexAction implements SexActionInterface {
 					if(characterPerformingActionFetishes) {
 						if(this.getParticipantType()==SexParticipantType.SELF) {
 							characterFetishes.get(characterPerformingAction).addAll(
-									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), !characterPerformingActionFetishes));
+									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), characterPerformingAction, entry.getValue(), !characterPerformingActionFetishes));
 						}
 						characterFetishes.get(characterPerformingAction).addAll(
 								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
@@ -438,7 +438,7 @@ public abstract class SexAction implements SexActionInterface {
 					} else {
 						if(this.getParticipantType()==SexParticipantType.SELF) {
 							characterFetishesForPartner.get(characterPerformingAction).addAll(
-									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), !characterPerformingActionFetishes));
+									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), characterPerformingAction, entry.getValue(), !characterPerformingActionFetishes));
 						}
 						characterFetishesForPartner.get(characterPerformingAction).addAll(
 								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));

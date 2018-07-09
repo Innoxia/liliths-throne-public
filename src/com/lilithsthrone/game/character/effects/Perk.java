@@ -24,6 +24,20 @@ public enum Perk {
 	
 	// NPC Histories:
 	
+	JOB_MISC(20,
+			true,
+			"Misc",
+			PerkCategory.JOB,
+			"perks/jobs/prostitute",
+			Colour.BASE_PINK,
+			Util.newHashMapOfValues(),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return ".";//TODO
+		}
+	},
+	
 	JOB_PROSTITUTE(20,
 			true,
 			"The oldest profession",

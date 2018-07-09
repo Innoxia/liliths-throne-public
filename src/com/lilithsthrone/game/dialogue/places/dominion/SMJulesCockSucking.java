@@ -32,7 +32,7 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPositionChangingAllowed() {
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 	

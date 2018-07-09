@@ -5,13 +5,11 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -21,6 +19,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -220,7 +219,7 @@ public class RoomPlayer {
 				+ "</i></p>";
 	}
 
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -244,7 +243,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -282,7 +281,7 @@ public class RoomPlayer {
 			return false;
 		}
 	};
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -321,7 +320,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -351,7 +350,7 @@ public class RoomPlayer {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -429,7 +428,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -489,7 +488,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -554,7 +553,7 @@ public class RoomPlayer {
 	
 
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNodeOld("Your room", "", true) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -564,9 +563,7 @@ public class RoomPlayer {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Home with clubber."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME", NightlifeDistrict.getClubbersPresent());
 		}
 
 
@@ -578,12 +575,8 @@ public class RoomPlayer {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_CLUBBER_SEX,
-						UtilText.parse(NightlifeDistrict.getClubbersPresent(),
-						"<p>"
-							+ "Stepping forwards, you wrap your [pc.arms] around [npc.name] and pull [npc.herHim] into your chest."
-							+ " Leaning into [npc.herHim], you press your [pc.lips+] against [npc.hers] and get ready to have some real fun..."
-						+ "</p>"));
+						BACK_HOME_AFTER_CLUBBER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_DOM", NightlifeDistrict.getClubbersPresent()));
 				
 			} else if(index==2) {
 				return new ResponseSex("Sex (sub)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
@@ -591,20 +584,30 @@ public class RoomPlayer {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_CLUBBER_SEX,
-						UtilText.parse(NightlifeDistrict.getClubbersPresent(),
-						"<p>"
-							+ "Stepping forwards, you wrap your [pc.arms] around [npc.name] and lean into [npc.her] chest."
-							+ " Pulling you close, [npc.she] presses [npc.her] [npc.lips+] against yours and gets ready to have some real fun..."
-						+ "</p>"));
+						BACK_HOME_AFTER_CLUBBER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_SUB", NightlifeDistrict.getClubbersPresent()));
 				
-			} else if(index==5) {
-				return new Response("Send home", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind and send [npc.herHim] home."), ROOM) {
+			} else if(index==4) {
+				return new Response("Say goodbye",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind, sending [npc.herHim] home with the promise of seeing [npc.herHim] at the club another time."
+								+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+						AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME) {
 					@Override
 					public void effects() {
-						for(GameCharacter clubber : NightlifeDistrict.getClubbersPresent()) {
-							Main.game.banishNPC((NPC) clubber);
-						}
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else if(index==5) {
+				return new Response("Send home",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind and abruptly send [npc.herHim] home."
+								+ "</br>[style.italicsBad(Removes this character from the game.)]"),
+						AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND_RUDE", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
 					}
 				};
 				
@@ -614,7 +617,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_CLUBBER_SEX = new DialogueNodeOld("The Watering Hole", "", true) {
+	public static final DialogueNodeOld BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNodeOld("Your Room", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -624,30 +627,88 @@ public class RoomPlayer {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parse(NightlifeDistrict.getClubbersPresent(),
-					"<p>"
-						+ "You collapse down onto your bed beside [npc.name]."
-						+ " Having had a satisfying conclusion to [npc.her] night out, [npc.she] soon stands back up, before getting [npc.her] things in order and heading towards the door."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(Maybe I'll see you in the club some other time, [pc.name]!)] [npc.she] calls from the doorway, before taking [npc.her] leave."
-					+ "</p>");
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX", NightlifeDistrict.getClubbersPresent());
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());
+			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Get up", "You decide to get up off the bed.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("See again",
+						"Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
+								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]",
+						BACK_HOME_AFTER_SEX) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_LOSE_COMPANY", NightlifeDistrict.getClubbersPresent()));
-						for(GameCharacter clubber : NightlifeDistrict.getClubbersPresent()) {
-							Main.game.banishNPC((NPC) clubber);
-						}
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.saveClubbers();
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Hope not (gentle)",
+						"Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]",
+						BACK_HOME_AFTER_SEX) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Hope not (harsh)",
+						"Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]",
+						BACK_HOME_AFTER_SEX) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
 					}
 				};
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNodeOld BACK_HOME_AFTER_SEX = new DialogueNodeOld("Your Room", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROOM.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNodeOld("Your Room", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROOM.getResponse(responseTab, index);
 		}
 	};
 }

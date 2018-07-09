@@ -124,7 +124,7 @@ public class Arthur extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

@@ -38,68 +38,93 @@
 	Patch notes:
 	
 	Gameplay:
-		Added 'The Watering Hole' nightclub to Nightlife. The descriptions are all placeholders at the moment, but I will get them written in fully for a hotfix.
-	
-	Sex action conversion:
-		All anal fingering actions.
-		All nipple and breast actions. Improved some nipple fingering action descriptions and added actions for reacting to being nipple fingered.
-		All vaginal fingering actions. Improved structure of clit-related action.
-		All cock/ball stroking actions. Added 'handjob' as an ongoing sex action, with all associated reactions.
-		All anilingus actions. Fixed some incorrect descriptions in anilingus actions.
-		All cunnilingus actions. Separated clit and 'genderless mound' actions from vaginal actions.
-		All breast kissing and breastfeeding actions.
-		All tail-anal actions. Fixed several (long-standing) errors in these actions, such as incorrect references to vaginas and some actions being incorrectly blocked for subs. Expanded tail-pegging reaction descriptions.
-		All tail-vaginal actions. Improved and expanded several old descriptions.
-		All vaginal sex actions.
-		All anal sex actions.
-		All blowjob sex actions. Fixed several old errors in descriptions, and changed the 'deep throat' actions to be independent of pace.
-		
-	Contributors:
-		Fixed issues with stocks sex not working. (CognitiveMist)
+		Finished all descriptions in the new club area, and improved several actions.
+		Added more options to the club, allowing you to save characters you meet in order to see them there again.
 		
 	Other:
-		Improved initial penetration descriptions.
-		Added 'rose gold' and 'steel' colours to fur and scale dye colours.
-		Added indication in skin/fur/hair dying menus for metallic colours.
-		Added metallic colours to feather dyes.
-		You can now resist after choosing to submit upon combat victories.
-		Changed big cat icons.
-		Changed Wolf Whiskey's description.
-		Added harpy subspecies 'bald-eagle'. (Dark brown feathers on body, with white head feathers.)
+		Increased maximum age of randomly spawned NPCs from 26 to 38.
+		NPCs will no longer insist on stopping kissing before penetrating in sex.
+		Improved elixir and potion descriptions, and increased base prices from 1000->1500 and 500->750, respectively.
+		Foxes now spawn in with red cocks.
+		Added all feather colours to angel wings. (You can still only get angel parts through the debug menu. Type 'buggy' during gameplay to bring it up.)
+		Added self-legs and self-groin as orgasm targets.
+		Added harpies, alligator-morphs, and rat-morphs to the subspecies found in the nightclub, and removed Youko. (Youko are special subspecies, and will be found only in special areas in the Fields.)
+		Removed 'freckled' pattern from tongue.
+		Fixed NPCs spawning in hating some fetishes which are related to fetishes they already have.
+		Slightly improved self-taking virginity text.
+		Demonic hoofs now prevent you from wearing footwear.
+		Biojuice canister's corruption increase is now permanent.
 		
 	Bugs:
-		Fixed cause of bug where walking into a milking room shows the correct management UI, but the PC stays out of the room on the map.
-		Typo/parsing fixes.
-		Fixed dirty talk referring to tits when the character was flat-chested.
-		Fixed Amber having the wrong foot fetish.
-		Fixed bug in sex where some sex actions were not being added (mainly affected kissing actions).
-		Fixed being able to equip tail/horn/wing clothing if you didn't have a tail/horns/wings.
-		Fixed penetration description errors.
-		Fixed metal buttplugs to actually use metal colours.
-	 	Added checks for enchantment loading to handle cases of old saves having clothing enchanted with the old broodmother/seeder fetishes.
-	 	Strapless dildo now correctly requires the wearer to have a vagina.
-	 	Clothing that plugs vagina/anus/nipples now correctly blocks those orifices from being used.
-	 	Fixed sex stats being inverted (e.g. performing vaginal sex was counting as receiving vaginal sex in stats).
-	 	Fixed some fox-morph descriptions referencing wolf parts.
-	 	Fixed facesitting positioning action being available even while facesitting is ongoing.
-		Fixed cultists being able to spawn in disliking/hating using their cock.
-		Fixed position changing not working in stocks scene.
-		Fixed NPCs locked in stocks (and milking stalls) being able to perform actions with their hands.
-		Fixed stocks (and milking stalls) not having anilingus options.
-		Fixed being able to perform actions in the cultist's 'sealed' sex scene.	
-		Fixed both cat-morph hair types having the same TF name.
-		Fixed kissing actions not being available if your partner was the one to initiate kissing.
-		Fixed breast groping action not applying milking effects to the correct character.
-		Characters no longer need breasts in order to be milked (they just need to be producing milk).
+		Fixed sexual area exposed descriptions not being shown at start of sex.
+		Fixed handjob orgasms causing sex scenes to break.
+		Fixed hooded cloak's 'Pull Up' displacement not revealing lower body clothing slots.
+		Fixed Kalahari generating a new outfit after sex.
+		Fixed closing time text not displaying correctly in the club.
+		Fixed incorrect descriptions for buying your partner a drink in the club.
+		Fixed several cases of 'command_unknown' being displayed in (and out of) sex.
+		Fixed tooltip descriptions being very broken in sex.
+		Fixed some incorrect labels on actions in sex (such as penis+vagina being labelled as 'Tail-fucked', and cunnilingus being labelled as 'anilingus').
+		Fixed clitoris girth and TF modifiers sometimes not working.
+		Fixed clitoris and vagina modifiers not being saved/loaded correctly.
+		Fixed issues with chair sex scene positioning.
+		Fixed broken formatting of ongoing and initial penetration descriptions.
+		Fixed broken descriptions of areas being exposed during sex.
+		Minor typo and parsing fixes.
+		Fixed 'no_clothing_covering_nipples' errors in breast groping action.
+		Fixed game referring to your breasts in orgasm scene, even if you didn't have breasts.
+		Fixed 'Beg to stop' action returning incorrect dialogue.
+		Converted positioning, orgasming, miscellaneous, and dirty talk actions to new format, so parsing bugs in those actions should have been fixed.
+		Fixed 'self' sex actions not having masturbation fetish associated with them.
+		Improved clothing concealment method to fix issues such as the one where pulling up someone's skirt wouldn't reveal their swimsuit (even though it should then be visible), if the swimsuit's main slot (chest) was concealed. 
+		(Hopefully) fixed the issue where Nyan, Finch, and the Winter Reindeer wouldn't restock their clothing properly.
+		Prevented use of tails in breeding stalls to stop the target from blocking their vagina with their tail.
+		Slaves in the holding cells at slaver alley will no longer be able to attack you in Lilaya's house.
+		Fixed combat win/loss stats not saving & loading correctly.
 	
+	
+	
+	
+	
+	Add character import to club
+	Gloryholes
+	Kalahari & Kruger drink spiking to give incest fetish for threesome
+	Dom partner
 	
 	
 	
 	
 	Broken condom
-		
-	PRs and bugs
-		
+	
+	PRs
+	
+	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
+	
+	
+	
+	Make sex advance time per action (Need to check for SE interruptions)
+	
+	Need penis+finger indication SE
+	
+	If resolve Zaranix quest peacefully, it makes no sense for Amber to be so angry on repeat visit.
+	
+	
+	(Can't reproduce) it seems that modifying vaginal urethra stats applies to the penile urethra
+	
+	if you don't turn off their permission to wash their body, it wipes their pregnancy when they clean their creampie, and it will display in the phone as ready to birth.
+	
+
+	cum & milk regen as int:
+	This means any character with a "realistic" capacity will have full balls in only minutes, while extreme capacities instead take (the likely intended) ~6 hours
+
+	So I have an imported character and it always gives me the "you should talk to Lily" text after I defeat someone, but I can't actually talk to her about it anymore. I was pretty sure I already talked to her about it one this save
+
+	When I entered Zaranix's house, it was telling me I needed to respond to the maid before going up the stairs... When she wasn't in the same tile as me and hadn't said anything to me.
+	
+	Loading saves also returns the image of an enchanted hypno-watch to the regular one
+	
+	brittney/lexi/diana will take anything?
+	
 	Preset outfits
 		Club
 		Slut
@@ -125,15 +150,7 @@
 	
 	Improve cat icons
 		
-	biojuice canister corruption supposed to be a potion effect?
-		
-		
-	
-	
-	Sex action Conversions!
-		(Then misc ones, like dirty talk)
-		
-		pull out on their soles
+	pull out on their soles
 	
 	Even though i set Angels as the only ones to use the Artisanal milking room, on occasion the room will spontaneously generate human girlcum
 		just looked and one of my angel slaves has human hair
@@ -148,25 +165,11 @@
 	Check sexman slave bug saves
 	importing an older save into this version added slave collars to a majority of my NPC slaves.  I dunno if that is part of the problem
 	
-	Beaten 298 times, says only beaten once
-	
-	 I keep having issues with trying to give tf elixirs to NPCs. It'll use it, but the inventory screen won't update. I mean: the transformation effects will go through if allowed, but I won't find out what's changed unless I mouse over the NPC's race icon, and it won't decrease the number of items of that type I have until I exit and re-enter the inventory screen. Only occasionally will it actually display the text for using an elixir, but only the most recent one, and I think only after using multiples
-		
-	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
-	
 	did you really not fix slaves washing themselves wiping out pregnancies
 	
-	Lilaya keeps changing position every time I try to assert control
+	If you transform a demon before sex using the menu and then transform yourself using the transformation menu afterwards it soft defaults to the options you changed on the demon.
+	 Meaning it doesn't change your current settings, but the changes are kept
 	
-	Well that was weird, started sex with Kate and no fuck option until she forced me to swap 
-	
-	If you transform a demon before sex using the menu and then transform yourself using the transformation menu afterwards it soft defaults to the options you changed on the demon. Meaning it doesn't change your current settings, but the changes are kept
-	
-	: the use text for Vulpine's Vineyard erroneously spells "your" as "yuor".
-	
-	Demonic hooves don't preclude the wearing of normal shoes
-	
-	brittney/lexi/diana will take anything
 	
 	NullPointer somehow when managing inventory in sex (something related to Game.restoreSavedContent(Game.java:2341))
 		The problem goes away if I remove his clothes through Management: Inventory. Only doing it from clicking him then clicking his inventory directly causes the issue
@@ -183,8 +186,6 @@
 	Make broodmother/seeder better
 	
 	a slave in the holding cells who had "use you" permission just came out of nowhere and lewded me
-	
-	"Already exposed before starting sex" still there?
 	
 	 Lilaya's Scene seems to work, but I can't get her to use her cock on my PC even after asking her to grow one and checking on her description to see if it says she has one.
 	

@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -181,49 +182,46 @@ public class UtilText {
 		}
 		
 		// Apply speech effects:
-		if(Main.game.isInSex()) {
-			if(target.isPlayer()) {
-				if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
-					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-				}
-				if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
-					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-				} else {
-					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-							if(c.getClothingType().isMufflesSpeech()) {
-								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-								break;
-							}
-						}
-					}
-				}
-				
+		if(Main.game.isInSex() && target.isPlayer()) {
+			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
+				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+			}
+			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
-				if(Sex.isCharacterEngagedInOngoingAction(character)) {
-					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-				}
-				
-				if(!Sex.getContactingSexAreas(character, SexAreaOrifice.MOUTH).isEmpty()) {
-					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-				} else {
-					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-							if(c.getClothingType().isMufflesSpeech()) {
-								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-								break;
-							}
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						if(c.getClothingType().isMufflesSpeech()) {
+							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+							break;
 						}
 					}
 				}
 			}
-		} else {
-			if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if(c.getClothingType().isMufflesSpeech()) {
-						modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-						break;
+			
+		} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(character)) {
+			if(Sex.isCharacterEngagedInOngoingAction(character)) {
+				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+			}
+			
+			if(!Sex.getContactingSexAreas(character, SexAreaOrifice.MOUTH).isEmpty()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+			} else {
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						if(c.getClothingType().isMufflesSpeech()) {
+							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+							break;
+						}
 					}
+				}
+			}
+			
+		} else if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().isMufflesSpeech()) {
+					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+					break;
 				}
 			}
 		}
@@ -987,11 +985,28 @@ public class UtilText {
 						"desc"),
 				true,
 				false,
-				"",//TODO
-				"Description"){//TODO
+				"",
+				"Returns a breif descriptive overview of this character."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getDescription();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"job",
+						"jobName"),
+				true,
+				true,
+				"",
+				"Returns the name of this character's job."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isSlave()) {
+					return character.getSlaveJob().getName(character);
+				}
+				return character.getHistory().getName();
 			}
 		});
 		
@@ -4077,7 +4092,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisHead",
 						"cockHead",
-						"dickHead"),
+						"dickHead",
+						"cockTip"),
 				true,
 				true,
 				"",
@@ -4096,7 +4112,9 @@ public class UtilText {
 						"cockHead+",
 						"cockHeadD",
 						"dickHead+",
-						"dickHeadD"),
+						"dickHeadD",
+						"cockTip+",
+						"cockTipD"),
 				true,
 				true,
 				"",
@@ -4905,6 +4923,9 @@ public class UtilText {
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
 		}
+		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
+			engine.put("FLAG_"+flag.toString(), flag);
+		}
 		
 //		StringBuilder sb = new StringBuilder();
 //		for(Entry<String, Object> entry : engine.getBindings(ScriptContext.ENGINE_SCOPE).entrySet()) {
@@ -4919,11 +4940,11 @@ public class UtilText {
 		}
 		
 		if(!specialNPC.isEmpty()) {
-			for(int i = 1; i<=specialNPC.size(); i++) {
-				if(i==1) {
+			for(int i = 0; i<specialNPC.size(); i++) {
+				if(i==0) {
 					engine.put("npc", specialNPC.get(i));
 				}
-				engine.put("npc"+i, specialNPC.get(i));
+				engine.put("npc"+(i+1), specialNPC.get(i));
 			}
 		} else {
 			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.

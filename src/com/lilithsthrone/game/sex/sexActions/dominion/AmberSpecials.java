@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.dominion.zaranix;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;

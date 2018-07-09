@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -153,7 +154,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardIce(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -171,7 +172,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -193,7 +194,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardIce(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -211,7 +212,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -407,7 +408,7 @@ public class SlimeQueensLair {
 										new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},

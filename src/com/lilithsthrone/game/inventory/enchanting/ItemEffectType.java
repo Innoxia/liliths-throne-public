@@ -1619,7 +1619,7 @@ public class ItemEffectType {
 				}
 				
 			} else {
-				return target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
+				return target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 50)
 						+ "<br/>"
 						+ target.setBodyMaterial(BodyMaterial.SLIME);
 			}
@@ -1910,7 +1910,7 @@ public class ItemEffectType {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p>"
-						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+						+ UtilText.parse(target, "As the lollipop's transformative effects start to make themselves known, [npc.name] [npc.verb(start)] to feel very light-headed...")
 					+ "</p>");
 			
 			if(!target.hasFetish(Fetish.FETISH_BIMBO)) {
@@ -1929,6 +1929,7 @@ public class ItemEffectType {
 							+ "</p>"));
 				}
 			}
+			
 			
 			// Non-racial changes
 			if(target.getFemininityValue()<95) {
@@ -2004,7 +2005,7 @@ public class ItemEffectType {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p>"
-						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+						+ UtilText.parse(target, "As the lollipop's transformative effects start to make themselves known, [npc.name] [npc.verb(start)] to feel very light-headed...")
 					+ "</p>");
 			
 			if(!target.hasTrait(Perk.NYMPHOMANIAC, false)) {
@@ -2102,8 +2103,10 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
-			
-			sb.append("As the perfume's transformative effects start to make themselves known, you start to feel very light-headed...");
+
+			sb.append("<p>"
+						+ UtilText.parse(target, "As the perfume's transformative effects start to make themselves known, [npc.name] [npc.verb(start)] to feel very light-headed...")
+					+ "</p>");
 			
 			if(!target.hasFetish(Fetish.FETISH_DOMINANT)) {
 				target.addFetish(Fetish.FETISH_DOMINANT);

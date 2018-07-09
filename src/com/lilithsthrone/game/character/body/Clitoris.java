@@ -133,7 +133,7 @@ public class Clitoris implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
-		if(!owner.hasPenis()) {
+		if(!owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -192,7 +192,7 @@ public class Clitoris implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(!owner.hasPenis()) {
+		if(!owner.hasVagina()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have a clitoris, so nothing happens...)]</p>";
 			} else {

@@ -330,10 +330,8 @@ public class Kate extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if (applyEffects) {
-			setPenisType(PenisType.NONE);
-		}
+	public void endSex() {
+		setPenisType(PenisType.NONE);
 	}
 	
 	@Override
@@ -461,7 +459,7 @@ public class Kate extends NPC {
 			}
 			
 		// NPC is using an item:
-		}else{
+		} else {
 			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}

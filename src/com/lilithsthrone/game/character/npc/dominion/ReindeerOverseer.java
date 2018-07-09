@@ -54,7 +54,7 @@ public class ReindeerOverseer extends NPC {
 	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
 		super(null, "",
-				Util.random.nextInt(9)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				10, gender, RacialBody.REINDEER_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
@@ -155,7 +155,7 @@ public class ReindeerOverseer extends NPC {
 		}
 		
 		for (AbstractItemType item : ItemType.allItems) {
-			if(item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+			if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
 				for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
 					this.addItem(AbstractItemType.generateItem(item), false);
 				}
@@ -163,7 +163,7 @@ public class ReindeerOverseer extends NPC {
 		}
 		
 		for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+			if(clothing!=null && clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
 				for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
 					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 				}
@@ -199,7 +199,7 @@ public class ReindeerOverseer extends NPC {
 	// Sex:
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override

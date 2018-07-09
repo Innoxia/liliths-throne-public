@@ -61,7 +61,7 @@ public class SubmissionAttacker extends NPC {
 	
 	public SubmissionAttacker(Gender gender, boolean isImported) {
 		super(null, "",
-				Util.random.nextInt(9)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
@@ -182,7 +182,7 @@ public class SubmissionAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
@@ -231,7 +231,7 @@ public class SubmissionAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==History.PROSTITUTE) {
+		if(this.getHistory()==History.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
 						"[npc.NamePos] days of whoring [npc.herself] out in the tunnels of Submission are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
@@ -252,11 +252,9 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

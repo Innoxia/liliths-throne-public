@@ -232,11 +232,9 @@ public class Ralph extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				c.getDisplacedList().clear();
-			}
+	public void endSex() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			c.getDisplacedList().clear();
 		}
 	}
 	

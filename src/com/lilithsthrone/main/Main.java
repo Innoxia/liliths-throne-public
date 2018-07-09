@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.8",
+	public static final String VERSION_NUMBER = "0.2.8.1",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -80,9 +80,12 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "For this version, I've got the vast majority of sex actions converted to the NPC-on-NPC format, which will very soon allow me to add sex scenes with NPCs interacting with one another."
-			+ " I've also got all of the mechanics and placeholder descriptions added for the club in Nightlife."
-			+ " I'll be finishing the descriptions and fixing bugs over the next three days, and will release a public hotfix (v0.2.8.1) on Sunday night. ^^"
+			+ "For this hotfix, I've sorted out all of the major sex scene bugs that you've reported, as well as writing in all of the nightclub's descriptions."
+			+ " I plan on adding a few more things to the club (including gloryholes and a way to let your partner take cahrge and lead you around), which will hopefully make it into the next version."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "For the next couple of versions, I'm going to focus on catching up on all of the Patreon poll winners, as well as fixing bugs and implementing as many smaller features as I can. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -316,6 +319,56 @@ public class Main extends Application {
 			+"<ul>Fixed breast groping action not applying milking effects to the correct character.</ul>"
 			+"<ul>Characters no longer need breasts in order to be milked (they just need to be producing milk).</ul>"
 		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.8.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished all descriptions in the new club area, and improved several actions.</ul>"
+			+"<ul>Added more options to the club, allowing you to save characters you meet in order to see them there again.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Increased maximum age of randomly spawned NPCs from 26 to 38.</ul>"
+			+"<ul>NPCs will no longer insist on stopping kissing before penetrating in sex.</ul>"
+			+"<ul>Improved elixir and potion descriptions, and increased base prices from 1000 to 1500 and 500 to 750, respectively.</ul>"
+			+"<ul>Foxes now spawn in with red cocks.</ul>"
+			+"<ul>Added all feather colours to angel wings. (You can still only get angel parts through the debug menu. Type 'buggy' during gameplay to bring it up.)</ul>"
+			+"<ul>Added self-legs and self-groin as orgasm targets.</ul>"
+			+"<ul>Added harpies, alligator-morphs, and rat-morphs to the subspecies found in the nightclub, and removed Youko. (Youko are special subspecies, and will be found only in special areas in the Fields.)</ul>"
+			+"<ul>Removed 'freckled' pattern from tongue.</ul>"
+			+"<ul>Fixed NPCs spawning in hating some fetishes which are related to fetishes they already have.</ul>"
+			+"<ul>Slightly improved self-taking virginity text.</ul>"
+			+"<ul>Demonic hoofs now prevent you from wearing footwear.</ul>"
+			+"<ul>Biojuice canister's corruption increase is now permanent.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed sexual area exposed descriptions not being shown at start of sex.</ul>"
+			+"<ul>Fixed handjob orgasms causing sex scenes to break.</ul>"
+			+"<ul>Fixed hooded cloak's 'Pull Up' displacement not revealing lower body clothing slots.</ul>"
+			+"<ul>Fixed Kalahari generating a new outfit after sex.</ul>"
+			+"<ul>Fixed closing time text not displaying correctly in the club.</ul>"
+			+"<ul>Fixed incorrect descriptions for buying your partner a drink in the club.</ul>"
+			+"<ul>Fixed several cases of 'command_unknown' being displayed in (and out of) sex.</ul>"
+			+"<ul>Fixed tooltip descriptions being very broken in sex.</ul>"
+			+"<ul>Fixed some incorrect labels on actions in sex (such as penis+vagina being labelled as 'Tail-fucked', and cunnilingus being labelled as 'anilingus').</ul>"
+			+"<ul>Fixed clitoris girth and TF modifiers sometimes not working.</ul>"
+			+"<ul>Fixed clitoris and vagina modifiers not being saved/loaded correctly.</ul>"
+			+"<ul>Fixed issues with chair sex scene positioning.</ul>"
+			+"<ul>Fixed broken formatting of ongoing and initial penetration descriptions.</ul>"
+			+"<ul>Fixed broken descriptions of areas being exposed during sex.</ul>"
+			+"<ul>Minor typo and parsing fixes.</ul>"
+			+"<ul>Fixed 'no_clothing_covering_nipples' errors in breast groping action.</ul>"
+			+"<ul>Fixed game referring to your breasts in orgasm scene, even if you didn't have breasts.</ul>"
+			+"<ul>Fixed 'Beg to stop' action returning incorrect dialogue.</ul>"
+			+"<ul>Converted positioning, orgasming, miscellaneous, and dirty talk actions to new format, so parsing bugs in those actions should have been fixed.</ul>"
+			+"<ul>Fixed 'self' sex actions not having masturbation fetish associated with them.</ul>"
+			+"<ul>Improved clothing concealment method to fix issues such as the one where pulling up someone's skirt wouldn't reveal their swimsuit (even though it should then be visible), if the swimsuit's main slot (chest) was concealed. </ul>"
+			+"<ul>(Hopefully) fixed the issue where Nyan, Finch, and the Winter Reindeer wouldn't restock their clothing properly.</ul>"
+			+"<ul>Prevented use of tails in breeding stalls to stop the target from blocking their vagina with their tail.</ul>"
+			+"<ul>Slaves in the holding cells at slaver alley will no longer be able to attack you in Lilaya's house.</ul>"
+			+"<ul>Fixed combat win/loss stats not saving & loading correctly.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -431,13 +484,12 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Apthydragon", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Mylerra", "", 0, 0, 2, 0));
 		
-		
-
 		credits.add(new CreditsSlot("Blackheart", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("xerton", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("BlakLite", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Steph", "", 0, 0, 1, 0));
-		
+
+		credits.add(new CreditsSlot("CrowCorvus", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

@@ -293,9 +293,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Pregnancy:
 	protected long timeProgressedToFinalPregnancyStage;
-	protected List<PregnancyPossibility> potentialPartnersAsMother, potentialPartnersAsFather;
+	protected List<PregnancyPossibility> potentialPartnersAsMother;
+	protected List<PregnancyPossibility> potentialPartnersAsFather;
 	protected Litter pregnantLitter;
-	protected List<Litter> littersBirthed, littersFathered;
+	protected List<Litter> littersBirthed;
+	protected List<Litter> littersFathered;
 	
 	
 	// Family:
@@ -342,7 +344,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Stats:
 	// Combat stats:
-	private int foughtPlayerCount, lostCombatCount, wonCombatCount;
+	private int foughtPlayerCount;
+	private int lostCombatCount;
+	private int wonCombatCount;
 	
 	
 	// Sex stats:
@@ -616,6 +620,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "foughtPlayerCount", String.valueOf(this.getFoughtPlayerCount()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lostCombatCount", String.valueOf(this.getLostCombatCount()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "wonCombatCount", String.valueOf(this.getWonCombatCount()));
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
@@ -1202,7 +1208,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set foughtPlayerCount: "+character.getFoughtPlayerCount());
 		}
 		
+		if(element.getElementsByTagName("lostCombatCount").getLength()!=0) {
+			character.setLostCombatCount(Integer.valueOf(((Element)element.getElementsByTagName("lostCombatCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "<br/>Set lostCombatCount: "+character.getLostCombatCount());
+		}
 		
+		if(element.getElementsByTagName("wonCombatCount").getLength()!=0) {
+			character.setWonCombatCount(Integer.valueOf(((Element)element.getElementsByTagName("wonCombatCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "<br/>Set wonCombatCount: "+character.getWonCombatCount());
+		}
 		
 		int extraLevelUpPoints = 0;
 		// If there is a version number, attributes should be working correctly:
@@ -2243,72 +2257,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		return infoScreenSB.toString();
 	}
-	
-//	public static String getStats(GameCharacter character) {
-//		return "<h4 style='text-align:center;'>Stats</h4>"
-//				+"<table align='center'>"
-//
-//				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
-//				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
-//				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
-//				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
-//				+ "<tr style='height:8px;'></tr>"
-//
-//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
-//				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
-//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-//					?statRow("Milk Storage (mL)", String.valueOf(character.getBreastRawMilkStorageValue()))
-//						+statRow("Milk regeneration (%/minute)", String.valueOf((Math.round(character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f))
-//						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
-//						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
-//					:statRow("Milk Storage (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-//				+ "<tr style='height:8px;'></tr>"
-//
-//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
-//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
-//					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
-//						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
-//						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
-//					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-//				+ "<tr style='height:8px;'></tr>"
-//
-//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
-//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
-//					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
-//						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
-//						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
-//						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
-//					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-//				+ "<tr style='height:8px;'></tr>"
-//
-//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
-//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.ANUS)
-//					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
-//						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
-//						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
-//					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-//						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-//				+ "</table>";
-//	}
-//	
-//	private static String statRow(String title, String value) {
-//		return "<tr>"
-//					+ "<td style='min-width:100px;'>"
-//						+ "<b>"+title+"</b>"
-//					+ "</td>"
-//					+ "<td style='min-width:100px;'>"
-//						+ "<b>"+value+"</b>"
-//					+ "</td>"
-//				+ "</tr>";
-//	}
 
 	public List<Artwork> getArtworkList() {
 		return artworkList;
@@ -2874,13 +2822,53 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
 		return personality;
 	}
-
+	
 	public void setPersonalityTrait(PersonalityTrait trait, PersonalityWeight weight) {
 		getPersonality().put(trait, weight);
 	}
 	
 	public void setPersonality(Map<PersonalityTrait, PersonalityWeight> personality) {
 		this.personality = personality;
+	}
+	
+	public boolean isCurious() {
+		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.HIGH;
+	}
+	
+	public boolean isCautious() {
+		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.LOW;
+	}
+	
+	public boolean isTrusting() {
+		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.HIGH;
+	}
+	
+	public boolean isSelfish() {
+		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.LOW;
+	}
+	
+	public boolean isVigilant() {
+		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.HIGH;
+	}
+	
+	public boolean isCareless() {
+		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.LOW;
+	}
+	
+	public boolean isExtroverted() {
+		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.HIGH;
+	}
+	
+	public boolean isIntroverted() {
+		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.LOW;
+	}
+	
+	public boolean isNeurotic() {
+		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.HIGH;
+	}
+	
+	public boolean isConfident() {
+		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.LOW;
 	}
 
 	public SexualOrientation getSexualOrientation() {
@@ -4926,7 +4914,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 				}
 				if(s!=null) {
-					if(!Sex.getCharactersBeingPenetratedBy(this, penetration).contains(this) || Sex.getCharactersBeingPenetratedBy(this, penetration).size()>1) {
+					if(!Sex.getCharactersHavingOngoingActionWith(this, penetration).contains(this) || Sex.getCharactersHavingOngoingActionWith(this, penetration).size()>1) {
 						speech.add(s);
 					}
 				}
@@ -4938,10 +4926,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				s = speech.get(Util.random.nextInt(speech.size())); // Prefer non-self penetrative speech.
 				
 			} else if(Sex.isCharacterEngagedInOngoingAction(this)) {
-				s = UtilText.returnStringAtRandom(
-						"Fuck!",
-						"Yeah!",
-						"Oh yeah!");
+				if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
+					s = UtilText.returnStringAtRandom(
+							"Stop, please!",
+							"Leave me alone!",
+							"Stop it! Leave me alone!");
+					
+				} else {
+					s = UtilText.returnStringAtRandom(
+							"Fuck!",
+							"Yeah!",
+							"Oh yeah!");
+				}
 			} else {
 				s = getDirtyTalkNoPenetration(Sex.getTargetedPartner(this), isPlayerDom);
 			}
@@ -9158,48 +9154,48 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to drift out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to drift out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
 				break;
 			case DOM_NORMAL:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to burst out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
 				break;
 			case DOM_ROUGH:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to burst out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
 				break;
 			case SUB_EAGER:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] bursts out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to burst out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
 				break;
 			case SUB_NORMAL:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "[pc.A_moan+] drifts out from between your [pc.lips+]")
 						:UtilText.returnStringAtRandom("[npc2.Name] lets out [npc2.a_moan+]", "[npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+]");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to drift out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to drift out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to drift out from between [npc2.her] [npc2.lips+]");
 				break;
 			case SUB_RESISTING:
 				penetratedPrefix = characterPenetrated.isPlayer()
 						?UtilText.returnStringAtRandom("You struggle and try to protest", "You attempt to push [npc2.name] away", "You let out a protesting whine")
 						:UtilText.returnStringAtRandom("[npc2.Name] struggles and tries to protest", "[npc2.Name] attempts to push you away", "[npc2.Name] lets out a protesting whine");
 				penetratedPostfix = characterPenetrated.isPlayer()
-						?UtilText.returnStringAtRandom(" causing you to let out [pc.a_moan+]", " causing [pc.a_moan+] to burst out from between your [pc.lips+]")
-						:UtilText.returnStringAtRandom(" causing [npc2.herHim] to let out [npc2.a_moan+]", " causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
+						?UtilText.returnStringAtRandom("causing you to let out [pc.a_moan+]", "causing [pc.a_moan+] to burst out from between your [pc.lips+]")
+						:UtilText.returnStringAtRandom("causing [npc2.herHim] to let out [npc2.a_moan+]", "causing [npc2.a_moan+] to burst out from between [npc2.her] [npc2.lips+]");
 				break;
 		}
 		
@@ -9319,9 +9315,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 		}
 		
+		String ownerName = characterPenetrating.equals(characterPenetrated)?"[npc2.her]":"[npc2.namePos]";
+		
 		return UtilText.parse(characterPenetrating, characterPenetrated,
-				"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb("+penetrationAdverb+penetrationVerb+")] [npc.her] "
-						+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" [npc2.namePos] "+orifice.getName(characterPenetrated)+".");
+				"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb("+penetrationAdverb+" "+penetrationVerb+")] [npc.her] "
+						+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" "+ownerName+" "+orifice.getName(characterPenetrated)+".");
 		
 	}
 	
@@ -10177,7 +10175,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerPenileVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaOrifice orifice){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] penile virginity!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own penile virginity!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] penile virginity!"))
 				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -10188,7 +10188,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerAnalVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] anal virginity!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own anal virginity!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] anal virginity!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -10199,7 +10201,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerVaginaVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc.NamePos] hymen has been torn; [npc2.namePos] [npc2.has] taken [npc.her] virginity!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc.NamePos] hymen has been torn; [npc2.Name] [npc2.has] taken [npc2.her] own virginity!")
+						:formatVirginityLoss("[npc.NamePos] hymen has been torn; [npc2.name] [npc2.has] taken [npc.her] virginity!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -10210,7 +10214,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerNippleVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] nipple virginity!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own nipple virginity!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] nipple virginity!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -10221,7 +10227,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] urethral virginity!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own urethral virginity!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] urethral virginity!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -10232,7 +10240,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private String getPartnerMouthVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return UtilText.parse(characterPenetrated, characterPenetrating,
-				formatVirginityLoss("[npc2.Name] [npc2.has] given [npc.name] [npc.her] first oral experience!")
+				(characterPenetrated.equals(characterPenetrating)
+						?formatVirginityLoss("[npc2.Name] [npc2.has] given [npc2.herself] [npc.her] first oral experience!")
+						:formatVirginityLoss("[npc2.Name] [npc2.has] given [npc.name] [npc.her] first oral experience!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -11406,6 +11416,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void setPregnantLitter(Litter pregnantLitter) {
 		this.pregnantLitter = pregnantLitter;
 	}
+	
+	public boolean isCharacterPossiblyMother(String id) {
+		for(PregnancyPossibility pp : getPotentialPartnersAsMother()) {
+			if(pp.getMotherId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public List<PregnancyPossibility> getPotentialPartnersAsMother() {
 		return potentialPartnersAsMother;
@@ -11426,6 +11445,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(!alreadyContainedPossibility) {
 			potentialPartnersAsMother.add(possibility);
 		}
+	}
+	
+	public boolean isCharacterPossiblyFather(String id) {
+		for(PregnancyPossibility pp : getPotentialPartnersAsFather()) {
+			if(pp.getFatherId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public List<PregnancyPossibility> getPotentialPartnersAsFather() {
@@ -16638,7 +16666,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	// ------------------------------ Tail: ------------------------------ //
-	
+
+	public boolean hasTail() {
+		return getTailType() != TailType.NONE;
+	}
 	// Type:
 	public TailType getTailType() {
 		return body.getTail().getType();

@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.Set;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,6 +31,12 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -73,11 +81,9 @@ public class Kruger extends NPC {
 			this.setFemininity(0);
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
-			Colour primaryColour = Colour.COVERING_TAN;
-			Colour secondaryColour = Colour.COVERING_BLACK;
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColour, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColour, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_TANNED, false, Colour.SKIN_TANNED, false));
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, Colour.COVERING_TAN, false, Colour.COVERING_BLACK, false), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false), true);
 			
 			this.setHairStyle(HairStyle.LOOSE);
 			this.setHairLength(8);
@@ -115,6 +121,10 @@ public class Kruger extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, Colour.COVERING_TAN, false, Colour.COVERING_BLACK, false), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false), true);
 	}
 
 	@Override
@@ -123,24 +133,42 @@ public class Kruger extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			setPendingClothingDressing(true);
-		}
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-
-	@Override
 	public void changeFurryLevel() {
 	}
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
+	}
+	
+
+	@Override
+	public boolean getSexBehaviourDeniesRequests() {
+		return true;
+	}
+	
+	public Set<SexPositionSlot> getSexPositionPreferences() {
+		sexPositionPreferences.clear();
+		
+		if(Sex.isInForeplay()) {
+			sexPositionPreferences.add(SexPositionSlot.CHAIR_ORAL_SITTING);
+		} else {
+			sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
+		}
+		
+		return sexPositionPreferences;
+	}
+	
+	public SexType getForeplayPreference() {
+		return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+	}
+	
+	public SexType getMainSexPreference() {
+		if(Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+		} else {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+		}
 	}
 
 }

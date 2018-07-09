@@ -308,12 +308,10 @@ public class Vicky extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
-				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
-				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
-			}
+	public void endSex() {
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
 		}
 	}
 	

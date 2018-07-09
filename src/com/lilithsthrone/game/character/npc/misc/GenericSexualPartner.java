@@ -219,7 +219,7 @@ public class GenericSexualPartner extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, false);
 			
 			// ADDING FETISHES:
 			
@@ -274,7 +274,7 @@ public class GenericSexualPartner extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override

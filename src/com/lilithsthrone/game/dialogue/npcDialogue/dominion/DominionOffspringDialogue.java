@@ -77,7 +77,7 @@ public class DominionOffspringDialogue {
 								+ " <b style='color:"+offspring().getRace().getColour().toWebHexString()+";'>[npc.race]</b> leaning back against one of the alley's walls."
 						+ "</p>");
 				
-				if(offspring().getHistory()==History.PROSTITUTE) { // Prostitute introduction:
+				if(offspring().getHistory()==History.NPC_PROSTITUTE) { // Prostitute introduction:
 					
 					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
@@ -175,7 +175,7 @@ public class DominionOffspringDialogue {
 				
 			} else { // Repeat encounter:
 				
-				if(offspring().getHistory()==History.PROSTITUTE) {
+				if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "Knowing that [npc.name] lives in this area, you keep an eye out for your [npc.daughter] as you travel through the eerie quiet of Dominion's back alleys."
@@ -754,14 +754,14 @@ public class DominionOffspringDialogue {
 				} if (index == 5) {
 					return new Response("Scold [npc.herHim]",
 							"Ask [npc.name] just what [npc.she] thinks [npc.sheIs] doing!"
-									+(offspring().getHistory()==History.PROSTITUTE
+									+(offspring().getHistory()==History.NPC_PROSTITUTE
 											?" (This will voice disapproval about [npc.herHim] being a prostitute.)"
 											:" (This will voice disapproval about [npc.herHim] being a mugger.)"),
 							OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
 							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
-								if(offspring().getHistory()==History.PROSTITUTE) {
+								if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief."
@@ -824,7 +824,7 @@ public class DominionOffspringDialogue {
 										+ "</p>");
 								
 							} else {
-								if(offspring().getHistory()==History.PROSTITUTE) {
+								if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "As you look [npc.name] up and down, you find yourself shaking your head in utter disbelief."
@@ -1450,7 +1450,7 @@ public class DominionOffspringDialogue {
 						public void effects() {
 							if(offspring().isAttractedTo(Main.game.getPlayer())) {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 20));
-							} else if(offspring().getHistory()!=History.PROSTITUTE){
+							} else if(offspring().getHistory()!=History.NPC_PROSTITUTE){
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
 							}
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
@@ -1526,7 +1526,7 @@ public class DominionOffspringDialogue {
 						+ " [pc.speech(Tell me about your life! How's everything going for you right now?)]"
 					+ "</p>");
 			
-			if(offspring().getHistory()==History.PROSTITUTE) {
+			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 				if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 					UtilText.nodeContentSB.append(
 							"<p>"
@@ -1768,7 +1768,7 @@ public class DominionOffspringDialogue {
 					"<p>"
 						+ "Thinking that it must be hard for [npc.name] to make a living out here in Dominion's alleyways, you decide to offer [npc.her] some words of encouragement,");
 			
-			if(offspring().getHistory()==History.PROSTITUTE) {
+			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 				UtilText.nodeContentSB.append(
 						" [pc.speech(I know that it must be hard to try and make a living out here, so I just wanted you to know that I'm very proud of you, [npc.name].)]"
 						+ "</p>");
@@ -1834,7 +1834,7 @@ public class DominionOffspringDialogue {
 					"<p>"
 						+ "Unimpressed by [npc.namePos] method of making a living, you decide to scold [npc.her] in the hopes that [npc.she]'ll change [npc.her] ways,");
 			
-			if(offspring().getHistory()==History.PROSTITUTE) {
+			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
 				UtilText.nodeContentSB.append(
 						" [pc.speech(I really don't want my [npc.daughter] working as a prostitute. You need to start thinking about getting a real job, [npc.name]!)]"
 						+ "</p>");
@@ -2001,7 +2001,7 @@ public class DominionOffspringDialogue {
 						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmigly")+" at you once more, you can't help but act."
 					+ "</p>");
 			
-			if(offspring().getHistory()==History.PROSTITUTE){
+			if(offspring().getHistory()==History.NPC_PROSTITUTE){
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[pc.speech(So, [npc.name],)] you say, putting on your most seductive voice as you shuffle closer to [npc.herHim] on the sofa,"
@@ -2025,7 +2025,7 @@ public class DominionOffspringDialogue {
 							+ "Reaching up to pull [npc.herHim] close, you eagerly return [npc.namePos] passionate kiss, and, right there in the middle of [npc.her] apartment, you show your [npc.daughter] just how much you love [npc.herHim]..."
 						+ "</p>");
 				
-			} else if(offspring().getHistory()==History.PROSTITUTE){
+			} else if(offspring().getHistory()==History.NPC_PROSTITUTE){
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "A flicker of worry crosses [npc.namePos] face for a moment, but [npc.she] quickly regains [npc.her] composure."
@@ -2084,7 +2084,7 @@ public class DominionOffspringDialogue {
 					return null;
 				}
 				
-			} else if(offspring().getHistory()==History.PROSTITUTE){
+			} else if(offspring().getHistory()==History.NPC_PROSTITUTE){
 				if (index == 8) {
 					if(Main.game.getPlayer().getMoney()>=100) {
 						return new ResponseSex("Incestuous sex ("+UtilText.formatAsMoney(100, "span")+")",

@@ -2316,7 +2316,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 	}
 	
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	public boolean getSexBehaviourDeniesRequests() {
@@ -2659,7 +2659,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
 			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
-			sexPositionPreferences.add(SexPositionSlot.CHAIR_TOP);
 			sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
 		}
 		
@@ -2749,7 +2748,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
 			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
-			sexPositionPreferences.add(SexPositionSlot.CHAIR_TOP);
 			sexPositionPreferences.add(SexPositionSlot.CHAIR_BOTTOM);
 		}
 		
@@ -2780,7 +2778,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 				
-				if (getHistory() == History.PROSTITUTE) {
+				if (getHistory() == History.NPC_PROSTITUTE) {
 					if(Sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}

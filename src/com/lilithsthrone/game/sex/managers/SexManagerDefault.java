@@ -41,7 +41,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	private SexPositionType position;
 	private Map<GameCharacter, SexPositionSlot> dominants;
 	private Map<GameCharacter, SexPositionSlot> submissives;
-	protected Map<GameCharacter, List<SexAreaOrifice>> orificesBannedMap;
+	protected Map<GameCharacter, List<SexAreaInterface>> orificesBannedMap;
 	
 	public SexManagerDefault(SexPositionType position, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
 		if(dominants.size()+submissives.size()>position.getMaximumSlots()) {
@@ -82,7 +82,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		return submissives;
 	}
 
-	public Map<GameCharacter, List<SexAreaOrifice>> getOrificesBannedMap() {
+	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 		return orificesBannedMap;
 	}
 	
@@ -472,7 +472,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType() == SexActionType.STOP_ONGOING) {
 					// Don't stop kissing or fetishised oral actions:
-					if(!(action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE) && action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
+					if(!((action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+							|| action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
+							&& (action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+									|| action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH)))
 							&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
 									&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
 							&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)

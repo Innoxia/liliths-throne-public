@@ -119,13 +119,11 @@ public class SupplierLeader extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
-	
+
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-		}
+	public void endSex() {
+		setPendingClothingDressing(true);
 	}
-	
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {

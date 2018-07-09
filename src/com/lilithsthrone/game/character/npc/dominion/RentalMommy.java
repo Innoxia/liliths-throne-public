@@ -99,7 +99,7 @@ public class RentalMommy extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			this.setHistory(History.PROSTITUTE);
+			this.setHistory(History.NPC_PROSTITUTE);
 
 			this.setPersonalityTrait(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE);
 			this.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
@@ -201,7 +201,7 @@ public class RentalMommy extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override

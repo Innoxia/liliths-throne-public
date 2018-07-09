@@ -50,7 +50,7 @@ public class FingerNipple {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] to gently pinch and rub at [npc2.namePos] [npc2.nipples+].",
+							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] to gently pinch and rub at [npc2.her] [npc2.nipples+].",
 
 							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with a soft little [npc.moan], [npc.she] [npc.verb(start)] gently tugging and pinching [npc2.her] [npc2.nipples+].",
@@ -59,7 +59,7 @@ public class FingerNipple {
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.namePos] [npc2.nipples+].",
+							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.her] [npc2.nipples+].",
 
 							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] eagerly tugging and pinching [npc2.her] [npc2.nipples+].",
@@ -69,7 +69,7 @@ public class FingerNipple {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to [npc2.namePos] [npc2.breasts+],"
-									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] roughly groping [npc2.namePos] chest, before moving up to forcefully pinch and squeeze [npc2.namePos] [npc2.nipples+].",
+									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] roughly groping [npc2.namePos] chest, before moving up to forcefully pinch and squeeze [npc2.her] [npc2.nipples+].",
 
 							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] roughly pinching and squeezing [npc2.her] [npc2.nipples+].",
@@ -79,7 +79,7 @@ public class FingerNipple {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.namePos] [npc2.nipples+].",
+							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.her] [npc2.nipples+].",
 
 							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] eagerly tugging and pinching [npc2.her] [npc2.nipples+].",
@@ -88,7 +88,7 @@ public class FingerNipple {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pinch and rub at [npc2.namePos] [npc2.nipples+].",
+							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pinch and rub at [npc2.her] [npc2.nipples+].",
 
 							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] tugging and pinching [npc2.her] [npc2.nipples+].",
@@ -507,7 +507,7 @@ public class FingerNipple {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breasts+],"
-									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.she] circles around one of [npc2.her] [npc2.nipples+], before slowly pushing [npc.her] digits into [npc2.namePos] inviting orifice.",
+									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.name] circles around one of [npc2.her] [npc2.nipples+], before slowly pushing [npc.her] digits into [npc2.her] inviting orifice.",
 
 							"[npc.Name] [npc.verb(press)] [npc.her] [npc.fingers] against one of [npc2.namePos] [npc2.nipples+],"
 									+ " and with a slow, steady pressure, [npc.she] gently [npc.verb(sink)] [npc.her] digits into the flesh of [npc2.namePos] breast."));
@@ -515,7 +515,7 @@ public class FingerNipple {
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breasts+],"
-									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.she] circles around one of [npc2.her] [npc2.nipples+], before eagerly pushing [npc.her] digits into [npc2.namePos] inviting orifice.",
+									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.name] circles around one of [npc2.her] [npc2.nipples+], before eagerly pushing [npc.her] digits into [npc2.her] inviting orifice.",
 
 							"[npc.Name] [npc.verb(press)] [npc.her] [npc.fingers] against one of [npc2.namePos] [npc2.nipples+],"
 									+ " and with a steady pressure, [npc.she] greedily [npc.verb(sink)] [npc.her] digits into the flesh of [npc2.namePos] breast."));
@@ -531,7 +531,7 @@ public class FingerNipple {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breasts+],"
-									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.she] eagerly circles around one of [npc2.her] [npc2.nipples+], before desperately pushing [npc.her] digits into [npc2.namePos] inviting orifice.",
+									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.name] eagerly circles around one of [npc2.her] [npc2.nipples+], before desperately pushing [npc.her] digits into [npc2.her] inviting orifice.",
 
 							"[npc.Name] [npc.verb(press)] [npc.her] [npc.fingers] against one of [npc2.namePos] [npc2.nipples+],"
 									+ " and with a steady pressure, [npc.she] eagerly [npc.verb(sink)] [npc.her] digits into the flesh of [npc2.namePos] breast."));
@@ -539,7 +539,7 @@ public class FingerNipple {
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breasts+],"
-									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.she] circles around one of [npc2.her] [npc2.nipples+], before eagerly pushing [npc.her] digits into [npc2.namePos] inviting orifice.",
+									+ " [npc2.name] [npc2.verb(let)] out a gasp as [npc.name] circles around one of [npc2.her] [npc2.nipples+], before eagerly pushing [npc.her] digits into [npc2.her] inviting orifice.",
 
 							"[npc.Name] [npc.verb(press)] [npc.her] [npc.fingers] against one of [npc2.namePos] [npc2.nipples+],"
 									+ " and with a steady pressure, [npc.she] greedily [npc.verb(sink)] [npc.her] digits into the flesh of [npc2.namePos] breast."));

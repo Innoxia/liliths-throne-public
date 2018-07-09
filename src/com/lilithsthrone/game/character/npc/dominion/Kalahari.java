@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -74,11 +75,9 @@ public class Kalahari extends NPC {
 			this.setFemininity(85);
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			Colour primaryColour = Colour.COVERING_TAN;
-			Colour secondaryColour = Colour.COVERING_BLACK;
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColour, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColour, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_TANNED, false, Colour.SKIN_TANNED, false));
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, Colour.COVERING_TAN, false, Colour.COVERING_BLACK, false), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false), true);
 			
 			this.setHairStyle(HairStyle.WAVY);
 			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -90,6 +89,7 @@ public class Kalahari extends NPC {
 			this.setHeight(179);
 			
 			this.setBreastSize(CupSize.C.getMeasurement());
+			this.setBreastShape(BreastShape.PERKY);
 			
 			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -109,15 +109,25 @@ public class Kalahari extends NPC {
 			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
 
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 25);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 80);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
 		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, Colour.COVERING_TAN, false, Colour.COVERING_BLACK, false), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false), true);
+		
+		this.setBreastShape(BreastShape.PERKY);
+
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 25);
+		this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
 	}
 
 	@Override
@@ -126,10 +136,8 @@ public class Kalahari extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			setPendingClothingDressing(true);
-		}
+	public void endSex() {
+		this.replaceAllClothing();
 	}
 	
 	@Override

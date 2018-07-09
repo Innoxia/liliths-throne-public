@@ -65,9 +65,9 @@ public class StocksSex {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMStocks(
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
@@ -114,9 +114,9 @@ public class StocksSex {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMStocks(
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
@@ -163,9 +163,9 @@ public class StocksSex {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMStocks(
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
-					!Sex.getSexManager().getOrificesBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.ANUS),
+					!Sex.getSexManager().getAreasBannedMap().get(Sex.getActivePartner()).contains(SexAreaOrifice.MOUTH),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			

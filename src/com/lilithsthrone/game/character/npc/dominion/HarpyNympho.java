@@ -152,7 +152,7 @@ public class HarpyNympho extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override
@@ -194,7 +194,9 @@ public class HarpyNympho extends NPC {
 
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
+		if(user.isPlayer()
+				&& !target.isPlayer()
+				&& (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
 			if(Sex.isDom(Main.game.getPlayer())) {
 				Main.game.getPlayer().removeItem(item);
 				return "<p>"
