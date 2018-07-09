@@ -37,23 +37,6 @@
 	
 	Patch notes:
 	
-	Other:
-		Added ongoing descriptions for handjobs.
-	
-	Bugs:
-		<b>Fixed:</b> A couple of causes of the game soft-locking upon orgasm.
-		Fixed 'Resist fingering' being available while fingering your partner's anus.
-		Fixed tooltips not working correctly in the final action of sex.
-		Fixed a cause of a lot of parsing errors in the nightclub.
-		Fixed incorrect ongoing kissing descriptions.
-		Fixed issue where you'd be unable to move after telling Kruger that you're leaving.
-		Typo fixes.
-		Fixed incorrect initial penis penetration parsing.
-		Fixed incorrect descriptions of having your parts revealed in sex. (Things like 'You lets out a moan as...', instead of 'Lilaya lets out a moan as...')
-		Fixed incorrect descriptions of targeted areas in orgasm tooltips.
-	
-	
-	
 	
 	Add character import to club
 	Gloryholes
@@ -69,7 +52,7 @@
 		(It seems as though conditional parsing is being done using activeNPC, instead of the npc that normal parsing is using)
 	
 	
-	
+	"and, getting you to stand up, she sits pulls you down onto her lap"
 	
 	
 	it said I lost my penile virginity despite not even having a penis
@@ -79,6 +62,11 @@
 	Dress under jacket not visible
 	
 	"about his job as an unemployed." nightclub
+	
+	That said Lilaya refuses to let me suck on her delicious demon girlcock on my own initiative even if I have the dom fetish, oral performer, cock addict, cum addict and all that stuff. Can't even change position nine times out of ten.
+
+	The only issue I've been having is that I have not being able to fuck nipple-vaginas with my cock. It seems regardless of what position I use they can fuck my nipples but the option to fuck theirs is either greyed out or doesn't exist. I can use tails to do so sometimes but not use a cock.
+
 	
 	
 	Broken condom
