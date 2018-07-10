@@ -678,7 +678,7 @@ public class UtilText {
 					}
 				}
 				
-				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+				if (openBrackets>0 && (Character.isLetterOrDigit(c) || c=='+' || c=='.' || c=='[' || c=='(')) {
 					sb.append(c);
 				}
 				
@@ -4844,7 +4844,7 @@ public class UtilText {
 			command = command.split("_")[1];
 			parseAddPronoun = true;
 		} 
-			
+		
 		if(Character.isUpperCase(command.charAt(0))) {
 			parseCapitalise = true;
 		}
