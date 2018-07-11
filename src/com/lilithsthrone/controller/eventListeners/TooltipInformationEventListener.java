@@ -605,7 +605,7 @@ public class TooltipInformationEventListener implements EventListener {
 					
 				} else {
 					CachedImage image = null;
-					if (!owner.getArtworkList().isEmpty()) {
+					if (owner.hasArtwork()) {
 						image = ImageCache.INSTANCE.requestImage(new File(owner.getCurrentArtwork().getCurrentImage()));
 					}
 					boolean displayImage = image != null

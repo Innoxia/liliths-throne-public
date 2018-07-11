@@ -545,11 +545,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		calculateStatusEffects(0);
 
-		// Load artworks for predefined characters
 		artworkList = new ArrayList<>();
-		if (nameTriplet != null) {
-			loadImages();
-		}
 	}
 	
 
@@ -1047,7 +1043,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			psychoactives.appendChild(element);
 			CharacterUtils.addAttribute(doc, element, "value", ft.toString());
 		}
-		
+
+
+
+		// ************** Artwork overrides **************//
+
+		if (hasArtwork()) {
+			Element artworkOverride = doc.createElement("artwork");
+			properties.appendChild(artworkOverride);
+
+			int index = getArtworkIndex();
+			if (index != getDefaultArtworkIndex()) {
+				Element artistElement = doc.createElement("overrideArtist");
+				artworkOverride.appendChild(artistElement);
+				CharacterUtils.addAttribute(doc, artistElement, "index", String.valueOf(index));
+			}
+
+			index = getCurrentArtwork().getIndex();
+			if (getCurrentArtwork().getIndex() != 0) {
+				Element imageElement = doc.createElement("overrideImage");
+				artworkOverride.appendChild(imageElement);
+				CharacterUtils.addAttribute(doc, imageElement, "index", String.valueOf(index));
+			}
+		}
+
 		return properties;
 	}
 	
@@ -1079,7 +1098,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set id: " + character.getId());
 		}
 
-		boolean deferredImageLoading = character.getNameTriplet() == null;
 		// Name:
 		Element nameElement = (Element) element.getElementsByTagName("name").item(0);
 		String nameElementValue = nameElement.getAttribute("value");
@@ -1398,11 +1416,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
 		if(!setGenderIdentity) {
 			character.setGenderIdentity(character.getGender());
-		}
-
-		// Initialize artworks after name and femininity is available
-		if (deferredImageLoading && character.getArtworkList().isEmpty()) {
-			character.loadImages();
 		}
 		
 		
@@ -2033,9 +2046,38 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		}
+
+
+		// ************** Artwork **************//
+
+		// Retrieve overrides for artist and image index
+		nodes = parentElement.getElementsByTagName("artwork");
+		int artistIndex = -1, imageIndex = -1;
+		if (nodes.getLength() > 0) {
+			Element artworkElement = (Element) nodes.item(0);
+			nodes = artworkElement.getElementsByTagName("overrideArtist");
+			if (nodes.getLength() > 0) {
+				Element artistElement = (Element) nodes.item(0);
+				artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
+			}
+
+			nodes = artworkElement.getElementsByTagName("overrideImage");
+			if (nodes.getLength() > 0) {
+				Element artistElement = (Element) nodes.item(0);
+				imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
+			}
+		}
+
+		// Initialize artworks (name and femininity must be set at this point)
+		character.loadImages(artistIndex, imageIndex);
 	}
 
-	public void loadImages() {
+	/**
+	 * Load or reload all artworks associated with the character and cache the image given by the indices.
+	 * @param artistIndex Overrides the default artist, pass -1 to ignore
+	 * @param imageIndex Overrides the default image, pass -1 to ignore
+	 */
+	protected void loadImages(int artistIndex, int imageIndex) {
 		String folder = getArtworkFolderName();
 		if (folder.equals(artworkFolderName)) {
 			// Nothing changed, abort loading
@@ -2058,9 +2100,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 
-		if (!getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
-			ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
+		if (hasArtwork()) {
+			// Update artist and image index if present
+			if (artistIndex > -1) {
+				setArtworkIndex(artistIndex);
+			}
+			if (imageIndex > -1) {
+				getCurrentArtwork().setIndex(imageIndex);
+			}
+
+			// Cache the current image
+			if (Main.getProperties().hasValue(PropertyValue.artwork)) {
+				ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
+			}
 		}
+	}
+
+	/**
+	 * Load or reload all artworks associated with the character and cache the default image.
+	 */
+	public void loadImages() {
+		loadImages(-1, -1);
 	}
 	
 	public abstract boolean isUnique();
@@ -2096,37 +2156,39 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected StringBuilder infoScreenSB = new StringBuilder();
 
 	public Artwork getCurrentArtwork() {
-		// Index is not set, determine by artist
+		// Index is not set, use default
 		if(artworkIndex == -1) {
-			int i = 0;
-			for(Artwork art : getArtworkList()) {
-				// Always override with custom art
-				if(art.getArtist().getName().equals("Custom")) {
-					artworkIndex = i;
-					break;
-				}
-
-				// Otherwise, choose the preferred artist
-				if(art.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
-					artworkIndex = i;
-				}
-
-				++i;
-			}
-
-			// Neither preferred nor custom art exists, so pick the first in the list
-			if(artworkIndex == -1) {
-				artworkIndex = 0;
-			}
+			artworkIndex = getDefaultArtworkIndex();
 		}
 
 		return getArtworkList().get(artworkIndex);
+	}
+
+	protected int getDefaultArtworkIndex() {
+		// Determine index by artist, default to 0 (if neither preferred nor custom art exists)
+		int rv = 0, i = 0;
+		for(Artwork art : getArtworkList()) {
+			// Always override with custom art
+			if(art.getArtist().getName().equals("Custom")) {
+				rv = i;
+				break;
+			}
+
+			// Otherwise, choose the preferred artist
+			if(art.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+				rv = i;
+			}
+
+			++i;
+		}
+
+		return rv;
 	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 
-		if (!getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+		if (hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
 			Artwork artwork = this.getCurrentArtwork();
 			String imageString = "";
 			int width = 200;
@@ -2303,6 +2365,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected String getArtworkFolderName() {
 		// Get folder by class name if unique, character name otherwise
 		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+	}
+
+	public boolean hasArtwork() {
+		return !getArtworkList().isEmpty();
 	}
 
 	public List<Artwork> getArtworkList() {
