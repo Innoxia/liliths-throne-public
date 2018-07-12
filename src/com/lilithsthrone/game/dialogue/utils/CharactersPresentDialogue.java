@@ -34,13 +34,8 @@ public class CharactersPresentDialogue {
 		} else {
 			CharactersPresentDialogue.characterViewed = characterViewed;
 		}
-		if((!((NPC)CharactersPresentDialogue.characterViewed).isRaceConcealed())) {
-			menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
-			menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
-		} else {
-			menuTitle = "Characters Present";
-			menuContent = "You have not yet seen the true nature of this person";
-		}
+		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
+		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
 	}
 	
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("", "", true) {
@@ -100,12 +95,12 @@ public class CharactersPresentDialogue {
 					String description = "Take a detailed look at [npc.name].";
 					
 					if(charactersPresent.get(index - 1).equals(characterViewed)) {
-						if(!charactersPresent.get(index - 1).isRaceConcealed()) {
+						if(!charactersPresent.get(index - 1).isRaceConcealed() || charactersPresent.get(index - 1).isPlayerKnowsName()) {
 							title = "[style.colourDisabled([npc.Name])]";
 							description = "You are already looking at [npc.name]!";
 						}else {
 							title = "[style.colourDisabled(Unknown person)]";
-							description = "You don't know what the person look's like";
+							description = "You don't know what this person looks like!";
 						}
 							
 						
@@ -121,13 +116,8 @@ public class CharactersPresentDialogue {
 						@Override
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
-						if(!((NPC) charactersPresent.get(index - 1)).isRaceConcealed()) {	
 							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName())+")";
 							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
-						} else {
-							menuTitle = "Characters Present";
-							menuContent = "You have not yet seen the true nature of this person";
-						}
 						}
 					};
 					
