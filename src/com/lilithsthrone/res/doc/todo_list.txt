@@ -37,6 +37,7 @@
 		Converted and improved descriptions of all penis+breast (paizuri/naizuri) actions.
 		Converted all thigh-sex actions (and renamed the in-game labels to 'intercrural').
 		Converted all penis+vaginal urethra actions.
+		Converted miscellaneous actions in several other classes (orgasms, stocks/milking stall, cultist, kneeling-oral)
 	
 	Contributors:
 		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)
@@ -73,12 +74,15 @@
 		Fixed several minor formatting errors in ass, penis, testicle, clit, and vagina TFs.
 		Fixed 'breastfeed' action not draining the character's milk.
 		Fixed issue with slaves not being sent to the correct milking room.
+		Fixed incorrect sex action tooltips in (hopefully) every scene.
+		Fixed parsing issues related to NPCs equipping weapons.
 	
 	
 	
 	
-	CONVERSIONS
-		All specials! (collapse down onto face orgasm is messed up descriptions)
+	gloryhole
+	
+	Add character import to club
 	
 	NPCs to use condoms
 	
@@ -90,9 +94,6 @@
 	
 	Sex intros for random NPCs
 	
-	Giving other people weapons not correct description (demonstone going into your body)
-	
-	
 	PRs
 	
 	Give control over ages
@@ -101,8 +102,6 @@
 	TF fetish NPCs should always let you TF them (NC NPCS)
 		 i try to change someone i meet at the watering hole, but they refuse to take a tf potion despite them having the fetish
 	
-	Add character import to club
-	Gloryholes
 	Kalahari & Kruger drink spiking to give incest fetish for threesome
 	Dom partner
 	

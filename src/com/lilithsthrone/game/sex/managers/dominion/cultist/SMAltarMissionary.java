@@ -15,7 +15,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
@@ -34,7 +34,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 		}
 		
 		if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
-			return CultistSexActions.PARTNER_SEALED;
+			return CultistSexActions.SEALED;
 			
 		} else {
 			return super.getPartnerSexAction(sexActionPlayer);

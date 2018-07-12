@@ -3236,8 +3236,7 @@ public class NightlifeDistrict {
 					return new Response("Toilet", "Use the toilet.", WATERING_HOLE_TOILETS_USE);
 					
 				}
-				//TODO needs new sex manager and descriptions
-//				else if(index==2) {
+//				else if(index==2) {//TODO needs new sex manager and descriptions
 //					return new Response("Gloryhole (dom)", "A couple of the toilet's stalls have gloryholes in them. Step up to one and have the person on the other side service you.", null);
 //					
 //				} else if(index==3) {

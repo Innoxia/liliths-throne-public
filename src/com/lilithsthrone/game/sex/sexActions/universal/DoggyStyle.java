@@ -56,7 +56,7 @@ public class DoggyStyle {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Turn your head back and give [pc.name] a seductive look.";
+			return "Turn your head back and give [npc2.name] a seductive look.";
 		}
 
 		@Override
@@ -97,7 +97,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Start slapping [npc.namePos] ass.";
+			return "Start slapping [npc2.namePos] ass.";
 		}
 
 		@Override
@@ -216,7 +216,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Cum over [npc.namePos] ass and back.";
+			return "Cum over [npc2.namePos] ass and back.";
 		}
 
 		@Override
@@ -380,7 +380,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Roughly fuck [npc.name] into the floor before filling [npc.her] [npc.ass] with your cum. Then use [npc.her] mouth to clean yourself off.";
+			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.ass] with your cum. Then use [npc2.her] mouth to clean yourself off.";
 		}
 
 		@Override
@@ -492,7 +492,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Roughly fuck [npc.name] into the floor before filling [npc.her] [npc.pussy] with your cum. Then use [npc.her] mouth to clean yourself off.";
+			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.pussy] with your cum. Then use [npc2.her] mouth to clean yourself off.";
 		}
 
 		@Override
@@ -604,7 +604,7 @@ public class DoggyStyle {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Turn your head back and give [npc.name] a seductive look.";
+			return "Turn your head back and give [npc2.name] a seductive look.";
 		}
 
 		@Override
@@ -644,7 +644,7 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
-			return "Roughly start spanking [pc.name].";
+			return "Roughly start spanking [npc2.name].";
 		}
 
 		@Override

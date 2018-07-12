@@ -247,7 +247,7 @@ public class MasturbationPanties {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Cum straight into Lilaya's panties.";
 		}
 
 		@Override

@@ -43,10 +43,7 @@ public class RalphOral {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Start sucking";
@@ -59,7 +56,8 @@ public class RalphOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyOngoingActionHappening();
+			return !Sex.isAnyOngoingActionHappening()
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -1494,7 +1492,7 @@ public class RalphOral {
 
 		@Override
 		public String getActionDescription() {
-			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Prepare yourself for it.";
+			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
 		
 		@Override

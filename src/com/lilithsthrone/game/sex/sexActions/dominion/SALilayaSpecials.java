@@ -10,7 +10,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -19,7 +18,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.7
- * @version 0.1.89
+ * @version 0.2.9
  * @author Innoxia
  */
 public class SALilayaSpecials {
@@ -32,10 +31,7 @@ public class SALilayaSpecials {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -51,7 +47,8 @@ public class SALilayaSpecials {
 			return (Main.game.getPlayer().getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue()
 					|| Sex.getActivePartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
 					&& !SexFlags.partnerRequestedPullOut
-					&& !Main.game.getLilaya().isVisiblyPregnant();
+					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -61,8 +58,8 @@ public class SALilayaSpecials {
 
 		@Override
 		public String getDescription() {
-			return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
-					+"[npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
+			return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you,"
+					+" [npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
 				
 		}
 
@@ -79,14 +76,11 @@ public class SALilayaSpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
+			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -101,7 +95,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public String getActionDescription() {
-			return "You can feel that [pc.name] is fast approaching [pc.her] orgasm. Prepare yourself for it.";
+			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
 		
 		@Override
@@ -132,10 +126,7 @@ public class SALilayaSpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -149,7 +140,8 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.game.getLilaya().isVisiblyPregnant();
+					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -177,10 +169,7 @@ public class SALilayaSpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -194,7 +183,8 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getActivePartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
-					&& !Main.game.getLilaya().isVisiblyPregnant();
+					&& !Main.game.getLilaya().isVisiblyPregnant()
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override

@@ -5,13 +5,12 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.2.9
  * @author Innoxia
  */
 public class AmberSpecials {
@@ -23,10 +22,7 @@ public class AmberSpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -40,7 +36,8 @@ public class AmberSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1
-					&& Sex.isDom(Sex.getActivePartner());
+					&& Sex.isDom(Sex.getActivePartner())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override

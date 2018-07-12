@@ -170,7 +170,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return Sex.getActivePartner().getName("The") + " doesn't make a move.";
+			return "[npc.Name] doesn't make a move.";
 		}
 	};
 	

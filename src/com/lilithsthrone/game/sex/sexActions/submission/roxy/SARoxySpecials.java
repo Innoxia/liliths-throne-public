@@ -5,16 +5,16 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.2.9
  * @author Innoxia
  */
 public class SARoxySpecials {
@@ -26,10 +26,6 @@ public class SARoxySpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public String getActionTitle() {
@@ -43,7 +39,7 @@ public class SARoxySpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return true;
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -63,7 +59,7 @@ public class SARoxySpecials {
 							+ " Your enthusiastic response causes Roxy to suddenly clamp her thighs down around your head, and you feel her [roxy.pussy] quivering and squeezing down around your tongue as she reaches her orgasm."
 							+ " [roxy.speechNoEffects(Fuck! ~Aah!~ Fuck! Yes! ~Aaah!~)]"
 						+ "<br/><br/>"
-							+ "As Roxy screams, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+], directly into your open mouth."
+							+ "As Roxy screams, a huge spurt of female ejaculate squirts out from [roxy.her] [roxy.pussy+], directly into your open mouth."
 							+ " [roxy.speechNoEffects(~Aah!~)] the rat-girl screams, [roxy.speechNoEffects(Fuckin' drink it down! ~Mmm!~ Yes!)]"
 						+ "<br/><br/>"
 							+ "Not needing to be told twice, you hungrily gulp down Roxy's addictive juices, thrusting your tongue up into her [roxy.pussy+] to try and get as much of it into your mouth as possible."
@@ -87,7 +83,7 @@ public class SARoxySpecials {
 							+ " Your enthusiastic response causes Roxy to suddenly clamp her thighs down around your head, and you feel her [roxy.pussy] quivering and squeezing down around your tongue as she reaches her orgasm."
 							+ " [roxy.speechNoEffects(Fuck! ~Aah!~ Fuck! Yes! ~Aaah!~)]"
 							+ "<br/><br/>"
-							+ "As Roxy screams, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+], directly into your open mouth."
+							+ "As Roxy screams, a huge spurt of female ejaculate squirts out from [roxy.her] [roxy.pussy+], directly into your open mouth."
 							+ " [roxy.speechNoEffects(~Aah!~)] the rat-girl screams, [roxy.speechNoEffects(Fuckin' drink it down! ~Mmm!~ Yes!)]"
 						+ "<br/><br/>"
 							+ "With little option but to do as she says, you gulp down Roxy's juices, before continuing to thrust your tongue up into her [roxy.pussy+]."

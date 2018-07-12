@@ -91,7 +91,7 @@ public class PixShower {
 
 		@Override
 		public String getActionDescription() {
-			return "Reach up and pinch your [pc.nipples+].";
+			return "Reach up and pinch your [npc.nipples+].";
 		}
 
 		@Override
@@ -307,7 +307,7 @@ public class PixShower {
 
 		@Override
 		public String getActionDescription() {
-			return "Grind your [pc.pussy] down against Pix's hand.";
+			return "Grind your [npc.pussy] down against Pix's hand.";
 		}
 
 		@Override
@@ -809,7 +809,7 @@ public class PixShower {
 
 		@Override
 		public String getActionDescription() {
-			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Prepare yourself for it.";
+			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
 		
 		@Override
@@ -999,7 +999,7 @@ public class PixShower {
 
 		@Override
 		public String getActionDescription() {
-			return "You can feel that [pc.name] is fast approaching [pc.her] orgasm. Prepare yourself for it.";
+			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
 		
 		@Override

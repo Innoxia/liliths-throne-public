@@ -24,7 +24,6 @@ import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -33,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.2.7
+ * @version 0.2.9
  * @author Innoxia
  */
 public class GenericOrgasms {
@@ -2990,14 +2989,11 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !isTakingCock(Sex.getActivePartner());
+			return !isTakingCock(Sex.getActivePartner())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -3043,10 +3039,7 @@ public class GenericOrgasms {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -3059,7 +3052,9 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isTakingCock(Sex.getActivePartner()) && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
+			return isTakingCock(Sex.getActivePartner())
+					&& Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -3141,10 +3136,7 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -3164,7 +3156,8 @@ public class GenericOrgasms {
 							:true)
 						&& (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 							?(!Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY))
-							:true)));
+							:true)))
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -3209,10 +3202,7 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";
@@ -3225,7 +3215,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return true;
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3255,10 +3245,6 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public SexActionPriority getPriority() {
@@ -3336,11 +3322,9 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(Sex.getActivePartner().getPenisType()==PenisType.DILDO) {
-				return false;
-			}
-			
-			if(Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
+			if(Sex.getCharacterPerformingAction().isPlayer()
+					|| Sex.getActivePartner().getPenisType()==PenisType.DILDO
+					|| Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
 			
@@ -3406,14 +3390,12 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.FLOOR);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.FLOOR)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3448,14 +3430,12 @@ public class GenericOrgasms {
 	
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_WALL = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.WALL);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.WALL)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3483,14 +3463,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_ASS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.ASS);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.ASS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3503,7 +3481,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.ass+].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] [npc2.ass+].";
 		}
 
 		@Override
@@ -3529,14 +3507,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_GROIN = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.GROIN);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.GROIN)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3549,7 +3525,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] groin.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] groin.";
 		}
 
 		@Override
@@ -3575,14 +3551,12 @@ public class GenericOrgasms {
 	};
 
 	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_GROIN = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_GROIN);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_GROIN)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3622,14 +3596,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_BREASTS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.BREASTS);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.BREASTS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3642,7 +3614,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] chest.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] chest.";
 		}
 
 		@Override
@@ -3667,14 +3639,12 @@ public class GenericOrgasms {
 	};
 
 	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_BREASTS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_BREASTS);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_BREASTS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3713,14 +3683,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_FACE = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.FACE);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.FACE)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3733,7 +3701,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] face.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] face.";
 		}
 
 		@Override
@@ -3758,14 +3726,12 @@ public class GenericOrgasms {
 	};
 
 	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_FACE = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_FACE);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_FACE)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3804,14 +3770,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_HAIR = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.HAIR);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.HAIR)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3819,12 +3783,12 @@ public class GenericOrgasms {
 			if(!Sex.getCharactersHavingOngoingActionWith(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (hair)";
 			}
-			return "Cum in [npc.hair]";
+			return "Cum in [npc2.hair]";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc.namePos] [npc.hair].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum into [npc2.namePos] [npc2.hair].";
 		}
 
 		@Override
@@ -3849,14 +3813,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_STOMACH = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.STOMACH);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.STOMACH)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3869,7 +3831,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] stomach.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] stomach.";
 		}
 
 		@Override
@@ -3894,14 +3856,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_STOMACH = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_STOMACH);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_STOMACH)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3940,14 +3900,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_LEGS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.LEGS);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.LEGS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -3960,7 +3918,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] [npc.legs].";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] [npc2.legs].";
 		}
 
 		@Override
@@ -3985,14 +3943,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_LEGS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_LEGS);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_LEGS)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -4032,14 +3988,12 @@ public class GenericOrgasms {
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_BACK = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.BACK);
+			return isGenericPartnerCumTargetRequirementsMet()
+					&& Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.BACK)
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -4052,7 +4006,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc.namePos] back.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] back.";
 		}
 
 		@Override
@@ -4083,14 +4037,11 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexFlags.playerDeniedPartner;
+			return SexFlags.playerDeniedPartner
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override

@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -58,12 +57,12 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Swap [npc.verb(position)] with [npc2.name].";
+			return "Swap position with [npc2.name].";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.name], you move [npc2.herHim] around and swap [npc.verb(position)] with [npc2.herHim], before [npc.moaning],"
+			return "Taking hold of [npc2.name], you move [npc2.herHim] around and swap position with [npc2.herHim], before [npc.moaning],"
 					+ " [npc.speech(It'll be more fun like this!)]";
 		}
 
@@ -420,10 +419,6 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -441,7 +436,8 @@ public class ToiletStall {
 					|| SexFlags.requestedMissionaryOnBack
 					|| SexFlags.requestedSitOnFace
 					|| SexFlags.requestedFaceSitting)
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -801,10 +797,6 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -813,7 +805,8 @@ public class ToiletStall {
 					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& Sex.getActivePartner().hasPenis()
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -850,10 +843,6 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -861,7 +850,8 @@ public class ToiletStall {
 					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
 					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -899,10 +889,6 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -910,7 +896,8 @@ public class ToiletStall {
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
 					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -947,10 +934,6 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -958,7 +941,8 @@ public class ToiletStall {
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
 					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
