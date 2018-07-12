@@ -95,8 +95,14 @@ public class CharactersPresentDialogue {
 					String description = "Take a detailed look at [npc.name].";
 					
 					if(charactersPresent.get(index - 1).equals(characterViewed)) {
-						title = "[style.colourDisabled([npc.Name])]";
-						description = "You are already looking at [npc.name]!";
+						if(!charactersPresent.get(index - 1).isRaceConcealed() || charactersPresent.get(index - 1).isPlayerKnowsName()) {
+							title = "[style.colourDisabled([npc.Name])]";
+							description = "You are already looking at [npc.name]!";
+						}else {
+							title = "[style.colourDisabled(Unknown person)]";
+							description = "You don't know what this person looks like!";
+						}
+							
 						
 					} else if(Main.game.getPlayer().hasCompanion(charactersPresent.get(index - 1))) {
 						title = "[style.colourCompanion([npc.Name])]";
@@ -110,7 +116,6 @@ public class CharactersPresentDialogue {
 						@Override
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
-							
 							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName())+")";
 							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
 						}
@@ -195,6 +200,7 @@ public class CharactersPresentDialogue {
 									
 									Main.game.setResponseTab(0);
 									characterViewed = charactersPresent.get(0);
+									//no need for character conceal check since its for follower
 									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
 									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
 								}

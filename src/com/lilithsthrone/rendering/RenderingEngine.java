@@ -61,7 +61,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.9
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -1135,19 +1135,35 @@ public enum RenderingEngine {
 			} else {
 				int count = 0;
 				for(NPC character : charactersPresent) {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-								+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
-									+ "<div class='icon-content'>"
-										+ (character.isRaceConcealed()?SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown():character.getMapIcon())
+//					if(!character.isRaceConcealed()) {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
+									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+										+ "<div class='icon-content'>"
+											+ (character.isRaceConcealed()?SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown():character.getMapIcon())
+										+ "</div>"
 									+ "</div>"
-								+ "</div>"
-								+" <div style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
-									+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")
-									+ "<div class='overlay-inventory' id='NPC_" + character.getId() + "_" + Attribute.EXPERIENCE.getName() + "' style='width:calc(11% + 8px);'></div>"
-									+ "<div class='overlay-inventory' id='NPC_"+character.getId()+"_ATTRIBUTES' style='width:calc(89% - 8px); left:calc(11% + 8px);'></div>"
-								+"</div>"
-							+ "</div>");
+									+" <div style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
+										+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")
+										+ "<div class='overlay-inventory' id='NPC_" + character.getId() + "_" + Attribute.EXPERIENCE.getName() + "' style='width:calc(11% + 8px);'></div>"
+										+ "<div class='overlay-inventory' id='NPC_"+character.getId()+"_ATTRIBUTES' style='width:calc(89% - 8px); left:calc(11% + 8px);'></div>"
+									+"</div>"
+								+ "</div>");
+//					} else {
+//						uiAttributeSB.append(
+//								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
+//									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+//										+ "<div class='icon-content'>"
+//											+ (character.isRaceConcealed()?SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown():character.getMapIcon())
+//										+ "</div>"
+//									+ "</div>"
+//									+" <div style='color:"+Colour.BASE_GREY_DARK.toWebHexString()+";'>"
+//										+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+ (character.isPlayerKnowsName()?character.getName("A"):"Unknown person")
+//										+ "<div class='overlay-inventory' id='NPC_" + character.getId() + "_" + Attribute.EXPERIENCE.getName() + "' style='width:calc(11% + 8px);'></div>"
+//										+ "<div class='overlay-inventory' id='NPC_"+character.getId()+"_ATTRIBUTES' style='width:calc(89% - 8px); left:calc(11% + 8px);'></div>"
+//									+"</div>"
+//								+ "</div>");
+//					}//The commented section remove the ability to click the character to see the character present dialogue and the overlay that contain the stats. Clicking on the icon will still bring you to the character present dialogue
 					count++;
 				}
 			}

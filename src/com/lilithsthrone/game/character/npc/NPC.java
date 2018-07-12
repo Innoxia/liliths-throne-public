@@ -258,14 +258,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public String getPresentInTileDescription() {
 		StringBuilder tileSB = new StringBuilder();
 		
-		tileSB.append(
-				UtilText.parse(this,
-						"<p style='text-align:center;'>"
-						+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-						+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-						+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
+		if(!this.isRaceConcealed()) {		
+			tileSB.append(
+					UtilText.parse(this,
+							"<p style='text-align:center;'>"
+							+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
+							+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
+							+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
 						
-						+ "<p style='text-align:center;'>"));
+							+ "<p style='text-align:center;'>"));
+		} else {
+			tileSB.append(
+					UtilText.parse(this,
+							"<p style='text-align:center;'>"
+							+"<b>Someone or something is prowling this area!</b></p>"
+				
+							+ "<p style='text-align:center;'>"));
+		}
 				
 		// Combat:
 		if(this.getFoughtPlayerCount()>0) {

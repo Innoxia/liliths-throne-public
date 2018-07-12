@@ -2193,67 +2193,69 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ this.getDescription()
 				+ "</p>");
 		
-		if(!this.isPlayer()) {
-			infoScreenSB.append("<br/>"
-					+ "<h4>Relationships</h4>"
-					+ "<p>"
-						+ (Main.game.getPlayer().hasCompanion(this)
-								?UtilText.parse(this, "[style.boldCompanion(Companion:)]<br/>[npc.Name] is currently following you around as your companion.<br/><br/>")
-								:"")
-						+ "[style.boldAffection(Affection:)]<br/>"
-						+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-								AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
-			
-			for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
-				GameCharacter target = Main.game.getNPCById(entry.getKey());
-				if(target!=null && !target.isPlayer()) {
-					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+		if(!this.isRaceConcealed()) {
+			if(!this.isPlayer()) {
+				infoScreenSB.append("<br/>"
+						+ "<h4>Relationships</h4>"
+						+ "<p>"
+							+ (Main.game.getPlayer().hasCompanion(this)
+									?UtilText.parse(this, "[style.boldCompanion(Companion:)]<br/>[npc.Name] is currently following you around as your companion.<br/><br/>")
+									:"")
+							+ "[style.boldAffection(Affection:)]<br/>"
+							+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
+									AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
+				
+				for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
+					GameCharacter target = Main.game.getNPCById(entry.getKey());
+					if(target!=null && !target.isPlayer()) {
+						infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+					}
 				}
-			}
-		
-			infoScreenSB.append("<br/><br/>"
+			
+				infoScreenSB.append("<br/><br/>"
+							+ "[style.boldObedience(Obedience:)]<br/>"
+							+ UtilText.parse(this,
+									(this.isSlave()
+										?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
+										:"[npc.Name] [style.boldGood(is not a slave)]."))
+							+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
+				
+				if(!this.getSlavesOwned().isEmpty()) {
+					infoScreenSB.append("<br/><br/>"
+							+ "[style.boldArcane(Slaves owned:)]");
+					for(String id : this.getSlavesOwned()) {
+						infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "<br/>[npc.Name]"));
+					}
+				}
+				
+			} else {
+				infoScreenSB.append("<p>"
 						+ "[style.boldObedience(Obedience:)]<br/>"
 						+ UtilText.parse(this,
 								(this.isSlave()
-									?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
-									:"[npc.Name] [style.boldGood(is not a slave)]."))
+									?"You [style.boldArcane(are a slave)], owned by "+(this.getOwner().isPlayer()?"you! (How did this happen?!)":this.getOwner().getName("a")+".")
+									:"You [style.boldGood(are not a slave)]."))
 						+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
 			
-			if(!this.getSlavesOwned().isEmpty()) {
-				infoScreenSB.append("<br/><br/>"
-						+ "[style.boldArcane(Slaves owned:)]");
-				for(String id : this.getSlavesOwned()) {
-					infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "<br/>[npc.Name]"));
-				}
 			}
 			
-		} else {
-			infoScreenSB.append("<p>"
-					+ "[style.boldObedience(Obedience:)]<br/>"
-					+ UtilText.parse(this,
-							(this.isSlave()
-								?"You [style.boldArcane(are a slave)], owned by "+(this.getOwner().isPlayer()?"you! (How did this happen?!)":this.getOwner().getName("a")+".")
-								:"You [style.boldGood(are not a slave)]."))
-					+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
-		
+			infoScreenSB.append("<br/>"
+					+ "<h4>Personality</h4>"
+					+ "<p>");
+			for(PersonalityTrait trait : PersonalityTrait.values()) {
+				infoScreenSB.append("<b>"+trait.getName()+":</b> <i style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getNameFromWeight(this, this.getPersonality().get(trait)))+"</i><br/>"
+						+trait.getDescriptionFromWeight(this, this.getPersonality().get(trait))+"<br/>");
+			}
+			infoScreenSB.append("</p>");
+			
+			infoScreenSB.append("</p>"
+					+ "<br/>"
+						+ "<h4>Appearance</h4>"
+					+ "<p>"
+						+ this.getBodyDescription()
+					+ "</p>"
+					+ PhoneDialogue.getBodyStatsPanel(this));
 		}
-		
-		infoScreenSB.append("<br/>"
-				+ "<h4>Personality</h4>"
-				+ "<p>");
-		for(PersonalityTrait trait : PersonalityTrait.values()) {
-			infoScreenSB.append("<b>"+trait.getName()+":</b> <i style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getNameFromWeight(this, this.getPersonality().get(trait)))+"</i><br/>"
-					+trait.getDescriptionFromWeight(this, this.getPersonality().get(trait))+"<br/>");
-		}
-		infoScreenSB.append("</p>");
-		
-		infoScreenSB.append("</p>"
-				+ "<br/>"
-					+ "<h4>Appearance</h4>"
-				+ "<p>"
-					+ this.getBodyDescription()
-				+ "</p>"
-				+ PhoneDialogue.getBodyStatsPanel(this));
 		
 		return infoScreenSB.toString();
 	}

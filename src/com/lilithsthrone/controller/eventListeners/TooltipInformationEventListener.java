@@ -709,44 +709,54 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (extraAttributes) {
 
-			Main.mainController.setTooltipSize(400, 608);
-
-			tooltipSB.setLength(0);
-			tooltipSB.append(UtilText.parse(owner,
-					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"
-							+ (owner.getName().length() == 0
-								? "[npc.Race]"
-								: (owner.isPlayer()
-										?"[pc.Name]"
-										:"[npc.Name]"))
-						+ "</div>"
-					
-					+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
-							+ (10 * owner.getLevel()) + " xp</div>"
+//			if(owner.isRaceConcealed()) {
+//				Main.mainController.setTooltipSize(420, 64);
+//				
+//				tooltipSB.setLength(0);
+//				tooltipSB.append("<div class='title' style='color:" + Colour.RACE_UNKNOWN.toWebHexString() + ";'>"
+//						+ "Unknown Stats!"
+//						+ "</div>");
+//				
+//			} else {
+				Main.mainController.setTooltipSize(400, 608);
+	
+				tooltipSB.setLength(0);
+				tooltipSB.append(UtilText.parse(owner,
+						"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"
+								+ (owner.getName().length() == 0
+									? "[npc.Race]"
+									: (owner.isPlayer()
+											?"[pc.Name]"
+											:"[npc.Name]"))
+							+ "</div>"
+						
+						+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
+								+ (10 * owner.getLevel()) + " xp</div>"
+				
+						+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
+						+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
+	
+						+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
+						+ extraAttributeBonus(owner, Attribute.DAMAGE_SPELLS)
+						+ extraAttributeBonus(owner, Attribute.DAMAGE_MELEE_WEAPON)
+						+ extraAttributeBonus(owner, Attribute.DAMAGE_RANGED_WEAPON)
+	
+						// Header:
+						+ "<div class='subTitle-third combatValue'>" + "Type" + "</div>" + "<div class='subTitle-third combatValue'>" + "Damage" + "</div>" + "<div class='subTitle-third combatValue'>" + "Resist" + "</div>"
+	
+						// Values:
+						+ extraAttributeTableRow(owner, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
+						+ extraAttributeTableRow(owner, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
+						+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
+						+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
+						+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
+						
+						+ extraAttributeBonus(owner, Attribute.FERTILITY)
+						+ extraAttributeBonus(owner, Attribute.VIRILITY)
+						
+						+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)));
+//			}
 			
-					+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
-					+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
-
-					+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
-					+ extraAttributeBonus(owner, Attribute.DAMAGE_SPELLS)
-					+ extraAttributeBonus(owner, Attribute.DAMAGE_MELEE_WEAPON)
-					+ extraAttributeBonus(owner, Attribute.DAMAGE_RANGED_WEAPON)
-
-					// Header:
-					+ "<div class='subTitle-third combatValue'>" + "Type" + "</div>" + "<div class='subTitle-third combatValue'>" + "Damage" + "</div>" + "<div class='subTitle-third combatValue'>" + "Resist" + "</div>"
-
-					// Values:
-					+ extraAttributeTableRow(owner, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
-					+ extraAttributeTableRow(owner, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
-					+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
-					+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
-					+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
-					
-					+ extraAttributeBonus(owner, Attribute.FERTILITY)
-					+ extraAttributeBonus(owner, Attribute.VIRILITY)
-					
-					+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)));
-
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (weather) {
