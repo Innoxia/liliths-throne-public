@@ -35,6 +35,8 @@
 		Converted and improved descriptions of all penis+ass (hotdogging) actions.
 		Converted all penis+nipple actions.
 		Converted and improved descriptions of all penis+breast (paizuri/naizuri) actions.
+		Converted all thigh-sex actions (and renamed the in-game labels to 'intercrural').
+		Converted all penis+vaginal urethra actions.
 	
 	Contributors:
 		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)

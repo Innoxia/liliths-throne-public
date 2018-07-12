@@ -20,6 +20,8 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisThighs;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailVagina;
@@ -34,10 +36,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisUrethraPenis;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisUrethraVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisUrethraPenis;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisUrethraVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -77,7 +75,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.97
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public class SexActionPresets {
@@ -226,13 +224,6 @@ public class SexActionPresets {
 		miscActions.add(PlayerTalk.class);
 		miscActions.add(PartnerTalk.class);
 
-		
-		sexActions.add(PartnerPenisUrethraPenis.class);
-		sexActions.add(PartnerPenisUrethraVagina.class);
-		
-		sexActions.add(PlayerPenisUrethraPenis.class);
-		sexActions.add(PlayerPenisUrethraVagina.class);
-
 		// Finger actions:
 		sexActions.add(FingerAnus.class);
 		sexActions.add(FingerBreasts.class);
@@ -262,6 +253,8 @@ public class SexActionPresets {
 		sexActions.add(PenisVagina.class);
 		sexActions.add(PenisBreasts.class);
 		sexActions.add(PenisThighs.class);
+		sexActions.add(PenisUrethraVagina.class);
+		sexActions.add(PenisUrethraPenis.class);
 		
 //		selfActions.add(PlayerMasturbation.class);
 //		selfActions.add(PartnerMasturbation.class);
