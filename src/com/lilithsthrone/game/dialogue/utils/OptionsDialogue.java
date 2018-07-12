@@ -1472,21 +1472,29 @@ public class OptionsDialogue {
 								"ARTWORK",
 								Colour.BASE_BLUE_LIGHT,
 								"Artwork",
-								"Enables artwork to be displayed in unique characters' information screens.",
+								"Enables artwork to be displayed in characters' information screens.",
 								Main.getProperties().hasValue(PropertyValue.artwork)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("THUMBNAIL",
+								Colour.BASE_BLUE_STEEL,
+								"Thumbnails",
+								"Enables tooltips containing thumbnail images of the character.",
+								Main.getProperties().hasValue(PropertyValue.thumbnail)));
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
 			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
 			Collections.reverse(artists);// So that they're in alphabetical order
 			for(Artist artist : artists) {
-				UtilText.nodeContentSB.append(
-						(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-								?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:46%; margin-right:4%; text-align:center; float:right;'>"
-									+ "<span style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</span>"
-								+ "</div>"
-								:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:46%; margin-right:4%; text-align:center; float:right;'>"
-									+ "[style.colourDisabled("+artist.getName()+")]"
-								+ "</div>"));
+				if (!artist.getName().equals("Custom")) {
+					UtilText.nodeContentSB.append(
+							(Main.getProperties().preferredArtist.equals(artist.getFolderName())
+									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
+									+ "</div>"
+									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									+ "[style.boldDisabled("+artist.getName()+")]"
+									+ "</div>"));
+				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 

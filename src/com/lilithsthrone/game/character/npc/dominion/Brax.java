@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.io.File;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +75,6 @@ import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.Artist;
-import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -93,45 +89,6 @@ import com.lilithsthrone.world.places.PlaceType;
 public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
-
-	private static List<Artwork> braxArtwork = new ArrayList<>();
-	private static List<Artwork> breeArtwork = new ArrayList<>();
-	private static List<Artwork> brandiArtwork = new ArrayList<>();
-	
-	static {
-		String artworkFolderName = "Brax";
-				
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					braxArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-		
-		artworkFolderName = "Bree";
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					breeArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-		
-		artworkFolderName = "Brandi";
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					brandiArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-	}
 	
 	public Brax() {
 		this(false);
@@ -194,16 +151,8 @@ public class Brax extends NPC {
 	}
 
 	@Override
-	public List<Artwork> getArtworkList() {
-		if(this.getName().equalsIgnoreCase("Brax")) {
-			return braxArtwork;
-			
-		} else if(this.getName().equalsIgnoreCase("Bree")) {
-			return breeArtwork;
-			
-		} else {
-			return brandiArtwork;
-		}
+	protected String getArtworkFolderName() {
+		return this.getNameIgnoresPlayerKnowledge();
 	}
 	
 	@Override

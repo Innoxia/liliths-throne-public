@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.character;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -11,7 +9,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -23,8 +20,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.imageio.ImageIO;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -201,10 +198,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -250,6 +243,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	protected List<Artwork> artworkList;
 	private int artworkIndex = -1;
+	private String artworkFolderName = "";
 	
 	
 	// Location:
@@ -555,19 +549,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setMaxCompanions(1);
 		
 		calculateStatusEffects(0);
-		
+
 		artworkList = new ArrayList<>();
-		
-		String artworkFolderName = this.getClass().getSimpleName();
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					artworkList.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
 	}
 	
 
@@ -1067,7 +1050,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			psychoactives.appendChild(element);
 			CharacterUtils.addAttribute(doc, element, "value", ft.toString());
 		}
-		
+
+
+
+		// ************** Artwork overrides **************//
+
+		if (hasArtwork()) {
+			Element artworkOverride = doc.createElement("artwork");
+			properties.appendChild(artworkOverride);
+
+			int index = getArtworkIndex();
+			if (index != getDefaultArtworkIndex()) {
+				Element artistElement = doc.createElement("overrideArtist");
+				artworkOverride.appendChild(artistElement);
+				CharacterUtils.addAttribute(doc, artistElement, "index", String.valueOf(index));
+			}
+
+			index = getCurrentArtwork().getIndex();
+			if (getCurrentArtwork().getIndex() != 0) {
+				Element imageElement = doc.createElement("overrideImage");
+				artworkOverride.appendChild(imageElement);
+				CharacterUtils.addAttribute(doc, imageElement, "index", String.valueOf(index));
+			}
+		}
+
 		return properties;
 	}
 	
@@ -1098,7 +1104,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setId(loadedCharacterId);
 			CharacterUtils.appendToImportLog(log, "<br/>Set id: " + character.getId());
 		}
-		
+
 		// Name:
 		Element nameElement = (Element) element.getElementsByTagName("name").item(0);
 		String nameElementValue = nameElement.getAttribute("value");
@@ -2055,6 +2061,81 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		}
+
+
+		// ************** Artwork **************//
+
+		// Retrieve overrides for artist and image index
+		nodes = parentElement.getElementsByTagName("artwork");
+		int artistIndex = -1, imageIndex = -1;
+		if (nodes.getLength() > 0) {
+			Element artworkElement = (Element) nodes.item(0);
+			nodes = artworkElement.getElementsByTagName("overrideArtist");
+			if (nodes.getLength() > 0) {
+				Element artistElement = (Element) nodes.item(0);
+				artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
+			}
+
+			nodes = artworkElement.getElementsByTagName("overrideImage");
+			if (nodes.getLength() > 0) {
+				Element artistElement = (Element) nodes.item(0);
+				imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
+			}
+		}
+
+		// Initialize artworks (name and femininity must be set at this point)
+		character.loadImages(artistIndex, imageIndex);
+	}
+
+	/**
+	 * Load or reload all artworks associated with the character and cache the image given by the indices.
+	 * @param artistIndex Overrides the default artist, pass -1 to ignore
+	 * @param imageIndex Overrides the default image, pass -1 to ignore
+	 */
+	protected void loadImages(int artistIndex, int imageIndex) {
+		String folder = getArtworkFolderName();
+		if (folder.equals(artworkFolderName)) {
+			// Nothing changed, abort loading
+			return;
+		} else {
+			artworkList.clear();
+			artworkFolderName = folder;
+		}
+
+		if(!folder.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
+				if(f.exists()) {
+					Artwork art = new Artwork(folder, artist);
+					// Cull empty artwork lists
+					if (art.getTotalArtworkCount() > 0) {
+						artworkList.add(art);
+					}
+				}
+			}
+		}
+
+		if (hasArtwork()) {
+			// Update artist and image index if present
+			if (artistIndex > -1) {
+				setArtworkIndex(artistIndex);
+			}
+			if (imageIndex > -1) {
+				getCurrentArtwork().setIndex(imageIndex);
+			}
+
+			// Cache the current image
+			if (Main.getProperties().hasValue(PropertyValue.artwork)) {
+				ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
+			}
+		}
+	}
+
+	/**
+	 * Load or reload all artworks associated with the character and cache the default image.
+	 */
+	public void loadImages() {
+		loadImages(-1, -1);
 	}
 	
 	public abstract boolean isUnique();
@@ -2088,106 +2169,78 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	
 	protected StringBuilder infoScreenSB = new StringBuilder();
+
+	public Artwork getCurrentArtwork() {
+		// Index is not set, use default
+		if(artworkIndex == -1) {
+			artworkIndex = getDefaultArtworkIndex();
+		}
+
+		return getArtworkList().get(artworkIndex);
+	}
+
+	protected int getDefaultArtworkIndex() {
+		// Determine index by artist, default to 0 (if neither preferred nor custom art exists)
+		int rv = 0, i = 0;
+		for(Artwork art : getArtworkList()) {
+			// Always override with custom art
+			if(art.getArtist().getName().equals("Custom")) {
+				rv = i;
+				break;
+			}
+
+			// Otherwise, choose the preferred artist
+			if(art.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+				rv = i;
+			}
+
+			++i;
+		}
+
+		return rv;
+	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
-		
-		if(!this.getArtworkList().isEmpty()) {
-			if(Main.getProperties().hasValue(PropertyValue.artwork)) {
-				if(artworkIndex == -1) {
-					int i=0;
-					for(Artwork artworkIteration : this.getArtworkList()) {
-						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
-							artworkIndex = i;
-							break;
-						}
-						i++;
-					}
-					if(artworkIndex == -1) {
-						artworkIndex = 0;
-					}
-				}
-				Artwork artwork = this.getArtworkList().get(artworkIndex);
-				
-				int width = 200;
-				int height = 400;
-				try {
-					File f = new File(artwork.getCurrentImage());
-					BufferedImage image = ImageIO.read(f);
-					width = image.getWidth();
-					height = image.getHeight();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				boolean nakedRevealed = false;
-				
-				if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
-					nakedRevealed = true;
-				}
-				
-				BufferedImage bi = null;
-				String src = "";
-				
-				try {
-					bi = ImageIO.read(new File(artwork.getCurrentImage()));
 
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					if(artwork.getCurrentImage().endsWith("jpg")) {
-						ImageIO.write(bi, "JPG", out);
-					} else {
-						ImageIO.write(bi, "PNG", out);
-					}
-					byte[] bytes = out.toByteArray();
-
-					String base64bytes = Base64.getEncoder().encodeToString(bytes);
-					src = "data:image/png;base64," + base64bytes;
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-//				System.out.println(src);
-				
-				int percentageWidth = 33;
-
-				if(height>width) {
-					percentageWidth = 35;
-					
-				} else if(height==width) {
-					percentageWidth = 45;
-					
-				} else {
-					percentageWidth = 65;
-					
-				}
-				
-				infoScreenSB.append(
-						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
-							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+src+"'/>"//file:/
-								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-									+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-								+"</div>" 
-								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-							+ "</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-								
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-							+ "</div>");
-				
-			} else {
-//				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:30%; margin: 5%; text-align:center;'>"
-//						+ "[style.colourDisabled(Enable 'Artwork' in the Content Options screen to see this character's artwork!)]"
-//						+ "</div>");
-				
+		if (hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+			Artwork artwork = this.getCurrentArtwork();
+			String imageString = "";
+			int width = 200;
+			int percentageWidth = 33;
+			try {
+				CachedImage image = ImageCache.INSTANCE.getImage(new File(artwork.getCurrentImage()));
+				imageString = image.getImageString();
+				width = image.getWidth();
+				percentageWidth = image.getPercentageWidth();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			boolean nakedRevealed = false;
+			if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
+				nakedRevealed = true;
+			}
+
+			infoScreenSB.append(
+					"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
+							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
+							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
+							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
+							+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+							+"</div>"
+							+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "</div>"
+							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
+							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+
+							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
+							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+							+ "</div>");
 		}
-		
+
 		infoScreenSB.append("<h4>Background</h4>"
 				+ "<p>"
 					+ this.getDescription()
@@ -2211,7 +2264,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 					}
 				}
-			
+				
 				infoScreenSB.append("<br/><br/>"
 							+ "[style.boldObedience(Obedience:)]<br/>"
 							+ UtilText.parse(this,
@@ -2258,6 +2311,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		return infoScreenSB.toString();
+	}
+
+	protected String getArtworkFolderName() {
+		// Get folder by class name if unique, character name otherwise
+		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+	}
+
+	public boolean hasArtwork() {
+		return !getArtworkList().isEmpty();
 	}
 
 	public List<Artwork> getArtworkList() {
@@ -14142,6 +14204,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if (body.getFemininity() < femininity) {
 			if (body.setFemininity(femininity)) {
+				loadImages();
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.<br/>"
@@ -14159,6 +14222,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		} else {
 			if (body.setFemininity(femininity)) {
+				loadImages();
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.<br/>"
