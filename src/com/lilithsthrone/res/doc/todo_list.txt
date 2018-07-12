@@ -31,55 +31,30 @@
 	
 	Patch notes:
 	
-	Sex action conversions:
-		Converted and improved descriptions of all penis+ass (hotdogging) actions.
-		Converted all penis+nipple actions.
-		Converted and improved descriptions of all penis+breast (paizuri/naizuri) actions.
-		Converted all thigh-sex actions (and renamed the in-game labels to 'intercrural').
-		Converted all penis+vaginal urethra actions.
-		Converted miscellaneous actions in several other classes (orgasms, stocks/milking stall, cultist, kneeling-oral)
-	
-	Contributors:
-		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)
-		Improved aspects of the 'concealed race' mechanic. (Lightcanadian)
-	
-	Other:
-		Made you the dom in Lilaya's chair sex scenes, to give you control over positioning.
-		Added 'rainbow' as a dye colour for hair and other body coverings.
-		Area requests in sex are now available even if you're the dom.
-		Area requests in sex now work correctly, with your partner only saying 'no' if they dislike using that area, or if they're sadistic.
-		Changed clothing set bonuses to account for slots that are blocked by your racial parts. i.e. A horse-morph (with foot slot blocked due to hoofs) will still get the witch's set bonus if they are just wearing the hat & dress, ignoring the requirement to also be wearing the boots.
-		You no longer have the superpower of involuntarily pausing time while having sex. (Time now advances 1 minute per action.)
-		Improved sex status effect 'anus' icon.
-		Added sex status effect 'penis status' that's shown to indicate ongoing handjobs.
-		Cum and milk regeneration is no longer rounded to the nearest integer, to fix the issue of low cum storage values always regenerating very quickly.
-	
 	Bugs:
-		Fixed large underlying error in the game's parser that was causing some scenes to be displayed incorrectly. (This was mainly affecting the new dialogue in the nightclub.)
-		Fixed incorrect nipple fingering sex action description.
-		Typo fixes + fixing several grammatical errors in recently converted sex actions.
-		Fixed more 'command_unknown' errors.
-		Fixed 'Creampie' action's title sometimes not displaying.
-		Harpies spawning in the nightclub will now correctly be at a 'lesser' furry level (human with harpy arm-wings and legs, instead of fully bird-like).
-		Fixed impossible position of being able to ride the cock of someone who's locked in stocks while you're standing behind.
-		Fixed all cheetah genders always spawning in with breasts.
-		Fixed incorrect virginity loss descriptions.
-		Fixed incorrect positioning action descriptions in the toilet stall sex scene.
-		Fixed the female pregnancy roulette volunteers being named 'unknown male'.
-		Changing cum production in character creation no longer empties your balls.
-		Fixed 'Clit attention' action being available in resisting pace.
-		Fixed unintended ability to stop ongoing sex actions when having sex as a sub without equal control.
-		Fixed bug where you could spawn multiple elementals during combat.
-		Fixed a missing dialogue error when encountering slimes in the tunnels of Submission.
-		Fixed clit girth TF referencing a penis.
-		Fixed several minor formatting errors in ass, penis, testicle, clit, and vagina TFs.
-		Fixed 'breastfeed' action not draining the character's milk.
-		Fixed issue with slaves not being sent to the correct milking room.
-		Fixed incorrect sex action tooltips in (hopefully) every scene.
-		Fixed parsing issues related to NPCs equipping weapons.
+		Fixed Ralph having black fur, when he should have had dark brown.
 	
 	
 	
+	merging PRs
+	
+	Patreon credits and messages
+	
+	ongoing text not supplied correct body part: in and out of her somewhat tight .
+	
+	losing pure virginity parsing wrong
+	
+	Lumi
+	
+	Fox-morph intuition SE wrong colour
+	
+	In imported saves characters that were created during the 'most fluids now count as human fluids' bug era still retain human fluids despite having animal genitals
+	
+	I found a small bug during blow job my lips was "unknown_source"
+	
+	when cum production is disabled, cum doesn't regenerate?
+	
+	Still getting the "X has taken your penile virginity" bug as a female PC being penetrated in the latest hotfix v2. It happens with any hole, and happens with most NPC's on their first assault. My guess is that it's supposed to be "You've taken X's penile virginity".
 	
 	gloryhole
 	

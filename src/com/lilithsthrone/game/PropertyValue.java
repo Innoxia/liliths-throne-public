@@ -8,6 +8,7 @@ package com.lilithsthrone.game;
 public enum PropertyValue {
 
 	artwork(true),
+	thumbnail(true),
 	
 	lightTheme(false),
 	overwriteWarning(true),
