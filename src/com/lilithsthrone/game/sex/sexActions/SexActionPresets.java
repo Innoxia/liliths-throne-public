@@ -151,9 +151,13 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToAss = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToMouth = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToThighs = new HashMap<>();
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToPenis = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToVagina = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToPenis = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> anusToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToPenis = new HashMap<>();
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToMouth = new HashMap<>();
@@ -167,6 +171,10 @@ public class SexActionPresets {
 	
 	static {
 
+		fingerToPenis.put(SexAreaPenetration.FINGER, penisAreas);
+		fingerToVagina.put(SexAreaPenetration.FINGER, vaginaAreas);
+		anusToPenis.put(SexAreaOrifice.ANUS, penisAreas);
+		
 		for(SexAreaInterface area : appendageAreas) {
 			appendagesToGroin.put(area, groinAreas);
 			appendagesToAllAreas.put(area, alLAreas);

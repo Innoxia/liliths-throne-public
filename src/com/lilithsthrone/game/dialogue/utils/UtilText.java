@@ -565,7 +565,7 @@ public class UtilText {
 		// Loop through input, when find '[', start parsing.
 		// [target.command(arguments)]
 		
-		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.name]'s} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
+		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.namePos]} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
 		try {
 			StringBuilder resultBuilder = new StringBuilder();
 			StringBuilder sb = new StringBuilder();

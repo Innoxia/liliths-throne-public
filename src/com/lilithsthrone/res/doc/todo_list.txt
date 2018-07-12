@@ -41,6 +41,7 @@
 	
 	Contributors:
 		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)
+		Improved aspects of the 'concealed race' mechanic. (Lightcanadian)
 	
 	Other:
 		Made you the dom in Lilaya's chair sex scenes, to give you control over positioning.

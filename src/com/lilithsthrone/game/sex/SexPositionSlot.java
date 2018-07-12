@@ -402,6 +402,42 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
 					OrgasmCumTarget.FLOOR)),
+	
+
+	/* Glory hole */
+	
+	GLORY_HOLE_KNEELING("Kneeling",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
+					OrgasmCumTarget.SELF_GROIN,
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
+
+	GLORY_HOLE_FUCKED("Getting fucked",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
+
+	GLORY_HOLE_RECEIVING_ORAL_ONE("Receiving oral",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.HAIR,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.FLOOR)),
+	
+	GLORY_HOLE_RECEIVING_ORAL_TWO("Receiving oral",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.HAIR,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.FLOOR)),
+	
+	GLORY_HOLE_FUCKING("Fucking",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.ASS,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FLOOR)),
 	;
 	
 	

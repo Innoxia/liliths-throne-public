@@ -641,14 +641,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(this.isFeminine()) {
 				return UtilText.parse(Combat.getTargetedCombatant(this),
 						UtilText.returnStringAtRandom(
-								"You put on a smouldering look, and as your [pc.eyes] meet [npc.name]'s, you project an extremely lewd moan into [npc.her] head,"
+								"You put on a smouldering look, and as your [pc.eyes] meet [npc.namePos], you project an extremely lewd moan into [npc.her] head,"
 										+ " [pc.thought(~Aaah!~ "
 											+(this.hasVagina()
 													?"You're making me so wet!"
 													:this.hasPenis()
 														?"You're getting me so hard!"
 														:"You're turning me on so much!")+")]",
-								"You lock your [pc.eyes] with [npc.name]'s, and, putting on your most innocent look as you pout at [npc.herHim], you project an echoing moan deep into [npc.her] mind,"
+								"You lock your [pc.eyes] with [npc.namePos], and, putting on your most innocent look as you pout at [npc.herHim], you project an echoing moan deep into [npc.her] mind,"
 									+ " [pc.thought("+
 											(this.hasVagina()
 													?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
@@ -663,14 +663,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			} else {
 				return UtilText.parse(Combat.getTargetedCombatant(this),
 						UtilText.returnStringAtRandom(
-								"You put on a confident look, and as your [pc.eyes] meet [npc.name]'s, you project an extremely lewd groan into [npc.her] head,"
+								"You put on a confident look, and as your [pc.eyes] meet [npc.namePos], you project an extremely lewd groan into [npc.her] head,"
 									+ " [pc.thought(~Mmm!~ "
 											+(this.hasVagina()
 													?"You're making me so wet!"
 													:this.hasPenis()
 														?"You're getting me so hard!"
 														:"You're turning me on so much!")+")]",
-								"You lock your [pc.eyes] with [npc.name]'s, and, throwing [npc.herHim] a charming smile, you project an echoing groan deep into [npc.her] mind,"
+								"You lock your [pc.eyes] with [npc.namePos], and, throwing [npc.herHim] a charming smile, you project an echoing groan deep into [npc.her] mind,"
 									+ " [pc.thought("+
 											(this.hasVagina()
 													?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"

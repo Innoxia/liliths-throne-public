@@ -11752,7 +11752,7 @@ public enum StatusEffect {
 	public List<String> getPenetrationModifiersAsStringList(GameCharacter target, SexAreaPenetration penetration) {
 		modifiersList.clear();
 		
-		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
 
 		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()
 				&& !Collections.disjoint(Sex.getContactingSexAreas(target, penetration).get(Sex.getCharacterContactingSexArea(target, penetration).get(0)), Util.newArrayListOfValues(SexAreaPenetration.values()))) {
@@ -11766,7 +11766,7 @@ public enum StatusEffect {
 			}
 			
 			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, penetration).keySet()) {
-				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
 				
 				if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
 					modifiersList.add(
@@ -11829,7 +11829,7 @@ public enum StatusEffect {
 	public List<String> getOrificeModifiersAsStringList(GameCharacter target, SexAreaOrifice orifice) {
 		modifiersList.clear();
 		
-		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
 
 		if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
@@ -11849,7 +11849,7 @@ public enum StatusEffect {
 			}
 			
 			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, orifice).keySet()) {
-				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
 				
 				if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
 					modifiersList.add("+"+getOrificeArousalPerTurnPartner(target, penetrator, orifice)

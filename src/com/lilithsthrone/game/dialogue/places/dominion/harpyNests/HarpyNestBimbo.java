@@ -66,7 +66,7 @@ public class HarpyNestBimbo {
 						+ "</p>"
 						+ "<p>"
 							+ "Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of [bimboHarpy.namePos] flock have, in an attempt to copy their matriarch, had their feathers dyed bleach-blonde."
-							+ " Looking closer, you see that their proportions are also similar to [bimboHarpy.name]'s."
+							+ " Looking closer, you see that their proportions are also similar to [bimboHarpy.namePos]."
 							+ " From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger."
 							+ " Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest is devoted to imitating their leader."
 						+ "</p>"

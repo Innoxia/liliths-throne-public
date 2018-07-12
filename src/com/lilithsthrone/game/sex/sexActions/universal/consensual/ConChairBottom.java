@@ -1234,11 +1234,11 @@ public class ConChairBottom {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"You lean forwards, pressing your [pc.lips+] firmly against [npc.name]'s. Letting out a little [pc.moan], you eagerly thrust your [pc.tongue] into [npc.her] mouth.",
+					"You lean forwards, pressing your [pc.lips+] firmly against [npc.namePos]. Letting out a little [pc.moan], you eagerly thrust your [pc.tongue] into [npc.her] mouth.",
 					
 					"You lean up to [npc.namePos] [npc.face], pressing your [pc.lips+] greedily against [npc.hers], before eagerly pushing your [pc.tongue+] into [npc.her] mouth.",
 					
-					"Leaning forwards, you eagerly press your [pc.lips+] against [npc.name]'s, before happily sliding your [pc.tongue+] into [npc.her] mouth.",
+					"Leaning forwards, you eagerly press your [pc.lips+] against [npc.namePos], before happily sliding your [pc.tongue+] into [npc.her] mouth.",
 					
 					"You reach up and grab [npc.namePos] head, and, letting out a little [pc.moan], you quickly pull [npc.herHim] down into a desperate, passionate kiss.");
 		}

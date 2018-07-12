@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.dominion.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallBack;
@@ -1501,6 +1503,96 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 												SexActionPresets.fingerToLowerHalf))))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
+					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+		}
+	},
+	
+	GLORY_HOLE("Servicing glory holes",
+			true,
+			false,
+			Util.newArrayListOfValues(GloryHole.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_KNEELING,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.vaginaToMouth,
+											SexActionPresets.penisToMouth))))),
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_KNEELING,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.vaginaToMouth,
+											SexActionPresets.penisToMouth))))),
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.fingerToPenis,
+											SexActionPresets.fingerToVagina))),
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.fingerToPenis,
+											SexActionPresets.fingerToVagina))))))) {
+		@Override
+		public String getDescription() {
+			List<GameCharacter> characters = new ArrayList<>();
+			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_KNEELING));
+			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE));
+			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO));
+			
+			return UtilText.parse(characters, "[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+		}
+	},
+	
+	GLORY_HOLE_SEX("Servicing glory holes",
+			true,
+			false,
+			Util.newArrayListOfValues(GloryHole.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_FUCKED,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.vaginaToMouth,
+											SexActionPresets.penisToMouth))))),
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_FUCKING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_FUCKED,
+									new SexActionInteractions(
+										Util.mergeMaps(
+											SexActionPresets.penisToVagina))))),
+					new Value<>(
+							SexPositionSlot.GLORY_HOLE_FUCKED,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE,
+									new SexActionInteractions(
+											Util.mergeMaps(
+												SexActionPresets.fingerToPenis,
+												SexActionPresets.fingerToVagina))),
+							new Value<>(
+									SexPositionSlot.GLORY_HOLE_FUCKING,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.anusToPenis))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),

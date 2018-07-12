@@ -3237,10 +3237,18 @@ public class NightlifeDistrict {
 					
 				}
 //				else if(index==2) {//TODO needs new sex manager and descriptions
-//					return new Response("Gloryhole (dom)", "A couple of the toilet's stalls have gloryholes in them. Step up to one and have the person on the other side service you.", null);
+//					return new Response("Glory hole (dom)", "A couple of the toilet's stalls have glory holes in them. Step up to one and have the person on the other side service you.", null);
 //					
 //				} else if(index==3) {
-//					return new Response("Gloryhole (sub)", "A couple of the toilet's stalls have gloryholes in them. Kneel down and get ready to service whatever comes through the hole.", null);
+//					return new ResponseSex("Glory hole (sub)", "A couple of the toilet's stalls have glory holes in them. Kneel down and get ready to service whatever comes through the holes.",
+//							true, false,
+//							new SMGloryHole(
+//									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.GLORY_HOLE_KNEELING)),
+//									Util.newHashMapOfValues(
+//											new Value<>(getGloryHoleDom(), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE),
+//											new Value<>(getGloryHoleDom(), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO))),
+//							WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX,
+//							UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 //					
 //				}
 				else {
@@ -3249,6 +3257,35 @@ public class NightlifeDistrict {
 			}
 		}
 	};
+	
+//	private static GameCharacter getGloryHoleDom() {
+//		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+//		if(Math.random()<0.4f) {
+//			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+//		} else {
+//			if(Main.game.getPlayer().isFeminine()) {
+//				npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+//			} else {
+//				npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+//			}
+//		}
+//		npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
+//		npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+//		npc.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+//		if(npc.hasVagina()) {
+//			npc.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+//		}
+//		if(npc.hasPenis()) {
+//			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
+//		}
+//		try {
+//			Main.game.addNPC(npc, false);
+//			Main.game.setActiveNPC(npc);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return npc;
+//	}
 	
 	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
 		private static final long serialVersionUID = 1L;

@@ -2764,7 +2764,7 @@ public class Body implements Serializable, XMLSaving {
 					breast.getNipples().getOrificeNipples().getElasticity().getValue(),
 					breast.getNipples().getOrificeNipples().getPlasticity().getValue(),
 					breast.getNipples().getOrificeNipples().isVirgin());
-			sb.append(" <i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive milk you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" breasts to be distorted!</i>");
+			sb.append(" <i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive milk you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" breasts to be distorted!</i>");
 		}
 		if(owner.isPlayer()){
 			if(viewedBreast.getRawSizeValue()>0){
@@ -4807,7 +4807,7 @@ public class Body implements Serializable, XMLSaving {
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
-			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" cock to be distorted!</i> ");
+			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" cock to be distorted!</i> ");
 		}
 
 		if(viewedPenis.getType()!=PenisType.DILDO) {
@@ -5439,7 +5439,7 @@ public class Body implements Serializable, XMLSaving {
 					vagina.getOrificeVagina().getPlasticity().getValue(),
 					vagina.getOrificeVagina().isVirgin());
 			viewedVagina.setPierced(owner, vagina.isPierced());
-			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive girlcum which you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" pussy to be distorted!</i> ");
+			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive girlcum which you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" pussy to be distorted!</i> ");
 		}
 		
 		if (isPlayer) {

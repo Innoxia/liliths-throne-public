@@ -204,6 +204,21 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, before stepping forwards and driving [npc1.her] [npc1.cock] deep into [npc2.namePos] [npc2.pussy+]."
 						+ " Letting out [npc1.a_moan+], [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax, and pump [npc2.namePos] womb full of [npc1.cum+].";
 				break;
+			case GLORY_HOLE_FUCKED:
+				orgasmText = "[npc1.Name] [npc1.verb(push)] [npc.her] [npc.hips] back against the toilet stall's wall and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case GLORY_HOLE_FUCKING:
+				orgasmText = "[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case GLORY_HOLE_KNEELING:
+				orgasmText = "[npc1.Name] [npc1.verb(look)] back and forth between the two glory holes, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case GLORY_HOLE_RECEIVING_ORAL_ONE:
+				orgasmText = "[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case GLORY_HOLE_RECEIVING_ORAL_TWO:
+				orgasmText = "[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
 		}
 		
 		return UtilText.parse(characterOrgasming, Sex.getTargetedPartner(characterOrgasming), orgasmText);
