@@ -658,7 +658,7 @@ public class TongueMouth {
 						" [npc2.Name] [npc2.verb(let)] out an angry growl in response to [npc.her] protests,"
 								+ " roughly grinding [npc2.her] [npc2.lips] against [npc.her] mouth before violently thrusting [npc2.her] tongue deep down [npc.her] throat.",
 						
-						" With a furious growl, [npc2.name] violently grinds [npc2.herself] up against [npc.name], ignoring [npc.her] [npc.sobs] as [npc2.she] thrusts [npc2.her] [npc2.tongue] deep down [npc.her] throat.",
+						" With a furious growl, [npc2.name] violently grinds [npc2.herself] up against [npc.name], ignoring [npc.her] [npc.sobs] as [npc2.she] [npc2.verb(thrust)] [npc2.her] [npc2.tongue] deep down [npc.her] throat.",
 						
 						" [npc2.Name] ignores [npc.her] protests, and with a rough growl, [npc2.she] [npc2.verb(continue)] violently tongue-fucking [npc.her] reluctant throat."));
 					break;
@@ -1034,7 +1034,7 @@ public class TongueMouth {
 						" [npc2.Name] [npc2.verb(let)] out an angry growl in response to [npc.her] protests,"
 								+ " roughly grinding [npc2.her] [npc2.lips] against [npc.her] mouth before violently thrusting [npc2.her] tongue deep down [npc.her] throat.",
 						
-						" With a furious growl, [npc2.name] violently grinds [npc2.herself] up against [npc.name], ignoring [npc.her] [npc.sobs] as [npc2.she] thrusts [npc2.her] [npc2.tongue] deep down [npc.her] throat.",
+						" With a furious growl, [npc2.name] violently grinds [npc2.herself] up against [npc.name], ignoring [npc.her] [npc.sobs] as [npc2.she] [npc2.verb(thrust)] [npc2.her] [npc2.tongue] deep down [npc.her] throat.",
 						
 						" [npc2.Name] ignores [npc.her] protests, and with a rough growl, [npc2.she] [npc2.verb(continue)] violently tongue-fucking [npc.her] reluctant throat."));
 					break;

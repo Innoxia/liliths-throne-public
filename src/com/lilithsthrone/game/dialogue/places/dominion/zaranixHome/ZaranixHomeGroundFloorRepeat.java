@@ -493,11 +493,6 @@ public class ZaranixHomeGroundFloorRepeat {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
-
-		@Override
 		public String getLabel() {
 			return "Finished";
 		}
@@ -1216,11 +1211,6 @@ public class ZaranixHomeGroundFloorRepeat {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "AMBER_LOUNGE_POST_CONSENSUAL_SEX");
 		}
@@ -1233,11 +1223,6 @@ public class ZaranixHomeGroundFloorRepeat {
 	
 	public static final DialogueNodeOld AMBER_LOUNGE_POST_SEX = new DialogueNodeOld("Collapse", "Amber is finished with you.", false) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
 
 		@Override
 		public String getContent() {
@@ -1762,11 +1747,6 @@ public class ZaranixHomeGroundFloorRepeat {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_AMBER_FUCKS_POST_SEX");
 		}
@@ -1790,11 +1770,6 @@ public class ZaranixHomeGroundFloorRepeat {
 	
 	public static final DialogueNodeOld WALKIES_PET_FUCKS = new DialogueNodeOld("Demon Home", "", true, true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
 
 		@Override
 		public String getContent() {
@@ -1979,11 +1954,6 @@ public class ZaranixHomeGroundFloorRepeat {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 10;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_POST_SEX", Util.newArrayListOfValues(owner, pet));
 		}
@@ -2010,11 +1980,6 @@ public class ZaranixHomeGroundFloorRepeat {
 	
 	public static final DialogueNodeOld WALKIES_PET_FUCKS_POST_SEX_ORAL = new DialogueNodeOld("Used", "", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 10;
-		}
 
 		@Override
 		public String getContent() {

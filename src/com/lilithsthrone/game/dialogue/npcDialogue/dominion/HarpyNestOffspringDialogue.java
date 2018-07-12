@@ -2654,11 +2654,6 @@ public class HarpyNestOffspringDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "You've satisfied your lust for your [npc.daughter]... For now...";
 		}
@@ -2708,11 +2703,6 @@ public class HarpyNestOffspringDialogue {
 	
 	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
 		
 		@Override
 		public String getDescription(){
@@ -2897,7 +2887,7 @@ public class HarpyNestOffspringDialogue {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 30;
+			return 15;
 		}
 		
 		@Override

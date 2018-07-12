@@ -1119,7 +1119,7 @@ public class ClothingType {
 					"You position the bandana over your [pc.face], before reaching back and tying the ends together.",
 					"You hold [npc.namePos] head still as you tie the bandana around [npc.her] [npc.face].",
 					null,
-					"[npc.Name] positions a bandana over [npc.her] [npc.face], before reaching back and tying the ends together.",
+					"[npc.Name] [npc.verb(position)] a bandana over [npc.her] [npc.face], before reaching back and tying the ends together.",
 					"[npc.Name] holds your head still and ties a bandana around your [pc.face].",
 					null, null, null);
 		}
@@ -11804,7 +11804,7 @@ public class ClothingType {
 				
 			}
 		}
-  	    
+//  	    System.out.println(allClothing.size());
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {

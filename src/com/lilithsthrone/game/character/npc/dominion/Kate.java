@@ -343,11 +343,6 @@ public class Kate extends NPC {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-
-		@Override
 		public String getContent() {
 			return "<p>"
 					+ "Quickly sorting your own clothes back into position, you watch as Kate does the same."
@@ -403,11 +398,6 @@ public class Kate extends NPC {
 	public static final DialogueNodeOld AFTER_SEX_REPEATED = new DialogueNodeOld("Step back", "Step back and allow Kate to recover.", true, true) {
 		private static final long serialVersionUID = 1L;
 		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-
 		@Override
 		public String getContent() {
 			return  "<p>"

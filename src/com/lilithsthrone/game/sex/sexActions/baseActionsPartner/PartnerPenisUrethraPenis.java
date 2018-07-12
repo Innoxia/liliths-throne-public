@@ -54,34 +54,34 @@ public class PartnerPenisUrethraPenis {
 							"Slowly teasing the [npc.cockHead+] of [npc.her] [npc.cock] over [npc2.namePos]s, [npc.name] [npc.verb(let)] out a little [npc.moan] before slowly pushing [npc.her] [npc.hips] forwards,"
 									+ " sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+].",
 
-							"[npc.Name] positions the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a slow, steady pressure, [npc.she] gently  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
+							"[npc.Name] [npc.verb(position)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a slow, steady pressure, [npc.she] gently  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Eagerly teasing the [npc.cockHead+] of [npc.her] [npc.cock] over [npc2.namePos]s, [npc.name] [npc.verb(let)] out [npc.a_moan+] before bucking [npc.her] [npc.hips] forwards,"
 									+ " greedily sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+].",
 
-							"[npc.Name] positions the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a determined [npc2.verb(thrust)], [npc.she] eagerly  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
+							"[npc.Name] [npc.verb(position)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a determined [npc2.verb(thrust)], [npc.she] eagerly  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly grinding the [npc.cockHead+] of [npc.her] [npc.cock] over [npc2.namePos]s, [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming [npc.her] [npc.hips] forwards,"
 									+ " forcing [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.penisUrethra+].",
 
-							"[npc.Name] positions the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.penisUrethra+]."));
+							"[npc.Name] [npc.verb(position)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.penisUrethra+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Eagerly teasing the [npc.cockHead+] of [npc.her] [npc.cock] over [npc2.namePos]s, [npc.name] [npc.verb(let)] out [npc.a_moan+] before bucking [npc.her] [npc.hips] forwards,"
 									+ " greedily sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+].",
 
-							"[npc.Name] positions the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a determined [npc2.verb(thrust)], [npc.she] eagerly  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
+							"[npc.Name] [npc.verb(position)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a determined [npc2.verb(thrust)], [npc.she] eagerly  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Teasing the [npc.cockHead+] of [npc.her] [npc.cock] over [npc2.namePos]s, [npc.name] [npc.verb(let)] out [npc.a_moan+] before bucking [npc.her] [npc.hips] forwards, sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+].",
 
-							"[npc.Name] positions the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a [npc2.verb(thrust)] of [npc.her] [npc.hips], [npc.she]  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
+							"[npc.Name] [npc.verb(position)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos]s, and with a [npc2.verb(thrust)] of [npc.her] [npc.hips], [npc.she]  [npc.verb(sink)] [npc.her] [npc.cock+] into [npc2.namePos] [npc2.penisUrethra+]."));
 					break;
 				default:
 					break;
@@ -525,7 +525,7 @@ public class PartnerPenisUrethraPenis {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					" Desperately trying, and failing, to pull [npc.her] [npc.cock] free from [npc2.namePos] [npc2.penisUrethra+], [npc.name] [npc.verb(let)] out [npc.a_sob+], pushing against [npc2.name] as [npc.she] weakly [npc2.verb(beg)]s to be released.",
+					" Desperately trying, and failing, to pull [npc.her] [npc.cock] free from [npc2.namePos] [npc2.penisUrethra+], [npc.name] [npc.verb(let)] out [npc.a_sob+], pushing against [npc2.name] as [npc.she] weakly [npc2.verb(beg)] to be released.",
 
 					" [npc.A_sob+] bursts out from between [npc.namePos] [npc.lips] as [npc.she] weakly tries to push [npc2.name] away, pleading for [npc2.name] to take [npc2.namePos] [npc2.penisUrethra+] off [npc.her] [npc.cock].",
 

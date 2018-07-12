@@ -2524,6 +2524,9 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setPenisCumStorage(cp.getMedianValue());
+							if(!Main.game.isInNewWorld()) {
+								BodyChanging.getTarget().fillCumToMaxStorage();
+							}
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}

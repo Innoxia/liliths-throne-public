@@ -52,7 +52,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] to gently pinch and rub at [npc2.her] [npc2.nipples+].",
 
-							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
+							"[npc2.NamePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with a soft little [npc.moan], [npc.she] [npc.verb(start)] gently tugging and pinching [npc2.her] [npc2.nipples+].",
 
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breastRows] [npc2.breasts+], [npc.name] [npc.verb(start)] to gently tug and pinch at [npc2.her] [npc2.nipples+]."));
@@ -61,7 +61,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.her] [npc2.nipples+].",
 
-							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
+							"[npc2.NamePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] eagerly tugging and pinching [npc2.her] [npc2.nipples+].",
 
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breastRows] [npc2.breasts+], [npc.name] [npc.verb(start)] eagerly tugging and pinching at [npc2.her] [npc2.nipples+]."));
@@ -71,7 +71,7 @@ public class FingerNipple {
 							"Reaching up to [npc2.namePos] [npc2.breasts+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] roughly groping [npc2.namePos] chest, before moving up to forcefully pinch and squeeze [npc2.her] [npc2.nipples+].",
 
-							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
+							"[npc2.NamePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] roughly pinching and squeezing [npc2.her] [npc2.nipples+].",
 
 							"Sinking [npc.her] [npc.fingers] into [npc2.namePos] [npc2.breastRows] [npc2.breasts+],"
@@ -81,7 +81,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pinch and rub at [npc2.her] [npc2.nipples+].",
 
-							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
+							"[npc2.NamePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] eagerly tugging and pinching [npc2.her] [npc2.nipples+].",
 
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breastRows] [npc2.breasts+], [npc.name] [npc.verb(start)] eagerly tugging and pinching at [npc2.her] [npc2.nipples+]."));
@@ -90,7 +90,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pinch and rub at [npc2.her] [npc2.nipples+].",
 
-							"[npc2.namePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
+							"[npc2.NamePos] [npc2.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(start)] tugging and pinching [npc2.her] [npc2.nipples+].",
 
 							"Teasing [npc.her] [npc.fingers] over [npc2.namePos] [npc2.breastRows] [npc2.breasts+], [npc.name] [npc.verb(start)] tugging and pinching at [npc2.her] [npc2.nipples+]."));
@@ -870,7 +870,7 @@ public class FingerNipple {
 		
 		@Override
 		public String getActionTitle() {
-			return "Resist nipple fingering";
+			return "Resist fingering nipples";
 		}
 
 		@Override

@@ -227,7 +227,7 @@ public enum SlaveJob {
 		
 		@Override
 		public WorldType getWorldLocation(GameCharacter character) {
-			Cell c = MilkingRoom.getMilkingCell(character);
+			Cell c = MilkingRoom.getMilkingCell(character, false);
 			if(c==null) {
 				return null;
 			}
@@ -236,7 +236,7 @@ public enum SlaveJob {
 		
 		@Override
 		public PlaceType getPlaceLocation(GameCharacter character) {
-			Cell c = MilkingRoom.getMilkingCell(character);
+			Cell c = MilkingRoom.getMilkingCell(character, false);
 			if(c==null) {
 				return null;
 			}
@@ -245,7 +245,7 @@ public enum SlaveJob {
 		
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
-			Cell c = MilkingRoom.getMilkingCell(slave);
+			Cell c = MilkingRoom.getMilkingCell(slave, true);
 			if(c!=null) {
 				if(c.getType()!=slave.getWorldLocation() || c.getLocation()!=slave.getLocation()) {
 					slave.setLocation(c.getType(), c.getLocation(), false);

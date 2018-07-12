@@ -92,7 +92,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 * New:<br/>
 	 * - Get accessible areas<br/>
 	 * - Choose foreplay & main sex<br/>
-	 * - Choose positions for each<br/>
+	 * - Choose [npc.verb(position)] for each<br/>
 	 * - Clothing for foreplay<br/>
 	 * - position<br/>
 	 * - foreplay (self-actions take minimum priority)<br/>
@@ -159,7 +159,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 
 		
-		// --- Priority 3 | Move into one of the partner's preferred positions ---
+		// --- Priority 3 | Move into one of the partner's preferred [npc.verb(position)] ---
 		
 		if(!Sex.getActivePartner().getSexPositionPreferences().contains(Sex.getSexPositionSlot(Sex.getActivePartner()))) {
 			for(SexActionInterface action : availableActions) {
@@ -524,32 +524,27 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					if(action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.PENIS)
 							|| action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TAIL)) {
 						// Anal penetrations:
-						if((performingCharacter.hasFetish(Fetish.FETISH_ANAL_GIVING)
-								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS))
+						if((performingCharacter.hasFetish(Fetish.FETISH_ANAL_GIVING))
 								&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS)) {
 							penetrativeActionList.add(action);
 						}
 						// Nipple penetrations:
-						if((performingCharacter.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
-								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.NIPPLE))
+						if((performingCharacter.hasFetish(Fetish.FETISH_BREASTS_OTHERS))
 								&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.NIPPLE)) {
 							penetrativeActionList.add(action);
 						}
 						// Paizuri:
-						if((performingCharacter.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
-								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.BREAST))
+						if((performingCharacter.hasFetish(Fetish.FETISH_BREASTS_OTHERS))
 								&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.BREAST)) {
 								penetrativeActionList.add(action);
 						}
 						// Vaginal:
-						if((performingCharacter.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
-								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.VAGINA))
+						if((performingCharacter.hasFetish(Fetish.FETISH_VAGINAL_GIVING))
 								&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.VAGINA)) {
 								penetrativeActionList.add(action);
 						}
 						// Pregnancy penetration on player:
-						if((performingCharacter.hasFetish(Fetish.FETISH_IMPREGNATION)
-								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.VAGINA))
+						if((performingCharacter.hasFetish(Fetish.FETISH_IMPREGNATION))
 									&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.VAGINA) && action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.PENIS)) {
 							penetrativeActionList.add(action);
 						}

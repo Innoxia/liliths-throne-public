@@ -11,20 +11,45 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.99
- * @version 0.2.0
+ * @version 0.2.9
  * @author Innoxia
  */
 public enum FetishDesire {
 	
-	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
+	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON) {
+		@Override
+		public boolean isNegative() {
+			return true;
+		}
+	},
 	
-	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
+	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED) {
+		@Override
+		public boolean isNegative() {
+			return true;
+		}
+	},
 	
-	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_BLUE_STEEL),
+	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_BLUE_STEEL) {
+		@Override
+		public boolean isNegative() {
+			return false;
+		}
+	},
 	
-	THREE_LIKE(3, "like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT),
+	THREE_LIKE(3, "like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT) {
+		@Override
+		public boolean isNegative() {
+			return false;
+		}
+	},
 	
-	FOUR_LOVE(4, "love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK);
+	FOUR_LOVE(4, "love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK) {
+		@Override
+		public boolean isNegative() {
+			return false;
+		}
+	};
 	
 	private int value;
 	private String name;
@@ -74,6 +99,8 @@ public enum FetishDesire {
 			e.printStackTrace();
 		}
 	}
+	
+	public abstract boolean isNegative();
 	
 	public static int getCostToChange() {
 		return 0;

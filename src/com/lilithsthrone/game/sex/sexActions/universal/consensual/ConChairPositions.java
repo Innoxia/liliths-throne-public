@@ -46,7 +46,7 @@ public class ConChairPositions {
 		@Override
 		public String getActionDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"Switch positions with [npc.name], so that [npc.sheIs] the one sitting down.");
+					"Switch [npc.verb(position)] with [npc.name], so that [npc.sheIs] the one sitting down.");
 		}
 
 		@Override
@@ -97,7 +97,7 @@ public class ConChairPositions {
 		@Override
 		public String getActionDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
-					"Switch positions with [npc.name], so that you're the one sitting down.");
+					"Switch [npc.verb(position)] with [npc.name], so that you're the one sitting down.");
 		}
 
 		@Override

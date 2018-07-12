@@ -2426,11 +2426,6 @@ public class SlaveDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
 		}
@@ -2571,6 +2566,11 @@ public class SlaveDialogue {
 	
 	public static final DialogueNodeOld SLAVE_USES_YOU_POST_SEX = new DialogueNodeOld("Used", "", true) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 15;
+		}
 		
 		@Override
 		public String getDescription(){

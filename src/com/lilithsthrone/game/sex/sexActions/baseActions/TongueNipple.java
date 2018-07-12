@@ -272,7 +272,7 @@ public class TongueNipple {
 					SexAreaOrifice.MOUTH,
 					Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5,
 					Sex.getCharacterPerformingAction().getMilk().getFluidModifiers())
-				+ Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5);
+				+ Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5);
 		}
 		
 	};

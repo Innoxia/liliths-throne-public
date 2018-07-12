@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.effects;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -4362,16 +4363,16 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementPenisStoredCum((int) Math.ceil(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue()));
+			target.incrementPenisStoredCum(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
 			
 			return UtilText.parse(target, "[npc.NamePos] balls are currently producing more [npc.cum], at a rate of "+cumRegenRate+"ml/minute."
-					+ " They have stored "+target.getPenisRawStoredCumValue()+"ml, out of a maximum of "+target.getPenisRawCumStorageValue()+"ml.");
+					+ " They have stored "+Util.getRoundedFloat(target.getPenisRawStoredCumValue(), 2)+"ml, out of a maximum of "+Util.getRoundedFloat(target.getPenisRawCumStorageValue(), 2)+"ml.");
 		}
 
 		@Override
@@ -4406,9 +4407,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
 			
-			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawStoredCumValue()+"ml), and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
+			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawCumStorageValue()+"ml),"
+					+ " and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
 					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+cumRegenRate+"ml/minute.");
 		}
 
@@ -4438,21 +4440,21 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementBreastStoredMilk((int) Math.ceil(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue()));
+			target.incrementBreastStoredMilk(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int milkRegenRate = (int) Math.ceil(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
 			
 			if(target.isPlayer()) {
 				return "Your breasts are currently producing more [pc.milk], at a rate of "+milkRegenRate+"ml/minute."
-						+ " They have stored "+target.getBreastRawStoredMilkValue()+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.";
+						+ " They have stored "+Util.getRoundedFloat(target.getBreastRawStoredMilkValue(), 2)+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.";
 			} else {
 				return UtilText.parse(target,
 						"[npc.NamePos] breasts are currently producing more [npc.milk], at a rate of "+milkRegenRate+"ml/minute."
-						+ " They have stored "+target.getBreastRawStoredMilkValue()+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.");
+						+ " They have stored "+Util.getRoundedFloat(target.getBreastRawStoredMilkValue(), 2)+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.");
 			}
 		}
 
@@ -4512,21 +4514,22 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int milkRegenRate = (int) Math.ceil(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
 			
 			if(target.isPlayer()) {
-				return "Your [pc.breasts] are completely filled with [pc.milk] ("+target.getBreastRawStoredMilkValue()+"ml), and your engorged [pc.nipples] are just begging for some attention."
+				return "Your [pc.breasts] are completely filled with [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and your engorged [pc.nipples] are just begging for some attention."
 						+ " Once milked, they will produce more [pc.milk] at a rate of "+milkRegenRate+"ml/minute.";
 			} else {
 				return UtilText.parse(target,
-						"[npc.NamePos] [npc.breasts] are completely filled with [npc.milk] ("+target.getBreastRawStoredMilkValue()+"ml), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
+						"[npc.NamePos] [npc.breasts] are completely filled with [npc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
 								+ " Once milked, they will produce more [npc.milk] at a rate of "+milkRegenRate+"ml/minute.");
 			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()==target.getBreastRawMilkStorageValue();
+			return target.getBreastRawMilkStorageValue()>0
+					&& target.getBreastRawStoredMilkValue()==target.getBreastRawMilkStorageValue();
 		}
 		
 		@Override
@@ -10430,6 +10433,108 @@ public enum StatusEffect {
 		}
 	},
 	
+	PENIS_STATUS(//Just used for handjobs
+			95,
+			"Penis status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getPenetrationArousalPerTurn(target, SexAreaPenetration.PENIS);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+//			Map<GameCharacter, Set<SexAreaInterface>> contactingAreas = Sex.getContactingSexAreas(self, SexAreaPenetration.PENIS);
+//			if(contactingAreas!=null) {
+//				if(contactingAreas.get(target)!=null && !contactingAreas.get(target).isEmpty()) {
+//					for(SexAreaInterface area : contactingAreas.get(target)) {
+//						if(!area.isOrifice()) {
+//							return ((SexAreaPenetration)area).getBaseArousalWhenPenetrating();
+//						}
+//					}
+//				}
+//			}
+			return 0;
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getPenetrationModifiersAsStringList(target, SexAreaPenetration.PENIS);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			SexAreaPenetration type = SexAreaPenetration.PENIS;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a handjob</b>!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>frotting</b> with [npc2.name]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a tail-job</b>!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a tentacle-job</b>!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a blowjob</b>!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-frotting</b> with [npc2.name]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a foot-job</b>!"));
+								break;
+						}
+						
+					}
+				}
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+			}
+
+			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.penis]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex()
+					&& Sex.getOngoingActionsMap(target)!=null
+					&& !Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS).isEmpty()
+					&& !Collections.disjoint(
+							Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS).get(Sex.getCharacterContactingSexArea(target, SexAreaPenetration.PENIS).get(0)),
+							Util.newArrayListOfValues(SexAreaPenetration.values()));
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaPenetration.PENIS, SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis());
+		}
+	},
+	
 	ANUS_STATUS(
 			96,
 			"Anus status",
@@ -11630,6 +11735,51 @@ public enum StatusEffect {
 	
 	// Helper methods for sex effects:
 	
+	public static float getPenetrationArousalPerTurn(GameCharacter target, SexAreaPenetration penetration) {
+		float arousal = 0;
+		
+		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
+			arousal+=penetration.getBaseArousalWhenPenetrating();
+			
+			if(Sex.getWetAreas(target).get(penetration).isEmpty()) {
+				arousal += penetration.getArousalChangePenetratingDry();
+			}
+		}
+		
+		return arousal;
+	}
+	
+	public List<String> getPenetrationModifiersAsStringList(GameCharacter target, SexAreaPenetration penetration) {
+		modifiersList.clear();
+		
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
+
+		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()
+				&& !Collections.disjoint(Sex.getContactingSexAreas(target, penetration).get(Sex.getCharacterContactingSexArea(target, penetration).get(0)), Util.newArrayListOfValues(SexAreaPenetration.values()))) {
+			
+			modifiersList.add("+"+penetration.getBaseArousalWhenPenetrating()
+				+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+			
+			if(Sex.getWetAreas(target).get(penetration).isEmpty()) {
+				modifiersList.add(penetration.getArousalChangePenetratingDry()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+			}
+			
+			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, penetration).keySet()) {
+				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+				
+				if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
+					modifiersList.add(
+							"+0 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+				}
+			}
+			
+		} else {
+			modifiersList.add("[style.colourDisabled(No bonuses)]");
+		}
+		return modifiersList;
+	}
+	
 	public static float getOrificeArousalPerTurnSelf(GameCharacter target, SexAreaOrifice orifice) {
 		float arousal = 0;
 		
@@ -11726,6 +11876,38 @@ public enum StatusEffect {
 		return modifiersList;
 	}
 	
+	public void appendPenetrationAdditionGenericDescriptions(GameCharacter owner, SexAreaPenetration penetration, String penetrationName, StringBuilder stringBuilderToAppendTo) {
+		
+		if(Sex.getWetAreas(owner).get(penetration).isEmpty()) {
+			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+			
+		} else {
+			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
+			int i=0;
+			for(LubricationType lt : Sex.getWetAreas(owner).get(penetration)) {
+				if(i!=0) {
+					if(i == Sex.getWetAreas(owner).get(penetration).size()-1) {
+						stringBuilderToAppendTo.append(", and ");
+					} else {
+						stringBuilderToAppendTo.append(", ");
+					}
+				}
+				
+				if(i==0)
+					stringBuilderToAppendTo.append(Util.capitaliseSentence(lt.getName()));
+				else
+					stringBuilderToAppendTo.append(lt.getName());
+				
+				if(i == Sex.getWetAreas(owner).get(penetration).size()-1) {
+					stringBuilderToAppendTo.append(".");
+				}
+				
+				i++;
+			}
+		}
+		stringBuilderToAppendTo.append("</p>");
+	}
+	
 	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
 		
 		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
@@ -11773,10 +11955,55 @@ public enum StatusEffect {
 		stringBuilderToAppendTo.append("</p>");
 	}
 	
-	public String getOrificeSVGString(GameCharacter owner, SexAreaOrifice orifice, String baseSVG) {
+	public String getPenetrationSVGString(GameCharacter owner, SexAreaInterface penetration, String baseSVG) {
 		SVGImageSB = new StringBuilder();
 		
-		SVGImageSB.append(baseSVG);
+		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
+		
+		if(!Sex.getContactingSexAreas(owner, penetration).isEmpty()) {
+			SexAreaPenetration firstPenetration = null;
+			outerloop:
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(owner, penetration).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						firstPenetration = (SexAreaPenetration) sArea;
+						break outerloop;
+					}
+				}
+			}
+			if(firstPenetration!=null) {
+				switch(firstPenetration){
+					case FINGER:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+						break;
+					case PENIS:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+						break;
+					case TAIL:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+						break;
+					case TONGUE:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		if(Sex.getWetAreas(owner).get(penetration).isEmpty()) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
+		} else {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
+		}
+		
+		return SVGImageSB.toString();
+	}
+	
+	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG) {
+		SVGImageSB = new StringBuilder();
+		
+		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
 		
 		if(!Sex.getContactingSexAreas(owner, orifice).isEmpty()) {
 			SexAreaPenetration firstPenetration = SexAreaPenetration.FINGER;
@@ -11791,16 +12018,16 @@ public enum StatusEffect {
 			}
 			switch(firstPenetration){
 				case FINGER:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
 					break;
 				case PENIS:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 					break;
 				case TAIL:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
 					break;
 				case TONGUE:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
 					break;
 				default:
 					break;

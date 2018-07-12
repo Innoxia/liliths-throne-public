@@ -266,7 +266,11 @@
 			#ELSE[npc.She] listens attentively to what you have to say, before happily continuing the conversation.
 			#ENDIF
 		#ENDIF
-		 After exchanging opinions on the state of the club and how crowded it is, [npc.name] ends up talking a little about [npc.her] job as [npc.a_jobName].
+		 After exchanging opinions on the state of the club and how crowded it is, [npc.name] ends up talking a little about
+		#IF npc.getHistory()==HISTORY_UNEMPLOYED_NPC || npc.getHistory()==HISTORY_NPC_UNIVERSITY_STUDENT
+		#THEN [npc.her] friends and some of the things they get up to in Dominion.
+		#ELSE [npc.her] job as [npc.a_jobName].
+		#ENDIF
 	</p>
 	<p>
 		[npc.Name] seems to appreciate the fact that you're taking the time to get to know [npc.herHim] a little better, and as the conversation comes to an end, [npc.she] smiles happily at you and asks what you'd like to do next.

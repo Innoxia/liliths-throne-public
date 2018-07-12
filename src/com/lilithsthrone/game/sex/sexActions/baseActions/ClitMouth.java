@@ -30,7 +30,7 @@ public class ClitMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -54,7 +54,7 @@ public class ClitMouth {
 							"With a quick shift of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] gently [npc.verb(press)] [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.tongue+].",
 							
 							"Gently pressing [npc.her] [npc.pussy+] down against [npc2.namePos] mouth,"
-									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.nmaePos] [npc2.lips+].");
+									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.lips+].");
 
 				case SUB_EAGER:
 				case DOM_NORMAL:
@@ -64,7 +64,7 @@ public class ClitMouth {
 							"With a quick shift of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] greedily [npc.verb(press)] [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.tongue+].",
 							
 							"Eagerly pressing [npc.her] [npc.pussy+] down against [npc2.namePos] mouth,"
-									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.nmaePos] [npc2.lips+].");
+									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.lips+].");
 					
 				case DOM_ROUGH:
 					return UtilText.returnStringAtRandom(
@@ -73,7 +73,7 @@ public class ClitMouth {
 							"With a quick shift of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(grind)] [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.tongue+].",
 							
 							"Aggressively pressing [npc.her] [npc.pussy+] down against [npc2.namePos] mouth,"
-									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] roughly grinding [npc.her] [npc.clit+] down against [npc2.nmaePos] [npc2.lips+].");
+									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] roughly grinding [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.lips+].");
 					
 				case SUB_NORMAL:
 					return UtilText.returnStringAtRandom(
@@ -82,7 +82,7 @@ public class ClitMouth {
 							"With a quick shift of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(press)] [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.tongue+].",
 							
 							"Pressing [npc.her] [npc.pussy+] down against [npc2.namePos] mouth,"
-									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.nmaePos] [npc2.lips+].");
+									+ " [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] grinding [npc.her] [npc.clit+] down against [npc2.namePos] [npc2.lips+].");
 					
 				default:
 					break;

@@ -37,7 +37,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="TRANSFORMER_PLAYER_SLIME_SLIME_NO_SEX"><![CDATA[
+	<htmlContent tag="TRANSFORMER_PLAYER_SLIME_NO_SEX"><![CDATA[
 	<p>
 		[npc.speech(Well, you stay safe out there,)]
 		 [npc.Name] says, before turning to leave.

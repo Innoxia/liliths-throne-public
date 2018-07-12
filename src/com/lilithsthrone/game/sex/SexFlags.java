@@ -11,8 +11,6 @@ public class SexFlags implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static boolean requestsBlockedPlayer;
-	public static boolean requestsBlockedPartner;
 	public static boolean positioningBlockedPlayer;
 	public static boolean positioningBlockedPartner;
 	public static boolean selfActionsBlockedPlayer;
@@ -69,9 +67,6 @@ public class SexFlags implements Serializable {
 	}
 	
 	public static void reset() {
-		
-		requestsBlockedPlayer = false;
-		requestsBlockedPartner = false;
 		
 		positioningBlockedPlayer = false;
 		positioningBlockedPartner = false;

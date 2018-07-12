@@ -3552,13 +3552,24 @@ public class CharacterModificationUtils {
 			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
 															?coveringType.getAllPrimaryColours()
 															:coveringType.getNaturalColoursPrimary());
+			int rainbowIncrement=3;
 			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			for (Colour c : availablePrimaryColours) {
 				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ (c.isMetallic()
 											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";")
+													:(c==Colour.COVERING_RAINBOW
+													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
+															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
+															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
+															+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
+															+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
+															+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
+															+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
+															+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
+															+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
+													:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
 										+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
 									+"</div>"
 								+ "</div>");
@@ -3613,7 +3624,17 @@ public class CharacterModificationUtils {
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 											+ (c.isMetallic()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";")
+													:(c==Colour.COVERING_RAINBOW
+														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
+																+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
+																+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
+																+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
+																+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
+																+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
+																+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
+																+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
+																+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
+														:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
 												+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
 											+"</div>"
 									+ "</div>");

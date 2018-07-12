@@ -17,12 +17,6 @@
 	- Add an Imp gang attack.
 	- Adding in repeatable mini-quests for the Imp fortresses.
 	
-	Nightlife
-	- Add at least one club to start with.
-	- Add club's internal map.
-	- Add indication in characters present for crowds
-	- Add randomly-generated NPC interactions in the club.
-
 	Clothing todo:
 		Ribbons
 		Horn rings
@@ -37,61 +31,99 @@
 	
 	Patch notes:
 	
+	Sex action conversions:
+		Converted and improved descriptions of all penis+ass (hotdogging) actions.
+		Converted all penis+nipple actions.
+		Converted and improved descriptions of all penis+breast (paizuri/naizuri) actions.
+	
+	Contributors:
+		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)
+	
+	Other:
+		Made you the dom in Lilaya's chair sex scenes, to give you control over positioning.
+		Added rainbow colour for body coverings.
+		Area requests in sex are now available even if you're the dom.
+		Area requests in sex now work correctly, with your partner only saying 'no' if they dislike using that area, or if they're sadistic.
+		Changed clothing set bonuses to account for slots that are blocked by your racial parts. i.e. A horse-morph (with foot slot blocked due to hoofs) will still get the witch's set bonus if they are just wearing the hat & dress, ignoring the requirement to also be wearing the boots.
+		You no longer have the superpower of involuntarily pausing time while having sex. (Time now advances 1 minute per action.)
+		Improved sex status effect 'anus' icon.
+		Added sex status effect 'penis status' to indicate ongoing handjobs.
+		Cum and milk regeneration is no longer rounded to the nearest integer, to fix the issue of low cum storage values always regenerating very quickly.
+	
+	Bugs:
+		Fixed large underlying error in the game's parser that was causing some scenes to be displayed incorrectly. (This was mainly affecting the new dialogue in the nightclub.)
+		Fixed incorrect nipple fingering sex action description.
+		Typo fixes + fixing several grammatical errors in recently converted sex actions.
+		Fixed more 'command_unknown' errors.
+		Fixed 'Creampie' action's title sometimes not displaying.
+		Harpies spawning in the nightclub will now correctly be at a 'lesser' furry level (human with harpy arm-wings and legs, instead of fully bird-like).
+		Fixed impossible position of being able to ride the cock of someone who's locked in stocks while you're standing behind.
+		Fixed all cheetah genders always spawning in with breasts.
+		Fixed incorrect virginity loss descriptions.
+		Fixed incorrect positioning action descriptions in the toilet stall sex scene.
+		Fixed the female pregnancy roulette volunteers being named 'unknown male'.
+		Changing cum production in character creation no longer empties your balls.
+		Fixed 'Clit attention' action being available in resisting pace.
+		Fixed unintended ability to stop ongoing sex actions when having sex as a sub without equal control.
+		Fixed bug where you could spawn multiple elementals during combat.
+		Fixed a missing dialogue error when encountering slimes in the tunnels of Submission.
+		Fixed clit girth TF referencing a penis.
+		Fixed several minor formatting errors in ass, penis, testicle, clit, and vagina TFs.
+		Fixed 'breastfeed' action not draining the character's milk.
+		Fixed issue with slaves not being sent to the correct milking room.
+	
+	
+	
+	
+	CONVERSIONS
+		All specials! (collapse down onto face orgasm is messed up descriptions)
+	
+	NPCs to use condoms
+	
+	Broken condom
+	
+	foot content
+	
+	scars!
+	
+	Sex intros for random NPCs
+	
+	Giving other people weapons not correct description (demonstone going into your body)
+	
+	
+	PRs
+	
+	Give control over ages
+		NC ages
+		
+	TF fetish NPCs should always let you TF them (NC NPCS)
+		 i try to change someone i meet at the watering hole, but they refuse to take a tf potion despite them having the fetish
 	
 	Add character import to club
 	Gloryholes
 	Kalahari & Kruger drink spiking to give incest fetish for threesome
 	Dom partner
 	
-	
-	Clubber harpies spawning in as greater
-	
-	!!!Major parsing problem!!!
-		you grope and squeeze one of his no pecs
-		Hi! I'm the rabbit-boy!
-		(It seems as though conditional parsing is being done using activeNPC, instead of the npc that normal parsing is using)
-	
-	
-	"and, getting you to stand up, she sits pulls you down onto her lap"
-	
-	
-	it said I lost my penile virginity despite not even having a penis
-	
-	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
+	There's still slaves using their hands in the stocks and such, you also might want to take some time to write some hands-free descriptions for teasing such as them simply thrusting their hips back to grind against you instead of just grabbing your penis and rubbing it on themselves
 	
 	Dress under jacket not visible
-	
-	"about his job as an unemployed." nightclub
-	
-	That said Lilaya refuses to let me suck on her delicious demon girlcock on my own initiative even if I have the dom fetish, oral performer, cock addict, cum addict and all that stuff. Can't even change position nine times out of ten.
 
-	The only issue I've been having is that I have not being able to fuck nipple-vaginas with my cock. It seems regardless of what position I use they can fuck my nipples but the option to fuck theirs is either greyed out or doesn't exist. I can use tails to do so sometimes but not use a cock.
+	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
+	
+	The only issue I've been having is that I have not being able to fuck nipple-vaginas with my cock.
+	 It seems regardless of what position I use they can fuck my nipples but the option to fuck theirs is either greyed out or doesn't exist. I can use tails to do so sometimes but not use a cock.
 
-	
-	
-	Broken condom
-	
-	PRs
-	
-	May need to add a check to prevent non-dom/equal-sub sex partners from stopping actions
-	
-	
-	
-	Make sex advance time per action (Need to check for SE interruptions)
-	
-	Need penis+finger indication SE
+	I had a bug where an NPC slave initiated sex. Sex actions were working fine. I then went to the slave room to change clothing.
+	 When i went to remove a piece of clothing it would swap back to the sex dialogue text that had already happened outside of the slave's room.
+	  When I tried removing different pieces of clothing I would click to "unequip" and then it would shift back to the sex dialogue that already happened.
+	   I was able to work around this using the manage slave inventory thing. Also when I exited the game to restart it and try again it caused me to get stuck in the various menus without being able to back out or close inventory
 	
 	If resolve Zaranix quest peacefully, it makes no sense for Amber to be so angry on repeat visit.
-	
 	
 	(Can't reproduce) it seems that modifying vaginal urethra stats applies to the penile urethra
 	
 	if you don't turn off their permission to wash their body, it wipes their pregnancy when they clean their creampie, and it will display in the phone as ready to birth.
 	
-
-	cum & milk regen as int:
-	This means any character with a "realistic" capacity will have full balls in only minutes, while extreme capacities instead take (the likely intended) ~6 hours
-
 	So I have an imported character and it always gives me the "you should talk to Lily" text after I defeat someone, but I can't actually talk to her about it anymore. I was pretty sure I already talked to her about it one this save
 
 	When I entered Zaranix's house, it was telling me I needed to respond to the maid before going up the stairs... When she wasn't in the same tile as me and hadn't said anything to me.
@@ -170,8 +202,6 @@ my character is a guy, so this is super confusing lol
 	 hair pulling during doggystyle and choking during missionary
 	
 	breeding stall to brothel
-	
-	I have busty boys disabled in gender preferences and for some reason the only male cheetah's that spawn are busty boys, no idea why
 	
 	Milking room bug.  If you have regular milk in the storage and change your own milk to a flavor (I was using chocolate), the room locks up when you come in (can't click buttons or move, but you can get to the system menu to reload). 
 	

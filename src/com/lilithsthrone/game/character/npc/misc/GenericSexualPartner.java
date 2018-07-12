@@ -251,7 +251,7 @@ public class GenericSexualPartner extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
-		this.setName(new NameTriplet("unknown male"));
+		this.setName(new NameTriplet("unknown male", "unknown female", "unknown female"));
 	}
 	
 	@Override

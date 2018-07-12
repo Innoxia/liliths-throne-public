@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -54,27 +55,33 @@ public class DominionClubNPC extends NPC {
 			
 			// RACE & NAME:
 
-			FurryPreference preference;
-			if(gender.isFeminine()) {
-				preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);
-			} else {
-				preference = Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies);
-			}
 			
-			switch(preference) {
-				case HUMAN:
-				case MINIMUM:
-					setBodyFromPreferences(1, gender, subspecies);
-					break;
-				case REDUCED:
-					setBodyFromPreferences(2, gender, subspecies);
-					break;
-				case NORMAL:
-					setBodyFromPreferences(3, gender, subspecies);
-					break;
-				case MAXIMUM:
-					setBody(gender, subspecies, RaceStage.GREATER);
-					break;
+			if(subspecies.getRace()==Race.HARPY) {
+				setBody(gender, subspecies, RaceStage.LESSER);
+				
+			} else {
+				FurryPreference preference;
+				if(gender.isFeminine()) {
+					preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);
+				} else {
+					preference = Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies);
+				}
+				
+				switch(preference) {
+					case HUMAN:
+					case MINIMUM:
+						setBodyFromPreferences(1, gender, subspecies);
+						break;
+					case REDUCED:
+						setBodyFromPreferences(2, gender, subspecies);
+						break;
+					case NORMAL:
+						setBodyFromPreferences(3, gender, subspecies);
+						break;
+					case MAXIMUM:
+						setBody(gender, subspecies, RaceStage.GREATER);
+						break;
+				}
 			}
 			
 			setName(Name.getRandomTriplet(this.getRace()));

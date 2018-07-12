@@ -7,12 +7,12 @@ import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.managers.dominion.SMStallFaceToWall;
-import com.lilithsthrone.game.sex.managers.dominion.SMStallKneeling;
-import com.lilithsthrone.game.sex.managers.dominion.SMStallBackToWall;
+import com.lilithsthrone.game.sex.managers.universal.SMBackToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMFaceSitting;
+import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
+import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -24,8 +24,13 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
+ * Contains all positional changes for both sub and dom.
+ * 
+ * If sub, positional change is just a suggestion, which the NPC may refuse if they have other preferences.
+ * 
+ * 
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public class ToiletStall {
@@ -37,32 +42,29 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
-					&& (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
+					&& (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Swap with [npc.name]";
+			return "Swap with [npc2.name]";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Swap positions with [npc.name].";
+			return "Swap [npc.verb(position)] with [npc2.name].";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name], you move [npc.herHim] around and swap positions with [npc.herHim], before [pc.moaning],"
-					+ " [pc.speech(It'll be more fun like this!)]";
+			return "Taking hold of [npc2.name], you move [npc2.herHim] around and swap [npc.verb(position)] with [npc2.herHim], before [npc.moaning],"
+					+ " [npc.speech(It'll be more fun like this!)]";
 		}
 
 		@Override
@@ -71,7 +73,6 @@ public class ToiletStall {
 		}
 	};
 	
-
 	public static final SexAction PLAYER_POSITION_FACE_TO_WALL = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -79,39 +80,36 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.FACING_WALL_STALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& SexPositionType.FACING_WALL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
+					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Face to wall";
+			return "Face-to-wall";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Push [npc.name] up against a nearby wall.";
+			return "Push [npc2.name] up against the wall of the toilet.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] up against a nearby wall."
-					+ " Grinding your body up against [npc.her] back, you [pc.moan] into [npc.her] [npc.ear], "
-					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
+			return "Taking hold of [npc2.namePos] shoulders, you push [npc2.herHim] up against one of the toilet stall's walls."
+					+ " Grinding your body up against [npc2.her] back, you [npc.moan] into [npc2.her] [npc2.ear], "
+					+ "[npc.speech(Be a good [npc2.girl] and hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallFaceToWall(
+			Sex.setSexManager(new SMFaceToWall(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 			
@@ -128,18 +126,15 @@ public class ToiletStall {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedFaceToWall
-					&& !(Sex.getPosition() == SexPositionType.FACING_WALL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& SexPositionType.FACING_WALL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
+					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -149,13 +144,13 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Try and move into a position so that you're facing a nearby wall.";
+			return "Try and move into a position so that you're facing one of the toilet stall's wall.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Before [npc.name] can react, you quickly move up against a nearby wall."
-					+ " Placing your hands up against the solid surface that's now in front of you, you push your [pc.ass+] out, shaking it at [npc.name] as you try to encourage [npc.herHim] to fuck you like this.";
+			return "Before [npc2.name] can react, you quickly move up against the nearest of the toilet stall's walls."
+					+ " Placing your hands up against the solid surface that's now in front of you, you push your [npc.ass+] out, shaking it at [npc2.name] as you try to encourage [npc2.herHim] to fuck you like this.";
 		}
 
 		@Override
@@ -172,39 +167,36 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL_STALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& SexPositionType.BACK_TO_WALL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
+					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Back to wall";
+			return "Back-to-wall";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Push [npc.name] back against a nearby wall.";
+			return "Push [npc2.name] back against a one of the toilet stall's walls.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.namePos] shoulders, you push [npc.herHim] back against a nearby wall."
-					+ " Grinding your body up against [npc.hers], you [pc.moan] into [npc.her] [npc.ear], "
-					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
+			return "Taking hold of [npc2.namePos] shoulders, you push [npc2.herHim] back against the wall of the toilet."
+					+ " Grinding your body up against [npc2.hers], you [npc.moan] into [npc2.her] [npc2.ear], "
+					+ "[npc.speech(Be a good [npc2.girl] and hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallBackToWall(
+			Sex.setSexManager(new SMBackToWall(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
 			
@@ -220,18 +212,15 @@ public class ToiletStall {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedBackToWall
-					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& SexPositionType.BACK_TO_WALL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
+					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -241,13 +230,13 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Try and move into a position so that your back is up against a nearby wall.";
+			return "Try and move into a position so that your back is up against one of the toilet stall's walls.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Before [npc.name] can react, you quickly move up against a nearby wall."
-					+ " Leaning back against the solid surface that's now behind you, you give [npc.name] your most seductive look, trying to encourage [npc.herHim] to fuck you like this.";
+			return "Before [npc2.name] can react, you quickly move up against the nearest of the toilet stall's walls."
+					+ " Leaning back against the solid surface that's now behind you, you give [npc2.name] your most seductive look, trying to encourage [npc2.herHim] to fuck you like this.";
 		}
 
 		@Override
@@ -256,7 +245,6 @@ public class ToiletStall {
 		}
 	};
 	
-
 	public static final SexAction PLAYER_POSITION_KNEELING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -264,17 +252,14 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& SexPositionType.KNEELING_ORAL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -284,19 +269,19 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Force [npc.name] to [npc.her] knees.";
+			return "Force [npc2.name] to [npc2.her] knees.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.namePos] shoulders, you quite quickly force [npc.herHim] to [npc.her] knees before you."
-					+ " Grinning down at [npc.her] submissive form, you [pc.moan], "
-					+ "[pc.speech(Time to put your mouth to use!)]";
+			return "Taking hold of [npc2.namePos] shoulders, you quite quickly force [npc2.herHim] to [npc2.her] knees before you."
+					+ " Grinning down at [npc2.her] submissive form, you [npc.moan], "
+					+ "[npc.speech(Time to put your mouth to use!)]";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallKneeling(
+			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 			
@@ -312,18 +297,15 @@ public class ToiletStall {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedKneeling
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& SexPositionType.KNEELING_ORAL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -333,12 +315,12 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Drop down onto your knees in the hope that [npc.name] wants you to perform oral on [npc.herHim].";
+			return "Drop down onto your knees in the hope that [npc2.name] wants you to perform oral on [npc2.herHim].";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You quickly drop down to your knees in front of [npc.name], shuffling forwards a little to bring your face closer to [npc.her] groin.";
+			return "You quickly drop down to your knees in front of [npc2.name], shuffling forwards a little to bring your face closer to [npc2.her] groin.";
 		}
 
 		@Override
@@ -354,17 +336,14 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& SexPositionType.KNEELING_ORAL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -379,12 +358,12 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Smiling, you slowly slide down to your knees in front of [npc.name].";
+			return "Smiling, you slowly slide down to your knees in front of [npc2.name].";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallKneeling(
+			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 
@@ -400,18 +379,15 @@ public class ToiletStall {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedSelfKneeling
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& SexPositionType.KNEELING_ORAL_STALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -421,12 +397,12 @@ public class ToiletStall {
 
 		@Override
 		public String getActionDescription() {
-			return "Try and push [npc.name] down onto [npc.her] knees so that [npc.she]'ll perform oral on you.";
+			return "Try and push [npc2.name] down onto [npc2.her] knees so that [npc2.she]'ll perform oral on you.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Lifting your [pc.arms], you take hold of [npc.namePos] shoulders, and, with a little pressure, try to get [npc.herHim] to kneel before you.";
+			return "Lifting your [npc.arms], you take hold of [npc2.namePos] shoulders, and, with a little pressure, try to get [npc2.herHim] to kneel before you.";
 		}
 
 		@Override
@@ -435,7 +411,8 @@ public class ToiletStall {
 		}
 	};
 	
-
+	
+	
 	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -749,12 +726,12 @@ public class ToiletStall {
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))));
 				
 			} else if(SexFlags.requestedFaceToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
-				Sex.setSexManager(new SMStallFaceToWall(
+				Sex.setSexManager(new SMFaceToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 				
 			} else if(SexFlags.requestedBackToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
-				Sex.setSexManager(new SMStallBackToWall(
+				Sex.setSexManager(new SMBackToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
 				
@@ -779,12 +756,12 @@ public class ToiletStall {
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
 				
 			} else if(SexFlags.requestedKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
-				Sex.setSexManager(new SMStallKneeling(
+				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 				
 			} else if(SexFlags.requestedSelfKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
-				Sex.setSexManager(new SMStallKneeling(
+				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 				
@@ -832,7 +809,7 @@ public class ToiletStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionType.FACING_WALL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
+					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
 					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& Sex.getActivePartner().hasPenis()
@@ -851,14 +828,14 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you up against a nearby wall."
+			return "Taking hold of your shoulders, [npc.name] pushes you up against the nearest of the toilet stall's walls."
 					+ " Grinding [npc.her] body up against your back, [npc.she] [npc.moans] into your [pc.ear], "
 					+ "[npc.speech(Good [pc.girl]! Now hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallFaceToWall(
+			Sex.setSexManager(new SMFaceToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 			
@@ -881,7 +858,7 @@ public class ToiletStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
+					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
 					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -899,14 +876,14 @@ public class ToiletStall {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you back against a nearby wall."
+			return "Taking hold of your shoulders, [npc.name] pushes you back against the closest of the toilet stall's walls."
 					+ " Grinding [npc.her] body up against yours, [npc.she] [npc.moans] into your [pc.ear], "
 					+ "[npc.speech(Good [pc.girl]! Now hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallBackToWall(
+			Sex.setSexManager(new SMBackToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
 			
@@ -914,7 +891,7 @@ public class ToiletStall {
 		}
 	};
 	
-
+	
 	public static final SexAction PARTNER_FORCE_POSITION_KNEELING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -930,7 +907,7 @@ public class ToiletStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
 					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -955,7 +932,7 @@ public class ToiletStall {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallKneeling(
+			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 			
@@ -978,7 +955,7 @@ public class ToiletStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL_STALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
+					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
 					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -1003,7 +980,7 @@ public class ToiletStall {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMStallKneeling(
+			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 			

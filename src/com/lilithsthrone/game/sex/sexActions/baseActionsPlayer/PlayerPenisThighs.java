@@ -627,7 +627,7 @@ public class PlayerPenisThighs {
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Forcefully grinding [npc.herself] against you, [npc.name] roughly positions your [pc.cock+] between [npc.her] [npc.legs+],"
+							"Forcefully grinding [npc.herself] against you, [npc.name] roughly [npc.verb(position)] your [pc.cock+] between [npc.her] [npc.legs+],"
 									+ " letting out [npc.a_moan+] before violently slamming [npc.her] [npc.hips] against you and forcing your [pc.cock+] between [npc.her] thighs.",
 							"Lining your [pc.cock+] up between [npc.her] [npc.legs], [npc.name] violently slams [npc.her] [npc.hips] against you,"
 									+ " [npc.moaning+] as [npc.she] roughly forces your [pc.cock+] between [npc.her] thighs."));

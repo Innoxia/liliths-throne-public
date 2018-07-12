@@ -30,7 +30,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	protected TesticleType type;
 	protected int testicleSize;
 	protected int cumStorage;
-	protected int cumStored;
+	protected float cumStored;
 	protected int cumRegeneration;
 	protected int testicleCount;
 	protected int cumExpulsion;
@@ -124,13 +124,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 			
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
 						+ "</p>");
@@ -284,26 +284,26 @@ public class Testicle implements BodyPartInterface, Serializable {
 	// Stored cum:
 
 	public CumProduction getStoredCum() {
-		return CumProduction.getCumProductionFromInt(cumStored);
+		return CumProduction.getCumProductionFromInt((int)cumStored);
 	}
 	
-	public int getRawStoredCumValue() {
+	public float getRawStoredCumValue() {
 		return cumStored;
 	}
 
 	/**
 	 * Sets the cumStorage. Value is bound to >=0 && <=getRawCumStorageValue()
 	 */
-	public String setStoredCum(GameCharacter owner, int cumStored) {
-		int oldStoredCum = this.cumStored;
+	public String setStoredCum(GameCharacter owner, float cumStored) {
+		float oldStoredCum = this.cumStored;
 		this.cumStored = Math.max(0, (Math.min(cumStored, getRawCumStorageValue())));
-		int cumChange = oldStoredCum - this.cumStored;
+		float cumChange = oldStoredCum - this.cumStored;
 
 		if(owner==null) {
 			return "";
 		}
 		
-		if (cumChange == 0) {
+		if (cumChange <= 0) {
 			return "";
 		} else {
 			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+Colour.CUM.toWebHexString()+";'>"

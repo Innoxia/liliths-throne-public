@@ -1085,61 +1085,6 @@ public class GenericActions {
 		}
 	};
 	
-	public static final SexAction PARTNER_BLOCKS_REQUESTS = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.ONE_MINIMUM,
-			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.ONE_VANILLA,
-			null,
-			SexParticipantType.NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Respond";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().isEmpty()
-					&& Sex.getActivePartner().getSexBehaviourDeniesRequests()
-					&& (!Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl())
-					&& !Sex.getCharacterPerformingAction().isPlayer();
-		}
-		
-		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
-		}
-
-		@Override
-		public String getDescription() {
-			return "[npc.Name] frowns as you try to tell [npc.herHim] how to use you, and with a menacing tone in [npc.her] voice, [npc.she] growls at you, "
-							+UtilText.returnStringAtRandom(
-									"[npc.speech(Don't try and tell me what to do!)]",
-									"[npc.speech(I'll use whatever hole I feel like!)]");
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			SexFlags.requestsBlockedPlayer=true;
-		}
-		
-		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
-			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
-			} else {
-				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT);
-			}
-		}
-	};
-	
 	public static final SexAction PARTNER_STOP_SEX_NOT_HAVING_FUN = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,

@@ -550,6 +550,11 @@ public class Penis implements BodyPartInterface, Serializable {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
+		if(owner==null) {
+			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
+			return "";
+		}
+		
 		if(!owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -583,14 +588,14 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		if (girthChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out [pc.a_moan+] as you feel a deep throbbing sensation building up at the base of your cock."
 							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldGrow(grown thicker)].<br/>"
 							+ "You now have [style.boldSex([pc.a_penisGirth] [pc.cock])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] lets out [npc.a_moan+] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
 								+ " [npc.she] realises that [npc.her] cock has [style.boldGrow(grown thicker)].<br/>"
@@ -599,14 +604,14 @@ public class Penis implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out [pc.a_moan+] as you feel a deep throbbing sensation building up at the base of your cock."
 							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldShrink(got thinner)].<br/>"
 							+ "You now have [style.boldSex([pc.a_penisGirth] [pc.cock])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 								+ "[npc.Name] lets out [npc.a_moan+] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
 									+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(got thinner)].<br/>"
@@ -663,14 +668,14 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		if (sizeChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up at the base of your cock."
 							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldGrow(grown larger)].<br/>"
 							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
 								+ " [npc.she] realises that [npc.her] cock has [style.boldGrow(grown larger)].<br/>"
@@ -679,14 +684,14 @@ public class Penis implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out a groan as you feel a deep throbbing sensation building up at the base of your cock."
 							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldShrink(shrunk)].<br/>"
 							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
 									+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(shrunk)].<br/>"

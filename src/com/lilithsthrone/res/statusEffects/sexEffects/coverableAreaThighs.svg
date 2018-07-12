@@ -14,7 +14,7 @@
    viewBox="0 0 64.000001 64.000001"
    id="svg4311"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="coverableAreaThighs.svg">
   <defs
      id="defs4313">
@@ -325,9 +325,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="31.999999"
-     inkscape:cx="16.868111"
-     inkscape:cy="51.024422"
+     inkscape:zoom="7.9999998"
+     inkscape:cx="26.111368"
+     inkscape:cy="39.331976"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -357,7 +357,7 @@
      style="display:inline">
     <g
        id="g4193"
-       transform="translate(-71.253574,-44.224506)">
+       transform="matrix(2.3246424,0,0,2.3246424,-168.17247,-1418.6641)">
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"

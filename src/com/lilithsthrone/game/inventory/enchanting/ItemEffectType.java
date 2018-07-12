@@ -510,7 +510,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			int milkPumped = Math.min(target.getBreastRawStoredMilkValue(), ItemType.getMooMilkerMaxMilk());
+			int milkPumped = (int) Math.min(target.getBreastRawStoredMilkValue(), ItemType.getMooMilkerMaxMilk());
 			target.incrementBreastStoredMilk(-milkPumped);
 			if(target.isPlayer()) {
 				return "<p>"

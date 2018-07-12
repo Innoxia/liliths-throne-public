@@ -197,9 +197,12 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBaseRequirementsMet() {
-		return this.getSexPace()==null
+		return (this.getSexPace()==null
 				|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
-				|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom());
+				|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
+				&& (this.getActionType()!=SexActionType.STOP_ONGOING
+					|| Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()
+					|| Sex.isSubHasEqualControl()); // Can only stop if dom or equal control
 	}
 	
 	/**
@@ -632,7 +635,13 @@ public interface SexActionInterface {
 				}
 			};
 		} else {
-			return new ResponseEffectsOnly(getActionTitle(), getActionDescription()){
+			return new ResponseEffectsOnly(
+					this.endsSex()
+						?getActionTitle()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+					this.endsSex()
+						?getActionDescription()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription())){
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();

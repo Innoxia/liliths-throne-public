@@ -356,15 +356,16 @@ public enum Spell {
 									?"With a flash of light and a burst of flames, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"
 									:"With a flash of light and a burst of flames, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
+			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
@@ -713,15 +714,16 @@ public enum Spell {
 									?"With a huge splash, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"
 									:"With a huge splash, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
+			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
@@ -1008,13 +1010,13 @@ public enum Spell {
 									?"With a tremendous gust of wind, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"
 									:"With a tremendous gust of wind, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			
@@ -1319,13 +1321,13 @@ public enum Spell {
 									?"With a burst of rocks and debris, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"
 									:"With a burst of rocks and debris, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			
@@ -2107,13 +2109,13 @@ public enum Spell {
 									?"With a flash of purple arcane lightning, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"
 									:"With a flash of purple arcane lightning, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			

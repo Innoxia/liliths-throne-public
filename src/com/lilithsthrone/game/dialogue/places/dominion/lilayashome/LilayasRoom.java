@@ -142,11 +142,6 @@ public class LilayasRoom {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_POST_MASTURBATION");
 		}
@@ -375,11 +370,6 @@ public class LilayasRoom {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 20;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "AFTER_ROSE_AS_DOM");
 		}
@@ -464,11 +454,6 @@ public class LilayasRoom {
 	
 	public static final DialogueNodeOld AFTER_LILAYA_AND_ROSE_AS_DOMS = new DialogueNodeOld("Lilaya's Room", ".", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 20;
-		}
 
 		@Override
 		public String getContent() {

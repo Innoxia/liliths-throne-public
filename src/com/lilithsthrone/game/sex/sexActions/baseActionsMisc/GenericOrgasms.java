@@ -1809,7 +1809,7 @@ public class GenericOrgasms {
 				switch((SexAreaOrifice)areaContacted) {
 					case ANUS:
 						if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
-							return UtilText.parse(characterPenetrated, "Knot [npc2.herHim]");
+							return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 						} else {
 							return "Anal Creampie";
 						}
@@ -1827,7 +1827,7 @@ public class GenericOrgasms {
 						return "Urethra Creampie";
 					case VAGINA:
 						if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
-							return UtilText.parse(characterPenetrated, "Knot [npc2.herHim]");
+							return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 						} else {
 							return "Creampie";
 						}

@@ -277,11 +277,6 @@ public class Lilaya extends NPC {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getLabel() {
 			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 				return "Oops...";
@@ -371,11 +366,6 @@ public class Lilaya extends NPC {
 	
 	public static final DialogueNodeOld AUNT_END_SEX_GEISHA = new DialogueNodeOld("Lilaya's Bedroom", ".", true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
 		
 		@Override
 		public String getLabel() {

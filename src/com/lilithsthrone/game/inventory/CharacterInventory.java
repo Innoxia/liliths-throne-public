@@ -1686,10 +1686,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return Clothing that's responsible for blocking the supplied area. Null if not blocked.
 	 */
 	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
+		List<AbstractClothing> blockingClothingList = getBlockingCoverableAreaClothingList(area, byRemovingClothing);
+		
+ 		if(!blockingClothingList.isEmpty()) {
+	 		for(AbstractClothing c : blockingClothingList) {
+	 			if(c.isSealed()) {
+	 				return c;
+	 			}
+	 		}
+	 		return blockingClothingList.get(0);
+ 		}
+ 		
+		return null;
+	}
+	
+	private List<AbstractClothing> getBlockingCoverableAreaClothingList(CoverableArea area, boolean byRemovingClothing) {
+		List<AbstractClothing> blockingClothingList = new ArrayList<>();
+
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
-		
-		List<AbstractClothing> blockingClothingList = new ArrayList<>();
  		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
@@ -1720,15 +1735,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				}
 			}
 		}
- 		if(!blockingClothingList.isEmpty()) {
-	 		for(AbstractClothing c : blockingClothingList) {
-	 			if(c.isSealed()) {
-	 				return c;
-	 			}
-	 		}
-	 		return blockingClothingList.get(0);
- 		}
-		return null;
+ 		
+	 	return blockingClothingList;
 	}
 	
 	private boolean isCoverableAreaExposedFromElsewhere(AbstractClothing clothing, CoverableArea area) {
@@ -1819,19 +1827,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	public AbstractClothing getLowestZLayerCoverableArea(CoverableArea area) {
 		AbstractClothing c = null;
 
-		// Iterate through currently worn clothing:
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-			// If this clothing is blocking the slot you are trying to access:
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
-				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-						// Replace if ZLayer is lower than previous found clothing:
-						if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-							c = clothing;
-					}
-				}
+		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(area, false)) {
+			if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer()) {
+				c = clothing;
 			}
 		}
+		
+//		// Iterate through currently worn clothing:
+//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+//			// If this clothing is blocking the slot you are trying to access:
+//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
+//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//						// Replace if ZLayer is lower than previous found clothing:
+//						if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
+//							c = clothing;
+//					}
+//				}
+//			}
+//		}
 
 		return c;
 	}
@@ -1844,19 +1858,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	public AbstractClothing getHighestZLayerCoverableArea(CoverableArea area) {
 		AbstractClothing c = null;
 
-		// Iterate through currently worn clothing:
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-			// If this clothing is blocking the slot you are trying to access:
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
-				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-						// Replace if ZLayer is higher than previous found clothing:
-						if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-							c = clothing;
-					}
-				}
+		for (AbstractClothing clothing : getBlockingCoverableAreaClothingList(area, false)) {
+			if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer()) {
+				c = clothing;
 			}
 		}
+		
+//		// Iterate through currently worn clothing:
+//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+//			// If this clothing is blocking the slot you are trying to access:
+//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+//				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
+//					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//						// Replace if ZLayer is higher than previous found clothing:
+//						if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
+//							c = clothing;
+//					}
+//				}
+//			}
+//		}
 		
 		return c;
 	}

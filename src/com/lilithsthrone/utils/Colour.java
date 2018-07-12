@@ -419,6 +419,15 @@ public enum Colour {
 	SLIME_GREY(false, BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(false, BaseColour.BLACK, "translucent black"),
 	SLIME_WHITE(false, BaseColour.WHITE, "translucent white"),
+	SLIME_RAINBOW(false, BaseColour.PINK,
+			"translucent "
+			+ "<span style='color:#E64C4C;'>r</span>"
+			+ "<span style='color:#E6854C;'>a</span>"
+			+ "<span style='color:#E6C74C;'>i</span>"
+			+ "<span style='color:#6EE64C;'>n</span>"
+			+ "<span style='color:#4CB2E6;'>b</span>"
+			+ "<span style='color:#AD4CE6;'>o</span>"
+			+ "<span style='color:#E64CA8;'>w</span>"),
 
 	// Feathers:
 //	FEATHERS_RED(false, BaseColour.RED, "red"),
@@ -521,8 +530,16 @@ public enum Colour {
 	COVERING_GREEN(false, BaseColour.GREEN, "green"),
 	COVERING_GREEN_DARK(false, BaseColour.GREEN_DARK, "dark green"),
 	
-	// Special nail polish:
-	COVERING_CLEAR(false, BaseColour.WHITE, "clear"),
+	// Specials:
+	COVERING_CLEAR(false, BaseColour.WHITE, "clear"), // For nail-polish
+	COVERING_RAINBOW(false, BaseColour.BLUE,
+			"<span style='color:#E64C4C;'>r</span>"
+			+ "<span style='color:#E6854C;'>a</span>"
+			+ "<span style='color:#E6C74C;'>i</span>"
+			+ "<span style='color:#6EE64C;'>n</span>"
+			+ "<span style='color:#4CB2E6;'>b</span>"
+			+ "<span style='color:#AD4CE6;'>o</span>"
+			+ "<span style='color:#E64CA8;'>w</span>"),
 	COVERING_NONE(false, BaseColour.GREY, "none"),
 
 	// Eye colours:
@@ -626,10 +643,11 @@ public enum Colour {
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_PURPLE_DARK,
 			Colour.SKIN_PINK_LIGHT,
-			Colour.SKIN_PINK);
+			Colour.SKIN_PINK,
+			Colour.COVERING_RAINBOW);
 
 
-	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
+	public static List<Colour> naturalSlimeColours = Util.newArrayListOfValues(
 			Colour.SLIME_CLEAR,
 			Colour.SLIME_WHITE,
 			Colour.SLIME_GREY,
@@ -654,7 +672,11 @@ public enum Colour {
 			Colour.SLIME_PINK,
 			Colour.SLIME_PINK_LIGHT
 			);
-
+	
+	public static List<Colour> dyeSlimeColours = Util.newArrayListOfValues(
+			Colour.SLIME_RAINBOW
+	);
+	
 	public static List<Colour> naturalFeatherColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,
 			Colour.COVERING_GREY,
@@ -689,7 +711,8 @@ public enum Colour {
 			Colour.COVERING_SILVER,
 			Colour.COVERING_COPPER,
 			Colour.COVERING_STEEL,
-			Colour.COVERING_ROSE_GOLD
+			Colour.COVERING_ROSE_GOLD,
+			Colour.COVERING_RAINBOW
 			);
 			
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
@@ -723,7 +746,8 @@ public enum Colour {
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_ROSE_GOLD,
 			Colour.COVERING_RED,
-			Colour.COVERING_RED_DARK);
+			Colour.COVERING_RED_DARK,
+			Colour.COVERING_RAINBOW);
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,
@@ -753,7 +777,8 @@ public enum Colour {
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_RED,
-			Colour.COVERING_RED_DARK);
+			Colour.COVERING_RED_DARK,
+			Colour.COVERING_RAINBOW);
 
 	public static List<Colour> hornColours = Util.newArrayListOfValues(
 			Colour.HORN_WHITE,
@@ -771,7 +796,8 @@ public enum Colour {
 			Colour.HORN_GREEN,
 			Colour.HORN_BLUE,
 			Colour.HORN_LILAC,
-			Colour.HORN_PURPLE);
+			Colour.HORN_PURPLE,
+			Colour.COVERING_RAINBOW);
 
 	
 	// Antlers:
@@ -793,7 +819,8 @@ public enum Colour {
 			Colour.ANTLER_GREEN,
 			Colour.ANTLER_BLUE,
 			Colour.ANTLER_LILAC,
-			Colour.ANTLER_PURPLE);
+			Colour.ANTLER_PURPLE,
+			Colour.COVERING_RAINBOW);
 	
 	// Hair:
 	
@@ -829,7 +856,8 @@ public enum Colour {
 			Colour.COVERING_ORANGE,
 			Colour.COVERING_AMBER,
 			Colour.COVERING_RED,
-			Colour.COVERING_RED_DARK);
+			Colour.COVERING_RED_DARK,
+			Colour.COVERING_RAINBOW);
 	
 	// Eyes:
 	
@@ -854,7 +882,8 @@ public enum Colour {
 			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
-			Colour.EYE_BLACK);
+			Colour.EYE_BLACK,
+			Colour.COVERING_RAINBOW);
 
 	public static List<Colour> naturalDemonIrisColours = Util.newArrayListOfValues(
 			Colour.EYE_BROWN,
@@ -877,7 +906,8 @@ public enum Colour {
 	
 	public static List<Colour> dyeDemonIrisColours = Util.newArrayListOfValues(
 			Colour.EYE_SILVER,
-			Colour.EYE_GOLD);
+			Colour.EYE_GOLD,
+			Colour.COVERING_RAINBOW);
 	
 	
 	public static List<Colour> naturalPredatorIrisColours = Util.newArrayListOfValues(
@@ -899,7 +929,8 @@ public enum Colour {
 			Colour.EYE_VIOLET,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
-			Colour.EYE_BLACK);
+			Colour.EYE_BLACK,
+			Colour.COVERING_RAINBOW);
 	
 	
 	public static List<Colour> naturalPupilColours = Util.newArrayListOfValues(
@@ -923,7 +954,8 @@ public enum Colour {
 			Colour.EYE_VIOLET,
 			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
-			Colour.EYE_PURPLE);
+			Colour.EYE_PURPLE,
+			Colour.COVERING_RAINBOW);
 	
 	public static List<Colour> naturalScleraColours = Util.newArrayListOfValues(
 			Colour.EYE_WHITE);
@@ -946,7 +978,8 @@ public enum Colour {
 			Colour.EYE_VIOLET,
 			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
-			Colour.EYE_PURPLE);
+			Colour.EYE_PURPLE,
+			Colour.COVERING_RAINBOW);
 	
 	
 	

@@ -667,17 +667,15 @@ public enum Subspecies {
 			body.getTail().setType(null, TailType.CAT_MORPH);
 			
 			// Body size adjustment
-			rand = Math.random();
-			if(rand<0.35f) {
-				body.getBreast().setSize(null, CupSize.B.getMeasurement());
-			}
-			else if(rand<0.70f)
-			{
-				body.getBreast().setSize(null, CupSize.A.getMeasurement());
-			}
-			else
-			{
-				body.getBreast().setSize(null, CupSize.AA.getMeasurement());
+			if(body.getBreast().getRawSizeValue()>CupSize.B.getMeasurement()) {
+				rand = Math.random();
+				if(rand<0.35f) {
+					body.getBreast().setSize(null, CupSize.B.getMeasurement());
+				} else if(rand<0.70f) {
+					body.getBreast().setSize(null, CupSize.A.getMeasurement());
+				} else {
+					body.getBreast().setSize(null, CupSize.AA.getMeasurement());
+				}
 			}
 			
 			body.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());

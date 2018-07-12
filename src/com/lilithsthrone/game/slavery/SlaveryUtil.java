@@ -341,11 +341,11 @@ public class SlaveryUtil implements XMLSaving {
 				case MILKING:
 					int income = 0;
 
-					Cell c = MilkingRoom.getMilkingCell(slave);
+					Cell c = MilkingRoom.getMilkingCell(slave, false);
 					MilkingRoom room = this.getMilkingRoom(c.getType(), c.getLocation());
 					
 					if(slave.getBreastRawStoredMilkValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
-						int milked = MilkingRoom.getActualMilkPerHour(slave);
+						float milked = MilkingRoom.getActualMilkPerHour(slave);
 						if(milked < slave.getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 							milked = Math.min(slave.getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
 						}

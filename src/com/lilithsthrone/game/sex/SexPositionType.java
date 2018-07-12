@@ -41,7 +41,7 @@ import com.lilithsthrone.utils.Util.Value;
 /**
  * Enum values that determine what actions are available for each slot.<br/><br/>
  * 
- * Each value holds a map, <i>slotTargets</i>, which maps SexPositionSlots to a map of SexPositionSlots, which in turn maps to positions available.
+ * Each value holds a map, <i>slotTargets</i>, which maps SexPositionSlots to a map of SexPositionSlots, which in turn maps to [npc.verb(position)] available.
  *  By providing a character's position in sex, along with the position of the partner they're targeting, this map is used to fetch available actions.<br/><br/>
  *  
  *  <b>Example:</b><br/>
@@ -636,8 +636,7 @@ public enum SexPositionType {
 										new SexActionInteractions(
 												Util.mergeMaps(
 														SexActionPresets.tailToUpperTorso,
-														SexActionPresets.tentacleToUpperTorso,
-														SexActionPresets.groinToGroin))))),
+														SexActionPresets.tentacleToUpperTorso))))),
 					new Value<>(
 							SexPositionSlot.STOCKS_RECEIVING_ORAL,
 							Util.newHashMapOfValues(
@@ -667,7 +666,9 @@ public enum SexPositionType {
 														SexActionPresets.fingerToLowerHalf,
 														SexActionPresets.tailToLowerHalf,
 														SexActionPresets.tentacleToLowerHalf,
-														SexActionPresets.penisToAss))))))) {
+														SexActionPresets.penisToAss,
+														SexActionPresets.penisToVagina,
+														SexActionPresets.penisToThighs))))))) {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
@@ -739,8 +740,7 @@ public enum SexPositionType {
 										new SexActionInteractions(
 												Util.mergeMaps(
 														SexActionPresets.tailToUpperTorso,
-														SexActionPresets.tentacleToUpperTorso,
-														SexActionPresets.groinToGroin))))),
+														SexActionPresets.tentacleToUpperTorso))))),
 					new Value<>(
 							SexPositionSlot.MILKING_STALL_RECEIVING_ORAL,
 							Util.newHashMapOfValues(
@@ -752,7 +752,9 @@ public enum SexPositionType {
 														SexActionPresets.tentacleToUpperTorso,
 														SexActionPresets.fingerToUpperTorso,
 														SexActionPresets.vaginaToMouth,
-														SexActionPresets.penisToMouth))))),
+														SexActionPresets.penisToMouth,
+														SexActionPresets.penisToVagina,
+														SexActionPresets.penisToThighs))))),
 					new Value<>(
 							SexPositionSlot.MILKING_STALL_PERFORMING_ORAL,
 							Util.newHashMapOfValues(
@@ -1545,16 +1547,19 @@ public enum SexPositionType {
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING) {
 			// Block penis+non-appendage actions if target's penis is already in use:
-			if(this!=SexPositionType.SIXTY_NINE
-					&& action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)) {
-				if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
+			if(this!=SexPositionType.SIXTY_NINE) {
+				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
 						&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
-						&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)) {
+						&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)
+						&& Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.appendageAreas)) {
 					return true;
 				}
-				if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)
+				if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)
 						&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
-						&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)) {
+						&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)
+						&& Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.appendageAreas)) {
 					return true;
 				}
 			}
@@ -1562,12 +1567,14 @@ public enum SexPositionType {
 			// Block oral + groin actions if there is any groin action going on:
 			if(this!=SexPositionType.SIXTY_NINE
 					&& ((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
-					&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
-					|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
-						&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
+							&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
+						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
+							&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
 				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
-					if((Sex.getOngoingActionsMap(target).containsKey(sArea) && Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer))
-							|| Sex.getOngoingActionsMap(performer).containsKey(sArea) && Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)) {
+					if((Sex.getOngoingActionsMap(target).containsKey(sArea)
+							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer))
+						|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
+							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target))) {
 						return true;
 					}
 				}

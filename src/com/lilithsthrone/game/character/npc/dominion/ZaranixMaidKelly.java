@@ -288,7 +288,7 @@ public class ZaranixMaidKelly extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						ZaranixMaidKelly.AFTER_SEX_VICTORY,
+						AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"

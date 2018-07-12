@@ -31,7 +31,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	protected int size;
 	protected int rows;
 	protected int milkStorage;
-	protected int milkStored;
+	protected float milkStored;
 	protected int milkRegeneration;
 	protected int nippleCountPerBreast;
 	
@@ -644,22 +644,22 @@ public class Breast implements BodyPartInterface, Serializable {
 	// Stored milk:
 
 	public Lactation getStoredMilk() {
-		return Lactation.getLactationFromInt(milkStored);
+		return Lactation.getLactationFromInt((int) milkStored);
 	}
 	
-	public int getRawStoredMilkValue() {
+	public float getRawStoredMilkValue() {
 		return milkStored;
 	}
 
 	/**
 	 * Sets the milkStorage. Value is bound to >=0 && <=getRawMilkStorageValue()
 	 */
-	public String setStoredMilk(GameCharacter owner, int milkStored) {
-		int oldStoredMilk = this.milkStored;
+	public String setStoredMilk(GameCharacter owner, float milkStored) {
+		float oldStoredMilk = this.milkStored;
 		this.milkStored = Math.max(0, (Math.min(milkStored, getRawMilkStorageValue())));
-		int lactationChange = oldStoredMilk - this.milkStored;
+		float lactationChange = oldStoredMilk - this.milkStored;
 		
-		if (lactationChange == 0) {
+		if (lactationChange <= 0) {
 			return "";
 		} else {
 			if(owner.isPlayer()) {

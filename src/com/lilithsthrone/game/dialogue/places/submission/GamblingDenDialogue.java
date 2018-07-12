@@ -613,7 +613,6 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	
 	public static final DialogueNodeOld GAMBLING = new DialogueNodeOld("Dice Poker Tables", "", false) {
 		private static final long serialVersionUID = 1L;
 		

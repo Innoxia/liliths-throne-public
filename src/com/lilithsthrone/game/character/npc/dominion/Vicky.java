@@ -49,7 +49,6 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -62,7 +61,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -317,11 +316,6 @@ public class Vicky extends NPC {
 	
 	// Sex:
 	
-	@Override
-	public boolean getSexBehaviourDeniesRequests() {
-		return false;
-	}
-	
 	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
@@ -331,7 +325,7 @@ public class Vicky extends NPC {
 	}
 	
 	public SexType getForeplayPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
@@ -343,7 +337,7 @@ public class Vicky extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {

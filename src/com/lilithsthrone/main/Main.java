@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.8.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -206,7 +206,7 @@ public class Main extends Application {
 			+"<ul>Fixed parsing error when viewing NPC with demon wings.</ul>"
 			+"<ul>Fixed bug where ellipsis wouldn't display correctly.</ul>"
 			+"<ul>Fixed NullPointerException issue which was sometimes occurring in sex scenes.</ul>"
-			+"<ul>Fixed Lilaya and Kate constantly switching positions in sex.</ul>"
+			+"<ul>Fixed Lilaya and Kate constantly switching [npc.verb(position)] in sex.</ul>"
 			+"<ul>Fixed no actions being available in the chair sex scenes.</ul>"
 			+"<ul>Fixed panty masturbation scene not working.</ul>"
 			+"<ul>Fixed incorrect arousal gains in masturbation. (They were far too small before.)</ul>"
@@ -245,7 +245,7 @@ public class Main extends Application {
 			
 			+"<li>Bugs:</li>"
 			+"<ul>Fixed Ralph not starting anal when you asked for big discount.</ul>"
-			+"<ul>Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.</ul>"
+			+"<ul>Fixed not being able to swap or change [npc.verb(position)] with Lilaya & Kate in their sex scenes.</ul>"
 			+"<ul>Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.</ul>"
 			+"<ul>Typo and parsing fixes.</ul>"
 			+"<ul>Fixed 'Deny' sex action not working.</ul>"
@@ -254,7 +254,7 @@ public class Main extends Application {
 			+"<ul>Fixed blowjob not being available sometimes in sixty-nine position.</ul>"
 			+"<ul>Fixed buttplugs not actually blocking anus.</ul>"
 			+"<ul>Fixed NPCs choosing oral sex actions even if they hated or disliked it.</ul>"
-			+"<ul>Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.</ul>"
+			+"<ul>Fixed Lilaya and Kate sometimes continuously switching [npc.verb(position)] in their sex scenes.</ul>"
 			+"<ul>Fixed tattoos sometimes being applied with the last letter in their writing being cut off.</ul>"
 			+"<ul>You can now end sex when starting submissive sex with a companion.</ul>"
 			+"<ul>Fixed case where dominant NPC would refuse to take any action in sex.</ul>"

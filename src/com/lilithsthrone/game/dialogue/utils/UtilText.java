@@ -34,6 +34,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -50,7 +51,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia, Pimvgd
  */
 public class UtilText {
@@ -557,6 +558,10 @@ public class UtilText {
 	 */
 	public static String parse(List<GameCharacter> specialNPC, String input) {
 		
+		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
+			input = input.replaceAll("\u200b", "");
+		}
+		
 		// Loop through input, when find '[', start parsing.
 		// [target.command(arguments)]
 		
@@ -678,13 +683,17 @@ public class UtilText {
 					}
 				}
 				
-				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+				//TODO
+				if (openBrackets>0 && ((target!=null && command!=null) || (!Character.isWhitespace(c) || c==' '))) {
+						//(Character.isLetterOrDigit(c) || c=='+' || c=='.' || c=='[' || c=='(' || c==')'))) {
+					//String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
 				
 				if (endIndex != 0) {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
 					UtilText.specialNPCList = specialNPC;
+					// resetParsingEngine();
 					String subResult = (currentParseMode == ParseMode.CONDITIONAL
 							? parseConditionalSyntaxNew(specialNPC, conditionalStatement, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, specialNPC)
@@ -712,14 +721,15 @@ public class UtilText {
 					arguments = null;
 					conditionalTrue = null;
 					conditionalFalse = null;
+					conditionalStatement = null;
 					
 					conditionalElseFound = false;
 					currentParseMode = ParseMode.UNKNOWN;
 				}
 			}
 			
-			if (startIndex != 0) {
-				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
+			if (startIndex != 0) {//TODO
+				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+") - "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
 				return input;
 			}
 			if (startedParsingSegmentAt < input.length()) {
@@ -734,13 +744,13 @@ public class UtilText {
 		}
 	}
 	
-	private static boolean substringMatchesInReverseAtIndex(String haystack, String needle, int index) {
+	private static boolean substringMatchesInReverseAtIndex(String input, String stringToMatch, int index) {
 		index++;//this fixes my off by one error and I'm too tired to figure out why
-		int startingLocation = index - needle.length();
-		if (startingLocation < 0 || index >= haystack.length()) {
+		int startingLocation = index - stringToMatch.length();
+		if (startingLocation < 0 || index > input.length()) {
 			return false;
 		}
-		return haystack.substring(startingLocation, index).equals(needle);
+		return input.substring(startingLocation, index).equals(stringToMatch);
 	}
 	
 
@@ -4906,6 +4916,9 @@ public class UtilText {
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
 		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
 		
+//		ScriptEngineManager manager = new ScriptEngineManager();
+//		engine = manager.getEngineByName("javascript");
+		
 		for(ParserTarget target : ParserTarget.values()) {
 			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
 				for(String tag : target.getTags()) {
@@ -4925,6 +4938,9 @@ public class UtilText {
 		}
 		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
 			engine.put("FLAG_"+flag.toString(), flag);
+		}
+		for(History history : History.values()) {
+			engine.put("HISTORY_"+history.toString(), history);
 		}
 		
 //		StringBuilder sb = new StringBuilder();
@@ -4954,15 +4970,21 @@ public class UtilText {
 		}
 		
 		try {
-			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER && (boolean) engine.eval(conditionalStatement.replaceAll("\u200b", ""))) {
-				return conditionalTrue;
+			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
+				if((boolean) engine.eval(conditionalStatement)) {
+//					return conditionalTrue;
+					return UtilText.parse(specialNPC, conditionalTrue);
+				}
 			} else if((boolean) engine.eval(conditionalStatement)){
-				return conditionalTrue;
+//				return conditionalTrue;
+				return UtilText.parse(specialNPC, conditionalTrue);
 			}
-			return conditionalFalse;
+//			return conditionalFalse;
+			return UtilText.parse(specialNPC, conditionalFalse);
 			
 		} catch (ScriptException e) {
 			System.err.println("Conditional parsing error: "+conditionalStatement);
+			System.err.println(e.getMessage());
 			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
 		}
 	}

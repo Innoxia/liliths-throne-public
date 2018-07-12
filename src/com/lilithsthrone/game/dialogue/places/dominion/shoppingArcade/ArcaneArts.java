@@ -153,7 +153,7 @@ public class ArcaneArts {
 									+ "</p>"
 									+ "<p>"
 										+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-										+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+										+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 										+ " [vicky.speech(I hope you like it rough!)]"
 									+ "</p>");
 					} else {
@@ -200,7 +200,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -300,7 +300,7 @@ public class ArcaneArts {
 								+ "</p>"
 								+ "<p>"
 									+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-									+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+									+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 									+ " [vicky.speech(I hope you like it rough!)]"
 								+ "</p>");
 				} else {
@@ -345,7 +345,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					

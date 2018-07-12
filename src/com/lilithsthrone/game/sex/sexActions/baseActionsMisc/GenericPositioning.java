@@ -63,12 +63,12 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Swap positions with [npc2.name].";
+			return "Swap [npc.verb(position)] with [npc2.name].";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.name], you move [npc2.herHim] around and swap positions with [npc2.herHim], before [npc.moaning],"
+			return "Taking hold of [npc2.name], you move [npc2.herHim] around and swap [npc.verb(position)] with [npc2.herHim], before [npc.moaning],"
 					+ " [npc.speech(It'll be more fun like this!)]";
 		}
 
@@ -269,7 +269,7 @@ public class GenericPositioning {
 		
 		@Override
 		public String getActionTitle() {
-			return "Face to wall";
+			return "Face-to-wall";
 		}
 
 		@Override
@@ -356,7 +356,7 @@ public class GenericPositioning {
 		
 		@Override
 		public String getActionTitle() {
-			return "Back to wall";
+			return "Back-to-wall";
 		}
 
 		@Override
@@ -2129,7 +2129,7 @@ public class GenericPositioning {
 		@Override
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
-					+ " Quickly lowering [npc.herself] down onto all fours over the top of you, [npc.she] drops [npc.her] crotch down over your face as [npc.she] similarly positions [npc.her] own head over your groin."
+					+ " Quickly lowering [npc.herself] down onto all fours over the top of you, [npc.she] drops [npc.her] crotch down over your face as [npc.she] similarly [npc.verb(position)] [npc.her] own head over your groin."
 					+ " Looking back beneath [npc.herHim], [npc.she] [npc.moans], "
 					+ "[npc.speech(Good [pc.girl]! Now let's have some fun!)]";
 			

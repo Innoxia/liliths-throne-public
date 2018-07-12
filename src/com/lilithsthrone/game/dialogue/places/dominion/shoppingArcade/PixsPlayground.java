@@ -688,7 +688,7 @@ public class PixsPlayground {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 60;
+			return 10;
 		}
 
 		@Override

@@ -1079,11 +1079,6 @@ public class Brax extends NPC {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
-
-		@Override
 		public String getContent() {
 			return "<p>"
 						+ "Brax is completely exhausted, and collapses harmlessly to the floor as he passes out."

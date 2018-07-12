@@ -38,6 +38,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -415,7 +416,7 @@ public class Cultist extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests() {
+	public boolean getSexBehaviourDeniesRequests(SexAreaInterface area) {
 		return true;
 	}
 	

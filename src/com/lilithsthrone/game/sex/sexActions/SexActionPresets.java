@@ -15,7 +15,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailVagina;
@@ -30,15 +33,9 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAss;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisUrethraPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisUrethraVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAss;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisUrethraPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisUrethraVagina;
@@ -231,16 +228,10 @@ public class SexActionPresets {
 		miscActions.add(PartnerTalk.class);
 
 		
-		sexActions.add(PartnerPenisAss.class);
-		sexActions.add(PartnerPenisBreasts.class);
-		sexActions.add(PartnerPenisNipple.class);
 		sexActions.add(PartnerPenisThighs.class);
 		sexActions.add(PartnerPenisUrethraPenis.class);
 		sexActions.add(PartnerPenisUrethraVagina.class);
 		
-		sexActions.add(PlayerPenisAss.class);
-		sexActions.add(PlayerPenisBreasts.class);
-		sexActions.add(PlayerPenisNipple.class);
 		sexActions.add(PlayerPenisThighs.class);
 		sexActions.add(PlayerPenisUrethraPenis.class);
 		sexActions.add(PlayerPenisUrethraVagina.class);
@@ -268,8 +259,11 @@ public class SexActionPresets {
 		sexActions.add(TailVagina.class);
 
 		// Penis actions:
+		sexActions.add(PenisAss.class);
 		sexActions.add(PenisAnus.class);
+		sexActions.add(PenisNipple.class);
 		sexActions.add(PenisVagina.class);
+		sexActions.add(PenisBreasts.class);
 		
 //		selfActions.add(PlayerMasturbation.class);
 //		selfActions.add(PartnerMasturbation.class);

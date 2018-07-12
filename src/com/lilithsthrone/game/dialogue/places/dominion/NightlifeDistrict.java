@@ -107,7 +107,7 @@ public class NightlifeDistrict {
 					break;
 				case POSITIVE_FOUR_LOVE:
 				case POSITIVE_FIVE_WORSHIP:
-					sb.append("[npc.NameIs] <i style='color:"+al.getColour().toWebHexString()+";'>desperate to have sex with you</i>.");
+					sb.append("[npc.NameIsFull] <i style='color:"+al.getColour().toWebHexString()+";'>desperate to have sex with you</i>.");
 					break;
 			}
 			
@@ -521,11 +521,6 @@ public class NightlifeDistrict {
 	public static final DialogueNodeOld AFTER_JULES_BLOWJOB = new DialogueNodeOld("Finished", "", false) {
 		private static final long serialVersionUID = 1L;
 		
-		@Override
-		public int getMinutesPassed(){
-			return 30;
-		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AFTER_JULES_BLOWJOB");
@@ -1345,11 +1340,6 @@ public class NightlifeDistrict {
 	
 	public static final DialogueNodeOld WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNodeOld("The Watering Hole", "", true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
 		
 		@Override
 		public String getContent() {
@@ -2637,11 +2627,6 @@ public class NightlifeDistrict {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
-		}
-		
-		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getKalahari())>0) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX");
@@ -2944,11 +2929,6 @@ public class NightlifeDistrict {
 			false) {
 		private static final long serialVersionUID = 1L;
 		
-		@Override
-		public int getMinutesPassed(){
-			return 20;
-		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_AFTER_SEX");
@@ -3273,11 +3253,6 @@ public class NightlifeDistrict {
 	
 	public static final DialogueNodeOld WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 20;
-		}
 		
 		@Override
 		public boolean isTravelDisabled() {

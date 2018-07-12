@@ -394,7 +394,7 @@ public class FingerBreasts {
 										+ " letting out a soft [npc.moan] as [npc.she] [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(nipples)] down against [npc.her] [npc.nipples+] in the process.",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before guiding them up to gently [npc.verb(press)] into [npc.her] [npc.topClothing(nipples)],"
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before guiding them up to gently press into [npc.her] [npc.topClothing(nipples)],"
 										+ " and holding them there for a moment as [npc.name] [npc.verb(encourage)] [npc2.herHim] to grope and squeeze [npc.namePos] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] gently [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.her] [npc.topClothing(nipples)],"
@@ -406,7 +406,7 @@ public class FingerBreasts {
 										+ " letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(nipples)] down against [npc.her] [npc.nipples+] in the process.",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before eagerly guiding them up to [npc.verb(press)] into [npc.her] [npc.topClothing(nipples)],"
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before eagerly guiding them up to press into [npc.her] [npc.topClothing(nipples)],"
 										+ " and holding them there for a moment as [npc.name] [npc.verb(encourage)] [npc2.herHim] to grope and squeeze [npc.namePos] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.her] [npc.topClothing(nipples)],"
@@ -418,7 +418,7 @@ public class FingerBreasts {
 										+ " letting out [npc.a_moan+] as [npc.she] roughly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(nipples)] down against [npc.her] [npc.nipples+] in the process.",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before roughly yanking them up to [npc.verb(press)] into [npc.her] [npc.topClothing(nipples)],"
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before roughly yanking them up to press into [npc.her] [npc.topClothing(nipples)],"
 										+ " and holding them there for a moment as [npc.name] order [npc2.herHim] to grope and squeeze [npc.namePos] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] violently [npc.verb(pull)] them up to [npc.her] chest,"
@@ -430,7 +430,7 @@ public class FingerBreasts {
 										+ " letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(nipples)] down against [npc.her] [npc.nipples+] in the process.",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before eagerly guiding them up to [npc.verb(press)] into [npc.her] [npc.topClothing(nipples)],"
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before eagerly guiding them up to press into [npc.her] [npc.topClothing(nipples)],"
 										+ " and holding them there for a moment as [npc.name] [npc.verb(encourage)] [npc2.herHim] to grope and squeeze [npc.namePos] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] eagerly [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.her] [npc.topClothing(nipples)],"
@@ -442,7 +442,7 @@ public class FingerBreasts {
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(nipples)] down against [npc.her] [npc.nipples+] in the process.",
 
-								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before guiding them up to [npc.verb(press)] into [npc.her] [npc.topClothing(nipples)],"
+								"[npc.Name] [npc.verb(take)] hold of [npc2.namePos] [npc2.hands], before guiding them up to press into [npc.her] [npc.topClothing(nipples)],"
 										+ " and holding them there for a moment as [npc.name] [npc.verb(encourage)] [npc2.herHim] to grope and squeeze [npc.namePos] [npc.breasts].",
 
 								"Taking hold of [npc2.namePos] [npc2.hands], [npc.name] [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.her] [npc.topClothing(nipples)],"

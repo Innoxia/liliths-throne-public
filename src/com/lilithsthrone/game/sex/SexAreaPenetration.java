@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
  */
 public enum SexAreaPenetration implements SexAreaInterface {
 	
-	PENIS(4, true) {
+	PENIS(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getPenisName();
@@ -27,7 +27,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	CLIT(4, true) {
+	CLIT(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "clit";
@@ -44,7 +44,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	TONGUE(2, false) {
+	TONGUE(2, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getTongueName();
@@ -61,7 +61,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	FINGER(1, false) {
+	FINGER(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getArmType().getFingersNamePlural(owner);
@@ -80,7 +80,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	TOES(1, false) {
+	TOES(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getLegType().getToesNamePlural(owner);
@@ -99,7 +99,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	TAIL(2, true) {
+	TAIL(2, -1f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getTailName();
@@ -116,7 +116,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	TENTACLE(3, true) {
+	TENTACLE(3, -1.5f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "tentacle";
@@ -136,10 +136,12 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 	
 	private float baseArousalWhenPenetrating;
+	private float arousalChangePenetratingDry;
 	private boolean takesVirginity;
 
-	private SexAreaPenetration(float baseArousalWhenPenetrating, boolean takesVirginity) {
+	private SexAreaPenetration(float baseArousalWhenPenetrating, float arousalChangePenetratingDry, boolean takesVirginity) {
 		this.baseArousalWhenPenetrating = baseArousalWhenPenetrating;
+		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
 		this.takesVirginity = takesVirginity;
 	}
 
@@ -150,6 +152,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	
 	public float getBaseArousalWhenPenetrating() {
 		return baseArousalWhenPenetrating;
+	}
+	
+	public float getArousalChangePenetratingDry() {
+		return arousalChangePenetratingDry;
 	}
 	
 	public boolean isTakesVirginity() {

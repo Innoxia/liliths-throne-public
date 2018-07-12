@@ -996,11 +996,6 @@ public class AlleywayAttackerDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
 		}
@@ -1075,7 +1070,7 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 30;
+			return 15;
 		}
 		
 		@Override

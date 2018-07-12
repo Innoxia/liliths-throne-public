@@ -1371,7 +1371,10 @@ public class Game implements Serializable, XMLSaving {
 		
 		Main.mainController.getTooltip().hide();
 		
-		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS){
+		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty()
+				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
+				&& !Main.game.isInSex()
+				&& !Main.game.isInCombat()) {
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}

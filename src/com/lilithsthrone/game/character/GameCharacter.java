@@ -9906,7 +9906,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't quite believe what you're doing to yourself."
-						+ " As your "+(Sex.getFirstContactingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
+						+ " As your "+(Sex.getFirstContactingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
+							+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(W-What am I doing?!<br/>"
@@ -10081,7 +10082,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		StringBuilderSB.append(formatVirginityLoss("You'll always remember this moment as the time that you lost your anal virginity!"));
 		
-		return StringBuilderSB.toString();
+		return UtilText.parse(characterPenetrating, StringBuilderSB.toString());
 	}
 	
 	
@@ -10221,21 +10222,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 			StringBuilderSB.append(losingPureVirginity(characterPenetrating, penetration));
 		}
-		
-		return StringBuilderSB.toString();
+
+		return UtilText.parse(characterPenetrating, StringBuilderSB.toString());
 	}
-	
-//		public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-//			VelocityContext context = new VelocityContext();
-//	        context.put("player", Main.game.getPlayer());
-//	        context.put("game", Main.game);
-//	        context.put("partner", Sex.getPartner());
-//	        context.put("dominant", isPlayerDom);
-//	        context.put("penetratedBy", Sex.playerPenetratedBy("VAGINA"));
-//	        context.put("playerVaginaWet", Sex.isPlayerWet("VAGINA"));
-//	        context.put("txt", UtilText.class);
-//	        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
-//		}
 	
 	private String getPlayerPenileVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaOrifice orifice){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
@@ -10273,10 +10262,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return UtilText.parse(characterPenetrated, characterPenetrating,
 				(characterPenetrated.equals(characterPenetrating)
 						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own penile virginity!")
-						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] penile virginity!"))
+						:formatVirginityLoss("[npc.Name] [npc.has] taken [npc2.namePos] penile virginity!"))
 				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
+							+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
 								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
@@ -15162,16 +15151,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		return body.getBreast().getStoredMilk();
 	}
-	public int getBreastRawStoredMilkValue() {
+	public float getBreastRawStoredMilkValue() {
 		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
 			return 0;
 		}
 		return body.getBreast().getRawStoredMilkValue();
 	}
-	public String setBreastStoredMilk(int lactation) {
+	public String setBreastStoredMilk(float lactation) {
 		return body.getBreast().setStoredMilk(this, lactation);
 	}
-	public String incrementBreastStoredMilk(int increment) {
+	public String incrementBreastStoredMilk(float increment) {
 		return setBreastStoredMilk(getBreastRawStoredMilkValue() + increment);
 	}
 	// Regen:
@@ -16417,17 +16406,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		return body.getPenis().getTesticle().getStoredCum();
 	}
-	public int getPenisRawStoredCumValue() {
+	public float getPenisRawStoredCumValue() {
 		if(!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			return getPenisRawCumStorageValue();
 		}
 		
 		return body.getPenis().getTesticle().getRawStoredCumValue();
 	}
-	public String setPenisStoredCum(int cum) {
+	public String setPenisStoredCum(float cum) {
 		return body.getPenis().getTesticle().setStoredCum(this, cum);
 	}
-	public String incrementPenisStoredCum(int increment) {
+	public String incrementPenisStoredCum(float increment) {
 		return setPenisStoredCum(getPenisRawStoredCumValue() + increment);
 	}
 	// Orgasm cum amount:
@@ -16455,7 +16444,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return body.getPenis().getTesticle().getRawCumStorageValue();
 		}
 		if(body.getPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
-			return body.getPenis().getTesticle().getRawStoredCumValue();
+			return (int) body.getPenis().getTesticle().getRawStoredCumValue();
 		}
 		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}

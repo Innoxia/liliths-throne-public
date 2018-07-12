@@ -1101,11 +1101,6 @@ public class DominionSuccubusDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave "+Main.game.getActiveNPC().getName("the")+" to recover.";
 		}
@@ -1175,7 +1170,7 @@ public class DominionSuccubusDialogue {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 30;
+			return 15;
 		}
 		
 		@Override

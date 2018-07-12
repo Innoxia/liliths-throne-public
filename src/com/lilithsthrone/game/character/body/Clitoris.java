@@ -87,14 +87,14 @@ public class Clitoris implements BodyPartInterface {
 			}
 		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
 							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldGrow(grow larger)].<br/>"
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up within [npc.her] [npc.pussy]."
 							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldGrow(grow larger)].<br/>"
 							+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
@@ -102,14 +102,14 @@ public class Clitoris implements BodyPartInterface {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
 							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldShrink(shrink)].<br/>"
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].<br/>"
 								+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
@@ -133,6 +133,11 @@ public class Clitoris implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
+		if(owner==null) {
+			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
+			return "";
+		}
+		
 		if(!owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -170,10 +175,9 @@ public class Clitoris implements BodyPartInterface {
 		} else {
 			return UtilText.parse(owner,
 					"</p>"
-							+ "[npc.Name] lets out [npc.a_moan+] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
-								+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(got thinner)].<br/>"
-						+ "[npc.She] now has [style.boldSex([npc.a_clitGirth] [npc.cock])]!"
+						+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up within [npc.her] clit."
+						+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and [npc.she] can't help but let out another [npc.moan+] as [npc.her] clit suddenly [style.boldShrink(thins down)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldSex([npc.a_clitGirth] [npc.cock])]!"
 					+ "</p>");
 		}
 	}

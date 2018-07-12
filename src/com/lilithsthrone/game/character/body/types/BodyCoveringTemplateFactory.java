@@ -42,10 +42,10 @@ public class BodyCoveringTemplateFactory {
 				null,
 				Util.newArrayListOfValues(basePattern),
 				coverPatterns,
-				Colour.allSlimeColours,
-				null,
-				Colour.allSlimeColours,
-				null);
+				Colour.naturalSlimeColours,
+				Colour.dyeSlimeColours,
+				Colour.naturalSlimeColours,
+				Colour.dyeSlimeColours);
 	}
 	
 	public static BodyCoveringTemplate createFurSkinHair(List<CoveringModifier> modifiers, List<CoveringPattern> patterns) {

@@ -622,7 +622,7 @@ public class RoomPlayer {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 30;
+			return 15;
 		}
 		
 		@Override

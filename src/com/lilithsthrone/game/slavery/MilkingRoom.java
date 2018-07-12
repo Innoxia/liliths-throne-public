@@ -140,35 +140,43 @@ public class MilkingRoom implements XMLSaving {
 		}
 	}
 	
-	public static Cell getMilkingCell(GameCharacter character) {
-		List<Cell> freeMilkingCells = new ArrayList<>();
+	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
+		List<Cell> milkingCells = new ArrayList<>();
 		
 		for(MilkingRoom room : Main.game.getSlaveryUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
 		
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
 			
-			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS) && charactersPresent<8) {
+				
+			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR) && !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+				
+			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 			}
 			
-			if(charactersPresent<8) {
-				freeMilkingCells.add(c);
+			if((needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+				milkingCells.add(c);
 			}
 		}
-		if(freeMilkingCells.isEmpty()) {
+		if(milkingCells.isEmpty()) {
 			return null;
 		}
-		return freeMilkingCells.get(0);
+		return milkingCells.get(0);
 	}
 	
 	public static int getMaximumMilkPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 500;
 
 		if(c==null) {
@@ -194,7 +202,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 50;
 
 		if(c==null) {
@@ -223,7 +231,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 10;
 		
 		if(c==null) {

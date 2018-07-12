@@ -243,11 +243,6 @@ public class Ralph extends NPC {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-
-		@Override
 		public String getContent() {
 			return "<p>"
 						+ "Ralph returns to running his shop, and you walk back over to the transformative consumables section, wondering if you should buy anything with your discount."

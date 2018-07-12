@@ -449,7 +449,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -475,7 +475,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -592,7 +592,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -621,7 +621,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -741,7 +741,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -764,7 +764,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override
@@ -896,7 +896,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -920,7 +920,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override

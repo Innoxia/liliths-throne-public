@@ -171,8 +171,8 @@ public enum Sex {
 	private static Map<GameCharacter, Integer> orgasmCountMap;
 
 	private static Map<GameCharacter, Map<GameCharacter, Integer>> cummedInsideMap;
-	
-	private static Set<SexAreaOrifice> penetrationRequestsPlayer;
+
+	private static Map<GameCharacter, List<SexAreaInterface>> requestsBlocked;
 	
 	// Clothes:
 
@@ -267,8 +267,10 @@ public enum Sex {
 
 		// Populate exposed areas:
 		areasExposed = new HashMap<>();
+		requestsBlocked = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasExposed.put(character, new ArrayList<>());
+			requestsBlocked.put(character, new ArrayList<>());
 			
 //			for (CoverableArea area : CoverableArea.values()) {
 //				if (character.isAbleToAccessCoverableArea(area, false)) {
@@ -276,8 +278,6 @@ public enum Sex {
 //				}
 //			}
 		}
-		
-		penetrationRequestsPlayer = new HashSet<>();
 
 		areasStretched = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
@@ -296,7 +296,7 @@ public enum Sex {
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(character instanceof NPC) {
-				((NPC)character).generateSexChoices(Sex.getTargetedPartner(character));
+				((NPC)character).generateSexChoices(Sex.getTargetedPartner(character), null);
 			}
 			
 			// Default starting lust and arousal:
@@ -987,7 +987,12 @@ public enum Sex {
 	
 	public static final DialogueNodeOld SEX_DIALOGUE = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
-
+		
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getLabel() {
 			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")
@@ -2867,6 +2872,16 @@ public enum Sex {
 	}
 	
 	
+	public static List<SexAreaInterface> getRequestsBlocked(GameCharacter character) {
+		return requestsBlocked.get(character);
+	}
+
+	public static void addRequestsBlocked(GameCharacter character, SexAreaInterface area) {
+		if(!requestsBlocked.get(character).contains(area)) {
+			requestsBlocked.get(character).add(area);
+		}
+	}
+
 	/**
 	 * @param targeter The character whose target is to be found.
 	 * @return The character that the 'targeter' is currently focusing on.
@@ -3210,22 +3225,6 @@ public enum Sex {
 	
 	public static Map<SexAreaInterface, Set<LubricationType>> getWetAreas(GameCharacter character) {
 		return wetAreas.get(character);
-	}
-
-	public static void clearPlayerPenetrationRequests() {
-		penetrationRequestsPlayer.clear();
-	}
-
-	public static void addPlayerPenetrationRequest(SexAreaOrifice orifice) {
-		penetrationRequestsPlayer.add(orifice);
-	}
-
-	public static void removePlayerPenetrationRequest(SexAreaOrifice orifice) {
-		penetrationRequestsPlayer.remove(orifice);
-	}
-
-	public static Set<SexAreaOrifice> getPlayerPenetrationRequests() {
-		return penetrationRequestsPlayer;
 	}
 
 	public AbstractClothing getSelectedClothing() {

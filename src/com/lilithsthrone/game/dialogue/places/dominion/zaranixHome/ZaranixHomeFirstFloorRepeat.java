@@ -281,11 +281,6 @@ public class ZaranixHomeFirstFloorRepeat {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
-
-		@Override
 		public String getLabel() {
 			return "Finished";
 		}

@@ -32,6 +32,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -143,7 +144,7 @@ public class Kruger extends NPC {
 	
 
 	@Override
-	public boolean getSexBehaviourDeniesRequests() {
+	public boolean getSexBehaviourDeniesRequests(SexAreaInterface area) {
 		return true;
 	}
 	
@@ -163,12 +164,4 @@ public class Kruger extends NPC {
 		return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 	}
 	
-	public SexType getMainSexPreference() {
-		if(Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
-		} else {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-		}
-	}
-
 }

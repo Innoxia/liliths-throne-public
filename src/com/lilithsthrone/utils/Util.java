@@ -392,6 +392,10 @@ public class Util {
 	    }
 	}
 	
+	public static float getRoundedFloat(float input, int significantFigures) {
+		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
+	}
+	
 	private static String[] numbersLessThanTwenty = {
 			"zero",
 			"one",

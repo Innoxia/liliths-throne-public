@@ -978,14 +978,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			}
 		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "[pc.A_moan+] bursts out from between your [pc.lips+] as you feel a warm tingling sensation run up into your [pc.pussy]."
 							+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia swell up and [style.boldGrow(grow larger)].<br/>"
 							+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a warm tingling sensation run up into [npc.her] [npc.pussy]."
 							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia swell up and [style.boldGrow(grow larger)].<br/>"
 							+ "[npc.Name] now has [style.boldSex([npc.labiaSize] labia)]!"
@@ -993,14 +993,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 						+ "[pc.A_moan+] bursts out from between your [pc.lips+] as you feel a cool tingling sensation spread up into your [pc.pussy]."
 						+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia shrink down and [style.boldShrink(get smaller)].<br/>"
 						+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 					+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a cool tingling sensation spread up into [npc.her] [npc.pussy]."
 							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia shrink down and [style.boldShrink(get smaller)].<br/>"
 							+ "[npc.Name] now has [style.boldSex([npc.labiaSize] labia)]!"
