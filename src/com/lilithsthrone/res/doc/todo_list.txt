@@ -31,6 +31,11 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Made several back-end improvements to image loading, drastically cutting down custom artwork load times. (DJ4ddi)
+		Added functionality to give any NPC a custom image (see res/images/characters/modding.txt for instructions). (DJ4ddi)
+		Added option to display custom character's artwork in their race/appearance tooltip. (DJ4ddi)
+	
 	Bugs:
 		Fixed Ralph having black fur, when he should have had dark brown.
 	
