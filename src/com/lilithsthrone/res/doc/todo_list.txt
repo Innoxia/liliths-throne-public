@@ -45,13 +45,13 @@
 	
 	Other:
 		Made you the dom in Lilaya's chair sex scenes, to give you control over positioning.
-		Added rainbow colour for body coverings.
+		Added 'rainbow' as a dye colour for hair and other body coverings.
 		Area requests in sex are now available even if you're the dom.
 		Area requests in sex now work correctly, with your partner only saying 'no' if they dislike using that area, or if they're sadistic.
 		Changed clothing set bonuses to account for slots that are blocked by your racial parts. i.e. A horse-morph (with foot slot blocked due to hoofs) will still get the witch's set bonus if they are just wearing the hat & dress, ignoring the requirement to also be wearing the boots.
 		You no longer have the superpower of involuntarily pausing time while having sex. (Time now advances 1 minute per action.)
 		Improved sex status effect 'anus' icon.
-		Added sex status effect 'penis status' to indicate ongoing handjobs.
+		Added sex status effect 'penis status' that's shown to indicate ongoing handjobs.
 		Cum and milk regeneration is no longer rounded to the nearest integer, to fix the issue of low cum storage values always regenerating very quickly.
 	
 	Bugs:
