@@ -181,7 +181,7 @@ public class NightlifeDistrict {
 		
 		} else if(isPartnerPassingOut()) {
 			sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible([npc.Name] collapses!)]</br>"
-					+ "Having had far too much to drink, [npc.name] slumps down to teh ground!"));
+					+ "Having had far too much to drink, [npc.name] slumps down to the ground!"));
 			
 		} else if(!isClubOpen(minutesPassedForNextScene)) {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_VIP_AREA) {

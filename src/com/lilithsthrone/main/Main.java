@@ -50,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Main extends Application {
@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.8.5",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
