@@ -36,6 +36,9 @@
 		Added functionality to give any NPC a custom image (see res/images/characters/modding.txt for instructions). (DJ4ddi)
 		Added option to display custom character's artwork in their race/appearance tooltip. (DJ4ddi)
 	
+	Other:
+		Added more options for changing the colours of glasses.
+	
 	Bugs:
 		Fixed Ralph having black fur, when he should have had dark brown.
 	
