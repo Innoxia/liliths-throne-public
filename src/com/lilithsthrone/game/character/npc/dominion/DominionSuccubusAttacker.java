@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -56,7 +57,9 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	public DominionSuccubusAttacker(boolean isImported) {
-		super(null, "", 5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
+		super(null, "",
+				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -121,6 +124,11 @@ public class DominionSuccubusAttacker extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return Math.max(18, this.getAge()/2);
+	}
 
 	@Override
 	public String getDescription() {
@@ -135,16 +143,12 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if (applyEffects) {
-			if(!isSlave()) {
-				if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
-					this.setPendingTransformationToGenderIdentity(true);
-				}
-//				setVaginaType(VaginaType.DEMON_COMMON);
-//				setPenisType(PenisType.NONE);
-				setPendingClothingDressing(true);
+	public void endSex() {
+		if(!isSlave()) {
+			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
+				this.setPendingTransformationToGenderIdentity(true);
 			}
+			setPendingClothingDressing(true);
 		}
 	}
 
@@ -233,8 +237,8 @@ public class DominionSuccubusAttacker extends NPC {
 						} else {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 									+ "</p>";
 						}
 						
@@ -256,8 +260,8 @@ public class DominionSuccubusAttacker extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
-									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 								+ "</p>";
 					}
 					
@@ -275,8 +279,8 @@ public class DominionSuccubusAttacker extends NPC {
 						} else {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-										+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+										+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]<br/>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
 									+ "</p>";
 						}
 						
@@ -325,10 +329,10 @@ public class DominionSuccubusAttacker extends NPC {
 //	@Override
 //	public SexType getForeplayPreference() {
 //		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.FINGER, OrificeType.VAGINA);
 //			
 //		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.FINGER, OrificeType.ANUS);
 //		}
 //		
 //		return foreplayPreference;
@@ -337,10 +341,10 @@ public class DominionSuccubusAttacker extends NPC {
 //	@Override
 //	public SexType getMainSexPreference() {
 //		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.PENIS, OrificeType.VAGINA);
 //			
 //		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.PENIS, OrificeType.ANUS);
 //		}
 //		
 //		return mainSexPreference;
@@ -401,8 +405,8 @@ public class DominionSuccubusAttacker extends NPC {
 		}
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
 				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
@@ -411,8 +415,8 @@ public class DominionSuccubusAttacker extends NPC {
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
 	@Override
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice){
-		if(!characterPenetrated.isPlayer() || penetrationType!=PenetrationType.PENIS || orifice!=OrificeType.VAGINA || !characterPenetrating.equals(this)) {
+	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
+		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this)) {
 			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 		}
 		
@@ -526,7 +530,7 @@ public class DominionSuccubusAttacker extends NPC {
 					+ "As the [npc.race] carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
-					+ UtilText.parsePlayerThought("I-I've lost my virginity?!</br>"
+					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
 							+ "To... <b>her</b>?!")
 				+ "</p>"
 				+ "<p>"
@@ -534,8 +538,8 @@ public class DominionSuccubusAttacker extends NPC {
 					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the [npc.race] is telling you."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
-				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...</br>"
-						+ "Just a slut for demon cock...</br>"
+				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+						+ "Just a slut for demon cock...<br/>"
 						+ "She's right, I'm just another easy fuck for someone like her...")
 				+ "</p>"
 				+ "<p>"

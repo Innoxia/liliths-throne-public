@@ -7,15 +7,15 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexFlags;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -23,19 +23,23 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.1.88
+ * @version 0.2.9
  * @author Innoxia
  */
 public class PlayerTalk {
 	
-	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+	public static final SexAction DIRTY_TALK = new SexAction(
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterPerformingAction().isPlayer();
+		}
 		
 		@Override
 		public CorruptionLevel getCorruptionNeeded(){
@@ -69,13 +73,13 @@ public class PlayerTalk {
 				case DOM_NORMAL:
 				case SUB_EAGER:
 				case SUB_NORMAL:
-					return "Talk dirty to [npc.name].";
+					return "Talk dirty to [npc2.name].";
 				case DOM_ROUGH:
-					return "Talk rough to [npc.name].";
+					return "Talk rough to [npc2.name].";
 				case SUB_RESISTING:
-					return "Beg for [npc.herHim] to stop using you.";
+					return "Beg for [npc2.herHim] to stop using you.";
 			}
-			return "Talk dirty to [npc.name].";
+			return "Talk dirty to [npc2.name].";
 		}
 
 		@Override
@@ -86,18 +90,18 @@ public class PlayerTalk {
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"Turning your head to look back at [npc.name], [pc.a_moan+] escapes from between your [pc.lips+], ",
-								"You turn your head to look back at [npc.name], letting out [pc.a_moan+] before calling out, ")
+								"Turning your head to look back at [npc2.name], [npc.a_moan+] escapes from between your [npc.lips+], ",
+								"You turn your head to look back at [npc2.name], letting out [npc.a_moan+] before calling out, ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"Desperately trying to crawl away from [npc.name], [npc.she] grabs your [pc.hips] and pulls you back as you [pc.sob], ",
-								"Trying to crawl away from [npc.name], [npc.she] holds you firmly in place as you let out [pc.a_sob+], ")
+								"Desperately trying to crawl away from [npc2.name], [npc2.she] grabs your [npc.hips] and pulls you back as you [npc.sob], ",
+								"Trying to crawl away from [npc2.name], [npc2.she] holds you firmly in place as you let out [npc.a_sob+], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"Turning your head to look back at [npc.name], [pc.a_moan] escapes from between your [pc.lips+], ",
-								"You turn your head to look back at [npc.name], letting out [pc.a_moan] before calling out, ")
+								"Turning your head to look back at [npc2.name], [npc.a_moan] escapes from between your [npc.lips+], ",
+								"You turn your head to look back at [npc2.name], letting out [npc.a_moan] before calling out, ")
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
@@ -106,18 +110,18 @@ public class PlayerTalk {
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
-								"Looking down at [npc.name], you sigh, ")
+								"You look down at [npc2.name] as [npc2.she] kneels beneath you, ",
+								"Looking down at [npc2.name], you sigh, ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"You grin down at [npc.name] as [npc.she] kneels beneath you, ",
-								"Looking down at [npc.name], you growl, ")
+								"You grin down at [npc2.name] as [npc2.she] kneels beneath you, ",
+								"Looking down at [npc2.name], you growl, ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
-								"Looking down at [npc.name], you [pc.moan], ")
+								"You look down at [npc2.name] as [npc2.she] kneels beneath you, ",
+								"Looking down at [npc2.name], you [npc.moan], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
@@ -126,18 +130,18 @@ public class PlayerTalk {
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"You glance up at [npc.name] as you [pc.moan] up to [npc.herHim], ",
-								"Looking up at [npc.name] standing above you, you [pc.moan] up to [npc.herHim], ")
+								"You glance up at [npc2.name] as you [npc.moan] up to [npc2.herHim], ",
+								"Looking up at [npc2.name] standing above you, you [npc.moan] up to [npc2.herHim], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"You glance up at [npc.name] before letting out [pc.a_sob+], ",
-								"Looking up at [npc.name] standing above you, you let out [pc.a_sob+], ")
+								"You glance up at [npc2.name] before letting out [npc.a_sob+], ",
+								"Looking up at [npc2.name] standing above you, you let out [npc.a_sob+], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"You glance up at [npc.name] as you speak up to [npc.herHim], ",
-								"Looking up at [npc.name] standing above you, you speak up to [npc.herHim], ")
+								"You glance up at [npc2.name] as you speak up to [npc2.herHim], ",
+								"Looking up at [npc2.name] standing above you, you speak up to [npc2.herHim], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
@@ -146,18 +150,18 @@ public class PlayerTalk {
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"You look back at [npc.name] as [npc.she] lies beneath you, and speak down to [npc.herHim], ",
-								"Looking back at [npc.name] as [npc.she] lies beneath you, you speak down to [npc.herHim], ")
+								"You look back at [npc2.name] as [npc2.she] lies beneath you, and speak down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you speak down to [npc2.herHim], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"You look back at [npc.name] as [npc.she] lies beneath you, and growl down to [npc.herHim], ",
-								"Looking back at [npc.name] as [npc.she] lies beneath you, you growl down to [npc.herHim], ")
+								"You look back at [npc2.name] as [npc2.she] lies beneath you, and growl down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you growl down to [npc2.herHim], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"You look back at [npc.name] as [npc.she] lies beneath you, and [pc.moanVerb] down to [npc.herHim], ",
-								"Looking back at [npc.name] as [npc.she] lies beneath you, you [pc.moanVerb] down to [npc.herHim], ")
+								"You look back at [npc2.name] as [npc2.she] lies beneath you, and [npc.moanVerb] down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you [npc.moanVerb] down to [npc2.herHim], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
@@ -166,7 +170,7 @@ public class PlayerTalk {
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"You let out a soft [pc.moan], ",
+								"You let out a soft [npc.moan], ",
 								"You gently sigh, ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
@@ -176,18 +180,18 @@ public class PlayerTalk {
 								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"A desperate [pc.moan] escapes from between your [pc.lips+], ",
-								"You let out a desperate [pc.moan] before addressing [npc.name], ")
+								"A desperate [npc.moan] escapes from between your [npc.lips+], ",
+								"You let out a desperate [npc.moan] before addressing [npc2.name], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"A protesting whine escapes from between your [pc.lips+] as you struggle against [npc.name], ",
-								"You let out a distressed whining noise as you try to shuffle away from [npc.name], ")
+								"A protesting whine escapes from between your [npc.lips+] as you struggle against [npc2.name], ",
+								"You let out a distressed whining noise as you try to shuffle away from [npc2.name], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[pc.A_moan] escapes from between your [pc.lips+], ",
-								"You let out [pc.a_moan] before addressing [npc.name], ")
+								"[npc.A_moan] escapes from between your [npc.lips+], ",
+								"You let out [npc.a_moan] before addressing [npc2.name], ")
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 			
@@ -210,14 +214,98 @@ public class PlayerTalk {
 		}
 	};
 	
+	private static String getRequestResponse(boolean denied, SexPace sexPace, String areaDescription) {
+		if (denied) {
+			switch(sexPace) {
+				case DOM_GENTLE:
+					return(
+							"[npc2.Name] frowns as you beg for [npc2.herHim] to use your "+areaDescription+", and firmly replies, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(I don't think so. Don't ask for that again.)]",
+											"[npc2.speech(Don't tell me to use your "+areaDescription+", and don't ask me for that again.)]"));
+					
+				case DOM_NORMAL:
+					return(
+							"[npc2.Name] frowns as you beg for [npc2.herHim] to use your "+areaDescription+", and with a menacing tone in [npc2.her] voice, [npc2.she] growls at you, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Don't try and tell me to use your "+areaDescription+"! Keep those suggestions to yourself next time!)]",
+											"[npc2.speech(I'll use whatever part of you I feel like! Don't ask me for that again!)]"));
+					
+				case DOM_ROUGH:
+					return(
+							"[npc2.Name] frowns as you beg for [npc2.herHim] to use your "+areaDescription+", and with a menacing snarl, [npc2.she] snaps back, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Shut up, you filthy whore! I'm not listening to some slut who begs to have [npc.her] "+areaDescription+" used!)]",
+											"[npc2.speech(I'll use whatever part of you I feel like, you fucking slut! Don't ask me for that again!)]"));
+					
+				case SUB_NORMAL:
+				case SUB_EAGER:
+					return(
+							"[npc2.Name] frowns as you beg for [npc2.herHim] to use your "+areaDescription+", and with a disappointed whine, [npc2.she] replies, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(I don't really want to use your "+areaDescription+" though...)]",
+											"[npc2.speech(But I don't want to use your "+areaDescription+"...)]"));
+					
+				case SUB_RESISTING:
+					return(
+							"[npc2.Name] lets out [npc.a_sob] as you beg for [npc2.herHim] to use your "+areaDescription+", and, struggling against you, [npc2.she] begs, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Please, I don't want to! Let me go already!)]",
+											"[npc2.speech(No! Get your "+areaDescription+" away from me!)]"));
+					
+			}
+			
+		} else {
+			switch(sexPace) {
+				case DOM_GENTLE:
+					return(
+							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before softly [npc2.moaning], "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
+											"[npc2.speech(Of course I'll use your "+areaDescription+"! Come here...)]"));
+					
+				case DOM_NORMAL:
+					return(
+							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before [npc2.moaning], "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
+											"[npc2.speech(Of course I'll use your "+areaDescription+"!)]"));
+					
+				case DOM_ROUGH:
+					return(
+							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before snarling, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(What a filthy slut! Desperate to have your "+areaDescription+" fucked, huh?! Well, I don't mind going along with that!)]",
+											"[npc2.speech(You dirty whore, begging to have your "+areaDescription+" used! I'll give you what you want, slut!)]"));
+					
+				case SUB_NORMAL:
+				case SUB_EAGER:
+					return(
+							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before [npc2.moaning], "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
+											"[npc2.speech(Of course I'll use your "+areaDescription+"!)]"));
+					
+				case SUB_RESISTING:
+					return(
+							"[npc2.Name] lets out [npc.a_sob] as you beg for [npc2.herHim] to use your "+areaDescription+", and, struggling against you, [npc2.she] begs, "
+									+UtilText.returnStringAtRandom(
+											"[npc2.speech(Please, I don't want to! Let me go already!)]",
+											"[npc2.speech(No! Get your "+areaDescription+" away from me!)]"));
+					
+			}
+		}
+		return "";
+	}
+	
 	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+
 		@Override
 		public String getActionTitle() {
 			return "Request vaginal";
@@ -225,40 +313,53 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to use your pussy.";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to use your pussy.";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasVagina()
-					&& !Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA)
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer());
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
+					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, use my pussy!)]",
-									"[pc.speech(Use my little pussy, please!)]");
+									"[npc.speech(Please, use my pussy!)]",
+									"[npc.speech(Use my little pussy, please!)]")
+							+"<br/><br/>");
+			
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.VAGINA),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"[npc.pussy]"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.VAGINA);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.VAGINA)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.VAGINA);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.VAGINA);
+			}
 		}
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ANAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 		
 		@Override
 		public String getActionTitle() {
@@ -267,28 +368,42 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to use your ass.";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to use your ass.";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer());
+			return !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.ANUS)
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, use my ass!)]",
-									"[pc.speech(Use my ass, please!)]");
+									"[npc.speech(Please, use my ass!)]",
+									"[npc.speech(Use my ass, please!)]")
+							+"<br/><br/>");
+			
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.ANUS),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"ass"));
+
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.ANUS);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.ANUS)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.ANUS);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.ANUS);
+			}
 		}
 		
 		@Override
@@ -308,13 +423,13 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ORAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Request oral";
@@ -322,28 +437,42 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to use your mouth.";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to use your mouth.";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.MOUTH)
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer());
+			return !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.MOUTH)
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, use my mouth!)]",
-									"[pc.speech(Use my mouth, please!)]");
+									"[npc.speech(Please, use my mouth!)]",
+									"[npc.speech(Use my mouth, please!)]")
+							+"<br/><br/>");
+			
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.MOUTH),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"mouth"));
+
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.MOUTH);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.MOUTH)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			}
 		}
 		
 		@Override
@@ -358,13 +487,13 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Request nipple-sex";
@@ -372,29 +501,43 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to use your [pc.nipples+].";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to use your [npc.nipples+].";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE)
-					&& Main.game.getPlayer().isBreastFuckableNipplePenetration()
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer());
+			return Main.game.getPlayer().isBreastFuckableNipplePenetration()
+					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.NIPPLE)
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, fuck my nipples!)]",
-									"[pc.speech(Fuck my nipples, please!)]");
+									"[npc.speech(Please, fuck my nipples!)]",
+									"[npc.speech(Fuck my nipples, please!)]")
+							+"<br/><br/>");
+									
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.NIPPLE),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"[npc.nipples]"));
+
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.NIPPLE)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.NIPPLE);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.NIPPLE);
+			}
 		}
 		
 		@Override
@@ -409,13 +552,13 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_PAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Request paizuri";
@@ -423,31 +566,45 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to fuck your [pc.breasts+].";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to fuck your [npc.breasts+].";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
-					&& Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer())
+			return Main.game.getPlayer().isBreastFuckablePaizuri()
+					&&!Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.BREAST)
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
 					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS);
+					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, fuck my tits!)]",
-									"[pc.speech(Fuck my breasts, please!)]");
+									"[npc.speech(Please, fuck my tits!)]",
+									"[npc.speech(Fuck my breasts, please!)]")
+							+"<br/><br/>");
+			
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.BREAST),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"breasts"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.BREAST)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.BREAST);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.BREAST);
+			}
 		}
 		
 		@Override
@@ -462,13 +619,13 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Request naizuri";
@@ -476,31 +633,45 @@ public class PlayerTalk {
 
 		@Override
 		public String getActionDescription() {
-			return "Tell [npc.name] that you'd like [npc.herHim] to grind [npc.her] [npc.cock] up against your chest.";
+			return "Tell [npc2.name] that you'd like [npc2.herHim] to grind [npc2.her] [npc2.cock] up against your chest.";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
-					&& !Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isDom(Main.game.getPlayer())
+			return !Main.game.getPlayer().isBreastFuckablePaizuri()
+					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(SexAreaOrifice.BREAST)
+					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
 					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS);
+					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("Putting on the most pleading expression you can muster, you cry out to [npc2.name], "
 							+UtilText.returnStringAtRandom(
-									"[pc.speech(Please, grind your cock up against my chest!)]",
-									"[pc.speech(Grind on my chest, please!)]");
+									"[npc.speech(Please, grind your cock up against my chest!)]",
+									"[npc.speech(Grind on my chest, please!)]")
+							+"<br/><br/>");
+			
+			UtilText.nodeContentSB.append(getRequestResponse(
+					((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.BREAST),
+					Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this)),
+					"chest"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
+			if(!((NPC)Sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(SexAreaOrifice.BREAST)) {
+				((NPC)Sex.getCharacterTargetedForSexAction(this)).generateSexChoices(Main.game.getPlayer(), SexAreaOrifice.BREAST);
+				
+			} else if(!Sex.isDom(Main.game.getPlayer())) {
+				Sex.addRequestsBlocked(Main.game.getPlayer(), SexAreaOrifice.BREAST);
+			}
 		}
 		
 		@Override

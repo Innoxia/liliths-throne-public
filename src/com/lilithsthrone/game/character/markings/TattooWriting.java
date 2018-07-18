@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.utils.Colour;
@@ -83,9 +84,9 @@ public class TattooWriting implements XMLSaving {
 		try {
 			List<TattooWritingStyle> importedStyles = new ArrayList<>();
 			try {
-				Element stylesElement = (Element)parentElement.getElementsByTagName("styles").item(0);
-				for(int i=0; i<stylesElement.getElementsByTagName("style").getLength(); i++){
-					Element e = ((Element)stylesElement.getElementsByTagName("style").item(i));
+				NodeList stylesList = ((Element) parentElement.getElementsByTagName("styles").item(0)).getElementsByTagName("style");
+				for(int i=0; i<stylesList.getLength(); i++){
+					Element e = ((Element)stylesList.item(i));
 					
 					TattooWritingStyle style = TattooWritingStyle.valueOf(e.getAttribute("value"));
 					importedStyles.add(style);
@@ -93,7 +94,9 @@ public class TattooWriting implements XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			TattooWriting tw = new TattooWriting(parentElement.getTextContent(),
+			String text = parentElement.getTextContent();
+			
+			TattooWriting tw = new TattooWriting(text.trim(),
 					Colour.valueOf(parentElement.getAttribute("colour")),
 					Boolean.valueOf(parentElement.getAttribute("glow")));
 			

@@ -61,12 +61,14 @@ public class WeaponType {
 				
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You focus on the energy in the crystal. As you do so, it dissolves and flows into your body, granting you the ability to perform magical attacks.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You focus on the energy inside of you, forcing it out from your body. As you do so, it reforms back into a demonstone.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
 		}
 
 		@Override
@@ -152,12 +154,14 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You focus on the energy in the crystal. As you do so, it dissolves and flows into your body, granting you the ability to perform magical attacks.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You focus on the energy inside of you, forcing it out from your body. As you do so, it reforms back into a demonstone.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
 		}
 
 		@Override
@@ -243,12 +247,14 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You focus on the energy in the crystal. As you do so, it dissolves and flows into your body, granting you the ability to perform magical attacks.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You focus on the energy inside of you, forcing it out from your body. As you do so, it reforms back into a demonstone.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
 		}
 
 		@Override
@@ -344,12 +350,12 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your "+this.getName()+".";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] "+this.getName()+".");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your "+this.getName()+" away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] "+this.getName()+" away.");
 		}
 
 		@Override
@@ -450,12 +456,12 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your "+this.getName()+".";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] "+this.getName()+".");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your "+this.getName()+" away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] "+this.getName()+" away.");
 		}
 
 		@Override
@@ -555,12 +561,12 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your "+this.getName()+".";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] "+this.getName()+".");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your "+this.getName()+" away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] "+this.getName()+" away.");
 		}
 
 		@Override
@@ -657,12 +663,14 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You focus on the energy in the feather. As you do so, it dissolves and flows into your body, granting you the ability to perform magical attacks at range.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks at range.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You focus on the energy inside of you, forcing it out from your body. As you do so, it reforms back into a magical feather.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a chaos feather.");
 		}
 
 		@Override
@@ -744,12 +752,14 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You focus on the energy in the feather. As you do so, it dissolves and flows into your body, granting you the ability to perform magical attacks at range.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks at range.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You focus on the energy inside of you, forcing it out from your body. As you do so, it reforms back into a magical feather.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a chaos feather.");
 		}
 
 		@Override
@@ -831,17 +841,17 @@ public class WeaponType {
 
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your pistol.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] pistol.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You stow your pistol away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(holster)] [npc.her] pistol.");
 		}
 
 		@Override
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return "You just shoot them... Thankfully, there seems to be some kind of arcane force preventing your gun from actually killing them...";
+			return UtilText.parse(character, target, "[npc.Name] just [npc.verb(shoot)] [npc2.name]... Thankfully, there seems to be some kind of arcane force preventing [npc.her] gun from actually killing [npc2.herHim]...");
 		}
 
 		@Override
@@ -881,12 +891,12 @@ public class WeaponType {
 				
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your musket.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] musket.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your musket away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] musket away.");
 		}
 		
 		@Override
@@ -967,12 +977,12 @@ public class WeaponType {
 		
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your broom.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] broom.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your broom away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] broom away.");
 		}
 
 		@Override
@@ -981,8 +991,8 @@ public class WeaponType {
 				if(character.isPlayer()) {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
-								"You whack [npc.name]'s [npc.arm] with your broom.",
-								"You swipe your broom at [npc.name]'s [npc.legs], and manage to hit [npc.herHim] in the shins.",
+								"You whack [npc.namePos] [npc.arm] with your broom.",
+								"You swipe your broom at [npc.namePos] [npc.legs], and manage to hit [npc.herHim] in the shins.",
 								"You swing your broom at [npc.name], grinning as the end makes contact with [npc.her] torso."));
 					
 				} else {
@@ -998,7 +1008,7 @@ public class WeaponType {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
 								"You try to whack [npc.name] with your broom, but [npc.she] manages to grab the shaft and push you away.",
-								"You attempt to swipe your broom at [npc.name]'s [npc.legs], but [npc.she] jumps back and manages to avoid the blow.",
+								"You attempt to swipe your broom at [npc.namePos] [npc.legs], but [npc.she] jumps back and manages to avoid the blow.",
 								"You swing your broom at [npc.name], but [npc.she] manages to duck at the last moment and avoid the blow."));
 					
 				} else {
@@ -1059,12 +1069,12 @@ public class WeaponType {
 		
 		@Override
 		public String equipText(GameCharacter character) {
-			return "You ready your feather duster.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] feather duster.");
 		}
 
 		@Override
 		public String unequipText(GameCharacter character) {
-			return "You put your feather duster away.";
+			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] feather duster away.");
 		}
 
 		@Override
@@ -1073,8 +1083,8 @@ public class WeaponType {
 				if(character.isPlayer()) {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
-								"You tickle [npc.name]'s [npc.arm] with your feather duster.",
-								"You swipe your feather duster at [npc.name]'s [npc.legs], and manage to tickle [npc.her] shins.",
+								"You tickle [npc.namePos] [npc.arm] with your feather duster.",
+								"You swipe your feather duster at [npc.namePos] [npc.legs], and manage to tickle [npc.her] shins.",
 								"You swing your feather duster at [npc.name], grinning as you tickle [npc.her] torso."));
 					
 				} else {
@@ -1090,7 +1100,7 @@ public class WeaponType {
 					return UtilText.parse(target,
 							UtilText.returnStringAtRandom(
 								"You try to tickle [npc.name] with your feather duster, but [npc.she] manages to push you away.",
-								"You attempt to swipe your feather duster at [npc.name]'s [npc.legs], but [npc.she] jumps back and manages to avoid the tickling.",
+								"You attempt to swipe your feather duster at [npc.namePos] [npc.legs], but [npc.she] jumps back and manages to avoid the tickling.",
 								"You swing your feather duster at [npc.name], but [npc.she] manages to duck at the last moment and avoid the tickling."));
 					
 				} else {

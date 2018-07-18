@@ -36,6 +36,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
@@ -67,8 +68,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	
 	// Images:
-	private Map<Colour, Map<Colour, Map<Colour, Map<String, String>>>> SVGStringMap;
-	private Map<Colour, Map<Colour, Map<Colour, Map<String, String>>>> SVGStringEquippedMap;
+	private Map<Colour, Map<Colour, Map<Colour, Map<String, Map<Colour, Map<Colour, Map<Colour, String>>>>>>> SVGStringMap;
+	private Map<Colour, Map<Colour, Map<Colour, Map<String, Map<Colour, Map<Colour, Map<Colour, String>>>>>>> SVGStringEquippedMap;
 	
 	// Pattern data:
 	private boolean isPatternAvailable;
@@ -242,6 +243,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public AbstractClothingType(File clothingXMLFile) {
+		this.itemTags = new ArrayList<>();
 
 		if (clothingXMLFile.exists()) {
 			try {
@@ -261,7 +263,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					Element effectsElement = (Element)coreAttributes.getElementsByTagName("effects").item(0);
 					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
 						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
-						defaultEffects.add(ItemEffect.loadFromXML(e, doc));
+						try {
+							ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+							if(ie!=null) {
+								defaultEffects.add(ie);
+							}
+						}catch(Exception ex) {
+						}
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'effects' element unable to be parsed.");
@@ -554,7 +562,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				finalSetUp();
 
 			} catch(Exception ex) {
-				System.err.println("ClothingType was unable to be loaded from file!");
+//				ex.printStackTrace();
+				System.err.println("ClothingType was unable to be loaded from file! Exception message: "+ex.getMessage());
 			}
 		}
 	}
@@ -833,6 +842,37 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())));
 	}
+
+	public static AbstractClothing generateClothingWithNegativeEnchantment(AbstractClothingType clothingType, Colour colour) {
+		List<ItemEffect> effects = new ArrayList<>();
+
+		TFModifier rndMod = TFModifier.getClothingAttributeList().get(Util.random.nextInt(TFModifier.getClothingAttributeList().size()));
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedNegativePotency(), 0));
+		
+		return generateClothing(clothingType, colour, effects);
+	}
+	
+	public static AbstractClothing generateClothingWithNegativeEnchantment(AbstractClothingType clothingType) {
+		return AbstractClothingType.generateClothingWithNegativeEnchantment(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())));
+	}
+	
+	public static AbstractClothing generateRareClothing(AbstractClothingType type) {
+		List<ItemEffect> effects = new ArrayList<>();
+		
+		List<TFModifier> attributeMods = new ArrayList<>(TFModifier.getClothingAttributeList());
+		
+		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		attributeMods.remove(rndMod);
+		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.MAJOR_BOOST, 0));
+		
+		return AbstractClothingType.generateClothing(
+				type,
+				type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())),
+				effects);
+	}
 	
 	public String getId() {
 		return ClothingType.getIdFromClothingType(this);
@@ -896,7 +936,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					} else if(npcEquippingOtherNPC!=null){
 						return UtilText.parse(clothingEquipper, clothingOwner, npcEquippingOtherNPC);
 					} else {
-						return UtilText.parse(clothingEquipper, clothingOwner, "[npc1.Name] manipulates [npc2.name]'s clothing.");
+						return UtilText.parse(clothingEquipper, clothingOwner, "[npc1.Name] manipulates [npc2.namePos] clothing.");
 					}
 				}
 			}
@@ -997,14 +1037,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 					}
-					return UtilText.parse(clothingOwner, "You roughly take off [npc.name]'s "+clothing.getName()+".");
+					return UtilText.parse(clothingOwner, "You roughly take off [npc.namePos] "+clothing.getName()+".");
 				} else {
 					if(displacementDescriptionsPlayer!=null
 							&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
 							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
 					}
-					return UtilText.parse(clothingOwner, "You take off [npc.name]'s "+clothing.getName()+".");
+					return UtilText.parse(clothingOwner, "You take off [npc.namePos] "+clothing.getName()+".");
 				}
 			}
 			
@@ -1072,14 +1112,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 					}
-					return UtilText.parse(clothingOwner, "You roughly "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
+					return UtilText.parse(clothingOwner, "You roughly "+dt.getDescription()+" [npc.namePos] "+this.getName()+".");
 				} else {
 					if(displacementDescriptionsPlayer!=null
 							&& displacementDescriptionsPlayer.containsKey(dt)
 							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
 					}
-					return UtilText.parse(clothingOwner, "You "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
+					return UtilText.parse(clothingOwner, "You "+dt.getDescription()+" [npc.namePos] "+this.getName()+".");
 				}
 			}
 			
@@ -1117,7 +1157,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
 							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
 						}
-						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 						
 					} else {
 						if(displacementDescriptionsNPC!=null
@@ -1125,7 +1165,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
 							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
 						}
-						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 					}
 				}
 			}
@@ -1148,14 +1188,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
-					return UtilText.parse(clothingOwner, "You roughly "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
+					return UtilText.parse(clothingOwner, "You roughly "+dt.getOppositeDescription()+" [npc.namePos] "+this.getName()+".");
 				} else {
 					if(displacementDescriptionsPlayer!=null
 							&& displacementDescriptionsPlayer.containsKey(dt)
 							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
 						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
 					}
-					return UtilText.parse(clothingOwner, "You "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
+					return UtilText.parse(clothingOwner, "You "+dt.getOppositeDescription()+" [npc.namePos] "+this.getName()+".");
 				}
 			}
 			
@@ -1193,7 +1233,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
 							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
 						}
-						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 						
 					} else {
 						if(displacementDescriptionsNPC!=null
@@ -1201,7 +1241,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
 							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
 						}
-						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 					}
 				}
 			}
@@ -1403,83 +1443,52 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 //		return SVGStringEquippedMap;
 //	}
 	
-	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, String s) {
+	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColourPrimary, Colour patternColourSecondary, Colour patternColourTertiary, String s) {
 		if(pattern == null) {
 			pattern = "none"; // The map does not contain null as a key.
-		}
-		if(SVGStringMap.get(colour)==null) {
-			SVGStringMap.put(colour, new HashMap<>());
-			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
-			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
-			
-		} else if(SVGStringMap.get(colour).get(colourSecondary)==null) {
-			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
-			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
-		} else if(SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
-			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
 		}
 		
-		SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).put(pattern, s);
-	}
-	
-	private void addSVGStringEquippedMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, String s) {
-		if(pattern == null) {
-			pattern = "none"; // The map does not contain null as a key.
-		}
-		if(SVGStringEquippedMap.get(colour)==null) {
-			SVGStringEquippedMap.put(colour, new HashMap<>());
-			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
-			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
-			
-		} else if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
-			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
-			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
-		} else if(SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
-			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
-		}
+		initMapIfAbsent(SVGStringMap, colour, colourSecondary, colourTertiary, pattern, patternColourPrimary, patternColourSecondary, patternColourTertiary);
 		
-		SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).put(pattern, s);
+		SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).get(patternColourPrimary).get(patternColourSecondary).put(patternColourTertiary, s);
 	}
 	
+	private void initMapIfAbsent(Map<Colour, Map<Colour, Map<Colour, Map<String, Map<Colour, Map<Colour, Map<Colour, String>>>>>>> map, 
+			Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColourPrimary, Colour patternColourSecondary, Colour patternColourTertiary) {
+		
+		map.putIfAbsent(colour, new HashMap<>());
+		map.get(colour).putIfAbsent(colourSecondary, new HashMap<>());
+		map.get(colour).get(colourSecondary).putIfAbsent(colourTertiary, new HashMap<>());
+		map.get(colour).get(colourSecondary).get(colourTertiary).putIfAbsent(pattern, new HashMap<>());
+		map.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).putIfAbsent(patternColourPrimary, new HashMap<>());
+		map.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).get(patternColourPrimary).putIfAbsent(patternColourSecondary, new HashMap<>());
+	}
 	
-	private String getSVGStringFromMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+	private void addSVGStringEquippedMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColourPrimary, Colour patternColourSecondary, Colour patternColourTertiary, String s) {
 		if(pattern == null) {
 			pattern = "none"; // The map does not contain null as a key.
 		}
-		if(SVGStringMap.get(colour)==null) {
-			return null;
-		} else {
-			if(SVGStringMap.get(colour).get(colourSecondary)==null) {
-				return null;
-			} else {
-				if(SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
-					return null;
-				}
-				else {
-					return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern);
-				}
-			}
-		}
+
+		initMapIfAbsent(SVGStringEquippedMap, colour, colourSecondary, colourTertiary, pattern, patternColourPrimary, patternColourSecondary, patternColourTertiary);
+		
+		SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).get(patternColourPrimary).get(patternColourSecondary).put(patternColourTertiary, s);
 	}
 	
-	private String getSVGStringFromEquippedMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+	
+	private String getSVGStringFromMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColourPrimary, Colour patternColourSecondary, Colour patternColourTertiary) {
 		if(pattern == null) {
 			pattern = "none"; // The map does not contain null as a key.
 		}
-		if(SVGStringEquippedMap.get(colour)==null) {
-			return null;
-		} else {
-			if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
-				return null;
-			} else {
-				if(SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
-					return null;
-				}
-				else {
-					return SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern);
-				}
-			}
+		initMapIfAbsent(SVGStringMap, colour, colourSecondary, colourTertiary, pattern, patternColourPrimary, patternColourSecondary, patternColourTertiary);
+		return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).get(patternColourPrimary).get(patternColourSecondary).get(patternColourTertiary);
+	}
+	
+	private String getSVGStringFromEquippedMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColourPrimary, Colour patternColourSecondary, Colour patternColourTertiary) {
+		if(pattern == null) {
+			pattern = "none"; // The map does not contain null as a key.
 		}
+		initMapIfAbsent(SVGStringEquippedMap, colour, colourSecondary, colourTertiary, pattern, patternColourPrimary, patternColourSecondary, patternColourTertiary);
+		return SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern).get(patternColourPrimary).get(patternColourSecondary).get(patternColourTertiary);
 	}
 
 	public String getSVGImage() {
@@ -1496,7 +1505,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			tColour = this.getAllAvailableTertiaryColours().get(0);
 		}
 		
-		return getSVGImage(null, pColour, sColour, tColour, false, null);
+		return getSVGImage(null, pColour, sColour, tColour, false, null, null, null, null);
 	}
 	
 	/**
@@ -1504,8 +1513,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 * @param colourSecondary This can be null.
 	 * @param colourTertiary This can be null.
 	 */
-	public String getSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
-		return getSVGImage(null, colour, colourSecondary, colourTertiary, false, pattern);
+	public String getSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
+		return getSVGImage(null, colour, colourSecondary, colourTertiary, false, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 	}
 	
 	/**
@@ -1514,11 +1523,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 * @param colourSecondary This can be null.
 	 * @param colourTertiary This can be null.
 	 */
-	public String getSVGEquippedImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
-		return getSVGImage(character, colour, colourSecondary, colourTertiary, true, pattern);
+	public String getSVGEquippedImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
+		return getSVGImage(character, colour, colourSecondary, colourTertiary, true, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 	}
 	
-	private String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, boolean equippedVariant, String pattern) {
+	private String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, boolean equippedVariant, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
 		if (!allAvailablePrimaryColours.contains(colour)) {
 			return "";
 		}
@@ -1529,17 +1538,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_back.svg");
 					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
-					s = getSVGWithHandledPattern(s, pattern);
+					s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 
 					if(!equippedVariant) {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-						s = getSVGWithHandledPattern(s, pattern);
+						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
-						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, s);
+						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
 						
 						return s;
 						
@@ -1553,7 +1562,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									
 									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
 									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-									s = getSVGWithHandledPattern(s, pattern);
+									s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 									s = Util.colourReplacement(this.getId(), item.getColour(), null, null, s);
 									is.close();
 								}
@@ -1563,7 +1572,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						is.close();
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-						s = getSVGWithHandledPattern(s, pattern);
+						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
@@ -1571,7 +1580,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						for(Colour c : condomColours) {
 							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
 							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-							s = getSVGWithHandledPattern(s, pattern);
+							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							s = Util.colourReplacement(this.getId(), c, null, null, s);
 							is.close();
 							i++;
@@ -1587,7 +1596,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 		} else {
 			if(equippedVariant && pathNameEquipped!=null) {
-				String stringFromMap = getSVGStringFromEquippedMap(colour, colourSecondary, colourTertiary, pattern);
+				String stringFromMap = getSVGStringFromEquippedMap(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -1610,25 +1619,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								is.close();
 							}
 							
-							s = getSVGWithHandledPattern(s, pattern);
+							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
-									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+									? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
-										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
 									: "")
 									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
-										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
-											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, s);
+							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
 							
 							return s;
 						} catch (IOException e) {
@@ -1638,7 +1647,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 				
 			} else {
-				String stringFromMap = getSVGStringFromMap(colour, colourSecondary, colourTertiary, pattern);
+				String stringFromMap = getSVGStringFromMap(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -1661,25 +1670,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								is.close();
 							}
 							
-							s = getSVGWithHandledPattern(s, pattern);
+							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
-									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+									? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
-										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
 									: "")
 									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
-										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
-											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 							
-							addSVGStringMapping(colour, colourSecondary, colourTertiary, pattern, s);
+							addSVGStringMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
 		
 							return s;
 						} catch (IOException e) {
@@ -1692,8 +1701,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return "";
 	}
 	
-	private String getSVGWithHandledPattern(String s, String pattern)
-	{
+	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
 		if(!s.contains("label=\"patternLayer\"")) { // Making sure that the pattern layer exists.
 			return s;
 		}
@@ -1742,19 +1750,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				+ newClipMask;
 		
 		// Loading pattern
-		String loadedPattern;
-		try {
-			File patternFile = new File(System.getProperty("user.dir")+"/res/patterns/" + pattern.toLowerCase() + ".svg");
-			List<String> lines = Files.readAllLines(patternFile.toPath());
-			StringBuilder sb = new StringBuilder();
-			for(String line : lines) {
-				sb.append(line);
-			}
-			loadedPattern = sb.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return s;
-		}
+		String loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
 		
 		// Getting shapes from the pattern
 		String newPattern = "";
@@ -1798,8 +1794,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return returnable;
 	}
 	
-	public boolean isPatternAvailable()
-	{
+	public boolean isPatternAvailable() {
 		return this.isPatternAvailable;
 	}
 

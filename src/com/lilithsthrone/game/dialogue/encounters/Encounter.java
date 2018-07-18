@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.Predicate;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,6 +28,8 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -74,6 +77,8 @@ public enum Encounter {
 						}
 					}
 				}
+				slaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY);
+				hornySlaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY);
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
@@ -190,23 +195,12 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc-> (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
@@ -236,7 +230,14 @@ public enum Encounter {
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 					
 				} else {
-					randomClothing = AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
+					List<AbstractClothingType> randomClothingList = ClothingType.getAllClothing();
+					randomClothingList.removeIf((clothing) ->
+							(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
+							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+							|| clothing.getRarity()==Rarity.EPIC
+							|| clothing.getRarity()==Rarity.LEGENDARY);
+					randomClothing = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;
@@ -287,23 +288,12 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-				List<NPC> offspringAvailable = new ArrayList<>();
-				offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																							&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
-																							&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-				offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+			if(Math.random()<IncestEncounterRate()) { // Incest
+				List<NPC> offspringAvailable = UnspawnedChildren(
+					npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION));
 				
 				if(!offspringAvailable.isEmpty()) {
-					NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-					Main.game.getOffspringSpawned().add(offspring);
-					
-					offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-					offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-					
-					Main.game.setActiveNPC(offspring);
-					
-					return Main.game.getActiveNPC().getEncounterDialogue();
+					return SpawnAndStartChildHere(offspringAvailable);
 				}
 			}
 			
@@ -342,23 +332,12 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 
@@ -438,23 +417,12 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
@@ -523,23 +491,12 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) {
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) {
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
@@ -620,9 +577,38 @@ public enum Encounter {
 		}
 	};
 
+	private static List<NPC> UnspawnedChildren(Predicate<NPC> matcher) {
+		List<NPC> offspringAvailable = Main.game.getOffspring().stream().filter(npc -> !npc.isSlave())
+										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
+										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
+										.filter(matcher).collect(Collectors.toList());
+		return offspringAvailable;
+	}
+
+	private static DialogueNodeOld SpawnAndStartChildHere(List<NPC> offspringAvailable) {
+		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+		Main.game.getOffspringSpawned().add(offspring);
+
+		offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+		offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+
+		Main.game.setActiveNPC(offspring);
+
+		return Main.game.getActiveNPC().getEncounterDialogue();
+	}
+
 	private static AbstractItem randomItem;
 	private static AbstractClothing randomClothing;
 	private static AbstractWeapon randomWeapon;
+
+	private static final double INCEST_ENCOUNTER_RATE = 0.2f;
+
+	private static double IncestEncounterRate() {
+		if (!Main.game.isIncestEnabled()) {
+			return -1;
+		}
+		return INCEST_ENCOUNTER_RATE;
+	}
 
 	private Map<EncounterType, Float> dialogues;
 

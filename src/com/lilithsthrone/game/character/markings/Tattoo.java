@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -125,6 +126,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		parentElement.appendChild(element);
 
 		CharacterUtils.addAttribute(doc, element, "id", TattooType.getIdFromTattooType(getType()));
+
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		
 		CharacterUtils.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().toString());
 
 		if(this.getSecondaryColour()!=null) {
@@ -175,11 +179,20 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					writing,
 					counter);
 			
+			try {
+				tat.setName(parentElement.getAttribute("name"));
+			} catch(Exception ex) {
+			}
+			
 			Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
 			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("effect").item(i));
-					tat.addEffect(ItemEffect.loadFromXML(e, doc));
+				NodeList nodeList = element.getElementsByTagName("effect");
+				for(int i = 0; i < nodeList.getLength(); i++){
+					Element e = ((Element)nodeList.item(i));
+					ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+					if(ie!=null) {
+						tat.addEffect(ie);
+					}
 				}
 			}
 			
@@ -256,9 +269,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>"
 						+ (this.getType()==TattooType.NONE
 							?"tattoo"
-							:this.getType().getName() + " tattoo")
+							:this.getName() + " tattoo")
 						+ "</span>"
-					: this.getType().getName()+" tattoo")
+					: this.getName()+" tattoo")
 				+(!this.getEffects().isEmpty()
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");

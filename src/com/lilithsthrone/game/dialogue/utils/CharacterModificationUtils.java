@@ -2,6 +2,8 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,7 +55,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
@@ -75,8 +77,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -87,7 +89,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -269,7 +271,7 @@ public class CharacterModificationUtils {
 			contentSB.append("<div class='container-full-width' style='"+(i==4?"width:50%; margin:0 25%;":"width:calc(50% - 16px);")+" text-align:center; padding:0;'>"
 					+ "<div class='title-button no-select' id='PERSONALITY_INFO_"+trait+"' style='position:absolute; left:auto; right:5%; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
-						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b></br>"
+						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b><br/>"
 						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
 					+ "</p>");
 
@@ -295,6 +297,73 @@ public class CharacterModificationUtils {
 		contentSB.append("</div>");
 		
 		return contentSB.toString();
+	}
+	
+	public static void performPlayerAgeCheck(int ageTarget) {
+		if(Main.game.getPlayer().getAge()>ageTarget) {
+			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
+		} else if(Main.game.getPlayer().getAge()<ageTarget) {
+			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+		}
+	}
+	
+	public static String getBirthdayChoiceDiv() {
+		contentSB.setLength(0);
+
+		contentSB.append(
+				"<div class='container-full-width'>"
+						+ "<h5 style='text-align:center;'>"
+							+"Birthday"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "You were born on the "
+								+Util.intToDate(Main.game.getPlayer().getBirthday().getDayOfMonth())
+								+" "+Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
+						+ "</p>");
+
+			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");
+			
+				contentSB.append(applyDateWrapper("Day", "BIRTH_DAY", "", "", String.valueOf(Main.game.getPlayer().getBirthday().getDayOfMonth()), false, false));
+				
+				contentSB.append(applyDateWrapper("Month", "BIRTH_MONTH", "", "", Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), false, false));
+				
+				contentSB.append(applyDateWrapper("Age", "AGE", "", "",
+						String.valueOf(Main.game.getPlayer().getAge()),
+						Main.game.getPlayer().getAge()<=18,
+						Main.game.getPlayer().getAge()>=50));
+			contentSB.append("</div>");
+		
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
+	
+	private static String applyDateWrapper(String title, String id, String measurement, String measurementPlural, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return "<div class='container-full-width' style='width:calc(33.3% - 16px);'>"
+					+ "<p style='width:100%; text-align:center;'>"
+						+ "<b>"+title+"</b>"
+					+ "</p>"
+					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
+						+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (decreaseDisabled?"[style.boldDisabled(-1"+measurement+")]":"[style.boldBadMinor(-1"+measurement+")]")
+						+ "</div>"
+						+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (decreaseDisabled?"[style.boldDisabled(-5"+measurementPlural+")]":"[style.boldBad(-5"+measurementPlural+")]")
+						+ "</div>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:40%; margin:0; padding:0; text-align:center;'>"
+						+ value
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
+						+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (increaseDisabled?"[style.boldDisabled(+1"+measurement+")]":"[style.boldGoodMinor(+1"+measurement+")]")
+						+ "</div>"
+						+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (increaseDisabled?"[style.boldDisabled(+5"+measurementPlural+")]":"[style.boldGood(+5"+measurementPlural+")]")
+						+ "</div>"
+					+ "</div>"
+				+ "</div>";
 	}
 	
 	public static String getOrientationChoiceDiv() {
@@ -353,27 +422,27 @@ public class CharacterModificationUtils {
 		
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA),
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("BLOWJOBS_GIVEN", "Blowjobs Given",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("CUNNILINGUS_GIVEN", "Cunnilingus Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("VAGINAL_GIVEN", "Vaginal Sex Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS),
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 
@@ -383,35 +452,35 @@ public class CharacterModificationUtils {
 							(Main.game.getPlayer().hasVagina()
 									?""
 									:getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.FINGER),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?""
 									:getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
-										new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 		
@@ -443,7 +512,7 @@ public class CharacterModificationUtils {
 			Main.game.getPlayer().setVirginityLoss(type, null);
 		}
 		
-		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfPenetrationType()) {
+		if(type.getPerformingSexArea()==SexAreaPenetration.PENIS) {
 			if(index==0) {
 				Main.game.getPlayer().setPenisVirgin(true);
 			} else {
@@ -451,41 +520,43 @@ public class CharacterModificationUtils {
 			}
 		}
 		
-		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfOrificeType()) {
-			switch(type.getOrificeType()) {
-				case ANUS:
-					if(index==0) {
-						Main.game.getPlayer().setAssVirgin(true);
-					} else {
-						Main.game.getPlayer().setAssVirgin(false);
-					}
-					break;
-				case ASS:
-					break;
-				case BREAST:
-					break;
-				case MOUTH:
-					if(index==0) {
-						Main.game.getPlayer().setFaceVirgin(true);
-					} else {
-						Main.game.getPlayer().setFaceVirgin(false);
-					}
-					break;
-				case NIPPLE:
-					break;
-				case THIGHS:
-					break;
-				case URETHRA_PENIS:
-					break;
-				case URETHRA_VAGINA:
-					break;
-				case VAGINA:
-					if(index==0) {
-						Main.game.getPlayer().setVaginaVirgin(true);
-					} else {
-						Main.game.getPlayer().setVaginaVirgin(false);
-					}
-					break;
+		if(type.getTargetedSexArea()==SexAreaPenetration.PENIS) {
+			if(type.getPerformingSexArea().isOrifice()) {
+				switch((SexAreaOrifice)type.getPerformingSexArea()) {
+					case ANUS:
+						if(index==0) {
+							Main.game.getPlayer().setAssVirgin(true);
+						} else {
+							Main.game.getPlayer().setAssVirgin(false);
+						}
+						break;
+					case ASS:
+						break;
+					case BREAST:
+						break;
+					case MOUTH:
+						if(index==0) {
+							Main.game.getPlayer().setFaceVirgin(true);
+						} else {
+							Main.game.getPlayer().setFaceVirgin(false);
+						}
+						break;
+					case NIPPLE:
+						break;
+					case THIGHS:
+						break;
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
+						break;
+					case VAGINA:
+						if(index==0) {
+							Main.game.getPlayer().setVaginaVirgin(true);
+						} else {
+							Main.game.getPlayer().setVaginaVirgin(false);
+						}
+						break;
+				}
 			}
 		}
 	}
@@ -530,7 +601,7 @@ public class CharacterModificationUtils {
 			"HEIGHT",
 			"cm",
 			"cm",
-			BodyChanging.getTarget().getHeightValue()+"cm</br>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
+			BodyChanging.getTarget().getHeightValue()+"cm<br/>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
 			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
 			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
 	}
@@ -598,7 +669,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Femininity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change how masculine or feminine your body and face are."
-					:UtilText.parse(BodyChanging.getTarget(), "Change how masculine or feminine [npc.name]'s body and face are.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change how masculine or feminine [npc.namePos] body and face are.")),
 				contentSB.toString(), false);
 	}
 	
@@ -736,7 +807,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tail",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your tail type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s tail type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] tail type.")),
 				contentSB.toString(), true);
 	}
 	
@@ -761,7 +832,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Wing Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your wings."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s wings.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] wings.")),
 				contentSB.toString(), true);
 	}
 	
@@ -796,7 +867,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Wings",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your wing type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s wing type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] wing type.")),
 				contentSB.toString(), true);
 	}
 	
@@ -831,7 +902,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Horns",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your horn type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s horn type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] horn type.")),
 				contentSB.toString(), true);
 	}
 
@@ -856,7 +927,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Horn Length",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the length of your horns."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.name]'s horns.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] horns.")),
 				contentSB.toString(), true);
 	}
 	
@@ -891,7 +962,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Antennae",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your antenna type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s antenna type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] antenna type.")),
 				contentSB.toString(), true);
 	}
 
@@ -919,7 +990,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Hair",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your hair type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s hair type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair type.")),
 				contentSB.toString(), true);
 	}
 	
@@ -990,7 +1061,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Ass",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your ass type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s ass type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] ass type.")),
 				contentSB.toString(), false);
 	}
 	
@@ -1018,7 +1089,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Breast",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your breast type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s breast type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] breast type.")),
 				contentSB.toString(), false);
 	}
 	
@@ -1047,7 +1118,7 @@ public class CharacterModificationUtils {
 			return applyWrapper("Arms",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your arm type."
-						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s arm type.")),
+						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] arm type.")),
 					contentSB.toString(), true);
 			
 		} else {
@@ -1074,7 +1145,7 @@ public class CharacterModificationUtils {
 				return applyWrapper("Arms",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your arm type."
-							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s arm type.")),
+							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] arm type.")),
 						contentSB.toString(), true);
 				
 			} else {
@@ -1085,7 +1156,7 @@ public class CharacterModificationUtils {
 						+ "<p style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
 								?"You can only change your arm type if your arms are already demonic in nature."
-								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.name]'s arm type if [npc.her] arms are already demonic in nature."))
+								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.namePos] arm type if [npc.her] arms are already demonic in nature."))
 						+ "</p>"
 						+ "</div>");
 			}
@@ -1117,7 +1188,7 @@ public class CharacterModificationUtils {
 			return applyWrapper("Legs",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your leg type."
-						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s leg type.")),
+						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] leg type.")),
 					contentSB.toString(), true);
 			
 			
@@ -1145,7 +1216,7 @@ public class CharacterModificationUtils {
 				return applyWrapper("Legs",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your leg type."
-							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s leg type.")),
+							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] leg type.")),
 						contentSB.toString(), true);
 				
 			} else {
@@ -1156,7 +1227,7 @@ public class CharacterModificationUtils {
 						+ "<p style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
 								?"You can only change your leg type if your legs are already demonic in nature."
-								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.name]'s leg type if [npc.her] legs are already demonic in nature."))
+								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.namePos] leg type if [npc.her] legs are already demonic in nature."))
 						+ "</p>"
 						+ "</div>");
 			}
@@ -1187,7 +1258,7 @@ public class CharacterModificationUtils {
 			return applyWrapper("Face",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your face type."
-						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s face type.")),
+						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] face type.")),
 					contentSB.toString(), true);
 			
 		} else {
@@ -1214,7 +1285,7 @@ public class CharacterModificationUtils {
 				return applyWrapper("Face",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your face type."
-							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s face type.")),
+							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] face type.")),
 						contentSB.toString(), true);
 				
 			} else {
@@ -1225,7 +1296,7 @@ public class CharacterModificationUtils {
 						+ "<p style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
 								?"You can only change your face type if your face is already demonic in nature."
-								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.name]'s face type if [npc.her] face is already demonic in nature."))
+								:UtilText.parse(BodyChanging.getTarget(), "You can only change [npc.namePos] face type if [npc.her] face is already demonic in nature."))
 						+ "</p>"
 						+ "</div>");
 			}
@@ -1255,7 +1326,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Body",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your body type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s body type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] body type.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1282,7 +1353,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Ears",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your ear type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s ear type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] ear type.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1309,7 +1380,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Eyes",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your eye type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s eye type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] eye type.")),
 				contentSB.toString(), true);
 	}
 
@@ -1334,7 +1405,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Iris Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your irises."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s irises.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] irises.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1359,7 +1430,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Pupil Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your pupils."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s pupils.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] pupils.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1385,7 +1456,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Lip Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your lips."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s lips.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] lips.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1410,7 +1481,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Lip & Throat Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your lips & throat."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s lips & throat.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] lips & throat.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1435,7 +1506,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tongue Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your tongue."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s tongue.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] tongue.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1460,7 +1531,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tongue Length",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the length of your tongue."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.name]'s tongue.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] tongue.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1485,7 +1556,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Ass Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your ass."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s ass.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] ass.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1510,7 +1581,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Hip Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your hips."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s hips.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] hips.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1535,7 +1606,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your asshole."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s asshole.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] asshole.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1560,7 +1631,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Wetness",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the wetness of your asshole."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s asshole.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] asshole.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1585,7 +1656,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your asshole."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s asshole.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] asshole.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1610,7 +1681,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your asshole."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s asshole.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.namePos] asshole.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1635,7 +1706,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your anus."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s anus.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] anus.")),
 				contentSB.toString(), false);
 	}
 	
@@ -1660,7 +1731,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Breast Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your breasts."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s breasts.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts.")),
 				contentSB.toString(), false);
 	}
 	
@@ -1685,7 +1756,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Breast Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your breasts."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s breasts.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] breasts.")),
 				contentSB.toString(), true);
 	}
 
@@ -1760,7 +1831,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your nipples."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s nipples.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] nipples.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1785,7 +1856,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Areolae Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your areolae."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s areolae.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] areolae.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1810,7 +1881,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your nipples."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s nipples.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] nipples.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1862,7 +1933,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your nipples."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s nipples.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] nipples.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1887,7 +1958,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your nipples."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s nipples.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.namePos] nipples.")),
 				contentSB.toString(), true);
 	}
 
@@ -1912,7 +1983,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your nipples."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s nipples.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] nipples.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1947,7 +2018,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your vagina type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s vagina type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type.")),
 				contentSB.toString(), true);
 	}
 
@@ -1972,7 +2043,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your vagina."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s vagina.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] vagina.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1997,7 +2068,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina Wetness",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the wetness of your vagina."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s vagina.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] vagina.")),
 				contentSB.toString(), true);
 	}
 
@@ -2022,7 +2093,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your vagina."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s vagina.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] vagina.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2047,7 +2118,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your vagina."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s vagina.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.namePos] vagina.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2072,7 +2143,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Clitoris Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your clitoris."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s clitoris.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2097,7 +2168,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Labia Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your labia."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s labia.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] labia.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2122,7 +2193,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Vagina Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your vagina."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s vagina.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] vagina.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2158,7 +2229,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Penis",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your penis type."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s penis type.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] penis type.")),
 				contentSB.toString(), halfWidth);
 	}
 	
@@ -2166,11 +2237,11 @@ public class CharacterModificationUtils {
 		return applyFullVariableWrapper("Penis Size",
 				(BodyChanging.getTarget().isPlayer()
 			?"Change the size of your penis."
-			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s penis.")),
+			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
 			"PENIS_SIZE",
 			" inch",
 			" inches",
-			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"</br>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
+			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"<br/>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
 			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
@@ -2196,7 +2267,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Penis Girth",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the girth of your penis."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.name]'s penis.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.namePos] penis.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2221,7 +2292,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Testicle Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your testicles."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s testicles.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] testicles.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2276,7 +2347,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Internal Testicles",
 				(BodyChanging.getTarget().isPlayer()
 					?"Set whether your testicles are internal or not."
-					:UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.name]'s testicles are internal or not.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] testicles are internal or not.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2301,19 +2372,19 @@ public class CharacterModificationUtils {
 		return applyWrapper("Urethra Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your urethra."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s urethra.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] urethra.")),
 				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformCumProductionDiv() {
-		return applyFullVariableWrapperFluids("Cum Production",
+		return applyFullVariableWrapperFluids("Cum Storage",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change your cum production."
-			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s cum production.")),
+			?"Change your maximum cum storage."
+			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
 			"CUM_PRODUCTION",
-			BodyChanging.getTarget().getPenisRawCumProductionValue()+"ml",
-			BodyChanging.getTarget().getPenisRawCumProductionValue()<=0,
-			BodyChanging.getTarget().getPenisRawCumProductionValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+			BodyChanging.getTarget().getPenisRawCumStorageValue()+"ml",
+			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
+			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -2337,7 +2408,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Urethra Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your urethra."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s urethra.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2362,14 +2433,14 @@ public class CharacterModificationUtils {
 		return applyWrapper("Urethra Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your urethra."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s urethra.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.namePos] urethra.")),
 				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformPenisModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(PenisModifier orificeMod : PenisModifier.values()) {
+		for(PenetrationModifier orificeMod : PenetrationModifier.values()) {
 			if(BodyChanging.getTarget().hasPenisModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_PENIS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
@@ -2387,7 +2458,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Penis Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your penis."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s penis.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] penis.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2412,7 +2483,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Urethra Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your urethra."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s urethra.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] urethra.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2442,7 +2513,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Body Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your body size."
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s body size.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] body size.")),
 				contentSB.toString(), true);
 	}
 	
@@ -2467,7 +2538,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Muscle Definition",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your muscle definition."+(!Main.game.isInNewWorld()?" This does not affect the physique attribute of your character.":"")
-					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s muscle definition.")),
+					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] muscle definition.")),
 				contentSB.toString(), true);
 	}
 	
@@ -3024,10 +3095,10 @@ public class CharacterModificationUtils {
 				"<div class='container-full-width'>"
 					+"<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
-							+"Cum Production"
+							+"Cum Storage"
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
-							+ "Choose how much cum you produce at each orgasm."
+							+ "Choose how much cum your balls are able to hold."
 						+ "</p>"
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
@@ -3035,7 +3106,7 @@ public class CharacterModificationUtils {
 		CumProduction[] sizesAvailable = new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
 		
 		for(CumProduction value : sizesAvailable) {
-			if(BodyChanging.getTarget().getPenisCumProduction() == value) {
+			if(BodyChanging.getTarget().getPenisCumStorage() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
 							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+value.getMedianValue()+"mL</b>"
@@ -3424,21 +3495,21 @@ public class CharacterModificationUtils {
 							+ "</b>"
 						+ "</p>"
 						+ "<p>"
-							+ "Currently:</br><i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>"
+							+ "Currently:<br/><i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>"
 						+ "</p>"
 						
 							+ (disabledButton
 									?"<div class='normal-button disabled' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;'>"
 										+"<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Apply Changes"
 											+ (withCost
-												?"</br>("+UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")+")"
+												?"<br/>("+UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")+")"
 												:"")
 										+"</span>"
 									+ "</div>"
 									:"<div class='normal-button' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;' id='APPLY_COVERING_"+coveringType+"'>"
 										+ "Apply Changes"
 										+ (withCost
-											?"</br>("
+											?"<br/>("
 												+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
 													? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
 													: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD))+")"
@@ -3448,7 +3519,7 @@ public class CharacterModificationUtils {
 						
 					+ "</div>"
 					+ "<div class='container-quarter-width'>"
-					+ "Pattern:</br>");
+					+ "Pattern:<br/>");
 
 		Covering activeCovering = !coveringsToBeApplied.containsKey(coveringType)
 										?BodyChanging.getTarget().getCovering(coveringType)
@@ -3475,24 +3546,36 @@ public class CharacterModificationUtils {
 		contentSB.append("</div>");
 		contentSB.append("<div class='container-half-width''>");
 		contentSB.append( "<div class='container-half-width'>"
-					+ "Primary Colour:</br>");
+					+ "Primary Colour:<br/>");
 	
 	
-			List<Colour> availablePrimaryColours = withDyeAndExtraPatterns
+			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
 															?coveringType.getAllPrimaryColours()
-															:coveringType.getNaturalColoursPrimary();
+															:coveringType.getNaturalColoursPrimary());
+			int rainbowIncrement=3;
+			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			for (Colour c : availablePrimaryColours) {
 				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ (c.isMetallic()
+											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+													:(c==Colour.COVERING_RAINBOW
+													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
+															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
+															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
+															+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
+															+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
+															+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
+															+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
+															+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
+															+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
+													:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
+										+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
+									+"</div>"
 								+ "</div>");
 			}
-			contentSB.append("</br>");
+			contentSB.append("<br/>");
 			if(activeCovering.getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.colourDisabled(Glow)]"
-							+ "</div>");
 				
 			} else {
 				if(activeCovering.isPrimaryGlowing()) {
@@ -3511,18 +3594,21 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("<p>"
 						+ "<b style='color:"+activeCovering.getPrimaryColour().toWebHexString()+";"
-								+(activeCovering.isPrimaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";":"")+"'>"
+								+(activeCovering.isPrimaryGlowing()
+										?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";"
+										:"")+"'>"
 							+Util.capitaliseSentence(activeCovering.getPrimaryColour().getName())
 						+"</b>"
 					+ "</p>");
 			
 			contentSB.append("</div>"
 					+ "<div class='container-half-width'>"
-					+ "Secondary Colour:</br>");
+					+ "Secondary Colour:<br/>");
 	
-			List<Colour> availableSecondaryColours = withDyeAndExtraPatterns
+			List<Colour> availableSecondaryColours = new ArrayList<>(withDyeAndExtraPatterns
 														?coveringType.getAllSecondaryColours()
-														:coveringType.getNaturalColoursSecondary();
+														:coveringType.getNaturalColoursSecondary());
+			Collections.sort(availableSecondaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			for (Colour c : availableSecondaryColours) {
 				if(activeCovering.getPattern()==CoveringPattern.NONE
 						|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
@@ -3536,16 +3622,26 @@ public class CharacterModificationUtils {
 				} else {
 					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-											+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+											+ (c.isMetallic()
+													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+													:(c==Colour.COVERING_RAINBOW
+														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
+																+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
+																+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
+																+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
+																+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
+																+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
+																+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
+																+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
+																+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
+														:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
+												+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
+											+"</div>"
 									+ "</div>");
 				}
 			}
-			contentSB.append("</br>");
+			contentSB.append("<br/>");
 			if(activeCovering.getSecondaryColour() == Colour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.colourDisabled(Glow)]"
-							+ "</div>");
 				
 			} else {
 				if(activeCovering.isSecondaryGlowing()) {
@@ -3795,9 +3891,11 @@ public class CharacterModificationUtils {
 								:(SuccubisSecrets.invSlotTattooToRemove==invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?"[style.colourBad(Remove)]":"Remove"))
 						+"</div>"
 					+ "</div>"
-					+ "<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
-						+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
-					+ "</div>"
+					+ (Main.game.isInNewWorld()
+						?"<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
+								+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
+							+ "</div>"
+						:"")
 				+ "</div>"
 			+ "</div>";
 	}
@@ -3930,25 +4028,27 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("</div>");
 			
-			contentSB.append("<div class='container-full-width'>");
-				if(tattoo.getType().equals(TattooType.NONE)) {
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "Glow"
-							+ "</div>");
-					
-				} else if(tattoo.isGlowing()) {
-					contentSB.append(
-							"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
-				}
-			contentSB.append("</div>");
+			if(Main.game.isInNewWorld()) {
+				contentSB.append("<div class='container-full-width'>");
+					if(tattoo.getType().equals(TattooType.NONE)) {
+						contentSB.append(
+								"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "Glow"
+								+ "</div>");
+						
+					} else if(tattoo.isGlowing()) {
+						contentSB.append(
+								"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
+				contentSB.append("</div>");
+			}
 
 		contentSB.append("</div>");
 	
@@ -3980,75 +4080,78 @@ public class CharacterModificationUtils {
 										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
 									+ "</div>");
 				}
-				contentSB.append("</br>");
-				if(tattoo.getWriting().isGlow()) {
-					contentSB.append(
-							"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
+				if(Main.game.isInNewWorld()) {
+					contentSB.append("<br/>");
+					if(tattoo.getWriting().isGlow()) {
+						contentSB.append(
+								"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
 				}
 			contentSB.append("</div>");
 		contentSB.append("</div>");
 
 		// Counter:
-
-		contentSB.append("<div class='container-full-width'>"
-				+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
+		if(Main.game.isInNewWorld()) {
+			contentSB.append("<div class='container-full-width'>"
+					+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
+			
+				contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+						contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
+						for(TattooCounterType counterType : TattooCounterType.values()) {
+							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
+												+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
+														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+													+Util.capitaliseSentence(counterType.getName())+"</div>"
+											+ "</div>");
+						}
+					contentSB.append("</div>");
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+						contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
+						for(TattooCountType countType : TattooCountType.values()) {
+							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
+												+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
+														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+													+Util.capitaliseSentence(countType.getName())+"</div>"
+											+ "</div>");
+						}
+					contentSB.append("</div>");
+				contentSB.append("</div>");
+				
+				contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+					for (Colour c : TattooCounter.getAvailableColours()) {
+						contentSB.append("<div class='normal-button"+(tattoo.getCounter().getColour()==c?" selected":"")+"' id='TATTOO_COUNTER_COLOUR_"+c+"'"
+												+ " style='width:auto; margin-right:4px;"+(tattoo.getCounter().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+											+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+										+ "</div>");
+					}
+					contentSB.append("<br/>");
+					if(tattoo.getCounter().isGlow()) {
+						contentSB.append(
+								"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
+					contentSB.append("<div class='container-full-width'>"
+							+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
+							+ "</div>");
+				contentSB.append("</div>");
+				
+			contentSB.append("</div>");
+		}
 		
-			contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
-				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-					contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
-					for(TattooCounterType counterType : TattooCounterType.values()) {
-						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
-											+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
-													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
-												+Util.capitaliseSentence(counterType.getName())+"</div>"
-										+ "</div>");
-					}
-				contentSB.append("</div>");
-				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-					contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
-					for(TattooCountType countType : TattooCountType.values()) {
-						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
-											+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
-													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
-												+Util.capitaliseSentence(countType.getName())+"</div>"
-										+ "</div>");
-					}
-				contentSB.append("</div>");
-			contentSB.append("</div>");
-			
-			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
-				for (Colour c : TattooCounter.getAvailableColours()) {
-					contentSB.append("<div class='normal-button"+(tattoo.getCounter().getColour()==c?" selected":"")+"' id='TATTOO_COUNTER_COLOUR_"+c+"'"
-											+ " style='width:auto; margin-right:4px;"+(tattoo.getCounter().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
-									+ "</div>");
-				}
-				contentSB.append("</br>");
-				if(tattoo.getCounter().isGlow()) {
-					contentSB.append(
-							"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
-				}
-				contentSB.append("<div class='container-full-width'>"
-						+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
-						+ "</div>");
-			contentSB.append("</div>");
-			
-		contentSB.append("</div>");
-
 		contentSB.append("<p id='hiddenPField' style='display:none;'></p>");
 		
 		return contentSB.toString();

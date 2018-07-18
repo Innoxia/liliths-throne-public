@@ -2,8 +2,15 @@ package com.lilithsthrone.rendering;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.6
@@ -15,7 +22,13 @@ public class Pattern {
 	private static Map<String, Pattern> allPatterns;
 	
 	private String name;
-	//private String SVGString; // TODO ADD THIS
+	
+	private boolean primaryRecolourAvailable;
+	private boolean secondaryRecolourAvailable;
+	private boolean tertiaryRecolourAvailable;
+	
+	private String baseSVGString;
+	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
 	
 	static {
 		allPatterns = new TreeMap<>();
@@ -52,12 +65,48 @@ public class Pattern {
 	
 	public Pattern(String name) {
 		this.name = name;
+		SVGStringMap = new HashMap<>();
+		
+		baseSVGString = "";
+		if(!name.equals("none")) {
+			try {
+				File patternFile = new File(System.getProperty("user.dir")+"/res/patterns/" + this.getName().toLowerCase() + ".svg");
+				List<String> lines = Files.readAllLines(patternFile.toPath());
+				StringBuilder sb = new StringBuilder();
+				for(String line : lines) {
+					sb.append(line);
+				}
+				baseSVGString = sb.toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			primaryRecolourAvailable = 
+					baseSVGString.contains("#f4d7d7")
+					|| baseSVGString.contains("#e9afaf")
+					|| baseSVGString.contains("#de8787")
+					|| baseSVGString.contains("#d35f5f")
+					|| baseSVGString.contains("#c83737");
+			
+			secondaryRecolourAvailable = 
+					baseSVGString.contains("#f4e3d7")
+					|| baseSVGString.contains("#e9c6af")
+					|| baseSVGString.contains("#deaa87")
+					|| baseSVGString.contains("#d38d5f")
+					|| baseSVGString.contains("#c87137");
+			
+			tertiaryRecolourAvailable = 
+					baseSVGString.contains("#f4eed7")
+					|| baseSVGString.contains("#e9ddaf")
+					|| baseSVGString.contains("#decd87")
+					|| baseSVGString.contains("#d3bc5f")
+					|| baseSVGString.contains("#c8ab37");
+		}
+		
 	}
 	
 	/**
 	 * Checks all found patterns and returns one if available.
-	 * @param name
-	 * @return
 	 */
 	public static Pattern getPattern(String name) {
 		return allPatterns.get(name);
@@ -85,6 +134,40 @@ public class Pattern {
 		return this.name.replace('_', ' ');
 	}
 	
+	public boolean isPrimaryRecolourAvailable() {
+		return primaryRecolourAvailable;
+	}
+
+	public boolean isSecondaryRecolourAvailable() {
+		return secondaryRecolourAvailable;
+	}
+
+	public boolean isTertiaryRecolourAvailable() {
+		return tertiaryRecolourAvailable;
+	}
+
+	public String getSVGString(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		if(!SVGStringMap.containsKey(colour) || !SVGStringMap.get(colour).containsKey(colourSecondary) || !SVGStringMap.get(colour).get(colourSecondary).containsKey(colourTertiary)) {
+			generateSVGImage(colour, colourSecondary, colourTertiary);
+		}
+		return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary);
+	}
+	
+	private void generateSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		addSVGStringMapping(colour, colourSecondary, colourTertiary, Util.colourReplacementPattern(this.getName(), colour, colourSecondary, colourTertiary, baseSVGString));
+	}
+	
+	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
+		if(SVGStringMap.get(colour)==null) {
+			SVGStringMap.put(colour, new HashMap<>());
+			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringMap.get(colour).get(colourSecondary)==null) {
+			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+		}
+		
+		SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+	}
 }
 
 

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -59,7 +60,9 @@ public class SlimeGuardFire extends NPC {
 	}
 	
 	public SlimeGuardFire(boolean isImported) {
-		super(new NameTriplet("Blaze"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.", 10, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
+		super(new NameTriplet("Blaze"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.",
+				22, Month.JANUARY, 13,
+				10, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS, true);
 
 		if(!isImported) {
@@ -124,11 +127,9 @@ public class SlimeGuardFire extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

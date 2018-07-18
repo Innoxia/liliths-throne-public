@@ -26,14 +26,15 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public enum Spell {
 
 	// FIRE:
 	
-	FIREBALL(SpellSchool.FIRE,
+	FIREBALL(false,
+			SpellSchool.FIRE,
 			SpellType.OFFENSIVE,
 			DamageType.FIRE,
 			false,
@@ -48,8 +49,7 @@ public enum Spell {
 					SpellUpgrade.FIREBALL_1,
 					SpellUpgrade.FIREBALL_2,
 					SpellUpgrade.FIREBALL_3),
-			null,
-			null) {
+			null, null) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -136,7 +136,8 @@ public enum Spell {
 		}
 	},
 	
-	FLASH(SpellSchool.FIRE,
+	FLASH(false,
+			SpellSchool.FIRE,
 			SpellType.OFFENSIVE,
 			DamageType.FIRE,
 			false,
@@ -151,8 +152,7 @@ public enum Spell {
 					SpellUpgrade.FLASH_1,
 					SpellUpgrade.FLASH_2,
 					SpellUpgrade.FLASH_3),
-			null,
-			Util.newArrayListOfValues("[style.colourExcellent(Stuns)] target for [style.colourGood(1 turn)]")) {
+			null, Util.newArrayListOfValues("[style.colourExcellent(Stuns)] target for [style.colourGood(1 turn)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -182,10 +182,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"With a flick of your wrist, you summon a blinding flash of light right in front of your own face!",
-											"With a flick of your wrist, you summon a blinding flash of light right in front of [npc.name]'s face!",
+											"With a flick of your wrist, you summon a blinding flash of light right in front of [npc.namePos] face!",
 											"",
 											"With a flick of [npc.her] wrist, [npc.name] summons a blinding flash of light right in front of your face!",
-											"With a flick of [npc1.her] wrist, [npc1.name] summons a blinding flash of light right in front of [npc2.name]'s face!")
+											"With a flick of [npc1.her] wrist, [npc1.name] summons a blinding flash of light right in front of [npc2.namePos] face!")
 								);
 			if(caster.hasSpellUpgrade(SpellUpgrade.FLASH_2)) {
 				descriptionSB.append(" A secondary flash of light arcs away from the first, seeking out another target!");
@@ -211,7 +211,7 @@ public enum Spell {
 						
 					} else {
 						descriptionSB.append("<p>"
-								+"The second Flash shoots out in front of "+(secondaryTarget.isPlayer()?"your face, blinding you as well!":UtilText.parse(secondaryTarget,"[npc.name]'s face, blinding [npc.herHim] as well!"))
+								+"The second Flash shoots out in front of "+(secondaryTarget.isPlayer()?"your face, blinding you as well!":UtilText.parse(secondaryTarget,"[npc.namePos] face, blinding [npc.herHim] as well!"))
 							+"</p>");
 
 						descriptionSB.append(getDamageDescription(caster, secondaryTarget, 0, isHit, isCritical));
@@ -234,7 +234,8 @@ public enum Spell {
 		}
 	},
 	
-	CLOAK_OF_FLAMES(SpellSchool.FIRE,
+	CLOAK_OF_FLAMES(false,
+			SpellSchool.FIRE,
 			SpellType.DEFENSIVE,
 			DamageType.FIRE,
 			true,
@@ -251,8 +252,7 @@ public enum Spell {
 					SpellUpgrade.CLOAK_OF_FLAMES_3),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -305,7 +305,8 @@ public enum Spell {
 		}
 	},
 	
-	ELEMENTAL_FIRE(SpellSchool.FIRE,
+	ELEMENTAL_FIRE(false,
+			SpellSchool.FIRE,
 			SpellType.DEFENSIVE,
 			DamageType.FIRE,
 			true,
@@ -321,8 +322,7 @@ public enum Spell {
 					SpellUpgrade.ELEMENTAL_FIRE_2,
 					SpellUpgrade.ELEMENTAL_FIRE_3A,
 					SpellUpgrade.ELEMENTAL_FIRE_3B),
-			null,
-			Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolFire(Fire)]")) {
+			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolFire(Fire)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -356,15 +356,16 @@ public enum Spell {
 									?"With a flash of light and a burst of flames, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"
 									:"With a flash of light and a burst of flames, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
+			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
@@ -375,7 +376,8 @@ public enum Spell {
 	
 	// WATER:
 
-	ICE_SHARD(SpellSchool.WATER,
+	ICE_SHARD(false,
+			SpellSchool.WATER,
 			SpellType.OFFENSIVE,
 			DamageType.ICE,
 			false,
@@ -385,11 +387,10 @@ public enum Spell {
 			15,
 			DamageVariance.LOW,
 			50,
-			null,
-			Util.newArrayListOfValues(
-					SpellUpgrade.ICE_SHARD_1,
-					SpellUpgrade.ICE_SHARD_2,
-					SpellUpgrade.ICE_SHARD_3), null, null) {
+			null, Util.newArrayListOfValues(
+							SpellUpgrade.ICE_SHARD_1,
+							SpellUpgrade.ICE_SHARD_2,
+							SpellUpgrade.ICE_SHARD_3), null, null) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -457,7 +458,8 @@ public enum Spell {
 		}
 	},
 
-	RAIN_CLOUD(SpellSchool.WATER,
+	RAIN_CLOUD(false,
+			SpellSchool.WATER,
 			SpellType.OFFENSIVE,
 			DamageType.ICE,
 			false,
@@ -473,8 +475,7 @@ public enum Spell {
 					SpellUpgrade.RAIN_CLOUD_2,
 					SpellUpgrade.RAIN_CLOUD_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, -25)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -505,10 +506,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above your own head!",
-											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above [npc.name]'s head!",
+											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above [npc.namePos] head!",
 											"",
 											"With an upwards thrust of [npc.her] [npc.arm], [npc.name] summons forth a cloud of rain above your head!",
-											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of rain above [npc2.name]'s head!")
+											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of rain above [npc2.namePos] head!")
 								+"</p>");
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
@@ -533,7 +534,8 @@ public enum Spell {
 		}
 	},
 
-	SOOTHING_WATERS(SpellSchool.WATER,
+	SOOTHING_WATERS(true,
+			SpellSchool.WATER,
 			SpellType.DEFENSIVE,
 			DamageType.ICE,
 			true,
@@ -548,8 +550,7 @@ public enum Spell {
 					SpellUpgrade.SOOTHING_WATERS_1,
 					SpellUpgrade.SOOTHING_WATERS_2,
 					SpellUpgrade.SOOTHING_WATERS_3),
-			null,
-			Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth(energy)]")) {
+			null, Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth(energy)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -662,7 +663,8 @@ public enum Spell {
 		}
 	},
 	
-	ELEMENTAL_WATER(SpellSchool.WATER,
+	ELEMENTAL_WATER(false,
+			SpellSchool.WATER,
 			SpellType.DEFENSIVE,
 			DamageType.ICE,
 			true,
@@ -678,8 +680,7 @@ public enum Spell {
 					SpellUpgrade.ELEMENTAL_WATER_2,
 					SpellUpgrade.ELEMENTAL_WATER_3A,
 					SpellUpgrade.ELEMENTAL_WATER_3B),
-			null,
-			Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolWater(Water)]")) {
+			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolWater(Water)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -713,15 +714,16 @@ public enum Spell {
 									?"With a huge splash, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"
 									:"With a huge splash, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
+			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
@@ -732,7 +734,8 @@ public enum Spell {
 
 	// AIR:
 	
-	POISON_VAPOURS(SpellSchool.AIR,
+	POISON_VAPOURS(false,
+			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.POISON,
 			false,
@@ -747,8 +750,7 @@ public enum Spell {
 					SpellUpgrade.POISON_VAPOURS_1,
 					SpellUpgrade.POISON_VAPOURS_2,
 					SpellUpgrade.POISON_VAPOURS_3),
-			null,
-			Util.newArrayListOfValues("<b>10</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(3 turns)]")) {
+			null, Util.newArrayListOfValues("<b>10</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(3 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -806,7 +808,8 @@ public enum Spell {
 		}
 	},
 
-	VACUUM(SpellSchool.AIR,
+	VACUUM(false,
+			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -822,8 +825,7 @@ public enum Spell {
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MISS_CHANCE, 10)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.MISS_CHANCE, 10)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -883,7 +885,8 @@ public enum Spell {
 		}
 	},
 
-	PROTECTIVE_GUSTS(SpellSchool.AIR,
+	PROTECTIVE_GUSTS(false,
+			SpellSchool.AIR,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -900,8 +903,7 @@ public enum Spell {
 					SpellUpgrade.PROTECTIVE_GUSTS_3),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25),
-					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 10)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 10)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -957,7 +959,8 @@ public enum Spell {
 		}
 	},
 	
-	ELEMENTAL_AIR(SpellSchool.AIR,
+	ELEMENTAL_AIR(false,
+			SpellSchool.AIR,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -973,8 +976,7 @@ public enum Spell {
 					SpellUpgrade.ELEMENTAL_AIR_2,
 					SpellUpgrade.ELEMENTAL_AIR_3A,
 					SpellUpgrade.ELEMENTAL_AIR_3B),
-			null,
-			Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolAir(Air)]")) {
+			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolAir(Air)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1008,13 +1010,13 @@ public enum Spell {
 									?"With a tremendous gust of wind, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"
 									:"With a tremendous gust of wind, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			
@@ -1027,7 +1029,8 @@ public enum Spell {
 
 	// EARTH:
 	
-	SLAM(SpellSchool.EARTH,
+	SLAM(false,
+			SpellSchool.EARTH,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1037,11 +1040,10 @@ public enum Spell {
 			25,
 			DamageVariance.LOW,
 			60,
-			null,
-			Util.newArrayListOfValues(
-					SpellUpgrade.SLAM_1,
-					SpellUpgrade.SLAM_2,
-					SpellUpgrade.SLAM_3), null, null) {
+			null, Util.newArrayListOfValues(
+							SpellUpgrade.SLAM_1,
+							SpellUpgrade.SLAM_2,
+							SpellUpgrade.SLAM_3), null, null) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1121,7 +1123,8 @@ public enum Spell {
 		}
 	},
 
-	TELEKENETIC_SHOWER(SpellSchool.EARTH,
+	TELEKENETIC_SHOWER(false,
+			SpellSchool.EARTH,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1136,8 +1139,7 @@ public enum Spell {
 					SpellUpgrade.TELEKENETIC_SHOWER_1,
 					SpellUpgrade.TELEKENETIC_SHOWER_2,
 					SpellUpgrade.TELEKENETIC_SHOWER_3),
-			null,
-			Util.newArrayListOfValues("<b>10</b> [style.colourPhysical(Physical Damage)] per turn for [style.colourGood(3 turns)]")) {
+			null, Util.newArrayListOfValues("<b>10</b> [style.colourPhysical(Physical Damage)] per turn for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1194,7 +1196,8 @@ public enum Spell {
 		}
 	},
 
-	STONE_SHELL(SpellSchool.EARTH,
+	STONE_SHELL(false,
+			SpellSchool.EARTH,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -1210,8 +1213,7 @@ public enum Spell {
 					SpellUpgrade.STONE_SHELL_2,
 					SpellUpgrade.STONE_SHELL_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1268,7 +1270,8 @@ public enum Spell {
 		}
 	},
 	
-	ELEMENTAL_EARTH(SpellSchool.EARTH,
+	ELEMENTAL_EARTH(false,
+			SpellSchool.EARTH,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1284,8 +1287,7 @@ public enum Spell {
 					SpellUpgrade.ELEMENTAL_EARTH_2,
 					SpellUpgrade.ELEMENTAL_EARTH_3A,
 					SpellUpgrade.ELEMENTAL_EARTH_3B),
-			null,
-			Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolEarth(Earth)]")) {
+			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolEarth(Earth)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1319,13 +1321,13 @@ public enum Spell {
 									?"With a burst of rocks and debris, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"
 									:"With a burst of rocks and debris, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			
@@ -1338,7 +1340,8 @@ public enum Spell {
 	
 	// ARCANE:
 	
-	ARCANE_AROUSAL(SpellSchool.ARCANE,
+	ARCANE_AROUSAL(false,
+			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE,
 			DamageType.LUST,
 			false,
@@ -1348,11 +1351,10 @@ public enum Spell {
 			15,
 			DamageVariance.LOW,
 			50,
-			null,
-			Util.newArrayListOfValues(
-					SpellUpgrade.ARCANE_AROUSAL_1,
-					SpellUpgrade.ARCANE_AROUSAL_2,
-					SpellUpgrade.ARCANE_AROUSAL_3), null, null) {
+			null, Util.newArrayListOfValues(
+							SpellUpgrade.ARCANE_AROUSAL_1,
+							SpellUpgrade.ARCANE_AROUSAL_2,
+							SpellUpgrade.ARCANE_AROUSAL_3), null, null) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1387,10 +1389,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"You focus your arcane energy on projecting an arousing vision into your own mind",
-											"You focus your arcane energy on projecting an arousing vision into [npc.name]'s mind.",
+											"You focus your arcane energy on projecting an arousing vision into [npc.namePos] mind.",
 											"",
 											"[npc.Name] focuses [npc.her] arcane energy on projecting an arousing vision into your mind!",
-											"[npc.Name] focuses [npc.her] arcane energy on projecting an arousing vision into [npc2.name]'s mind!")
+											"[npc.Name] focuses [npc.her] arcane energy on projecting an arousing vision into [npc2.namePos] mind!")
 								+"</p>");
 			
 			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
@@ -1418,7 +1420,8 @@ public enum Spell {
 		}
 	},
 	
-	TELEPATHIC_COMMUNICATION(SpellSchool.ARCANE,
+	TELEPATHIC_COMMUNICATION(false,
+			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -1434,8 +1437,7 @@ public enum Spell {
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_2,
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1465,10 +1467,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"You focus your arcane energy on enabling your thoughts to be projected into others' minds!",
-											"You focus your arcane energy on enabling [npc.name]'s thoughts to be projected into others' minds!",
+											"You focus your arcane energy on enabling [npc.namePos] thoughts to be projected into others' minds!",
 											"[npc.Name] focuses [npc.her] arcane energy on enabling [npc.her] thoughts to be projected into others' minds!",
 											"[npc.Name] focuses [npc.her] arcane energy on enabling your thoughts to be projected into others' minds!",
-											"[npc1.Name] focuses [npc1.her] arcane energy on enabling [npc2.name]'s thoughts to be projected into others' minds!")
+											"[npc1.Name] focuses [npc1.her] arcane energy on enabling [npc2.namePos] thoughts to be projected into others' minds!")
 								+"</p>");
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
@@ -1491,7 +1493,8 @@ public enum Spell {
 		}
 	},
 	
-	ARCANE_CLOUD(SpellSchool.ARCANE,
+	ARCANE_CLOUD(false,
+			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1507,8 +1510,7 @@ public enum Spell {
 					SpellUpgrade.ARCANE_CLOUD_2,
 					SpellUpgrade.ARCANE_CLOUD_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1539,10 +1541,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"With an upwards thrust of your [pc.arm], you summon forth an arcane cloud above your own head!",
-											"With an upwards thrust of your [pc.arm], you summon forth an arcane cloud above [npc.name]'s head!",
+											"With an upwards thrust of your [pc.arm], you summon forth an arcane cloud above [npc.namePos] head!",
 											"",
 											"With an upwards thrust of [npc.her] [npc.arm], [npc.name] summons forth an arcane cloud above your head!",
-											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth an arcane cloud above [npc2.name]'s head!")
+											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth an arcane cloud above [npc2.namePos] head!")
 								+"</p>");
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
@@ -1565,7 +1567,8 @@ public enum Spell {
 		}
 	},
 	
-	CLEANSE(SpellSchool.ARCANE,
+	CLEANSE(true,
+			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -1580,8 +1583,7 @@ public enum Spell {
 					SpellUpgrade.CLEANSE_1,
 					SpellUpgrade.CLEANSE_2,
 					SpellUpgrade.CLEANSE_3),
-			null,
-			Util.newArrayListOfValues("[style.colourGood(Removes all)] combat status effects from the target")) {
+			null, Util.newArrayListOfValues("[style.colourGood(Removes all)] combat status effects from the target")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1682,7 +1684,8 @@ public enum Spell {
 		}
 	},
 	
-	STEAL(SpellSchool.ARCANE,
+	STEAL(true,
+			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1698,8 +1701,7 @@ public enum Spell {
 					SpellUpgrade.STEAL_2,
 					SpellUpgrade.STEAL_3A,
 					SpellUpgrade.STEAL_3B),
-			null,
-			Util.newArrayListOfValues("[style.colourExcellent(Steals)] a random item from the target's inventory")) {
+			null, Util.newArrayListOfValues("[style.colourExcellent(Steals)] a random item from the target's inventory")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1711,10 +1713,10 @@ public enum Spell {
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
 											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of your own items...",
-											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of [npc.name]'s items!",
+											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of [npc.namePos] items!",
 											"",
 											"Thrusting out [npc.her] [npc.hand] and clenching [npc.her] fist, [npc.name] channels [npc.her] arcane power into stealing one of your items!",
-											"Thrusting out [npc.her] [npc.hand] and clenching [npc.her] fist, [npc.name] channels [npc.her] arcane power into stealing one of [npc2.name]'s items!")
+											"Thrusting out [npc.her] [npc.hand] and clenching [npc.her] fist, [npc.name] channels [npc.her] arcane power into stealing one of [npc2.namePos] items!")
 								+"</p>");
 			
 			// If attack hits, apply damage and effects:
@@ -1731,10 +1733,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+clothingToSteal.getName()+"...",
-										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.she]'s currently wearing, [npc.speech(Y-You pervert!)]",
+										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing, [npc.speech(Y-You pervert!)]",
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing, [pc.speech(Y-You pervert!)]",
-										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.she]'s currently wearing, [npc2.speech(Y-You pervert!)]")
+										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing, [npc2.speech(Y-You pervert!)]")
 								+ "</p>"
 								+ caster.addClothing(clothingToSteal, true));
 					}
@@ -1779,10 +1781,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+weapon.getName()+"...",
-										"You stole [npc.name]'s "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
+										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
 										"[npc.Name] stole your "+weapon.getName()+" from out of your [pc.hands]!",
-										"[npc1.Name] stole [npc2.name]'s "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
+										"[npc1.Name] stole [npc2.namePos] "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
 								+ "</p>"
 								+ caster.addWeapon(weapon, true));
 						
@@ -1792,10 +1794,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+weapon.getName()+"...",
-										"You stole [npc.name]'s "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
+										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
 										"[npc.Name] stole your "+weapon.getName()+" from out of your [pc.hands]!",
-										"[npc1.Name] stole [npc2.name]'s "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
+										"[npc1.Name] stole [npc2.namePos] "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
 								+ "</p>"
 								+ caster.addWeapon(weapon, true));
 						
@@ -1818,10 +1820,10 @@ public enum Spell {
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
 											"You stole your own "+item.getName()+"...",
-											"You stole [npc.name]'s "+item.getName()+" from out of [npc.her] inventory!",
+											"You stole [npc.namePos] "+item.getName()+" from out of [npc.her] inventory!",
 											"",
 											"[npc.Name] stole your "+item.getName()+" from out of your inventory!",
-											"[npc1.Name] stole [npc2.name]'s "+item.getName()+" from out of [npc2.her] inventory!")
+											"[npc1.Name] stole [npc2.namePos] "+item.getName()+" from out of [npc2.her] inventory!")
 									+ "</p>"
 									+ caster.addItem(item, false));
 							
@@ -1830,10 +1832,10 @@ public enum Spell {
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
 											"You stole your own "+weapon.getName()+"...",
-											"You stole [npc.name]'s "+weapon.getName()+" from out of [npc.her] inventory!",
+											"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] inventory!",
 											"",
 											"[npc.Name] stole your "+weapon.getName()+" from out of your inventory!",
-											"[npc1.Name] stole [npc2.name]'s "+weapon.getName()+" from out of [npc2.her] inventory!")
+											"[npc1.Name] stole [npc2.namePos] "+weapon.getName()+" from out of [npc2.her] inventory!")
 									+ "</p>"
 									+ caster.addWeapon(weapon, false));
 							
@@ -1842,10 +1844,10 @@ public enum Spell {
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
 											"You stole your own "+clothing.getName()+"...",
-											"You stole [npc.name]'s "+clothing.getName()+" from out of [npc.her] inventory!",
+											"You stole [npc.namePos] "+clothing.getName()+" from out of [npc.her] inventory!",
 											"",
 											"[npc.Name] stole your "+clothing.getName()+" from out of your inventory!",
-											"[npc1.Name] stole [npc2.name]'s "+clothing.getName()+" from out of [npc2.her] inventory!")
+											"[npc1.Name] stole [npc2.namePos] "+clothing.getName()+" from out of [npc2.her] inventory!")
 									+ "</p>"
 									+ caster.addClothing(clothing, false));
 						}
@@ -1855,10 +1857,10 @@ public enum Spell {
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
 										"You stole your own "+clothingToSteal.getName()+"...",
-										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.she]'s currently wearing!",
+										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing!",
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing!",
-										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.she]'s currently wearing!")
+										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing!")
 								+ "</p>"
 								+ caster.addClothing(clothingToSteal, true));
 						
@@ -1880,7 +1882,8 @@ public enum Spell {
 		}
 	},
 	
-	TELEPORT(SpellSchool.ARCANE,
+	TELEPORT(true,
+			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE,
 			DamageType.PHYSICAL,
 			true,
@@ -1896,8 +1899,7 @@ public enum Spell {
 					SpellUpgrade.TELEPORT_2,
 					SpellUpgrade.TELEPORT_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 100)),
-			Util.newArrayListOfValues(
+					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 100)), Util.newArrayListOfValues(
 					"Lasts for [style.colourGood(1 turn)]",
 					"[style.colourExcellent(Unlocks)] map teleport",
 					"Map teleport [style.colourTerrible(blocked)] by companions")) {
@@ -1968,7 +1970,8 @@ public enum Spell {
 		}
 	},
 	
-	LILITHS_COMMAND(SpellSchool.ARCANE,
+	LILITHS_COMMAND(true,
+			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
@@ -1983,8 +1986,7 @@ public enum Spell {
 					SpellUpgrade.LILITHS_COMMAND_1,
 					SpellUpgrade.LILITHS_COMMAND_2,
 					SpellUpgrade.LILITHS_COMMAND_3),
-			null,
-			Util.newArrayListOfValues("[style.colourGood(25%)] chance for target to [style.colourExcellent(instantly submit)]")) {
+			null, Util.newArrayListOfValues("[style.colourGood(25%)] chance for target to [style.colourExcellent(instantly submit)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1998,7 +2000,7 @@ public enum Spell {
 											"Drawing an immense amount of power from your arcane aura, you project the words of Lilith herself into the mind of [npc.name], ordering [npc.herHim] to submit.",
 											"",
 											"Drawing an immense amount of power from [npc.her] arcane aura, [npc.name] projects the words of Lilith herself into your mind, ordering you to submit!",
-											"Drawing an immense amount of power from [npc1.her] arcane aura, [npc1.name] projects the words of Lilith herself into [npc2.name]'s mind, ordering [npc2.herHim] to submit!")
+											"Drawing an immense amount of power from [npc1.her] arcane aura, [npc1.name] projects the words of Lilith herself into [npc2.namePos] mind, ordering [npc2.herHim] to submit!")
 								+"</p>");
 			
 			// If attack hits, apply damage and effects:
@@ -2011,10 +2013,10 @@ public enum Spell {
 					success = Math.random()<0.75f;
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_1)) {
-					success = Math.random()<0.5f && target.getRace().isVulnerableToLilithsLustStorm();
+					success = Math.random()<0.5f && target.getRace().isVulnerableToArcaneStorm();
 					
 				} else {
-					success = Math.random()<0.25f && target.getRace().isVulnerableToLilithsLustStorm();
+					success = Math.random()<0.25f && target.getRace().isVulnerableToArcaneStorm();
 				}
 				
 				descriptionSB.append("<p>");
@@ -2040,7 +2042,7 @@ public enum Spell {
 						descriptionSB.append(
 								"You shake your head and jump back as you resist the effects of Lilith's Command!");
 						
-					} else if(target.getRace().isVulnerableToLilithsLustStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
+					} else if(target.getRace().isVulnerableToArcaneStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] shakes [npc.her] head and jumps back as [npc.she] resists the effects of Lilith's Command!"));
 					} else {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] grins as [npc.she] taunts, [npc.speech(That cheap trick isn't going to affect [npc.a_race] like me!)]"));
@@ -2056,7 +2058,8 @@ public enum Spell {
 		}
 	},
 	
-	ELEMENTAL_ARCANE(SpellSchool.ARCANE,
+	ELEMENTAL_ARCANE(false,
+			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE,
 			DamageType.LUST,
 			false,
@@ -2072,8 +2075,7 @@ public enum Spell {
 					SpellUpgrade.ELEMENTAL_ARCANE_2,
 					SpellUpgrade.ELEMENTAL_ARCANE_3A,
 					SpellUpgrade.ELEMENTAL_ARCANE_3B),
-			null,
-			Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourArcane(Arcane)]")) {
+			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourArcane(Arcane)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -2107,13 +2109,13 @@ public enum Spell {
 									?"With a flash of purple arcane lightning, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"
 									:"With a flash of purple arcane lightning, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"))
 					+"</p>");
-			}
-			
-			if(Main.game.isInCombat()) {
-				if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
-					Combat.addAlly(caster.getElemental());
-				} else {
-					Combat.addEnemy(caster.getElemental());
+				
+				if(Main.game.isInCombat()) {
+					if(caster.isPlayer() || Combat.getAllies().contains(caster)) {
+						Combat.addAlly(caster.getElemental());
+					} else {
+						Combat.addEnemy(caster.getElemental());
+					}
 				}
 			}
 			
@@ -2126,7 +2128,8 @@ public enum Spell {
 	
 	// FROM WEAPONS:
 	
-	WITCH_SEAL(SpellSchool.AIR,
+	WITCH_SEAL(false,
+			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.MISC,
 			false,
@@ -2138,8 +2141,7 @@ public enum Spell {
 			80,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_SEAL, 2)),
 			null,
-			null,
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					"[style.boldExcellent(Stuns)] the target",
 					"Lasts for [style.colourGood(3 turns)]")) {
 		
@@ -2173,7 +2175,8 @@ public enum Spell {
 		}
 	},
 	
-	WITCH_CHARM(SpellSchool.ARCANE,
+	WITCH_CHARM(false,
+			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE,
 			DamageType.MISC,
 			true,
@@ -2186,8 +2189,7 @@ public enum Spell {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5)),
 			null,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -2256,6 +2258,8 @@ public enum Spell {
 		spellStealUpgradeTree.get(2).get(1).addLink(spellStealUpgradeTree.get(2).get(0));
 	}
 	
+	
+	private boolean forbiddenSpell;
 	private SpellSchool spellSchool;
 	private SpellType type;
 	protected DamageType damageType;
@@ -2277,7 +2281,8 @@ public enum Spell {
 	
 	private String SVGString;
 
-	private Spell(SpellSchool spellSchool,
+	private Spell(boolean forbiddenSpell,
+			SpellSchool spellSchool,
 			SpellType type,
 			DamageType damageType,
 			boolean beneficial,
@@ -2289,8 +2294,9 @@ public enum Spell {
 			int spellCost,
 			Map<StatusEffect, Integer> statusEffects,
 			List<SpellUpgrade> upgradeList,
-			HashMap<Attribute, Integer> attributeModifiers,
-			List<String> extraEffects) {
+			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+		
+		this.forbiddenSpell = forbiddenSpell;
 		
 		this.spellSchool = spellSchool;
 		this.type = type;
@@ -2374,6 +2380,10 @@ public enum Spell {
 		return modifiersList;
 	}
 	
+	public boolean isForbiddenSpell() {
+		return forbiddenSpell;
+	}
+
 	public SpellSchool getSpellSchool() {
 		return spellSchool;
 	}
@@ -2667,12 +2677,18 @@ public enum Spell {
 
 		spellSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
 			if(row==-1) {
-				boolean disabled = !character.hasSpell(spell);
-				spellSB.append("<div class='square-button "+(disabled?" disabled":"")+"' style='width:50%; margin:8px 25%; cursor: default; "
-										+(!disabled?"border-color:"+spell.getSpellSchool().getColour().toWebHexString()+";":"")+"' id='SPELL_TREE_"+spell+"'>"
+				boolean hasSpell = character.hasSpell(spell);
+				boolean forbidden = spell.isForbiddenSpell();
+				
+				spellSB.append("<div class='square-button "+(forbidden || !hasSpell?" disabled":"")+"' style='width:50%; margin:8px 25%; cursor: default; "
+										+(hasSpell
+												?"border-color:"+spell.getSpellSchool().getColour().toWebHexString()+";"
+												:"")+"' id='SPELL_TREE_"+spell+"'>"
 									+ "<div class='square-button-content' style='cursor: default;'>"+spell.getSVGString()+"</div>"
-									+ (disabled
-										?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8;'></div>"
+									+ (!hasSpell
+										?(forbidden
+											?"<div class='overlay disabled-dark'></div>"
+											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8;'></div>")
 										:"")
 								+ "</div>");
 				
@@ -2729,8 +2745,10 @@ public enum Spell {
 	private static String getUpgradeEntry(GameCharacter character, Spell spell, TreeEntry<SpellSchool, SpellUpgrade> perkEntry, int size) {
 		
 		entrySB.setLength(0);
-		
-		boolean disabled = !character.hasSpellUpgrade(perkEntry.getEntry()) && !isSpellUpgradeAvailable(character, spell, perkEntry);
+
+		boolean forbidden = spell.isForbiddenSpell();
+		boolean hasUpgrade = character.hasSpellUpgrade(perkEntry.getEntry());
+		boolean isUpgradeAvailable = isSpellUpgradeAvailable(character, spell, perkEntry);
 		
 		// Append up/down lines:
 		float entryX = getX(spell, perkEntry.getRow(), perkEntry);
@@ -2743,7 +2761,7 @@ public enum Spell {
 					+ "<svg width='100%' height='100%'><line x1='"+entryX+"%' y1='100%' x2='"+entryX+"%' y2='50%' stroke='"+getPerkLineChildColour(character, spell, perkEntry).toWebHexString()+"' stroke-width='2px'/></svg></div>");
 		}
 		
-		entrySB.append("<div class='square-button round"+(disabled?" disabled":"")+"' style='width:40%; margin:8px "+getMargin(size)+"%; "
+		entrySB.append("<div class='square-button round"+(!hasUpgrade && !isUpgradeAvailable?" disabled":"")+"' style='width:40%; margin:8px "+getMargin(size)+"%; "
 										+ (character.hasSpellUpgrade(perkEntry.getEntry())
 											?"cursor: default; border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
 											:(!perkEntry.getEntry().isAvailable(character) //|| character.getSpellUpgradePoints(perkEntry.getCategory()) < perkEntry.getEntry().getPointCost()
@@ -2751,11 +2769,13 @@ public enum Spell {
 												:""))
 										+"' id='SPELL_UPGRADE_"+perkEntry.getEntry()+"'>"
 							+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
-							+ (disabled
-								?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>"
-								:!character.hasSpellUpgrade(perkEntry.getEntry())
+							+ (!hasUpgrade && !isUpgradeAvailable
+								?(forbidden
+										?"<div class='overlay disabled-dark' style='border-radius:50%;'></div>"
+										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>")
+								:(!hasUpgrade
 									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:50%; cursor:pointer;'></div>"
-									:"")
+									:""))
 						+ "</div>");
 		
 		return entrySB.toString();

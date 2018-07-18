@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,6 +51,7 @@ public class Axel extends NPC {
 		super(new NameTriplet("Axel"),
 				"The buff albino alligator-boy, Axel, is the owner and manager of Submission's Gambling Den."
 					+ " Despite his large and menacing figure, he's very kind and understanding, and always tries his best to satisfy his customers.",
+				36, Month.JANUARY, 10,
 				15, Gender.M_P_MALE, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
 
@@ -92,7 +95,8 @@ public class Axel extends NPC {
 			
 			this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
 			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-			this.setCumProduction(CumProduction.FOUR_LARGE.getMedianValue());
+			this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			// INVENTORY:
 			

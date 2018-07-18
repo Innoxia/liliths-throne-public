@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.managers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,8 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -27,7 +28,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -74,17 +75,18 @@ public interface SexManagerInterface {
 	}
 	
 	/**
-	 * @return true by default. If set to return false, no position-changing actions at all are available in the sex scene.
+	 * @return true by default. If returns false, no position-changing actions at all are available for the character passed in to the method.
 	 */
-	public default boolean isPositionChangingAllowed() {
+	public default boolean isPositionChangingAllowed(GameCharacter character) {
 		return true;
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer())
 				|| (Sex.isSubHasEqualControl()
-					&& !(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
-					&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker));
+					&& (Sex.getActivePartner().isSlave()
+					|| (!(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
+							&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker))));
 	}
 	
 	public default boolean isPartnerWantingToStopSex() {
@@ -164,6 +166,10 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
+	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		return new HashMap<>();
+	}
+	
 	public default boolean isPartnerUsingForeplayActions() {
 		return true;
 	}
@@ -210,7 +216,7 @@ public interface SexManagerInterface {
 							"You hear someone in the crowd wolf-whistling as they watch you having sex.",
 							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
 							"You hear the crowd that's gathered to watch you commenting on your performance.",
-							"You hear the crowd that's gathered to watch you commenting on [npc.name]'s performance.",
+							"You hear the crowd that's gathered to watch you commenting on [npc.namePos] performance.",
 							"Cheering and laughing, the crowd of onlookers watch as you continue having sex with [npc.name].",
 							"You glance across to see several members of the crowd touching themselves as they watch you and [npc.name] go at it.",
 							"The crowd cheers you on as you and [npc.name] carry on having sex in front of them.",
@@ -220,7 +226,7 @@ public interface SexManagerInterface {
 				+"</p>";
 	}
 	
-	public Map<GameCharacter, List<OrificeType>> getOrificesBannedMap();
+	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();
 	
 	// Revealing CoverableAreas:
 
@@ -229,35 +235,35 @@ public interface SexManagerInterface {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerVaginaRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerBreastsRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerPenisRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer()));
 	}
 
 	public default String getPlayerMoundRevealReaction() {
 		if(Sex.isMasturbation()) {
 			return "";
 		}
-		return Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer());
+		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer()));
 	}
 
 	// Partner:
@@ -267,7 +273,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -278,7 +284,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -289,7 +295,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -300,7 +306,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}
@@ -312,7 +318,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner());
+				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner()));
 		
 		return s;
 	}

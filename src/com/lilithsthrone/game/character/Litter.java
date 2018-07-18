@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -114,8 +115,9 @@ public class Litter implements Serializable, XMLSaving {
 		List<String> offspring = new ArrayList<>();
 		
 		Element element = (Element) parentElement.getElementsByTagName("offspringList").item(0);
-		for(int i=0; i<element.getElementsByTagName("offspring").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("offspring").item(i));
+		NodeList offSpringList = element.getElementsByTagName("offspring");
+		for(int i = 0; i < offSpringList.getLength(); i++){
+			Element e = ((Element)offSpringList.item(i));
 			
 			offspring.add(e.getAttribute("id"));
 		}

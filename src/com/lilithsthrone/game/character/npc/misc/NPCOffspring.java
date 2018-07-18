@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,13 +42,17 @@ public class NPCOffspring extends NPC {
 	}
 	
 	public NPCOffspring(boolean isImported) {
-		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		super(null, "",
+				18, Month.JUNE, 15,
+				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(null, "",
+				18, Main.game.getDateNow().minusMonths(1).getMonth(), 1+Util.random.nextInt(25),
+				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setMother(mother);
@@ -70,7 +76,7 @@ public class NPCOffspring extends NPC {
 
 		// PERSONALITY & BACKGROUND:
 		
-		CharacterUtils.setHistoryAndPersonality(this);
+		CharacterUtils.setHistoryAndPersonality(this, true);
 		
 		// ADDING FETISHES:
 		
@@ -154,11 +160,9 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 	

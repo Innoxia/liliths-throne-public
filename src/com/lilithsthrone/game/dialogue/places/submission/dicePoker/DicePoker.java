@@ -112,7 +112,7 @@ public class DicePoker {
 			}
 			Hand playerHand = Hand.getHand(playerDice);
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<b>"+playerHand.getRanking()+". "+playerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(playerDice)+")]</br>"
+					+ "<b>"+playerHand.getRanking()+". "+playerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(playerDice)+")]<br/>"
 					+(comparingHands==0
 						?"[style.colourDisabled(You "+(progress==3?"have drawn":"are drawing")+"...)]"
 						:(comparingHands<0
@@ -134,7 +134,7 @@ public class DicePoker {
 			}
 			Hand gamblerHand = Hand.getHand(gamblerDice);
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<b>"+gamblerHand.getRanking()+". "+gamblerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(gamblerDice)+")]</br>"
+					+ "<b>"+gamblerHand.getRanking()+". "+gamblerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(gamblerDice)+")]<br/>"
 					+UtilText.parse(gambler,(comparingHands==0
 						?"[style.colourDisabled([npc.Name] "+(progress==3?"has drawn":"is drawing")+"...)]"
 						:(comparingHands>0
@@ -221,7 +221,7 @@ public class DicePoker {
 						+ "Walking up to one of the free tables in the "+table.getName()+" section, you sit down opposite [npc.a_race]."
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speech(You think you can take me on, huh?)] [npc.she] taunts, [npc.speech(Don't start crying when I take all your cash!)]"
+						+ "[npc.speech(You think you can take me on, huh?)] [npc.she] taunts. [npc.speech(Don't start crying when I take all your cash!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You place the buy-in of "+UtilText.formatAsMoney(table.getInitialBet(), "span")+" on the table, and the [npc.race] does the same."
@@ -289,10 +289,10 @@ public class DicePoker {
 										+ "[pc.speech(I call,)] you say, leaning back in your chair."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Well, no surprise there,)] [npc.name] laughs, [npc.speech(We both know I'm going to win.)]"
+										+ "[npc.speech(Well, no surprise there,)] [npc.name] laughs. [npc.speech(We both know I'm going to win.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Leaning forwards, [npc.name] places "+UtilText.formatAsMoney(getRaiseAmount(), "span")+" on the table, before locking [npc.her] gaze with yours and letting out another mocking laugh,"
+										+ "Leaning forwards, [npc.name] places "+UtilText.formatAsMoney(getRaiseAmount(), "span")+" on the table, before locking [npc.her] gaze with yours and letting out another mocking laugh."
 											+ " [npc.speech(Go on, just fold. You're as good as finished.)]"
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
@@ -305,10 +305,10 @@ public class DicePoker {
 									+ "[pc.speech(I call,)] you say, leaning back in your chair."
 								+ "</p>"
 								+ "<p>"
-									+ "[npc.speech(Yeah, I'm feeling the same,)] [npc.name] sighs, [npc.speech(I call too. Now let's finish this.)]"
+									+ "[npc.speech(Yeah, I'm feeling the same,)] [npc.name] sighs. [npc.speech(I call too. Now let's finish this.)]"
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
-									+ "<i>[npc.Name] <b>called</b> as well!</br>"
+									+ "<i>[npc.Name] <b>called</b> as well!<br/>"
 									+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 								+ "</p>";
 							calculateGamblerRerolls();
@@ -328,7 +328,7 @@ public class DicePoker {
 												+ "[pc.speech(I think I'll raise,)] you say, placing "+UtilText.formatAsMoney(getRaiseAmount(), "span")+" on the table."
 											+ "</p>"
 											+ "<p>"
-												+ "[npc.speech(Damn it... You got me,)] [npc.name] sighs, [npc.speech(I fold.)]"
+												+ "[npc.speech(Damn it... You got me,)] [npc.name] sighs. [npc.speech(I fold.)]"
 											+ "</p>"
 											+ "<p style='text-align:center;'>"
 												+ "<i>[npc.Name] <b>folded</b>! [style.colourExcellent(You won!)]</i>"
@@ -347,13 +347,13 @@ public class DicePoker {
 										+ "[pc.speech(I think I'll raise,)] you say, placing "+UtilText.formatAsMoney(raise, "span")+" on the table."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(That's fine with me,)] [npc.name] replies, [npc.speech(I'll call that.)]"
+										+ "[npc.speech(That's fine with me,)] [npc.name] replies. [npc.speech(I'll call that.)]"
 									+ "</p>"
 									+ "<p>"
 										+ "[npc.Name] places "+UtilText.formatAsMoney(raise, "span")+" on the table, before grinning at you. [npc.speech(Now, let's finish this!)]"
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ "<i>[npc.Name] <b>called</b> your raise!</br>"
+										+ "<i>[npc.Name] <b>called</b> your raise!<br/>"
 										+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 									+ "</p>";
 							calculateGamblerRerolls();
@@ -378,7 +378,7 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseEffectsOnly("Call ("+UtilText.formatAsMoney(getRaiseAmount(), "span")+")", UtilText.parse(gambler, "Match [npc.name]'s raise of "+UtilText.formatAsMoney(getRaiseAmount(), "span")+".")) {
+				return new ResponseEffectsOnly("Call ("+UtilText.formatAsMoney(getRaiseAmount(), "span")+")", UtilText.parse(gambler, "Match [npc.namePos] raise of "+UtilText.formatAsMoney(getRaiseAmount(), "span")+".")) {
 					@Override
 					public void effects() {
 						moneyPool+=getRaiseAmount();
@@ -392,7 +392,7 @@ public class DicePoker {
 								+ "[npc.speech(Fine,)] [npc.name] huffs, [npc.speech(that's only going to be more money for me! Now, let's finish this!)]"
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
-								+ "<i>You <b>called</b> [npc.name]'s raise!</br>"
+								+ "<i>You <b>called</b> [npc.namePos] raise!<br/>"
 								+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 							+ "</p>";
 						calculateGamblerRerolls();
@@ -402,15 +402,15 @@ public class DicePoker {
 				};
 				
 			} else if(index==2) {
-				return new ResponseEffectsOnly("Fold", UtilText.parse(gambler, "Surrender to [npc.name]'s and let [npc.herHim] take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+".")) {
+				return new ResponseEffectsOnly("Fold", UtilText.parse(gambler, "Surrender to [npc.namePos] and let [npc.herHim] take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+".")) {
 					@Override
 					public void effects() {
 						moneyPool+=getRaiseAmount();
 						responseContent = "<p>"
-											+ "[pc.speech(That's too steep for me,)] you sigh, [pc.speech(I fold.)]"
+											+ "[pc.speech(That's too steep for me,)] you sigh. [pc.speech(I fold.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Hah!)] [npc.name] laughs in triumph, [npc.speech(You never stood a chance!)]"
+											+ "[npc.speech(Hah!)] [npc.name] laughs in triumph. [npc.speech(You never stood a chance!)]"
 										+ "</p>"
 										+ "<p>"
 											+ "With that, [npc.she] moves to take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+"."
@@ -476,11 +476,11 @@ public class DicePoker {
 							responseContent = "<p>"
 												+ (diceRerolled
 														?"As the dice come clattering to a halt, [npc.name] lets out a defeated sigh as [npc.she] sees that you've won."
-														:"As both you and [npc.name] choose not to reroll any dice, [npc.she]'s already resigned [npc.herself] to a loss, and lets out a frustrated little sigh.")
+														:"As both you and [npc.name] choose not to reroll any dice, [npc.sheIs] already resigned [npc.herself] to a loss, and lets out a frustrated little sigh.")
 													+ " [npc.speech(Damn it... Well, good game...)]"
 												+ "</p>"
 												+ "<p>"
-													+ "You collect your winnings and return [npc.name]'s polite remark, before moving off and taking your leave..."
+													+ "You collect your winnings and return [npc.namePos] polite remark, before moving off and taking your leave..."
 												+ "</p>"
 												+ "<p style='text-align:center;'>"
 													+ "[style.colourExcellent(You won!)]</i>"
@@ -492,7 +492,7 @@ public class DicePoker {
 						} else {
 							responseContent =  "<p>"
 												+ (diceRerolled
-														?"As the dice come clattering to a halt, [npc.name] lets out a triumphant laugh as [npc.she] sees that [npc.she]'s won."
+														?"As the dice come clattering to a halt, [npc.name] lets out a triumphant laugh as [npc.she] sees that [npc.sheIs] won."
 														:"As both you and [npc.name] choose not to reroll any dice, you've already resigned yourself to a loss, and try not to feel too unhappy as your opponent lets out a triumphant laugh.")
 													+ " [npc.speech(Hah! Good game, but you never stood a chance!)]"
 												+ "</p>"
@@ -614,7 +614,7 @@ public class DicePoker {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						END_LOSS_SEX,
 						UtilText.parse(gambler,"<p>"
-							+ "[pc.speech(Ok...)] you reply, [pc.speech(You can use me however you like...)]"
+							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.Name] lets out a lustful [npc.moan], before stepping forwards and wrapping [npc.her] [npc.arms] around your back."

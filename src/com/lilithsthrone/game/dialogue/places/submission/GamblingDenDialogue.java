@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -17,6 +18,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -32,11 +34,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
+import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
+import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallFront;
 import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -213,6 +217,11 @@ public class GamblingDenDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "CORRIDOR");
 		}
@@ -292,7 +301,7 @@ public class GamblingDenDialogue {
 								if(winner) {
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-													+ "[style.colourExcellent(You won!)]</br>Three "+results.get(0).getNamePlural()+" pay out "+UtilText.formatAsMoney(slotMachineValues.get(results.get(0)), "span")+"!"
+													+ "[style.colourExcellent(You won!)]<br/>Three "+results.get(0).getNamePlural()+" pay out "+UtilText.formatAsMoney(slotMachineValues.get(results.get(0)), "span")+"!"
 											+ "</p>");
 								} else {
 									Main.game.getTextEndStringBuilder().append(
@@ -307,7 +316,7 @@ public class GamblingDenDialogue {
 							
 									for(Entry<Subspecies, Integer> entry : slotMachineValues.entrySet()) {
 										Main.game.getTextEndStringBuilder().append("<span style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getNamePlural())+"</span>: "
-												+UtilText.formatAsMoney(entry.getValue(), "span")+"</br>");
+												+UtilText.formatAsMoney(entry.getValue(), "span")+"<br/>");
 									}
 												
 									Main.game.getTextEndStringBuilder().append("</p>");
@@ -395,8 +404,8 @@ public class GamblingDenDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 								AFTER_ROXY_SEX,
 								UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
 							@Override
@@ -434,12 +443,12 @@ public class GamblingDenDialogue {
 							return new Response("Get fix ("+UtilText.formatAsMoneyUncoloured(1000, "span")+")", "You don't have the one thousand flames that Roxy is asking for!", null);
 							
 						} else {
-							return new ResponseSex("Get fix ("+UtilText.formatAsMoney(1000, "span")+")", "Desperate to get another fix of her addictive girl cum, you agree to let Roxy sit on your face for an hour.",
+							return new ResponseSex("Get fix ("+UtilText.formatAsMoney(1000, "span")+")", "Desperate to get another fix of her addictive girl cum, you agree to <b>pay Roxy 1000 flames</b> to get her to sit on your face for an hour.",
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									AFTER_ROXY_SEX_ADDICT,
 									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
 								@Override
@@ -456,8 +465,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									AFTER_ROXY_SEX,
 									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
 								@Override
@@ -604,7 +613,6 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	
 	public static final DialogueNodeOld GAMBLING = new DialogueNodeOld("Dice Poker Tables", "", false) {
 		private static final long serialVersionUID = 1L;
 		
@@ -685,7 +693,17 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MALE_STALLS");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MALE_STALLS"));
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsBreeder)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsMother)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -699,7 +717,17 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_FUTA_STALLS");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_FUTA_STALLS"));
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsBreeder)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsMother)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -710,6 +738,7 @@ public class GamblingDenDialogue {
 	
 	private static List<GenericSexualPartner> breeders = new ArrayList<>();
 	private static int breederIndex = 0;
+	private static int roll = 1;
 	private static GenericSexualPartner mother;
 	private static GameCharacter selectedBreeder;
 	
@@ -720,8 +749,11 @@ public class GamblingDenDialogue {
 		partner.addFetish(Fetish.FETISH_IMPREGNATION);
 		partner.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 		partner.setPlayerKnowsName(true);
-		partner.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), partner, false);
 		partner.setPenisVirgin(false);
+		partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		partner.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+		partner.setAttribute(Attribute.VIRILITY, (partner.getPenisRawSizeValue()*2)+(partner.getTesticleSize().getValue() * 5)+partner.getPenisRawCumStorageValue());
+		
 		try {
 			Main.game.addNPC(partner, false);
 		} catch (Exception e) {
@@ -729,22 +761,84 @@ public class GamblingDenDialogue {
 		}
 	}
 	
+	private static void initMother() {
+		mother = new GenericSexualPartner(Gender.F_V_B_FEMALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		mother.clearFetishes();
+		mother.clearFetishDesires();
+		mother.addFetish(Fetish.FETISH_PREGNANCY);
+		mother.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+		mother.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+		mother.deleteAllEquippedClothing();
+		mother.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		mother.setPlayerKnowsName(true);
+		mother.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), mother, false);
+		try {
+			Main.game.addNPC(mother, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static final DialogueNodeOld PREGNANCY_ROULETTE = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced);
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)
+					|| (Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy());
 		}
 		
 		@Override
 		public String getContent() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)) {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE");
+			UtilText.nodeContentSB.setLength(0);
 			
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE"));
+				
+				boolean preg = Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY);
+				boolean impreg = Main.game.getPlayer().hasFetish(Fetish.FETISH_IMPREGNATION);
+				if(preg) {
+					if(impreg) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BOTH_FETISH"));
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_PREGNANCY_FETISH"));
+					}
+					
+				} else if(impreg) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_IMPREGNATION_FETISH"));
+					
+				} else {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_NO_FETISH"));
+				}
+				
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_END"));
+				
+			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_EPONA_IMPREGNATED"));
+				
 			} else {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_REPEAT");
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_REPEAT"));
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsBreeder) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsMother)) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Returning her greeting, you walk up to the counter, where the happy horse-girl asks, [epona.speech(You interested in having another go at pregnancy roulette?");
+					
+					if(Main.game.getDialogueFlags().eponaStamps>=6) {
+						UtilText.nodeContentSB.append(" Or perhaps you want to cash in your stamps and take me for a ride!)]"
+								+ "</p>");
+					} else {
+						UtilText.nodeContentSB.append(" You've got "+Util.intToString(6-Main.game.getDialogueFlags().eponaStamps)+" stamps to go until you get to take me for a ride!)]"
+								+ "</p>");
+					}
+				}  else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Returning her greeting, you walk up to the counter, where the happy horse-girl asks, [epona.speech(You interested in having a go at pregnancy roulette? Gotta start collecting those stamps!)]"
+							+ "</p>");
+				}
 			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -755,6 +849,20 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaIntroduced, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
+						}
+					};
+				} else {
+					return null;
+				}
+				
+			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy()) {
+				if(index==1) {
+					return new Response("Continue", "You're happy to see how delighted Epona is to be the mother of your children.", PREGNANCY_ROULETTE_GREETING_UTIL) {
+						@Override
+						public void effects() {
+							Main.game.getEpona().setReactedToPregnancy(true);
+							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
 						}
 					};
 				} else {
@@ -769,6 +877,9 @@ public class GamblingDenDialogue {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
+					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
+						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
 						
@@ -779,7 +890,7 @@ public class GamblingDenDialogue {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have enough money, so you can't sign up to be the mother!", null);
 						
 					} else {
-						return new Response("Male Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the males.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
+						return new Response("Male Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the males.", PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION) {
 							@Override
 							public Colour getHighlightColour() {
 								return Colour.GENERIC_SEX;
@@ -787,7 +898,11 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-10000));
+								Main.game.getDialogueFlags().eponaStamps+=1;
+								
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
+								
 								breeders.clear();
 								breederIndex=0;
 								selectedBreeder=null;
@@ -805,6 +920,9 @@ public class GamblingDenDialogue {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
+					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
+						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
+						
 					} else if(!Main.game.getPlayer().hasVagina()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a vagina, so you can't sign up to be the mother!", null);
 						
@@ -815,7 +933,7 @@ public class GamblingDenDialogue {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have enough money, so you can't sign up to be the mother!", null);
 						
 					} else {
-						return new Response("Futa Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the futas.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
+						return new Response("Futa Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the futas.", PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION) {
 							@Override
 							public Colour getHighlightColour() {
 								return Colour.GENERIC_SEX;
@@ -823,7 +941,11 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-10000));
+								Main.game.getDialogueFlags().eponaStamps+=1;
+								
 								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
+								
 								breeders.clear();
 								breederIndex=0;
 								selectedBreeder=null;
@@ -856,12 +978,26 @@ public class GamblingDenDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-10000));
+								Main.game.getDialogueFlags().eponaStamps+=1;
+								
+								// Skew the dice roll in the player's favour (lowest number goes first):
+								Dice d = new Dice(Util.newHashMapOfValues(
+										new Value<>(DiceFace.ONE, 4f),
+										new Value<>(DiceFace.TWO, 3f),
+										new Value<>(DiceFace.THREE, 2f),
+										new Value<>(DiceFace.FOUR, 1f),
+										new Value<>(DiceFace.FIVE, 0.5f),
+										new Value<>(DiceFace.SIX, 0.25f)));
+								d.roll();
+								roll = d.getFace().getValue();
+								
 								breeders.clear();
 								breederIndex=0;
 								selectedBreeder=null;
 								
 								if(Main.game.getPlayer().isFeminine()) {
 									Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
+									Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
 									for(int i=0; i<5; i++) {
 										GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 										initBreeder(partner);
@@ -870,27 +1006,58 @@ public class GamblingDenDialogue {
 									
 								} else {
 									Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
+									Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY);
 									for(int i=0; i<5; i++) {
 										GenericSexualPartner partner = new GenericSexualPartner(Gender.M_P_MALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 										initBreeder(partner);
 										breeders.add(partner);
 									}
 								}
-	
-								mother = new GenericSexualPartner(Gender.F_V_B_FEMALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-								mother.clearFetishes();
-								mother.clearFetishDesires();
-								mother.addFetish(Fetish.FETISH_PREGNANCY);
-								mother.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
-								mother.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-								mother.deleteAllEquippedClothing();
-								try {
-									Main.game.addNPC(mother, false);
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-
+								
+								initMother();
+								
+								
 								Main.game.getPlayer().displaceClothingForAccess(CoverableArea.PENIS);
+							}
+						};
+					}
+					
+				} else if(index==6) {
+					if(Main.game.getDialogueFlags().eponaStamps<6) {
+						return new Response("Ride Epona", "You haven't collected enough stamps to take Epona for a ride! You have "+Util.intToString(Main.game.getDialogueFlags().eponaStamps)+", and you need at least six.", null);
+						
+					} else {
+						return new ResponseSex("Ride Epona", "Tell Epona that you want to cash in your stamps and take her for a ride. (Have sex as the dominant partner.)",
+								null, null, null, null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								EPONA_POST_SEX,
+								UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_SUB")) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().eponaStamps-=6;
+							}
+						};
+					}
+					
+				} else if(index==7) {
+					if(Main.game.getDialogueFlags().eponaStamps<6) {
+						return new Response("Epona Rides", "You haven't collected enough stamps to get Epona to take you for a ride! You have "+Util.intToString(Main.game.getDialogueFlags().eponaStamps)+", and you need at least six.", null);
+						
+					} else {
+						return new ResponseSex("Epona Rides", "Tell Epona that you want to cash in your stamps and have her take you for a ride. (Have sex as the submissive partner.)",
+								null, null, null, null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								EPONA_POST_SEX,
+								UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_DOM")) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().eponaStamps-=6;
 							}
 						};
 					}
@@ -902,12 +1069,31 @@ public class GamblingDenDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld EPONA_POST_SEX = new DialogueNodeOld("Finished", "Epona takes a moment to catch her breath, before getting ready to return to work.", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			if(Sex.getNumberOfOrgasms(Main.game.getEpona())>0) {
+				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX");
+			} else {
+				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_POST_SEX_NO_ORGASM");
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PREGNANCY_ROULETTE.getResponse(responseTab, index);
+		}
+		
+	};
+	
 	public static final DialogueNodeOld PREGNANCY_ROULETTE_GREETING_UTIL = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE");
+			return "";
 		}
 
 		@Override
@@ -931,21 +1117,72 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNodeOld("Breeding Stalls", "", true) {
+	private static String getBreederPanel(NPC breeder) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<div class='container-half-width'>"
+				+ "[npc.Name] - [npc.FullRace(true)]<br/>"
+				+ "[npc.CockGirth], [npc.penisInches]-inch, [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
+				+ "</div>");
+		
+		return UtilText.parse(breeder, sb.toString());
+	}
+	
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
-		}
 		
 		@Override
 		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION_FUTA");
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION_FUTA"));
 			} else {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION");
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION"));
 			}
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return null;
+				
+			} else if(index==1) {
+				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
+					@Override
+					public void effects() {
+						Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION_FUTA"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_SELECTION"));
+			}
+
+			for(int i=0;i< breeders.size()/2;i++) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='width:100%; margin:0'>");
+					UtilText.nodeContentSB.append(getBreederPanel(breeders.get(i*2)));
+					UtilText.nodeContentSB.append(getBreederPanel(breeders.get(i*2 +1)));
+				UtilText.nodeContentSB.append("</div>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -959,7 +1196,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						selectedBreeder=breeder;
-						Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
+						Collections.shuffle(breeders);
 					}
 				};
 				
@@ -969,17 +1206,12 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_START = new DialogueNodeOld("Breeding Stalls", "", true, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_START = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
-		}
-		
-		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_START");
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_START", Util.newArrayListOfValues(selectedBreeder));
 		}
 
 		@Override
@@ -987,14 +1219,14 @@ public class GamblingDenDialogue {
 			if(index==1) {
 				NPC breeder = breeders.get(breederIndex);
 				
-				return new ResponseSex(breeder.getName(), breeder.getName()+" is the first to move up behind you.",
+				return new ResponseSex("Front "+breeder.getName(), "Lie on your front, where "+breeder.getName()+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
-						new SMStocks(true, false, false,
-								Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))) {
+						new SMBreedingStallFront(true, false, false,
+								Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FRONT))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 							@Override
@@ -1008,13 +1240,52 @@ public class GamblingDenDialogue {
 									character.setLust(80);
 								}
 							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
 						},
 						AFTER_ROULETTE_SEX,
 						UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 					@Override
 					public void effects() {
-						breeder.setArousal(75);
-						breeder.setLust(80);
+						breederIndex++;
+					}
+				};
+				
+			} else if(index==2) {
+				NPC breeder = breeders.get(breederIndex);
+				
+				return new ResponseSex("Back "+breeder.getName(), "Lie on your back, where "+breeder.getName()+" will be the first to move up to fuck you.",
+						null, null, null, null, null, null,
+						true, false,
+						new SMBreedingStallBack(true, false, false,
+								Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_BACK))) {
+							@Override
+							public boolean isPositionChangingAllowed(GameCharacter character) {
+								return false;
+							}
+							@Override
+							public boolean isPartnerWantingToStopSex() {
+								return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+							}
+							@Override
+							public void initStartingLustAndArousal(GameCharacter character) {
+								if(!character.isPlayer()) {
+									character.setArousal(75);
+									character.setLust(80);
+								}
+							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
+						},
+						AFTER_ROULETTE_SEX,
+						UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
+					@Override
+					public void effects() {
 						breederIndex++;
 					}
 				};
@@ -1041,18 +1312,18 @@ public class GamblingDenDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				if(breederIndex<breeders.size()) {
+			if(breederIndex<breeders.size()) {
+				if(index==1) {
 					NPC breeder = breeders.get(breederIndex);
 					
-					return new ResponseSex(breeder.getName(), breeder.getName()+" moves up behind you.",
+					return new ResponseSex("Front "+breeder.getName(), "Position yourself so that you're lying on your front, where "+breeder.getName()+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
-							new SMStocks(true, false, false,
-									Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.STOCKS_FUCKING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))) {
+							new SMBreedingStallFront(true, false, false,
+									Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FRONT))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 								@Override
@@ -1066,6 +1337,10 @@ public class GamblingDenDialogue {
 										character.setLust(80);
 									}
 								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
 							},
 							AFTER_ROULETTE_SEX,
 							UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
@@ -1074,27 +1349,69 @@ public class GamblingDenDialogue {
 							breederIndex++;
 						}
 					};
-				} else {
-					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
+					
+				} else if(index==2) {
+					NPC breeder = breeders.get(breederIndex);
+					
+					return new ResponseSex("Back "+breeder.getName(), "Position yourself so that you're lying on your back, where "+breeder.getName()+" will be the next breeder to move up to fuck you.",
+							null, null, null, null, null, null,
+							true, false,
+							new SMBreedingStallBack(true, false, false,
+									Util.newHashMapOfValues(new Value<>(breeder, SexPositionSlot.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_BACK))) {
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isPartnerWantingToStopSex() {
+									return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+								}
+								@Override
+								public void initStartingLustAndArousal(GameCharacter character) {
+									if(!character.isPlayer()) {
+										character.setArousal(75);
+										character.setLust(80);
+									}
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
+							},
+							AFTER_ROULETTE_SEX,
+							UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+							breederIndex++;
 						}
 					};
+					
+				} else {
+					return null;
 				}
 				
 			} else {
-				return null;
+				if(index==1) {
+					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+						}
+					};
+				} else {
+					return null;
+				}
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
+		public int getMinutesPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -1110,7 +1427,9 @@ public class GamblingDenDialogue {
 						return new Response("Winner!", "You correctly guessed that "+selectedBreeder.getName()+" would be the father!", PREGNANCY_ROULETTE_MOTHER_WINNER) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(30000));
+								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(50000));
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
 								}
@@ -1121,6 +1440,8 @@ public class GamblingDenDialogue {
 						return new Response("Loser", "You incorrectly guessed that "+selectedBreeder.getName()+" would be the father, so lost your bet...", PREGNANCY_ROULETTE_MOTHER_LOSER){
 							@Override
 							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
 								}
@@ -1132,6 +1453,8 @@ public class GamblingDenDialogue {
 					return new Response("Loser", "You didn't get pregnant, so everyone loses their bets...", PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+							Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 							for(NPC npc : breeders) {
 								Main.game.banishNPC(npc);
 							}
@@ -1143,7 +1466,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1157,7 +1480,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1171,7 +1494,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1185,45 +1508,52 @@ public class GamblingDenDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER = new DialogueNodeOld("Futa Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER");
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getPlayer().isFeminine()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FUTA", Util.newArrayListOfValues(mother)));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER", Util.newArrayListOfValues(mother)));
+			}
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Epona rolls the dice, and you watch as it clatters to a halt on the number "+Util.intToString(roll)+"."
+						+ " [epona.speech(Alright, [pc.name], that means you're going "+Util.intToPosition(roll)+"! Now, erm, I'll keep rolling for the rest of you!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You all then have to wait while Epona rolls for each of the other breeders."
+						+ " Every time she rolls an already-rolled number, she has to re-roll the dice, which results in you all having to wait for far longer than if she'd just used a more efficient method of deciding who goes first."
+					+ "</p>"
+					+ "<p>"
+						+ "Eventually, however, Epona has finished, and you move forwards to take your place in the line..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "<i>You are going <b>"+Util.intToPosition(roll)+"</b>!</i>"
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new ResponseSex("Go first", "Tell Epona that you're going first.",
+			if(index==1){
+				return new ResponseSex(roll==1?"First":"Your turn",
+						roll==1
+							?"As you rolled a one, you're the first to have a go at fucking the volunteer."
+							:"As the breeder steps away from the volunteer, you step forwards to take your turn at fucking her creampied-pussy.",
 						null, null, null, null, null, null,
 						true, false,
-						new SMStocks(true, false, false,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(mother, SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))) {
+						new SMBreedingStallBack(true, false, false,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(mother, SexPositionSlot.BREEDING_STALL_BACK))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
-								return false;
-							}
-							@Override
-							public void initStartingLustAndArousal(GameCharacter character) {
-								character.setArousal(25);
-								character.setLust(80);
-							}
-						},
-						PREGNANCY_ROULETTE_BREEDER_FINISHED,
-						UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST"));
-				
-			} else if(index==2){
-				return new ResponseSex("Middle pack", "Tell Epona that you'll go in the middle of the pack.",
-						null, null, null, null, null, null,
-						true, false,
-						new SMStocks(true, false, false,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(mother, SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))) {
-							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 							@Override
@@ -1232,41 +1562,15 @@ public class GamblingDenDialogue {
 								character.setLust(80);
 							}
 						},
-						PREGNANCY_ROULETTE_BREEDER_FINISHED,
-						UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE")){
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
+						roll==1
+							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
+							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override
 					public void effects() {
-						for(int i=0; i<breeders.size()/2; i++) {
-							mother.incrementCummedInArea(OrificeType.VAGINA, breeders.get(i).getPenisRawCumProductionValue());
-							mother.rollForPregnancy(breeders.get(i));
-						}
-					}
-				};
-				
-			} else if(index==3) {
-				return new ResponseSex("Last", "Tell Epona that you'll wait and go last.",
-						null, null, null, null, null, null,
-						true, false,
-						new SMStocks(true, false, false,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(mother, SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))) {
-							@Override
-							public boolean isPositionChangingAllowed() {
-								return false;
-							}
-							@Override
-							public void initStartingLustAndArousal(GameCharacter character) {
-								character.setArousal(75);
-								character.setLust(80);
-							}
-						},
-						PREGNANCY_ROULETTE_BREEDER_FINISHED,
-						UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_LAST")){
-					@Override
-					public void effects() {
-						for(int i=0; i<breeders.size(); i++) {
-							mother.incrementCummedInArea(OrificeType.VAGINA, breeders.get(i).getPenisRawCumProductionValue());
-							mother.rollForPregnancy(breeders.get(i));
+						for(int i=0; i<roll-1; i++) {
+							mother.setVaginaVirgin(false);
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
 						}
 					}
 				};
@@ -1276,13 +1580,38 @@ public class GamblingDenDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_POST_SEX = new DialogueNodeOld("Finished", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_POST_SEX");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Wait", "Wait for Epona to return.", PREGNANCY_ROULETTE_BREEDER_FINISHED) {
+					@Override
+					public void effects() {
+						for(int i=roll-1; i<breeders.size(); i++) {
+							mother.setVaginaVirgin(false);
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
+						}
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
+		public int getMinutesPassed() {
+			return 30;
 		}
 		
 		@Override
@@ -1299,6 +1628,8 @@ public class GamblingDenDialogue {
 						return new Response("Winner!", "You got "+mother.getName()+" pregnant!", PREGNANCY_ROULETTE_BREEDER_WINNER) {
 							@Override
 							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
@@ -1312,6 +1643,8 @@ public class GamblingDenDialogue {
 						return new Response("Loser", "You didn't get "+mother.getName()+" pregnant, so lost your bet...", PREGNANCY_ROULETTE_BREEDER_LOSER){
 							@Override
 							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+								Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 								for(NPC npc : breeders) {
 									Main.game.banishNPC(npc);
 								}
@@ -1324,6 +1657,8 @@ public class GamblingDenDialogue {
 					return new Response("Loser", "Nobody got "+mother.getName()+" pregnant, so everyone loses their bets...", PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
+							Main.game.getEpona().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE);
 							for(NPC npc : breeders) {
 								Main.game.banishNPC(npc);
 							}
@@ -1336,7 +1671,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1350,7 +1685,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1364,7 +1699,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

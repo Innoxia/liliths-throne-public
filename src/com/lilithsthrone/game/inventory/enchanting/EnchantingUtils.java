@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -33,14 +34,13 @@ public class EnchantingUtils {
 	public static final int FLAME_COST_MODIFER = 500;
 	
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractItem craftedItem = null;
 		
 		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
-
+		
 		craftedItem.setItemEffects(effectsToBeAdded);
 		
 		craftedItem.setName(EnchantmentDialogue.getOutputName());
@@ -51,7 +51,6 @@ public class EnchantingUtils {
 	}
 	
 	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractClothing craftedClothing = null;
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
@@ -64,6 +63,11 @@ public class EnchantingUtils {
 				((AbstractClothing)ingredient).getTertiaryColour(),
 				effectsToBeAdded);
 		
+		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
+		craftedClothing.setPatternColour(((AbstractClothing)ingredient).getPatternColour());
+		craftedClothing.setPatternSecondaryColour(((AbstractClothing)ingredient).getPatternSecondaryColour());
+		craftedClothing.setPatternTertiaryColour(((AbstractClothing)ingredient).getPatternTertiaryColour());
+		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
 		craftedClothing.setEnchantmentKnown(true);
@@ -74,6 +78,7 @@ public class EnchantingUtils {
 	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		((Tattoo)ingredient).setEffects(effectsToBeAdded);
+		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
 	}
 	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -142,68 +147,59 @@ public class EnchantingUtils {
 		return Util.capitaliseSentence(finalPotionName);
 	}
 	
-	public static int getModifierEffectCost(AbstractCoreItem ingredient, ItemEffect effect) {
-		int cost = effect.getCost();
-		
+	
+	
+	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
+	private static Set<TFModifier> freeSecondaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MOD_REGENERATION, TFModifier.TF_MOD_CUM_EXPULSION);
+	
+	private static boolean isEffectFreeForWaterSchool(ItemEffect effect) {
+		return freePrimaryModifiers.contains(effect.getPrimaryModifier())
+				|| freeSecondaryModifiers.contains(effect.getSecondaryModifier());
+	}
+	
+	private static int applyDiscountsForPerksAndFetishes(AbstractCoreItem ingredient, int cost) {
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
 			cost/=2;
 		}
 		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
 			cost/=2;
 		}
-		
-		if(!(ingredient instanceof Tattoo)
-				&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
-				&& (effect.getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
-						|| effect.getPrimaryModifier()==TFModifier.TF_MILK
-						|| effect.getPrimaryModifier()==TFModifier.TF_CUM
-						|| effect.getPrimaryModifier()==TFModifier.TF_GIRLCUM
-						|| effect.getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
-						|| effect.getSecondaryModifier()==TFModifier.TF_MOD_REGENERATION)) {
-			cost = 0;
-		}
-		
 		return cost;
 	}
 	
+	public static int getModifierEffectCost(AbstractCoreItem ingredient, ItemEffect effect) {
+		if(!(ingredient instanceof Tattoo)
+				&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+				&& isEffectFreeForWaterSchool(effect)) {
+			return 0;
+		}
+		
+		return applyDiscountsForPerksAndFetishes(ingredient, effect.getCost());
+	}
+	
 	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-		int cost = 0;
 		Map<ItemEffect, Integer> effectCount = new HashMap<>();
 		for(ItemEffect ie : effects) {
-			effectCount.putIfAbsent(ie, 0);
-			effectCount.put(ie, effectCount.get(ie)+1);
+			effectCount.merge(ie, 1, Integer::sum);
 		}
 		for(ItemEffect ie : ingredient.getEffects()) {
 			if(effects.contains(ie)) {
-				effectCount.put(ie, effectCount.get(ie)-1);
+				effectCount.merge(ie, -1, Integer::sum);
 			} else {
-				effectCount.putIfAbsent(ie, 0);
-				effectCount.put(ie, effectCount.get(ie)+1);
+				effectCount.merge(ie, 1, Integer::sum);
 			}
 		}
+		
+		if (!(ingredient instanceof Tattoo) && Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)) {
+			effectCount.keySet().removeIf(EnchantingUtils::isEffectFreeForWaterSchool);
+		}
+		
+		int cost = 0;
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			if(!(ingredient instanceof Tattoo)
-					&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
-					&& (entry.getKey().getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
-							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_MILK
-							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_CUM
-							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_GIRLCUM
-							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
-							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_REGENERATION)) {
-				// No cost
-			} else {
-				cost += entry.getKey().getCost() * Math.abs(entry.getValue());
-			}
+			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
 		}
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
-			cost/=2;
-		}
-		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
-			cost/=2;
-		}
-		
-		return cost;
+		return applyDiscountsForPerksAndFetishes(ingredient, cost);
 	}
 	
 	public static String getSVGString(AbstractCoreItem ingredient, List<ItemEffect> effects) {

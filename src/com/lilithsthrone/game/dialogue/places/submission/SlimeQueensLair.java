@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -153,7 +154,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardIce(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -171,7 +172,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -193,7 +194,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardIce(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -211,7 +212,7 @@ public class SlimeQueensLair {
 											new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 								@Override
-								public boolean isPositionChangingAllowed() {
+								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 							},
@@ -407,7 +408,7 @@ public class SlimeQueensLair {
 										new Value<>(Main.game.getSlimeGuardFire(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},
@@ -614,7 +615,7 @@ public class SlimeQueensLair {
 					return new ResponseSex("Submit",
 							UtilText.parse(Main.game.getSlimeRoyalGuard(), "Let [slimeRoyalGuard.name] fuck you."),
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
@@ -631,7 +632,7 @@ public class SlimeQueensLair {
 					
 				} else if(index==2) {
 					return new ResponseCombat("Spar",
-							"Accept [slimeRoyalGuard.name]'s offer of a sparring match, with the agreement that the winner can do whatever they like with the loser's body.",
+							"Accept [slimeRoyalGuard.namePos] offer of a sparring match, with the agreement that the winner can do whatever they like with the loser's body.",
 							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
@@ -654,7 +655,7 @@ public class SlimeQueensLair {
 						return new Response("Compliment", "Having already fought [slimeRoyalGuard.name] once before, he's now far too alert to fall for any of your tricks...", null);
 						
 					} else {
-						return new Response("Compliment", "Compliment [slimeRoyalGuard.name]'s fancy footwork in an attempt to trick [slimeRoyalGuard.him] into making a mistake.", ROYAL_GUARD_POST_ADMIRE) {
+						return new Response("Compliment", "Compliment [slimeRoyalGuard.namePos] fancy footwork in an attempt to trick [slimeRoyalGuard.him] into making a mistake.", ROYAL_GUARD_POST_ADMIRE) {
 							@Override
 							public void effects() {
 								Main.game.getSlimeRoyalGuard().setHealthPercentage(0.8f);
@@ -967,7 +968,7 @@ public class SlimeQueensLair {
 				return new ResponseSex("Submit",
 						UtilText.parse(Main.game.getSlimeRoyalGuard(), "Let [slimeRoyalGuard.name] fuck you."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-						true, true,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
@@ -1094,7 +1095,7 @@ public class SlimeQueensLair {
 					};
 					
 				} else if(index==2) {
-					return new Response("Force", "If she really wants to be treated roughly, then that's what [slimeQueen.name]'s going to get. Push her down on her bed and force her to give up her plans.", SLIME_QUEEN_FORCE,
+					return new Response("Force", "If she really wants to be treated roughly, then that's what [slimeQueen.namePos] going to get. Push her down on her bed and force her to give up her plans.", SLIME_QUEEN_FORCE,
 							Util.newArrayListOfValues(Fetish.FETISH_SADIST), Fetish.FETISH_SADIST.getAssociatedCorruptionLevel(), null, null, null) {
 						@Override
 						public void effects() {
@@ -1147,11 +1148,11 @@ public class SlimeQueensLair {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Ignore [slimeQueen.name]'s provocative moans and take your leave.", SLIME_QUEEN_LEAVE);
+				return new Response("Leave", "Ignore [slimeQueen.namePos] provocative moans and take your leave.", SLIME_QUEEN_LEAVE);
 				
 			} else if(index==2) {
 				return new ResponseSex("'Rape'",
-						UtilText.parse(Main.game.getSlimeQueen(), "Play along with [slimeQueen.name]'s fantasies and force yourself on her."),
+						UtilText.parse(Main.game.getSlimeQueen(), "Play along with [slimeQueen.namePos] fantasies and force yourself on her."),
 						null, null, null, null, null, null,
 						true, false,
 						new SMMissionary(
@@ -1224,11 +1225,11 @@ public class SlimeQueensLair {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Decline [slimeQueen.name]'s provocative moans and take your leave.", SLIME_QUEEN_LEAVE);
+				return new Response("Leave", "Decline [slimeQueen.namePos] provocative moans and take your leave.", SLIME_QUEEN_LEAVE);
 				
 			} else if(index==2) {
 				return new ResponseSex("'Rape'",
-						UtilText.parse(Main.game.getSlimeQueen(), "Play along with [slimeQueen.name]'s fantasies and force yourself on her."),
+						UtilText.parse(Main.game.getSlimeQueen(), "Play along with [slimeQueen.namePos] fantasies and force yourself on her."),
 						null, null, null, null, null, null,
 						true, false,
 						new SMDoggy(

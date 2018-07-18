@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,7 +62,9 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	public SlimeRoyalGuard(boolean isImported) {
-		super(new NameTriplet("Maximilian", "Max", "Maxine"), "An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.", 20, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER,
+		super(new NameTriplet("Maximilian", "Max", "Maxine"), "An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
+				35, Month.APRIL, 14,
+				20, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD, true);
 
 		if(!isImported) {
@@ -107,8 +110,8 @@ public class SlimeRoyalGuard extends NPC {
 			this.setPenisVirgin(false);
 			this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
 			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-			this.setCumProduction(CumProduction.FOUR_LARGE.getMedianValue());
-			
+			this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			// INVENTORY:
 			
@@ -144,11 +147,9 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

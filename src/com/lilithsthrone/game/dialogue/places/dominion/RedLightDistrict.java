@@ -444,12 +444,12 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", false) {
+	public static final DialogueNodeOld AFTER_SEX_PROSTITUTE = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -475,7 +475,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -587,12 +587,12 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -616,12 +616,12 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.namePos] clutches.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -741,7 +741,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -764,7 +764,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override
@@ -896,7 +896,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 25;
+			return 5;
 		}
 
 		@Override
@@ -920,7 +920,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getMinutesPassed() {
-			return 35;
+			return 5;
 		}
 
 		@Override

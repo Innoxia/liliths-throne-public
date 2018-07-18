@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +60,9 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	public SubmissionAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
+		super(null, "",
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
 		if(!isImported) {
@@ -80,14 +83,27 @@ public class SubmissionAttacker extends NPC {
 					// No chance of spawn:
 					case ANGEL:
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_LION:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_CHEETAH:
+					case CAT_MORPH_CARACAL:
 					case COW_MORPH:
 					case DEMON:
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case DOG_MORPH_BORDER_COLLIE:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
 					case REINDEER_MORPH:
 					case SQUIRREL_MORPH:
@@ -125,13 +141,23 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -156,7 +182,7 @@ public class SubmissionAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
@@ -205,10 +231,10 @@ public class SubmissionAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==History.PROSTITUTE) {
+		if(this.getHistory()==History.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
-						"[npc.Name]'s days of whoring [npc.herself] out in the tunnels of Submission are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+						"[npc.NamePos] days of whoring [npc.herself] out in the tunnels of Submission are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 			} else {
 				return (UtilText.parse(this,
 						"[npc.Name] is a prostitute who whores [npc.herself] out in the tunnels of Submission."));
@@ -217,7 +243,7 @@ public class SubmissionAttacker extends NPC {
 		} else {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
-						"[npc.Name]'s days of prowling the tunnels of Submission and mugging innocent travellers are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+						"[npc.NamePos] days of prowling the tunnels of Submission and mugging innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 			} else {
 				return (UtilText.parse(this,
 						"[npc.Name] is a resident of Submission, who prowls the tunnels in search of innocent travellers to mug and rape."));
@@ -226,11 +252,9 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

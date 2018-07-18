@@ -77,10 +77,8 @@ public class ClothingEmporium {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.nyanIntroduced);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

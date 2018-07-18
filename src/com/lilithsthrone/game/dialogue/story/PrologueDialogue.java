@@ -51,7 +51,7 @@ public class PrologueDialogue {
 //		public String getContent() {
 //			return "<h1 class='specialText'>Lilith's Throne</h1>"
 //					+ "<h5 class='specialText'>An erotic fantasy game by Innoxia</h5>"
-//					+ "</br>"
+//					+ "<br/>"
 //
 //					+ "<p>"
 //					+ "So, it is as you feared. The opening party for the museum's new exhibition is <i>really</i> boring."
@@ -135,7 +135,7 @@ public class PrologueDialogue {
 		public String getContent() {
 			if(femalePrologueNPC()) {
 				return "<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.name]'s eyes, she's having the same problem as you are."
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.namePos] eyes, she's having the same problem as you are."
 							+ " Stepping forwards, she half-speaks, half-moans,"
 							+ " [prologueFemale.speech(All this talk's got me pretty turned on... I don't usually do things like this, but everyone's busy around the stage right now. I'm sure one of the rooms around here is empty, if you want to have some fun...)]"
 						+ "</p>"
@@ -146,7 +146,7 @@ public class PrologueDialogue {
 				
 			} else {
 				return "<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.name]'s eyes, he's having the same problem as you are."
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.namePos] eyes, he's having the same problem as you are."
 							+ " Stepping forwards, he half-speaks, half-groans,"
 							+ " [prologueMale.speech(All this talk's got me pretty turned on... I don't usually do things like this, but everyone's busy around the stage right now. I'm sure one of the rooms around here is empty, if you want to have some fun...)]"
 						+ "</p>"
@@ -244,14 +244,14 @@ public class PrologueDialogue {
 									+ "You look down to see that you're holding a little square packet - a condom."
 								+ "</p>"
 								+"<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.</br>"
+									+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>"
 									+ "(Your penis will need to be exposed before it can be used!)</i>"
 								+ "</div>"
 								:"<p>"
 									+ "You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body..."
 								+ "</p>")
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>You can click on both your and [prologueFemale.name]'s clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
+								+ "<i>You can click on both your and [prologueFemale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
 							+ "</div>") {
 						@Override
 						public void effects() {
@@ -281,11 +281,11 @@ public class PrologueDialogue {
 										:"You look down to see that you're holding a little square packet - a condom.")
 							+ "</p>"
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.</br>"
-									+ "([prologueMale.name]'s penis will need to be exposed before it can be used!)</i>"
+								+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>"
+									+ "([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>"
 							+ "</div>"
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>You can click on both your and [prologueMale.name]'s clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
+								+ "<i>You can click on both your and [prologueMale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>"
 							+ "</div>") {
 						@Override
 						public void effects() {
@@ -773,12 +773,12 @@ public class PrologueDialogue {
 						+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseNPCSpeech("Oh shit, [pc.she]'s alive!", Femininity.MASCULINE_STRONG)
+						+ UtilText.parseNPCSpeech("Oh shit, [pc.sheIs] alive!", Femininity.MASCULINE_STRONG)
 						+ " someone says."
 					+ "</p>"
 					+ "<p>"
 						+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see [pc.herHim] just fall out of mid-air?!"
-								+ " [pc.She]'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
+								+ " [pc.sheIs] obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
 						+ " a rather worried-sounding man replies."
 					+ "</p>"
 
@@ -792,9 +792,9 @@ public class PrologueDialogue {
 					+ " the two voices say in unison.</p>"
 
 					+ "<p>"
-					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.She]'s human, get it? Since when could a human use that kind of arcane power?"
+					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.sheIs] human, get it? Since when could a human use that kind of arcane power?"
 							+ " Hell, only a Lilin could just teleport themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact [pc.she] didn't understand."
-							+ " In other words, [pc.she]'s fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
+							+ " In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
 					+ "</p>"
 
 					+ "<p>"
@@ -815,7 +815,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 						+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
-						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
+						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hoofs."
 						+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
 					+ "</p>"
 
@@ -835,7 +835,7 @@ public class PrologueDialogue {
 				
 			} else if (index == 2) {
 				return new Response("Furries?! Yes!",
-						"Furries are real?! You <b>love</b> furries!</br>"
+						"Furries are real?! You <b>love</b> furries!<br/>"
 						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.GREATER.getColour().toWebHexString()+ ";'>"+FurryPreference.MAXIMUM.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
@@ -851,7 +851,7 @@ public class PrologueDialogue {
 				
 			} else if (index == 3) {
 				return new Response("Furries?! No!",
-						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.</br>"
+						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.<br/>"
 						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.HUMAN.getColour().toWebHexString()+ ";'>"+FurryPreference.HUMAN.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
@@ -1350,7 +1350,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 						+ "Lilaya makes a soothing hushing sound before patting her on the head. "
-						+ "[lilaya.speech(Shh, it's alright, Rose, [pc.she]'s a guest of mine, you can calm down,)]"
+						+ "[lilaya.speech(Shh, it's alright, Rose, [pc.sheIs] a guest of mine, you can calm down,)]"
 						+ " she says, before pulling Rose into a surprisingly intimate hug. "
 						+ "[lilaya.speech(Why don't you go make us some tea, you can bring it down to us in the lab.)]"
 					+ "</p>"
@@ -1517,7 +1517,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot. [lilaya.speech([pc.Name]'s c-clothes have gone!)]"
+						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot. [lilaya.speech([pc.NamePos] c-clothes have gone!)]"
 					+ "</p>"
 						
 					+ "<p>"

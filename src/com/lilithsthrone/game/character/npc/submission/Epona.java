@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -15,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -29,6 +32,8 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -53,6 +58,7 @@ public class Epona extends NPC {
 		super(new NameTriplet("Epona"),
 				"Epona is the horse-girl in charge of organising the Gambling Den's 'Pregnancy Roulette'."
 						+ " Obsessed with breeding, she absolutely loves her job, and gets incredibly excited when a new round is about to start.",
+				28, Month.MAY, 28,
 				10, Gender.F_P_V_B_FUTANARI, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
 
@@ -65,7 +71,7 @@ public class Epona extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {
 			this.setBody(Gender.F_P_V_B_FUTANARI, RacialBody.HORSE_MORPH, RaceStage.GREATER);
 			initEpona();
 		}
@@ -91,14 +97,17 @@ public class Epona extends NPC {
 
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
 		this.addFetish(Fetish.FETISH_PREGNANCY);
-		this.addFetish(Fetish.FETISH_BROODMOTHER);
-		this.addFetish(Fetish.FETISH_SEEDER);
 		this.addFetish(Fetish.FETISH_VOYEURIST);
 		
 		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+
+		this.addPerk(Perk.FETISH_BROODMOTHER);
+		this.addTrait(Perk.FETISH_BROODMOTHER);
+		this.addPerk(Perk.FETISH_SEEDER);
+		this.addTrait(Perk.FETISH_SEEDER);
 		
 		this.setFemininity(85);
 		
@@ -119,7 +128,7 @@ public class Epona extends NPC {
 		
 		this.setVaginaVirgin(false);
 		
-		this.setHeight(192);
+		this.setHeight(180);
 		
 		this.setPiercedEar(true);
 		
@@ -144,6 +153,16 @@ public class Epona extends NPC {
 	}
 	
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), this, false);
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
@@ -153,7 +172,7 @@ public class Epona extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

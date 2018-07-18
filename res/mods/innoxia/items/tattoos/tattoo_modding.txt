@@ -1,6 +1,0 @@
-***** TATTOO MODDING *****
-
-If you want to make a custom tattoo, make a new folder, using the (hopefully unique) name of your mod.
-Within that folder, place the .xml and .svg files that are needed for each tattoo.
-
-Use the attached 'hearts' folder as a guide! :3

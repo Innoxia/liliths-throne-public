@@ -97,7 +97,7 @@
 	<htmlContent tag="SLIME_LAKE_QUEEN_GUESS"><![CDATA[
 	<p>
 		You have a strong feeling that this is the place where the elusive 'Slime Queen' is hiding. Looking around for a way to cross the wide expanse of water, you soon find a small jetty, which has been built behind several particularly large mushroom-trees in order to try and keep it hidden from passersby. There are several little wooden boats tied up beside it, each one complete with a pair of oars. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of these boats to pay her a visit.
-		#IFpc.isAbleToFly#THEN
+		#IFpc.isAbleToFly()#THEN
 		 Then again, you could always just fly over there...
 		#ENDIF
 	</p>
@@ -107,7 +107,7 @@
 	<htmlContent tag="SLIME_LAKE_QUEEN_KNOWLEDGE"><![CDATA[
 	<p>
 		You now know that this is the place where the elusive 'Slime Queen' lives. Walking over to the place where the jetty is concealed, you see that there are several little wooden boats still tied up beside it. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of the boats to pay her a visit.
-		#IFpc.isAbleToFly#THEN
+		#IFpc.isAbleToFly()#THEN
 		 Then again, you could always just fly over there...
 		#ENDIF
 	</p>

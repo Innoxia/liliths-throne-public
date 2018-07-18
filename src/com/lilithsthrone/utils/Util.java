@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -35,13 +36,77 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Util {
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
+
+	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {
+		private static final long serialVersionUID = 1L;
+	{
+		put(KeyCode.ADD, "+");
+		put(KeyCode.ALT, "Alt");
+		put(KeyCode.AMPERSAND, "&");
+		put(KeyCode.ASTERISK, "*");
+		put(KeyCode.BACK_QUOTE, "\"");
+		put(KeyCode.BACK_SLASH, "\\");
+		put(KeyCode.BACK_SPACE, "Back space");
+		put(KeyCode.BRACELEFT, "{");
+		put(KeyCode.BRACERIGHT, "}");
+		put(KeyCode.CAPS, "Caps");
+		put(KeyCode.CLOSE_BRACKET, "]");
+		put(KeyCode.COLON, ":");
+		put(KeyCode.COMMA, ",");
+		put(KeyCode.CONTROL, "Ctrl");
+		put(KeyCode.DELETE, "Delete");
+		put(KeyCode.DIVIDE, "/");
+		put(KeyCode.DOLLAR, "$");
+		put(KeyCode.DOWN, "Down");
+		put(KeyCode.END, "End");
+		put(KeyCode.ENTER, "Enter");
+		put(KeyCode.EQUALS, "=");
+		put(KeyCode.ESCAPE, "Esc");
+		put(KeyCode.EURO_SIGN, "&euro"); // €
+		put(KeyCode.EXCLAMATION_MARK, "!");
+		put(KeyCode.GREATER, ">");
+		put(KeyCode.KP_DOWN, "Down");
+		put(KeyCode.KP_LEFT, "Left");
+		put(KeyCode.KP_RIGHT, "Right");
+		put(KeyCode.KP_UP, "Up");
+		put(KeyCode.LEFT, "Left");
+		put(KeyCode.LEFT_PARENTHESIS, "(");
+		put(KeyCode.LESS, "<");
+		put(KeyCode.MINUS, "-");
+		put(KeyCode.NUMPAD0, "0");
+		put(KeyCode.NUMPAD1, "1");
+		put(KeyCode.NUMPAD2, "2");
+		put(KeyCode.NUMPAD3, "3");
+		put(KeyCode.NUMPAD4, "4");
+		put(KeyCode.NUMPAD5, "5");
+		put(KeyCode.NUMPAD6, "6");
+		put(KeyCode.NUMPAD7, "7");
+		put(KeyCode.NUMPAD8, "9");
+		put(KeyCode.NUMPAD9, "9");
+		put(KeyCode.OPEN_BRACKET, "[");
+		put(KeyCode.PAGE_DOWN, "Pg Dn");
+		put(KeyCode.PAGE_UP, "Pg Up");
+		put(KeyCode.PERIOD, ".");
+		put(KeyCode.PLUS, "+");
+		put(KeyCode.POUND, "&pound"); // £
+		put(KeyCode.POWER, "^");
+		put(KeyCode.QUOTE, "\"");
+		put(KeyCode.RIGHT, "Right");
+		put(KeyCode.RIGHT_PARENTHESIS, ")");
+		put(KeyCode.SEMICOLON, ";");
+		put(KeyCode.SHIFT, "Sft");
+		put(KeyCode.SLASH, "/");
+		put(KeyCode.SPACE, "Space");
+		put(KeyCode.SUBTRACT, "-");
+		put(KeyCode.TAB, "Tab");
+	}};
 
 	// What madness is this
 	public static String inputStreamToString(InputStream is) {
@@ -105,6 +170,41 @@ public class Util {
 			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
 		}
 		
+		return s;
+	}
+	
+	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+		String s = inputString;
+
+		for (int i = 0; i <= 14; i++) {
+			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
+			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
+		}
+		
+		if(colour!=null) {
+			s = s.replaceAll("#f4d7d7", colour.getShades()[0]);
+			s = s.replaceAll("#e9afaf", colour.getShades()[1]);
+			s = s.replaceAll("#de8787", colour.getShades()[2]);
+			s = s.replaceAll("#d35f5f", colour.getShades()[3]);
+			s = s.replaceAll("#c83737", colour.getShades()[4]);
+		}
+		
+		if(colourSecondary!=null) {
+			s = s.replaceAll("#f4e3d7", colourSecondary.getShades()[0]);
+			s = s.replaceAll("#e9c6af", colourSecondary.getShades()[1]);
+			s = s.replaceAll("#deaa87", colourSecondary.getShades()[2]);
+			s = s.replaceAll("#d38d5f", colourSecondary.getShades()[3]);
+			s = s.replaceAll("#c87137", colourSecondary.getShades()[4]);
+		}
+		
+		if(colourTertiary!=null) {
+			s = s.replaceAll("#f4eed7", colourTertiary.getShades()[0]);
+			s = s.replaceAll("#e9ddaf", colourTertiary.getShades()[1]);
+			s = s.replaceAll("#decd87", colourTertiary.getShades()[2]);
+			s = s.replaceAll("#d3bc5f", colourTertiary.getShades()[3]);
+			s = s.replaceAll("#c8ab37", colourTertiary.getShades()[4]);
+		}
+
 		return s;
 	}
 	
@@ -211,8 +311,35 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	public static <U> ArrayList<U> mergeLists(List<U>... lists) {
+		ArrayList<U> mergedList = new ArrayList<>();
+		
+		for(List<U> list : lists) {
+			for(U value : list) {
+				mergedList.add(value);
+			}
+		}
+		
+		return mergedList;
+	}
+	
+	@SafeVarargs
 	public static <U> HashSet<U> newHashSetOfValues(U... values) {
 		return new HashSet<>(Arrays.asList(values));
+	}
+	
+	@SafeVarargs
+	public static <U, T> Map<U, List<T>> mergeMaps(Map<U, List<T>>... maps) {
+		Map<U, List<T>> mergedMap = new HashMap<>();
+		
+		for(Map<U, List<T>> map : maps) {
+			for(Entry<U, List<T>> entry : map.entrySet()) {
+				mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
+				mergedMap.get(entry.getKey()).addAll(entry.getValue());
+			}
+		}
+		
+		return mergedMap;
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
@@ -265,6 +392,10 @@ public class Util {
 	    }
 	}
 	
+	public static float getRoundedFloat(float input, int significantFigures) {
+		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
+	}
+	
 	private static String[] numbersLessThanTwenty = {
 			"zero",
 			"one",
@@ -287,6 +418,28 @@ public class Util {
 			"eighteen",
 			"nineteen"
 	};
+	private static String[] positionsLessThanTwenty = {
+			"zero",
+			"first",
+			"second",
+			"third",
+			"fourth",
+			"fifth",
+			"sixth",
+			"seventh",
+			"eighth",
+			"ninth",
+			"tenth",
+			"eleventh",
+			"twelfth",
+			"thirteenth",
+			"fourteenth",
+			"fifteenth",
+			"sixteenth",
+			"seventeenth",
+			"eighteenth",
+			"nineteenth"
+	};
 	private static String[] tensGreaterThanNineteen = {
 			"",
 			"",
@@ -299,6 +452,18 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
+
+	public static String intToDate(int integer) {
+		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
+			return integer+"st";
+		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
+			return integer+"nd";
+		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
+			return integer+"rd";
+		} else {
+			return integer+"th";
+		}
+	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
@@ -306,7 +471,6 @@ public class Util {
 	 * @return
 	 */
 	public static String intToString(int integer) {
-//		if(integer>=0 && integer<1000){
 		String intToString = "";
 		
 		if(integer<0) {
@@ -353,10 +517,55 @@ public class Util {
 		}
 		
 		return intToString;
-			
-//		}
+	}
+	
+	public static String intToPosition(int integer) {
+		String intToString = "";
 		
-//		return String.valueOf(integer);
+		if(integer<0) {
+			intToString = "minus ";
+		}
+		integer = Math.abs(integer);
+		if (integer >= 100_000) {
+			return intToString + " a lot";
+		}
+		
+		
+		if(integer>=1000) {
+			if((integer/1000)<20) {
+				intToString+=numbersLessThanTwenty[(integer/1000)]+" thousand";
+			} else {
+				intToString+=tensGreaterThanNineteen[integer/10000] + (((integer/1000)%10!=0)?"-"+numbersLessThanTwenty[(integer/1000)%10]:"")+" thousand";
+			}
+		}
+		
+		if(integer>=100) {
+			if(integer>=1000 && integer%1000 != 0) {
+				intToString+=", ";
+			}
+			integer = integer % 1000;
+			if (intToString.isEmpty() || integer>=100) {
+				intToString += numbersLessThanTwenty[integer/100]+" hundred";
+			}
+			if(integer%100!=0) {
+				intToString+=" and ";
+				integer = integer % 100;
+			}
+		}
+		
+		if(integer%100<20) {
+			if (integer%100 == 0) {
+				if (intToString.isEmpty()) {
+					return "zero";
+				}
+			} else {
+				intToString+=positionsLessThanTwenty[integer%100];
+			}
+		} else {
+			intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+positionsLessThanTwenty[integer%10]:"");
+		}
+		
+		return intToString;
 	}
 	
 	private final static TreeMap<Integer, String> numeralMap = new TreeMap<Integer, String>();
@@ -400,132 +609,8 @@ public class Util {
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
-		switch(code) {
-			case ADD:
-				return "+";
-			case ALT:
-				return "Alt";
-			case AMPERSAND:
-				return "&";
-			case ASTERISK:
-				return "*";
-			case BACK_QUOTE:
-				return "\"";
-			case BACK_SLASH:
-				return "\\";
-			case BACK_SPACE:
-				return "Back space";
-			case BRACELEFT:
-				return "{";
-			case BRACERIGHT:
-				return "}";
-			case CAPS:
-				return "Caps";
-			case CLOSE_BRACKET:
-				return "]";
-			case COLON:
-				return ":";
-			case COMMA:
-				return ",";
-			case CONTROL:
-				return "Ctrl";
-			case DELETE:
-				return "Delete";
-			case DIVIDE:
-				return "/";
-			case DOLLAR:
-				return "$";
-			case DOWN:
-				return "Down";
-			case END:
-				return "End";
-			case ENTER:
-				return "Enter";
-			case EQUALS:
-				return "=";
-			case ESCAPE:
-				return "Esc";
-			case EURO_SIGN:
-				return "&euro;"; // €
-			case EXCLAMATION_MARK:
-				return "!";
-			case GREATER:
-				return ">";
-			case KP_DOWN:
-				return "Down";
-			case KP_LEFT:
-				return "Left";
-			case KP_RIGHT:
-				return "Right";
-			case KP_UP:
-				return "Up";
-			case LEFT:
-				return "Left";
-			case LEFT_PARENTHESIS:
-				return "(";
-			case LESS:
-				return "<";
-			case MINUS:
-				return "-";
-			case NUMPAD0:
-				return "0";
-			case NUMPAD1:
-				return "1";
-			case NUMPAD2:
-				return "2";
-			case NUMPAD3:
-				return "3";
-			case NUMPAD4:
-				return "4";
-			case NUMPAD5:
-				return "5";
-			case NUMPAD6:
-				return "6";
-			case NUMPAD7:
-				return "7";
-			case NUMPAD8:
-				return "9";
-			case NUMPAD9:
-				return "9";
-			case OPEN_BRACKET:
-				return "[";
-			case PAGE_DOWN:
-				return "Pg Dn";
-			case PAGE_UP:
-				return "Pg Up";
-			case PERIOD:
-				return ".";
-			case PLUS:
-				return "+";
-			case POUND:
-				return "&pound;"; // £
-			case POWER:
-				return "^";
-			case QUOTE:
-				return "\"";
-			case RIGHT:
-				return "Right";
-			case RIGHT_PARENTHESIS:
-				return ")";
-			case SEMICOLON:
-				return ";";
-			case SHIFT:
-				return "Sft";
-			case SLASH:
-				return "/";
-			case SPACE:
-				return "Space";
-			case SUBTRACT:
-				return "-";
-			case TAB:
-				return "Tab";
-			case UNDERSCORE:
-				return "_";
-			case UP:
-				return "Up";
-			default:
-				return code.getName();
-		}
+		String name = KEY_NAMES.get(code);
+		return name != null? name : code.getName();
 	}
 
 	public static int conversionCentimetresToInches(int cm) {
@@ -618,7 +703,7 @@ public class Util {
 	}
 
 	/**
-	 * Inserts words randomly into a sentence.</br>
+	 * Inserts words randomly into a sentence.<br/>
 	 *
 	 * @param sentence
 	 *            sentence to insert words into
@@ -679,11 +764,11 @@ public class Util {
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.
-	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.</br>
-	 * Example: "How far is it to the town hall?"</br>
-	 * "How, like, far is it to the town, uh, hall and stuff?"</br>
-	 * "How far is, like, it to the, um, town hall and stuff?"</br>
-	 * "Like, How far is it to the, like, town hall?"</br>
+	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.<br/>
+	 * Example: "How far is it to the town hall?"<br/>
+	 * "How, like, far is it to the town, uh, hall and stuff?"<br/>
+	 * "How far is, like, it to the, um, town hall and stuff?"<br/>
+	 * "Like, How far is it to the, like, town hall?"<br/>
 	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
 	 *
 	 * @param sentence
@@ -722,10 +807,10 @@ public class Util {
 
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
-	 * Turns a normal sentence into a muffled sentence.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"</br>
+	 * Turns a normal sentence into a muffled sentence.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply muffles
@@ -740,10 +825,10 @@ public class Util {
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~" };
 	/**
-	 * Turns a normal sentence into a sexy sentence.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
+	 * Turns a normal sentence into a sexy sentence.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply sexy modifications
@@ -758,10 +843,10 @@ public class Util {
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
 	/**
-	 * Turns a normal sentence into a drunk one.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"</br>
+	 * Turns a normal sentence into a drunk one.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply sexy modifications
@@ -852,13 +937,15 @@ public class Util {
 		return Util.toStringList(displacedList, DisplacementType::getDescriptionPast, "and");
 	}
 
-	public static <Any> Any randomItemFrom(List<Any> list)
-	{
+	public static <Any> Any randomItemFrom(List<Any> list) {
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
-	public static int randomItemFrom(int[] array)
-	{
+	public static <Any> Any randomItemFrom(Any[] array) {
+		return array[Util.random.nextInt(array.length)];
+	}
+	
+	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
 }

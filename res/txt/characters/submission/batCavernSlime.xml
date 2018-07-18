@@ -81,7 +81,7 @@
 		[npc.speech(Uh-huh. Just give me your flames already! I need to go buy more 'shrooms!)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands].
 	</p>
 	<p>
-		You do as [npc.she] asks, and, after you've handed over two-hundred and fifty flames, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
+		You do as [npc.she] asks, and, after you've handed over two-hundred and fifty flames, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence [npc.she] came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
@@ -118,7 +118,7 @@
 		[npc.speech(W-What?! You have 'shrooms?)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(Give them to me!)]
 	</p>
 	<p>
-		You do as [npc.she] asks, and, after you've handed over one of your Glowing Mushrooms, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
+		You do as [npc.she] asks, and, after you've handed over one of your Glowing Mushrooms, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence [npc.she] came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...

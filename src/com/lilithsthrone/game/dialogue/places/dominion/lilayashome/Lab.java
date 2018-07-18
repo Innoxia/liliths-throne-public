@@ -28,7 +28,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -39,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.5
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Lab {
@@ -57,7 +57,7 @@ public class Lab {
 						+ "</p>"
 						+"<p style='text-align:center;'>"
 							+ "<i>"
-								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.</br></br>"
+								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.<br/><br/>"
 								+ "I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not."
 							+ "</i>"
 						+ "</p>"
@@ -317,7 +317,7 @@ public class Lab {
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic aunt,"
 										+ " before letting out a little eek and jumping to her feet as she feigns surprise."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
@@ -355,7 +355,7 @@ public class Lab {
 								"<p>"
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
@@ -401,9 +401,9 @@ public class Lab {
 								"Let Lilaya run her \"tests\" on you.",
 								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 								Lilaya.AUNT_END_SEX,
 								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -429,9 +429,9 @@ public class Lab {
 								null,
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 								Lilaya.AUNT_END_SEX,
 								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -1394,7 +1394,7 @@ public class Lab {
 									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
 								+ "</p>"
 								+ "<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
+									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/><br/>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
 								+ "</div>"
 								+ Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE));
@@ -1849,9 +1849,9 @@ public class Lab {
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 						Lilaya.AUNT_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
@@ -2094,9 +2094,9 @@ public class Lab {
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 						Lilaya.AUNT_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
@@ -2766,7 +2766,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "<i>"
 					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
-					+ "</br></br>");
+					+ "<br/><br/>");
 			
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
@@ -2776,22 +2776,22 @@ public class Lab {
 			
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				}
 			}
@@ -3162,12 +3162,12 @@ public class Lab {
 
 					+ "<p style='text-align:center;'>"
 						+ "<i>"
-						+ "Hey [pc.name], congratulations! Everything went perfectly!</br>"
+						+ "Hey [pc.name], congratulations! Everything went perfectly!<br/>"
 						+ "I hope you don't mind, but I collected a lot of data about your aura while we were doing this!"
 						+ " I had to start analysing it straight away, and you were fast asleep anyway, so I hope you don't mind me leaving you there to rest."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "If you need anything, or perhaps if you'd like some more \"tests\", then you know where to find me!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ (Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount() > 1
 								?"P.S. I managed to get your kids together for a picture before they left, it's under this note!"
 								:"P.S. I got a picture of your kid before they left, it's under this note!")
@@ -3182,7 +3182,7 @@ public class Lab {
 					+ "In the picture you see:");
 
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather()))
 						+ "</b>");
 
@@ -3191,7 +3191,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3204,6 +3213,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3212,10 +3225,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3228,13 +3244,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3268,7 +3294,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()))
 						+ "</b>");
 
@@ -3277,7 +3303,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3290,6 +3325,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3298,10 +3337,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3314,13 +3356,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3354,7 +3406,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()))
 						+ "</b>");
 
@@ -3363,7 +3415,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3376,6 +3437,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3384,10 +3449,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3400,13 +3468,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3440,7 +3518,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()))
 						+ "</b>");
 
@@ -3449,7 +3527,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3462,6 +3549,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3470,10 +3561,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3486,13 +3580,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,6 +36,7 @@ public class SlaveImport extends NPC {
 	
 	public SlaveImport(boolean isImported) {
 		super(new NameTriplet("Slave"), "Generic slave.",
+				18, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
@@ -100,7 +103,7 @@ public class SlaveImport extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

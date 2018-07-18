@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,6 +51,7 @@ public class HarpyNymphoCompanion extends NPC {
 		super(new NameTriplet("Max"),
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
+				26, Month.JANUARY, 22,
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
@@ -67,8 +70,8 @@ public class HarpyNymphoCompanion extends NPC {
 			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLUE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLUE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
 			
 			this.setFemininity(90);
@@ -78,7 +81,8 @@ public class HarpyNymphoCompanion extends NPC {
 			this.setBreastSize(CupSize.AA.getMeasurement());
 			
 			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
-			this.setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			this.setHeight(167);
 	
@@ -120,7 +124,7 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 	// Combat

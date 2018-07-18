@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -115,16 +116,14 @@ public class AbstractTattooType extends AbstractCoreType {
 				Element coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0);
 				
 				List<InventorySlot> slotAvailability = new ArrayList<>();
-				Element slotAvailabilityElement = (Element)coreAttributes.getElementsByTagName("slotAvailability").item(0);
+				NodeList slotAvailabilityNodeList = ((Element)coreAttributes.getElementsByTagName("slotAvailability").item(0)).getElementsByTagName("slot");
 				try {
-					if(slotAvailabilityElement.getElementsByTagName("slot").getLength()==0) {
+					for(int i = 0; i < slotAvailabilityNodeList.getLength(); i++){
+						Element e = ((Element)slotAvailabilityNodeList.item(i));
+						slotAvailability.add(InventorySlot.valueOf(e.getTextContent()));
+					}
+					if (slotAvailability.isEmpty()) {
 						slotAvailability = standardInventorySlots;
-						
-					} else {
-						for(int i=0; i<slotAvailabilityElement.getElementsByTagName("slot").getLength(); i++){
-							Element e = ((Element)slotAvailabilityElement.getElementsByTagName("slot").item(i));
-							slotAvailability.add(InventorySlot.valueOf(e.getTextContent()));
-						}
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed.");
@@ -145,52 +144,21 @@ public class AbstractTattooType extends AbstractCoreType {
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
 				try {
-					if(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values").isEmpty()) {
-						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
-						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColours.add(Colour.valueOf(((Element)primaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-							}
-						}
-					} else {
-						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
-					}
+					importedPrimaryColours = readColoursFromElement(coreAttributes, "primaryColours");
 				} catch(Exception ex) {
 					System.err.println("AbstractTattooType loading failed. Cause: 'primaryColours' element unable to be parsed.");
 				}
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
 				try {
-					if((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
-							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
-							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColours.add(Colour.valueOf(((Element)secondaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
+					importedSecondaryColours = readColoursFromElement(coreAttributes, "secondaryColours");
 				} catch(Exception ex) {
 					System.err.println("AbstractTattooType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
 				}
 
 				List<Colour> importedTertiaryColours = new ArrayList<>();
 				try {
-					if((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)!=null) {
-						if(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values").isEmpty()) {
-							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
-							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedTertiaryColours.add(Colour.valueOf(((Element)tertiaryColoursElement.getElementsByTagName("colour").item(i)).getTextContent()));
-								}
-							}
-						} else {
-							importedTertiaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values")).getPresetColourList();
-						}
-					}
+					importedTertiaryColours = readColoursFromElement(coreAttributes, "tertiaryColours");
 				} catch(Exception ex) {
 					System.err.println("AbstractTattooType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
 				}
@@ -204,9 +172,23 @@ public class AbstractTattooType extends AbstractCoreType {
 				SVGStringMap = new HashMap<>();
 
 			} catch(Exception ex) {
-				System.err.println("ClothingType was unable to be loaded from file!");
+				System.err.println("TattooType was unable to be loaded from file!");
 			}
 		}
+	}
+
+
+	private List<Colour> readColoursFromElement(Element coreAttributes, String elementTagName) {
+		Element coloursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
+		if(coloursElement.getAttribute("values").isEmpty()) {
+			NodeList coloursNodeList = coloursElement.getElementsByTagName("colour");
+			List<Colour> result = new ArrayList<>(coloursNodeList.getLength());
+			for(int i = 0; i < coloursNodeList.getLength(); i++){
+				result.add(Colour.valueOf(((Element)coloursNodeList.item(i)).getTextContent()));
+			}
+			return result;
+		}
+		return ColourListPresets.valueOf(coloursElement.getAttribute("values")).getPresetColourList();
 	}
 	
 	@Override

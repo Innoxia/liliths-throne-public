@@ -29,7 +29,7 @@ public class ReindeerOverseerDialogue {
 	
 	private static Response getDefaultResponses(int index) {
 		if(index == 1) {
-			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.she]'s selling.", reindeer()) {
+			return new ResponseTrade("Trade", "Ask [npc.name] what Yuletide presents [npc.sheIs] selling.", reindeer()) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().addReindeerEncountered(reindeer().getId());
@@ -209,7 +209,7 @@ public class ReindeerOverseerDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Deciding that you'd like to take up [npc.name]'s offer of a part-time job, you ask [npc.herHim],"
+						+ "Deciding that you'd like to take up [npc.namePos] offer of a part-time job, you ask [npc.herHim],"
 						+ " [pc.speech(I'd be willing to work for you for a while, what do you need help with?)]"
 					+ "</p>"
 					+ "<p>"
@@ -318,7 +318,7 @@ public class ReindeerOverseerDialogue {
 
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "Deciding that you'd work best by using your arcane power to harness [npc.name]'s 'heat-stave', you tell the [npc.race] that that's what you'd like to do."
+									+ "Deciding that you'd work best by using your arcane power to harness [npc.namePos] 'heat-stave', you tell the [npc.race] that that's what you'd like to do."
 									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] grabs a tall, wooden staff with a curious orange gemstone fixed into one end, before handing it over to you."
 									+ " [npc.speech(Just focus your arcane energy into the stave while pointing the bottom at the ground."
 										+ " With your help, we should be finished in a few more hours."
@@ -337,7 +337,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Despite [npc.name]'s encouraging words, you can't help but feel as though you're not really harnessing the staff's true power."
+										+ "Despite [npc.namePos] encouraging words, you can't help but feel as though you're not really harnessing the staff's true power."
 										+ " Nevertheless, the next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
@@ -355,7 +355,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Encouraged by [npc.name]'s words, you set about harnessing the staff's power to break up the snow."
+										+ "Encouraged by [npc.namePos] words, you set about harnessing the staff's power to break up the snow."
 										+ " The next few hours pass quickly enough, and before long the entire street is clear."
 									+ "</p>"
 									+ "<p>"
@@ -373,7 +373,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(I didn't even realise the heat-stave had that much power in it! I've never seen anyone use it quite like that! With your help, we should be finished in no time!)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Encouraged by [npc.name]'s words, you set about harnessing the staff's power to break up the snow."
+										+ "Encouraged by [npc.namePos] words, you set about harnessing the staff's power to break up the snow."
 										+ " The next few hours pass quickly enough, and before long the entire street is clear."
 									+ "</p>"
 									+ "<p>"
@@ -413,7 +413,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Despite [npc.name]'s encouraging words, you can't help but feel as though you're not doing very well."
+										+ "Despite [npc.namePos] encouraging words, you can't help but feel as though you're not doing very well."
 										+ " Nevertheless, the next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
@@ -431,7 +431,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Encouraged by [npc.name]'s words, you set about delivering the drinks that you're carrying, before hurrying off to fetch the next set of orders."
+										+ "Encouraged by [npc.namePos] words, you set about delivering the drinks that you're carrying, before hurrying off to fetch the next set of orders."
 										+ " The next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
@@ -449,7 +449,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
-										+ "Encouraged by [npc.name]'s words, you continue delivering drinks to the perpetually-thirsty reindeer-morphs."
+										+ "Encouraged by [npc.namePos] words, you continue delivering drinks to the perpetually-thirsty reindeer-morphs."
 										+ " The next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"

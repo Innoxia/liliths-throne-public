@@ -43,10 +43,10 @@ public enum ParserTarget {
 			"npc4",
 			"npc5",
 			"npc6"),
-			"The currently 'active' NPC.</br>"
-			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.</br>"
-			+ "If in <b>combat</b>, it returns your opponent.</br>"
-			+ "If in <b>sex</b>, it returns your partner.</br>"
+			"The currently 'active' NPC.<br/>"
+			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.<br/>"
+			+ "If in <b>combat</b>, it returns your opponent.<br/>"
+			+ "If in <b>sex</b>, it returns your partner.<br/>"
 			+ "<b>Otherwise</b>, it returns the most important NPC in the scene.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
@@ -615,6 +615,39 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getEpona();
+		}
+	},
+	
+	JULES(Util.newArrayListOfValues("jules"), "") {
+		public String getDescription() {
+			return Main.game.getJules().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getJules();
+		}
+	},
+	
+	KRUGER(Util.newArrayListOfValues("kruger"), "") {
+		public String getDescription() {
+			return Main.game.getKruger().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKruger();
+		}
+	},
+	
+	KALAHARI(Util.newArrayListOfValues("kalahari"), "") {
+		public String getDescription() {
+			return Main.game.getKalahari().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKalahari();
 		}
 	},
 	;

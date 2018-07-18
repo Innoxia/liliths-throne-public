@@ -36,9 +36,11 @@ public enum PerkManager {
 				perkTree.get(i).put(category, new ArrayList<>());
 			}
 		}
-		
-		addPerkEntry(perkTree, PerkCategory.BOTH, 0, Perk.BARREN);
+
 		addPerkEntry(perkTree, PerkCategory.BOTH, 0, Perk.FIRING_BLANKS);
+		addPerkEntry(perkTree, PerkCategory.BOTH, 0, Perk.BARREN);
+		addPerkEntry(perkTree, PerkCategory.BOTH, 0, Perk.FETISH_SEEDER);
+		addPerkEntry(perkTree, PerkCategory.BOTH, 0, Perk.FETISH_BROODMOTHER);
 		addPerkEntry(perkTree, PerkCategory.ARCANE, 0, Perk.CLOTHING_ENCHANTER);
 		
 		TreeEntry<PerkCategory, Perk> arcane1, arcane2, arcane3, arcane4, arcane5, arcane6;

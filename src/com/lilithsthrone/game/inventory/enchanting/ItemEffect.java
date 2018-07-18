@@ -94,8 +94,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
 		String itemEffectType = parentElement.getAttribute("itemEffectType");
-		switch(itemEffectType)
-		{
+		switch(itemEffectType) {
 			case "ATTRIBUTE_STRENGTH":
 			case "ATTRIBUTE_FITNESS":
 				itemEffectType = "ATTRIBUTE_PHYSIQUE";
@@ -104,18 +103,23 @@ public class ItemEffect implements Serializable, XMLSaving {
 				itemEffectType = "ATTRIBUTE_ARCANE";
 				break;
 		}
-		switch(parentElement.getAttribute("primaryModifier"))
-		{
+		switch(parentElement.getAttribute("primaryModifier")) {
 			case "DAMAGE_ATTACK":
 			case "RESISTANCE_ATTACK":
 				return null;
 		}
-		ItemEffect ie = new ItemEffect(
-				ItemEffectType.getItemEffectTypeFromId(itemEffectType),
-				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
-				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
-				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
-				Integer.valueOf(parentElement.getAttribute("limit")));
+		
+		ItemEffect ie;
+		try { // Wrap this in a try, as the TFModifier.valueof might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
+			ie = new ItemEffect(
+					ItemEffectType.getItemEffectTypeFromId(itemEffectType),
+					(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
+					(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
+					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
+					Integer.valueOf(parentElement.getAttribute("limit")));
+		} catch(Exception ex) {
+			return null;
+		}
 		
 		try {
 			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {

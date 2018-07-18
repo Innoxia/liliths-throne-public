@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -53,7 +55,9 @@ public class BatMorphCavernAttacker extends NPC {
 	}
 	
 	public BatMorphCavernAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.BAT_MORPH, RaceStage.LESSER,
+		super(null, "",
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.BAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
@@ -92,7 +96,7 @@ public class BatMorphCavernAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
@@ -137,7 +141,7 @@ public class BatMorphCavernAttacker extends NPC {
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
-					"[npc.Name]'s days of attacking innocent travellers in the bat caverns are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+					"[npc.NamePos] days of attacking innocent travellers in the bat caverns are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 		} else {
 			return (UtilText.parse(this,
 					"[npc.Name] is a resident of the bat caverns, and enjoys nothing more than attacking innocent travellers that pass by [npc.her] roost."));
@@ -145,11 +149,9 @@ public class BatMorphCavernAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

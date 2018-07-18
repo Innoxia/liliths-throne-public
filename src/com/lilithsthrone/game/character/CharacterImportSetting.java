@@ -6,6 +6,8 @@ package com.lilithsthrone.game.character;
  * @author Innoxia
  */
 public enum CharacterImportSetting {
+
+	CLEAR_SLAVERY,
 	
 	NO_ELEMENTAL,
 	

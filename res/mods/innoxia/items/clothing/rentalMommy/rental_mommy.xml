@@ -76,13 +76,14 @@
 				</clothingAccessRequired>
 				
 				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-				<blockedBodyParts/>
+				<blockedBodyParts/> <!-- Use the tag 'bodyPart' for values inserted here. -->
 				
 				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-				<clothingAccessBlocked/>
+				<clothingAccessBlocked/> <!-- Use the tag 'clothingAccess' for values inserted here. -->
 				
 				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-				<concealedSlots/>
+				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
+				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
 			</blockedParts>
 			
 			<!-- The second 'blockedParts' for this item of clothing. As well as being equipped/removed, this T-shirt can also be pulled up.-->
@@ -99,6 +100,8 @@
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
+				<!-- You can substitute the <concealedSlots> list for the value below: -->
+				<!-- CS Example: <concealedSlots values="CONCEALED_PARTIAL_TORSO"/> -->
 				<concealedSlots>
 					<slot>CHEST</slot>
 					<slot>NIPPLE</slot>

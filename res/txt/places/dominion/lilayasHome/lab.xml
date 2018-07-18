@@ -34,7 +34,7 @@
 		 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IFplayer.isVaginaExposed
+		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
 		#THEN
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE
@@ -103,7 +103,7 @@
 				 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IFplayer.isVaginaExposed
+		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
 		#THEN
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE

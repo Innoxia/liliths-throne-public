@@ -8,12 +8,14 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
@@ -106,24 +108,27 @@ public class MilkingRoom implements XMLSaving {
 			} catch(Exception ex) {
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("milkStorage").getLength(); i++){
-				Element milkStorageElement = (Element)parentElement.getElementsByTagName("milkStorage").item(i);
+			NodeList milkStorageElements = parentElement.getElementsByTagName("milkStorage");
+			for(int i=0; i<milkStorageElements.getLength(); i++){
+				Element milkStorageElement = (Element)milkStorageElements.item(i);
 				Float quantity = Float.valueOf(milkStorageElement.getAttribute("milkQuantity"));
-				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc);
+				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc, FluidType.MILK_HUMAN);
 				room.incrementMilkStorage(milk, quantity);
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("cumStorage").getLength(); i++){
-				Element cumStorageElement = (Element)parentElement.getElementsByTagName("cumStorage").item(i);
+			NodeList cumStorageElements = parentElement.getElementsByTagName("cumStorage");
+			for(int i=0; i<cumStorageElements.getLength(); i++){
+				Element cumStorageElement = (Element)cumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("cumQuantity"));
-				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc);
+				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc, FluidType.CUM_HUMAN);
 				room.incrementCumStorage(cum, quantity);
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("girlcumStorage").getLength(); i++){
-				Element cumStorageElement = (Element)parentElement.getElementsByTagName("girlcumStorage").item(i);
+			NodeList girlCumStorageElements = parentElement.getElementsByTagName("girlcumStorage");
+			for(int i=0; i<girlCumStorageElements.getLength(); i++){
+				Element cumStorageElement = (Element)girlCumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("girlcumQuantity"));
-				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc);
+				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc, FluidType.GIRL_CUM_HUMAN);
 				room.incrementGirlcumStorage(cum, quantity);
 			}
 			
@@ -135,35 +140,43 @@ public class MilkingRoom implements XMLSaving {
 		}
 	}
 	
-	public static Cell getMilkingCell(GameCharacter character) {
-		List<Cell> freeMilkingCells = new ArrayList<>();
+	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
+		List<Cell> milkingCells = new ArrayList<>();
 		
 		for(MilkingRoom room : Main.game.getSlaveryUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
 		
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
 			
-			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS) && charactersPresent<8) {
+				
+			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
-			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR) && !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+				
+			} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
+					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 			}
 			
-			if(charactersPresent<8) {
-				freeMilkingCells.add(c);
+			if((needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+				milkingCells.add(c);
 			}
 		}
-		if(freeMilkingCells.isEmpty()) {
+		if(milkingCells.isEmpty()) {
 			return null;
 		}
-		return freeMilkingCells.get(0);
+		return milkingCells.get(0);
 	}
 	
 	public static int getMaximumMilkPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 500;
 
 		if(c==null) {
@@ -189,7 +202,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 50;
 
 		if(c==null) {
@@ -214,11 +227,11 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasPenisIgnoreDildo()) {
 			return 0;
 		}
-		return Math.min(getMaximumCumPerHour(character), character.getPenisRawCumProductionValue());
+		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen()*character.getPenisRawCumStorageValue()*60));
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character);
+		Cell c = getMilkingCell(character, false);
 		int milked = 10;
 		
 		if(c==null) {

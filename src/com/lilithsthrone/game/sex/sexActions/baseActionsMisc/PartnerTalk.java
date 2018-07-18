@@ -10,8 +10,8 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -19,19 +19,23 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.1.88
+ * @version 0.2.8
  * @author Innoxia
  */
 public class PartnerTalk {
 	
 	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getCharacterPerformingAction().isPlayer();
+		}
 		
 		@Override
 		public CorruptionLevel getCorruptionNeeded(){
@@ -56,7 +60,7 @@ public class PartnerTalk {
 				case SUB_NORMAL:
 					return "Dirty talk";
 				case SUB_RESISTING:
-					return "Beg for [npc.herHim] to stop";
+					return "Beg for [npc2.herHim] to stop";
 				default:
 					return "Dirty talk";
 			}
@@ -75,7 +79,7 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [pc.a_moan+] escapes from between [npc.name]'s [npc.lips+], ",
+								"Turning [npc.her] head to look back at you, [npc.a_moan+] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan+] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
@@ -85,7 +89,7 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
@@ -165,17 +169,17 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"A desperate [npc.moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"A desperate [npc.moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] lets out a desperate [npc.moan] before addressing you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"A protesting whine escapes from between [npc.name]'s [npc.lips+] as [npc.she] struggles against you, ",
+								"A protesting whine escapes from between [npc.namePos] [npc.lips+] as [npc.she] struggles against you, ",
 								"[npc.Name] lets out a distressed whining noise as [npc.she] tries to shuffle away from you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
-								"[npc.A_moan] escapes from between [npc.name]'s [npc.lips+], ",
+								"[npc.A_moan] escapes from between [npc.namePos] [npc.lips+], ",
 								"[npc.Name] lets out [npc.a_moan] before addressing you, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}

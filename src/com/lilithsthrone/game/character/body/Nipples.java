@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 
@@ -119,7 +119,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		}
 		
 		if(Main.game.isInSex()) {
-			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE).isEmpty()) {
+			if(!Sex.getWetAreas(owner).get(SexAreaOrifice.NIPPLE).isEmpty()) {
 				descriptorList.add("wet");
 			}
 		}
@@ -155,7 +155,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.nipples] doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
@@ -163,16 +163,16 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		if(this.nippleSize > boundNippleSize) {
 			if(owner.isPlayer()) {
-				transformation = "<p>A soothing coolness rises up into your [pc.nipples], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
+				transformation = "<p>A soothing coolness rises up into your [pc.nipples], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.nipples], before they suddenly [style.boldShrink(shrink)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.nipples], before they suddenly [style.boldShrink(shrink)].<br/>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
-				transformation = "<p>A pulsating warmth rises up into your [pc.nipples], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>";
+				transformation = "<p>A pulsating warmth rises up into your [pc.nipples], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.nipples], before they suddenly [style.boldGrow(grow larger)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.nipples], before they suddenly [style.boldGrow(grow larger)].<br/>");
 			}
 		}
 		
@@ -196,7 +196,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of your [pc.nipples] doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
@@ -206,39 +206,39 @@ public class Nipples implements BodyPartInterface, Serializable {
 			case NORMAL:
 				if(owner.isPlayer()) {
 					transformation = "<p>"
-										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly transform into normal-looking nipples.</br>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly transform into normal-looking nipples.<br/>"
 										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(normal nipples)]!"
 									+ "</p>";
 				} else {
 					transformation = "<p>"
-										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly transforming into normal-looking nipples.</br>"
-										+ "[npc.Name]'s [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(normal nipples)]!"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly transforming into normal-looking nipples.<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(normal nipples)]!"
 									+ "</p>";
 				}
 				break;
 			case LIPS:
 				if(owner.isPlayer()) {
 					transformation = "<p>"
-										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly swell up and transform into juicy pairs of lips!</br>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly swell up and transform into juicy pairs of lips!<br/>"
 										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(lip-like lipples)], which you can control just like regular lips!"
 									+ "</p>";
 				} else {
 					transformation = "<p>"
-										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly swelling up and transforming into juicy pairs of lips!</br>"
-										+ "[npc.Name]'s [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(lip-like lipples)], which [npc.she] can control just like regular lips!"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly swelling up and transforming into juicy pairs of lips!<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(lip-like lipples)], which [npc.she] can control just like regular lips!"
 									+ "</p>";
 				}
 				break;
 			case VAGINA:
 				if(owner.isPlayer()) {
 					transformation = "<p>"
-										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly shift and transform into vaginas!</br>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly shift and transform into vaginas!<br/>"
 										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(vagina-like nipple-cunts)]!"
 									+ "</p>";
 				} else {
 					transformation = "<p>"
-										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly shifting and transforming into vaginas!</br>"
-										+ "[npc.Name]'s [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(vagina-like nipple-cunts)]!"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly shifting and transforming into vaginas!<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(vagina-like nipple-cunts)]!"
 									+ "</p>";
 				}
 				break;
@@ -262,7 +262,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of your areolae doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.name]'s areolae doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.namePos] areolae doesn't change...)]</p>");
 			}
 		}
 
@@ -272,29 +272,29 @@ public class Nipples implements BodyPartInterface, Serializable {
 		switch(areolaeShape) {
 			case NORMAL:
 				if(owner.isPlayer()) {
-					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into regular-looking circles.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into regular-looking circles.<br/>"
 								+ "Your areolae are now shaped like [style.boldSex(circles)]!";
 				} else {
-					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into regular-looking circles.</br>"
-							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(circles)]!";
+					transformation = "<p>[npc.NamePos] [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into regular-looking circles.<br/>"
+							+ "[npc.NamePos] areolae are now shaped like [style.boldSex(circles)]!";
 				}
 				break;
 			case HEART:
 				if(owner.isPlayer()) {
-					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of hearts.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of hearts.<br/>"
 							+ "Your areolae are now shaped like [style.boldSex(hearts)]!";
 				} else {
-					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of hearts.</br>"
-							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(hearts)]!";
+					transformation = "<p>[npc.NamePos] [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of hearts.<br/>"
+							+ "[npc.NamePos] areolae are now shaped like [style.boldSex(hearts)]!";
 				}
 				break;
 			case STAR:
 				if(owner.isPlayer()) {
-					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of stars.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of stars.<br/>"
 							+ "Your areolae are now shaped like [style.boldSex(stars)]!";
 				} else {
-					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of stars.</br>"
-							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(stars)]!";
+					transformation = "<p>[npc.NamePos] [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of stars.<br/>"
+							+ "[npc.NamePos] areolae are now shaped like [style.boldSex(stars)]!";
 				}
 				break;
 		}
@@ -320,7 +320,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of your areolae doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s areolae doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] areolae doesn't change...)]</p>");
 			}
 		}
 		
@@ -328,16 +328,16 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		if (this.areolaeSize > boundAreolaeSize) {
 			if(owner.isPlayer()) {
-				transformation = "<p>You feel a strange tingling sensation suddenly build up around your [pc.nipples], and you let out a little cry as you feel your areolae [style.boldShrink(shrinking)].</br>";
+				transformation = "<p>You feel a strange tingling sensation suddenly build up around your [pc.nipples], and you let out a little cry as you feel your areolae [style.boldShrink(shrinking)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation suddenly build up around [npc.her] [npc.nipples], before [npc.her] areolae suddenly [style.boldShrink(shrink)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation suddenly build up around [npc.her] [npc.nipples], before [npc.her] areolae suddenly [style.boldShrink(shrink)].<br/>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
-				transformation = "<p>You feel a strange tingling sensation suddenly build up around your [pc.nipples], and you let out a little cry as you feel your areolae [style.boldGrow(getting larger)].</br>";
+				transformation = "<p>You feel a strange tingling sensation suddenly build up around your [pc.nipples], and you let out a little cry as you feel your areolae [style.boldGrow(getting larger)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation suddenly build up around [npc.her] [npc.nipples], before [npc.her] areolae suddenly [style.boldGrow(grow larger)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation suddenly build up around [npc.her] [npc.nipples], before [npc.her] areolae suddenly [style.boldGrow(grow larger)].<br/>");
 			}
 		}
 		
@@ -368,7 +368,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.nipples] are now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.nipples] are now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.nipples] are now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -387,7 +387,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.nipples] are [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.nipples] are [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}

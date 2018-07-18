@@ -230,6 +230,34 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
+	
+	FOX_MORPH("fox-morph",
+			"fox-morphs",
+			"fox-boy",
+			"fox-girl",
+			"fox-boys",
+			"fox-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
+			Colour.RACE_FOX_MORPH,
+			Disposition.UNPREDICTABLE,
+			StatusEffect.FOX_MORPH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			true,
+			0.5f,
+			1,
+			2,
+			Attribute.DAMAGE_FOX_MORPH,
+			Attribute.RESISTANCE_FOX_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL,
+			true),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -1360,7 +1388,7 @@ public enum Race {
 	 * +
 	 * " Once they have found and seduced a suitable mate, they will present themselves to be fucked, using demonic magic to force their partner to repeatedly orgasm."
 	 * +
-	 * " After milking their victim of cum, they will move on to their next conquest.</br>"
+	 * " After milking their victim of cum, they will move on to their next conquest.<br/>"
 	 * +
 	 * "The cum that they gather is transformed within their bodies into their own highly corruptive and addictive seed."
 	 * +
@@ -1368,7 +1396,7 @@ public enum Race {
 	 * +
 	 * " Having located a suitable victim, the Lilin will fuck them, filling them with their corruptive spooge."
 	 * +
-	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.</br>"
+	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.<br/>"
 	 * +
 	 * "Lilin are also able to create new demons by force-feeding them their corruptive cum over the course of a few days."
 	 * ,
@@ -1413,7 +1441,10 @@ public enum Race {
 			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference, boolean affectedByFurryPreference) {
+			FurryPreference defaultMasculinePreference,
+			
+			boolean affectedByFurryPreference) {
+		
 		this.name = name;
 
 		this.basicDescription = basicDescription;
@@ -1465,7 +1496,7 @@ public enum Race {
 		return preferredAttacks;
 	}
 
-	public boolean isVulnerableToLilithsLustStorm() {
+	public boolean isVulnerableToArcaneStorm() {
 		return vulnerableToLilithsLustStorm;
 	}
 

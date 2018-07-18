@@ -115,7 +115,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.lips] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.lips] doesn't change...)]</p>");
 			}
 		}
 		
@@ -123,16 +123,16 @@ public class Mouth implements BodyPartInterface, Serializable {
 		
 		if(this.lipSize > effectiveLipSize) {
 			if(owner.isPlayer()) {
-				transformation = "<p>A soothing coolness rises up into your [pc.lips], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
+				transformation = "<p>A soothing coolness rises up into your [pc.lips], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.lips], before they suddenly [style.boldShrink(shrink)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.lips], before they suddenly [style.boldShrink(shrink)].<br/>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
-				transformation = "<p>A pulsating warmth rises up into your [pc.lips], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>";
+				transformation = "<p>A pulsating warmth rises up into your [pc.lips], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.lips], before they suddenly [style.boldGrow(grow larger)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.lips], before they suddenly [style.boldGrow(grow larger)].<br/>");
 			}
 		}
 		
@@ -163,7 +163,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 				return "<p>Your [pc.lips] are now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.lips] are now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.NamePos] [npc.lips] are now [style.boldGrow(pierced)]!</p>");
 			}
 			
 		} else {
@@ -182,7 +182,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name]'s [npc.lips] are [style.boldShrink(no longer pierced)]!"
+								+ "[npc.NamePos] [npc.lips] are [style.boldShrink(no longer pierced)]!"
 						+ "</p>"
 						+piercingUnequip);
 			}

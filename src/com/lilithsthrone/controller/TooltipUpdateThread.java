@@ -13,18 +13,7 @@ public class TooltipUpdateThread extends Thread {
 
 	public static boolean cancelThreads = false;
 
-	public double x, y;
-	
-	public TooltipUpdateThread() {
-		this(-1, -1);
-	}
-	
-	public TooltipUpdateThread(double xPosition, double yPosition) {
-		x = xPosition;
-		y = yPosition;
-	}
-
-	public void run() {
+	public static void updateToolTip(double xPosition, double yPosition) {
 		cancelThreads = false;
 
 		try {
@@ -33,18 +22,20 @@ public class TooltipUpdateThread extends Thread {
 			e.printStackTrace();
 		}
 
+		// While this probably isn't needed, since we run the game on the JavaFX thread most of the time
+		// I'm keeping it in just in case since JavaFX isn't threadsafe.
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+
 				if (!cancelThreads) {
 					Main.mainController.getTooltip().show(Main.primaryStage);
 					
-					if(x != -1){
-						Main.mainController.getTooltip().setAnchorY(y);	
+					if(xPosition != -1){
+						Main.mainController.getTooltip().setAnchorY(yPosition);	
 					}
 				}
 			}
 		});
-
 	}
 }

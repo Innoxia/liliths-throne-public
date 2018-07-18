@@ -16,7 +16,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 public class SMRoxyPussyLicker extends SexManagerDefault {
 	
 	public SMRoxyPussyLicker(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.FACE_SITTING_ROXY,
+		super(SexPositionType.FACE_SITTING,
 				dominants,
 				submissives);
 	}
@@ -37,7 +37,7 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPositionChangingAllowed() {
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 	

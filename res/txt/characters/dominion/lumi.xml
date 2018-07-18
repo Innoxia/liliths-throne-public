@@ -87,7 +87,7 @@
 		 The humanoid thief unsurprisingly ignores your command, and you see them quickly dash off down the right-hand turn at the end of the alley.
 	</p>
 	<p>
-		#IF game.isDay
+		#IF game.isDayTime()
 		#THEN
 			Running after them, you take the same right-hand turn, and immediately find yourself confronted with one of Dominion's bustling streets. Quickly scanning the crowd, you manage to spot a flash of the fugitive's white furry tail as they dart and weave through the throngs of people with alarming agility. Following in their wake, you end up bumping into numerous people, pushing them aside and excusing yourself while doing your best not to fall behind.
 		#ELSE
@@ -258,7 +258,7 @@
 		[lumi.speech(Yes, I lived alone, I never really knew my parents, I just barely remember that I was small, then my body grew super fast and then I hugged my mom and left her.)] She explains.
 	</p>
 	<p>
-		#IF pc.isMotheredChildren
+		#IF !pc.getLittersBirthed().isEmpty()
 		#THEN
 			You know that feeling all too well, to have your children leave before you even have the time to say hello and hold them close to you.
 		#ELSE

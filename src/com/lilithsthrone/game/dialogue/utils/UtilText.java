@@ -9,14 +9,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -28,26 +28,30 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia, Pimvgd
  */
 public class UtilText {
@@ -56,6 +60,8 @@ public class UtilText {
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
+	
+	private static ScriptEngine engine;
 
 	/**
 	 * Converts the input into a format suitable for html display. i.e. converts things like '<' to "&lt;".
@@ -115,19 +121,19 @@ public class UtilText {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
 		
-		if(Main.game.getPlayer().getAlcoholLevel()>0.75f) {
+		if(Main.game.getPlayer().getAlcoholLevelValue()>0.75f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
-		} else if(Main.game.getPlayer().getAlcoholLevel()>0.5f) {
+		} else if(Main.game.getPlayer().getAlcoholLevelValue()>0.5f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
 		}
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
+			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
+			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -161,65 +167,70 @@ public class UtilText {
 
 	public static String parseSpeech(String text, GameCharacter target) {
 		modifiedSentence = text;
-
+		
+		String[] splitOnConditional = modifiedSentence.split("#THEN");
+		
+		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
+		
 		if (target.hasFetish(Fetish.FETISH_BIMBO)) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
 		
-		if(target.getAlcoholLevel()>0.75f) {
+		if(target.getAlcoholLevelValue()>0.75f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
-		} else if(target.getAlcoholLevel()>0.5f) {
+		} else if(target.getAlcoholLevelValue()>0.5f) {
 			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
 		}
 		
 		// Apply speech effects:
-		if(Main.game.isInSex()) {
-			if(target.isPlayer()) {
-				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
-					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-				}
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
-					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-				} else {
-					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-							if(c.getClothingType().isMufflesSpeech()) {
-								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-								break;
-							}
-						}
-					}
-				}
-				
+		if(Main.game.isInSex() && target.isPlayer()) {
+			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
+				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+			}
+			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
-				if(Sex.isCharacterPenetrated(character)) {
-					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-				}
-				
-				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH)!=null) {
-					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-				} else {
-					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-							if(c.getClothingType().isMufflesSpeech()) {
-								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-								break;
-							}
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						if(c.getClothingType().isMufflesSpeech()) {
+							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+							break;
 						}
 					}
 				}
 			}
-		} else {
-			if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if(c.getClothingType().isMufflesSpeech()) {
-						modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-						break;
+			
+		} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(character)) {
+			if(Sex.isCharacterEngagedInOngoingAction(character)) {
+				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+			}
+			
+			if(!Sex.getContactingSexAreas(character, SexAreaOrifice.MOUTH).isEmpty()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+			} else {
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						if(c.getClothingType().isMufflesSpeech()) {
+							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+							break;
+						}
 					}
+				}
+			}
+			
+		} else if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().isMufflesSpeech()) {
+					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+					break;
 				}
 			}
 		}
-
+		
+		if(splitOnConditional.length>1) {
+			modifiedSentence = splitOnConditional[0]+"#THEN"+modifiedSentence;
+		}
+		
 		if (target.getSpeechColour() != null) {
 
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
@@ -258,7 +269,7 @@ public class UtilText {
 
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isCharacterPenetrated(target))
+			if(Sex.isCharacterEngagedInOngoingAction(target))
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
 		}
 
@@ -547,10 +558,14 @@ public class UtilText {
 	 */
 	public static String parse(List<GameCharacter> specialNPC, String input) {
 		
+		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
+			input = input.replaceAll("\u200b", "");
+		}
+		
 		// Loop through input, when find '[', start parsing.
 		// [target.command(arguments)]
 		
-		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.name]'s} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
+		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.namePos]} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
 		try {
 			StringBuilder resultBuilder = new StringBuilder();
 			StringBuilder sb = new StringBuilder();
@@ -565,8 +580,10 @@ public class UtilText {
 			String target = null;
 			String command = null;
 			String arguments = null;
+			String conditionalStatement = null;
 			String conditionalTrue = null;
 			String conditionalFalse = null;
+			
 			
 			boolean conditionalElseFound = false;
 			ParseMode currentParseMode = ParseMode.UNKNOWN;
@@ -577,7 +594,7 @@ public class UtilText {
 				char c = input.charAt(i);
 				
 				if (currentParseMode != ParseMode.REGULAR) {
-					if (substringMatchesInReverseAtIndex(input, "#IF", i)) {
+					if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
 						if (openBrackets == 0) {
 							currentParseMode = ParseMode.CONDITIONAL;
 							startIndex = i-2;
@@ -586,43 +603,24 @@ public class UtilText {
 						openBrackets++;
 						
 					} else if (currentParseMode == ParseMode.CONDITIONAL) {
-						if(c=='.' && target==null) {
-							target = sb.toString().substring(1).trim(); // Cut off the '#IF' at the start.
-							sb.setLength(0);
-						
-						} else if(c=='(') {
-							if(command==null) {
-								command = sb.toString().substring(1).trim(); // Cut off the '.' at the start.
-								sb.setLength(0);
-							}
-							
-							openArg++;
-							
-						} else if(c==')') {
-							closeArg++;
-							
-							if (openArg == closeArg){
-								arguments = sb.toString().substring(1);
-							}
-							
-						} else if(substringMatchesInReverseAtIndex(input, "#THEN", i)) {
+						if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
 							conditionalThens++;
 							
 							if (conditionalThens == 1){
-								if (command == null) {
-									command = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
-									command = command.replaceAll("\n", "").replaceAll("\t", "");
-									command = command.trim();
+								if (conditionalStatement == null) {
+									conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+									conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+									conditionalStatement = conditionalStatement.trim();
 								}
 								sb.setLength(0);
 							}
 							
-						} else if(substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
+						} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
 							conditionalElseFound = true;
 							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
 							sb.setLength(0);
 							
-						} else if(substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+						} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
 							closeBrackets++;
 							
 							if (openBrackets == closeBrackets) {
@@ -685,15 +683,19 @@ public class UtilText {
 					}
 				}
 				
-				if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+				//TODO
+				if (openBrackets>0 && ((target!=null && command!=null) || (!Character.isWhitespace(c) || c==' '))) {
+						//(Character.isLetterOrDigit(c) || c=='+' || c=='.' || c=='[' || c=='(' || c==')'))) {
+					//String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
 				
 				if (endIndex != 0) {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
 					UtilText.specialNPCList = specialNPC;
+					// resetParsingEngine();
 					String subResult = (currentParseMode == ParseMode.CONDITIONAL
-							? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+							? parseConditionalSyntaxNew(specialNPC, conditionalStatement, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, specialNPC)
 						);
 					if (openBrackets > 1) {
@@ -719,14 +721,15 @@ public class UtilText {
 					arguments = null;
 					conditionalTrue = null;
 					conditionalFalse = null;
+					conditionalStatement = null;
 					
 					conditionalElseFound = false;
 					currentParseMode = ParseMode.UNKNOWN;
 				}
 			}
 			
-			if (startIndex != 0) {
-				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
+			if (startIndex != 0) {//TODO
+				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+") - "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
 				return input;
 			}
 			if (startedParsingSegmentAt < input.length()) {
@@ -741,168 +744,23 @@ public class UtilText {
 		}
 	}
 	
-	private static boolean substringMatchesInReverseAtIndex(String haystack, String needle, int index) {
+	private static boolean substringMatchesInReverseAtIndex(String input, String stringToMatch, int index) {
 		index++;//this fixes my off by one error and I'm too tired to figure out why
-		int startingLocation = index - needle.length();
-		if (startingLocation < 0 || index >= haystack.length()) {
+		int startingLocation = index - stringToMatch.length();
+		if (startingLocation < 0 || index > input.length()) {
 			return false;
 		}
-		return haystack.substring(startingLocation, index).equals(needle);
+		return input.substring(startingLocation, index).equals(stringToMatch);
 	}
 	
 
-	public static List<ParserConditionalCommand> conditionalCommandsList = new ArrayList<>();
 	
 	public static List<ParserCommand> commandsList = new ArrayList<>();
 	public static Map<BodyPartType, List<ParserCommand>> commandsMap = new EnumMap<>(BodyPartType.class);
 	
 	static{
-		
 
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isIncestOn",
-						"isIncestEnabled",
-						"incestOn",
-						"incestEnabled"),
-				"",
-				"Returns true if the player has the incest content toggle on."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.getProperties().hasValue(PropertyValue.incestContent);
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isPlayer",
-						"player"),
-				"",
-				"Returns true if the character is the player."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isPlayer();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isVaginaExposed",
-						"isPussyExposed",
-						"isExposedVagina",
-						"isExposedPussy"),
-				"",
-				"Returns true if the character's vagina is exposed."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
-			}
-		});
-
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isAbleToFly",
-						"canFly"),
-				"",
-				"Returns true if the character can fly."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isAbleToFly();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isVisiblyPregnant"),
-				"",
-				"Returns true if the character is visibly pregnant."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isVisiblyPregnant();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isMotheredChildren",
-						"hasMotheredChildren"),
-				"",
-				"Returns true if the character has given birth before."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return !character.getLittersBirthed().isEmpty();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isDayTime",
-						"isDay"),
-				"",
-				"Returns true if it's currently day time (between 7am and 9pm)."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.game.isDayTime();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isArcaneStorm",
-						"isStorm"),
-				"",
-				"Returns true if the weather is currently an arcane storm."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"hairLengthMinimum",
-						"minimumHairLength"),
-				"(HairLength Enum)",
-				"Returns true if the character's hair is at least as long as the supplied hair length's minimum value."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
-					return false;
-				} else {
-					try {
-						return character.getHairRawLengthValue()>HairLength.valueOf(arguments).getMinimumValue();
-					} catch(Exception ex) {
-						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
-						return false;
-					}
-				}
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"hairLengthMaximum",
-						"maximumHairLength"),
-				"(HairLength Enum)",
-				"Returns true if the character's hair is no longer than the supplied hair length's maximum value."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
-					return false;
-				} else {
-					try {
-						return character.getHairRawLengthValue()<=HairLength.valueOf(arguments).getMinimumValue();
-					} catch(Exception ex) {
-						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
-						return false;
-					}
-				}
-			}
-		});
-		
-		
+		// Parsing:
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("money"),
@@ -937,10 +795,17 @@ public class UtilText {
 				true,
 				false,
 				"(prefix)",
-				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && character.isPlayer()) {
+					if(command.startsWith("N")) {
+						return "You";
+					} else {
+						return "you";
+					}
+				}
 				if(arguments!=null) {
 					return character.getName(arguments);
 				} else {
@@ -948,6 +813,132 @@ public class UtilText {
 						return character.getName();
 					}
 					return character.getName("the");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("namePos"),
+				true,
+				false,
+				"(real name)",
+				"Returns a possessive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
+				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName() + "'s";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						if(command.startsWith("N")) {
+							return "Your";
+						} else {						 
+							return "your";
+						}
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + "'s";
+					}
+					return character.getName("the") + "'s";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("nameIs"),
+				true,
+				false,
+				"(real name)",
+				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
+				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName() + "'s";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						return "you're";
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + "'s";
+					}
+					return character.getName("the") + "'s";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("nameIsFull"),
+				true,
+				false,
+				"(real name)",
+				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName() + " is";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						return "you are";
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + " is";
+					}
+					return character.getName("the") + " is";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("nameHas"),
+				true,
+				false,
+				"(real name)",
+				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
+				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName() + "'s";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						return "you've";
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + "'s";
+					}
+					return character.getName("the") + "'s";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"verb",
+						"verbPerson"),
+				true,
+				false,
+				"(verb)",
+				"Returns a verb in the (probably) correct person for this character. A player might get 'wiggle' where an NPC would get 'wiggles'.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if (character.isPlayer()) {
+					return arguments;
+				} else if (arguments.endsWith("s")
+						||arguments.endsWith("x")
+						||arguments.endsWith("sh")
+						||arguments.endsWith("ch")
+						||arguments.endsWith("o")){
+					return arguments + "es";
+				} else if (arguments.endsWith("y")
+						&&!arguments.endsWith("ay")
+						&&!arguments.endsWith("ey")
+						&&!arguments.endsWith("iy")
+						&&!arguments.endsWith("oy")
+						&&!arguments.endsWith("uy")) {
+					return arguments.substring(0, arguments.length()-1) + "ies";
+				}else {
+					return arguments + "s";
 				}
 			}
 		});
@@ -1004,11 +995,28 @@ public class UtilText {
 						"desc"),
 				true,
 				false,
-				"",//TODO
-				"Description"){//TODO
+				"",
+				"Returns a breif descriptive overview of this character."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getDescription();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"job",
+						"jobName"),
+				true,
+				true,
+				"",
+				"Returns the name of this character's job."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isSlave()) {
+					return character.getSlaveJob().getName(character);
+				}
+				return character.getHistory().getName();
 			}
 		});
 		
@@ -1288,11 +1296,12 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"fullRace",
+						"raceFull",
 						"femininityRace"),
 				true,
 				true,
-				"(coloured)",//TODO
-				"Returns a full description of this characters race (including femininity)."){
+				"(coloured)",
+				"Returns a full description of this characters race (including femininity). Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				boolean pronoun = parseAddPronoun;
@@ -1320,10 +1329,20 @@ public class UtilText {
 						"race"),
 				true,
 				true,
-				"",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of this characters race. Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					String name = character.isRaceConcealed()?"unknown race":getSubspeciesName(character.getSubspecies());
+					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour()).toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
 				return getSubspeciesName(character.getSubspecies());
 			}
 		});
@@ -1346,10 +1365,20 @@ public class UtilText {
 						"raceStage"),
 				true,
 				true,
-				"",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of the 'stage' of characters race (partial, lesser, greater). Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					String name = character.getRaceStage().getName();
+					return "<span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
 				return character.getRaceStage().getName();
 			}
 		});
@@ -2090,7 +2119,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
+					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -2126,7 +2155,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
+					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -2148,7 +2177,11 @@ public class UtilText {
 						"moanVerb",
 						"groanVerb",
 						"sobVerb",
-						"cryVerb"),
+						"cryVerb",
+						"moansVerb",
+						"groansVerb",
+						"sobsVerb",
+						"criesVerb"),
 				true,
 				true,
 				"",
@@ -2156,20 +2189,38 @@ public class UtilText {
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("sob", "scream", "cry");
-						} else {
-							return returnStringAtRandom("shout", "cry");
+				if(character.isPlayer()) {
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("sob", "scream", "cry");
+							} else {
+								return returnStringAtRandom("shout", "cry");
+							}
 						}
 					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("moan", "squeal", "gasp");
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("moan", "squeal", "gasp");
+					} else {
+						return returnStringAtRandom("groan", "grunt");
+					}
 				} else {
-					return returnStringAtRandom("groan", "grunt");
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("sobs", "screams", "cries");
+							} else {
+								return returnStringAtRandom("shouts", "cries");
+							}
+						}
+					}
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("moans", "squeals", "gasps");
+					} else {
+						return returnStringAtRandom("groans", "grunts");
+					}
 				}
 			}
 		});
@@ -2183,7 +2234,15 @@ public class UtilText {
 						"sobVerb+",
 						"sobVerbD",
 						"cryVerb+",
-						"cryVerbD"),
+						"cryVerbD",
+						"moansVerb+",
+						"moansVerbD",
+						"groansVerb+",
+						"groansVerbD",
+						"sobsVerb+",
+						"sobsVerbD",
+						"criesVerb+",
+						"criesVerbD"),
 				true,
 				true,
 				"",
@@ -2192,20 +2251,38 @@ public class UtilText {
 				+ " <b>Expansion of 'moan' command:</b> This command will append a suitable descriptor before the 'moan' noise. e.g. 'lewd squeal', or 'eager grunt'."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
-						} else {
-							return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("shout", "cry");
+				if(character.isPlayer()) {
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
+							} else {
+								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("shout", "cry");
+							}
 						}
 					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					} else {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("groan", "grunt");
+					}
 				} else {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("groan", "grunt");
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
+							} else {
+								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouts", "cries");
+							}
+						}
+					}
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moans", "squeals", "cries");
+					} else {
+						return returnStringAtRandom("eagerly", "desperately") + " " + returnStringAtRandom("groans", "grunts", "cries");
+					}
 				}
 			}
 		});
@@ -2281,75 +2358,6 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"moansVerb",
-						"groansVerb",
-						"sobsVerb",
-						"criesVerb"),
-				true,
-				false,
-				"",
-				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will make moans, while if they are masculine, they will make groans."
-				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobs' or 'cries'."
-				+" <b>Provides an appropriate <i>verb</i> version of 'moans'.</b> (Use 'moans' for the noun version.)"){
-			@Override
-			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("sobs", "cries");
-						} else {
-							return returnStringAtRandom("shouts", "cries");
-						}
-					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("moans", "squeals");
-				} else {
-					return returnStringAtRandom("groans", "grunts");
-				}
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"moansVerb+",
-						"moansVerbD",
-						"groansVerb+",
-						"groansVerbD",
-						"sobsVerb+",
-						"sobsVerbD",
-						"criesVerb+",
-						"criesVerbD"),
-				true,
-				false,
-				"",
-				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will make moans, while if they are masculine, they will make groans."
-				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobs' or 'cries'."
-				+ " <b>Expansion of 'moansVerb' command:</b> This command will append a suitable descriptor before the 'moans' noise. e.g. 'lewdly squeals', or 'eagerly grunts'."
-				+ " <b>Provides an appropriate <i>verb</i> version of 'moans'.</b> (Use 'moans+' for the noun version.)"){
-			@Override
-			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
-						} else {
-							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouts", "cries");
-						}
-					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moans", "squeals", "cries");
-				} else {
-					return returnStringAtRandom("eagerly", "desperately") + " " + returnStringAtRandom("groans", "grunts", "cries");
-				}
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
 						"moaning",
 						"groaning",
 						"sobbing",
@@ -2416,6 +2424,27 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"scent",
 						"smell"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.GENERIC){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return returnStringAtRandom("scent", "scent", "perfume");
+				} else {
+					return returnStringAtRandom("musk", "musk", "aroma");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"scent+",
+						"scentD",
+						"smell+",
+						"smellD"),
 				true,
 				true,
 				"",
@@ -2503,6 +2532,42 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"have",
+						"has"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'has' for this character (has or have)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "have";
+				} else {
+					return "has";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"does",
+						"do"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'does' for this character (do or does)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "do";
+				} else {
+					return "does";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"her",
 						"his",
 						"herPos",
@@ -2511,21 +2576,26 @@ public class UtilText {
 						"hisHer"),
 				true,
 				true,
-				"",
-				"Description of method"){//TODO
+				"(real pronoun)",
+				"Returns the correct gender-specific possessive pronoun for this character (your, her, his). By default, returns 'your' for player character."
+				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					if(character.isPlayer()) {
-						return Gender.F_V_B_FEMALE.getPossessiveBeforeNoun();
-					} else {
-						return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
-					}
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "your";
 				} else {
-					if(character.isPlayer()) {
-						return Gender.M_P_MALE.getPossessiveBeforeNoun();
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getPossessiveBeforeNoun();
+						} else {
+							return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
+						}
 					} else {
-						return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getPossessiveBeforeNoun();
+						} else {
+							return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
+						}
 					}
 				}
 			}
@@ -2542,18 +2612,36 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					if(character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "yours";
+				} else {
+					if(character.isFeminine()) {
 						return Gender.F_V_B_FEMALE.getPossessiveAlone();
 					} else {
-						return GenderPronoun.POSSESSIVE_ALONE.getFeminine();
-					}
-				} else {
-					if(character.isPlayer()) {
 						return Gender.M_P_MALE.getPossessiveAlone();
-					} else {
-						return GenderPronoun.POSSESSIVE_ALONE.getMasculine();
 					}
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"nameHers",
+						"nameHersHis",
+						"nameHisHers"),
+				true,
+				true,
+				"",
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "yours";
+				} else {
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + "'s";
+					}
+					return character.getName("the") + "'s";
 				}
 			}
 		});
@@ -2566,21 +2654,26 @@ public class UtilText {
 						"himHer"),
 				true,
 				true,
-				"",
-				"Description of method"){//TODO
+				"(real pronoun)",
+				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
+				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					if(character.isPlayer()) {
-						return Gender.F_V_B_FEMALE.getThirdPerson();
-					} else {
-						return GenderPronoun.THIRD_PERSON.getFeminine();
-					}
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you";
 				} else {
-					if(character.isPlayer()) {
-						return Gender.M_P_MALE.getThirdPerson();
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getThirdPerson();
+						} else {
+							return GenderPronoun.THIRD_PERSON.getFeminine();
+						}
 					} else {
-						return GenderPronoun.THIRD_PERSON.getMasculine();
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getThirdPerson();
+						} else {
+							return GenderPronoun.THIRD_PERSON.getMasculine();
+						}
 					}
 				}
 			}
@@ -2594,21 +2687,125 @@ public class UtilText {
 						"heShe"),
 				true,
 				true,
-				"",
-				"Description of method"){//TODO
+				"(real pronoun)",
+				"Returns the correct pronoun for this character (you, she, he). By default, returns 'you' for player character."
+				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					if(character.isPlayer()) {
-						return Gender.F_V_B_FEMALE.getSecondPerson();
-					} else {
-						return GenderPronoun.SECOND_PERSON.getFeminine();
-					}
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you";
 				} else {
-					if(character.isPlayer()) {
-						return Gender.M_P_MALE.getSecondPerson();
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson();
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine();
+						}
 					} else {
-						return GenderPronoun.SECOND_PERSON.getMasculine();
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson();
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine();
+						}
+					}
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheIs",
+						"sheHeIs",
+						"heIs",
+						"heSheIs"),
+				true,
+				true,
+				"(real pronoun)",
+				"Returns the correct gender-specific pronoun contraction for this character (you're, she's, he's). By default, returns 'you're' for player character."
+				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you're";
+				} else {
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson() + "'s";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine() + "'s";
+						}
+					} else {
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson() + "'s";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine() + "'s";
+						}
+					}
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheIsFull",
+						"sheHeIsFull",
+						"heIsFull",
+						"heSheIsFull"),
+				true,
+				true,
+				"(real pronoun)",
+				"Returns the correct gender-specific pronoun contraction for this character (you are, she is, he is). By default, returns 'you are' for player character."
+				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you are";
+				} else {
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson() + " is";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine() + " is";
+						}
+					} else {
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson() + " is";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine() + " is";
+						}
+					}
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheHas",
+						"sheHeHas",
+						"heHas",
+						"heSheHas"),
+				true,
+				true,
+				"(real pronoun)",
+				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's). By default, returns 'you've' for player character."
+				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you've";
+				} else {
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson() + "'s";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine() + "'s";
+						}
+					} else {
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson() + "'s";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine() + "'s";
+						}
 					}
 				}
 			}
@@ -2621,24 +2818,29 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method"){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					if(character.isPlayer()) {
-						return Gender.F_V_B_FEMALE.getThirdPerson()+"self";
-					} else {
-						return GenderPronoun.THIRD_PERSON.getFeminine()+"self";
+				"Returns correct gender-specific reflexive pronoun for this character (yourself, herself, himself). By default, returns 'yourself' for player character."
+						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
+					@Override
+					public String parse(String command, String arguments, String target) {
+						if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+							return "yourself";
+						} else {
+							if(character.isFeminine()) {
+								if(character.isPlayer()) {
+									return Gender.F_V_B_FEMALE.getThirdPerson()+"self";
+								} else {
+									return GenderPronoun.THIRD_PERSON.getFeminine()+"self";
+								}
+							} else {
+								if(character.isPlayer()) {
+									return Gender.M_P_MALE.getThirdPerson()+"self";
+								} else {
+									return GenderPronoun.THIRD_PERSON.getMasculine()+"self";
+								}
+							}
+						}
 					}
-				} else {
-					if(character.isPlayer()) {
-						return Gender.M_P_MALE.getThirdPerson()+"self";
-					} else {
-						return GenderPronoun.THIRD_PERSON.getMasculine()+"self";
-					}
-				}
-			}
-		});
+				});
 		
 		// Clothing:
 		
@@ -2650,10 +2852,10 @@ public class UtilText {
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments:</br>"
-				+ "vagina | pussy | cunt</br>"
-				+ "penis | cock | dick</br>"
-				+ "nipples | nipple</br>"
+				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments:<br/>"
+				+ "vagina | pussy | cunt<br/>"
+				+ "penis | cock | dick<br/>"
+				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -2705,10 +2907,10 @@ public class UtilText {
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments:</br>"
-				+ "vagina | pussy | cunt</br>"
-				+ "penis | cock | dick</br>"
-				+ "nipples | nipple</br>"
+				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments:<br/>"
+				+ "vagina | pussy | cunt<br/>"
+				+ "penis | cock | dick<br/>"
+				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -2996,9 +3198,19 @@ public class UtilText {
 				BodyPartType.TAIL);
 		
 		addStandardParsingCommands(
+				Util.newArrayListOfValues("tentacle"),
+				Util.newArrayListOfValues("tentacles"),
+				BodyPartType.TENTACLE);
+		
+		addStandardParsingCommands(
 				Util.newArrayListOfValues("tongue"),
 				Util.newArrayListOfValues("tongues"),
 				BodyPartType.TONGUE);
+
+		addStandardParsingCommands(
+				Util.newArrayListOfValues("clit", "clitoris"),
+				Util.newArrayListOfValues("clits", "clitorises"),
+				BodyPartType.CLIT);
 		
 		addStandardParsingCommands(
 				Util.newArrayListOfValues("vagina", "pussy", "cunt"),
@@ -3749,6 +3961,35 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toes"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getLegType().getToesNamePlural(character);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toes+",
+						"toesD"),
+				true,
+				false,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getLegType().getToesDescriptor(character), character.getLegType().getToesNamePlural(character));
+			}
+		});
+		
 		// Penis:
 		
 		commandsList.add(new ParserCommand(
@@ -3794,7 +4035,8 @@ public class UtilText {
 						"cumAmount",
 						"cumProduction",
 						"jizzAmount",
-						"jizzProduction"),
+						"jizzProduction",
+						"cumStorage"),
 				true,
 				true,
 				"",
@@ -3802,7 +4044,7 @@ public class UtilText {
 				BodyPartType.TESTICLES){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getPenisCumProduction().getDescriptor();
+				return character.getPenisCumStorage().getDescriptor();
 			}
 		});
 		
@@ -3817,7 +4059,7 @@ public class UtilText {
 				BodyPartType.TESTICLES){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getPenisRawCumProductionValue());
+				return String.valueOf(character.getPenisRawCumStorageValue());
 			}
 		});
 		
@@ -3860,7 +4102,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisHead",
 						"cockHead",
-						"dickHead"),
+						"dickHead",
+						"cockTip"),
 				true,
 				true,
 				"",
@@ -3879,7 +4122,9 @@ public class UtilText {
 						"cockHead+",
 						"cockHeadD",
 						"dickHead+",
-						"dickHeadD"),
+						"dickHeadD",
+						"cockTip+",
+						"cockTipD"),
 				true,
 				true,
 				"",
@@ -4224,38 +4469,6 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"clit",
-						"clitoris"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return returnStringAtRandom("clit", "button", "nub");
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"clit+",
-						"clitD",
-						"clitoris+",
-						"clitorisD"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return returnStringAtRandom(character.getVaginaClitorisSize().getDescriptor(), "feminine", "delicate", "sensitive") + returnStringAtRandom(" clit", " button", " nub");
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
 						"clitSize",
 						"clitorisSize"),
 				true,
@@ -4281,6 +4494,21 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return String.valueOf(character.getVaginaRawClitorisSizeValue());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitGirth",
+						"clitorisGirth"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getClitorisGirth().getName();
 			}
 		});
 		
@@ -4631,14 +4859,14 @@ public class UtilText {
 			parseCapitalise = true;
 		}
 		
-		ParserTarget parserTarget = findParserTargetWithTag(target);
+		ParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
 		if (parserTarget == null) {
-			return "INVALID_TARGET_NAME";
+			return "INVALID_TARGET_NAME("+target+")";
 		}
 		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
-		ParserCommand cmd = findCommandWithTag(command);
+		ParserCommand cmd = findCommandWithTag(command.replaceAll("\u200b", ""));
 		if (cmd == null) {
 			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
@@ -4678,33 +4906,87 @@ public class UtilText {
 		return null;
 	}
 	
-	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
-		if(target==null || target.isEmpty()) {
-			target = "npc";
-		}
+	public static void resetParsingEngine() {
+		engine = null;
+	}
+	
+	private static void initScriptEngine() {
 		
-		ParserTarget parserTarget = findParserTargetWithTag(target);
-		if (parserTarget == null) {
-			return "INVALID_TARGET_NAME";
-		}
-		character = parserTarget.getCharacter(target.toLowerCase());
+		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
+		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
+		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
 		
-		// Commands with arguments:
+//		ScriptEngineManager manager = new ScriptEngineManager();
+//		engine = manager.getEngineByName("javascript");
 		
-		for(ParserConditionalCommand cmd : conditionalCommandsList) {
-			for(String s : cmd.getTags()) {
-				if(command.equalsIgnoreCase(s)) {
-					if (cmd.process(command, arguments, target)) {
-						return conditionalTrue;
-					} else {
-						return conditionalFalse;
-					}
+		for(ParserTarget target : ParserTarget.values()) {
+			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
+				for(String tag : target.getTags()) {
+					engine.put(tag, target.getCharacter(tag));
 				}
 			}
 		}
+		engine.put("game", Main.game);
+		for(Fetish f : Fetish.values()) {
+			engine.put(f.toString(), f);
+		}
+		for(CoverableArea ca : CoverableArea.values()) {
+			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(Weather w : Weather.values()) {
+			engine.put("WEATHER_"+w.toString(), w);
+		}
+		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
+			engine.put("FLAG_"+flag.toString(), flag);
+		}
+		for(History history : History.values()) {
+			engine.put("HISTORY_"+history.toString(), history);
+		}
 		
-		return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+//		StringBuilder sb = new StringBuilder();
+//		for(Entry<String, Object> entry : engine.getBindings(ScriptContext.ENGINE_SCOPE).entrySet()) {
+//			sb.append(entry.getKey()+", "+entry.getValue().toString()+"\n");
+//		}
+//		System.out.println(sb.toString());
+	}
+	
+	private static String parseConditionalSyntaxNew(List<GameCharacter> specialNPC, String conditionalStatement, String conditionalTrue, String conditionalFalse) {
+		if(engine==null) {
+			initScriptEngine();
+		}
 		
+		if(!specialNPC.isEmpty()) {
+			for(int i = 0; i<specialNPC.size(); i++) {
+				if(i==0) {
+					engine.put("npc", specialNPC.get(i));
+				}
+				engine.put("npc"+(i+1), specialNPC.get(i));
+			}
+		} else {
+			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+				engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
+			} catch(Exception ex) {
+			}
+		}
+		
+		try {
+			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
+				if((boolean) engine.eval(conditionalStatement)) {
+//					return conditionalTrue;
+					return UtilText.parse(specialNPC, conditionalTrue);
+				}
+			} else if((boolean) engine.eval(conditionalStatement)){
+//				return conditionalTrue;
+				return UtilText.parse(specialNPC, conditionalTrue);
+			}
+//			return conditionalFalse;
+			return UtilText.parse(specialNPC, conditionalFalse);
+			
+		} catch (ScriptException e) {
+			System.err.println("Conditional parsing error: "+conditionalStatement);
+			System.err.println(e.getMessage());
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+		}
 	}
 	
 	
@@ -4713,16 +4995,16 @@ public class UtilText {
 	}
 	
 	/**
-	 * Adds standard commands related to the baseCommand.</br>
-	 * Commands include:</br>
-	 * Race</br>
-	 * Skin</br>
-	 * Skin+</br>
-	 * Colour</br>
-	 * name</br>
-	 * name+</br>
-	 * names</br>
-	 * names+</br>
+	 * Adds standard commands related to the baseCommand.<br/>
+	 * Commands include:<br/>
+	 * Race<br/>
+	 * Skin<br/>
+	 * Skin+<br/>
+	 * Colour<br/>
+	 * name<br/>
+	 * name+<br/>
+	 * names<br/>
+	 * names+<br/>
 	 */
 	private static void addStandardParsingCommands(List<String> tags, List<String> tagsPlural, BodyPartType bodyPart) {
 		
@@ -5027,8 +5309,12 @@ public class UtilText {
 				return character.getBody().getSkin();
 			case TAIL:
 				return character.getBody().getTail();
+			case TENTACLE:
+				return character.getBody().getTentacle();
 			case TONGUE:
 				return character.getBody().getFace().getTongue();
+			case CLIT:
+				return character.getBody().getVagina().getClitoris();
 			case VAGINA:
 				return character.getBody().getVagina();
 			case GIRL_CUM:

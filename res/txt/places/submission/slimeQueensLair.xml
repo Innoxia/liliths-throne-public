@@ -33,37 +33,37 @@
 	
 	<htmlContent tag="GUARD_POST_PACIFIED"><![CDATA[
 	<p>
-		[slimeIce.Name] is currently being pinned against the barricade by [slimeFire.name], who appears to be whispering something into [slimeIce.her] [slimeIce.ear]. As you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
+		[slimeIce.Name] is currently being pinned against the barricade by [slimeFire.name], who appears to be whispering something into [slimeIce.her] [slimeIce.ear]. As you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
 	</p>
 	<p>
 		[slimeFire.Name] spins around, grinning as [slimeFire.he] sees you come to a halt in front of [slimeFire.him]. Unashamedly naked, and sporting a huge erection, [slimeFire.he] places [slimeFire.his] [slimeFire.hands] on [slimeFire.his] [slimeFire.hips] and calls out to you.
-		 [slimeFire.speech(Hey, [pc.name]! Her Majesty's ordered us to let you come and go as you please, but you've got time to have some fun, right? #IFgame.incestOn#THENSis'#ELSE[slimeIce.name]#ENDIF over here was just begging for me to fu-)]
+		 [slimeFire.speech(Hey, [pc.name]! Her Majesty's ordered us to let you come and go as you please, but you've got time to have some fun, right? #IFgame.isIncestEnabled()#THENSis'#ELSE[slimeIce.name]#ENDIF over here was just begging for me to fu-)]
 	</p>
 	<p>
-		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.incestOn#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I may have said some things... B-But that's no reason to shout it out for everyone to hear!)]
+		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I may have said some things... B-But that's no reason to shout it out for everyone to hear!)]
 	</p>
 	<p>
-		[slimeFire.speech(You know you love it.)] [slimeFire.name] laughs, before turning back to you. [slimeFire.speech(So, how about it? You want to have some fun with #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF and I?)]
+		[slimeFire.speech(You know you love it.)] [slimeFire.name] laughs, before turning back to you. [slimeFire.speech(So, how about it? You want to have some fun with #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_POST_DEFEATED"><![CDATA[
 	<p>
-		[slimeFire.Name] and [slimeIce.name] are currently collapses down next to each other on one of the stone benches. As you approach, you see that [slimeIce.name]'s got her hand in her #IFgame.incestOn#THENbrother's#ELSElover's#ENDIF lap, and is slowly stroking his throbbing cock as he whispers lewd things into her ear.
+		[slimeFire.Name] and [slimeIce.name] are currently collapses down next to each other on one of the stone benches. As you approach, you see that [slimeIce.name]'s got her hand in her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF lap, and is slowly stroking his throbbing cock as he whispers lewd things into her ear.
 	</p>
 	<p>
-		[slimeIce.Name] suddenly notices you, and with a little eek, buries her face in her #IFgame.incestOn#THENbrother's#ELSElover's#ENDIF shoulder. You notice that despite her show of embarrassment, she doesn't stop the handjob she's currently giving to [slimeFire.name], who looks up at you and suppresses a groan as he calls out, [slimeFire.speech(~Aaah!~ [pc.Name]! Please, join us! Fuck... So horny...)]
+		[slimeIce.Name] suddenly notices you, and with a little eek, buries her face in her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF shoulder. You notice that despite her show of embarrassment, she doesn't stop the handjob she's currently giving to [slimeFire.name], who looks up at you and suppresses a groan as he calls out, [slimeFire.speech(~Aaah!~ [pc.Name]! Please, join us! Fuck... So horny...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_POST_REPEAT_BLUFFED"><![CDATA[
 	<p>
-		[slimeFire.Name] and [slimeIce.name] are still standing guard beside the wooden barricade, and as you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
+		[slimeFire.Name] and [slimeIce.name] are still standing guard beside the wooden barricade, and as you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
 	</p>
 	<p>
-		[slimeFire.Name] turns and smiles at you, waving you past as he grins. [slimeFire.speech(Carry on through! Oh, and if you want to have some fun, just say so! #IFgame.incestOn#THENSis'#ELSE[slimeIce.Name]#ENDIF and I are always up for a good fuck!)]
+		[slimeFire.Name] turns and smiles at you, waving you past as he grins. [slimeFire.speech(Carry on through! Oh, and if you want to have some fun, just say so! #IFgame.isIncestEnabled()#THENSis'#ELSE[slimeIce.Name]#ENDIF and I are always up for a good fuck!)]
 	</p>
 	<p>
 		You wonder if you should take [slimeFire.name] up on his offer, or decline and continue on your way...
@@ -73,27 +73,27 @@
 	
 	<htmlContent tag="GUARD_POST_REPEAT"><![CDATA[
 	<p>
-		[slimeFire.Name] and [slimeIce.name] are, once again, off to one side of the corridor, and both almost completely naked. [slimeIce.Name] has her back against the wall, while her #IFgame.incestOn#THENbrother#ELSElover#ENDIF is leaning in over her, with one hand placed just to one side of her head. As you approach, you see that [slimeFire.name] appears to be whispering something into his #IFgame.incestOn#THENsister's#ELSEpartner's#ENDIF [slimeIce.ear].
+		[slimeFire.Name] and [slimeIce.name] are, once again, off to one side of the corridor, and both almost completely naked. [slimeIce.Name] has her back against the wall, while her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF is leaning in over her, with one hand placed just to one side of her head. As you approach, you see that [slimeFire.name] appears to be whispering something into his #IFgame.isIncestEnabled()#THENsister's#ELSEpartner's#ENDIF [slimeIce.ear].
 	</p>
 	<p>
-		Before you can say anything, [slimeIce.name] turns her head away from her #IFgame.incestOn#THENbrother#ELSElover#ENDIF, blushing. This results in her catching sight of you, causing her to immediately squeak out, [slimeIce.speech(#IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name]'s back!)]
+		Before you can say anything, [slimeIce.name] turns her head away from her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF, blushing. This results in her catching sight of you, causing her to immediately squeak out, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name]'s back!)]
 	</p>
 	<p>
 		[slimeFire.Name] spins around, grinning as [slimeFire.he] sees you come to a halt in front of [slimeFire.him]. Unashamedly naked, and sporting a huge erection, [slimeFire.he] grips his arcane sword and buckler in his fists, and calls out,
 		 [slimeFire.speech(Ah, if it isn't [pc.name] again! You back to have some more fun with sis and I, huh?)]
 	</p>
 	<p>
-		[slimeIce.speech(Y-You're going to pay for trespassing here!)] [slimeIce.name] calls out, her #IFgame.incestOn#THENbrother's#ELSElover's#ENDIF words encouraging her to grab her own sword and buckler and get ready for a fight. There's not much chance of attempting to talk your way past them, and so you prepare to defend yourself...
+		[slimeIce.speech(Y-You're going to pay for trespassing here!)] [slimeIce.name] calls out, her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF words encouraging her to grab her own sword and buckler and get ready for a fight. There's not much chance of attempting to talk your way past them, and so you prepare to defend yourself...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_POST"><![CDATA[
 	<p>
-		Up ahead, and off to one side of the corridor, you see a pair of slimes wrapped in one another's arms as they share a passionate kiss. From what you can see, they both appear to be all-but naked, with the exception of a few pieces of jewellery each one of them is wearing. The larger of the two, an orange slime-boy, has his back to you, while the other, a light-blue slime-girl, is far too busy kissing her partner to notice your approach. As you move forwards, they suddenly break off the kiss, and you hear the slime girl moan, [slimeIce.speech(~Aah!~ Hold still, #IFgame.incestOn#THENbrother#ELSE[slimeFire.name]#ENDIF, I'll take care of you...)]
+		Up ahead, and off to one side of the corridor, you see a pair of slimes wrapped in one another's arms as they share a passionate kiss. From what you can see, they both appear to be all-but naked, with the exception of a few pieces of jewellery each one of them is wearing. The larger of the two, an orange slime-boy, has his back to you, while the other, a light-blue slime-girl, is far too busy kissing her partner to notice your approach. As you move forwards, they suddenly break off the kiss, and you hear the slime girl moan, [slimeIce.speech(~Aah!~ Hold still, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF, I'll take care of you...)]
 	</p>
 	<p>
-		As she begins to drop to her knees, the slime-girl suddenly catches sight of you, and lets out a startled cry. [slimeIce.speech(~Eek!~ #IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF Someone's here!)] 
+		As she begins to drop to her knees, the slime-girl suddenly catches sight of you, and lets out a startled cry. [slimeIce.speech(~Eek!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF Someone's here!)] 
 	</p>
 	<p>
 		The slime-boy instantly spins around, presenting you with the sight of his raging erection as he grabs a nearby arcane sword and buckler and shouts, [slimeFire.speech(Who are you?)]
@@ -102,7 +102,7 @@
 		Before you can respond, the slime-girl nervously starts hopping around on her feet, stammering, [slimeIce.speech([slimeFire.Name]! [pc.She] saw us! A-And I was a-about to... Y-You know!)]
 	</p>
 	<p>
-		[slimeFire.speech(Calm down, [slimeIce.name]. I don't care who sees us doing those things, but right now, we need to remember our duty! We must protect the Queen!)] the slime-boy, '[slimeFire.name]' says to his #IFgame.incestOn#THENsister#ELSEpartner#ENDIF, before turning to you. [slimeFire.speech(Don't make me ask again. Who are you?!)]
+		[slimeFire.speech(Calm down, [slimeIce.name]. I don't care who sees us doing those things, but right now, we need to remember our duty! We must protect the Queen!)] the slime-boy, '[slimeFire.name]' says to his #IFgame.isIncestEnabled()#THENsister#ELSEpartner#ENDIF, before turning to you. [slimeFire.speech(Don't make me ask again. Who are you?!)]
 	</p>
 	<p>
 		As you prepare to respond, [slimeIce.name] grabs a sword and buckler for herself, and you notice that the blades of each of the slimes' weapons match their body colours. It looks like both of them are ready for a fight, and you choose your next words carefully as you step forwards...
@@ -112,20 +112,20 @@
 	
 	<htmlContent tag="GUARD_POST_SEX_SIDE_BY_SIDE"><![CDATA[
 	<p>
-		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.incestOn#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s shoulders, before pushing him down onto his hands and knees before you.
+		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.isIncestEnabled()#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s shoulders, before pushing him down onto his hands and knees before you.
 	</p>
 	<p>
-		[slimeIce.speech(~Ah!~ #IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF)] [slimeIce.name] stutters, stepping forwards to make sure her lover is ok. As she does so, you take hold of her wrist, and, with a firm tug, pull her down beside her #IFgame.incestOn#THENbrother#ELSElover#ENDIF. Stepping around behind the two slimes, you can't help but grin as you find yourself looking down on their naked asses as they bump into one another.
+		[slimeIce.speech(~Ah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF)] [slimeIce.name] stutters, stepping forwards to make sure her lover is ok. As she does so, you take hold of her wrist, and, with a firm tug, pull her down beside her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF. Stepping around behind the two slimes, you can't help but grin as you find yourself looking down on their naked asses as they bump into one another.
 	</p>
 	<p>
-		[slimeIce.speech(~Ahh...~ #IFgame.incestOn#THENBrother#ELSE[slimeFire.Name]#ENDIF...)] [slimeIce.name] moans, looking across at [slimeFire.name] before pressing her lips against his. With the two slimes obviously ready and willing to be fucked side-by-side, you drop down onto your knees behind them, and prepare to have some fun...
+		[slimeIce.speech(~Ahh...~ #IFgame.isIncestEnabled()#THENBrother#ELSE[slimeFire.Name]#ENDIF...)] [slimeIce.name] moans, looking across at [slimeFire.name] before pressing her lips against his. With the two slimes obviously ready and willing to be fucked side-by-side, you drop down onto your knees behind them, and prepare to have some fun...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_POST_SEX_SPITROASTED"><![CDATA[
 	<p>
-		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.incestOn#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s hand, before turning around and guiding it down onto your [pc.ass+]. Immediately, he gives it a firm squeeze, which causes you to let out a desperate [pc.moan] and drop down onto all fours in front of him. Just as you'd hoped, he sinks to his knees behind you, ready to fuck you in the doggy-style position.
+		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.isIncestEnabled()#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s hand, before turning around and guiding it down onto your [pc.ass+]. Immediately, he gives it a firm squeeze, which causes you to let out a desperate [pc.moan] and drop down onto all fours in front of him. Just as you'd hoped, he sinks to his knees behind you, ready to fuck you in the doggy-style position.
 	</p>
 	<p>
 		[slimeIce.speech(~Ah!~ I-I want some fun too!)] [slimeIce.name] whines, stepping forwards and sinking to her knees in front of you. Placing her hands on your head, she shuffles forwards, presenting her slimy pussy to your mouth as she moans, [slimeIce.speech(~Mmmm!~ Come on! Get your tongue in here!)]
@@ -138,10 +138,10 @@
 		Thinking on your feet, you decide to try and trick these slimes into thinking you're one of the Slime Queen's newest subjects. Bowing down a little, you explain, [pc.speech(I was told by one of our fellow slimes in the tunnels that this is where my new Queen lives. I wanted to personally pledge my allegiance to her, and ask if there was any special task she needs performed.)]
 	</p>
 	<p>
-		[slimeIce.speech(Huh... Well, I don't see any problem with that. What about you, #IFgame.incestOn#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.incestOn#THENsibling#ELSElover#ENDIF.
+		[slimeIce.speech(Huh... Well, I don't see any problem with that. What about you, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
 	</p>
 	<p>
-		[slimeFire.speech(Not at all! It's about time we got a friendly visitor! All the other slimes that find their way in here are those damn mushroom addicts!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, I was actually thinking how it'd be kind of fun to have someone join #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+		[slimeFire.speech(Not at all! It's about time we got a friendly visitor! All the other slimes that find their way in here are those damn mushroom addicts!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, I was actually thinking how it'd be kind of fun to have someone join #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
 	</p>
 	]]>
 	</htmlContent>
@@ -151,10 +151,10 @@
 		Deciding to put your years of knowledge working as a butler to good use, you decide to try and trick these slimes into thinking you've been hired by the Slime Queen. Bowing down a little, you explain, [pc.speech(I presume from your questioning that her Highness's staff haven't been informed of my appointment. My name is [pc.name], and, through my agency, I was recently engaged to act as a butler for her Highness.)]
 	</p>
 	<p>
-		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.incestOn#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.incestOn#THENsibling#ELSElover#ENDIF.
+		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
 	</p>
 	<p>
-		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place in order!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place in order!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
 	</p>
 	]]>
 	</htmlContent>
@@ -164,17 +164,17 @@
 		Deciding to put your years of knowledge working as a maid to good use, you decide to try and trick these slimes into thinking you've been hired by the Slime Queen. Curtsying, you explain, [pc.speech(I presume from your questioning that her Highness's staff haven't been informed of my appointment. My name is [pc.name], and, through my agency, I was recently engaged to act as a maid for her Highness.)]
 	</p>
 	<p>
-		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.incestOn#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.incestOn#THENsibling#ELSElover#ENDIF.
+		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
 	</p>
 	<p>
-		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place dusted!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place dusted!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="BLUFF_SUCCESS"><![CDATA[
 	<p>
-		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.incestOn#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I d-do like that sort of stuff... B-But do you have to be so open about it?)]
+		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I d-do like that sort of stuff... B-But do you have to be so open about it?)]
 	</p>
 	<p>
 		[slimeFire.speech(You know you love it.)] [slimeFire.name] laughs, before turning back to you. [slimeFire.speech(So, how about it? You want to have some fun with [slimeIce.name] and I?)]
@@ -189,25 +189,25 @@
 	
 	<htmlContent tag="GUARD_POST_TALK"><![CDATA[
 	<p>
-		Curious about the #IFgame.incestOn#THENslime siblings'#ELSEslimes'#ENDIF history, and how they came to serve the Slime Queen, you decide to ask them about it. [pc.speech(So, how did you two end up working here?)]
+		Curious about the #IFgame.isIncestEnabled()#THENslime siblings'#ELSEslimes'#ENDIF history, and how they came to serve the Slime Queen, you decide to ask them about it. [pc.speech(So, how did you two end up working here?)]
 	</p>
-		[slimeFire.speech(Well, #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF and I used to work up in Submission, at the Gambling Den. I was one of the security, while #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF used to referee that pregnancy roulette game they've got going in there,)]
-		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IFgame.incestOn#THENI wasn't afraid of giving my sis' what it is she likes the most#ELSEI'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
-	</p>
-	<p>
-		[slimeIce.speech(#IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF Please!)] [slimeIce.name] stutters, turning away to hide her blushing cheeks, and exposing her rear ones in the process.
+		[slimeFire.speech(Well, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I used to work up in Submission, at the Gambling Den. I was one of the security, while #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF used to referee that pregnancy roulette game they've got going in there,)]
+		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IFgame.isIncestEnabled()#THENI wasn't afraid of giving my sis' what it is she likes the most#ELSEI'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
 	</p>
 	<p>
-		[slimeFire.speech(Hah!)] [slimeFire.name] laughs. [slimeFire.speech(That's what I love about you, #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF. You're always so shy in front of others, but when it's just the two of us, you're begging for my co-)]
+		[slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF Please!)] [slimeIce.name] stutters, turning away to hide her blushing cheeks, and exposing her rear ones in the process.
 	</p>
 	<p>
-		[slimeIce.speech([slimeFire.Name]! You're not even answering [pc.name]'s question!)] [slimeIce.name] shouts, spinning back around to face the two of you as she cuts her #IFgame.incestOn#THENbrother#ELSElover#ENDIF off. With a little cough, she then turns to address you, and continues her #IFgame.incestOn#THENbrother's#ELSElover's#ENDIF story. [slimeIce.speech(So, the two of us were working at the Gambling Den, and, partly due to the harassment [slimeFire.name] was receiving, we were looking for something a bit more in our lives. That's when [slimeRoyalGuard.name] came along.)]
+		[slimeFire.speech(Hah!)] [slimeFire.name] laughs. [slimeFire.speech(That's what I love about you, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF. You're always so shy in front of others, but when it's just the two of us, you're begging for my co-)]
+	</p>
+	<p>
+		[slimeIce.speech([slimeFire.Name]! You're not even answering [pc.name]'s question!)] [slimeIce.name] shouts, spinning back around to face the two of you as she cuts her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. With a little cough, she then turns to address you, and continues her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF story. [slimeIce.speech(So, the two of us were working at the Gambling Den, and, partly due to the harassment [slimeFire.name] was receiving, we were looking for something a bit more in our lives. That's when [slimeRoyalGuard.name] came along.)]
 	</p>
 	<p>
 		[slimeFire.speech(Yeah,)] [slimeFire.name] continues, not being able to help himself from telling the rest of the story, [slimeFire.speech(good old [slimeRoyalGuard.name] was the first demon-slime I'd ever seen, and when he overheard the stuff my co-workers were saying about me, he immediately jumped to my aid. Well, one thing led to another, and before we could defuse the situation, [slimeRoyalGuard.name] and I were having to defend ourselves against the entire security staff!)]
 	</p>
 	<p>
-		[slimeIce.speech(And [slimeFire.name] won, of course!)] [slimeIce.name] excitedly shouts, gazing at her #IFgame.incestOn#THENbrother#ELSElover#ENDIF with wonder in her eyes.
+		[slimeIce.speech(And [slimeFire.name] won, of course!)] [slimeIce.name] excitedly shouts, gazing at her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF with wonder in her eyes.
 	</p>
 	<p>
 		[slimeFire.speech(Of course I did!)] [slimeFire.name] exclaims. [slimeFire.speech(Well, with more than a little help from [slimeRoyalGuard.name], of course. Anyway, after that, [slimeRoyalGuard.name] offered us shelter and a real purpose in life; swearing ourselves to protect the Queen of all Slimes!)]
@@ -216,7 +216,7 @@
 		[slimeIce.speech([slimeRoyalGuard.name] even taught me how to use a sword!)] [slimeIce.name] interrupts again.
 	</p>
 	<p>
-		[slimeFire.speech(That's right!)] [slimeFire.name] laughs. [slimeFire.speech(My #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF can do anything if she puts her mind to it, and now she's even almost as good as me! Well, that's our story, such as it is...)]
+		[slimeFire.speech(That's right!)] [slimeFire.name] laughs. [slimeFire.speech(My #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF can do anything if she puts her mind to it, and now she's even almost as good as me! Well, that's our story, such as it is...)]
 	</p>
 	<p>
 		[pc.speech(Thanks for sharing it with me,)] you respond, your curiosity sated.
@@ -226,7 +226,7 @@
 	
 	<htmlContent tag="AFTER_SLIME_GUARD_SEX_AS_DOM"><![CDATA[
 	<p>
-		As you step back from the #IFgame.incestOn#THENslime siblings#ELSEslimes#ENDIF, they both crawl over to the nearest stone bench, before sinking down onto it.
+		As you step back from the #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF, they both crawl over to the nearest stone bench, before sinking down onto it.
 		 [slimeFire.Name] lets out a deep sigh, and as he leans back against the wall, [slimeIce.name] lies down to rest her head in his lap.
 	</p>
 	<p>
@@ -237,7 +237,7 @@
 	
 	<htmlContent tag="AFTER_SLIME_GUARD_SEX_AS_SUB"><![CDATA[
 	<p>
-		The #IFgame.incestOn#THENslime siblings#ELSEslimes#ENDIF both move away from you, before stepping over to the nearest stone bench and sinking down onto it.
+		The #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF both move away from you, before stepping over to the nearest stone bench and sinking down onto it.
 		 [slimeFire.Name] lets out a deep sigh, and as he leans back against the wall, [slimeIce.name] lies down to rest her head in his lap.
 	</p>
 	<p>
@@ -251,10 +251,10 @@
 		[slimeFire.Name] and [slimeIce.name] both stagger back, dropping their swords and bucklers in defeat.
 	</p>
 	<p>
-		[slimeIce.speech(~Aah!~ #IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF I can't carry on...)] [slimeIce.name] moans, before sinking to the floor and reaching down between her legs.
+		[slimeIce.speech(~Aah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF I can't carry on...)] [slimeIce.name] moans, before sinking to the floor and reaching down between her legs.
 	</p>
 	<p>
-		[slimeFire.Name] seems to be in a similar state of affairs, and as you step towards the defeated #IFgame.incestOn#THENslime siblings#ELSEslimes#ENDIF, he drops down on one knee, panting, [slimeFire.speech(We... We surrender... No more...)]
+		[slimeFire.Name] seems to be in a similar state of affairs, and as you step towards the defeated #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF, he drops down on one knee, panting, [slimeFire.speech(We... We surrender... No more...)]
 	</p>
 	<p>
 		With your powerful arcane aura clearly causing these two slimes to be overwhelmed with lust, you wonder if you should take advantage of the situation, or continue on your way through the Slime Queen's tower...
@@ -267,30 +267,30 @@
 		You can't carry on fighting any longer, and stagger back against the nearest wall, panting, [pc.speech(P-Please... No more...)]
 	</p>
 	<p>
-		[slimeIce.speech(~Aah!~ #IFgame.incestOn#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF This fight's got me all... Y-You know...)] [slimeIce.name] moans, reaching down between her legs and starting to stroke her [slimeIce.pussy+] as she watches you desperately trying to catch your breath.
+		[slimeIce.speech(~Aah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF This fight's got me all... Y-You know...)] [slimeIce.name] moans, reaching down between her legs and starting to stroke her [slimeIce.pussy+] as she watches you desperately trying to catch your breath.
 	</p>
 	<p>
-		[slimeFire.speech(~Mmm!~ Me too #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF!)] [slimeFire.name] replies, before stepping forwards and grabbing you by the [pc.arm]. With a devious smirk on his face, he growls, [slimeFire.speech(I think it's time for some fun!)]
+		[slimeFire.speech(~Mmm!~ Me too #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF!)] [slimeFire.name] replies, before stepping forwards and grabbing you by the [pc.arm]. With a devious smirk on his face, he growls, [slimeFire.speech(I think it's time for some fun!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_POST_SEX_SPITROASTED_UPON_DEFEAT"><![CDATA[
 	<p>
-		In one swift move, [slimeFire.name] throws you to the floor, laughing, [slimeFire.speech(That's right, get down on all fours so me and #IFgame.incestOn#THENsis'#ELSE[slimeIce.name]#ENDIF can have some fun!)]
+		In one swift move, [slimeFire.name] throws you to the floor, laughing, [slimeFire.speech(That's right, get down on all fours so me and #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF can have some fun!)]
 	</p>
 	<p>
-		Before you can react, [slimeFire.name] drops down onto his knees behind you, before grabbing hold of your [pc.hips+] and grinding his [slimeFire.cock+] against your [pc.ass+]. Seeing her #IFgame.incestOn#THENbrother#ELSElover#ENDIF take such a bold move, [slimeIce.name] quickly steps forwards, before dropping down onto her knees right in front of your face. Shuffling forwards, she presents her [slimeIce.pussy+] to you, and moans, [slimeIce.speech(Come on! Get that tongue working already!)]
+		Before you can react, [slimeFire.name] drops down onto his knees behind you, before grabbing hold of your [pc.hips+] and grinding his [slimeFire.cock+] against your [pc.ass+]. Seeing her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF take such a bold move, [slimeIce.name] quickly steps forwards, before dropping down onto her knees right in front of your face. Shuffling forwards, she presents her [slimeIce.pussy+] to you, and moans, [slimeIce.speech(Come on! Get that tongue working already!)]
 	</p>
 	<p>
-		Completely exhausted from your fight with #IFgame.incestOn#THENthis brother-sister pair#ELSEthe slimes#ENDIF, you're in no position to try and break free, and realise that they're going to have their way with you, one way or another...
+		Completely exhausted from your fight with #IFgame.isIncestEnabled()#THENthis brother-sister pair#ELSEthe slimes#ENDIF, you're in no position to try and break free, and realise that they're going to have their way with you, one way or another...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SLIME_GUARD_SEX_DEFEATED"><![CDATA[
 	<p>
-		The #IFgame.incestOn#THENslime siblings#ELSEslimes#ENDIF both step back, allowing you to sink to the floor as you're completely overcome with exhaustion. You aren't given much time to rest, however, as after just a moment you're seized by [slimeFire.name], before being hauled to your feet.
+		The #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF both step back, allowing you to sink to the floor as you're completely overcome with exhaustion. You aren't given much time to rest, however, as after just a moment you're seized by [slimeFire.name], before being hauled to your feet.
 	</p>
 	<p>
 		[slimeIce.speech(Here's your stuff,)] [slimeIce.name] says, shoving your things into your [pc.arms].

@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.6?
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public class BlockedParts implements Serializable, XMLSaving {
@@ -123,7 +123,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessRequired.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 1");
+			System.err.println("BlockedParts loading failed. Code 1 " + ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
 		}
 		
 		List<CoverableArea> loadedBlockedBodyParts = new ArrayList<>();
@@ -134,7 +134,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts.add(CoverableArea.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 2");
+			System.err.println("BlockedParts loading failed. Code 2 "+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
 		}
 		
 		List<ClothingAccess> loadedClothingAccessBlocked = new ArrayList<>();
@@ -145,18 +145,22 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessBlocked.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 3");
+			System.err.println("BlockedParts loading failed. Code 3 "+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
 		}
 		
 		List<InventorySlot> loadedConcealedSlots = new ArrayList<>();
 		Element concealedSlotsElement = (Element)parentElement.getElementsByTagName("concealedSlots").item(0);
-		try {
-			for(int i=0; i<concealedSlotsElement.getElementsByTagName("slot").getLength(); i++){
-				Element e = ((Element)concealedSlotsElement.getElementsByTagName("slot").item(i));
-				loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
+		if(!concealedSlotsElement.getAttribute("values").isEmpty()) {
+			loadedConcealedSlots = PresetConcealmentLists.valueOf(concealedSlotsElement.getAttribute("values")).getPresetInventorySlotList();
+		} else {
+			try {
+				for(int i=0; i<concealedSlotsElement.getElementsByTagName("slot").getLength(); i++){
+					Element e = ((Element)concealedSlotsElement.getElementsByTagName("slot").item(i));
+					loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
+				}
+			} catch(Exception ex) {
+				System.err.println("BlockedParts loading failed. Code 4"+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
 			}
-		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 4");
 		}
 		
 		return new BlockedParts(displacementType,

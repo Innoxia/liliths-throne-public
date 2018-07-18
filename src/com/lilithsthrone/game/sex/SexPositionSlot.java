@@ -96,6 +96,22 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.BREASTS,
 					OrgasmCumTarget.FACE,
 					OrgasmCumTarget.HAIR)),
+
+	/* Face-sitting */
+	
+	FACE_SITTING_ON_FACE("Face-sitting",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.STOMACH,
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.HAIR)),
+	
+	FACE_SITTING_ON_BACK("Lying on back",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_GROIN,
+					OrgasmCumTarget.SELF_BREASTS,
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
 	
 	/* Sixty-nine */
 	
@@ -156,7 +172,25 @@ public enum SexPositionSlot {
 	
 	/* Chair */
 	
-	CHAIR_TOP("Standing",
+	CHAIR_KNEELING("Kneeling",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
+					OrgasmCumTarget.SELF_GROIN,
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
+
+	CHAIR_ORAL_SITTING("Sitting",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
+					OrgasmCumTarget.SELF_GROIN,
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.HAIR,
+					OrgasmCumTarget.FLOOR)),
+	
+	CHAIR_TOP("Sitting in lap",
 			Util.newArrayListOfValues(
 					OrgasmCumTarget.HAIR,
 					OrgasmCumTarget.FACE,
@@ -244,18 +278,6 @@ public enum SexPositionSlot {
 	
 	/* UNIQUE SEX SCENES */
 	
-	CHAIR_TOP_LILAYA("Standing",
-			CHAIR_TOP.getAvailableCumTargets()),
-	
-	CHAIR_BOTTOM_LILAYA("Sitting",
-			CHAIR_BOTTOM.getAvailableCumTargets()),
-	
-	DOGGY_ON_ALL_FOURS_AMBER("On all fours",
-			DOGGY_ON_ALL_FOURS.getAvailableCumTargets()),
-	
-	DOGGY_BEHIND_AMBER("Kneeling behind",
-			DOGGY_BEHIND.getAvailableCumTargets()),
-	
 	PET_MOUNTING_ON_ALL_FOURS("On all fours",
 			DOGGY_ON_ALL_FOURS.getAvailableCumTargets()),
 	
@@ -267,12 +289,6 @@ public enum SexPositionSlot {
 	
 	PET_ORAL_COCKED_LEG("Cocked leg",
 			KNEELING_RECEIVING_ORAL.getAvailableCumTargets()),
-	
-	KNEELING_RECEIVING_ORAL_ZARANIX("Sitting",
-			KNEELING_RECEIVING_ORAL.getAvailableCumTargets()),
-	
-	KNEELING_PERFORMING_ORAL_ZARANIX("Kneeling",
-			KNEELING_PERFORMING_ORAL.getAvailableCumTargets()),
 	
 	KNEELING_RECEIVING_ORAL_RALPH("Standing",
 			KNEELING_RECEIVING_ORAL.getAvailableCumTargets()),
@@ -367,15 +383,62 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					OrgasmCumTarget.FLOOR)),
 	
-	SITTING_ON_FACE_ROXY("Sitting",
-			Util.newArrayListOfValues(
-					OrgasmCumTarget.FACE)),
+	/* Breeding stalls */
 	
-	LICKING_PUSSY_ROXY("Sat on",
+	BREEDING_STALL_FRONT("Lying on stomach",
 			Util.newArrayListOfValues(
+					OrgasmCumTarget.FLOOR)),
+
+	BREEDING_STALL_BACK("Lying on back",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.STOMACH,
+					OrgasmCumTarget.FLOOR)),
+	
+	BREEDING_STALL_FUCKING("Standing",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.ASS,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FLOOR)),
+	
+
+	/* Glory hole */
+	
+	GLORY_HOLE_KNEELING("Kneeling",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
 					OrgasmCumTarget.SELF_GROIN,
-					OrgasmCumTarget.SELF_BREASTS,
-					OrgasmCumTarget.SELF_LEGS));
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
+
+	GLORY_HOLE_FUCKED("Getting fucked",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FLOOR)),
+
+	GLORY_HOLE_RECEIVING_ORAL_ONE("Receiving oral",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.HAIR,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.FLOOR)),
+	
+	GLORY_HOLE_RECEIVING_ORAL_TWO("Receiving oral",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.BREASTS,
+					OrgasmCumTarget.HAIR,
+					OrgasmCumTarget.FACE,
+					OrgasmCumTarget.FLOOR)),
+	
+	GLORY_HOLE_FUCKING("Fucking",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.ASS,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FLOOR)),
+	;
 	
 	
 	private String name;

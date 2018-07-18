@@ -132,16 +132,16 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" [npc.She]'s currently "));
+								" [npc.sheIs] currently "));
 					}
 					
 					switch(slave.getObedience()) {
 						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										"not even bothering to pretend that [npc.she]'s cleaning."
+										"not even bothering to pretend that [npc.sheIs] cleaning."
 									+ "</p>"));
 							break;
 						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
@@ -258,7 +258,7 @@ public class LilayaHomeGeneric {
 						public void effects() {
 							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
 							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
-							Main.game.getPlayer().setBreastStoredMilk(0);
+							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
 							Main.game.getPlayer().incrementHealth(-25);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
@@ -324,8 +324,8 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
 					
-				} else if(Main.game.getPlayer().getPenisRawCumProductionValue()==0) {
-					return new Response("Milk Self Cum", "You aren't producing any cum, so you can't milk your cock...",  null);
+				} else if(Main.game.getPlayer().getPenisRawStoredCumValue()==0) {
+					return new Response("Milk Self Cum", "There isn't any cum stored in your balls, so you can't milk your cock...",  null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);
@@ -422,7 +422,7 @@ public class LilayaHomeGeneric {
 					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
 					
 				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					return new Response("Milk Self Girlcum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
 					
 				} else {
 					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
@@ -577,7 +577,7 @@ public class LilayaHomeGeneric {
 				};
 				
 			} else {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.name]'s room, [npc.she]'s not here at the moment."), null);
+				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.namePos] room, [npc.sheIs] not here at the moment."), null);
 			}
 			
 		}
@@ -602,7 +602,7 @@ public class LilayaHomeGeneric {
 
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
-				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b><br/>"
 				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}
@@ -1525,7 +1525,7 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 								" [npc.She] "));
@@ -1551,13 +1551,13 @@ public class LilayaHomeGeneric {
 					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									"is currently preparing some food."
-									+ " You can see that [npc.she]'s putting a lot of effort into making sure that [npc.she]'s doing a good job."
+									+ " You can see that [npc.sheIs] putting a lot of effort into making sure that [npc.sheIs] doing a good job."
 								+ "</p>"));
 						break;
 					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									" is dutifully making Lilaya a meal."
-									+ " You notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
+									+ " You notice that [npc.sheIs] taking care to prepare it just the way your demonic aunt likes."
 								+ "</p>"));
 						break;
 					}

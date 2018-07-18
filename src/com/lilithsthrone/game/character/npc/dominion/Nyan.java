@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.body.Covering;
@@ -38,14 +40,9 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -55,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Nyan extends NPC {
@@ -80,6 +77,7 @@ public class Nyan extends NPC {
 	public Nyan(boolean isImported) {
 		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
+				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
 
@@ -192,9 +190,13 @@ public class Nyan extends NPC {
 			if(npcSpecificElement!=null) {
 				entry.getValue().clear();
 				
-				for(int i=0; i<npcSpecificElement.getElementsByTagName("clothing").getLength(); i++){
-					Element e = (Element) npcSpecificElement.getElementsByTagName("clothing").item(i);
-					entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+				NodeList nodeList = npcSpecificElement.getElementsByTagName("clothing");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
+					try {
+						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+					} catch(Exception ex) {
+					}
 				}
 				
 			}
@@ -231,10 +233,8 @@ public class Nyan extends NPC {
 		
 		specials.clear();
 
-		boolean enchantedGear = Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
-		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
 				if(clothing.getRarity() == Rarity.COMMON) {
 					if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
 						if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
@@ -275,76 +275,42 @@ public class Nyan extends NPC {
 				}
 			}
 		}
-		if(enchantedGear) {
-			// Add 3 uncommon clothing items to each category:
-			for (int i = 0; i < 3; i++) {
-				commonFemaleClothing.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleClothing().get(Util.random.nextInt(ClothingType.getCommonFemaleClothing().size()))));
-				commonFemaleUnderwear.add(AbstractClothingType.generateClothingWithEnchantment(commonFemaleUnderwear.get(Util.random.nextInt(commonFemaleUnderwear.size())).getClothingType()));
-				commonFemaleAccessories.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleAccessories().get(Util.random.nextInt(ClothingType.getCommonFemaleAccessories().size()))));
-				commonMaleClothing.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonMaleClothing().get(Util.random.nextInt(ClothingType.getCommonMaleClothing().size()))));
-				commonMaleLingerie.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonMaleLingerie().get(Util.random.nextInt(ClothingType.getCommonMaleLingerie().size()))));
-				commonMaleAccessories.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonMaleAccessories().get(Util.random.nextInt(ClothingType.getCommonMaleAccessories().size()))));
-				commonAndrogynousClothing.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonAndrogynousClothing().get(Util.random.nextInt(ClothingType.getCommonAndrogynousClothing().size()))));
-				commonAndrogynousLingerie.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonAndrogynousLingerie().get(Util.random.nextInt(ClothingType.getCommonAndrogynousLingerie().size()))));
-				commonAndrogynousAccessories.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonAndrogynousAccessories().get(Util.random.nextInt(ClothingType.getCommonAndrogynousAccessories().size()))));
-			}
-			// Add 1 rare clothing item to each category:
-			commonFemaleClothing.add(generateRareClothing(ClothingType.getCommonFemaleClothing().get(Util.random.nextInt(ClothingType.getCommonFemaleClothing().size()))));
-			commonFemaleUnderwear.add(generateRareClothing(commonFemaleUnderwear.get(Util.random.nextInt(commonFemaleUnderwear.size())).getClothingType()));
-			commonFemaleAccessories.add(generateRareClothing(ClothingType.getCommonFemaleAccessories().get(Util.random.nextInt(ClothingType.getCommonFemaleAccessories().size()))));
-			commonMaleClothing.add(generateRareClothing(ClothingType.getCommonMaleClothing().get(Util.random.nextInt(ClothingType.getCommonMaleClothing().size()))));
-			commonMaleLingerie.add(generateRareClothing(ClothingType.getCommonMaleLingerie().get(Util.random.nextInt(ClothingType.getCommonMaleLingerie().size()))));
-			commonMaleAccessories.add(generateRareClothing(ClothingType.getCommonMaleAccessories().get(Util.random.nextInt(ClothingType.getCommonMaleAccessories().size()))));
-			commonAndrogynousClothing.add(generateRareClothing(ClothingType.getCommonAndrogynousClothing().get(Util.random.nextInt(ClothingType.getCommonAndrogynousClothing().size()))));
-			commonAndrogynousLingerie.add(generateRareClothing(ClothingType.getCommonAndrogynousLingerie().get(Util.random.nextInt(ClothingType.getCommonAndrogynousLingerie().size()))));
-			commonAndrogynousAccessories.add(generateRareClothing(ClothingType.getCommonAndrogynousAccessories().get(Util.random.nextInt(ClothingType.getCommonAndrogynousAccessories().size()))));
-		}
 		
-		for(AbstractClothing c : commonFemaleClothing) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonFemaleUnderwear) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonFemaleAccessories) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonMaleClothing) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonMaleLingerie) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonMaleAccessories) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonAndrogynousClothing) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonAndrogynousLingerie) {
-			c.setEnchantmentKnown(true);
-		}
-		for(AbstractClothing c : commonAndrogynousAccessories) {
-			c.setEnchantmentKnown(true);
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+			addEnchantedClothing(commonFemaleClothing);
+			addEnchantedClothing(commonFemaleUnderwear);
+			addEnchantedClothing(commonFemaleAccessories);
+	
+			addEnchantedClothing(commonMaleClothing);
+			addEnchantedClothing(commonMaleLingerie);
+			addEnchantedClothing(commonMaleAccessories);
+	
+			addEnchantedClothing(commonAndrogynousClothing);
+			addEnchantedClothing(commonAndrogynousLingerie);
+			addEnchantedClothing(commonAndrogynousAccessories);
 		}
 	}
 	
-	private static AbstractClothing generateRareClothing(AbstractClothingType type) {
-		List<ItemEffect> effects = new ArrayList<>();
+	/**
+	 * Adds three uncommon clothing items to the list, and one rare item.
+	 */
+	private static void addEnchantedClothing(List<AbstractClothing> clothingList) {
+		List<AbstractClothingType> typesToAdd = new ArrayList<>();
+		for(int i=0;i<4;i++) {
+			typesToAdd.add(Util.randomItemFrom(clothingList).getClothingType());
+		}
 		
-		List<TFModifier> attributeMods = new ArrayList<>(TFModifier.getClothingAttributeList());
-		
-		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
-		attributeMods.remove(rndMod);
-		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
-		
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.MAJOR_BOOST, 0));
-		
-		return AbstractClothingType.generateClothing(
-				type,
-				type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())),
-				effects);
+		for(int i=0; i<typesToAdd.size(); i++) {
+			if(i==typesToAdd.size()-1) {
+				clothingList.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
+			} else {
+				clothingList.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+			}
+		}
+
+		for(AbstractClothing c : clothingList) {
+			c.setEnchantmentKnown(true);
+		}
 	}
 	
 	@Override
@@ -438,12 +404,7 @@ public class Nyan extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(Sex.getNumberOfOrgasms(Main.game.getNyan())==0) {
-				Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), -15));
-			}
-		}
+	public void endSex() {
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {

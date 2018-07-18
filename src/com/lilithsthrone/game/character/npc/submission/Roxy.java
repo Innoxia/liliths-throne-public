@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -36,6 +39,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -85,7 +89,8 @@ public class Roxy extends NPC {
 		super(new NameTriplet("Roxy"),
 				"Roxy is the rat-girl owner of the Gambling Den's shop, 'Roxy's Box'."
 					+ " With a patch over one eye, and visible scarring down one side of her face, Roxy is clearly no stranger to violence."
-					+ " Despite this, and her particularly vulgar mannerisms, Roxy is very friendly towards anyone who enters her shop.",
+					+ " She has some particularly vulgar mannerisms, and has little patience for any of her customers.",
+				33, Month.AUGUST, 2,
 				10, Gender.F_V_B_FEMALE, RacialBody.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 
@@ -200,7 +205,7 @@ public class Roxy extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			c.getDisplacedList().clear();
 		}
@@ -229,6 +234,33 @@ public class Roxy extends NPC {
 		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour2, false), false);
 		}
+		
+		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
+		
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			if(clothing!=null
+					&& clothing.getRarity()==Rarity.COMMON
+					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH) || clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN))) {
+				clothingToAdd.add(clothing);
+			}
+		}
+		
+		Collections.shuffle(clothingToAdd);
+		
+		for(int i=0; i<6; i++) {
+			AbstractClothing clothing = AbstractClothingType.generateClothingWithNegativeEnchantment(Util.randomItemFrom(clothingToAdd));
+			this.addClothing(clothing, false);
+			clothing.setEnchantmentKnown(false);
+		}
+		for(int i=0; i<3; i++) {
+			AbstractClothing clothing = AbstractClothingType.generateClothingWithEnchantment(Util.randomItemFrom(clothingToAdd));
+			this.addClothing(clothing, false);
+			clothing.setEnchantmentKnown(false);
+		}
+		AbstractClothing clothing = AbstractClothingType.generateRareClothing(Util.randomItemFrom(clothingToAdd));
+		this.addClothing(clothing, false);
+		clothing.setEnchantmentKnown(false);
+		
 	}
 	
 	@Override
@@ -250,11 +282,8 @@ public class Roxy extends NPC {
 				return true;
 			}
 		}
-		if(item instanceof AbstractClothing) {
-			return ((AbstractClothing)item).getClothingType().equals(ClothingType.PENIS_CONDOM);
-		}
 		
-		return false;
+		return item instanceof AbstractClothing;
 	}
 
 	

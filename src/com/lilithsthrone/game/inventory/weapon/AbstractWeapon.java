@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -119,6 +120,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
 		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		
 		Element attributeElement = doc.createElement("attributeModifiers");
 		element.appendChild(attributeElement);
@@ -151,10 +154,18 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			}
 		}
 		
+		// Try to load colour:
+		try {
+			weapon.setPrimaryColour(Colour.valueOf(parentElement.getAttribute("colourPrimary")));
+			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+		} catch(Exception ex) {
+		}
+		
 		weapon.setAttributeModifiers(new HashMap<Attribute, Integer>());
 		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+		NodeList modifierElements = element.getElementsByTagName("modifier");
+		for(int i=0; i<modifierElements.getLength(); i++){
+			Element e = ((Element)modifierElements.item(i));
 			try {
 				weapon.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {
@@ -163,8 +174,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		weapon.spells = new ArrayList<>();
 		element = (Element)parentElement.getElementsByTagName("spells").item(0);
-		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("spell").item(i));
+		NodeList spellElements = element.getElementsByTagName("spell");
+		for(int i=0; i<spellElements.getLength(); i++){
+			Element e = ((Element)spellElements.item(i));
 			try {
 				weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {

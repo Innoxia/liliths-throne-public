@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -61,6 +63,7 @@ public class TestNPC extends NPC {
 	public TestNPC(boolean isImported) {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
+				28, Month.JUNE, 1,
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
 
@@ -111,7 +114,6 @@ public class TestNPC extends NPC {
 			
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_BROODMOTHER);
 			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_INCEST);
@@ -162,11 +164,9 @@ public class TestNPC extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 	
@@ -217,7 +217,7 @@ public class TestNPC extends NPC {
 		public String getContent() {
 			return "<p>"
 						+ "Reaching the back of the shop, you finish your exploration of this store's wares, finding that there's nothing in here that's worth buying."
-						+ " As you turn to make your exit, you see that a door marked '[test.name]'s room: Private!' has been left slightly ajar, and you hear a frustrated little exclamation come out of it,"
+						+ " As you turn to make your exit, you see that a door marked '[test.namePos] room: Private!' has been left slightly ajar, and you hear a frustrated little exclamation come out of it,"
 						+ " [test.speech(Argh! It shouldn't be like that... I'll have to re-write it...)]"
 					+ "</p>"
 					+ "<p>"
@@ -262,10 +262,10 @@ public class TestNPC extends NPC {
 			return "<p>"
 						+ "You step forwards, and, quietly pushing the door open, you step into a cozy little back room."
 						+ " In front of you, with [test.her] back to the door, a small-framed [test.race] is sitting in front of a desk."
-						+ " Scrunched up pieces of paper litter the floor around [test.her], and you notice that [test.she]'s so engrossed in [test.her] writing that [test.she] didn't hear your entry."
+						+ " Scrunched up pieces of paper litter the floor around [test.her], and you notice that [test.sheIs] so engrossed in [test.her] writing that [test.she] didn't hear your entry."
 					+ "</p>"
 					+ "<p>"
-						+ "You could greet [test.herHim] and try to find out what [test.she]'s writing, or step back outside and leave [test.herHim] to [test.her] work."
+						+ "You could greet [test.herHim] and try to find out what [test.sheIs] writing, or step back outside and leave [test.herHim] to [test.her] work."
 						+ (Main.game.isNonConEnabled()
 								?" As you realise how vulnerable [test.she] is back here, far from help, a dark thought flashes through your mind, and you realise that there's always another option..."
 								:"")
@@ -275,7 +275,7 @@ public class TestNPC extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.she]'s doing.", TEST_DIALOGUE_GREET) {
+				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.sheIs] doing.", TEST_DIALOGUE_GREET) {
 						@Override
 						public void effects() {
 							TestNPC.resisting = false;
@@ -403,7 +403,7 @@ public class TestNPC extends NPC {
 						+ " [test.speech(I-It's not like I meant for you to see them!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Looking up at the [test.race], you see that [test.she]'s blushing profusely, and, somewhat amusingly, staring down at your groin."
+						+ "Looking up at the [test.race], you see that [test.sheIs] blushing profusely, and, somewhat amusingly, staring down at your groin."
 						+ " All of this erotic writing must really have got her worked-up, and you grin as you hear the next words that come out of [test.her] mouth."
 					+ "</p>"
 					+ "<p>"

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -48,6 +50,7 @@ public class Bunny extends NPC {
 		super(new NameTriplet("Bunny"),
 				"Bunny is one of the two prostitutes Angel has working for her."
 						+ " Just like her twin sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.",
+				19, Month.FEBRUARY, 13,
 				10, Gender.F_V_B_FEMALE, RacialBody.RABBIT_MORPH, RaceStage.PARTIAL,
 				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, true);
 
@@ -130,9 +133,7 @@ public class Bunny extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			this.returnToHome();
-		}
+	public void endSex() {
+		this.returnToHome();
 	}
 }

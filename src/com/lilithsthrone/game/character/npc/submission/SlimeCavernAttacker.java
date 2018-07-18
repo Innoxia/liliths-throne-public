@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +59,9 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	public SlimeCavernAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.HUMAN, RaceStage.HUMAN,
+		super(null, "",
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
@@ -76,14 +79,27 @@ public class SlimeCavernAttacker extends NPC {
 					// No chance of spawn:
 					case ANGEL:
 					case CAT_MORPH:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LION:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CHEETAH:
+					case CAT_MORPH_CARACAL:
 					case COW_MORPH:
 					case DEMON:
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case DOG_MORPH_BORDER_COLLIE:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
 					case REINDEER_MORPH:
 					case SQUIRREL_MORPH:
@@ -108,13 +124,23 @@ public class SlimeCavernAttacker extends NPC {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CARACAL:
+					case SLIME_CAT_CHEETAH:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -137,7 +163,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
@@ -193,8 +219,8 @@ public class SlimeCavernAttacker extends NPC {
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
-					"[npc.Name]'s days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
-							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
+							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 		} else {
 			return (UtilText.parse(this,
 					"[npc.Name] is a resident of the bat caverns, and loves nothing more than getting high on mushrooms, attacking innocent travellers, and having sex."));
@@ -202,11 +228,9 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

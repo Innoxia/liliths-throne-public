@@ -414,7 +414,7 @@ public class SlaverAlleyDialogue {
 			if(biddingRounds==0) {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.she]'s up for auction."
+							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.sheIs] up for auction."
 							+ " Thankfully, you don't have to wait long, and soon enough you see the [npc.race], stark naked except for the slave collar around [npc.her] neck, being led up onto the platform."
 						+ "</p>"
 						+ "<p>"
@@ -458,7 +458,7 @@ public class SlaverAlleyDialogue {
 			} else {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.name]'s asking price up to "+UtilText.formatAsMoney(biddingPrice, "span")+"."
+							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.namePos] asking price up to "+UtilText.formatAsMoney(biddingPrice, "span")+"."
 						+ "</p>"
 						+ "<p>"
 							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice, "span")+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100, "span")+" to get in the lead for buying [npc.name].</i>"
@@ -571,16 +571,15 @@ public class SlaverAlleyDialogue {
 					+ "</p>");
 
 			List<String> sexAvailability = new ArrayList<>();
-			
 
-			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
 							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
-								+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
+							+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span>"
+									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
 				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
@@ -608,8 +607,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			if(index==0) {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
@@ -721,7 +719,7 @@ public class SlaverAlleyDialogue {
 						+ " [finch.speech(What can I help you with today?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Walking forwards, you return [finch.name]'s greeting,"
+						+ "Walking forwards, you return [finch.namePos] greeting,"
 						+ " [pc.speech(Hi, [finch.name].)]"
 					+ "</p>"
 					+ "<p>"
@@ -790,7 +788,7 @@ public class SlaverAlleyDialogue {
 							+ " [finch.speech(Can I help you with anything?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Walking forwards, you return [finch.name]'s greeting,"
+							+ "Walking forwards, you return [finch.namePos] greeting,"
 							+ " [pc.speech(Hello, I was just looking around.)]"
 						+ "</p>"
 						+ "<p>"
@@ -871,7 +869,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you ask,"
+						+ "Walking up to [finch.namePos] desk, you ask,"
 						+ " [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]"
 					+ "</p>"
 					+ "<p>"
@@ -907,7 +905,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you place the letter of recommendation down in front of him."
+						+ "Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him."
 						+ " [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]"
 					+ "</p>"
 					+ "<p>"

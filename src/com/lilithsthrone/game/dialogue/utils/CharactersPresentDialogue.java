@@ -95,8 +95,14 @@ public class CharactersPresentDialogue {
 					String description = "Take a detailed look at [npc.name].";
 					
 					if(charactersPresent.get(index - 1).equals(characterViewed)) {
-						title = "[style.colourDisabled([npc.Name])]";
-						description = "You are already looking at [npc.name]!";
+						if(!charactersPresent.get(index - 1).isRaceConcealed() || charactersPresent.get(index - 1).isPlayerKnowsName()) {
+							title = "[style.colourDisabled([npc.Name])]";
+							description = "You are already looking at [npc.name]!";
+						}else {
+							title = "[style.colourDisabled(Unknown person)]";
+							description = "You don't know what this person looks like!";
+						}
+							
 						
 					} else if(Main.game.getPlayer().hasCompanion(charactersPresent.get(index - 1))) {
 						title = "[style.colourCompanion([npc.Name])]";
@@ -110,7 +116,6 @@ public class CharactersPresentDialogue {
 						@Override
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
-							
 							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName())+")";
 							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
 						}
@@ -134,7 +139,7 @@ public class CharactersPresentDialogue {
 						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 						
 					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.name]'s inventory.") {
+						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
 									@Override
 									public void effects() {
 										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
@@ -166,11 +171,15 @@ public class CharactersPresentDialogue {
 						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 						
 					} else {
-						if(charactersPresent.size()==1) {
+						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
 							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
 								@Override
 								public void effects() {
+									if(characterViewed.isElementalSummoned()) {
+										characterViewed.removeCompanion(characterViewed.getElemental());
+										characterViewed.getElemental().returnToHome();
+									}
 									Main.game.getPlayer().removeCompanion(characterViewed);
 									characterViewed.returnToHome();
 									Main.mainController.openCharactersPresent();
@@ -178,15 +187,20 @@ public class CharactersPresentDialogue {
 							};
 						} else {
 							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
 									MENU){
 								@Override
 								public void effects() {
+									if(characterViewed.isElementalSummoned()) {
+										characterViewed.removeCompanion(characterViewed.getElemental());
+										characterViewed.getElemental().returnToHome();
+									}
 									Main.game.getPlayer().removeCompanion(characterViewed);
 									characterViewed.returnToHome();
 									
 									Main.game.setResponseTab(0);
 									characterViewed = charactersPresent.get(0);
+									//no need for character conceal check since its for follower
 									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
 									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
 								}
@@ -306,7 +320,7 @@ public class CharactersPresentDialogue {
 									},
 									AFTER_SEX,
 									"<p>"
-										+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+										+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 										+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 										+ " [npc.speech(Looking for some fun, hmm?)]"
 									+ "</p>") {
@@ -337,11 +351,6 @@ public class CharactersPresentDialogue {
 	
 	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Step back", "", true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
 		
 		@Override
 		public String getDescription(){

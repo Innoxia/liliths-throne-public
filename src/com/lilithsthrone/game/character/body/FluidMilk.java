@@ -20,10 +20,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
-public class FluidMilk implements BodyPartInterface, Serializable {
+public class FluidMilk implements FluidInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -55,11 +55,11 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		return element;
 	}
 	
-	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
+	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
 		
-		FluidType fluidType = FluidType.MILK_HUMAN;
+		FluidType fluidType = baseType;
 		try {
 			fluidType = FluidType.valueOf(milk.getAttribute("type"));
 		} catch(Exception ex) {
@@ -72,14 +72,6 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
 		Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
 		Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
-		
-//		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-//		fluidMilk.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
-//				fluidMilk.fluidModifiers.add(fm);
-//			}
-//		}
 		
 		return fluidMilk;
 	}
@@ -154,26 +146,27 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if(owner==null) {
+			this.flavour = flavour;
+			return "";
+		}
+		
 		if(this.flavour == flavour) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 
 		this.flavour = flavour;
-
-		if(owner == null) {
-			return "";
-		}
 		
 		if(owner.isPlayer()) {
 			return "<p>"
-						+ "A soothing warmth spreads up through your [pc.breasts], causing you to let out a contented little sigh.</br>"
+						+ "A soothing warmth spreads up through your [pc.breasts], causing you to let out a contented little sigh.<br/>"
 						+ "Your [pc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>";
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "A soothing warmth spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a contented little sigh.</br>"
-						+ "[npc.Name]'s [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "A soothing warmth spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
+						+ "[npc.NamePos] [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>");
 		}
 	}
@@ -197,105 +190,105 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 			case ADDICTIVE:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, pulsating heat spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, pulsating heat spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(addictive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, pulsating heat spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(addictive)]!"
+								+ "A strange, pulsating heat spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, soothing warmth spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, soothing warmth spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(alcoholic)]!"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a light, bubbly feeling rising up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a light, bubbly feeling rising up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(bubbly)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A light, bubbly feeling spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(bubbly)]!"
+								+ "A light, bubbly feeling spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of strange pulses shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a series of strange pulses shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of strange pulses shoot up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(psychoactive)]!"
+								+ "A series of strange pulses shoot up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a slow, creeping warmth rise up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a slow, creeping warmth rise up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(musky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A slow, creeping warmth rises up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(musky)]!"
+								+ "A slow, creeping warmth rises up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, soothing warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, soothing warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(slimy)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth flows up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(slimy)]!"
+								+ "A strange, soothing warmth flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a thick, sickly warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a thick, sickly warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(sticky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A thick, sickly warmth flows up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(sticky)]!"
+								+ "A thick, sickly warmth flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a heavy heat slowly rising up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a heavy heat slowly rising up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.milk] is now [style.boldGrow(viscous)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A heavy heat slowly rises up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(viscous)]!"
+								+ "A heavy heat slowly rises up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
 		}
@@ -318,105 +311,105 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 			case ADDICTIVE:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness spreading up through your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness spreading up through your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer addictive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer addictive)]!"
+								+ "A soft coolness spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness spreading up through your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness spreading up through your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer alcoholic)]!"
+								+ "A soft coolness spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a calm, settling feeling rising up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a calm, settling feeling rising up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer bubbly)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calm, settling feeling spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer bubbly)]!"
+								+ "A calm, settling feeling spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of soothing waves wash up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a series of soothing waves wash up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of soothing waves wash up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer psychoactive)]!"
+								+ "A series of soothing waves wash up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a gentle coolness rise up into your [pc.breasts], causing you to let out soft sigh.</br>"
+								+ "You feel a gentle coolness rise up into your [pc.breasts], causing you to let out soft sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer musky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A gentle coolness rises up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a soft sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer musky)]!"
+								+ "A gentle coolness rises up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a soft sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a calming coolness flow up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a calming coolness flow up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer slimy)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calming coolness flows up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer slimy)]!"
+								+ "A calming coolness flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft warmth flow up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft warmth flow up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer sticky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft warmth flows up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer sticky)]!"
+								+ "A soft warmth flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness slowly rising up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness slowly rising up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.milk] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness rises up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer viscous)]!"
+								+ "A soft coolness rises up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>");
 				}
 		}
@@ -424,39 +417,12 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 	
-	
-	/*
-	 * case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a powerful pulse of arcane energy shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.milk] is now [style.boldGrow(transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A powerful pulse of arcane energy shoots up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(transformative)]!"
-							+ "</p>");
-				}
-				
-			case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a soothing wave of arcane energy disperse from your [pc.breasts], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.milk] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing wave of arcane energy disperses from [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>");
-				}
-	 */
-	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+	
+	public void addTransformativeEffect(ItemEffect ie) {
+		transformativeEffects.add(ie);
 	}
 
 	/**
@@ -464,6 +430,10 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 	 */
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
+	}
+	
+	public void clearFluidModifiers() {
+		fluidModifiers.clear();
 	}
 	
 	public float getValuePerMl() {

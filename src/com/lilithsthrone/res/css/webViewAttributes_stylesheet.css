@@ -303,6 +303,7 @@ h6{
 	border-radius:5px;
 	background-color:#808080;
 	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 .map-tile:after {
   content: "";

@@ -29,6 +29,8 @@ public enum NippleType implements BodyPartTypeInterface {
 	
 	WOLF_MORPH(BodyCoveringType.NIPPLES, Race.WOLF_MORPH),
 	
+	FOX_MORPH(BodyCoveringType.NIPPLES, Race.FOX_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.NIPPLES, Race.CAT_MORPH),
 	
 	COW_MORPH(BodyCoveringType.NIPPLES, Race.COW_MORPH),

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -48,7 +50,9 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
-		super(null, "", 4, gender, RacialBody.HARPY, RaceStage.LESSER,
+		super(null, "",
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				4, gender, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {
@@ -78,7 +82,7 @@ public class HarpyNestsAttacker extends NPC {
 			setName(Name.getRandomTriplet(Race.HARPY));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
-					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.she]'s prepared to fight you in order to teach you a lesson..."));
+					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.sheIs] prepared to fight you in order to teach you a lesson..."));
 	
 			// Add fetishes:
 			CharacterUtils.addFetishes(this);
@@ -113,11 +117,9 @@ public class HarpyNestsAttacker extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 

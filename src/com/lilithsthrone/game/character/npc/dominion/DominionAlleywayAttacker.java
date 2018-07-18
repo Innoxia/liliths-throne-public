@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,9 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(null, "",
+				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -87,9 +90,12 @@ public class DominionAlleywayAttacker extends NPC {
 					case DEMON:
 					case HARPY:
 					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
@@ -105,13 +111,23 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -137,6 +153,27 @@ public class DominionAlleywayAttacker extends NPC {
 					case CAT_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
+					case CAT_MORPH_LYNX:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LEOPARD:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LION:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_TIGER:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_CHEETAH:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_CARACAL:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
 					case COW_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
@@ -149,8 +186,17 @@ public class DominionAlleywayAttacker extends NPC {
 					case DOG_MORPH_BORDER_COLLIE:
 						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
+					case FOX_MORPH:
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+						break;
+					case FOX_MORPH_FENNEC:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
 					case HORSE_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?4:16, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH_ZEBRA:
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
@@ -178,9 +224,9 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this);
+			CharacterUtils.setHistoryAndPersonality(this, true);
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				this.setHistory(History.MUGGER);
+				this.setHistory(History.NPC_MUGGER);
 			}
 			
 			// ADDING FETISHES:
@@ -224,7 +270,7 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		if(this.getHistory()==History.PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+		if(this.getHistory()==History.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
 			// Remove client:
 			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
 			if(charactersPresent.size()>1) {
@@ -254,10 +300,10 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==History.PROSTITUTE) {
+		if(this.getHistory()==History.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
-						"[npc.Name]'s days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+						"[npc.NamePos] days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 			} else {
 				return (UtilText.parse(this,
 						"[npc.Name] is a prostitute who whores [npc.herself] out in the backalleys of Dominion."));
@@ -266,7 +312,7 @@ public class DominionAlleywayAttacker extends NPC {
 		} else {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
-						"[npc.Name]'s days of prowling the back alleys of Dominion and mugging innocent travellers are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+						"[npc.NamePos] days of prowling the back alleys of Dominion and mugging innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 			} else {
 				return (UtilText.parse(this,
 						"[npc.Name] is a resident of Dominion, who prowls the back alleys in search of innocent travellers to mug and rape."));
@@ -275,11 +321,9 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(!isSlave()) {
-				setPendingClothingDressing(true);
-			}
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 
@@ -305,7 +349,7 @@ public class DominionAlleywayAttacker extends NPC {
 				|| pt == PlaceType.DOMINION_CANAL
 				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
 				|| pt == PlaceType.DOMINION_CANAL_END) {
-			if(this.getHistory()==History.PROSTITUTE) {
+			if(this.getHistory()==History.NPC_PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
 			} else {
@@ -321,7 +365,7 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if(this.getHistory()==History.PROSTITUTE) {
+		if(this.getHistory()==History.NPC_PROSTITUTE) {
 			if (victory) {
 				return new Response("", "", AlleywayProstituteDialogue.AFTER_COMBAT_VICTORY);
 			} else {
