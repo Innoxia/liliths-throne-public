@@ -53,8 +53,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SlimeGuardIce extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SlimeGuardIce() {
 		this(false);
 	}

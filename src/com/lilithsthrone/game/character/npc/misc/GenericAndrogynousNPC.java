@@ -23,8 +23,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class GenericAndrogynousNPC extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public GenericAndrogynousNPC() {
 		this(false);
 	}

@@ -109,7 +109,7 @@ public enum Encounter {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 	
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
@@ -204,7 +204,7 @@ public enum Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -297,7 +297,7 @@ public enum Encounter {
 				}
 			}
 			
-			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 			try {
 				Main.game.addNPC(Main.game.getActiveNPC(), false);
 			} catch (Exception e) {
@@ -341,7 +341,7 @@ public enum Encounter {
 					}
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -361,7 +361,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -426,7 +426,7 @@ public enum Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -446,7 +446,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -500,7 +500,7 @@ public enum Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new SubmissionAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new SubmissionAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -538,7 +538,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -556,7 +556,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new SlimeCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new SlimeCavernAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {

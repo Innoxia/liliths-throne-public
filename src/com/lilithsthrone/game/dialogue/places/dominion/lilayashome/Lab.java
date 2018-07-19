@@ -404,8 +404,8 @@ public class Lab {
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								null,
+								Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -432,8 +432,8 @@ public class Lab {
 								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								null,
+								Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -866,8 +866,8 @@ public class Lab {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-						"<p>"
+						null,
+						Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
@@ -888,8 +888,8 @@ public class Lab {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-								"<p>"
+						null,
+								Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 								+ "</p>"
@@ -1852,8 +1852,8 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						null,
+						Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -2097,8 +2097,8 @@ public class Lab {
 						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						null,
+						Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."

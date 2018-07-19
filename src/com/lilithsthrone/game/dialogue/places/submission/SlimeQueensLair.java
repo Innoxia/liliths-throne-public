@@ -158,8 +158,8 @@ public class SlimeQueensLair {
 									return false;
 								}
 							},
-							AFTER_SLIME_GUARD_SEX_AS_DOM,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SIDE_BY_SIDE"));
+							null,
+							AFTER_SLIME_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SIDE_BY_SIDE"));
 				
 				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)?index==3:index==4) {
 					return new ResponseSex("Get Spitroasted",
@@ -176,8 +176,8 @@ public class SlimeQueensLair {
 									return false;
 								}
 							},
-							AFTER_SLIME_GUARD_SEX_AS_SUB,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED"));
+							null,
+							AFTER_SLIME_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED"));
 				} else {
 					return null;
 				}
@@ -198,8 +198,8 @@ public class SlimeQueensLair {
 									return false;
 								}
 							},
-							AFTER_SLIME_GUARD_SEX_AS_DOM,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SIDE_BY_SIDE"));
+							null,
+							AFTER_SLIME_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SIDE_BY_SIDE"));
 				
 				} else if(index==2) {
 					return new ResponseSex("Get Spitroasted",
@@ -216,8 +216,8 @@ public class SlimeQueensLair {
 									return false;
 								}
 							},
-							AFTER_SLIME_GUARD_SEX_AS_SUB,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED"));
+							null,
+							AFTER_SLIME_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED"));
 				} else {
 					return null;
 				}
@@ -412,8 +412,8 @@ public class SlimeQueensLair {
 								return false;
 							}
 						},
-						AFTER_SLIME_GUARD_SEX_DEFEATED,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED_UPON_DEFEAT"));
+						null,
+						AFTER_SLIME_GUARD_SEX_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "GUARD_POST_SEX_SPITROASTED_UPON_DEFEAT"));
 			} else {
 				return null;
 			}
@@ -608,8 +608,8 @@ public class SlimeQueensLair {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+							null,
+							AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 				
 				} else if(index==2) {
 					return new ResponseSex("Submit",
@@ -620,8 +620,8 @@ public class SlimeQueensLair {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB,
-							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+							null,
+							AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 				} else {
 					return null;
 				}
@@ -843,8 +843,8 @@ public class SlimeQueensLair {
 								return false;
 							}
 						},
-						AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "ROYAL_GUARD_SEX_SEDUCTION")) {
+						null,
+						AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "ROYAL_GUARD_SEX_SEDUCTION")) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeated, true);
@@ -933,8 +933,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
+						null,
+						AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
 			} else {
 				return null;
@@ -961,8 +961,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+						null,
+						AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
 			
 			} else if(index==2) {
 				return new ResponseSex("Submit",
@@ -973,8 +973,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+						null,
+						AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
 			} else {
 				return null;
 			}
@@ -1000,8 +1000,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
+						null,
+						AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
 				
 			} else {
 				return null;
@@ -1159,8 +1159,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeQueen(), SexPositionSlot.MISSIONARY_ON_BACK))),
-						AFTER_SLIME_QUEEN_SEX,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
+						null,
+						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
 				
 			} else if(index==3) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
@@ -1236,8 +1236,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeQueen(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SLIME_QUEEN_SEX,
-						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
+						null,
+						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
 				
 			} else {
 				return null;

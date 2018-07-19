@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -40,12 +41,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.2.9
  * @author Kumiko, Innoxia
  */
 public class Ashley extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
 			ItemType.GIFT_CHOCOLATES,
@@ -85,6 +84,8 @@ public class Ashley extends NPC {
 			this.setHeight(186);
 			
 			this.setMoney(0);
+
+			this.setRaceConcealed(true);
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_CLOAK, Colour.CLOTHING_BLACK, Colour.CLOTHING_SILVER, null, false), true, this);
 			
@@ -94,6 +95,9 @@ public class Ashley extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.9")) {
+			this.setRaceConcealed(true);
+		}
 	}
 
 	@Override
@@ -106,11 +110,6 @@ public class Ashley extends NPC {
 		return 25;
 	}
 	
-	@Override
-	public boolean isRaceConcealed() {
-		return true;
-	}
-
 	@Override
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);

@@ -1511,7 +1511,21 @@ public class OptionsDialogue {
 							"Non-consent",
 							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
-			
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"VOLUNTARY_NTR",
+							Colour.GENERIC_MINOR_BAD,
+							"Voluntary NTR",
+							"When enabled, you will get the option to offer certain enemies sex with your companions as a way to avoid combat.",
+							Main.getProperties().hasValue(PropertyValue.voluntaryNTR)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"INVOLUNTARY_NTR",
+							Colour.GENERIC_BAD,
+							"Involuntary NTR",
+							"When enabled, enemies might choose to only have sex with your companion after beating your party in combat."
+									+ " When disabled, all post-combat-loss sex scenes will involve you.",
+							Main.getProperties().hasValue(PropertyValue.involuntaryNTR)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"INCEST",

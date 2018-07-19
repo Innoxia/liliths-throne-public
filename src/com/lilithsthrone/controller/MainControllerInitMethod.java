@@ -4592,6 +4592,8 @@ public class MainControllerInitMethod {
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ARTWORK", PropertyValue.artwork),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
+					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
+					new Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 					new Value<>("INCEST", PropertyValue.incestContent),
 					new Value<>("LACTATION", PropertyValue.lactationContent),
 					new Value<>("CUM_REGENERATION", PropertyValue.cumRegenerationContent),

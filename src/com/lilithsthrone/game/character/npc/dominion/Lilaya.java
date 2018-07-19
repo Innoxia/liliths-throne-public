@@ -53,8 +53,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Lilaya extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	// Mother's name is Lyssieth
 

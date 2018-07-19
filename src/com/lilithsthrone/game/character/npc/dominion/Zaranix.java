@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -58,8 +59,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Zaranix extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Zaranix() {
 		this(false);
@@ -285,8 +284,8 @@ public class Zaranix extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
 							+ " you say, stepping towards the exhausted [zaranix.race],"
 							+ " [pc.speech(I think you owe me an apology...)]"
@@ -308,8 +307,8 @@ public class Zaranix extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and, feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house,"
 								+ " you decide to try and make it up to [zaranix.herHim]."
 							+ " Looking down at [zaranix.her] crotch and biting your [pc.lip], you let out a pleading little whine,"
@@ -472,8 +471,8 @@ public class Zaranix extends NPC {
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+						null,
+						AFTER_SEX_DEFEAT, "<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
 							+ " Collapsing down in a nearby chair, he pulls you forwards on your knees as he spreads his legs, bringing your face right up against his crotch and booming,"
 							+ " [zaranix.speech(You're going to love my cock, slut!)]"
@@ -524,8 +523,8 @@ public class Zaranix extends NPC {
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+						null,
+						AFTER_SEX_DEFEAT, "<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
 							+ " Spreading his legs, he grins down at you,"
 							+ " [zaranix.speech(I bet you want to put those new lips of yours to use, don't you, my little cock-sucker?)]"
@@ -583,20 +582,22 @@ public class Zaranix extends NPC {
 	
 	// Sex:
 
-	public SexType getForeplayPreference() {
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
-		return super.getForeplayPreference();
+		return super.getForeplayPreference(target);
 	}
-	
-	public SexType getMainSexPreference() {
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 
-		return super.getMainSexPreference();
+		return super.getMainSexPreference(target);
 	}
 
 }

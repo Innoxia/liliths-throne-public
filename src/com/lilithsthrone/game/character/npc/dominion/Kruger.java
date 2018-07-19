@@ -32,7 +32,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -46,12 +45,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Kruger extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Kruger() {
 		this(false);
@@ -144,7 +141,7 @@ public class Kruger extends NPC {
 	
 
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexAreaInterface area) {
+	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
 		return true;
 	}
 	

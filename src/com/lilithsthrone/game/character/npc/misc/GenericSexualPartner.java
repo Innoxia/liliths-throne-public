@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,8 +26,12 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -40,8 +45,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public GenericSexualPartner() {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), false);
@@ -275,6 +278,68 @@ public class GenericSexualPartner extends NPC {
 
 	@Override
 	public void endSex() {
+	}
+	
+	private boolean playerRequested = false;
+	
+	@Override
+	public void generateSexChoices(GameCharacter target, SexType request) {
+		if(this.getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_TOILETS && Sex.getTurn()>1) {
+			playerRequested = true;
+		}
+		
+		super.generateSexChoices(target, request);
+	}
+	
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getSexPositionPreferences(target);
+		}
+		
+		sexPositionPreferences.clear();
+		
+		if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+		} else {
+			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+		}
+		
+		return sexPositionPreferences;
+	}
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getForeplayPreference(target);
+		}
+		
+		if(target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+		} else if(target.hasVagina()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+		} else {
+			return super.getForeplayPreference(target);
+		}
+	}
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getMainSexPreference(target);
+		}
+		
+		if(this.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+			return getForeplayPreference(target);
+		}
+		
+		if(this.hasVagina() && target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+		} else if(target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS);
+		}
+
+		return super.getMainSexPreference(target);
 	}
 	
 	@Override

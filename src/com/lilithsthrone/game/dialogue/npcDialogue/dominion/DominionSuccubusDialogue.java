@@ -286,8 +286,8 @@ public class DominionSuccubusDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "Satisfied with how [npc.name] looks, you decide to give [npc.herHim] what [npc.she] wants, and, stepping forwards, you allow [npc.herHim] to move towards you, grinning as [npc.she] starts grinding [npc.herself] up against you."
 							+ " Pressing your [pc.lips] to [npc.hers] and delivering a passionate kiss, you reach around and grope [npc.namePos] ass as [npc.she] moans hotly into your mouth..."
 						+ "</p>");
@@ -322,7 +322,7 @@ public class DominionSuccubusDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT, "<p>"
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching [npc.herself], you start to feel incredibly sorry for [npc.herHim]."
 							+ " Stepping forwards, you lean down and look up into [npc.her] "+Main.game.getActiveNPC().getEyeName()+". "
 							+UtilText.parsePlayerSpeech("I'm sorry! I didn't mean to upset you!")
@@ -682,8 +682,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to humiliate [npc.herHim] a little, you order [npc.herHim] to get rid of [npc.her] breasts, "
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! You're going to shrink them right down, understand? If they're anything bigger than little double-A's, I'm walking away!")
 							+ "</p>"
@@ -709,8 +709,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to reduce the size of [npc.her] huge breasts a little, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.")
 							+ "</p>"
@@ -736,8 +736,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Looking down at [npc.her] chest, you find yourself happy enough already as you see [npc.her] huge, E-cup breasts."
 								+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
 								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
@@ -755,8 +755,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
 										+ " Make them at least an H-cup, and we can finally get started.")
@@ -783,8 +783,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to make [npc.her] breasts as big as possible, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
 										+ " I want to see just how big you can make them!")
@@ -816,8 +816,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
 								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 							+ "</p>");
@@ -829,8 +829,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and if your tits are anything bigger than little double-A's, I'm walking away!")
 							+ "</p>"
@@ -858,8 +858,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are a more reasonable size! C-cups should do just fine.")
 							+ "</p>"
@@ -887,8 +887,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are nice and big! E-cups should do just fine.")
 							+ "</p>"
@@ -916,8 +916,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are huge! H-cups at least!")
 							+ "</p>"
@@ -945,8 +945,8 @@ public class DominionSuccubusDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							AFTER_SEX_VICTORY, "<p>"
 									+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 									+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are as large as possible!")
 								+ "</p>"
@@ -1017,7 +1017,7 @@ public class DominionSuccubusDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT){
+						null, AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -1080,7 +1080,7 @@ public class DominionSuccubusDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT){
+						null, AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);

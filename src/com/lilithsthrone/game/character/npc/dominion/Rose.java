@@ -45,8 +45,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Rose extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Rose() {
 		this(false);
 	}

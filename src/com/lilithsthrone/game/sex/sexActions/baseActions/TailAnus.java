@@ -103,7 +103,8 @@ public class TailAnus {
 
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently bucking [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.asshole+], and gently [npc2.verb(push)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc2.her] [npc2.asshole+],"
+									+ " and gently [npc2.verb(push)] [npc.her] [npc.hips+] back in response."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -113,7 +114,8 @@ public class TailAnus {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.asshole+], and desperately [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc2.her] [npc2.asshole+],"
+									+ " and desperately [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -122,7 +124,8 @@ public class TailAnus {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.asshole+], and violently [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc2.her] [npc2.asshole+],"
+									+ " and violently [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -131,7 +134,7 @@ public class TailAnus {
 
 							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.ass+] back against [npc.namePos] [npc.tail].",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc.her] [npc.asshole+], and [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.tail] stimulating [npc2.her] [npc2.asshole+], and [npc2.verb(buck)] [npc.her] [npc.hips+] back in response."));
 					break;
 				case SUB_RESISTING:
 					if(Sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
@@ -140,7 +143,7 @@ public class TailAnus {
 
 								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I've never done anal before!)]",
 
-								" [npc2.Name] [npc2.sob] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my anal virginity!)]"));
+								" [npc2.Name] [npc2.sobVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my anal virginity!)]"));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -149,7 +152,7 @@ public class TailAnus {
 
 								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
 
-								" [npc2.Name] [npc2.sob] in distress as [npc2.name] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+								" [npc2.Name] [npc2.sobVerb] in distress as [npc2.name] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
 					}
 					break;
 				default:

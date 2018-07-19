@@ -57,8 +57,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Nnxx, Innoxia
  */
 public class Lumi extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public Lumi() {
 		this(false);

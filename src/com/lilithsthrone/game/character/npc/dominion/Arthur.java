@@ -36,8 +36,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Arthur extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Arthur() {
 		this(false);
 	}

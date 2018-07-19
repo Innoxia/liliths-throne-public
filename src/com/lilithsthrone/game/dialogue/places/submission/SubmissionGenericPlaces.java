@@ -178,11 +178,11 @@ public class SubmissionGenericPlaces {
 						}
 						
 						try {
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.GOLD, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, false), false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

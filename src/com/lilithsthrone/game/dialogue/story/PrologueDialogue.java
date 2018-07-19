@@ -233,8 +233,8 @@ public class PrologueDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueFemale(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX,
-							(Main.game.getPlayer().hasPenis()
+							null,
+							AFTER_SEX, (Main.game.getPlayer().hasPenis()
 								?"<p>"
 									+ "You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body."
 									+ " Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands."
@@ -269,8 +269,8 @@ public class PrologueDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueMale(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX,
-							"<p>"
+							null,
+							AFTER_SEX, "<p>"
 								+ "You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body."
 								+ " Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands."
 								+ " [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]"

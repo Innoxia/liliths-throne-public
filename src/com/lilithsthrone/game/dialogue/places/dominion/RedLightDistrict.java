@@ -325,8 +325,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
+										null,
+										AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
 							
 						} else if (index == 2) {
 								return new ResponseSex("Submissive Sex",
@@ -335,8 +335,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
+										null,
+										AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
 							
 						}
 						
@@ -354,8 +354,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
+										null,
+										AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -375,8 +375,8 @@ public class RedLightDistrict {
 										new SMStanding(
 												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-										AFTER_SEX_PROSTITUTE,
-										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
+										null,
+										AFTER_SEX_PROSTITUTE, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
 									@Override
 									public void effects() {
 										Main.game.getPlayer().incrementMoney(-cost);
@@ -393,7 +393,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -418,7 +418,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -494,8 +494,8 @@ public class RedLightDistrict {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_SELL_SELF_SUB,
-						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
+						null,
+						AFTER_SEX_SELL_SELF_SUB, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -543,8 +543,8 @@ public class RedLightDistrict {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_SELL_SELF_DOM,
-						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
+						null,
+						AFTER_SEX_SELL_SELF_DOM, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -683,8 +683,8 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getBunny(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
+							null,
+							AFTER_SEX_BUNNY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
@@ -706,8 +706,8 @@ public class RedLightDistrict {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_BUNNY_THREESOME,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
+							null,
+							AFTER_SEX_BUNNY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"))) {
@@ -817,8 +817,8 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_LOPPY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
+							null,
+							AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -838,8 +838,8 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_LOPPY,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
+							null,
+							AFTER_SEX_LOPPY, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
@@ -861,8 +861,8 @@ public class RedLightDistrict {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_LOPPY_THREESOME,
-							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
+							null,
+							AFTER_SEX_LOPPY_THREESOME, UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"))) {

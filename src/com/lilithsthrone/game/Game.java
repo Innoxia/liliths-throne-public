@@ -1156,7 +1156,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			for(int i=0; i<4; i++) {
-				SlaveInStocks slave = new SlaveInStocks(GenderPreference.getGenderFromUserPreferences());
+				SlaveInStocks slave = new SlaveInStocks(GenderPreference.getGenderFromUserPreferences(false, false));
 				if(Math.random()>0.5f) {
 					Main.game.getGenericFemaleNPC().addSlave(slave);
 				} else {

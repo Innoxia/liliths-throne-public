@@ -60,10 +60,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
 		
 		FluidType fluidType = baseType;
-		try {
-			fluidType = FluidType.valueOf(milk.getAttribute("type"));
-		} catch(Exception ex) {
-		}
+		
+		// FluidType should always be of type 'baseType'.
+//		try {
+//			fluidType = FluidType.valueOf(milk.getAttribute("type"));
+//		} catch(Exception ex) {
+//		}
 		
 		FluidMilk fluidMilk = new FluidMilk(fluidType);
 		

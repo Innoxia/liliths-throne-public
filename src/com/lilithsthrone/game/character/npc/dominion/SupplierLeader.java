@@ -47,8 +47,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SupplierLeader extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SupplierLeader() {
 		this(false);
 	}

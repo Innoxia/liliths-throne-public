@@ -38,7 +38,6 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -51,12 +50,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.2.2
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Cultist extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	private boolean requestedAnal = false;
 	private boolean sealedSex = false;
@@ -416,7 +413,7 @@ public class Cultist extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexAreaInterface area) {
+	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
 		return true;
 	}
 	

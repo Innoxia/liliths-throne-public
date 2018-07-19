@@ -233,8 +233,8 @@ public class RalphsSnacks {
 						new SexManagerRalphDiscount(
 								Util.newHashMapOfValues(new Value<>(Main.game.getRalph(), SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH))),
-						Ralph.AFTER_SEX,
-						"<p>"
+						null,
+						Ralph.AFTER_SEX, "<p>"
 							+ UtilText.parsePlayerSpeech("Ok, I'll do it,") + " you say, looking up at Ralph to see his smile grow even wider." + "</p>" + "<p>"
 							+ "He leans in, and you half-expect him to try and kiss you, but instead, he simply grabs your " + Main.game.getPlayer().getArmNameSingular() + " and starts to drag you back to his desk."
 							+ " As he walks, he starts instructing you on what's about to happen."

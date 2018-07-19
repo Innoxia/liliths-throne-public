@@ -1387,6 +1387,112 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY"><![CDATA[
+	<p>
+		Entering one of the empty stalls adjacent to the one in which strangers service the glory holes, you push the door shut behind you, before turning to face the hole in the wall. As you do this, you hear someone enter the stall on the other side, and after just a moment, you see a flash of movement behind the glory hole.
+	</p>
+	<p>
+		[game.random(
+		[npc.speech(Come on, put your cock through here!)]
+		|[npc.speech(Show me your cock! I need your cum!)]
+		|[npc.speech(Come on babe, give me your cock!)])] a lust-filled voice suddenly calls out through the hole.
+	</p>
+	<p>
+		You wonder if you should do as [npc.name] says, or change your mind and make a hasty exit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING"><![CDATA[
+	<p>
+		#IF pc.hasPenis()
+		#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSE
+			#IF pc.hasVagina()
+			#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.pussy+] licked by the stranger on the other side.
+			#ELSEDoing as [npc.name] says, you step up to the glory hole, preparing to have your genderless mound licked by the stranger on the other side.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As [npc.she] sees your approach through the hole, [npc.name] lets out [npc.a_moan+], before encouraging you to get started, [game.random(
+		[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+		|[npc.speech(Mmm, oh yeah! Let's get started!)]
+		|[npc.speech(Oh yeah babe! I'll show you how much of a slut I am!)])]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of a stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, reaching down to unlock the door of your stall, you open it and step back out into the toilets.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY"><![CDATA[
+	<p>
+		Feeling horny and eager to pleasure some stranger's cocks, you step into the cum-splattered stall. Having seen you enter, someone quickly steps into the stall adjacent to yours, before quickly pushing [npc.her] [npc.a_cock+] through the hole. As you look across at the [npc.cock+], its owner
+		#IFnpc.isFeminine()
+		#THEN barks out a sharp command,
+		#ELSE lets out a deep grunt,
+		#ENDIF
+		 [game.random(
+		[npc.speech(Come on slut, get to work!)]
+		|[npc.speech(Start sucking, slut!)]
+		|[npc.speech(Come on, you dirty slut, get started already!)])]
+	</p>
+	<p>
+		Before you can respond, you hear someone else enter the stall on the other side, and, turning to look at the glory hole behind you, you see [npc2.a_cock+] thrusting forwards. With a buck of [npc2.her] [npc2.hips], this second stranger calls out,
+		 [game.random(
+		[npc2.speech(Come on whore. You can use your mouth, but if you've got a cunt, I want to give that a good fuck too!)]
+		|[npc2.speech(Hurry up, whore! I want to fuck your ass, or even better, your cunt, if you've got one!)]
+		|[npc2.speech(You can start with your mouth, but I want to fuck your ass, whore! Or even better, your slutty cunt, if you've got one!)])]
+	</p>
+	<p>
+		Looking back and forth between the cocks on offer, you wonder if you should do as the strangers say, and get started on servicing them. Then again, you could always change your mind and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC"><![CDATA[
+	<p>
+		Deciding to leave the stall's door open, so that anyone can come and watch you servicing these strangers' cocks, you kneel down on the floor of the toilet. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show everyone what a dirty slut you are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING"><![CDATA[
+	<p>
+		Closing and locking the stall's door, you kneel down on the floor of the toilet, ready to service these strangers' cocks. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show them what a dirty slut you are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX_PUBLIC"><![CDATA[
+	<p>
+		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. The crowd that gathered to watch your slutty display starts to disperse, and as they leave, you start to get your things in order.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, stepping out of your stall, you head back out into the toilets. Glancing back at the stalls that were to either side of yours, you see that the occupants have already departed, leaving you with no clue as to whose cocks you just serviced...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. As you get your things in order, you see flashes of movement through the holes to either side of you, before the creaking of doors announces each of the strangers' exits.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, reaching down to unlock the door of your stall, you open it and step back out into the toilets. Glancing back at the stalls that were to either side of yours, you see that the occupants have already departed, leaving you with no clue as to whose cocks you just serviced...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="WATERING_HOLE_TOILETS_SEX"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you lead [npc.herHim] into one of the stalls, before turning and locking the door behind you.
@@ -1657,7 +1763,7 @@
 		[pc.speech(Of course I'll see you again!)] you enthusiastically reply, smiling at [npc.name].
 	</p>
 	<p>
-		[npc.speech(Great! I acn't wait to see you again!)] [npc.she] responds, stepping over towards the door.
+		[npc.speech(Great! I can't wait to see you again!)] [npc.she] responds, stepping over towards the door.
 	</p>
 	<p>
 		You show [npc.name] back down to the front door, and, after saying goodbye and returning to your room, you collapse down onto your bed and let out a deep sigh. You spend the next few minutes lying down and relaxing, before getting back on your [pc.feet] and wondering what to do next...

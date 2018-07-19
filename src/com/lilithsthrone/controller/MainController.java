@@ -157,6 +157,8 @@ public class MainController implements Initializable {
 		tooltip.setGraphic(webviewTooltip);
 		tooltip.setMaxWidth(400);
 		tooltip.setMaxHeight(400);
+		tooltip.setAutoHide(true);
+		tooltip.setConsumeAutoHidingEvents(false);
 
 		vBoxLeft.getStyleClass().add("vbox");
 
@@ -1028,7 +1030,7 @@ public class MainController implements Initializable {
 		} else {
 			webEngineTooltip.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
 		}
-		
+
 		// Main WebView:
 		webViewMain.setContextMenuEnabled(false);
 		webEngine = webViewMain.getEngine();
@@ -1291,7 +1293,7 @@ public class MainController implements Initializable {
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft()) {
-						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(), invSlot);
 						addEventListener(documentAttributes, id, "click", el, false);
 					}
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -1455,7 +1457,20 @@ public class MainController implements Initializable {
 						}
 						
 					} else { //TODO display NPC perk tree
-						openCharactersPresent(character);
+						if(Main.game.isInSex()) {
+							Sex.setActivePartner((NPC) character);
+							Sex.recalculateSexActions();
+							updateUI();
+							Main.game.updateResponses();
+								
+						} else if(Main.game.isInCombat()) {
+							Combat.setTargetedCombatant((NPC) character);
+							updateUI();
+							Main.game.updateResponses();
+								
+						} else {
+							openCharactersPresent(character);
+						}
 					}
 				}, false);
 				addEventListener(documentAttributes, idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);
@@ -1689,6 +1704,19 @@ public class MainController implements Initializable {
 				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						openCharactersPresent(character);
+					}, false);
+				} else if(Main.game.isInSex()) {
+					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
+						Sex.setActivePartner((NPC) character);
+						Sex.recalculateSexActions();
+						updateUI();
+						Main.game.updateResponses();
+					}, false);
+				} else if(Main.game.isInCombat()) {
+					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
+						Combat.setTargetedCombatant((NPC) character);
+						updateUI();
+						Main.game.updateResponses();
 					}, false);
 				}
 				addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);

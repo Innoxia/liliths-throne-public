@@ -267,8 +267,8 @@ public class ClothingEmporium {
 									new SMMissionary(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNyan(), SexPositionSlot.MISSIONARY_ON_BACK))),
-									END_SEX,
-									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
+									null,
+									END_SEX, UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
 								@Override
 								public void effects() {
 									if(Main.game.getNyan().isVisiblyPregnant()) {

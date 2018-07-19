@@ -59,8 +59,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SlimeQueen extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SlimeQueen() {
 		this(false);
 	}

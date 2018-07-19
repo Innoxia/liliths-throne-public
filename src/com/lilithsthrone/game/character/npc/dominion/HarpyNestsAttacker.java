@@ -35,8 +35,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyNestsAttacker extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyNestsAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}

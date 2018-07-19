@@ -44,8 +44,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Loppy extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Loppy() {
 		this(false);
 	}

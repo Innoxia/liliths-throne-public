@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.1.89
+ * @version 0.2.9
  * @author Innoxia
  */
 public class PlayerSelfFingerMouth {
@@ -35,7 +35,7 @@ public class PlayerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaPenetration.FINGER).contains(LubricationType.PLAYER_SALIVA);
+			return !Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.FINGER, LubricationType.SALIVA);
 		}
 		
 		@Override

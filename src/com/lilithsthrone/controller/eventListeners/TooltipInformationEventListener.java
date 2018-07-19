@@ -851,9 +851,13 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(
 					"<div class='title'>"+Util.capitaliseSentence(concealedSlot.getName())+" - [style.boldBad(Concealed!)]</div>"
 					+ "<div class='description'>"
-						+ UtilText.parse(RenderingEngine.getCharacterToRender(), "This slot is currently hidden from view by [npc.namePos] <b>")
-							+Util.clothesToStringList(concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getClothingType().getSlot())).collect(Collectors.toList()), false)
-						+"</b>."
+						+ (concealedSlots.get(concealedSlot).isEmpty()
+							?UtilText.parse(RenderingEngine.getCharacterToRender(),
+									"Due to [npc.namePos] position, this slot is currently hidden from view!")
+							:UtilText.parse(RenderingEngine.getCharacterToRender(),
+									"This slot is currently hidden from view by [npc.namePos] <b>")
+										+Util.clothesToStringList(concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getClothingType().getSlot())).collect(Collectors.toList()), false)
+									+"</b>.")
 					+ "</div>"));
 			
 		} else if(loadedEnchantment!=null) {

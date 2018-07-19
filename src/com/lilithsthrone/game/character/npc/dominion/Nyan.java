@@ -57,8 +57,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Nyan extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	private List<AbstractClothing> commonFemaleClothing;
 	private List<AbstractClothing> commonFemaleUnderwear;
 	private List<AbstractClothing> commonFemaleAccessories;
@@ -425,10 +423,6 @@ public class Nyan extends NPC {
 
 	public List<AbstractClothing> getCommonAndrogynousClothing() {
 		return commonAndrogynousClothing;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public List<AbstractClothing> getCommonMaleLingerie() {

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -197,12 +198,18 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBaseRequirementsMet() {
+		return true;
+	}
+	
+	public default boolean isBasicCoreRequirementsMet() {
 		return (this.getSexPace()==null
-				|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
-				|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
-				&& (this.getActionType()!=SexActionType.STOP_ONGOING
+					|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
+					|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
+				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop if dom or equal control
 					|| Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()
-					|| Sex.isSubHasEqualControl()); // Can only stop if dom or equal control
+					|| Sex.isSubHasEqualControl())
+				&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.MISC_WATCHING
+					|| this.getActionType()!=SexActionType.POSITIONING); 
 	}
 	
 	/**
@@ -227,7 +234,8 @@ public interface SexActionInterface {
 	}
 	
 	public default Response toResponse() {
-		if(isBaseRequirementsMet()
+		if(isBasicCoreRequirementsMet()
+				&& isBaseRequirementsMet()
 				&& isPhysicallyPossible()
 				&& !isBannedFromSexManager()
 				&& !Sex.getPosition().isActionBlocked(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), this)) {
@@ -279,7 +287,7 @@ public interface SexActionInterface {
 			// You can't prepare for orgasms if your partner won't orgasm on the next turn:
 			if(Sex.getCharacterPerformingAction().isPlayer()
 					&& getActionType() == SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-				if(!Sex.isPartnerReadyToOrgasm()) {
+				if(!Sex.isReadyToOrgasm(Sex.getActivePartner())) {
 					return null;
 				} else {
 					return convertToResponse();
@@ -288,7 +296,7 @@ public interface SexActionInterface {
 			// Your partner can't prepare for orgasms if you won't orgasm on the next turn:
 			if(!Sex.getCharacterPerformingAction().isPlayer()
 					&& getActionType() == SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-				if(!Sex.isPlayerReadyToOrgasm()) {
+				if(!Sex.isReadyToOrgasm(Main.game.getPlayer())) {
 					return null;
 				} else {
 					return convertToResponse();
@@ -344,7 +352,8 @@ public interface SexActionInterface {
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					if(this.getParticipantType() != SexParticipantType.SELF) { // This is a penetrative action between both partners:
-						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction())) || getSexPace()==SexPace.SUB_RESISTING) {
+						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction()) && Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())))
+								|| getSexPace()==SexPace.SUB_RESISTING) {
 							return null;
 						}
 					}
@@ -801,13 +810,17 @@ public interface SexActionInterface {
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 			if (Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()) != null
 					&& Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(sArea)) {
-				return true;
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Sex.getCharacterPerformingAction())) {
+					return true;
+				}
 			}
 		}
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
 			if (Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)) != null
 					&& Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
-				return true;
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Sex.getCharacterTargetedForSexAction(this))) {
+					return true;
+				}
 			}
 		}
 		
@@ -900,7 +913,12 @@ public interface SexActionInterface {
 		return false;
 	}
 	
-	public default List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, SexAreaInterface performingArea, GameCharacter characterTarget, SexAreaInterface targetedArea, boolean characterPerformingActionFetishes) {
+	public default List<Fetish> getFetishesFromPenetrationAndOrificeTypes(
+			GameCharacter characterPerformingAction,
+			SexAreaInterface performingArea,
+			GameCharacter characterTarget,
+			SexAreaInterface targetedArea,
+			boolean characterPerformingActionFetishes) {
 		
 		List<Fetish> associatedFetishes = new ArrayList<>();
 		List<Fetish> associatedFetishesPartner = new ArrayList<>();
@@ -935,6 +953,7 @@ public interface SexActionInterface {
 					associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 					break;
 				case ASS:
+					associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 					break;
 				case BREAST:
 					associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
@@ -999,6 +1018,7 @@ public interface SexActionInterface {
 					associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 					break;
 				case ASS:
+					associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 					break;
 				case BREAST:
 					associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);

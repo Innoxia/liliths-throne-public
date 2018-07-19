@@ -6026,7 +6026,7 @@ public class Body implements Serializable, XMLSaving {
 	
 	public String getSexDetails(GameCharacter owner) {
 		
-		if(owner.getTotalTimesHadSex() >=1) {
+		if(owner.getTotalTimesHadSex(Main.game.getPlayer()) >=1) {
 			descriptionSB = new StringBuilder();
 			
 			// Amount of sex:
@@ -6035,54 +6035,54 @@ public class Body implements Serializable, XMLSaving {
 					UtilText.parse(owner,
 					"<p>"
 						+ "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-							+ "You have had sex with [npc.name] "+Util.intToString(owner.getTotalTimesHadSex())+" "+(owner.getTotalTimesHadSex()==1?"time.":"times.")
+							+ "You have had sex with [npc.name] "+Util.intToString(owner.getTotalTimesHadSex(Main.game.getPlayer()))+" "+(owner.getTotalTimesHadSex(Main.game.getPlayer())==1?"time.":"times.")
 						+"</span>"));
 			
-			if(owner.getSexConsensualCount()>=1) {
-				if(owner.getSexConsensualCount() == owner.getTotalTimesHadSex()) {
-					if(owner.getTotalTimesHadSex()==1) {
+			if(owner.getSexConsensualCount(Main.game.getPlayer())>=1) {
+				if(owner.getSexConsensualCount(Main.game.getPlayer()) == owner.getTotalTimesHadSex(Main.game.getPlayer())) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was consensual."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were consensual."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex(Main.game.getPlayer()))+" times were consensual."));
 					}
 					
 				} else {
-					if(owner.getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was consensual."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexConsensualCount()))+" of these times were consensual."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexConsensualCount(Main.game.getPlayer())))+" of these times were consensual."));
 					}
 				}
 			}
-			if(owner.getSexAsSubCount()>=1) {
-				if(owner.getSexAsSubCount() == owner.getTotalTimesHadSex()) {
-					if(owner.getTotalTimesHadSex()==1) {
+			if(owner.getSexAsSubCount(Main.game.getPlayer())>=1) {
+				if(owner.getSexAsSubCount(Main.game.getPlayer()) == owner.getTotalTimesHadSex(Main.game.getPlayer())) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex(Main.game.getPlayer()))+" times you were the dominant partner."));
 					}
 					
 				} else {
-					if(owner.getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times you were the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount(Main.game.getPlayer())))+" of these times you were the dominant partner."));
 					}
 				}
 			}
-			if(owner.getSexAsDomCount()>=1) {
-				if(owner.getSexAsDomCount() == owner.getTotalTimesHadSex()) {
-					if(owner.getTotalTimesHadSex()==1) {
+			if(owner.getSexAsDomCount(Main.game.getPlayer())>=1) {
+				if(owner.getSexAsDomCount(Main.game.getPlayer()) == owner.getTotalTimesHadSex(Main.game.getPlayer())) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex(Main.game.getPlayer()))+" times you were the submissive partner."));
 					}
 					
 				} else {
-					if(owner.getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex(Main.game.getPlayer())==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times you were the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount(Main.game.getPlayer())))+" of these times you were the submissive partner."));
 					}
 				}
 			}

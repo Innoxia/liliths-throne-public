@@ -40,8 +40,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class BatMorphCavernAttacker extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public BatMorphCavernAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}

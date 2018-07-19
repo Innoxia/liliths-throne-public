@@ -157,8 +157,8 @@ public class CultistDialogue {
 						new SMCultistKneeling(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.KNEELING_RECEIVING_ORAL_CULTIST)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_CULTIST))),
-						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						"<p>"
+						null,
+						ENCOUNTER_CHAPEL_POST_ORAL_SEX, "<p>"
 							+ "You do as [npc.name] commands, and obediently drop to your knees in front of her."
 							+ " Looking down at your submissive form, the succubus cultist coos in delight,"
 							+ " [npc.speech(Good [pc.girl]! You're eager for my gift, aren't you?!)]"
@@ -197,8 +197,8 @@ public class CultistDialogue {
 							new SMAltarMissionary(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-							ENCOUNTER_CHAPEL_POST_VAGINAL_SEX,
-							"<p>"
+							null,
+							ENCOUNTER_CHAPEL_POST_VAGINAL_SEX, "<p>"
 								+ "You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster,"
 								+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 							+ "</p>"
@@ -242,8 +242,8 @@ public class CultistDialogue {
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_ANAL_SEX,
-						"<p>"
+						null,
+						ENCOUNTER_CHAPEL_POST_ANAL_SEX, "<p>"
 							+ "You smirk at [npc.name], before stepping forwards and asking,"
 							+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 						+ "</p>"
@@ -417,8 +417,8 @@ public class CultistDialogue {
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_DOM_SEX,
-						"<p>"
+						null,
+						ENCOUNTER_CHAPEL_POST_DOM_SEX, "<p>"
 							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.namePos] legs."
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you."
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
@@ -435,8 +435,8 @@ public class CultistDialogue {
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
-						"<p>"
+						null,
+						ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX, "<p>"
 							+ "As you pick up [npc.namePos] broomstick, you feel a powerful surge of arcane energy flowing into your body."
 							+ " Without even needing to be told, you instantly know exactly how to harness the spells within this powerful weapon."
 							+" As you gain knowledge of the spell 'Witch's Seal', you realise that you have the opportunity to give [npc.name] a taste of her own medicine..."
@@ -515,8 +515,8 @@ public class CultistDialogue {
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+						null,
+						ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."

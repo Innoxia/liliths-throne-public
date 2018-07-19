@@ -38,8 +38,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Pazu extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Pazu() {
 		this(false);
 	}

@@ -47,8 +47,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class PrologueFemale extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public PrologueFemale() {
 		this(false);
 	}

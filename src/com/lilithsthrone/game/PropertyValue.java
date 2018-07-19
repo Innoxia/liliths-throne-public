@@ -34,6 +34,8 @@ public enum PropertyValue {
 	nipplePenContent(true),
 	analContent(true),
 	futanariTesticles(true),
+	voluntaryNTR(false),
+	involuntaryNTR(false),
 
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),

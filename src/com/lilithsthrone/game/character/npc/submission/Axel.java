@@ -41,8 +41,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Axel extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Axel() {
 		this(false);
 	}
