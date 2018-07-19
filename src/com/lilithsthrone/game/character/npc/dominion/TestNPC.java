@@ -54,8 +54,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class TestNPC extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public TestNPC() {
 		this(false);
 	}
@@ -289,8 +287,8 @@ public class TestNPC extends NPC {
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -320,8 +318,8 @@ public class TestNPC extends NPC {
 								return null;
 							}
 						},
-						TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -351,8 +349,8 @@ public class TestNPC extends NPC {
 								return null;
 							}
 						},
-						TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -420,8 +418,8 @@ public class TestNPC extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_SEX, "<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -444,8 +442,8 @@ public class TestNPC extends NPC {
 								return null;
 							}
 						},
-						TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_SEX, "<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -468,8 +466,8 @@ public class TestNPC extends NPC {
 								return null;
 							}
 						},
-						TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						null,
+						TEST_DIALOGUE_AFTER_SEX, "<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
 							+ "<p>"

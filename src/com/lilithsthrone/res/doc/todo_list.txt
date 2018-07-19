@@ -29,59 +29,97 @@
 	
 	
 	
+	
 	Patch notes:
 	
-	Sex action conversions:
-		Converted and improved descriptions of all penis+ass (hotdogging) actions.
-		Converted all penis+nipple actions.
-		Converted and improved descriptions of all penis+breast (paizuri/naizuri) actions.
-		Converted all thigh-sex actions (and renamed the in-game labels to 'intercrural').
-		Converted all penis+vaginal urethra actions.
-		Converted miscellaneous actions in several other classes (orgasms, stocks/milking stall, cultist, kneeling-oral)
+	Gameplay:
+		Added glory holes to the nightclub's toilets. You can either use them, or service them.
+		Improved some of the dialogue in the Dominion alleyway attack scenes, and added pre-sex dialogue for all of their sex scenes.
+		Added threesomes and companion + enemy sex scenes for if losing combat against the Dominion alleyway attacker while having people in your party. (The companion + enemy sex scenes are disabled by default, behind a new 'NTR' content toggle.)
 	
 	Contributors:
-		Fixed issue with the parser not performing capitalisation correctly. (Lightcanadian)
-		Improved aspects of the 'concealed race' mechanic. (Lightcanadian)
+		Made several back-end improvements to image loading, drastically cutting down custom artwork load times. (DJ4ddi)
+		Added functionality to give any NPC a custom image (see res/images/characters/modding.txt for instructions). (DJ4ddi)
+		Added option to display custom character's artwork in their race/appearance tooltip. (DJ4ddi)
+		Added vaginal urethra modifier enchantments for clothing. (HarelMym)
+		Refactored offspring encounter code. (uglybead)
 	
 	Other:
-		Made you the dom in Lilaya's chair sex scenes, to give you control over positioning.
-		Added 'rainbow' as a dye colour for hair and other body coverings.
-		Area requests in sex are now available even if you're the dom.
-		Area requests in sex now work correctly, with your partner only saying 'no' if they dislike using that area, or if they're sadistic.
-		Changed clothing set bonuses to account for slots that are blocked by your racial parts. i.e. A horse-morph (with foot slot blocked due to hoofs) will still get the witch's set bonus if they are just wearing the hat & dress, ignoring the requirement to also be wearing the boots.
-		You no longer have the superpower of involuntarily pausing time while having sex. (Time now advances 1 minute per action.)
-		Improved sex status effect 'anus' icon.
-		Added sex status effect 'penis status' that's shown to indicate ongoing handjobs.
-		Cum and milk regeneration is no longer rounded to the nearest integer, to fix the issue of low cum storage values always regenerating very quickly.
+		Added more options for changing the colours of glasses.
+		You can now click on an NPC's name in sex and combat to switch target to them.
+		Expanded sex request actions.
+		Clothing that plugs orifices is no longer counted when calculating whether to apply the 'dirty clothing' status effect.
+	
+	Sex AI:
+		NPCs will no longer perform self-anal actions (fingering/tail-penetration) unless they have the anal fetish.
+		Fixed issue where NPCs would repeatedly get penetrated then make you pull out.
+		NPCs will no longer perform hotdogging actions if they dislike/hate anal.
+		NPCs will no longer use the 'performing oral behind' position to suck their partner's cock in doggy-style.
+		NPCs will now try to penetrate their partner's ass, if their partner has no vagina. (Still restricted by fetish desires.)
 	
 	Bugs:
-		Fixed large underlying error in the game's parser that was causing some scenes to be displayed incorrectly. (This was mainly affecting the new dialogue in the nightclub.)
-		Fixed incorrect nipple fingering sex action description.
-		Typo fixes + fixing several grammatical errors in recently converted sex actions.
-		Fixed more 'command_unknown' errors.
-		Fixed 'Creampie' action's title sometimes not displaying.
-		Harpies spawning in the nightclub will now correctly be at a 'lesser' furry level (human with harpy arm-wings and legs, instead of fully bird-like).
-		Fixed impossible position of being able to ride the cock of someone who's locked in stocks while you're standing behind.
-		Fixed all cheetah genders always spawning in with breasts.
-		Fixed incorrect virginity loss descriptions.
-		Fixed incorrect positioning action descriptions in the toilet stall sex scene.
-		Fixed the female pregnancy roulette volunteers being named 'unknown male'.
-		Changing cum production in character creation no longer empties your balls.
-		Fixed 'Clit attention' action being available in resisting pace.
-		Fixed unintended ability to stop ongoing sex actions when having sex as a sub without equal control.
-		Fixed bug where you could spawn multiple elementals during combat.
-		Fixed a missing dialogue error when encountering slimes in the tunnels of Submission.
-		Fixed clit girth TF referencing a penis.
-		Fixed several minor formatting errors in ass, penis, testicle, clit, and vagina TFs.
-		Fixed 'breastfeed' action not draining the character's milk.
-		Fixed issue with slaves not being sent to the correct milking room.
-		Fixed incorrect sex action tooltips in (hopefully) every scene.
-		Fixed parsing issues related to NPCs equipping weapons.
+		Fixed Ralph having black fur, when he should have had dark brown.
+		Fixed incorrect colouring for 'fox-morph intuition' status effect.
+		Fixed (hopefully) the last causes of the bug where non-human vaginas/breasts/penises would incorrectly produce human fluids.
+		Fixed parsing errors in orifice stretching descriptions.
+		Fixed broken creampie status effect icons.
+		Fixed descriptions of a real cock being inside of you while getting fucked by a dildo.
+		Fixed incorrect parsing in area reveals during and before sex.
+		Fixed group sex orgasms only triggering once you targeted the character who's orgasming.
+		Typo fixes.
+		Fixed issue where tooltips could sometimes get stuck on your screen.
+		Fixed issue where panty masturbation scene would break at orgasm.
+		Fixed incorrect lubrication descriptions in sex.
+		Fixed 'clit attention' sex action being available even if vagina was concealed.
+		Fixed bug where some sex actions would be incorrectly available (such as 'cock slap' while submissive).
+		Fixed incorrect colours being available for fur.
+		Fixed duplicate colours appearing in the recolouring menus.
+		Fixed sex stat tracking not taking into account who you were having sex with. (This will reset your sex counts.)
+		Fixed more incorrect parsing instances in sex actions.
+		Fixed Pix being labelled as using the incorrect position in her shower sex scene.
 	
 	
 	
+	Alleyway attacker:
+		
+		Offer body gives incorrect sex start description
+		
+		Player+Companion loss:
+		
+		Check attraction
+			If only you, companion watches
+			If only companion, you watch
+			If both, threesome:
+				If has cock - you and companion doggy
+					End condition is cumming in both of you - prefers orifice according to fetishes
+				If no cocks at all, or hates receiving cocks - double kneeling oral (anal+pussy)
+					End condition is cumming once
+				If no cock, and one of you has cock - cowgirl + oral
+					Cowgirls cock holder
+					End condition is being filled by cowgirled + orgasming once
+				If no cock, and you both have cocks - DP cowgirl
+					End condition is being filled and orgasming
+				
+				
+				
+	When one NPC displaced clothing, it doesn't append watching NPC's action description
+					
+	Add a non-slavery way to get NPCs to move in with you.
 	
-	gloryhole
+	Slaver Alley content (more shops and Alexa interactions).
+	
+	- Expand slavery content. (Jobs, permissions, and management improvements.)
+	- Add a version where your partner is taking the leading role in nightclub.
+	
+	If partner penetrates vaginal urethra and is ready to cum, it's not treated like penetrating sex.  So the prompt does not give option to request pullout or creampie.
+	
+	self-handjob
+	
+	Lumi
+	
+	Fetish dreams
+	
+	zweihander to take both slots
 	
 	Add character import to club
 	
@@ -90,6 +128,7 @@
 	Broken condom
 	
 	foot content
+		Footjobs, foot worship, foot smothering,  cum on soles as a pull out option
 	
 	scars!
 	
@@ -109,6 +148,8 @@
 	There's still slaves using their hands in the stocks and such, you also might want to take some time to write some hands-free descriptions for teasing such as them simply thrusting their hips back to grind against you instead of just grabbing your penis and rubbing it on themselves
 	
 	Dress under jacket not visible
+
+	There is a lot of bugs with strapless strap-on. You can change its size with a potion, like its your penis. When you're forced by npc with strap-on you can ask npc not to cum in you. If npc started to hand job your strapon and then unequips it, npc keeps hand jobbing it even after it is unequipped
 
 	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
 	

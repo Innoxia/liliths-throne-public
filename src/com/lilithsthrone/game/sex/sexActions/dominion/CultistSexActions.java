@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.universal;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;

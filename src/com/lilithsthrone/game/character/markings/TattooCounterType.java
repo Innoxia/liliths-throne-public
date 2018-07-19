@@ -5,7 +5,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 
 /**
  * @since 0.2.6
- * @version 0.2.7
+ * @version 0.2.9
  * @author Innoxia
  */
 public enum TattooCounterType {
@@ -20,14 +20,14 @@ public enum TattooCounterType {
 	SEX_SUB("sub sex", "Keeps a count of how many times the bearer has had submissive sex.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getSexAsSubCount();
+			return bearer.getTotalSexAsSubCount();
 		}
 	},
 
 	SEX_DOM("dom sex", "Keeps a count of how many times the bearer has had dominant sex.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getSexAsDomCount();
+			return bearer.getTotalSexAsDomCount();
 		}
 	},
 

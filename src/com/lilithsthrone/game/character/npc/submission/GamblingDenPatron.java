@@ -37,8 +37,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class GamblingDenPatron extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	private DicePokerTable table;
 	

@@ -8,6 +8,7 @@ package com.lilithsthrone.game;
 public enum PropertyValue {
 
 	artwork(true),
+	thumbnail(true),
 	
 	lightTheme(false),
 	overwriteWarning(true),
@@ -33,6 +34,8 @@ public enum PropertyValue {
 	nipplePenContent(true),
 	analContent(true),
 	futanariTesticles(true),
+	voluntaryNTR(false),
+	involuntaryNTR(false),
 
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),

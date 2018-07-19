@@ -59,7 +59,7 @@ public class PenisMouth {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(pull)] back, sliding [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
 							+ " As [npc2.name] look up at [npc.herHim], [npc.she] quickly [npc.verb(slap)] [npc.her] hard shaft against [npc2.namePos] cheek, splattering "
-								+(Sex.getWetAreas(Sex.getCharacterTargetedForSexAction(this)).get(SexAreaOrifice.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"wet ")
+								+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH, LubricationType.PRECUM)?"cummy ":"wet ")
 								+"saliva across [npc2.her] face, before thrusting [npc.her] [npc.cock+] back down [npc2.her] throat.",
 
 						"Stepping back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] free from [npc2.namePos] mouth, before proceeding to slap the saliva-coated [npc1.cockHead] against [npc2.her] cheeks."
@@ -68,7 +68,7 @@ public class PenisMouth {
 
 						"[npc.Name] [npc.verb(step)] back and [npc.verb(allow)] [npc.her] [npc.cock+] to slide out from [npc2.namePos] mouth."
 							+ " Looking up at [npc.herHim], [npc2.nameIs] taken by surprise as [npc.name] [npc.verb(slap)] [npc.her] hard shaft against [npc2.her] face,"
-							+ " leaving a streak of "+(Sex.getWetAreas(Sex.getCharacterTargetedForSexAction(this)).get(SexAreaOrifice.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"wet ")
+							+ " leaving a streak of "+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH, LubricationType.PRECUM)?"cummy ":"wet ")
 								+"saliva drooling down [npc2.her] cheek, before forcing [npc.her] [npc.cock+] back down [npc2.her] throat.",
 
 						"Quickly pulling [npc.her] [npc.cock+] out from [npc2.namePos] mouth, [npc.name] [npc.verb(hold)] the base in one hand while holding [npc2.namePos] head still with the other."
@@ -79,14 +79,14 @@ public class PenisMouth {
 				return UtilText.returnStringAtRandom(
 						"Pulling [npc.her] [npc.hips] back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
 							+ " Before [npc2.name] can react, [npc.she] quickly [npc.verb(slap)] [npc.her] hard shaft against [npc2.her] cheek, splattering saliva "
-							+(Sex.getWetAreas(Sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
+							+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM)?"and precum ":"")
 							+"across [npc2.her] [npc2.face], before thrusting [npc.her] [npc.cock+] back down [npc2.her] throat.",
 
 						"Pulling back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] free from [npc2.namePos] mouth,"
 								+ " and with [npc.a_moan+], [npc.she] [npc.verb(proceed)] to slap the saliva-coated [npc.cockHead] against [npc2.her] [npc2.face].",
 
 						"[npc.Name] [npc.verb(slide)] [npc.her] [npc.cock+] out from [npc2.namePos] mouth, and, grinning to [npc.herself], [npc.she] then [npc.verb(slap)] [npc.her] hard shaft against [npc2.namePos] [npc2.face],"
-							+ " leaving a streak of "+(Sex.getWetAreas(Sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"wet ")
+							+ " leaving a streak of "+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM)?"cummy ":"wet ")
 							+"saliva drooling down [npc2.her] cheek, before forcing [npc.her] [npc.cock] back down [npc2.her] throat.",
 
 						"Quickly pulling [npc.her] [npc.hips+] back, [npc.name] [npc.verb(draw)] [npc.her] [npc.cock+] out from [npc2.namePos] mouth, before starting to slap [npc.her] slimy length against [npc2.namePos] cheeks.");
@@ -908,7 +908,7 @@ public class PenisMouth {
 									+ " sinking [npc.her] [npc.cock+] deep down [npc2.her] throat before starting to ruthlessly fuck [npc2.her] [npc2.face].");
 
 				descriptions.add("With a forceful thrust, [npc.name] [npc.verb(hilt)] [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
-									+ " As a slimy stream of saliva "+(Sex.getWetAreas(Sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
+									+ " As a slimy stream of saliva "+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM)?"and precum ":"")
 									+"drools from the corners of [npc2.her] mouth, [npc.name] bucks back, letting [npc2.name] gasp for air for a brief moment before starting to aggressively fuck [npc2.her] [npc2.face].");
 				
 				return Util.randomItemFrom(descriptions);
@@ -965,7 +965,7 @@ public class PenisMouth {
 									+ " letting out [npc.a_moan+] before starting to violently slam [npc.her] [npc.hips] up and down as [npc.she] ruthlessly fucks [npc2.her] face.");
 
 				descriptions.add("With a forceful thrust, [npc.name] [npc.verb(hilt)] [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
-									+ " As a slimy stream of "+(Sex.getWetAreas(Sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+									+ " As a slimy stream of "+(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM)?"cummy ":"")
 									+"saliva drools from the corners of [npc2.her] mouth, [npc.name] lifts [npc.herself] up,"
 										+ " letting [npc2.name] gasp for air for a brief moment before sinking down once more and starting to aggressively fuck [npc2.her] face.");
 

@@ -612,8 +612,8 @@ public class DicePoker {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(gambler, SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						END_LOSS_SEX,
-						UtilText.parse(gambler,"<p>"
+						null,
+						END_LOSS_SEX, UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"

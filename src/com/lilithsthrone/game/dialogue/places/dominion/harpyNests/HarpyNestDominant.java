@@ -282,8 +282,8 @@ public class HarpyNestDominant {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_DOMINANT_AFTER_SEX,
-							"<p>"
+							null,
+							HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 							+ "</p>"
@@ -563,8 +563,8 @@ public class HarpyNestDominant {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_DOMINANT_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -870,8 +870,8 @@ public class HarpyNestDominant {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_DOMINANT_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"

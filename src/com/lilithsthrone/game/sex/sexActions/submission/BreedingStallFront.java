@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.universal;
+package com.lilithsthrone.game.sex.sexActions.submission;
 
 /**
  * @since 0.2.8

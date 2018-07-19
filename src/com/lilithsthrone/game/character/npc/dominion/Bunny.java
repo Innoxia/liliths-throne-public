@@ -40,8 +40,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Bunny extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Bunny() {
 		this(false);
 	}

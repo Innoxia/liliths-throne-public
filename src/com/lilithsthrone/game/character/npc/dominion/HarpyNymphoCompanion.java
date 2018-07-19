@@ -41,8 +41,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyNymphoCompanion extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyNymphoCompanion() {
 		this(false);
 	}

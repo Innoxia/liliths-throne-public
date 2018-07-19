@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
@@ -28,12 +29,14 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.9
  * @author Innoxia
  */
 public interface SexManagerInterface {
 
 	public SexPositionType getPosition();
+
+	public void assignNPCTarget(GameCharacter targeter);
 	
 	public Map<GameCharacter, SexPositionSlot> getDominants();
 	public Map<GameCharacter, SexPositionSlot> getSubmissives();
@@ -90,29 +93,33 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPartnerWantingToStopSex() {
-		boolean partnersSatisfied = true;
-		if(Sex.isDom(Main.game.getPlayer())) {
-			for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-				if(Sex.getNumberOfOrgasms(character) == 0) {
-					partnersSatisfied = false;
-				}
-			}
-		} else {
-			for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-				if(Sex.getNumberOfOrgasms(character) == 0) {
-					partnersSatisfied = false;
-				}
+		boolean subsSatisfied = true;
+		boolean domsSatisfied = true;
+		boolean subsResisting = true;
+		
+		for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
+			if(Sex.getNumberOfOrgasms(character) == 0) {
+				domsSatisfied = false;
 			}
 		}
 		
-		if(!Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual()) {
-			return partnersSatisfied;
+		for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
+			if(Sex.getSexPace(character)!=SexPace.SUB_RESISTING) {
+				subsResisting = false;
+			}
+			if(Sex.getNumberOfOrgasms(character) == 0) {
+				subsSatisfied = false;
+			}
+		}
+		
+		if(Sex.isDom(Sex.getActivePartner()) && (!Sex.isConsensual() || subsResisting)) {
+			return domsSatisfied;
 			
-		} else if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) {
+		} else if(!Sex.isDom(Sex.getActivePartner()) && !Sex.isSubHasEqualControl()) {
 			return false;
 			
 		} else {
-			return partnersSatisfied && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+			return domsSatisfied && subsSatisfied;
 		}
 	}
 	
@@ -132,7 +139,6 @@ public interface SexManagerInterface {
 				character.setArousal(10);
 			}
 		}
-		
 		
 		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 			if(!character.isPlayer()) {
@@ -168,6 +174,10 @@ public interface SexManagerInterface {
 	
 	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		return new HashMap<>();
+	}
+	
+	public default List<InventorySlot> getSlotsConcealed(GameCharacter character) {
+		return new ArrayList<>();
 	}
 	
 	public default boolean isPartnerUsingForeplayActions() {
@@ -209,9 +219,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default String getRandomPublicSexDescription() {
-		
 		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-					+UtilText.returnStringAtRandom(
+					+UtilText.parse(Sex.getActivePartner(),
+							UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch you having sex.",
 							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
@@ -222,104 +232,93 @@ public interface SexManagerInterface {
 							"The crowd cheers you on as you and [npc.name] carry on having sex in front of them.",
 							"The crowd laughs and cheers as you and [npc.name] carry on having sex in front of them.",
 							"Several members of the crowd shout and cheer as you and [npc.name] carry on having sex in front of them.",
-							"Several members of the crowd cheer you on as you and [npc.name] carry on having sex in front of them.")
+							"Several members of the crowd cheer you on as you and [npc.name] carry on having sex in front of them."))
 				+"</p>";
 	}
 	
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();
+
+	public default boolean isAreasBannedMapAppliedToSelfActions(GameCharacter character) {
+		return getAreasBannedMap().containsKey(character);
+	}
 	
 	// Revealing CoverableAreas:
 
 	// Player:
-	public default String getPlayerAssRevealReaction() {
-		if(Sex.isMasturbation()) {
-			return "";
+	public default String getAssRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		String reaction = "";
+		
+		if(!Sex.isMasturbation()) {
+			reaction = (!characterBeingRevealed.isPlayer()
+						?"<p>"
+							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getAssDescription())
+						+ "</p>"
+						:"")
+					+ charactersReacting.get(0).getAssRevealDescription(characterBeingRevealed, charactersReacting);
 		}
-		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer()));
+		
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.ANUS);
+		return reaction;
 	}
 
-	public default String getPlayerVaginaRevealReaction() {
-		if(Sex.isMasturbation()) {
-			return "";
+	public default String getVaginaRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		String reaction = "";
+		
+		if(!Sex.isMasturbation()) {
+			reaction = (!characterBeingRevealed.isPlayer()
+						?"<p>"
+							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getVaginaDescription())
+						+ "</p>"
+						:"")
+					+ charactersReacting.get(0).getVaginaRevealDescription(characterBeingRevealed, charactersReacting);
 		}
-		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer()));
+		
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+		return reaction;
 	}
 
-	public default String getPlayerBreastsRevealReaction() {
-		if(Sex.isMasturbation()) {
-			return "";
+	public default String getBreastsRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		String reaction = "";
+		
+		if(!Sex.isMasturbation()) {
+			reaction = (!characterBeingRevealed.isPlayer()
+						?"<p>"
+							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getBreastDescription())
+						+ "</p>"
+						:"")
+					+ charactersReacting.get(0).getBreastsRevealDescription(characterBeingRevealed, charactersReacting);
 		}
-		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer()));
+		
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.BREASTS);
+		return reaction;
 	}
 
-	public default String getPlayerPenisRevealReaction() {
-		if(Sex.isMasturbation()) {
-			return "";
+	public default String getPenisRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		String reaction = "";
+		
+		if(!Sex.isMasturbation()) {
+			reaction = (!characterBeingRevealed.isPlayer()
+						?"<p>"
+							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getPenisDescription())
+						+ "</p>"
+						:"")
+					+ charactersReacting.get(0).getPenisRevealDescription(characterBeingRevealed, charactersReacting);
 		}
-		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer()));
+		
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.PENIS);
+		return reaction;
 	}
 
-	public default String getPlayerMoundRevealReaction() {
-		if(Sex.isMasturbation()) {
-			return "";
+	public default String getMoundRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+		String reaction = "";
+		
+		if(!Sex.isMasturbation()) {
+			reaction = charactersReacting.get(0).getMoundRevealDescription(characterBeingRevealed, charactersReacting);
 		}
-		return UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer()));
+		
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.PENIS);
+		characterBeingRevealed.getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+		return reaction;
 	}
 
-	// Partner:
-	public default String getPartnerAssRevealReaction() {
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.ANUS);
-		
-		String s = "<p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssDescription())
-				+ "</p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner()));
-		
-		return s;
-	}
-
-	public default String getPartnerBreastsRevealReaction() {
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
-		
-		String s = "<p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastDescription())
-				+ "</p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner()));
-		
-		return s;
-	}
-
-	public default String getPartnerPenisRevealReaction() {
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.PENIS);
-		
-		String s = "<p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisDescription())
-				+ "</p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner()));
-		
-		return s;
-	}
-
-	public default String getPartnerVaginaRevealReaction() {
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
-		
-		String s = "<p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaDescription())
-				+ "</p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner()));
-		
-		return s;
-	}
-
-	public default String getPartnerMoundRevealReaction() {
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.PENIS);
-		Sex.getActivePartner().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
-		
-		String s = "<p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundDescription())
-				+ "</p>"
-				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner()));
-		
-		return s;
-	}
 }

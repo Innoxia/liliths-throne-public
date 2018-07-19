@@ -589,30 +589,30 @@ public class PixsPlayground {
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
-						PIX_POST_SEX,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+						null,
+						PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
 				
 			} else if(index==2) {
 				return new ResponseSex("Offer sex",
 						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
-						PIX_POST_SEX,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+						null,
+						PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
 				
 			} else if(index==3) {
 				return new ResponseSex("Accept punishment",
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
-						PIX_POST_SEX,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+						null,
+						PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
 				
 			} else if(index==4) {
 				if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
@@ -655,8 +655,8 @@ public class PixsPlayground {
 									return true;
 								}
 							},
-							PIX_POST_SEX_TABLES_TURNED,
-							UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TURN_TABLES"));
+							null,
+							PIX_POST_SEX_TABLES_TURNED, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TURN_TABLES"));
 				}
 				
 			} else {
@@ -748,10 +748,10 @@ public class PixsPlayground {
 						"Let Pix have her fun with you.",
 						true, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
-						PIX_POST_SEX_CONSENSUAL,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+						null,
+						PIX_POST_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
 				
 			} else if(index==2) {
 				return new Response("Decline",

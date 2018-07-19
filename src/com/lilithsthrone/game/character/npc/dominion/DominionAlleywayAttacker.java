@@ -43,8 +43,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class DominionAlleywayAttacker extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public DominionAlleywayAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}

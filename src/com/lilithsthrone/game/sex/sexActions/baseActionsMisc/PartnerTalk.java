@@ -79,18 +79,18 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [npc.a_moan+] escapes from between [npc.namePos] [npc.lips+], ",
-								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan+] before calling out, ")
+								"Turning [npc.her] head to look back at [npc2.name], [npc.a_moan+] escapes from between [npc.namePos] [npc.lips+], ",
+								"[npc.Name] turns [npc.her] head to look back at [npc2.name], letting out [npc.a_moan+] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"Desperately trying to crawl away from you, [npc.name] [npc.sobsVerb+] as you grab [npc.her] [npc.hips+] and pull [npc.herHim] back, ",
-								"Trying to crawl away from you, [npc.name] lets out [npc.a_sob+] as you hold [npc.herHim] firmly in place, ")
+								"Desperately trying to crawl away from [npc2.name], [npc.name] [npc.sobsVerb+] as [npc2.she] [npc2.verb(grab)] [npc.her] [npc.hips+] and pull [npc.herHim] back, ",
+								"Trying to crawl away from [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc2.she] [npc2.verb(hold)] [npc.herHim] firmly in place, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.namePos] [npc.lips+], ",
-								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan] before calling out, ")
+								"Turning [npc.her] head to look back at [npc2.name], [npc.a_moan] escapes from between [npc.namePos] [npc.lips+], ",
+								"[npc.Name] turns [npc.her] head to look back at [npc2.name], letting out [npc.a_moan] before calling out, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
@@ -99,18 +99,18 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks down at you as you kneel beneath [npc.herHim], ",
-								"Looking down at you, [npc.name] sighs, ")
+								"[npc.Name] looks down at [npc2.name] as [npc2.she] [npc2.verb(kneel)] beneath [npc.herHim], ",
+								"Looking down at [npc2.name], [npc.name] sighs, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] smirks down at you as you kneel beneath [npc.herHim], ",
-								"Smirking down at you, [npc.name] sighs, ")
+								"[npc.Name] smirks down at [npc2.name] as [npc2.she] [npc2.verb(kneel)] beneath [npc.herHim], ",
+								"Smirking down at [npc2.name], [npc.name] sighs, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks down at you as you kneel beneath [npc.herHim], ",
-								"Looking down at you, [npc.name] [npc.moansVerb], ")
+								"[npc.Name] looks down at [npc2.name] as [npc2.she] [npc2.verb(kneel)] beneath [npc.herHim], ",
+								"Looking down at [npc2.name], [npc.name] [npc.moansVerb], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
@@ -119,18 +119,18 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] glances up at you as [npc.she] [npc.moansVerb], ",
-								"Looking up at you, [npc.name] [npc.moansVerb], ")
+								"[npc.Name] glances up at [npc2.name] as [npc.she] [npc.moansVerb], ",
+								"Looking up at [npc2.name], [npc.name] [npc.moansVerb], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] glances up at you, before letting out [npc.a_sob+], ",
-								"Looking up at you, [npc.name] lets out [npc.a_sob+], ")
+								"[npc.Name] glances up at [npc2.name], before letting out [npc.a_sob+], ",
+								"Looking up at [npc2.name], [npc.name] lets out [npc.a_sob+], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] glances up at you as [npc.she] speaks, ",
-								"Looking up at you, [npc.name] speaks, ")
+								"[npc.Name] glances up at [npc2.name] as [npc.she] speaks, ",
+								"Looking up at [npc2.name], [npc.name] speaks, ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
@@ -139,18 +139,18 @@ public class PartnerTalk {
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and speaks down to you, ",
-								"Looking back at you as you lie beneath [npc.herHim], [npc.name] speaks down to you, ")
+								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and speaks down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] speaks down to [npc2.herHim], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and growls down to you, ",
-								"Looking back at you as you lie beneath [npc.herHim], [npc.name] growls down to you, ")
+								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and growls down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] growls down to [npc2.herHim], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and [npc.moansVerb] down to you, ",
-								"Looking back at you as you lie beneath [npc.herHim], [npc.name] [npc.moansVerb] down to you, ")
+								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and [npc.moansVerb] down to [npc2.herHim], ",
+								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] [npc.moansVerb] down to [npc2.herHim], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
@@ -170,17 +170,17 @@ public class PartnerTalk {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"A desperate [npc.moan] escapes from between [npc.namePos] [npc.lips+], ",
-								"[npc.Name] lets out a desperate [npc.moan] before addressing you, ")
+								"[npc.Name] lets out a desperate [npc.moan] before addressing [npc2.name], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
-								"A protesting whine escapes from between [npc.namePos] [npc.lips+] as [npc.she] struggles against you, ",
-								"[npc.Name] lets out a distressed whining noise as [npc.she] tries to shuffle away from you, ")
+								"A protesting whine escapes from between [npc.namePos] [npc.lips+] as [npc.she] struggles against [npc2.name], ",
+								"[npc.Name] lets out a distressed whining noise as [npc.she] tries to shuffle away from [npc2.name], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
 								"[npc.A_moan] escapes from between [npc.namePos] [npc.lips+], ",
-								"[npc.Name] lets out [npc.a_moan] before addressing you, ")
+								"[npc.Name] lets out [npc.a_moan] before addressing [npc2.name], ")
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 			}

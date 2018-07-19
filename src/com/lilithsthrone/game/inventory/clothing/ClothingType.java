@@ -953,12 +953,12 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
 			null,
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			null,
-			null,
-			null,
-			null,
-			null, 
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_GREY.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override

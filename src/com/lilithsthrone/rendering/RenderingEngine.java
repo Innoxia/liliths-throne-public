@@ -999,12 +999,14 @@ public enum RenderingEngine {
 	}
 
 	public boolean isRenderingCharactersRightPanel() {
-		return Main.game.isInSex() || Main.game.isInCombat()
+		return Main.game.isInSex()
+				|| Main.game.isInCombat()
 				|| (getCharacterToRender()!=null
-				&& (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
-					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER
-					|| Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null
-					|| (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)));
+					&& (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
+						|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER
+						|| Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null
+						|| (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY
+							&& InventoryDialogue.getInventoryNPC()!=null)));
 	}
 	
 	public void renderAttributesPanelRight() {

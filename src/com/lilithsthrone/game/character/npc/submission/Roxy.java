@@ -60,8 +60,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Roxy extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,

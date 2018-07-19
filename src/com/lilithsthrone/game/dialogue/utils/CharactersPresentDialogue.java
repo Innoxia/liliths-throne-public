@@ -253,8 +253,8 @@ public class CharactersPresentDialogue {
 											return Main.game.getPlayer().getLocationPlace().isPopulated();
 										}
 									},
-									AFTER_SEX,
-									"<p>"
+									null,
+									AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 										+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 										+ " [npc.speech(No! Stop!)]"
@@ -286,8 +286,8 @@ public class CharactersPresentDialogue {
 											return Main.game.getPlayer().getLocationPlace().isPopulated();
 										}
 									},
-									AFTER_SEX,
-									"<p>"
+									null,
+									AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 										+ " [npc.She] desperately leans into you, [npc.moaning],"
 										+ " [npc.speech(~Mmm!~ Yes!)]"
@@ -318,8 +318,8 @@ public class CharactersPresentDialogue {
 											return Main.game.getPlayer().getLocationPlace().isPopulated();
 										}
 									},
-									AFTER_SEX,
-									"<p>"
+									null,
+									AFTER_SEX, "<p>"
 										+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 										+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 										+ " [npc.speech(Looking for some fun, hmm?)]"

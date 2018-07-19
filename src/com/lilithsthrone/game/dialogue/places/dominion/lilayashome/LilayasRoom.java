@@ -129,8 +129,8 @@ public class LilayasRoom {
 						true, true,
 						new SMPantyMasturbation(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MASTURBATING_KNEELING))),
-						PANTIES_POST_MASTURBATION,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
+						null,
+						PANTIES_POST_MASTURBATION, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
 
 			} else {
 				return null;
@@ -338,8 +338,8 @@ public class LilayasRoom {
 								return false;
 							}
 						},
-						AFTER_ROSE_AS_DOM,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
+						null,
+						AFTER_ROSE_AS_DOM, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getRose().incrementAffection(Main.game.getPlayer(), 15));
@@ -505,8 +505,8 @@ public class LilayasRoom {
 								return false;
 							}
 						},
-						AFTER_ROSE_AND_LILAYA_AS_SUBS,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AND_LILAYA_AS_SUBS"));
+						null,
+						AFTER_ROSE_AND_LILAYA_AS_SUBS, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AND_LILAYA_AS_SUBS"));
 					
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Leave", "Turn down their offer and head back to your room.") {

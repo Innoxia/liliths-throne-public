@@ -141,8 +141,8 @@ public class ArcaneArts {
 								new SMVickyOverDesk(
 										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-								VICKY_POST_SEX,
-									"<p>"
+								null,
+									VICKY_POST_SEX, "<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
 									+ "</p>"
@@ -180,8 +180,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE,
-							"<p>"
+							null,
+							VICKY_POST_SEX_RAPE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -288,8 +288,8 @@ public class ArcaneArts {
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX_PACKAGE,
-								"<p>"
+							null,
+								VICKY_POST_SEX_PACKAGE, "<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
 								+ "</p>"
@@ -326,8 +326,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE_PACKAGE,
-							"<p>"
+							null,
+							VICKY_POST_SEX_RAPE_PACKAGE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"

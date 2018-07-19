@@ -54,8 +54,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixMaidKatherine extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public ZaranixMaidKatherine() {
 		this(false);
 	}
@@ -255,7 +253,8 @@ public class ZaranixMaidKatherine extends NPC {
 						+ " Unable to wait even two seconds to hear your reply, her hands slip under her dress, and she starts shamelessly masturbating right there in front of you."
 					+ "</p>"
 					+ "<p>"
-						+ "In her current lust-filled state, Katherine isn't going to pose much of a threat from now on, so you could either do what she obviously want you t do, and have sex with her, or simply ignore her and continue on your way."
+						+ "In her current lust-filled state, Katherine isn't going to pose much of a threat from now on, so you could either do what she obviously wants you to do, and have sex with her,"
+							+ " or simply ignore her and continue on your way."
 					+ "</p>";
 		}
 
@@ -270,8 +269,8 @@ public class ZaranixMaidKatherine extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
 							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
 							+ " Denied the freedom to get herself off, the horny maid looks up into your eyes, and you see them filled with a desperate, burning lust."
@@ -289,8 +288,8 @@ public class ZaranixMaidKatherine extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
 						+ "</p>"
@@ -395,7 +394,7 @@ public class ZaranixMaidKatherine extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT);
+						null, AFTER_SEX_DEFEAT);
 			} else {
 				return null;
 			}

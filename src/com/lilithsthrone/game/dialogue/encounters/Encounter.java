@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.Predicate;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -108,7 +109,7 @@ public enum Encounter {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 	
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
@@ -194,27 +195,16 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc-> (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -298,27 +288,16 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-				List<NPC> offspringAvailable = new ArrayList<>();
-				offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																							&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
-																							&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-				offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+			if(Math.random()<IncestEncounterRate()) { // Incest
+				List<NPC> offspringAvailable = UnspawnedChildren(
+					npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION));
 				
 				if(!offspringAvailable.isEmpty()) {
-					NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-					Main.game.getOffspringSpawned().add(offspring);
-					
-					offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-					offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-					
-					Main.game.setActiveNPC(offspring);
-					
-					return Main.game.getActiveNPC().getEncounterDialogue();
+					return SpawnAndStartChildHere(offspringAvailable);
 				}
 			}
 			
-			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 			try {
 				Main.game.addNPC(Main.game.getActiveNPC(), false);
 			} catch (Exception e) {
@@ -353,27 +332,16 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -393,7 +361,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -449,27 +417,16 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) { // Incest
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -489,7 +446,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -534,27 +491,16 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()<0.2f) {
-					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION)
-																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
-					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				if(Math.random()<IncestEncounterRate()) {
+					List<NPC> offspringAvailable = UnspawnedChildren(
+						npc -> npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION));
 					
 					if(!offspringAvailable.isEmpty()) {
-						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-						Main.game.getOffspringSpawned().add(offspring);
-						
-						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-						
-						Main.game.setActiveNPC(offspring);
-						
-						return Main.game.getActiveNPC().getEncounterDialogue();
+						return SpawnAndStartChildHere(offspringAvailable);
 					}
 				}
 				
-				Main.game.setActiveNPC(new SubmissionAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new SubmissionAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -592,7 +538,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -610,7 +556,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new SlimeCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new SlimeCavernAttacker(GenderPreference.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -631,9 +577,38 @@ public enum Encounter {
 		}
 	};
 
+	private static List<NPC> UnspawnedChildren(Predicate<NPC> matcher) {
+		List<NPC> offspringAvailable = Main.game.getOffspring().stream().filter(npc -> !npc.isSlave())
+										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
+										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
+										.filter(matcher).collect(Collectors.toList());
+		return offspringAvailable;
+	}
+
+	private static DialogueNodeOld SpawnAndStartChildHere(List<NPC> offspringAvailable) {
+		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+		Main.game.getOffspringSpawned().add(offspring);
+
+		offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+		offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+
+		Main.game.setActiveNPC(offspring);
+
+		return Main.game.getActiveNPC().getEncounterDialogue();
+	}
+
 	private static AbstractItem randomItem;
 	private static AbstractClothing randomClothing;
 	private static AbstractWeapon randomWeapon;
+
+	private static final double INCEST_ENCOUNTER_RATE = 0.2f;
+
+	private static double IncestEncounterRate() {
+		if (!Main.game.isIncestEnabled()) {
+			return -1;
+		}
+		return INCEST_ENCOUNTER_RATE;
+	}
 
 	private Map<EncounterType, Float> dialogues;
 

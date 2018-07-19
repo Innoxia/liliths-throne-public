@@ -33,9 +33,10 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.FINGER).isEmpty()
+			return !Sex.hasLubricationTypeFromAnyone(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 					&& Sex.isInForeplay()
-					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPerformingSexArea()==SexAreaPenetration.FINGER);
+					&& (Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this))!=null
+						&& Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
 		}
 		
 		@Override

@@ -61,8 +61,8 @@ public class ReindeerOverseerDialogue {
 					new SMStanding(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 							Util.newHashMapOfValues(new Value<>(reindeer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-					AFTER_SEX,
-					"<p>"
+					null,
+					AFTER_SEX, "<p>"
 						+ "Putting on your most seductive voice, you step close to [npc.name] and ask,"
 						+ " [pc.speech(You know, if you're feeling stressed from all this work, maybe I could help you to blow off some steam?)]"
 					+ "</p>"

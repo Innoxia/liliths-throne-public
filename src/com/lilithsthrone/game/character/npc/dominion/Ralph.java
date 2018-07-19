@@ -48,12 +48,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Ralph extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
 			ItemType.FETISH_UNREFINED,
@@ -93,8 +91,8 @@ public class Ralph extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 			this.setHairStyle(HairStyle.LOOSE);
 	
@@ -119,6 +117,8 @@ public class Ralph extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
 	}
 
 	@Override

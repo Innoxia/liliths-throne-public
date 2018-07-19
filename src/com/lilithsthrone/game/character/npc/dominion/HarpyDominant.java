@@ -52,8 +52,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyDominant extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyDominant() {
 		this(false);
 	}

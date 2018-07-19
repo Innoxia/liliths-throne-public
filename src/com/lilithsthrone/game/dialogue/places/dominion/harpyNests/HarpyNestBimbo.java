@@ -237,8 +237,8 @@ public class HarpyNestBimbo {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_BIMBO_AFTER_SEX,
-							"<p>"
+							null,
+							HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 							+ "</p>"
@@ -513,8 +513,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -818,8 +818,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"

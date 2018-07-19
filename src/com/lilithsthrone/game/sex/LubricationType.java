@@ -1,148 +1,49 @@
 package com.lilithsthrone.game.sex;
 
-import com.lilithsthrone.main.Main;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.6?
- * @version 0.1.87
+ * @version 0.2.9
  * @author Innoxia
  */
 public enum LubricationType {
 	
-	PLAYER_SALIVA(false) {
-		@Override
-		public String getName() {
-			return "your saliva";
-		}
-	},
-	PARTNER_SALIVA(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s saliva";
-			} else {
-				return "saliva";
-			}
-		}
-	},
+	SALIVA("saliva", "saliva", false),
 	
-	PLAYER_MILK(false) {
-		@Override
-		public String getName() {
-			return "your milk";
-		}
-	},
-	PARTNER_MILK(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s milk";
-			} else {
-				return "milk";
-			}
-		}
-	},
+	MILK("[npc.milk]", "milk", false),
 	
-	PLAYER_PRECUM(false) {
-		@Override
-		public String getName() {
-			return "your precum";
-		}
-	},
-	PARTNER_PRECUM(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s precum";
-			} else {
-				return "precum";
-			}
-		}
-	},
+	PRECUM("precum", "precum", false),
 	
-	PLAYER_CUM(false) {
-		@Override
-		public String getName() {
-			return "your "+Main.game.getPlayer().getCumName();
-		}
-	},
-	PARTNER_CUM(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s "+Sex.getActivePartner().getCumName();
-			} else {
-				return "cum";
-			}
-		}
-	},
-	OTHER_CUM(false) {
-		@Override
-		public String getName() {
-			return "cum";
-		}
-	},
+	CUM("[npc.cum]", "cum", false),
 	
+	GIRLCUM("girlcum", "girlcum", false),
 	
-	PLAYER_GIRLCUM(false) {
-		@Override
-		public String getName() {
-			return "your girlcum";
-		}
-	},
-	PARTNER_GIRLCUM(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s girlcum";
-			} else {
-				return "girlcum";
-			}
-		}
-	},
+	ANAL_LUBE("anal lubricant", "anal lubricant", false), // This is only present if the anus has been transformed to be 'wetter' than usual
+
+	SLIME("slime", "slime", false),
 	
-	// This is only present if the anus has been transformed to be 'wetter' than usual:
+	OTHER("lubrication", "lubrication", false);
 	
-	PLAYER_ANAL_LUBE(false) {
-		@Override
-		public String getName() {
-			return "your anal lubricant";
-		}
-	},
-	PARTNER_ANAL_LUBE(false) {
-		@Override
-		public String getName() {
-			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s anal lubricant";
-			} else {
-				return "anal lubricant";
-			}
-		}
-	},
-	
-	SLIME(false) {
-		@Override
-		public String getName() {
-			return "slime";
-		}
-	},
-	
-	OTHER(false) {
-		@Override
-		public String getName() {
-			return "lubrication";
-		}
-	};
-	
+	private String name;
+	private String nullOwnerName;
 	private boolean plural;
 	
-	private LubricationType(boolean plural){
-		this.plural=plural;
+	private LubricationType(String name, String nullOwnerName, boolean plural){
+		this.name = name;
+		this.nullOwnerName = nullOwnerName;
+		this.plural = plural;
 	}
 	
 	public boolean isPlural() {
 		return plural;
 	}
 	
-	public abstract String getName();
+	public String getName(GameCharacter owner) {
+		if(owner==null) {
+			return nullOwnerName;
+		}
+		return UtilText.parse(owner, name);
+	};
 }

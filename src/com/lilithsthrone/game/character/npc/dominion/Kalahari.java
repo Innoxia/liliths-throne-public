@@ -44,8 +44,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Kalahari extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Kalahari() {
 		this(false);
 	}

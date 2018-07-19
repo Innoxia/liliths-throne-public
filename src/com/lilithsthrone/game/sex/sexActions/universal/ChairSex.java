@@ -38,7 +38,8 @@ public class ChairSex {
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.CHAIR_KNEELING
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences().contains(SexPositionSlot.CHAIR_KNEELING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_KNEELING)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
 		}
 		
 		@Override
@@ -87,7 +88,7 @@ public class ChairSex {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedChairOralGiving
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.CHAIR_KNEELING
-					&& SexPositionType.CHAIR_SEX_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.CHAIR_SEX_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -127,7 +128,8 @@ public class ChairSex {
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.CHAIR_ORAL_SITTING
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences().contains(SexPositionSlot.CHAIR_ORAL_SITTING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_ORAL_SITTING)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
 		}
 		
 		@Override
@@ -176,7 +178,7 @@ public class ChairSex {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedChairOralReceiving
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.CHAIR_ORAL_SITTING
-					&& SexPositionType.CHAIR_SEX_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.CHAIR_SEX_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -216,7 +218,8 @@ public class ChairSex {
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.CHAIR_BOTTOM
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences().contains(SexPositionSlot.CHAIR_BOTTOM) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_BOTTOM)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
 		}
 		
 		@Override
@@ -265,7 +268,7 @@ public class ChairSex {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedChairOralReceiving
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.CHAIR_BOTTOM
-					&& SexPositionType.CHAIR_SEX.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.CHAIR_SEX.getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -305,7 +308,8 @@ public class ChairSex {
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.CHAIR_TOP
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences().contains(SexPositionSlot.CHAIR_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_TOP)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
 		}
 		
 		@Override
@@ -355,7 +359,7 @@ public class ChairSex {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedChairOralReceiving
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.CHAIR_TOP
-					&& SexPositionType.CHAIR_SEX.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.CHAIR_SEX.getMaximumSlots()>=Sex.getTotalParticipantCount(false)
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -417,7 +421,8 @@ public class ChairSex {
 		@Override
 		public String getDescription() {
 			if(SexFlags.requestedChairBottom) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_TOP)
+						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -433,7 +438,8 @@ public class ChairSex {
 				}
 				
 			} else if(SexFlags.requestedChairTop) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_BOTTOM) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_BOTTOM)
+						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug,"
@@ -451,7 +457,8 @@ public class ChairSex {
 				}
 				
 			} else if(SexFlags.requestedChairOralGiving) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_ORAL_SITTING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_ORAL_SITTING)
+						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug, [npc.she] [npc.verb(pull)] [npc2.herHim] down onto [npc2.her] knees before [npc.herHim]."
@@ -469,7 +476,8 @@ public class ChairSex {
 				}
 				
 			} else if(SexFlags.requestedChairOralReceiving) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_KNEELING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_KNEELING)
+						|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] kneels before [npc2.herHim], leaning forwards to glare up into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
@@ -490,22 +498,26 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			if(SexFlags.requestedChairBottom && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			if(SexFlags.requestedChairBottom && (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_TOP)
+					|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())) {
 				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_TOP)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))));
 				
-			} else if(SexFlags.requestedChairTop && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_BOTTOM) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedChairTop && (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_BOTTOM)
+					|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())) {
 				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_BOTTOM)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))));
 				
-			} else if(SexFlags.requestedChairOralGiving && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_ORAL_SITTING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedChairOralGiving && (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_ORAL_SITTING)
+					|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())) {
 				Sex.setSexManager(new SMChairOral(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))));
 				
-			} else if(SexFlags.requestedChairOralReceiving && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.CHAIR_KNEELING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedChairOralReceiving && (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.CHAIR_KNEELING)
+					|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())) {
 				Sex.setSexManager(new SMChairOral(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_KNEELING)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_ORAL_SITTING))));

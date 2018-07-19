@@ -48,8 +48,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Epona extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Epona() {
 		this(false);
 	}

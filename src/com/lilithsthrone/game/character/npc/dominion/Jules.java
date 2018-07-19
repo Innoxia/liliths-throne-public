@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -44,8 +45,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Jules extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Jules() {
 		this(false);
@@ -138,19 +137,21 @@ public class Jules extends NPC {
 
 	// Sex:
 
-	public SexType getForeplayPreference() {
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
-		return super.getForeplayPreference();
+		return super.getForeplayPreference(target);
 	}
-	
-	public SexType getMainSexPreference() {
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getJules())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 
-		return super.getMainSexPreference();
+		return super.getMainSexPreference(target);
 	}
 }

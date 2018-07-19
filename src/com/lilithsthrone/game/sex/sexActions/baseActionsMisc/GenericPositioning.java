@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -12,6 +13,7 @@ import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.universal.SMBackToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
@@ -89,7 +91,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
-					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -136,7 +138,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedMissionary
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
-					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -174,7 +176,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ON_BACK)
-					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -221,7 +223,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedMissionaryOnBack
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ON_BACK)
-					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -261,7 +263,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -308,7 +310,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedFaceToWall
 					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -348,7 +350,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -394,7 +396,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedBackToWall
 					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -433,7 +435,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -479,7 +481,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedKneeling
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -517,7 +519,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -561,7 +563,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedSelfKneeling
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -599,7 +601,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_BOTTOM)
-					&& SexPositionType.SIXTY_NINE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.SIXTY_NINE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -646,7 +648,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requested69
 					&& !(Sex.getPosition() == SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_TOP)
-					&& SexPositionType.SIXTY_NINE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.SIXTY_NINE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -685,7 +687,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_ON_BACK)
-					&& SexPositionType.COWGIRL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.COWGIRL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -732,7 +734,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedCowgirl
 					&& !(Sex.getPosition() == SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING)
-					&& SexPositionType.COWGIRL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.COWGIRL.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -771,7 +773,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
-					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -817,7 +819,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedSitOnFace
 					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
-					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -857,7 +859,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
-					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -903,7 +905,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedFaceSitting
 					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
-					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -942,7 +944,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -999,7 +1001,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedDoggy
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1039,7 +1041,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1096,7 +1098,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND_ORAL)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1150,7 +1152,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND_ORAL)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1205,7 +1207,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedDoggyReceiveOral
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND_ORAL)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1244,7 +1246,7 @@ public class GenericPositioning {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedDomFuckedDoggy
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& SexPositionType.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount(false) && Sex.getTotalParticipantCount(false)==2
 					&& !Sex.isDom(Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1320,9 +1322,11 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
+
+			Set<SexPositionSlot> positionPreferences = Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this));
 			
 			if(SexFlags.requestedMissionary) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.MISSIONARY_ON_BACK) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
@@ -1337,7 +1341,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedMissionaryOnBack) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] kneels down between your [pc.legs], and as [npc.she] grabs your [npc.legs] to push them apart, [npc.she] growls, "
@@ -1352,7 +1356,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedFaceToWall) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Much to your delight, you feel [npc.name] reach down and roughly grab your hips, and, grinding [npc.herself] into your back, [npc.she] growls into your ear, "
@@ -1367,7 +1371,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedBackToWall) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
@@ -1385,7 +1389,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedDoggy) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.DOGGY_BEHIND) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Turning your head, you see [npc.name] drop down onto [npc.her] knees behind you."
@@ -1403,7 +1407,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedDoggyOral) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grabs hold of your shoulders and throws you down onto all fours."
@@ -1421,7 +1425,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedDoggyReceiveOral) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Turning your head, you see [npc.name] drop down onto all fours behind you."
@@ -1439,7 +1443,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedDomFuckedDoggy) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Slapping your [pc.arms] away from [npc.herHim], [npc.name] lets out an intimidating growl before roughly forcing you down onto your knees."
@@ -1457,7 +1461,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedKneeling) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins down at your submissive, kneeling form."
@@ -1475,7 +1479,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedSelfKneeling) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Reaching up and throwing your [pc.arms] off of [npc.her], [npc.name] lets out an angry snarl."
@@ -1493,7 +1497,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requested69) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.SIXTY_NINE_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.SIXTY_NINE_TOP) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Jumping down onto all fours, [npc.name] lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to your face as [npc.she] drops [npc.her] head down between your [pc.legs]."
@@ -1511,7 +1515,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedCowgirl) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.COWGIRL_RIDING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.COWGIRL_RIDING) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over your groin, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
@@ -1529,7 +1533,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedSitOnFace) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.FACE_SITTING_ON_BACK) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Slapping your [pc.hands] away from [npc.herHim], [npc.name] grabs you by the wrists and yanks you forwards, growling, "
@@ -1551,7 +1555,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedFaceSitting) {
-				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_FACE) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+				if(positionPreferences.contains(SexPositionSlot.FACE_SITTING_ON_FACE) || positionPreferences.isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over you, bringing [npc.her] crotch down over your face before planting [npc.her] groin down onto your mouth."
@@ -1574,75 +1578,77 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if(SexFlags.requestedMissionary && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			Set<SexPositionSlot> positionPreferences = Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this));
+			
+			if(SexFlags.requestedMissionary && (positionPreferences.contains(SexPositionSlot.MISSIONARY_ON_BACK) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMMissionary(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_ON_BACK)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
 				
-			} else if(SexFlags.requestedMissionaryOnBack && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedMissionaryOnBack && (positionPreferences.contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMMissionary(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ON_BACK))));
 				
-			} else if(SexFlags.requestedFaceToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedFaceToWall && (positionPreferences.contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMFaceToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 				
-			} else if(SexFlags.requestedBackToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedBackToWall && (positionPreferences.contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMBackToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
 				
-			} else if(SexFlags.requestedDoggy && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedDoggy && (positionPreferences.contains(SexPositionSlot.DOGGY_BEHIND) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 				
-			} else if(SexFlags.requestedDoggyOral && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedDoggyOral && (positionPreferences.contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_BEHIND_ORAL))));
 				
-			} else if(SexFlags.requestedDoggyReceiveOral && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedDoggyReceiveOral && (positionPreferences.contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND_ORAL)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 				
-			} else if(SexFlags.requestedDomFuckedDoggy && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedDomFuckedDoggy && (positionPreferences.contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_BEHIND))));
 				
-			} else if(SexFlags.requestedKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedKneeling && (positionPreferences.contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 				
-			} else if(SexFlags.requestedSelfKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedSelfKneeling && (positionPreferences.contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 				
-			} else if(SexFlags.requested69 && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.SIXTY_NINE_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requested69 && (positionPreferences.contains(SexPositionSlot.SIXTY_NINE_TOP) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMSixtyNine(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.SIXTY_NINE_TOP)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.SIXTY_NINE_BOTTOM))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.SIXTY_NINE_BOTTOM))));
 				
-			} else if(SexFlags.requestedCowgirl && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.COWGIRL_RIDING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedCowgirl && (positionPreferences.contains(SexPositionSlot.COWGIRL_RIDING) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMCowgirl(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.COWGIRL_RIDING)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.COWGIRL_ON_BACK))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.COWGIRL_ON_BACK))));
 				
-			} else if(SexFlags.requestedSitOnFace && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedSitOnFace && (positionPreferences.contains(SexPositionSlot.FACE_SITTING_ON_BACK) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMFaceSitting(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_BACK)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_FACE))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.FACE_SITTING_ON_FACE))));
 				
-			} else if(SexFlags.requestedFaceSitting && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_FACE) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedFaceSitting && (positionPreferences.contains(SexPositionSlot.FACE_SITTING_ON_FACE) || positionPreferences.isEmpty())) {
 				Sex.setSexManager(new SMFaceSitting(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_FACE)),
-						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))));
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.FACE_SITTING_ON_BACK))));
 				
 			}
 			
@@ -1665,10 +1671,11 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
 					&& Sex.getActivePartner().hasPenis()
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1684,16 +1691,16 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you up against a nearby wall."
-					+ " Grinding [npc.her] body up against your back, [npc.she] [npc.moans] into your [pc.ear], "
-					+ "[npc.speech(Good [pc.girl]! Now hold still while I fuck you!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] up against a nearby wall."
+					+ " Grinding [npc.her] body up against [npc2.her] back, [npc.she] [npc.moansVerb] into [npc2.her] [npc2.ear],"
+					+ " [npc.speech(Good [npc2.girl]! Now hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMFaceToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1711,9 +1718,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1729,16 +1737,16 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you back against a nearby wall."
-					+ " Grinding [npc.her] body up against yours, [npc.she] [npc.moans] into your [pc.ear], "
-					+ "[npc.speech(Good [pc.girl]! Now hold still while I fuck you!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] back against a nearby wall."
+					+ " Grinding [npc.her] body up against [npc2.her]s, [npc.she] [npc.moansVerb] into [npc2.her] [npc2.ear], "
+					+ "[npc.speech(Good [npc2.girl]! Now hold still while I fuck you!)]";
 		}
 
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMBackToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1756,10 +1764,11 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.DOGGY_BEHIND)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
 					&& Sex.getActivePartner().hasPenis()
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1775,10 +1784,10 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
-					+ " Stepping around behind you, [npc.she] drops down onto [npc.her] knees, shuffling forwards to grind [npc.her] crotch against your [pc.ass+]."
-					+ " Grabbing hold of your [pc.hips+], [npc.she] [npc.moans], "
-					+ "[npc.speech(Good [pc.girl]! Now hold still while I fuck you like the bitch you are!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down on all fours."
+					+ " Stepping around behind [npc2.herHim], [npc.she] drops down onto [npc.her] knees, shuffling forwards to grind [npc.her] crotch against [npc2.her] [npc2.ass+]."
+					+ " Grabbing hold of [npc2.her] [npc2.hips+], [npc.she] [npc.moansVerb],"
+					+ " [npc.speech(Good [npc2.girl]! Now hold still while I fuck you like the bitch you are!)]";
 		}
 
 		@Override
@@ -1795,7 +1804,7 @@ public class GenericPositioning {
 			}
 			Sex.setSexManager(new SMDoggy(
 					dominants,
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1813,9 +1822,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND_ORAL)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.DOGGY_BEHIND_ORAL)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1831,10 +1841,10 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
-					+ " Stepping around behind you, [npc.she] similarly drops down onto all fours, shuffling forwards to bring [npc.her] [npc.face] up against your [pc.ass+]."
-					+ " Once [npc.sheIs] in position, [npc.she] [npc.moans], "
-					+ "[npc.speech(Good [pc.girl]! Now hold still and enjoy this!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down on all fours."
+					+ " Stepping around behind [npc2.herHim], [npc.she] similarly drops down onto all fours, shuffling forwards to bring [npc.her] [npc.face] up against [npc2.her] [npc2.ass+]."
+					+ " Once [npc.sheIs] in position, [npc.she] [npc.moansVerb],"
+					+ " [npc.speech(Good [npc2.girl]! Now hold still and enjoy this!)]";
 		}
 
 		@Override
@@ -1851,7 +1861,7 @@ public class GenericPositioning {
 			}
 			Sex.setSexManager(new SMDoggy(
 					dominants,
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1867,19 +1877,22 @@ public class GenericPositioning {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			SexType foreplayPreference = Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this));
+			SexType mainSexPreference = Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this));
+			
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS)
-							|| Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.DOGGY_ON_ALL_FOURS)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
 					&& (Sex.isInForeplay()
-							?Sex.getActivePartner().getForeplayPreference()==null
-								|| Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()==SexAreaPenetration.TONGUE
-								|| Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()==SexAreaOrifice.MOUTH
-							:Sex.getActivePartner().getMainSexPreference()==null
-								|| Sex.getActivePartner().getMainSexPreference().getTargetedSexArea()==SexAreaPenetration.TONGUE
-								|| Sex.getActivePartner().getMainSexPreference().getTargetedSexArea()==SexAreaOrifice.MOUTH)
-					&& !Sex.isDom(Main.game.getPlayer())
+							?foreplayPreference==null
+								|| foreplayPreference.getTargetedSexArea()==SexAreaPenetration.TONGUE
+								|| foreplayPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH
+							:mainSexPreference==null
+								|| mainSexPreference.getTargetedSexArea()==SexAreaPenetration.TONGUE
+								|| mainSexPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH)
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1895,10 +1908,10 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
-					+ " Stepping around in front of you, [npc.she] similarly drops down onto all fours, shuffling backwards to bring [npc.her] [npc.ass+] up against your [pc.face+]."
-					+ " Once [npc.sheIs] in position, [npc.she] [npc.moans], "
-					+ "[npc.speech(Good [pc.girl]! Now put that tongue of yours to use!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down on all fours."
+					+ " Stepping around in front of [npc2.herHim], [npc.she] similarly drops down onto all fours, shuffling backwards to bring [npc.her] [npc.ass+] up against [npc2.her] [npc2.face+]."
+					+ " Once [npc.sheIs] in position, [npc.she] [npc.moans],"
+					+ " [npc.speech(Good [npc2.girl]! Now put that tongue of yours to use!)]";
 		}
 
 		@Override
@@ -1915,7 +1928,7 @@ public class GenericPositioning {
 			}
 			Sex.setSexManager(new SMDoggy(
 					dominants,
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_BEHIND_ORAL))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1933,9 +1946,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.DOGGY_ON_ALL_FOURS)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1946,15 +1960,15 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Push [npc2.name] down onto [npc2.her] knees before dropping down on all fours, ready for [npc2.herHim] to fuck you in the doggy-style position.";
+			return "Push [npc2.name] down onto [npc2.her] knees before dropping down on all fours, ready to get fucked in the doggy-style position.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down onto your knees."
-					+ " Turing around, [npc.she] then drops down onto all fours, before shuffling back to grind [npc.her] [npc.ass+] against your crotch."
-					+ " Reaching back and forcing your [pc.hands] to take hold of [npc.her] [npc.hips+], [npc.she] [npc.moans], "
-					+ "[npc.speech(Come on! Fuck me like an animal!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] knees."
+					+ " Turing around, [npc.she] then drops down onto all fours, before shuffling back to grind [npc.her] [npc.ass+] against [npc2.her] crotch."
+					+ " Reaching back and forcing [npc2.her] [npc2.hands] to take hold of [npc.her] [npc.hips+], [npc.she] [npc.moans],"
+					+ " [npc.speech(Come on! Fuck me like an animal!)]";
 		}
 
 		@Override
@@ -1971,7 +1985,7 @@ public class GenericPositioning {
 			}
 			Sex.setSexManager(new SMDoggy(
 					dominants,
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.DOGGY_BEHIND))));
 			
 			SexFlags.resetRequests();
 		}
@@ -1989,9 +2003,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& 2>=Sex.getTotalParticipantCount()
-							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+							&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.KNEELING_RECEIVING_ORAL)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2007,8 +2022,8 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] quickly forces you to your knees before [npc.herHim]."
-					+ " Looking up, you see [npc.herHim] grinning down at your submissive form, and with a little laugh, [npc.she] [npc.moans], "
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] quickly forces [npc2.herHim] to [npc2.her] knees before [npc.herHim]."
+					+ " Looking up, [npc2.name] [npc2.verb(see)] [npc.herHim] grinning down at [npc2.her] submissive form, and with a little laugh, [npc.name] [npc.moans], "
 					+ "[npc.speech(Time to put your mouth to use!)]";
 		}
 
@@ -2016,7 +2031,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 			
 			SexFlags.resetRequests();
 		}
@@ -2034,9 +2049,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& 2>=Sex.getTotalParticipantCount()
-							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+							&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.KNEELING_PERFORMING_ORAL)
+									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -2052,8 +2068,8 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Running [npc.her] [npc.hands] down your body, [npc.name] drops on to [npc.her] knees before you."
-					+ " Looking down, you see [npc.herHim] grinning up at you, and with a little laugh, [npc.she] [npc.moans],"
+			return "Running [npc.her] [npc.hands] down [npc2.namePos] body, [npc.name] drops on to [npc.her] knees before [npc2.herHim]."
+					+ " Looking up, [npc.she] grins at [npc2.name], and with a little laugh, [npc.she] [npc.moans],"
 					+ " [npc.speech(Stay still and enjoy this!)]";
 		}
 
@@ -2061,7 +2077,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMKneeling(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 			
 			SexFlags.resetRequests();
 		}
@@ -2079,9 +2095,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_TOP)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.SIXTY_NINE_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.SIXTY_NINE_TOP)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2097,10 +2114,11 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
-					+ " Quickly lowering [npc.herself] down onto all fours over the top of you, [npc.she] drops [npc.her] crotch down over your face as [npc.she] similarly [npc.verb(position)] [npc.her] own head over your groin."
-					+ " Looking back beneath [npc.herHim], [npc.she] [npc.moans], "
-					+ "[npc.speech(Good [pc.girl]! Now let's have some fun!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] back."
+					+ " Quickly lowering [npc.herself] down onto all fours over the top of [npc2.herHim],"
+						+ " [npc.she] drops [npc.her] crotch down over [npc2.her] face as [npc.she] similarly [npc.verb(position)] [npc.her] own head over [npc2.her] groin."
+					+ " Looking back beneath [npc.herHim], [npc.name] [npc.moans], "
+					+ "[npc.speech(Good [npc2.girl]! Now let's have some fun!)]";
 			
 		}
 
@@ -2108,7 +2126,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSixtyNine(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.SIXTY_NINE_TOP)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.SIXTY_NINE_BOTTOM))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.SIXTY_NINE_BOTTOM))));
 			
 			SexFlags.resetRequests();
 		}
@@ -2126,9 +2144,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.COWGIRL_RIDING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.COWGIRL_RIDING)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2144,17 +2163,17 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
-					+ " [npc.She] then lowers [npc.herself] down on top of you, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
-					+ " Once [npc.sheIs] made [npc.herself] comfortable, [npc.she] grins down at you, "
-					+ "[npc.speech(Good [pc.girl]! Now let's have some fun!)]";
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] back."
+					+ " [npc.She] then lowers [npc.herself] down on top of [npc2.herHim], bringing [npc.her] crotch down to [npc2.hers] as [npc.she] straddles [npc2.herHim] in the cowgirl position."
+					+ " Once [npc.sheHas] made [npc.herself] comfortable, [npc.she] grins down at [npc2.name], "
+					+ "[npc.speech(Good [npc2.girl]! Now let's have some fun!)]";
 		}
 
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMCowgirl(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.COWGIRL_RIDING)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.COWGIRL_ON_BACK))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.COWGIRL_ON_BACK))));
 			
 			SexFlags.resetRequests();
 		}
@@ -2172,9 +2191,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2190,8 +2210,8 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
-					+ " Kneeling down between your [pc.legs], [npc.she] [npc.moans] as [npc.she] looks down into your [pc.eyes+], "
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] back."
+					+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVeb] as [npc.she] looks down into [npc2.her] [npc2.eyes+], "
 					+ "[npc.speech(That's right, spread your legs for me...)]";
 		}
 
@@ -2199,7 +2219,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMMissionary(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ON_BACK))));
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -2218,9 +2238,10 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.MISSIONARY_ON_BACK)
-					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
-					&& !Sex.isDom(Main.game.getPlayer())
+					&& 2>=Sex.getTotalParticipantCount(false)
+					&& (Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.MISSIONARY_ON_BACK)
+							|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty())
+					&& Sex.isDom(Sex.getActivePartner())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2231,13 +2252,13 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and spread your [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			return "Lie down on [npc2.her] back and spread [npc2.her] [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of your shoulders, [npc.name] pushes you down onto your knees."
-					+ " Kneeling down before you, [npc.she] then lies down onto [npc.her] back, spreading [npc.her] [npc.legs] and looking up into your [pc.eyes+] as [npc.she] [npc.moansVerb], "
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] knees."
+					+ " Kneeling down before [npc2.herHim], [npc.she] then lies down onto [npc.her] back, spreading [npc.her] [npc.legs] and looking up into [npc2.her] [npc2.eyes+] as [npc.she] [npc.moansVerb], "
 					+ "[npc.speech(Come and take me!)]";
 		}
 
@@ -2245,7 +2266,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMMissionary(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_ON_BACK)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();

@@ -34,8 +34,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public NPCOffspring() {
 		this(false);
@@ -66,7 +64,7 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = GenderPreference.getGenderFromUserPreferences();
+		Gender gender = GenderPreference.getGenderFromUserPreferences(false, false);
 		
 		setBody(gender, mother, father);
 		

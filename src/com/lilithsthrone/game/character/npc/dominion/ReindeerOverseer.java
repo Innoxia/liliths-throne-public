@@ -37,8 +37,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class ReindeerOverseer extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public ReindeerOverseer() {
 		this(Gender.F_V_B_FEMALE, false);

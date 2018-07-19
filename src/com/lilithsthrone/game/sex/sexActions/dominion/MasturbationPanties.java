@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.universal;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class MasturbationPanties {
 		
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetAreas(Main.game.getPlayer()).containsKey(SexAreaOrifice.VAGINA)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them against your wet pussy.)]"
@@ -118,7 +118,7 @@ public class MasturbationPanties {
 
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetAreas(Main.game.getPlayer()).containsKey(SexAreaPenetration.PENIS)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them over your cock.)]"

@@ -53,8 +53,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SlimeGuardFire extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SlimeGuardFire() {
 		this(false);
 	}

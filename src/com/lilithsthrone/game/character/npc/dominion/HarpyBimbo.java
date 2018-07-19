@@ -52,8 +52,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyBimbo extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyBimbo() {
 		this(false);
 	}

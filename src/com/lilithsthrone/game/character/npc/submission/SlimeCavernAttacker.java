@@ -44,8 +44,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SlimeCavernAttacker extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SlimeCavernAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}

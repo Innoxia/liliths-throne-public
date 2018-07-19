@@ -48,8 +48,23 @@ public class BodyCoveringTemplateFactory {
 				Colour.dyeSlimeColours);
 	}
 	
-	public static BodyCoveringTemplate createFurSkinHair(List<CoveringModifier> modifiers, List<CoveringPattern> patterns) {
-		return createHair("a layer of", "fur", modifiers, patterns);
+	public static BodyCoveringTemplate createFurSkin(List<CoveringModifier> modifiers, List<CoveringPattern> patterns) {
+		return createFur("a layer of", "fur", modifiers, patterns);
+	}
+	
+	private static BodyCoveringTemplate createFur(String determiner, String name, List<CoveringModifier> modifiers, List<CoveringPattern> patterns) {
+		return new BodyCoveringTemplate(determiner,
+				false,
+				name,
+				name,
+				modifiers,
+				null,
+				patterns,
+				CoveringPattern.allStandardCoveringPatterns,
+				Colour.naturalFurColours,
+				Colour.allCoveringColours,
+				Colour.naturalFurColours,
+				Colour.allCoveringColours);
 	}
 	
 	private static BodyCoveringTemplate createHair(String determiner, String name, List<CoveringModifier> modifiers, List<CoveringPattern> patterns) {
@@ -62,9 +77,9 @@ public class BodyCoveringTemplateFactory {
 				patterns,
 				CoveringPattern.allHairCoveringPatterns,
 				Colour.naturalHairColours,
-				Colour.dyeHairColours,
+				Colour.allCoveringColours,
 				Colour.naturalHairColours,
-				Colour.dyeHairColours);
+				Colour.allCoveringColours);
 	}
 	
 	private static BodyCoveringTemplate createHairWithoutPatterns(String determiner, String name, CoveringModifier modifier) {

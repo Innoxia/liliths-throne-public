@@ -49,8 +49,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public DominionSuccubusAttacker() {
 		this(false);
@@ -72,7 +70,7 @@ public class DominionSuccubusAttacker extends NPC {
 			addFetish(Fetish.FETISH_DOMINANT);
 			CharacterUtils.addFetishes(this);
 			
-			if(!GenderPreference.getGenderFromUserPreferences().isFeminine()) {
+			if(!GenderPreference.getGenderFromUserPreferences(false, false).isFeminine()) {
 				this.setBody(Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER);
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}

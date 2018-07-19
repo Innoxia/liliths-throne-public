@@ -65,8 +65,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Vicky extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	private AbstractItemType[] availableIngredients = new AbstractItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,

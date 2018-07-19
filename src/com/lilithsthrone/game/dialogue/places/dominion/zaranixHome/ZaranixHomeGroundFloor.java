@@ -645,8 +645,8 @@ public class ZaranixHomeGroundFloor {
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
-						AFTER_SEX_THANKING_ZARANIX,
-						"<p>"
+						null,
+						AFTER_SEX_THANKING_ZARANIX, "<p>"
 						+ "</p>");
 			} else {
 				return null;
@@ -675,8 +675,8 @@ public class ZaranixHomeGroundFloor {
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_THANKING_AMBER,
-						"<p>"
+						null,
+						AFTER_SEX_THANKING_AMBER, "<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"
 							+ " [amber.speech(Squeal all you want, bitch, <i>you're mine now!</i>)]"
 						+ "</p>");
@@ -830,8 +830,8 @@ public class ZaranixHomeGroundFloor {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Amber.AFTER_SEX_VICTORY,
-						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX"));
+						null,
+						Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX"));
 				
 			} else if(index==3 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new ResponseSex("Submit",
@@ -841,8 +841,8 @@ public class ZaranixHomeGroundFloor {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Amber.AFTER_SEX_VICTORY,
-						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX_SUBMIT"));
+						null,
+						Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX_SUBMIT"));
 				
 			} else if (index == 4 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new Response("Transformations",
@@ -1087,8 +1087,8 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX"));
+							null,
+							ZaranixMaidKatherine.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX"));
 					
 				} else if(index==2) {
 					return new ResponseSex("Submit",
@@ -1098,8 +1098,8 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX_SUBMIT"));
+							null,
+							ZaranixMaidKatherine.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX_SUBMIT"));
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
@@ -1211,8 +1211,8 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							Amber.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX")
+							null,
+							Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX")
 							);
 					
 				} else if(index==2) {
@@ -1223,8 +1223,8 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							Amber.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX_SUBMIT")
+							null,
+							Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX_SUBMIT")
 							);
 					
 				} else if (index == 3) {

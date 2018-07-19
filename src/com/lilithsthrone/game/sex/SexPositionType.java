@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,21 +12,22 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.dominion.GloryHole;
+import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
 import com.lilithsthrone.game.sex.sexActions.dominion.ToiletStall;
+import com.lilithsthrone.game.sex.sexActions.dominion.VickyDominating;
+import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallBack;
+import com.lilithsthrone.game.sex.sexActions.submission.BreedingStallFront;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
-import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallBack;
-import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallFront;
 import com.lilithsthrone.game.sex.sexActions.universal.ChairSex;
 import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
-import com.lilithsthrone.game.sex.sexActions.universal.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyle;
 import com.lilithsthrone.game.sex.sexActions.universal.FaceSitting;
 import com.lilithsthrone.game.sex.sexActions.universal.FaceToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.HandHolding;
 import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
-import com.lilithsthrone.game.sex.sexActions.universal.MasturbationPanties;
 import com.lilithsthrone.game.sex.sexActions.universal.MilkingStall;
 import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
 import com.lilithsthrone.game.sex.sexActions.universal.PetMounting;
@@ -35,7 +37,6 @@ import com.lilithsthrone.game.sex.sexActions.universal.RalphOral;
 import com.lilithsthrone.game.sex.sexActions.universal.SixtyNine;
 import com.lilithsthrone.game.sex.sexActions.universal.Standing;
 import com.lilithsthrone.game.sex.sexActions.universal.StocksSex;
-import com.lilithsthrone.game.sex.sexActions.universal.VickyDominating;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -1510,7 +1511,7 @@ public enum SexPositionType {
 		}
 	},
 	
-	GLORY_HOLE("Servicing glory holes",
+	GLORY_HOLE("Glory hole oral",
 			true,
 			false,
 			Util.newArrayListOfValues(GloryHole.class), Util.newHashMapOfValues(
@@ -1552,13 +1553,19 @@ public enum SexPositionType {
 			List<GameCharacter> characters = new ArrayList<>();
 			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_KNEELING));
 			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE));
-			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO));
 			
-			return UtilText.parse(characters, "[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+			if(Sex.getTotalParticipantCount(false)==3) {
+				characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO));
+				return UtilText.parse(characters,
+						"[npc.NameIsFull] kneeling on the floor of the toilet, ready to serve [npc2.namePos] [npc2.cock+] on one side, an [npc3.namePos] [npc3.cock+] on the other.");
+			} else {
+				return UtilText.parse(characters,
+						"[npc.NameIsFull] kneeling on the floor of the toilet, [npc.her] mouth up against the glory hole in preparation to serve whatever set of genitals [npc2.name] [npc2.has].");
+			}
 		}
 	},
 	
-	GLORY_HOLE_SEX("Servicing glory holes",
+	GLORY_HOLE_SEX("Glory hole sex",
 			true,
 			false,
 			Util.newArrayListOfValues(GloryHole.class), Util.newHashMapOfValues(
@@ -1595,8 +1602,20 @@ public enum SexPositionType {
 													SexActionPresets.anusToPenis))))))) {
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
-					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+			List<GameCharacter> characters = new ArrayList<>();
+			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_FUCKED));
+			characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_FUCKING));
+
+			if(Sex.getTotalParticipantCount(false)==3) {
+				characters.add(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE));
+				return UtilText.parse(characters,
+						"[npc.NameIsFull] pressing [npc.her] [npc.ass+] up against [npc2.namePos] glory hole, ready to get penetrated by [npc2.her] [npc2.cock+],"
+								+ " while bringing [npc.her] mouth down to [npc3.namePos] [npc3.cock+] on the other side of the narrow toilet stall.");
+				
+			} else {
+				return UtilText.parse(characters,
+						"[npc.NameIsFull] pressing [npc.her] [npc.ass+] up against [npc2.namePos] glory hole, ready to get penetrated by [npc2.her] [npc2.cock+].");
+			}
 		}
 	},
 	;
@@ -1605,7 +1624,7 @@ public enum SexPositionType {
 	private boolean addStandardActions;
 	private boolean addStandardPositioning;
 	
-	/**Key is role position. Value is list of all slots that this slot can switch to.*/
+	/**Key is role position. Value is list of all slots that this slot can interact with.*/
 	private Map<SexPositionSlot, Map<SexPositionSlot, SexActionInteractions>> slotTargets;
 	
 	private List<Class<?>> specialClasses;
@@ -1620,6 +1639,15 @@ public enum SexPositionType {
 		this.addStandardPositioning = addStandardPositioning;
 		this.specialClasses = specialClasses;
 		this.slotTargets = slotTargets;
+
+		List<SexPositionSlot> slots = new ArrayList<>(this.slotTargets.keySet());
+		for(SexPositionSlot slot : slots) {
+			this.slotTargets.get(slot).put(SexPositionSlot.MISC_WATCHING, new SexActionInteractions(null));
+		}
+		this.slotTargets.put(SexPositionSlot.MISC_WATCHING, new HashMap<>());
+		for(SexPositionSlot slot : slots) {
+			this.slotTargets.get(SexPositionSlot.MISC_WATCHING).put(slot, new SexActionInteractions(null));
+		}
 	}
 	
 	public String getName() {
@@ -1677,7 +1705,7 @@ public enum SexPositionType {
 	}
 	
 	public int getMaximumSlots() {
-		return slotTargets.size();
+		return slotTargets.size()-1; //-1 to remove watching slot
 	}
 
 	public Map<SexPositionSlot, Map<SexPositionSlot, SexActionInteractions>> getSlotTargets() {

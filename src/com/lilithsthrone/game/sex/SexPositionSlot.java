@@ -11,6 +11,12 @@ import com.lilithsthrone.utils.Util;
  */
 public enum SexPositionSlot {
 
+
+	/**For characters not directly involved in sex.*/
+	MISC_WATCHING("Watching",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.FLOOR)),
+	
 	/* Doggy-style */
 	
 	/**The partner who's on all fours, being fucked doggy-style.*/

@@ -2023,7 +2023,7 @@ public class LilayaHomeGeneric {
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
-						Rose.END_HAND_SEX);
+						null, Rose.END_HAND_SEX);
 
 			} else {
 				return null;

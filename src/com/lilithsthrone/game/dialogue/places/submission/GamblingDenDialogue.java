@@ -406,8 +406,8 @@ public class GamblingDenDialogue {
 								new SMRoxyPussyLicker(
 										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
-								AFTER_ROXY_SEX,
-								UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
+								null,
+								AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
 							@Override
 							public void effects() {
 								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
@@ -449,8 +449,8 @@ public class GamblingDenDialogue {
 									new SMRoxyPussyLicker(
 											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
-									AFTER_ROXY_SEX_ADDICT,
-									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
+									null,
+									AFTER_ROXY_SEX_ADDICT, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
 								@Override
 								public void effects() {
 									Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
@@ -467,8 +467,8 @@ public class GamblingDenDialogue {
 									new SMRoxyPussyLicker(
 											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
-									AFTER_ROXY_SEX,
-									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
+									null,
+									AFTER_ROXY_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
 								@Override
 								public void effects() {
 									Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
@@ -1033,8 +1033,8 @@ public class GamblingDenDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								EPONA_POST_SEX,
-								UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_SUB")) {
+								null,
+								EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_SUB")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().eponaStamps-=6;
@@ -1053,8 +1053,8 @@ public class GamblingDenDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(Main.game.getEpona(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								EPONA_POST_SEX,
-								UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_DOM")) {
+								null,
+								EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "EPONA_START_SEX_AS_DOM")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().eponaStamps-=6;
@@ -1245,8 +1245,8 @@ public class GamblingDenDialogue {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 						},
-						AFTER_ROULETTE_SEX,
-						UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
+						null,
+						AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 					@Override
 					public void effects() {
 						breederIndex++;
@@ -1282,8 +1282,8 @@ public class GamblingDenDialogue {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 						},
-						AFTER_ROULETTE_SEX,
-						UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
+						null,
+						AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 					@Override
 					public void effects() {
 						breederIndex++;
@@ -1342,8 +1342,8 @@ public class GamblingDenDialogue {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
 							},
-							AFTER_ROULETTE_SEX,
-							UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
+							null,
+							AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 						@Override
 						public void effects() {
 							breederIndex++;
@@ -1379,8 +1379,8 @@ public class GamblingDenDialogue {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
 							},
-							AFTER_ROULETTE_SEX,
-							UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
+							null,
+							AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
 						@Override
 						public void effects() {
 							breederIndex++;
@@ -1562,8 +1562,8 @@ public class GamblingDenDialogue {
 								character.setLust(80);
 							}
 						},
-						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
-						roll==1
+						null,
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX, roll==1
 							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
 							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override

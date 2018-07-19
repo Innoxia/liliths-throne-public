@@ -53,8 +53,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class RentalMommy extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public RentalMommy() {
 		this(false);

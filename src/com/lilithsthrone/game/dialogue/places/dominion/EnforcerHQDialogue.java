@@ -452,8 +452,8 @@ public class EnforcerHQDialogue {
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-								AFTER_SEX,
-								"<p>"
+								null,
+								AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -487,8 +487,8 @@ public class EnforcerHQDialogue {
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-								AFTER_SEX,
-								"<p>"
+								null,
+								AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -522,8 +522,8 @@ public class EnforcerHQDialogue {
 								new SMKneeling(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-								AFTER_SEX,
-								"<p>"
+								null,
+								AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -557,8 +557,8 @@ public class EnforcerHQDialogue {
 								new SMBraxDoggy(
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-								AFTER_SEX,
-								"<p>"
+								null,
+								AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -1017,8 +1017,8 @@ public class EnforcerHQDialogue {
 						new SMKneeling(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-						AFTER_SEX,
-						"<p>"
+						null,
+						AFTER_SEX, "<p>"
 							+ "[pc.speech(Good idea, Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
 						+ "</p>"
 						+ "<p>"
@@ -1207,8 +1207,8 @@ public class EnforcerHQDialogue {
 						new SMKneeling(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-						AFTER_SEX,
-						"<p>"
+						null,
+						AFTER_SEX, "<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
 							+ " There, waiting for you, is the one-time 'Chief of Dominion Operations'."
 							+ " Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her."
@@ -1766,8 +1766,8 @@ public class EnforcerHQDialogue {
 						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						Brax.AFTER_SUBMISSIVE_SEX,
-						"<p>"
+						null,
+						Brax.AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "[brax.namePos] strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"
 							+ " and as he gives it a forceful squeeze, you suddenly realise that you've ended up leaning into his masculine chest."
 							+ " With a little whimper, you look up into his hungry, wolf-like eyes, and as you do, he leans down and forces his tongue into your mouth once again."
@@ -1792,8 +1792,8 @@ public class EnforcerHQDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Brax.AFTER_DOMINANT_SEX,
-						"<p>"
+						null,
+						Brax.AFTER_DOMINANT_SEX, "<p>"
 							+ "You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl up into his ear, "
 							+ UtilText.parsePlayerSpeech("Mmm, yes, [brax.name]. I <i>do</i> like it rough!")
 						+ "</p>"

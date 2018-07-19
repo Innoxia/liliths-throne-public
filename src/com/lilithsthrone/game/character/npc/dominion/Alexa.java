@@ -46,8 +46,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Alexa extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Alexa() {
 		this(false);
 	}
@@ -140,7 +138,7 @@ public class Alexa extends NPC {
 			this.removeAllSlaves();
 			
 			for(int i=0; i<5; i++) {
-				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences());
+				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
 				try {
 					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {

@@ -54,8 +54,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixMaidKelly extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public ZaranixMaidKelly() {
 		this(false);
 	}
@@ -254,7 +252,8 @@ public class ZaranixMaidKelly extends NPC {
 						+ " Unable to wait even two seconds to hear your reply, her hands slip under her dress, and she starts shamelessly masturbating right there in front of you."
 					+ "</p>"
 					+ "<p>"
-						+ "In her current lust-filled state, Kelly isn't going to pose much of a threat from now on, so you could either do what she obviously want you t do, and have sex with her, or simply ignore her and continue on your way."
+						+ "In her current lust-filled state, Kelly isn't going to pose much of a threat from now on, so you could either do what she obviously wants you to do, and have sex with her,"
+							+ " or simply ignore her and continue on your way."
 					+ "</p>";
 		}
 
@@ -269,8 +268,8 @@ public class ZaranixMaidKelly extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
 							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
 							+ " Denied the freedom to get herself off, the horny maid looks up into your eyes, and you see them filled with a desperate, burning lust."
@@ -288,8 +287,8 @@ public class ZaranixMaidKelly extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
 						+ "</p>"
@@ -394,7 +393,7 @@ public class ZaranixMaidKelly extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT);
+						null, AFTER_SEX_DEFEAT);
 			} else {
 				return null;
 			}

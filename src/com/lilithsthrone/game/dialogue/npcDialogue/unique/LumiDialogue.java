@@ -275,8 +275,8 @@ public class LumiDialogue {
 								return SexPace.SUB_RESISTING;
 							}
 						},
-						AFTER_SEX,
-						UtilText.parseFromXMLFile("characters/dominion/lumi", "COMBAT_PLAYER_WIN_TAKE_ADVANTAGE")) {
+						null,
+						AFTER_SEX, UtilText.parseFromXMLFile("characters/dominion/lumi", "COMBAT_PLAYER_WIN_TAKE_ADVANTAGE")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementKarma(-1000);

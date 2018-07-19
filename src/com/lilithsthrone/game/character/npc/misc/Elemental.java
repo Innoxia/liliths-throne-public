@@ -36,8 +36,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Elemental extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	private String summonerID;
 
 	public Elemental(boolean isImported) {

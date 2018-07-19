@@ -50,9 +50,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
-
-	private static final long serialVersionUID = 1L;
-
+	
 	private String title;
 	
 	private int karma;
