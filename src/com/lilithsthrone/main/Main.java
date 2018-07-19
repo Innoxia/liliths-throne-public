@@ -66,7 +66,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.8.5",
+	public static final String VERSION_NUMBER = "0.2.9",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -78,21 +78,18 @@ public class Main extends Application {
 	public static String patchNotes =
 		
 		"<p>"
-			+ "Hello again! :3"
+			+ "Hello again!"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've (finally) managed to get all of the sex actions converted to the NPC-on-NPC system, so, with that all done, I'll now be able to move on and add the first proper threesome scene for the full release next week. ^^"
+			+ "Once again, I underestimated the amount of old code that needed to be refactored in order to finally get a real threesome sex scene working."
+			+ " I've worked right up until the release time trying to get it all done, and only managed to get it working properly a few hours ago."
+			+ " As a result, this version has not been thoroughly tested for bugs, and, considering the amount of engine reworking I had to do, it's likely that there are some hiding away somewhere."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Finishing off all those conversions, as well as doing several bug fixes, took up all of my time these past three days, so unfortunately I didn't manage to get any significant content added."
-			+ " I'll get started tomorrow on adding the threesome and glory hole scenes, and will try to get the sex action modding framework set up alongside that."
-			+ " I want to have that finished by Friday, so that I can then move on to adding the non-slavery NPC moving in content, as well as the Slaver Alley & Alexa content."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "Unless there's a huge game-breaking bug in this version that requires a hotfix, the next release will be in the early hours of Thursday, 19th July. :3"
+			+ "It's highly likely that I will make a hotfix, which will be out within the next 4 days (by Sunday night)."
+			+ " I'll try to have the non-slavery NPC moving in content, as well as the Slaver Alley & Alexa content added for that as well."
 		+ "</p>"
 			
 		+ "<p>"
@@ -152,7 +149,57 @@ public class Main extends Application {
 			+"<ul>Fixed incorrect sex action tooltips in (hopefully) every scene.</ul>"
 			+"<ul>Fixed parsing issues related to NPCs equipping weapons.</ul>"
 		+ "</list>"
-		;
+		
+	+ "<br/>"
+
+	+ "<list>"
+		+ "<h6>v0.2.9</h6>"
+		+"<li>Gameplay:</li>"
+		+"<ul>Added glory holes to the nightclub's toilets. You can either use them, or service them.</ul>"
+		+"<ul>Improved some of the dialogue in the Dominion alleyway attack scenes, and added pre-sex dialogue for all of their sex scenes.</ul>"
+		+"<ul>Added threesomes and companion + enemy sex scenes for if losing combat against the Dominion alleyway attacker while having people in your party. (The companion + enemy sex scenes are disabled by default, behind a new 'NTR' content toggle.)</ul>"
+		
+		+"<li>Contributors:</li>"
+		+"<ul>Made several back-end improvements to image loading, drastically cutting down custom artwork load times. (DJ4ddi)</ul>"
+		+"<ul>Added functionality to give any NPC a custom image (see res/images/characters/modding.txt for instructions). (DJ4ddi)</ul>"
+		+"<ul>Added option to display custom character's artwork in their race/appearance tooltip. (DJ4ddi)</ul>"
+		+"<ul>Added vaginal urethra modifier enchantments for clothing. (HarelMym)</ul>"
+		+"<ul>Refactored offspring encounter code. (uglybead)</ul>"
+		
+		+"<li>Other:</li>"
+		+"<ul>Added more options for changing the colours of glasses.</ul>"
+		+"<ul>You can now click on an NPC's name in sex and combat to switch target to them.</ul>"
+		+"<ul>Expanded sex request actions.</ul>"
+		+"<ul>Clothing that plugs orifices is no longer counted when calculating whether to apply the 'dirty clothing' status effect.</ul>"
+		
+		+"<li>Sex AI:</li>"
+		+"<ul>NPCs will no longer perform self-anal actions (fingering/tail-penetration) unless they have the anal fetish.</ul>"
+		+"<ul>Fixed issue where NPCs would repeatedly get penetrated then make you pull out.</ul>"
+		+"<ul>NPCs will no longer perform hotdogging actions if they dislike/hate anal.</ul>"
+		+"<ul>NPCs will no longer use the 'performing oral behind' position to suck their partner's cock in doggy-style.</ul>"
+		+"<ul>NPCs will now try to penetrate their partner's ass, if their partner has no vagina. (Still restricted by fetish desires.)</ul>"
+		
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed Ralph having black fur, when he should have had dark brown.</ul>"
+		+"<ul>Fixed incorrect colouring for 'fox-morph intuition' status effect.</ul>"
+		+"<ul>Fixed (hopefully) the last causes of the bug where non-human vaginas/breasts/penises would incorrectly produce human fluids.</ul>"
+		+"<ul>Fixed parsing errors in orifice stretching descriptions.</ul>"
+		+"<ul>Fixed broken creampie status effect icons.</ul>"
+		+"<ul>Fixed descriptions of a real cock being inside of you while getting fucked by a dildo.</ul>"
+		+"<ul>Fixed incorrect parsing in area reveals during and before sex.</ul>"
+		+"<ul>Fixed group sex orgasms only triggering once you targeted the character who's orgasming.</ul>"
+		+"<ul>Typo fixes.</ul>"
+		+"<ul>Fixed issue where tooltips could sometimes get stuck on your screen.</ul>"
+		+"<ul>Fixed issue where panty masturbation scene would break at orgasm.</ul>"
+		+"<ul>Fixed incorrect lubrication descriptions in sex.</ul>"
+		+"<ul>Fixed 'clit attention' sex action being available even if vagina was concealed.</ul>"
+		+"<ul>Fixed bug where some sex actions would be incorrectly available (such as 'cock slap' while submissive).</ul>"
+		+"<ul>Fixed incorrect colours being available for fur.</ul>"
+		+"<ul>Fixed duplicate colours appearing in the recolouring menus.</ul>"
+		+"<ul>Fixed sex stat tracking not taking into account who you were having sex with. (This will reset your sex counts.)</ul>"
+		+"<ul>Fixed more incorrect parsing instances in sex actions.</ul>"
+		+"<ul>Fixed Pix being labelled as using the incorrect position in her shower sex scene.</ul>"
+	+ "</list>";
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
