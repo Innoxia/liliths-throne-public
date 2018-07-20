@@ -1,4 +1,4 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.rendering;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.rendering;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.utils.CachedImage;
-import com.lilithsthrone.utils.ImageCache;
+import com.lilithsthrone.rendering.CachedImage;
+import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
