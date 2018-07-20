@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -606,7 +605,7 @@ public class TooltipInformationEventListener implements EventListener {
 				} else {
 					CachedImage image = null;
 					if (owner.hasArtwork()) {
-						image = ImageCache.INSTANCE.requestImage(new File(owner.getCurrentArtwork().getCurrentImage()));
+						image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());
 					}
 					boolean displayImage = image != null
 							&& Main.getProperties().hasValue(PropertyValue.thumbnail)

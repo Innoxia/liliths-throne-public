@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
+import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -181,6 +182,11 @@ public class MainController implements Initializable {
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
 					if (Main.game.getPlayer().getLocation().getX() != 0)
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
+
+					// Make sure that images of present characters are cached
+					for (NPC character : Main.game.getCharactersPresent())
+						if (character.hasArtwork())
+							ImageCache.INSTANCE.requestCache(character.getCurrentArtwork().getCurrentImage());
 				}
 			}
 		});

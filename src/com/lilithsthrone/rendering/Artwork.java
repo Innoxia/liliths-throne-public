@@ -136,16 +136,20 @@ public class Artwork {
 		return index < getClothedImages().size();
 	}
 	
-	public String getCurrentImage() {
+	public File getCurrentImage() {
+		String path;
 		if(index < getClothedImages().size()) {
-			return getClothedImages().get(index);
+			path = getClothedImages().get(index);
 			
 		} else if(index < getClothedImages().size() + getPartialImages().size()){
-			return getPartialImages().get(index - getClothedImages().size());
+			path = getPartialImages().get(index - getClothedImages().size());
 			
 		} else {
-			return getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
+			path = getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
 		}
+
+		if (path.isEmpty()) return null;
+		return new File(path);
 	}
 	
 	public List<String> getClothedImages() {

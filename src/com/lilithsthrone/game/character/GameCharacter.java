@@ -2229,7 +2229,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 			// Cache the current image
 			if (Main.getProperties().hasValue(PropertyValue.artwork)) {
-				ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
+				ImageCache.INSTANCE.requestCache(getCurrentArtwork().getCurrentImage());
 			}
 		}
 	}
@@ -2316,7 +2316,7 @@ public abstract class GameCharacter implements XMLSaving {
 			int width = 200;
 			int percentageWidth = 33;
 			try {
-				CachedImage image = ImageCache.INSTANCE.getImage(new File(artwork.getCurrentImage()));
+				CachedImage image = ImageCache.INSTANCE.getImage(artwork.getCurrentImage());
 				imageString = image.getImageString();
 				width = image.getWidth();
 				percentageWidth = image.getPercentageWidth();
