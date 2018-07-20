@@ -1,6 +1,7 @@
 package com.lilithsthrone.rendering;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.Base64;
 
 /**
  * @since 0.2.5.5
- * @version 0.2.5.5
+ * @version 0.2.9
  * @author Addi
  */
 public class CachedImage {
@@ -31,6 +32,10 @@ public class CachedImage {
 		} else if(height < width) {
 			percentageWidth = 65;
 		}
+
+		// Resize image
+		int[] targetSize = getAdjustedSize(600, 600);
+		image = scaleDown(image, targetSize[0], targetSize[1]);
 
 		// Convert to string
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -74,5 +79,44 @@ public class CachedImage {
 		// Use the one that produces the smaller image as scaling factor
 		float scale = Math.min(widthRatio, heightRatio);
 		return new int[]{(int)(width * scale), (int)(height * scale)};
+	}
+
+	/**
+	 * Scales down the given image using incremental, bilinear, anti-aliased sampling. Each step may only decrease the
+	 * size by a factor of two, increasing the quality but taking additional time to complete. The parameters represent
+	 * final values and do not respect the aspect ratio of the original image.
+	 * @param original The BufferedImage to scale
+	 * @param targetWidth The targeted width, ignoring aspect ratio
+	 * @param targetHeight The targeted height, ignoring aspect ratio
+	 * @return
+	 */
+	public static BufferedImage scaleDown(BufferedImage original, int targetWidth, int targetHeight) {
+		int width = original.getWidth();
+		int height = original.getHeight();
+		BufferedImage rv = original;
+
+		while (width > targetWidth || height > targetHeight) {
+			// Determine target dimensions while never decreasing size by more than half
+			if (width > targetWidth)
+				width = Math.max(width / 2, targetWidth);
+
+			if (height > targetHeight)
+				height = Math.max(height / 2, targetHeight);
+
+			// Setup render target
+			BufferedImage step = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D canvas = step.createGraphics();
+			canvas.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			canvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+			// Render onto canvas
+			canvas.drawImage(original, 0, 0, width, height, null);
+			canvas.dispose();
+
+			rv = step;
+		}
+
+		return rv;
 	}
 }
