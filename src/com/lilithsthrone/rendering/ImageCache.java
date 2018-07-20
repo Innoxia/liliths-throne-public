@@ -2,8 +2,9 @@ package com.lilithsthrone.rendering;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -14,7 +15,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 public enum ImageCache {
 	INSTANCE;
 
-	protected ConcurrentHashMap<File, SoftReference<CachedImage>> cache = new ConcurrentHashMap<>();
+	protected Map<File, CachedImage> cache = Collections.synchronizedMap(new LinkedHashMap<File, CachedImage>(16, 0.75f, true) {
+		@Override
+		protected boolean removeEldestEntry(Map.Entry<File, CachedImage> eldest) {
+			// Always allow as many as there can be in one room (player, two companions, five slaves)
+			if (size() <= 8) return false;
+
+			// Allow cache with 1/10 of the maximum memory and less than the amount of available memory
+			int kbSize = size() * 500 * 1024;
+			return kbSize > Runtime.getRuntime().maxMemory() / 10 || kbSize > Runtime.getRuntime().freeMemory();
+		}
+	});
+
 	protected LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<>();
 	protected Thread loaderThread = new Thread(() -> {
 		while (!Thread.currentThread().isInterrupted()) {
@@ -48,7 +60,7 @@ public enum ImageCache {
 	 * @param f A File containing the path to the image
 	 */
 	public void requestCache(File f) {
-		if (retrieveImage(f) == null && !queue.contains(f)) {
+		if (cache.get(f) == null && !queue.contains(f)) {
 			queue.offer(f);
 		}
 	}
@@ -59,7 +71,7 @@ public enum ImageCache {
 	 * @return A CachedImage object containing the image string if found in the cache, null otherwise
 	 */
 	public CachedImage requestImage(File f) {
-		CachedImage image = retrieveImage(f);
+		CachedImage image = cache.get(f);
 		if (image == null) {
 			requestCache(f);
 		}
@@ -73,28 +85,12 @@ public enum ImageCache {
 	 * @throws IOException Forwarded exception if the image can not be loaded
 	 */
 	public CachedImage getImage(File f) throws IOException {
-		CachedImage image = retrieveImage(f);
+		CachedImage image = cache.get(f);
 		if (image == null) {
 			image = new CachedImage();
 			image.load(f);
-			cache.put(f, new SoftReference<>(image));
+			cache.put(f, image);
 		}
 		return image;
-	}
-
-	protected CachedImage retrieveImage(File f) {
-		// Attempt to fetch the image
-		SoftReference<CachedImage> ref = cache.get(f);
-		if (ref != null) {
-			if (ref.get() != null) {
-				// Cache hit, return the image
-				return ref.get();
-			} else {
-				// Dead reference, clean it up
-				cache.remove(f);
-			}
-		}
-		// Cache miss
-		return null;
 	}
 }
