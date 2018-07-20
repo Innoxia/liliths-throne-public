@@ -17,7 +17,7 @@ public enum ImageCache {
 	protected ConcurrentHashMap<File, SoftReference<CachedImage>> cache = new ConcurrentHashMap<>();
 	protected LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<>();
 	protected Thread loaderThread = new Thread(() -> {
-		while (true) {
+		while (!Thread.currentThread().isInterrupted()) {
 			File f;
 			try {
 				// Fetch a new file to load or wait until one is available
@@ -31,6 +31,8 @@ public enum ImageCache {
 				getImage(f);
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// Early shutdown, just ignore it
 			}
 		}
 	});

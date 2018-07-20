@@ -21,7 +21,7 @@ public class CachedImage {
 	 * @param f A File containing the path to a .jpg or .png image
 	 * @throws IOException
 	 */
-	public void load(File f) throws IOException {
+	public void load(File f) throws IOException, NullPointerException {
 		// Load the image
 		BufferedImage image = ImageIO.read(f);
 		width = image.getWidth();
