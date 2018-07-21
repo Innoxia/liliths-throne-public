@@ -1,33 +1,21 @@
 package com.lilithsthrone.game.character.race;
 
+import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.WorldType;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
@@ -832,6 +820,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_ANGEL("statusEffects/raceSlime",
@@ -852,6 +841,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ANGEL, Subspecies.ANGEL, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_DEMON("statusEffects/raceSlime",
@@ -872,6 +862,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.DEMON, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_IMP("statusEffects/raceSlime",
@@ -892,6 +883,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.IMP, Subspecies.IMP, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 		@Override
 		public boolean isShortStature() {
@@ -916,6 +908,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.COW_MORPH, Subspecies.COW_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_DOG("statusEffects/raceSlime",
@@ -936,6 +929,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_DOG_DOBERMANN("statusEffects/raceSlime",
@@ -956,6 +950,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_DOG_BORDER_COLLIE("statusEffects/raceSlime",
@@ -976,6 +971,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_FOX("statusEffects/raceSlime",
@@ -996,6 +992,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_FOX_FENNEC("statusEffects/raceSlime",
@@ -1016,6 +1013,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_WOLF("statusEffects/raceSlime",
@@ -1036,6 +1034,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.WOLF_MORPH, Subspecies.WOLF_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_CAT("statusEffects/raceSlime",
@@ -1056,6 +1055,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.CAT_MORPH, Subspecies.CAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_HORSE("statusEffects/raceSlime",
@@ -1076,6 +1076,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HORSE_MORPH, Subspecies.HORSE_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_REINDEER("statusEffects/raceSlime",
@@ -1096,6 +1097,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.REINDEER_MORPH, Subspecies.REINDEER_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_ALLIGATOR("statusEffects/raceSlime",
@@ -1116,6 +1118,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_SQUIRREL("statusEffects/raceSlime",
@@ -1136,6 +1139,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_RAT("statusEffects/raceSlime",
@@ -1156,6 +1160,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RAT_MORPH, Subspecies.RAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_RABBIT("statusEffects/raceSlime",
@@ -1176,6 +1181,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RABBIT_MORPH, Subspecies.RABBIT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_BAT("statusEffects/raceSlime",
@@ -1196,6 +1202,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.BAT_MORPH, Subspecies.BAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_HARPY("statusEffects/raceSlime",
@@ -1216,6 +1223,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_HARPY_RAVEN("statusEffects/raceSlime",
@@ -1236,6 +1244,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_RAVEN, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	SLIME_HARPY_BALD_EAGLE("statusEffects/raceSlime",
@@ -1256,6 +1265,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_BALD_EAGLE, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1274,6 +1284,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1292,6 +1303,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1310,6 +1322,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1328,6 +1341,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1346,6 +1360,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1364,6 +1379,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	
@@ -1382,6 +1398,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			body.setTotalIngestionRate(IngestionRate.FOUR_RAPID);
 		}
 	},
 	

@@ -1,25 +1,10 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.function.Predicate;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
-import com.lilithsthrone.game.character.npc.dominion.Lumi;
-import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -39,13 +24,24 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.utils.Util.Value;
+
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @since 0.1.0
@@ -66,7 +62,7 @@ public enum Encounter {
 				for(String id : Main.game.getPlayer().getSlavesOwned()) {
 					NPC slave = (NPC) Main.game.getNPCById(id);
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-							&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
+							&& (!slave.getWorkHours()[(int) (Main.game.getHour()%24)] || slave.getSlaveJob() == SlaveJob.IDLE)
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 							&& slave.isAttractedTo(Main.game.getPlayer())) {
 						if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {

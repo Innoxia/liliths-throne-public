@@ -1,61 +1,10 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
@@ -65,6 +14,8 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+
+import java.util.*;
 
 /**
  * @since 0.2.4
@@ -142,6 +93,7 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_INGESTION,
 						TFModifier.TF_MOD_WETNESS,
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
@@ -156,6 +108,7 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_INGESTION,
 						TFModifier.TF_MOD_WETNESS,
 						TFModifier.TF_MOD_REGENERATION,
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
@@ -189,6 +142,7 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_INGESTION,
 						TFModifier.TF_MOD_WETNESS,
 						TFModifier.TF_MOD_CUM_EXPULSION,
 						TFModifier.TF_MOD_REGENERATION
@@ -209,6 +163,7 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_INGESTION,
 						TFModifier.TF_MOD_WETNESS,
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
@@ -220,6 +175,7 @@ public abstract class AbstractItemEffectType {
 					mods.add(TFModifier.TF_MOD_CAPACITY_2);
 					mods.add(TFModifier.TF_MOD_ELASTICITY_2);
 					mods.add(TFModifier.TF_MOD_PLASTICITY_2);
+					mods.add(TFModifier.TF_MOD_INGESTION_2);
 					mods.add(TFModifier.TF_MOD_ORIFICE_PUFFY_2);
 					mods.add(TFModifier.TF_MOD_ORIFICE_RIBBED_2);
 					mods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED_2);
@@ -241,12 +197,16 @@ public abstract class AbstractItemEffectType {
 				return OrificeElasticity.SEVEN_ELASTIC.getValue();
 			case TF_MOD_PLASTICITY:
 				return OrificePlasticity.SEVEN_MOULDABLE.getValue();
+			case TF_MOD_INGESTION:
+				return IngestionRate.FIVE_MAXIMUM.getValue();
 			case TF_MOD_CAPACITY_2:
 				return Capacity.SEVEN_GAPING.getMaximumValue();
 			case TF_MOD_ELASTICITY_2:
 				return OrificeElasticity.SEVEN_ELASTIC.getValue();
 			case TF_MOD_PLASTICITY_2:
 				return OrificePlasticity.SEVEN_MOULDABLE.getValue();
+			case TF_MOD_INGESTION_2:
+				return IngestionRate.FIVE_MAXIMUM.getValue();
 			case TF_MOD_WETNESS:
 				if(primaryModifier!=TFModifier.TF_PENIS
 				&& primaryModifier!=TFModifier.TF_BREASTS) {
@@ -376,6 +336,9 @@ public abstract class AbstractItemEffectType {
 			case TF_MOD_PLASTICITY:
 				descriptions.add(getClothingTFChangeDescriptionEntry(potency, orificeName+" plasticity", OrificePlasticity.getElasticityFromInt(limit).getDescriptor()));
 				break;
+			case TF_MOD_INGESTION:
+				descriptions.add(getClothingTFChangeDescriptionEntry(potency, orificeName+" ingestion rate", IngestionRate.getIngestionRateFromInt(limit).getDescriptor()));
+				break;
 			case TF_MOD_CAPACITY_2:
 				descriptions.add(getClothingTFChangeDescriptionEntry(potency, orificeName+"l urethra capacity", limit+" inches"));
 				break;
@@ -384,6 +347,9 @@ public abstract class AbstractItemEffectType {
 				break;
 			case TF_MOD_PLASTICITY_2:
 				descriptions.add(getClothingTFChangeDescriptionEntry(potency, orificeName+"l urethra plasticity", OrificePlasticity.getElasticityFromInt(limit).getDescriptor()));
+				break;
+			case TF_MOD_INGESTION_2:
+				descriptions.add(getClothingTFChangeDescriptionEntry(potency, orificeName+"l urethra ingestion rate", IngestionRate.getIngestionRateFromInt(limit).getDescriptor()));
 				break;
 			case TF_MOD_WETNESS:
 				if(primaryModifier!=TFModifier.TF_PENIS
@@ -620,6 +586,7 @@ public abstract class AbstractItemEffectType {
 		int capacityIncrement = (potency.isNegative()?-2:2);
 		int elasticityIncrement = (potency.isNegative()?-1:1);
 		int plasticityIncrement = (potency.isNegative()?-1:1);
+		int ingestionRateIncrement = (potency.isNegative()?-1:1);
 		int wetnessIncrement = (potency.isNegative()?-1:1);
 		int assSizeIncrement = (potency.isNegative()?-1:1);
 		int hipSizeIncrement = (potency.isNegative()?-1:1);
@@ -719,6 +686,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setAssPlasticity(limit));
 							}
 							break;
+						case TF_MOD_INGESTION:
+							if(isWithinLimits(ingestionRateIncrement, target.getAssIngestionRate().getValue(), limit)) {
+								sb.append(target.incrementAssIngestionRate(ingestionRateIncrement));
+							} else if(isSetToLimit(ingestionRateIncrement, target.getAssIngestionRate().getValue(), limit)) {
+								sb.append(target.setAssIngestionRate(limit));
+							}
+							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(wetnessIncrement, target.getAssWetness().getValue(), limit)) {
 								sb.append(target.incrementAssWetness(wetnessIncrement));
@@ -816,6 +790,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementNipplePlasticity(plasticityIncrement));
 							} else if(isSetToLimit(plasticityIncrement, target.getNipplePlasticity().getValue(), limit)) {
 								sb.append(target.setNipplePlasticity(limit));
+							}
+							break;
+						case TF_MOD_INGESTION:
+							if(isWithinLimits(ingestionRateIncrement, target.getNippleIngestionRate().getValue(), limit)) {
+								sb.append(target.incrementNippleIngestionRate(ingestionRateIncrement));
+							} else if(isSetToLimit(ingestionRateIncrement, target.getNippleIngestionRate().getValue(), limit)) {
+								sb.append(target.setNippleIngestionRate(limit));
 							}
 							break;
 						case TF_MOD_WETNESS:
@@ -1028,6 +1009,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setUrethraPlasticity(limit));
 							}
 							break;
+						case TF_MOD_INGESTION:
+							if(isWithinLimits(ingestionRateIncrement, target.getUrethraIngestionRate().getValue(), limit)) {
+								sb.append(target.incrementUrethraIngestionRate(ingestionRateIncrement));
+							} else if(isSetToLimit(ingestionRateIncrement, target.getUrethraIngestionRate().getValue(), limit)) {
+								sb.append(target.setUrethraIngestionRate(limit));
+							}
+							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
 								sb.append(target.incrementPenisCumStorage(cumStorageIncrement));
@@ -1134,6 +1122,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setVaginaPlasticity(limit));
 							}
 							break;
+						case TF_MOD_INGESTION:
+							if(isWithinLimits(ingestionRateIncrement, target.getVaginaIngestionRate().getValue(), limit)) {
+								sb.append(target.incrementVaginaIngestionRate(ingestionRateIncrement));
+							} else if(isSetToLimit(ingestionRateIncrement, target.getVaginaIngestionRate().getValue(), limit)) {
+								sb.append(target.setVaginaIngestionRate(limit));
+							}
+							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
 								sb.append(target.incrementVaginaWetness(wetnessIncrement));
@@ -1204,6 +1199,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementVaginaUrethraPlasticity(plasticityIncrement));
 							} else if(isSetToLimit(plasticityIncrement, target.getVaginaUrethraPlasticity().getValue(), limit)) {
 								sb.append(target.setVaginaUrethraPlasticity(limit));
+							}
+							break;
+						case TF_MOD_INGESTION_2:
+							if(isWithinLimits(ingestionRateIncrement, target.getVaginaUrethraIngestionRate().getValue(), limit)) {
+								sb.append(target.incrementVaginaUrethraIngestionRate(ingestionRateIncrement));
+							} else if(isSetToLimit(ingestionRateIncrement, target.getVaginaUrethraIngestionRate().getValue(), limit)) {
+								sb.append(target.setVaginaUrethraIngestionRate(limit));
 							}
 							break;
 						case TF_MOD_ORIFICE_PUFFY_2:
@@ -1562,6 +1564,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -1601,6 +1604,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION, TFPotency.getAllPotencies());
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
@@ -1661,6 +1665,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
@@ -1724,6 +1729,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION, TFPotency.getAllPotencies());
 	
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -1764,6 +1770,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_VAGINA_SQUIRTER, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -1777,6 +1784,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY_2, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY_2, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY_2, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_INGESTION_2, TFPotency.getAllPotencies());
 	
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2090,6 +2098,22 @@ public abstract class AbstractItemEffectType {
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in natural anal lubrication.", smallChangeMajorBoost, " wetness") { @Override public String applyEffect() { return target.incrementAssWetness(smallChangeMajorBoost); } };
 						}
+
+					case TF_MOD_INGESTION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in anal ingestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in anal ingestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in anal ingestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in anal ingestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in anal ingestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in anal ingestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementAssIngestionRate(smallChangeMajorBoost); } };
+						}
 						
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
@@ -2284,6 +2308,21 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Increase in nipple plasticity.", smallChangeBoost, " plasticity") { @Override public String applyEffect() { return target.incrementNipplePlasticity(smallChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in nipple plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementNipplePlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_INGESTION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in breast ingestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in breast ingestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in breast ingestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in breast ingestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in breast ingestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in anal ingestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementNippleIngestionRate(smallChangeMajorBoost); } };
 						}
 					case TF_MOD_WETNESS:
 						switch(potency) {
@@ -2630,6 +2669,21 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Increase in throat plasticity.", smallChangeBoost, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in throat plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_INGESTION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in fluid digestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in fluid digestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in fluid digestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in fluid digestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in fluid digestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in fluid digestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementFaceIngestionRate(smallChangeMajorBoost); } };
 						}
 					case TF_MOD_WETNESS:
 						switch(potency) {
@@ -3065,6 +3119,21 @@ public abstract class AbstractItemEffectType {
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in urethra plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementUrethraPlasticity(smallChangeMajorBoost); } };
 						}
+					case TF_MOD_INGESTION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in urethra ingestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in urethra ingestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in urethra ingestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in urethra ingestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in urethra ingestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in urethra ingestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementUrethraIngestionRate(smallChangeMajorBoost); } };
+						}
 						
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
@@ -3307,6 +3376,21 @@ public abstract class AbstractItemEffectType {
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in vagina plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementVaginaPlasticity(smallChangeMajorBoost); } };
 						}
+					case TF_MOD_INGESTION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in vaginal ingestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in vaginal ingestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in vaginal ingestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in vaginal ingestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in vaginal ingestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in vaginal ingestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaIngestionRate(smallChangeMajorBoost); } };
+						}
 					case TF_MOD_WETNESS:
 						switch(potency) {
 							case MAJOR_DRAIN:
@@ -3405,6 +3489,21 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Increase in urethra plasticity.", smallChangeBoost, " plasticity") { @Override public String applyEffect() { return target.incrementVaginaUrethraPlasticity(smallChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in urethra plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementVaginaUrethraPlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_INGESTION_2:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in urethra ingestion rate.", smallChangeMajorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in urethra ingestion rate.", smallChangeDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in urethra ingestion rate.", smallChangeMinorDrain, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in urethra ingestion rate.", smallChangeMinorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in urethra ingestion rate.", smallChangeBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in urethra ingestion rate.", smallChangeMajorBoost, " ingestion") { @Override public String applyEffect() { return target.incrementVaginaUrethraIngestionRate(smallChangeMajorBoost); } };
 						}
 						
 					case TF_MOD_ORIFICE_PUFFY_2:

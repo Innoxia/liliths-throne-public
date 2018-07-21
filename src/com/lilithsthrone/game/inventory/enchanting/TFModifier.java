@@ -1,15 +1,15 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.7
@@ -520,6 +520,18 @@ public enum TFModifier {
 			"plastic",
 			"modifier_circle_plasticity",
 			Colour.BASE_BLUE,
+			Rarity.COMMON),
+	TF_MOD_INGESTION("ingestion rate",
+			"Applies an effect related to changing the ingestion rate of an orifice.",
+			"ingestion",
+			"modifier_circle_ingestion_rate",
+			Colour.BASE_YELLOW,
+			Rarity.COMMON),
+	TF_MOD_INGESTION_2("ingestion rate II",
+			"Applies an effect related to changing the ingestion rate of an orifice.",
+			"ingestion",
+			"modifier_circle_ingestion_rate",
+			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	// modifiers:

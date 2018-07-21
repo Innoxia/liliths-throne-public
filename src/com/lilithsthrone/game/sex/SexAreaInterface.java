@@ -25,5 +25,5 @@ public interface SexAreaInterface {
 	public default boolean isPlural() {
 		return false;
 	}
-	
+
 }

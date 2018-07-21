@@ -1,16 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -18,24 +7,21 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.AbstractCoreType;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.*;
+import com.lilithsthrone.game.inventory.enchanting.*;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -58,6 +44,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private Colour patternColour;
 	private Colour patternSecondaryColour;
 	private Colour patternTertiaryColour;
+
+
+	private List<SexAreaOrifice> pluggedOrifices;
 	
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		super(clothingType.getName(),
@@ -87,6 +76,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		patternTertiaryColour = Colour.CLOTHING_BLACK;
 
 		displacedList = new ArrayList<>();
+		pluggedOrifices = fillPluggedOrifices(clothingType.getItemTags());
+
 
 		if (effects.isEmpty() && allowRandomEnchantment && getClothingType().getRarity() == Rarity.COMMON) {
 			int chance = Util.random.nextInt(100) + 1;
@@ -141,10 +132,26 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		patternTertiaryColour = Colour.CLOTHING_BLACK;
 		
 		displacedList = new ArrayList<>();
+		pluggedOrifices = fillPluggedOrifices(clothingType.getItemTags());
 
 		this.effects = effects;
 
 		enchantmentKnown = false;
+	}
+
+	private List<SexAreaOrifice> fillPluggedOrifices (List<ItemTag> tags){
+
+		pluggedOrifices = new ArrayList<>();
+		if(tags.contains(ItemTag.PLUGS_ANUS)) {
+			pluggedOrifices.add(SexAreaOrifice.ANUS);
+		}
+		if(tags.contains(ItemTag.PLUGS_VAGINA)) {
+			pluggedOrifices.add(SexAreaOrifice.VAGINA);
+		}
+		if(tags.contains(ItemTag.PLUGS_NIPPLES)) {
+			pluggedOrifices.add(SexAreaOrifice.NIPPLE);
+		}
+		return pluggedOrifices;
 	}
 	
 	@Override
@@ -1079,6 +1086,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public List<DisplacementType> getDisplacedList() {
 		return displacedList;
+	}
+
+	public List<SexAreaOrifice> getPluggedOrifices() {
+		return pluggedOrifices;
 	}
 	
 	public void clearDisplacementList() {

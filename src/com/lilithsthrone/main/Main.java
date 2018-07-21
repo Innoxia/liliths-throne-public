@@ -1,13 +1,5 @@
 package com.lilithsthrone.main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.Game;
@@ -34,7 +26,6 @@ import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,12 +33,20 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @since 0.1.0
@@ -69,7 +68,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.9",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 

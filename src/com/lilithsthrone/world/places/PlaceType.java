@@ -1,13 +1,5 @@
 package com.lilithsthrone.world.places;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -16,31 +8,10 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.JunglePlaces;
-import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
-import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
-import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
-import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
+import com.lilithsthrone.game.dialogue.places.dominion.*;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.*;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.*;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.*;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
@@ -63,6 +34,10 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @since 0.1.0
@@ -91,7 +66,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_STREET("Dominion Streets", null, null, Colour.MAP_BACKGROUND, CityPlaces.STREET, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
+	DOMINION_STREET("Dominion Streets", null, BaseColour.WHITE, Colour.MAP_BACKGROUND, CityPlaces.STREET, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -102,7 +77,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
+	DOMINION_BOULEVARD("Dominion Boulevard", null, BaseColour.WHITE, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {

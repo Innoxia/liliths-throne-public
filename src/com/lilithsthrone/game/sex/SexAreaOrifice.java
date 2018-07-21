@@ -2,8 +2,6 @@ package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.78
@@ -15,8 +13,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			2, 15,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "mouth";
@@ -29,13 +26,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.MOUTH;
 		}
+
 	},
 	
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getNippleName();
@@ -52,17 +49,15 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES;
 		}
+
 	},
 	
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
-			false) {
+			false, false) {
 		@Override
-		public String getName(GameCharacter owner) {
-			return owner.getBreastName();
-		}
+		public String getName(GameCharacter owner) { return owner.getBreastName(); }
 		@Override
 		public boolean isPlural() {
 			return true;
@@ -80,8 +75,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
-			false) {
+			false, false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "ass cheeks";
@@ -100,8 +94,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 4,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getAnusName(false);
@@ -114,13 +107,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ANUS;
 		}
+
 	},
 	
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getVaginaName(false);
@@ -133,13 +126,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
+
 	},
 	
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			25, 0,
-			false) {
+			false, false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "thighs";
@@ -161,8 +154,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "urethra";
@@ -175,13 +167,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
+
 	},
 	
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			4, 2,
-			true) {
+			true, true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "urethra";
@@ -194,6 +186,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
 		}
+
 	};
 
 	private float baseArousalWhenPenetrated;
@@ -206,6 +199,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	private int cumLossPerMinute;
 	private int cumAbsorptionPerMinute;
 	private boolean takesPenisVirginity;
+	private boolean isIngestive;
 
 	/**
 	 * @param baseArousalWhenPenetrated
@@ -215,8 +209,6 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	 * @param arousalChangePenetratingStretching
 	 * @param arousalChangePenetratingTooLoose
 	 * @param arousalChangePenetratingDry
-	 * @param cumLossPerMinute The amount of cum or other fluids that leak out of this orifice every minute.
-	 * @param cumAbsorptionPerMinute The amount of cum or other fluids that are absorbed into the character's body through this orifice every minute.
 	 * @param takesPenisVirginity
 	 */
 	private SexAreaOrifice(float baseArousalWhenPenetrated,
@@ -226,19 +218,17 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			float arousalChangePenetratingStretching,
 			float arousalChangePenetratingTooLoose,
 			float arousalChangePenetratingDry,
-			int cumLossPerMinute,
-			int cumAbsorptionPerMinute,
-			boolean takesPenisVirginity) {
+			boolean takesPenisVirginity,
+			boolean isIngestive) {
 		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
 		this.arousalChangePenetratedStretching = arousalChangePenetratedStretching;
 		this.arousalChangePenetratedTooLoose = arousalChangePenetratedTooLoose;
 		this.arousalChangePenetratedDry = arousalChangePenetratedDry;
 		this.arousalChangePenetratingStretching = arousalChangePenetratingStretching;
 		this.arousalChangePenetratingTooLoose = arousalChangePenetratingTooLoose;
-		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
-		this.cumLossPerMinute = cumLossPerMinute;
-		this.cumAbsorptionPerMinute = cumAbsorptionPerMinute;
+		this.arousalChangePenetratingDry = arousalChangePenetratingDry;;
 		this.takesPenisVirginity = takesPenisVirginity;
+		this.isIngestive = isIngestive;
 	}
 
 	@Override
@@ -274,27 +264,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		return arousalChangePenetratingDry;
 	}
 
-	public int getCumLossPerMinute() {
-		return cumLossPerMinute;
-	}
-	
-	public int getCumAbsorptionPerMinute() {
-		return cumAbsorptionPerMinute;
-	}
-
 	public boolean isTakesPenisVirginity() {
 		return takesPenisVirginity;
 	}
-	
-	public int getCharactersCumLossPerMinute(GameCharacter target) {
-		int cumLost = this.getCumAbsorptionPerMinute();
-		
-		if(!target.isOrificePlugged(this)) {
-			cumLost += (int) (this.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-		}
-		
-		return cumLost;
+
+	public boolean isIngestive(){
+		return isIngestive;
 	}
+
 	
 }
