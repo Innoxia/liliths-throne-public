@@ -210,14 +210,15 @@ public class MainControllerInitMethod {
 					"Export Character",
 					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
 		}
-		
+
 		if(Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
 				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
+				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				|| Main.game.getCurrentDialogueNode().equals(SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
-			if(CharactersPresentDialogue.characterViewed instanceof NPC && !((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().isEmpty()) {
-				
+			GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE) ? Main.game.getPlayer() : CharactersPresentDialogue.characterViewed;
+			if(character instanceof GameCharacter && character.hasArtwork()) {
 				try {
-					Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(((NPC)CharactersPresentDialogue.characterViewed).getArtworkIndex());
+					Artwork artwork = character.getCurrentArtwork();
 					
 					id = "ARTWORK_INFO";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -243,7 +244,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(artwork.getTotalArtworkCount()>1) {
 								artwork.incrementIndex(-1);
-								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
@@ -254,7 +255,7 @@ public class MainControllerInitMethod {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(artwork.getTotalArtworkCount()>1) {
 								artwork.incrementIndex(1);
-								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
@@ -263,9 +264,9 @@ public class MainControllerInitMethod {
 					id = "ARTWORK_ARTIST_PREVIOUS";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
-								((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(-1);
-								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							if(character.getArtworkList().size()>1) {
+								character.incrementArtworkIndex(-1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
@@ -274,9 +275,9 @@ public class MainControllerInitMethod {
 					id = "ARTWORK_ARTIST_NEXT";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
-								((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(1);
-								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							if(character.getArtworkList().size()>1) {
+								character.incrementArtworkIndex(1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
