@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Artwork {
@@ -79,8 +79,7 @@ public class Artwork {
 		}
 	}
 	
-	public Artwork(String nameInput, Artist artist) {
-		this.name = nameInput;
+	public Artwork(File folder, Artist artist) {
 		this.artist = artist;
 
 		index = 0;
@@ -88,10 +87,6 @@ public class Artwork {
 		this.clothedImages = new ArrayList<>();
 		this.partialImages = new ArrayList<>();
 		this.nakedImages = new ArrayList<>();
-
-		// Find artist directory
-		File folder = new File("res/images/characters/" + name + "/" + artist.getFolderName());
-		if (!folder.isDirectory()) return;
 
 		// Add all images to their respective lists
 		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"))) {
@@ -102,10 +97,6 @@ public class Artwork {
 			else if (f.getName().startsWith("naked"))
 				nakedImages.add(f.getAbsolutePath());
 		}
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public Artist getArtist() {

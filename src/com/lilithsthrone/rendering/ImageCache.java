@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @since 0.2.5.5
- * @version 0.2.5.5
+ * @version 0.2.9
  * @author Addi
  */
 public enum ImageCache {

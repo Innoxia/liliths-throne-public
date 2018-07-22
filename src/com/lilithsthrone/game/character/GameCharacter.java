@@ -553,6 +553,8 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateStatusEffects(0);
 
 		artworkList = new ArrayList<>();
+		if (isUnique())
+			loadImages();
 	}
 	
 
@@ -2165,34 +2167,43 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// ************** Artwork **************//
 
-		// Retrieve overrides for artist and image index
-		nodes = parentElement.getElementsByTagName("artwork");
-		int artistIndex = -1, imageIndex = -1;
-		if (nodes.getLength() > 0) {
-			Element artworkElement = (Element) nodes.item(0);
-			nodes = artworkElement.getElementsByTagName("overrideArtist");
-			if (nodes.getLength() > 0) {
-				Element artistElement = (Element) nodes.item(0);
-				artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
-			}
-
-			nodes = artworkElement.getElementsByTagName("overrideImage");
-			if (nodes.getLength() > 0) {
-				Element artistElement = (Element) nodes.item(0);
-				imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
-			}
-		}
-
 		// Initialize artworks (name and femininity must be set at this point)
-		character.loadImages(artistIndex, imageIndex);
+		character.loadImages();
+
+		if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+			// Retrieve overrides for artist and image index
+			nodes = parentElement.getElementsByTagName("artwork");
+			int artistIndex = -1, imageIndex = -1;
+			if (nodes.getLength() > 0) {
+				Element artworkElement = (Element) nodes.item(0);
+				nodes = artworkElement.getElementsByTagName("overrideArtist");
+				if (nodes.getLength() > 0) {
+					Element artistElement = (Element) nodes.item(0);
+					artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
+				}
+
+				nodes = artworkElement.getElementsByTagName("overrideImage");
+				if (nodes.getLength() > 0) {
+					Element artistElement = (Element) nodes.item(0);
+					imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
+				}
+			}
+
+			// Apply override indices
+			if (artistIndex > -1)
+				character.setArtworkIndex(artistIndex);
+			if (imageIndex > -1)
+				character.getCurrentArtwork().setIndex(imageIndex);
+
+			// Cache current image
+			ImageCache.INSTANCE.requestCache(character.getCurrentArtwork().getCurrentImage());
+		}
 	}
 
 	/**
-	 * Load or reload all artworks associated with the character and cache the image given by the indices.
-	 * @param artistIndex Overrides the default artist, pass -1 to ignore
-	 * @param imageIndex Overrides the default image, pass -1 to ignore
+	 * Load or reload all artworks associated with the character and cache the default image.
 	 */
-	protected void loadImages(int artistIndex, int imageIndex) {
+	public void loadImages() {
 		String folder = getArtworkFolderName();
 		
 //		System.out.println(folder);
@@ -2208,8 +2219,8 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!folder.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
 				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
-				if(f.exists()) {
-					Artwork art = new Artwork(folder, artist);
+				if(f.exists() && f.isDirectory()) {
+					Artwork art = new Artwork(f, artist);
 					// Cull empty artwork lists
 					if (art.getTotalArtworkCount() > 0) {
 						artworkList.add(art);
@@ -2217,28 +2228,6 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-
-		if (hasArtwork()) {
-			// Update artist and image index if present
-			if (artistIndex > -1) {
-				setArtworkIndex(artistIndex);
-			}
-			if (imageIndex > -1) {
-				getCurrentArtwork().setIndex(imageIndex);
-			}
-
-			// Cache the current image
-			if (Main.getProperties().hasValue(PropertyValue.artwork)) {
-				ImageCache.INSTANCE.requestCache(getCurrentArtwork().getCurrentImage());
-			}
-		}
-	}
-
-	/**
-	 * Load or reload all artworks associated with the character and cache the default image.
-	 */
-	public void loadImages() {
-		loadImages(-1, -1);
 	}
 	
 	public abstract boolean isUnique();
@@ -2435,7 +2424,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getArtworkIndex() {
 		if(artworkIndex >= getArtworkList().size() || artworkIndex < 0) {
-			artworkIndex = 0;
+			artworkIndex = getDefaultArtworkIndex();
 		}
 		return artworkIndex;
 	}
