@@ -2295,6 +2295,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 		return rv;
 	}
+
+	public boolean isImageRevealed() {
+		return isPlayer() || Main.game.getPlayer().getSexPartnerStats(this) != null || getCurrentArtwork().isCurrentImageClothed();
+	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
@@ -2313,18 +2317,15 @@ public abstract class GameCharacter implements XMLSaving {
 				e.printStackTrace();
 			}
 
-			boolean nakedRevealed = false;
-			if(this.isPlayer() || this.getTotalTimesHadSex(Main.game.getPlayer())>0) {
-				nakedRevealed = true;
-			}
+			boolean revealed = isImageRevealed();
 
 			infoScreenSB.append(
 					"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
 							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
+							+ "<img id='CHARACTER_IMAGE' style='"+(revealed ? "" : "-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
 							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-							+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-							+"</div>"
+							+ (revealed ? "" : "<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+							+ "</div>"
 							+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 							+ "</div>"
 							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"

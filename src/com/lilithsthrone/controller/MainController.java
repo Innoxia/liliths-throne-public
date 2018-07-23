@@ -185,7 +185,7 @@ public class MainController implements Initializable {
 
 					// Make sure that images of present characters are cached
 					for (NPC character : Main.game.getCharactersPresent())
-						if (character.hasArtwork())
+						if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork))
 							ImageCache.INSTANCE.requestCache(character.getCurrentArtwork().getCurrentImage());
 				}
 			}

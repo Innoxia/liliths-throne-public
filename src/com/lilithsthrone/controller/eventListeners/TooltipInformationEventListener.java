@@ -604,12 +604,14 @@ public class TooltipInformationEventListener implements EventListener {
 					
 				} else {
 					CachedImage image = null;
-					if (owner.hasArtwork()) {
-						image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());
-					}
-					boolean displayImage = image != null
-							&& Main.getProperties().hasValue(PropertyValue.thumbnail)
+					boolean displayImage = Main.getProperties().hasValue(PropertyValue.thumbnail)
 							&& Main.getProperties().hasValue(PropertyValue.artwork);
+					if (displayImage) {
+						if (owner.hasArtwork()) {
+							image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());
+						}
+						displayImage = image != null;
+					}
 
 					int[] dimensions = new int[]{419, 508};
 					int imagePadding = 0;
