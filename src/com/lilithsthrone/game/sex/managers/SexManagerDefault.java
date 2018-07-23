@@ -495,17 +495,21 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Is any sexual penetration happening, or is the NPC's preferred penetration happening:
 		outerloop:
 		for(SexAreaPenetration pen : SexAreaPenetration.values()) {
-			if((pen.isTakesVirginity() || performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==pen) && Sex.getOngoingActionsMap(performingCharacter).get(pen).containsKey(targetedCharacter)) {
+			if((pen.isTakesVirginity() || (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==pen))
+					&& Sex.getOngoingActionsMap(performingCharacter).get(pen).containsKey(targetedCharacter)) {
 				for(SexAreaInterface sai : Sex.getOngoingActionsMap(performingCharacter).get(pen).get(targetedCharacter)) {
-					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity() || performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==sai) {
+					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity()
+							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==sai)) {
 						isSexPenetration = true;
 						break outerloop;
 					}
 				}
 			}
-			if((pen.isTakesVirginity() || performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==pen) && Sex.getOngoingActionsMap(targetedCharacter).get(pen).containsKey(performingCharacter)) {
+			if((pen.isTakesVirginity() || (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==pen))
+					&& Sex.getOngoingActionsMap(targetedCharacter).get(pen).containsKey(performingCharacter)) {
 				for(SexAreaInterface sai : Sex.getOngoingActionsMap(targetedCharacter).get(pen).get(performingCharacter)) {
-					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity() || performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==sai) {
+					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity()
+							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==sai)) {
 						isSexPenetration = true;
 						break outerloop;
 					}

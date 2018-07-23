@@ -69,7 +69,6 @@
 	
 	
 	
-	
 	Alleyway attacker:
 		
 		Offer body gives incorrect sex start description

@@ -82,14 +82,11 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Once again, I underestimated the amount of old code that needed to be refactored in order to finally get a real threesome sex scene working."
-			+ " I've worked right up until the release time trying to get it all done, and only managed to get it working properly a few hours ago."
-			+ " As a result, this version has not been thoroughly tested for bugs, and, considering the amount of engine reworking I had to do, it's likely that there are some hiding away somewhere."
+			+ "Here's the promised hotfix for 0.2.9! While it doesn't add any new content, it does fix all of the new bugs reported in this latest version, as well as improving the AI in sex."
 		+ "</p>"
-			
+		
 		+ "<p>"
-			+ "It's highly likely that I will make a hotfix, which will be out within the next 4 days (by Sunday night)."
-			+ " I'll try to have the non-slavery NPC moving in content, as well as the Slaver Alley & Alexa content added for that as well."
+			+ "Two and a half days isn't enough time for me to get any real content added, so I'm going to push the next github/Patreon update to the 1st August, with the full release coming out the week after that (8th August)."
 		+ "</p>"
 			
 		+ "<p>"
