@@ -11919,6 +11919,9 @@ public enum StatusEffect {
 		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
 			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
 			
+		} else if(Sex.getAreasStretched(owner).contains(orificeType)) {
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			
 		} else {
 			stringBuilderToAppendTo.append("<br/><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
 		}

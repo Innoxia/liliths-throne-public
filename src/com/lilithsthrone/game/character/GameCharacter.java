@@ -963,19 +963,28 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "sexAsDomCount", String.valueOf(entry.getValue().getSexAsDomCount()));
 		}
 		
-		Element characterCumCount = doc.createElement("cumCounts");
+		Element characterCumCount = doc.createElement("cumCounts"); //TODO
 		characterSexStats.appendChild(characterCumCount);
 		for(SexParticipantType participant : SexParticipantType.values()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getCumCount(new SexType(participant, pt, ot)) > 0) {
-						Element element = doc.createElement("cumCount");
+						Element element = doc.createElement("cumCountGiving");
 						characterCumCount.appendChild(element);
 
 						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
 						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
 						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
 						CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getCumCount(new SexType(participant, pt, ot))));
+					}
+					if(this.getCumCount(new SexType(participant, ot, pt)) > 0) {
+						Element element = doc.createElement("cumCountReceiving");
+						characterCumCount.appendChild(element);
+
+						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
+						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+						CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getCumCount(new SexType(participant, ot, pt))));
 					}
 				}
 			}
@@ -987,13 +996,22 @@ public abstract class GameCharacter implements XMLSaving {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getSexCount(new SexType(participant, pt, ot)) > 0) {
-						Element element = doc.createElement("sexCount");
+						Element element = doc.createElement("sexCountGiving");
 						characterSexCount.appendChild(element);
 
 						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
 						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
 						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
 						CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getSexCount(new SexType(participant, pt, ot))));
+					}
+					if(this.getSexCount(new SexType(participant, ot, pt)) > 0) {
+						Element element = doc.createElement("sexCountReceiving");
+						characterSexCount.appendChild(element);
+
+						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
+						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+						CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getSexCount(new SexType(participant, ot, pt))));
 					}
 				}
 			}
@@ -1498,8 +1516,11 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList tattooEntries = tattoosContainerElement.getElementsByTagName("tattooEntry");
 			for(int i=0; i<tattooEntries.getLength(); i++){
 				Element e = ((Element)tattooEntries.item(i));
+				Tattoo tattoo = Tattoo.loadFromXML((Element) e.getElementsByTagName("tattoo").item(0), doc);
 				
-				character.addTattoo(InventorySlot.valueOf(e.getAttribute("slot")), Tattoo.loadFromXML((Element) e.getElementsByTagName("tattoo").item(0), doc));
+				if(tattoo!=null) {
+					character.addTattoo(InventorySlot.valueOf(e.getAttribute("slot")), tattoo);
+				}
 			}
 		}
 		
@@ -1953,12 +1974,11 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		
-		// Cum counts:
+		// Cum counts: TODO
 		element = (Element) (sexStatsElement).getElementsByTagName("cumCounts").item(0);
-		NodeList cumCountElements = element.getElementsByTagName("cumCount");
+		NodeList cumCountElements = element.getElementsByTagName("cumCountGiving");
 		for(int i = 0; i < cumCountElements.getLength(); i++){
 			Element e = (Element) cumCountElements.item(i);
-			
 			try {
 				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")));
 				int count = Integer.parseInt(e.getAttribute("count"));
@@ -1967,10 +1987,21 @@ public abstract class GameCharacter implements XMLSaving {
 			}catch(Exception ex){
 			}
 		}
+		cumCountElements = element.getElementsByTagName("cumCountReceiving");
+		for(int i = 0; i < cumCountElements.getLength(); i++){
+			Element e = (Element) cumCountElements.item(i);
+			try {
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")));
+				int count = Integer.parseInt(e.getAttribute("count"));
+				character.setCumCount(sexType, character.getCumCount(sexType) + count);
+				CharacterUtils.appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
+			}catch(Exception ex){
+			}
+		}
 		
 		// Sex counts:
 		element = (Element) (sexStatsElement).getElementsByTagName("sexCounts").item(0);
-		NodeList sexCountElements = element.getElementsByTagName("sexCount");
+		NodeList sexCountElements = element.getElementsByTagName("sexCountGiving");
 		for(int i = 0; i < sexCountElements.getLength(); i++){
 			Element e = (Element) sexCountElements.item(i);
 			
@@ -1979,6 +2010,18 @@ public abstract class GameCharacter implements XMLSaving {
 				int count = Integer.parseInt(e.getAttribute("count"));
 				character.setSexCount(sexType, character.getSexCount(sexType) + count);
 				CharacterUtils.appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+			}catch(Exception ex){
+			}
+		}
+		sexCountElements = element.getElementsByTagName("sexCountReceiving");
+		for(int i = 0; i < sexCountElements.getLength(); i++){
+			Element e = (Element) sexCountElements.item(i);
+			
+			try {
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")));
+				int count = Integer.parseInt(e.getAttribute("count"));
+				character.setSexCount(sexType, character.getSexCount(sexType) + count);
+				CharacterUtils.appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
 			}catch(Exception ex){
 			}
 		}
@@ -11943,7 +11986,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if (removingFromFloor) {
 			if (inventory.addItem(item)) {
 				updateInventoryListeners();
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
 				if(appendTextToEventLog) {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
 				}
@@ -11960,7 +12003,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
 			} else {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addItem(item);
 				return inventoryFullText() + droppedItemText(item);
 			}
 		}
@@ -12015,7 +12058,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if (item.getItemType().isConsumedOnUse()) {
 			if(removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
 			} else {
 				removeItem(item);
 			}
@@ -12046,13 +12089,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
 		if (inventory.addWeapon(weapon)) {
 			if (removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeWeapon(weapon);
 			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
 			
 		} else {
 			if(!removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(weapon);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(weapon);
 			}
 			return inventoryFullText() + "<br/>" + droppedItemText(weapon);
 		}
@@ -12092,7 +12135,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	/** @return Description of equipping this weapon. */
 	public String equipMainWeaponFromFloor(AbstractWeapon weapon) {
-		Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
+		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeWeapon(weapon);
 		return equipMainWeapon(weapon);
 	}
 
@@ -12143,7 +12186,7 @@ public abstract class GameCharacter implements XMLSaving {
 			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon());
 			String s;
 			if (mustDropToFloor || dropToFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(getMainWeapon());
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(getMainWeapon());
 				s = getMainWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
 			} else {
 				addWeapon(getMainWeapon(), false);
@@ -12172,7 +12215,7 @@ public abstract class GameCharacter implements XMLSaving {
 	/** @return Description of equipping this weapon. */
 	public String equipOffhandWeaponFromFloor(AbstractWeapon weapon) {
 		String s = equipOffhandWeapon(weapon);
-		Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
+		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeWeapon(weapon);
 		return s;
 	}
 
@@ -12223,7 +12266,7 @@ public abstract class GameCharacter implements XMLSaving {
 			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getOffhandWeapon());
 			String s;
 			if (mustDropToFloor || dropToFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(getOffhandWeapon());
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addWeapon(getOffhandWeapon());
 				s = getOffhandWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
 			} else {
 				addWeapon(getOffhandWeapon(), false);
@@ -12260,12 +12303,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if (inventory.addClothing(clothing)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(clothing);
 			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(clothing)+"</p>";
 		} else {
 			if (!removingFromFloor) {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing);
 			}
 			return inventoryFullText() + droppedItemText(clothing);
 		}
@@ -12483,7 +12526,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(newClothing);
 
-			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeClothing(newClothing);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
 
 			newClothing.setEnchantmentKnown(true);
 
@@ -12532,7 +12575,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if (fitsIntoInventory) {
 				characterClothingUnequipper.addClothing(clothing, false);
 			} else {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing);
 			}
 			
 			updateInventoryListeners();
@@ -12612,7 +12655,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if (fitsIntoInventory) {
 				addClothing(clothing, false);
 			} else {
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing);
 			}
 			
 			updateInventoryListeners();
@@ -12683,7 +12726,7 @@ public abstract class GameCharacter implements XMLSaving {
 			applyUnequipClothingEffects(clothing);
 
 			// Place the clothing on the floor:
-			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clothing);
 
 			updateInventoryListeners();
 			
@@ -12773,7 +12816,7 @@ public abstract class GameCharacter implements XMLSaving {
 				+"</p>";
 		}
 
-		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
+		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
 					this.getPlayerKnowsAreas().add(ca);

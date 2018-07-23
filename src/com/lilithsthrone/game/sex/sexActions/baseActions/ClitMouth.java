@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
+import java.util.Map;
+
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -100,6 +103,24 @@ public class ClitMouth {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT)),
 			SexParticipantType.NORMAL) {
+		
+		@Override
+		public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
+			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Sex.getCharacterPerformingAction())) {
+				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
+			} else {
+				return Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT));
+			}
+		}
+		
+		@Override
+		public SexActionType getActionType(){
+			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Sex.getCharacterPerformingAction())) {
+				return SexActionType.ONGOING;
+			} else {
+				return SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {

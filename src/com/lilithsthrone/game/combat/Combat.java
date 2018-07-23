@@ -1195,6 +1195,7 @@ public enum Combat {
 		}
 		
 		if(attacker.hasStatusEffect(StatusEffect.MELEE_FIRE)
+				&& isHit
 				&& (((attackType==Attack.MAIN || attackType==Attack.DUAL) && (attacker.getMainWeapon() == null || attacker.getMainWeapon().getWeaponType().isMelee()))
 						|| ((attackType==Attack.OFFHAND || attackType==Attack.DUAL) && (attacker.getOffhandWeapon() == null || attacker.getOffhandWeapon().getWeaponType().isMelee())))) {
 			float fireDamage = Math.round(2 * (1 + (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));

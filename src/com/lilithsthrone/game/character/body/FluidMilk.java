@@ -55,17 +55,31 @@ public class FluidMilk implements FluidInterface, Serializable {
 		return element;
 	}
 	
+	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
+		return loadFromXML(parentElement, doc, null);
+	}
+	
+	/**
+	 * 
+	 * @param parentElement
+	 * @param doc
+	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
+	 */
 	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
 		
-		FluidType fluidType = baseType;
+		FluidType fluidType = FluidType.MILK_HUMAN;
 		
-		// FluidType should always be of type 'baseType'.
-//		try {
-//			fluidType = FluidType.valueOf(milk.getAttribute("type"));
-//		} catch(Exception ex) {
-//		}
+		if(baseType!=null) {
+			fluidType = baseType;
+			
+		} else {
+			try {
+				fluidType = FluidType.valueOf(milk.getAttribute("type"));
+			} catch(Exception ex) {
+			}
+		}
 		
 		FluidMilk fluidMilk = new FluidMilk(fluidType);
 		

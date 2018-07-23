@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.XMLSaving;
@@ -103,14 +102,14 @@ public class FluidStored implements XMLSaving {
 		int millimetres = Integer.parseInt(parentElement.getAttribute("millilitres"));
 		
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
-			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc, FluidType.MILK_HUMAN), millimetres);
+			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);
 		}
 		
 		if(parentElement.getElementsByTagName("cum").item(0)!=null) {
-			return new FluidStored(ID, FluidCum.loadFromXML(parentElement, doc, FluidType.CUM_HUMAN), millimetres);
+			return new FluidStored(ID, FluidCum.loadFromXML(parentElement, doc), millimetres);
 		}
 
-		return new FluidStored(ID, FluidGirlCum.loadFromXML(parentElement, doc, FluidType.GIRL_CUM_HUMAN), millimetres);
+		return new FluidStored(ID, FluidGirlCum.loadFromXML(parentElement, doc), millimetres);
 		
 	}
 	

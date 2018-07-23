@@ -193,7 +193,7 @@ public class NightlifeDistrict {
 		
 		} else if(isPartnerPassingOut()) {
 			sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible([npc.Name] collapses!)]</br>"
-					+ "Having had far too much to drink, [npc.name] slumps down to teh ground!"));
+					+ "Having had far too much to drink, [npc.name] slumps down to the ground!"));
 			
 		} else if(!isClubOpen(minutesPassedForNextScene)) {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_VIP_AREA) {
@@ -3459,12 +3459,7 @@ public class NightlifeDistrict {
 	};
 	
 	private static void spawnDomGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false) {
-//			@Override
-//			public String getName() {
-//				return "stranger";
-//			}
-		};
+		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {
@@ -3498,12 +3493,7 @@ public class NightlifeDistrict {
 	}
 	
 	private static void spawnSubGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false) {
-//			@Override
-//			public String getName() {
-//				return "stranger";
-//			}
-		};
+		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {

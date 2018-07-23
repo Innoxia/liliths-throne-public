@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.gender;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -26,15 +29,16 @@ public enum GenderPreference {
 	}
 	
 	public static Gender getGenderFromUserPreferences(boolean requiresVagina, boolean requiresPenis) {
-		int total=0;
+		Map<Gender, Integer> genderMap = new HashMap<>();
+		
 		for(Gender g : Gender.values()) {
 			if((!requiresVagina || g.getGenderName().isHasVagina())
 					&& (!requiresPenis || g.getGenderName().isHasPenis())) {
-				total+=Main.getProperties().genderPreferencesMap.get(g);
+				genderMap.put(g, Main.getProperties().genderPreferencesMap.get(g));
 			}
 		}
 		
-		if(total == 0) {
+		if(genderMap.isEmpty()) {
 			if(Math.random()>0.5f || requiresVagina) {
 				if(requiresVagina && requiresPenis) {
 					return Gender.F_P_V_B_FUTANARI;
@@ -49,17 +53,7 @@ public enum GenderPreference {
 			}
 		}
 		
-		int random = Util.random.nextInt(total)+1;
-		
-		int newTotal=0;
-		for(Gender g : Gender.values()) {
-			newTotal+=Main.getProperties().genderPreferencesMap.get(g);
-			if(random<=newTotal) {
-				return g;
-			}
-		}
-		
-		return Gender.F_V_B_FEMALE;
+		return Util.getRandomObjectFromWeightedMap(genderMap);
 	}
 	
 	public int getValue() {

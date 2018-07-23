@@ -717,7 +717,7 @@ public class PenisMouth {
 								+ " tears streaming down [npc2.her] [npc2.face] as [npc.namePos] [npc.cock+] continues sliding back and forth past [npc2.her] [npc2.lips+].",
 	
 						" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
-								+ " [npc2.name] weakly [npc2.struggle] against [npc.name] as [npc2.she] [npc2.verb(make)] muffled noises of protest."));
+								+ " [npc2.name] weakly [npc2.verb(struggle)] against [npc.name] as [npc2.she] [npc2.verb(make)] muffled noises of protest."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

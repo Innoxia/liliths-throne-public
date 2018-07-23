@@ -5,6 +5,11 @@ import java.util.List;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
+/**
+ * @since 0.2.?
+ * @version 0.2.9
+ * @author Pimgd
+ */
 public enum StartingSkinTone {
 	
 	VERY_LIGHT(Util.newArrayListOfValues(
@@ -47,6 +52,7 @@ public enum StartingSkinTone {
 			
 	LIGHT(Util.newArrayListOfValues(
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_ROSY,
 			Colour.SKIN_PINK,
 			Colour.SKIN_BLUE,
 			Colour.SKIN_IVORY,
@@ -97,6 +103,7 @@ public enum StartingSkinTone {
 			
 	OLIVE(Util.newArrayListOfValues(
 			Colour.SKIN_OLIVE,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_RED,
 			Colour.SKIN_BROWN,
 			Colour.SKIN_PINK,
@@ -199,6 +206,7 @@ public enum StartingSkinTone {
 			
 	VERY_DARK(Util.newArrayListOfValues(
 			Colour.SKIN_EBONY,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_RED,
 			Colour.SKIN_BROWN,
 			Colour.SKIN_PURPLE,

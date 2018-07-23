@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
@@ -112,7 +111,7 @@ public class MilkingRoom implements XMLSaving {
 			for(int i=0; i<milkStorageElements.getLength(); i++){
 				Element milkStorageElement = (Element)milkStorageElements.item(i);
 				Float quantity = Float.valueOf(milkStorageElement.getAttribute("milkQuantity"));
-				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc, FluidType.MILK_HUMAN);
+				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc);
 				room.incrementMilkStorage(milk, quantity);
 			}
 
@@ -120,7 +119,7 @@ public class MilkingRoom implements XMLSaving {
 			for(int i=0; i<cumStorageElements.getLength(); i++){
 				Element cumStorageElement = (Element)cumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("cumQuantity"));
-				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc, FluidType.CUM_HUMAN);
+				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc);
 				room.incrementCumStorage(cum, quantity);
 			}
 
@@ -128,7 +127,7 @@ public class MilkingRoom implements XMLSaving {
 			for(int i=0; i<girlCumStorageElements.getLength(); i++){
 				Element cumStorageElement = (Element)girlCumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("girlcumQuantity"));
-				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc, FluidType.GIRL_CUM_HUMAN);
+				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc);
 				room.incrementGirlcumStorage(cum, quantity);
 			}
 			

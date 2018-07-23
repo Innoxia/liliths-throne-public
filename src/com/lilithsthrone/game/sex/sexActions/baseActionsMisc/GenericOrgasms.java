@@ -42,7 +42,7 @@ public class GenericOrgasms {
 	private static boolean isTakingCock(GameCharacter character, GameCharacter penetrator) {
 		return !Collections.disjoint(
 				Sex.getContactingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
-				Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.NIPPLE, SexAreaOrifice.MOUTH));
+				Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.NIPPLE, SexAreaOrifice.MOUTH, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.URETHRA_VAGINA));
 		
 	}
 	
@@ -191,10 +191,10 @@ public class GenericOrgasms {
 				orgasmText = "Unable to move, [npc1.name] [npc1.verb(wriggle)] around in the stocks and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case STOCKS_PERFORMING_ORAL:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], letting out [npc1.a_moan+] as [npc1.she] npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case STOCKS_RECEIVING_ORAL:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, letting out [npc1.a_moan+] as [npc1.she] npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case MILKING_STALL_FUCKING:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, pulling [npc2.herHim] back into [npc1.herHim] and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
@@ -818,7 +818,11 @@ public class GenericOrgasms {
 		
 		if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED) && cumTarget==OrgasmCumTarget.INSIDE) {
 			genericOrgasmSB.append("<br/>"
-					+ "Even after [npc1.namePos] [npc1.balls+] have pumped their entire load into [npc2.name], [npc1.her] knot remains swollen, locking [npc1.herHim] and [npc1.her] partner together."
+					+ "Even after [npc1.namePos] [npc1.balls+] have pumped their entire load into [npc2.name], [npc1.her] knot remains swollen, locking"
+					+ "#IFnpc2.isPlayer()"
+					+ "#THEN the two of you together."
+					+ "#ELSE [npc1.herHim] and [npc1.her] partner together."
+					+ "#ENDIF"
 					+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.sheIs] finally able to pull [npc1.her] [npc1.cock+] free.");
 		}
 		
@@ -1866,18 +1870,14 @@ public class GenericOrgasms {
 
 			if(areaContacted.isOrifice()) {
 				switch((SexAreaOrifice)areaContacted) {
-					case ANUS:
-						return true;
 					case ASS:
-						break;
 					case BREAST:
-						break;
-					case MOUTH:
-						return true;
-					case NIPPLE:
-						return true;
 					case THIGHS:
 						break;
+						
+					case ANUS:
+					case MOUTH:
+					case NIPPLE:
 					case URETHRA_PENIS:
 					case URETHRA_VAGINA:
 					case VAGINA:

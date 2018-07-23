@@ -427,7 +427,11 @@ public enum Colour {
 			+ "<span style='color:#6EE64C;'>n</span>"
 			+ "<span style='color:#4CB2E6;'>b</span>"
 			+ "<span style='color:#AD4CE6;'>o</span>"
-			+ "<span style='color:#E64CA8;'>w</span>"),
+			+ "<span style='color:#E64CA8;'>w</span>") {
+		public boolean isRainbow() {
+			return true;
+		}
+	},
 
 	// Feathers:
 //	FEATHERS_RED(false, BaseColour.RED, "red"),
@@ -539,7 +543,11 @@ public enum Colour {
 			+ "<span style='color:#6EE64C;'>n</span>"
 			+ "<span style='color:#4CB2E6;'>b</span>"
 			+ "<span style='color:#AD4CE6;'>o</span>"
-			+ "<span style='color:#E64CA8;'>w</span>"),
+			+ "<span style='color:#E64CA8;'>w</span>") {
+		public boolean isRainbow() {
+			return true;
+		}
+	},
 	COVERING_NONE(false, BaseColour.GREY, "none"),
 
 	// Eye colours:
@@ -1006,6 +1014,10 @@ public enum Colour {
 
 	public boolean isMetallic() {
 		return metallic;
+	}
+
+	public boolean isRainbow() {
+		return false;
 	}
 
 	public String getName() {

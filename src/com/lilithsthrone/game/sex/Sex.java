@@ -1797,7 +1797,7 @@ public class Sex {
 			if(Sex.isMasturbation()) {
 				arousal*=2;
 			}
-			entry.getKey().incrementArousal(Math.min(10, arousal * entry.getKey().getLustLevel().getArousalModifier()));
+			entry.getKey().incrementArousal(Math.min(15f/Sex.getTotalParticipantCount(false), arousal * entry.getKey().getLustLevel().getArousalModifier()));
 		}
 		
 		// Cummed in areas:
@@ -3264,6 +3264,9 @@ public class Sex {
 	 * Returns a set, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
 	public static List<GameCharacter> getCharactersHavingOngoingActionWith(GameCharacter characterPenetrated, SexAreaOrifice orifice) {
+		if(ongoingActionsMap==null || ongoingActionsMap.get(characterPenetrated)==null || ongoingActionsMap.get(characterPenetrated).get(orifice)==null) {
+			return new ArrayList<>();
+		}
 		return new ArrayList<>(ongoingActionsMap.get(characterPenetrated).get(orifice).keySet());
 	}
 	
@@ -3716,6 +3719,10 @@ public class Sex {
 	public static Set<SexAreaOrifice> getAreasCurrentlyStretching(GameCharacter character) {
 		return areasCurrentlyStretching.get(character);
 	}
+	
+	public static Set<SexAreaOrifice> getAreasStretched(GameCharacter character) {
+		return areasStretched.get(character);
+	}
 
 	public static Set<SexAreaOrifice> getAreasTooLoose(GameCharacter character) {
 		return areasTooLoose.get(character);
@@ -3829,5 +3836,5 @@ public class Sex {
 	public static int getTurn() {
 		return turn;
 	}
-	
+
 }

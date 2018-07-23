@@ -99,16 +99,20 @@ public interface SexActionInterface {
 		return list;
 	}
 	
+	/**
+	 * @param character The character to check for virginity losses.
+	 * @return true if the character can lose virginity from this action.
+	 */
 	public default boolean isTakesVirginity(GameCharacter character) {
 		if(character.equals(Sex.getCharacterPerformingAction())) {
-			for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
+			for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
 				if(sArea.isTakesVirginity()) {
 					return true;
 				}
 			}
 			
 		} else if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
-			for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
+			for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
 				if(sArea.isTakesVirginity()) {
 					return true;
 				}

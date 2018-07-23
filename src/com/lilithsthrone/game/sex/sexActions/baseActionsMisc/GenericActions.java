@@ -348,8 +348,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc2.name] quite still, only releasing [npc2.herHim] once [npc2.sheIs] lost a good portion of [npc2.her] arousal.");
+			return "Taking control of the situation, you hold [npc2.name] quite still, only releasing [npc2.herHim] once [npc2.sheHas] lost a good portion of [npc2.her] arousal.";
 		}
 		
 		@Override
@@ -1195,6 +1194,11 @@ public class GenericActions {
 		}
 		
 		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
+		}
+		
+		@Override
 		public boolean endsSex() {
 			return true;
 		}
@@ -1234,6 +1238,12 @@ public class GenericActions {
 					?"Deciding that you've had enough, you put an end to your masturbation session."
 					:"Deciding that you've had enough, you step back from [npc2.name].";
 		}
+		
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
+		}
+		
 		@Override
 		public boolean endsSex() {
 			return true;

@@ -56,18 +56,32 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 		
 		return element;
 	}
+
+	public static FluidCum loadFromXML(Element parentElement, Document doc) {
+		return loadFromXML(parentElement, doc, null);
+	}
 	
+	/**
+	 * 
+	 * @param parentElement
+	 * @param doc
+	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
+	 */
 	public static FluidCum loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
 
-		FluidType fluidType = baseType;
+		FluidType fluidType = FluidType.CUM_HUMAN;
 		
-		// FluidType should always be of type 'baseType'.
-//		try {
-//			fluidType = FluidType.valueOf(cum.getAttribute("type"));
-//		} catch(Exception ex) {
-//		}
+		if(baseType!=null) {
+			fluidType = baseType;
+			
+		} else {
+			try {
+				fluidType = FluidType.valueOf(cum.getAttribute("type"));
+			} catch(Exception ex) {
+			}
+		}
 		
 		FluidCum fluidCum = new FluidCum(fluidType);
 		

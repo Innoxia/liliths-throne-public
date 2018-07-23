@@ -22,7 +22,6 @@ public class FingerPenis {
 
 	//TODO grope cock
 	
-	
 	public static final SexAction PARTNER_FONDLE_BALLS = new SexAction(
 			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,

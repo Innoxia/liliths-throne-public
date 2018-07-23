@@ -2962,6 +2962,53 @@ public class MainControllerInitMethod {
 					}
 				}
 				
+				for(Capacity capacity: Capacity.values()) {
+					id = "VAGINA_URETHRA_CAPACITY_"+capacity;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaUrethraCapacity(capacity.getMedianValue(), true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
+					id = "VAGINA_URETHRA_ELASTICITY_"+elasticity;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaUrethraElasticity(elasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificePlasticity plasticity: OrificePlasticity.values()) {
+					id = "VAGINA_URETHRA_PLASTICITY_"+plasticity;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaUrethraPlasticity(plasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificeModifier orificeMod : OrificeModifier.values()) {
+					id = "CHANGE_VAGINA_URETHRA_MOD_"+orificeMod;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
+								BodyChanging.getTarget().removeVaginaUrethraOrificeModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addVaginaUrethraOrificeModifier(orificeMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				
+				
+				
+				
 				// Penis:
 				
 				for(PenisType penisType: PenisType.values()) {
