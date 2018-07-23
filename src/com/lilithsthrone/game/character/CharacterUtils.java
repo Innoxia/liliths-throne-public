@@ -909,36 +909,36 @@ public class CharacterUtils {
 						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
-				startingBodyType.getBodyMaterial(),
-				startingBodyType.getGenitalArrangement(),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
-				startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-						.vagina(hasVagina
-								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
-										LabiaSize.getRandomLabiaSize().getValue(),
-										startingBodyType.getClitSize(),
-										startingBodyType.getVaginaWetness(),
-										startingBodyType.getVaginaCapacity(),
-										startingBodyType.getVaginaElasticity(),
-										startingBodyType.getVaginaPlasticity(),
-										true)
-								: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
-						.penis(hasPenis
-								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-									startingBodyType.getPenisSize(),
-									startingBodyType.getPenisGirth(),
-									startingBodyType.getTesticleSize(),
-									startingBodyType.getCumProduction(),
-									startingBodyType.getTesticleQuantity())
-								: new Penis(PenisType.NONE, 0, 0, 0, 0, 2))
-						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
-						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
-						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
-						.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
-						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
-						.build();
+						startingBodyType.getBodyMaterial(),
+						startingBodyType.getGenitalArrangement(),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
+						startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
+				.vagina(hasVagina
+						? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
+								LabiaSize.getRandomLabiaSize().getValue(),
+								startingBodyType.getClitSize(),
+								startingBodyType.getVaginaWetness(),
+								startingBodyType.getVaginaCapacity(),
+								startingBodyType.getVaginaElasticity(),
+								startingBodyType.getVaginaPlasticity(),
+								true)
+						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
+				.penis(hasPenis
+						? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
+							startingBodyType.getPenisSize(),
+							startingBodyType.getPenisGirth(),
+							startingBodyType.getTesticleSize(),
+							startingBodyType.getCumProduction(),
+							startingBodyType.getTesticleQuantity())
+						: new Penis(PenisType.NONE, 0, 0, 0, 0, 2))
+				.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
+				.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
+				.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
+				.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
+				.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
+				.build();
 		
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
@@ -1161,7 +1161,7 @@ public class CharacterUtils {
 		}
 		
 		// Hair:
-		if(Math.random()<=0.2f && !character.getCovering(character.getHairType().getBodyCoveringType(character)).getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
+		if(Math.random()<=0.1f && !character.getCovering(character.getHairType().getBodyCoveringType(character)).getType().getDyePatterns().isEmpty()) { // 10% chance to have a non-natural hair colour:
 			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType(character));
 			character.setHairCovering(new Covering(
 					currentCovering.getType(),

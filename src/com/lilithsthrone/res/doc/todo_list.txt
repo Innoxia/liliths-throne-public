@@ -32,51 +32,41 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added glory holes to the nightclub's toilets. You can either use them, or service them.
-		Improved some of the dialogue in the Dominion alleyway attack scenes, and added pre-sex dialogue for all of their sex scenes.
-		Added threesomes and companion + enemy sex scenes for if losing combat against the Dominion alleyway attacker while having people in your party. (The companion + enemy sex scenes are disabled by default, behind a new 'NTR' content toggle.)
-	
-	Contributors:
-		Made several back-end improvements to image loading, drastically cutting down custom artwork load times. (DJ4ddi)
-		Added functionality to give any NPC a custom image (see res/images/characters/modding.txt for instructions). (DJ4ddi)
-		Added option to display custom character's artwork in their race/appearance tooltip. (DJ4ddi)
-		Added vaginal urethra modifier enchantments for clothing. (HarelMym)
-		Refactored offspring encounter code. (uglybead)
-	
 	Other:
-		Added more options for changing the colours of glasses.
-		You can now click on an NPC's name in sex and combat to switch target to them.
-		Expanded sex request actions.
-		Clothing that plugs orifices is no longer counted when calculating whether to apply the 'dirty clothing' status effect.
+		Added vaginal urethra modification options to slime and demon transform menus.
+		NPCs in the nightclub can now be any age from 18 to 45. Other NPCs' age range is now 18-45 (instead of 18-38).
+		Slightly reduced base values of arousal increases from sex actions, and limited arousal gains/turn to a maximum of 15. (To prevent huge arousal increase/turn when in a group sex scene.)
+		Reduced chance of NPCs spawning with non-natural hair colours from 20% to 10%.
 	
 	Sex AI:
-		NPCs will no longer perform self-anal actions (fingering/tail-penetration) unless they have the anal fetish.
-		Fixed issue where NPCs would repeatedly get penetrated then make you pull out.
-		NPCs will no longer perform hotdogging actions if they dislike/hate anal.
-		NPCs will no longer use the 'performing oral behind' position to suck their partner's cock in doggy-style.
-		NPCs will now try to penetrate their partner's ass, if their partner has no vagina. (Still restricted by fetish desires.)
-	
+		NPCs should no longer use non-penis-related anal actions unless they have the anal fetish. (So now they shouldn't finger your/their ass, unless they love anal actions.)
+		Fixed issue where NPCs would take their own anal, nipple, and oral virginity.
+		NPCs should now correctly prioritise vagina+penis actions if they have pregnancy or impregnation fetishes.
+		NPCs should be less likely to perform self-penetration actions before penetrating their partner.
+		Fetishes are now taken into account for when NPCs are deciding what penetrative action to use.
+		NPCs will now prefer to perform actual penetration actions once past their 'foreplay' stage. This should reduce the amount of hotdogging, paizuri, and thigh sex from NPCs that don't have an associated fetish.
+		Fixed issue with NPCs not choosing position correctly.
+		Fixed issue where NPCs would sometimes ignore their preferences.
+		NPCs no longer hold back from losing their oral virginity.
+		Fixed (yet another) cause of NPCs repeatedly penetrating/stopping penetration every turn.
+	 
 	Bugs:
-		Fixed Ralph having black fur, when he should have had dark brown.
-		Fixed incorrect colouring for 'fox-morph intuition' status effect.
-		Fixed (hopefully) the last causes of the bug where non-human vaginas/breasts/penises would incorrectly produce human fluids.
-		Fixed parsing errors in orifice stretching descriptions.
-		Fixed broken creampie status effect icons.
-		Fixed descriptions of a real cock being inside of you while getting fucked by a dildo.
-		Fixed incorrect parsing in area reveals during and before sex.
-		Fixed group sex orgasms only triggering once you targeted the character who's orgasming.
+		Fixed several parsing errors.
 		Typo fixes.
-		Fixed issue where tooltips could sometimes get stuck on your screen.
-		Fixed issue where panty masturbation scene would break at orgasm.
-		Fixed incorrect lubrication descriptions in sex.
-		Fixed 'clit attention' sex action being available even if vagina was concealed.
-		Fixed bug where some sex actions would be incorrectly available (such as 'cock slap' while submissive).
-		Fixed incorrect colours being available for fur.
-		Fixed duplicate colours appearing in the recolouring menus.
-		Fixed sex stat tracking not taking into account who you were having sex with. (This will reset your sex counts.)
-		Fixed more incorrect parsing instances in sex actions.
-		Fixed Pix being labelled as using the incorrect position in her shower sex scene.
+		Fixed severe issue where games would not save/load correctly after using the glory holes, and added a catch in the game's code to handle corrupted saves. (So your broken 0.2.9 saves should load in correctly in this hotfix.)
+		Fixed slime rainbow colouring not being displayed as a rainbow icon.
+		Fixed vaginal and penile urethra modifiers not being displayed correctly in selfie, and fixed selfie's formatting of vaginal pubic hair.
+		The extra damage from 'Flaming Strikes' is no longer applied when the attack misses.
+		Characters who are in the 'watching' position during sex no longer influence NPCs' willingness to end/continue a sex scene. (Fixes issue where offering yourself or your companion would result in a sex scene that never ends.)
+		Fixed characters without penises spawning in at the glory holes.
+		Fixed yet another issue that was causing fluids to always be loaded in as 'human'.
+		Fixed tooltip in phone's 'contacts' menu revealing concealed race information.
+		Fixed NPCs never spawning with 'rosy', 'tanned', or 'chocolate' skin colour.
+		Fixed partner penetrating your urethra not counting as penetrative sex for the purposes of requesting pullout or creampie.
+		Fixed 'Suck clit' action being disabled during ongoing cunnilingus.
+		Fixed cum count stats being reset every time you loaded the game.
+	
+	
 	
 	
 	
@@ -99,21 +89,30 @@
 					End condition is being filled by cowgirled + orgasming once
 				If no cock, and you both have cocks - DP cowgirl
 					End condition is being filled and orgasming
-				
-				
-				
-	When one NPC displaced clothing, it doesn't append watching NPC's action description
-					
+	
 	Add a non-slavery way to get NPCs to move in with you.
 	
 	Slaver Alley content (more shops and Alexa interactions).
 	
-	- Expand slavery content. (Jobs, permissions, and management improvements.)
-	- Add a version where your partner is taking the leading role in nightclub.
+	Expand slavery content. (Jobs, permissions, and management improvements.)
 	
-	If partner penetrates vaginal urethra and is ready to cum, it's not treated like penetrating sex.  So the prompt does not give option to request pullout or creampie.
+	Add a version where your partner is taking the leading role in nightclub.
+	
+	
+	
+	NPCs to use condoms
+	
+	Broken condom
+	
+	foot content
+		Footjobs, foot worship, foot smothering,  cum on soles as a pull out option
+	
+	
+	When one NPC displaced clothing, it doesn't append watching NPC's action description
 	
 	self-handjob
+	
+	shirt tied in the front
 	
 	Lumi
 	
@@ -123,21 +122,11 @@
 	
 	Add character import to club
 	
-	NPCs to use condoms
-	
-	Broken condom
-	
-	foot content
-		Footjobs, foot worship, foot smothering,  cum on soles as a pull out option
-	
 	scars!
 	
 	Sex intros for random NPCs
 	
-	PRs
-	
 	Give control over ages
-		NC ages
 		
 	TF fetish NPCs should always let you TF them (NC NPCS)
 		 i try to change someone i meet at the watering hole, but they refuse to take a tf potion despite them having the fetish
@@ -201,11 +190,6 @@
 	Improve cat icons
 		
 	pull out on their soles
-	
-	Even though i set Angels as the only ones to use the Artisanal milking room, on occasion the room will spontaneously generate human girlcum
-		just looked and one of my angel slaves has human hair
-		which somehow makes them produce human girlcum
-		can't say that makes sense to me
 	
 	Kanzashi stays on your head even if your hair length becomes 0
 		i think hair slot should be blocked if you have no hair
@@ -532,9 +516,6 @@ my character is a guy, so this is super confusing lol
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
 	Exporting while you have an elemental summoned, or likely having any companion causes the character not being able to be imported into the auction house.
-	
-	I can't panty fap again after getting pegged by Rose
-		No actions appear, and rose's inventory is on teh right
 	
 	
 	As a slime, Succubi's Secrets eye-coloring still has a couple of... issues.

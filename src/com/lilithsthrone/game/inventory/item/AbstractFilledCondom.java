@@ -110,7 +110,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 				parentElement.getAttribute("cumProvidor"),
 				((Element) parentElement.getElementsByTagName("cum").item(0)==null
 					?new FluidCum(FluidType.CUM_HUMAN)
-					:FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc, FluidType.CUM_HUMAN)),
+					:FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc)),
 				(parentElement.getAttribute("millilitresStored").isEmpty()
 					?25
 					:Integer.valueOf(parentElement.getAttribute("millilitresStored"))));

@@ -2197,6 +2197,116 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
+	public static String getSelfTransformVaginaUrethraCapacityDiv() {
+		contentSB.setLength(0);
+		
+		for(Capacity value : Capacity.values()) {
+			if(BodyChanging.getTarget().getVaginaUrethraCapacity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='VAGINA_URETHRA_CAPACITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Urethra Capacity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the capacity of your urethra."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] urethra.")),
+				contentSB.toString(), true);
+	}
+	
+	public static String getSelfTransformVaginaUrethraElasticityDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeElasticity value : OrificeElasticity.values()) {
+			if(BodyChanging.getTarget().getVaginaUrethraElasticity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='VAGINA_URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Urethra Elasticity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the elasticity of your urethra."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra.")),
+				contentSB.toString(), true);
+	}
+	
+	public static String getSelfTransformVaginaUrethraPlasticityDiv() {
+		contentSB.setLength(0);
+
+		for(OrificePlasticity value : OrificePlasticity.values()) {
+			if(BodyChanging.getTarget().getVaginaUrethraPlasticity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='VAGINA_URETHRA_PLASTICITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Urethra Plasticity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the plasticity of your urethra."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.namePos] urethra.")),
+				contentSB.toString(), true);
+	}
+	
+	public static String getSelfTransformVaginaUrethraModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeModifier orificeMod : OrificeModifier.values()) {
+			if(BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
+				contentSB.append(
+						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Urethra Modifiers",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the modifiers for your urethra."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] urethra.")),
+				contentSB.toString(), true);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static String getSelfTransformPenisChoiceDiv(List<Race> availableRaces, boolean halfWidth) {
 		contentSB.setLength(0);
 		
@@ -3559,7 +3669,7 @@ public class CharacterModificationUtils {
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ (c.isMetallic()
 											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:(c==Colour.COVERING_RAINBOW
+													:(c.isRainbow()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
 															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
 															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
@@ -3624,7 +3734,7 @@ public class CharacterModificationUtils {
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 											+ (c.isMetallic()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:(c==Colour.COVERING_RAINBOW
+													:(c.isRainbow()
 														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
 																+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
 																+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"

@@ -1,10 +1,15 @@
 package com.lilithsthrone.game.sex.sexActions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
@@ -45,6 +50,18 @@ public class SexActionUtility {
 				return "You remain still, not making a move...";
 			}
 			
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISC_WATCHING) {
+				List<GameCharacter> characters = new ArrayList<>(Sex.getAllParticipants());
+				characters.remove(Sex.getCharacterPerformingAction());
+				if(characters.size()>=2) {
+					return UtilText.parse(characters,
+							UtilText.returnStringAtRandom(
+							"You remain in position, watching [npc.name] and [npc2.name] have sex before you.",
+							"Staying quite still, you watch [npc.name] and [npc2.name] having fun in front of you.",
+							"You carry on watching [npc.name] and [npc2.name], while doing nothing yourself."));
+				}
+			}
+			
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
@@ -76,9 +93,9 @@ public class SexActionUtility {
 							"You continue struggling against [npc.name], refusing to make any sort of move on [npc.herHim].",
 							"Struggling and [pc.sobbing], you try to wriggle out of [npc.namePos] grasp, dreading what [npc.her] next move might be.",
 							"You try to push [npc.name] away from you, [pc.sobbing] and struggling in distress as you refuse to submit.");
-				default:
-					return "You remain in position, content to simply wait and see what [npc.name] does next.";
 			}
+
+			return "You remain in position, content to simply wait and see what [npc.name] does next.";
 		}
 	};
 	

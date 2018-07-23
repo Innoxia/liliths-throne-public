@@ -236,7 +236,7 @@ public class PlayerTalk {
 					return(
 							"[npc2.Name] frowns as you beg for [npc2.herHim] to use your "+areaDescription+", and with a menacing snarl, [npc2.she] snaps back, "
 									+UtilText.returnStringAtRandom(
-											"[npc2.speech(Shut up, you filthy whore! I'm not listening to some slut who begs to have [npc.her] "+areaDescription+" used!)]",
+											"[npc2.speech(Shut up, you filthy whore! I'm not listening to some slut who begs to have [npc.her( )] "+areaDescription+" used!)]",
 											"[npc2.speech(I'll use whatever part of you I feel like, you fucking slut! Don't ask me for that again!)]"));
 					
 				case SUB_NORMAL:

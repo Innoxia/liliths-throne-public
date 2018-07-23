@@ -5033,7 +5033,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			for(OrificeModifier om : OrificeModifier.values()) {
-				if(owner.hasFaceOrificeModifier(om)) {
+				if(owner.hasUrethraOrificeModifier(om)) {
 					if(owner.isPlayer()) {
 						switch(om) {
 							case PUFFY:
@@ -5580,104 +5580,6 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		for(OrificeModifier om : OrificeModifier.values()) {
-			if(owner.hasFaceOrificeModifier(om)) {
-				if(owner.isPlayer()) {
-					switch(om) {
-						case PUFFY:
-							descriptionSB.append(" Your urethra has transformed into having a swollen, puffy rim.");
-							break;
-						case MUSCLE_CONTROL:
-							descriptionSB.append(" A series of muscles lining the inside of your urethra, allowing you to expertly squeeze and grip down on any intruding object.");
-							break;
-						case RIBBED:
-							descriptionSB.append(" The inside of your urethra is lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
-							break;
-						case TENTACLED:
-							descriptionSB.append(" Your urethra is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
-							break;
-					}
-				} else {
-					switch(om) {
-						case PUFFY:
-							descriptionSB.append(" [npc.Her] urethra has transformed into having a swollen, puffy rim.");
-							break;
-						case MUSCLE_CONTROL:
-							descriptionSB.append(" [npc.She] has a series of muscles lining the inside of [npc.her] urethra, allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
-							break;
-						case RIBBED:
-							descriptionSB.append(" The inside of [npc.her] urethra is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
-							break;
-						case TENTACLED:
-							descriptionSB.append(" [npc.Her] urethra is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
-							break;
-					}
-				}
-			}
-		}
-		
-		// Pubic Hair:
-		if(Main.game.isPubicHairEnabled()) {
-			switch(owner.getPubicHair()) {
-				case ZERO_NONE:
-					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around your pussy.");
-					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] pussy.");
-					}
-					break;
-				case ONE_STUBBLE:
-					if (isPlayer) {
-						descriptionSB.append(" You have a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case TWO_MANICURED:
-					if (isPlayer) {
-						descriptionSB.append(" You have a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case THREE_TRIMMED:
-					if (isPlayer) {
-						descriptionSB.append(" You have a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case FOUR_NATURAL:
-					if (isPlayer) {
-						descriptionSB.append(" You have a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case FIVE_UNKEMPT:
-					if (isPlayer) {
-						descriptionSB.append(" You have an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case SIX_BUSHY:
-					if (isPlayer) {
-						descriptionSB.append(" You have a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-				case SEVEN_WILD:
-					if (isPlayer) {
-						descriptionSB.append(" You have a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
-					} else {
-						descriptionSB.append(" [npc.She] has a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
-					}
-					break;
-			}
-		}
-		
 		if (isPlayer) {
 			if(owner.getVaginaRawClitorisSizeValue()==0) {
 				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
@@ -5996,7 +5898,103 @@ public class Body implements Serializable, XMLSaving {
 					descriptionSB.append(" and [style.colourPlasticity(once forced open, it stays that way)].");
 					break;
 			}
+			
+			for(OrificeModifier om : OrificeModifier.values()) {
+				if(owner.hasVaginaUrethraOrificeModifier(om)) {
+					if(owner.isPlayer()) {
+						switch(om) {
+							case PUFFY:
+								descriptionSB.append(" Your urethra has transformed into having a swollen, puffy rim.");
+								break;
+							case MUSCLE_CONTROL:
+								descriptionSB.append(" A series of muscles lining the inside of your urethra, allowing you to expertly squeeze and grip down on any intruding object.");
+								break;
+							case RIBBED:
+								descriptionSB.append(" The inside of your urethra is lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
+								break;
+							case TENTACLED:
+								descriptionSB.append(" Your urethra is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+								break;
+						}
+					} else {
+						switch(om) {
+							case PUFFY:
+								descriptionSB.append(" [npc.Her] urethra has transformed into having a swollen, puffy rim.");
+								break;
+							case MUSCLE_CONTROL:
+								descriptionSB.append(" [npc.She] has a series of muscles lining the inside of [npc.her] urethra, allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
+								break;
+							case RIBBED:
+								descriptionSB.append(" The inside of [npc.her] urethra is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
+								break;
+							case TENTACLED:
+								descriptionSB.append(" [npc.Her] urethra is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+								break;
+						}
+					}
+				}
+			}
 		}
+		
+		// Pubic Hair:
+		if(Main.game.isPubicHairEnabled()) {
+			if(owner.getPubicHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
+				switch(owner.getPubicHair()) {
+					case ZERO_NONE:
+						descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy]");
+						break;
+					case ONE_STUBBLE:
+						descriptionSB.append(" [npc.SheHasFull] a small amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case TWO_MANICURED:
+						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case THREE_TRIMMED:
+						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case FOUR_NATURAL:
+						descriptionSB.append(" [npc.SheHasFull] a natural amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case FIVE_UNKEMPT:
+						descriptionSB.append(" [npc.SheHasFull] an unkempt mass of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case SIX_BUSHY:
+						descriptionSB.append(" [npc.SheHasFull] a thick, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case SEVEN_WILD:
+						descriptionSB.append(" [npc.SheHasFull] a wild, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+				}
+			} else {
+				switch(owner.getPubicHair()) {
+					case ZERO_NONE:
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy]");
+						break;
+					case ONE_STUBBLE:
+						descriptionSB.append(" [npc.SheHasFull] a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case TWO_MANICURED:
+						descriptionSB.append(" [npc.SheHasFull] a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case THREE_TRIMMED:
+						descriptionSB.append(" [npc.SheHasFull] a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case FOUR_NATURAL:
+						descriptionSB.append(" [npc.SheHasFull] a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case FIVE_UNKEMPT:
+						descriptionSB.append(" [npc.SheHasFull] an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case SIX_BUSHY:
+						descriptionSB.append(" [npc.SheHasFull] a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+					case SEVEN_WILD:
+						descriptionSB.append(" [npc.SheHasFull] a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						break;
+				}
+			}
+		}
+		
 		
 		if (isPlayer && !owner.isVaginaUrethraVirgin()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {

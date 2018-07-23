@@ -686,27 +686,30 @@ public class Game implements Serializable, XMLSaving {
 //								System.out.println(className);
 							}
 						}
+						
 						NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-						Main.game.addNPC(npc, true);
-						addedIds.add(npc.getId());
-						
-						// To fix issues with older versions hair length:
-						if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
-							npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
-						}
-
-						// Generate desires in non-unique NPCs:
-						if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-							CharacterUtils.generateDesires(npc);
-						}
-						
-						if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
-							npc.clearFetishDesires();
-							CharacterUtils.generateDesires(npc);
-						}
-						
-						if(npc instanceof SlaveImport) {
-							slaveImports.add(npc);
+						if(npc!=null)  {
+							Main.game.addNPC(npc, true);
+							addedIds.add(npc.getId());
+							
+							// To fix issues with older versions hair length:
+							if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
+								npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
+							}
+	
+							// Generate desires in non-unique NPCs:
+							if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
+								CharacterUtils.generateDesires(npc);
+							}
+							
+							if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
+								npc.clearFetishDesires();
+								CharacterUtils.generateDesires(npc);
+							}
+							
+							if(npc instanceof SlaveImport) {
+								slaveImports.add(npc);
+							}
 						}
 					} else {
 						System.err.println("duplicate character attempted to be imported");
@@ -895,23 +898,28 @@ public class Game implements Serializable, XMLSaving {
 			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap) throws ClassNotFoundException,
 			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		
-		Class<? extends NPC> npcClass = classMap.get(className);
-		if (npcClass == null) {
-			npcClass = (Class<? extends NPC>) Class.forName(className);
-			classMap.put(className, npcClass);
-			Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-			loadFromXMLMethodMap.put(npcClass, m);
-			
-			Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-			constructorMap.put(npcClass, declaredConstructor);
-			NPC npc = declaredConstructor.newInstance(true);
-			m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-			return npc;
-		} else {
-			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-			NPC npc = declaredConstructor.newInstance(true);
-			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
-			return npc;
+		try {
+			Class<? extends NPC> npcClass = classMap.get(className);
+			if (npcClass == null) {
+				npcClass = (Class<? extends NPC>) Class.forName(className);
+				classMap.put(className, npcClass);
+				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+				loadFromXMLMethodMap.put(npcClass, m);
+				
+				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+				constructorMap.put(npcClass, declaredConstructor);
+				NPC npc = declaredConstructor.newInstance(true);
+				m.invoke(npc, e, doc, new CharacterImportSetting[] {});
+				return npc;
+			} else {
+				Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
+				NPC npc = declaredConstructor.newInstance(true);
+				loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
+				return npc;
+			}
+		} catch(Exception ex) {
+			System.err.println("Failed to load NPC class: "+className);
+			return null;
 		}
 	}
 	
@@ -1149,10 +1157,14 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
+			List<NPC> npcsToBanish = new ArrayList<>();
 			for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
 				if(npc instanceof SlaveInStocks) {
-					Main.game.banishNPC(npc);
+					npcsToBanish.add(npc);
 				}
+			}
+			for(NPC npc : npcsToBanish) {
+				Main.game.banishNPC(npc);
 			}
 			
 			for(int i=0; i<4; i++) {

@@ -66,7 +66,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.9",
+	public static final String VERSION_NUMBER = "0.2.9.1",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -199,7 +199,48 @@ public class Main extends Application {
 		+"<ul>Fixed sex stat tracking not taking into account who you were having sex with. (This will reset your sex counts.)</ul>"
 		+"<ul>Fixed more incorrect parsing instances in sex actions.</ul>"
 		+"<ul>Fixed Pix being labelled as using the incorrect position in her shower sex scene.</ul>"
-	+ "</list>";
+	+ "</list>"
+
+	+ "<br/>"
+
+	+ "<list>"
+		+ "<h6>v0.2.9.1</h6>"
+		+"<li>Other:</li>"
+		+"<ul>Added vaginal urethra modification options to slime and demon transform menus.</ul>"
+		+"<ul>NPCs in the nightclub can now be any age from 18 to 45. Other NPCs' age range is now 18-45 (instead of 18-38).</ul>"
+		+"<ul>Slightly reduced base values of arousal increases from sex actions, and limited arousal gains/turn to a maximum of 15. (To prevent huge arousal increase/turn when in a group sex scene.)</ul>"
+		+"<ul>Reduced chance of NPCs spawning with non-natural hair colours from 20% to 10%.</ul>"
+		
+		+"<li>Sex AI:</li>"
+		+"<ul>NPCs should no longer use non-penis-related anal actions unless they have the anal fetish. (So now they shouldn't finger your/their ass, unless they love anal actions.)</ul>"
+		+"<ul>Fixed issue where NPCs would take their own anal, nipple, and oral virginity.</ul>"
+		+"<ul>NPCs should now correctly prioritise vagina+penis actions if they have pregnancy or impregnation fetishes.</ul>"
+		+"<ul>NPCs should be less likely to perform self-penetration actions before penetrating their partner.</ul>"
+		+"<ul>Fetishes are now taken into account for when NPCs are deciding what penetrative action to use.</ul>"
+		+"<ul>NPCs will now prefer to perform actual penetration actions once past their 'foreplay' stage. This should reduce the amount of hotdogging, paizuri, and thigh sex from NPCs that don't have an associated fetish.</ul>"
+		+"<ul>Fixed issue with NPCs not choosing position correctly.</ul>"
+		+"<ul>Fixed issue where NPCs would sometimes ignore their preferences.</ul>"
+		+"<ul>NPCs no longer hold back from losing their oral virginity.</ul>"
+		+"<ul>Fixed (yet another) cause of NPCs repeatedly penetrating/stopping penetration every turn.</ul>"
+		 
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed several parsing errors.</ul>"
+		+"<ul>Typo fixes.</ul>"
+		+"<ul>Fixed severe issue where games would not save/load correctly after using the glory holes, and added a catch in the game's code to handle corrupted saves. (So your broken 0.2.9 saves should load in correctly in this hotfix.)</ul>"
+		+"<ul>Fixed slime rainbow colouring not being displayed as a rainbow icon.</ul>"
+		+"<ul>Fixed vaginal and penile urethra modifiers not being displayed correctly in selfie, and fixed selfie's formatting of vaginal pubic hair.</ul>"
+		+"<ul>The extra damage from 'Flaming Strikes' is no longer applied when the attack misses.</ul>"
+		+"<ul>Characters who are in the 'watching' position during sex no longer influence NPCs' willingness to end/continue a sex scene. (Fixes issue where offering yourself or your companion would result in a sex scene that never ends.)</ul>"
+		+"<ul>Fixed characters without penises spawning in at the glory holes.</ul>"
+		+"<ul>Fixed yet another issue that was causing fluids to always be loaded in as 'human'.</ul>"
+		+"<ul>Fixed tooltip in phone's 'contacts' menu revealing concealed race information.</ul>"
+		+"<ul>Fixed NPCs never spawning with 'rosy', 'tanned', or 'chocolate' skin colour.</ul>"
+		+"<ul>Fixed partner penetrating your urethra not counting as penetrative sex for the purposes of requesting pullout or creampie.</ul>"
+		+"<ul>Fixed 'Suck clit' action being disabled during ongoing cunnilingus.</ul>"
+		+"<ul>Fixed cum count stats being reset every time you loaded the game.</ul>"
+	+ "</list>"
+	
+	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 

@@ -692,6 +692,16 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformClitorisSizeDiv()
 						+"</div>"
 						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraCapacityDiv()
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraElasticityDiv()
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraPlasticityDiv()
+						+"</div>"
+						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.VAGINA).getType(), "Vagina Colour", 
 								(BodyChanging.getTarget().isPlayer()
 										?"You can harness the power of your demonic form to change the colour of your vagina."
@@ -725,6 +735,16 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformLabiaSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformClitorisSizeDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraCapacityDiv()
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraElasticityDiv()
+							+ CharacterModificationUtils.getSelfTransformVaginaUrethraPlasticityDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_VAGINA, "Vagina Colour", 

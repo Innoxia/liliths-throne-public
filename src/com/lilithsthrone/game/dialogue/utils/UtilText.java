@@ -2855,6 +2855,38 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"sheHasFull",
+						"sheHeHasFull",
+						"heHasFull",
+						"heSheHasFull"),
+				true,
+				true,
+				"",
+				"Returns the correct gender-specific pronoun contraction for this character (you have, she has, he has). By default, returns 'you have' for player character."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && character.isPlayer()) {
+					return "you have";
+				} else {
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson() + " has";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine() + " has";
+						}
+					} else {
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson() + " has";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine() + " has";
+						}
+					}
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"herself",
 						"himself"),
 				true,
@@ -4905,7 +4937,13 @@ public class UtilText {
 		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME("+target+")";
 		}
-		character = parserTarget.getCharacter(target.toLowerCase());
+		
+		try {
+			character = parserTarget.getCharacter(target.toLowerCase());
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: parserTarget.getCharacter() not found!</i>";
+		}
 		
 		// Commands with arguments:
 		ParserCommand cmd = findCommandWithTag(command.replaceAll("\u200b", ""));

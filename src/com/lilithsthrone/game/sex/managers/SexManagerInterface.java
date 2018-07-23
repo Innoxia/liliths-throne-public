@@ -98,7 +98,7 @@ public interface SexManagerInterface {
 		boolean subsResisting = true;
 		
 		for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-			if(Sex.getNumberOfOrgasms(character) == 0) {
+			if(Sex.getNumberOfOrgasms(character) == 0 && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
 				domsSatisfied = false;
 			}
 		}
@@ -107,7 +107,7 @@ public interface SexManagerInterface {
 			if(Sex.getSexPace(character)!=SexPace.SUB_RESISTING) {
 				subsResisting = false;
 			}
-			if(Sex.getNumberOfOrgasms(character) == 0) {
+			if(Sex.getNumberOfOrgasms(character) == 0 && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
 				subsSatisfied = false;
 			}
 		}

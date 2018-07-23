@@ -109,7 +109,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 				parentElement.getAttribute("milkProvidor"),
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
 					?new FluidMilk(FluidType.MILK_HUMAN)
-					:FluidMilk.loadFromXML((Element) parentElement.getElementsByTagName("milk").item(0), doc, FluidType.MILK_HUMAN)),
+					:FluidMilk.loadFromXML((Element) parentElement.getElementsByTagName("milk").item(0), doc)),
 				(parentElement.getAttribute("millilitresStored").isEmpty()
 					?25
 					:Integer.valueOf(parentElement.getAttribute("millilitresStored"))));

@@ -52,7 +52,7 @@ public class ReindeerOverseer extends NPC {
 	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
 		super(null, "",
-				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				10, gender, RacialBody.REINDEER_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 

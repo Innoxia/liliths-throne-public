@@ -8,6 +8,11 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
+/**
+ * @since 0.2.8
+ * @version 0.2.8
+ * @author Pimgd
+ */
 public class BodyCoveringTemplateFactory {
 	
 	public static BodyCoveringTemplate createSkin(List<CoveringPattern> coverPatterns, List<Colour> naturalPrimaryColors, List<Colour> naturalSecondaryColours, List<Colour> dyeColours) {
