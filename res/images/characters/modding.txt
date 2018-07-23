@@ -1,6 +1,6 @@
 ----- CUSTOM ARTWORK GUIDE -----
 
-All images must be .png or .jpg!
+All images must be in PNG (.png) or JPEG (.jpg) format and are scaled down internally to at most 600x600.
 
 In order to add your own images to the game, you first need to figure out where to put the files. For unique NPCs, the folder has the same name as the class. For reference, check:
 https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc

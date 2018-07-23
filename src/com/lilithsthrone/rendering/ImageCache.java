@@ -21,9 +21,16 @@ public enum ImageCache {
 			// Always allow as many as there can be in one room (player, two companions, five slaves)
 			if (size() <= 8) return false;
 
-			// Allow cache with 1/10 of the maximum memory and less than the amount of available memory
-			int kbSize = size() * 500 * 1024;
-			return kbSize > Runtime.getRuntime().maxMemory() / 10 || kbSize > Runtime.getRuntime().freeMemory();
+			// Allow cache with up to 1/10 of the maximum memory
+			long byteSize = size() * 500 * 1024;
+			if (byteSize > Runtime.getRuntime().maxMemory() / 10) return true;
+
+			// Drop entries until the cache is smaller than the remaining memory
+			long adjustSize = (byteSize - Runtime.getRuntime().freeMemory()) / (500 * 1024);
+			if (adjustSize > 0)
+				for (int i = 0; i < adjustSize; ++i)
+					remove(keySet().iterator().next());
+			return false;
 		}
 	});
 
