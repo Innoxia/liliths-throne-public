@@ -1,19 +1,19 @@
 package com.lilithsthrone.game.dialogue;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.slavery.SlavePermissionSettingMap;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @since 0.1.0
@@ -31,6 +31,9 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public int scarlettPrice;
 	public int eponaStamps;
 	public long kalahariBreakStartTime;
+	public SlavePermissionSettingMap permissionTemplate = new SlavePermissionSettingMap();
+	public boolean slavesGroupManagement;
+
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -217,6 +220,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
 	}
 
+	public SlavePermissionSettingMap getPermissionTemplate() {
+		return permissionTemplate;
+	}
+
 	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
 		if(slaveryManagerSlaveSelected==null) {
 			this.slaveryManagerSlaveSelected = null;
@@ -275,5 +282,13 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		this.setFlag(DialogueFlagValue.nyanMakeOut, false);
 		this.setFlag(DialogueFlagValue.nyanSex, false);
 		this.setFlag(DialogueFlagValue.nyanGift, false);
+	}
+
+	public boolean isSlavesGroupManagement() {
+		return slavesGroupManagement;
+	}
+
+	public void setSlavesGroupManagement(boolean slavesGroupManagement) {
+		this.slavesGroupManagement = slavesGroupManagement;
 	}
 }

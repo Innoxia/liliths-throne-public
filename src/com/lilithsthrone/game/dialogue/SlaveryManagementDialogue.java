@@ -1,22 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.Eye;
-import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
-import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.*;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -27,16 +14,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
-import com.lilithsthrone.game.dialogue.utils.BodyChanging;
-import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
-import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
-import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlaveJobHours;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
-import com.lilithsthrone.game.slavery.SlavePermission;
-import com.lilithsthrone.game.slavery.SlavePermissionSetting;
+import com.lilithsthrone.game.dialogue.utils.*;
+import com.lilithsthrone.game.slavery.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -46,6 +25,13 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @since 0.1.8?
@@ -58,11 +44,14 @@ public class SlaveryManagementDialogue {
 	private static int dayNumber = 1;
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 	private static boolean slaveListManagementOverview = false;
+	private static List<NPC> slaveList = new ArrayList<>();
 	
 	static {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
 	}
-	
+
+
+
 	public static DialogueNodeOld getSlaveryOverviewDialogue() {
 		dayNumber = Main.game.getDayNumber();
 		return SLAVERY_OVERVIEW;
@@ -1001,7 +990,7 @@ public class SlaveryManagementDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().getSlaveTrader()!=null) {
+			if(Main.game.getDialogueFlags().getSlaveTrader()!=null && !Main.game.getDialogueFlags().isSlavesGroupManagement()) {
 				// Append for sale first:
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 						+ "<h6 style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+"; text-align:center;'>Slaves For Sale</h6>"
@@ -1029,10 +1018,15 @@ public class SlaveryManagementDialogue {
 			
 			
 			// Your slaves:
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>"
-					
-					+ getSlaveryHeader());
+			if (!Main.game.getDialogueFlags().isSlavesGroupManagement()){
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
+				+"<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>"
+				+ getSlaveryHeader());
+			} else {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
+				+ getSlaveryGroupHeader());
+			}
+
 			
 			if(Main.game.getPlayer().getSlavesOwned().isEmpty()) {
 				UtilText.nodeContentSB.append(
@@ -1081,9 +1075,10 @@ public class SlaveryManagementDialogue {
 				
 			} else if (index == 3) {
 				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
-					return new Response("Permissions", "No slave has been selected", null);
-					
-				} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+					return new Response("Permissions", "Set group permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
+
+				} else
+ 				if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
 					return new Response("Permissions", "You cannot manage the permissions of a slave you do not own!", null);
 				}
 				return new Response("Permissions", "Set this slave's permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
@@ -1112,6 +1107,7 @@ public class SlaveryManagementDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+						Main.game.getDialogueFlags().setSlavesGroupManagement(false);
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue() {
@@ -1163,33 +1159,166 @@ public class SlaveryManagementDialogue {
 			return true;
 		}
 	};
-	
+
+	public static final DialogueNodeOld SLAVE_LIST_APPLY = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.SLAVERY_MANAGEMENT;
+		}
+
+		@Override
+		public String getContent() {
+			return SLAVE_LIST.getContent();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Apply", "Apply to chosen slaves.", SLAVE_LIST){
+					@Override
+					public void effects() {
+						slaveList.stream().forEach(slave -> slave.setSlavePermissionSettings(Main.game.getDialogueFlags().getPermissionTemplate().getSlavePermissionSettings()));
+						Main.game.getDialogueFlags().setSlavesGroupManagement(false);
+					}
+				};
+			}
+			if(index == 2) {
+				return new Response("Back", "Exit the slave management screen.", SLAVE_MANAGEMENT_PERMISSIONS){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setSlavesGroupManagement(true);
+					}
+				};
+			}
+			return null;
+		}
+
+		@Override
+		public boolean isMapDisabled() {
+			return true;
+		}
+	};
+
 	private static String getSlaveryHeader() {
-		return "<div class='container-full-width' style='margin-bottom:0;'>"
+
+			return "<div class='container-full-width' style='margin-bottom:0;'>"
 					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ "Slave"
+						+ "Slave"
+					+ "</div>"
+					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "Location"
+					+ "</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
+					+"</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+					+"</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Value</b>"
+					+"</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "Actions"
+					+"</div>"
+				+ "</div>";
+
+		}
+		private static String getSlaveryGroupHeader() {
+		return   "<div class='container-full-width inner' style='margin-bottom:0;"+"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'"+"'>"
+					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "Select None/All"
+					+ "</div>"
+					+"<div style='float:right; width:15%; margin:0 -15; padding:0; display:inline-block; text-align:center;'>"
+						+ (isAllSelected()
+							?"<div id='ALL_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+							:"<div id='ALL_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
+					+ "</div>"
+					+"<div style='float:right; width:15%; margin:0 -30; padding:0; display:inline-block; text-align:center;'>"
+						+ (isNoneSelected()
+							?"<div id='NONE_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+							:"<div id='NONE_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
+					+ "</div>"
+				+"</div>"
+				+ "<div class='container-full-width inner' style='margin-bottom:0;"+"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'"+"'>"
+					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "Select Idle/Working"
+					+ "</div>"
+					+"<div style='float:right; width:15%; margin:0 -15; padding:0; display:inline-block; text-align:center;'>"
+						+ (isWorkingSelected()
+							?"<div id='WORKING_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+							:"<div id='WORKING_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
+					+ "</div>"
+					+ "<div style='float:right; width:15%; margin:0 -30; padding:0; display:inline-block; text-align:center;'>"
+						+ (isIdleSelected()
+							?"<div id='IDLE_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+							:"<div id='IDLE_APPLY' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
+					+ "</div>"
 				+ "</div>"
-				+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ "Location"
-				+ "</div>"
-				+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-					+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
-				+"</div>"
-				+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-					+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
-				+"</div>"
-				+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-					+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Value</b>"
-				+"</div>"
-				+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-					+ "Actions"
-				+"</div>"
-			+ "</div>";
+				+"<div class='container-full-width' style='margin-bottom:0;'>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "Slave"
+					+ "</div>"
+					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "Location"
+					+ "</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
+					+"</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+					+"</div>"
+					+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Value</b>"
+					+"</div>"
+				+ "</div>";
+			}
+
+
+	private static boolean isAllSelected (){
+		return Main.game.getPlayer().getSlavesOwned().stream().map(id -> Main.game.getNPCById(id)).collect(toList()).equals(slaveList);
 	}
-	
+	private static boolean isNoneSelected (){
+		return slaveList.isEmpty();
+	}
+	private static boolean isIdleSelected (){
+		return Main.game.getPlayer().getSlavesOwned().stream().map(id -> Main.game.getNPCById(id)).filter(slave -> slave.getSlaveJob() == SlaveJob.IDLE).collect(toList()).equals(slaveList);
+
+
+	}
+	private static boolean isWorkingSelected(){
+		return Main.game.getPlayer().getSlavesOwned().stream().map(id -> Main.game.getNPCById(id)).filter(slave -> slave.getSlaveJob() != SlaveJob.IDLE).collect(toList()).equals(slaveList);
+	}
+
+	public static void selectSlave(NPC slave) {
+		slaveList.add(slave);
+	}
+
+	public static void deselectSlave(NPC slave) {
+		slaveList.remove(slave);
+	}
+
+	public static void selectAll() {
+		slaveList = Main.game.getPlayer().getSlavesOwned().stream().map(id -> (NPC) Main.game.getNPCById(id)).collect(toList());
+	}
+
+	public static void deselectAll() {
+		slaveList.clear();
+	}
+
+	public static void selectIdle() {
+		slaveList = Main.game.getPlayer().getSlavesOwned().stream().map(id -> (NPC) Main.game.getNPCById(id)).filter(slave -> slave.getSlaveJob() == SlaveJob.IDLE).collect(toList());
+	}
+
+	public static void selectWorking() {
+		slaveList = Main.game.getPlayer().getSlavesOwned().stream().map(id -> (NPC) Main.game.getNPCById(id)).filter(slave -> slave.getSlaveJob() != SlaveJob.IDLE).collect(toList());
+	}
+
+
 	private static String getSlaveryEntry(boolean slaveOwned, GenericPlace place, NPC slave, AffectionLevel affection, float affectionChange, ObedienceLevel obedience, float obedienceChange, boolean alternateBackground) {
 		miscDialogueSB.setLength(0);
-		
+
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1227,32 +1356,40 @@ public class SlaveryManagementDialogue {
 						+"</div>");
 		
 		if(slaveOwned) {
-			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
-					+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+			if(!Main.game.getDialogueFlags().isSlavesGroupManagement()) {
+				miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+						+ "<div id='" + slave.getId() + "' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect() + "</div></div>"
 
-					+ "<div id='"+slave.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>"
+						+ "<div id='" + slave.getId() + "_JOB' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob() + "</div></div>"
 
-					+ "<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>"
-					
-					+"<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>"
-						
-					+ "<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
-								|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
-										?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
-										:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
-			
-			if(Main.game.getDialogueFlags().getSlaveTrader()==null) {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
+						+ "<div id='" + slave.getId() + "_PERMISSIONS' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions() + "</div></div>"
+
+						+ "<div id='" + slave.getId() + "_INVENTORY' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon() + "</div></div>"
+
+						+ "<div " + ((place.getCapacity() <= Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
+						|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
+						? " id='" + slave.getId() + "_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled() + "</div></div>"
+						: " id='" + slave.getId() + "_TRANSFER' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer() + "</div></div>"));
+
+				if (Main.game.getDialogueFlags().getSlaveTrader() == null) {
+					miscDialogueSB.append("<div id='" + slave.getId() + "_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled() + "</div></div>");
+				} else {
+					miscDialogueSB.append("<div id='" + slave.getId() + "_SELL' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell() + "</div></div>");
+				}
+
+				if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
+					miscDialogueSB.append("<div id='" + slave.getId() + "_COSMETICS' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics() + "</div></div>");
+				} else {
+					miscDialogueSB.append("<div id='" + slave.getId() + "_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled() + "</div></div>");
+				}
+				// Group slave checkboxes
 			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
-			}
-			
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
-			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
-			}
-			
+				miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+						+ "<div id='" + slave.getId() + "' class='square-button big'><div class='square-button-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect() + "</div></div>"
+						+ (slaveList.contains(slave)
+							?"<div id='"+slave.getId()+"_APPLY_REMOVE' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlocked()+"</div></div>"
+							:"<div id='"+slave.getId()+"_APPLY_ADD' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"));
+				}
 		} else { // Slave trader's slave:
 			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
 					+ "<div id='"+slave.getId()+"_TRADER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
@@ -1260,22 +1397,22 @@ public class SlaveryManagementDialogue {
 					+ "<div id='"+slave.getId()+"_TRADER_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
 
 					+ "<div id='"+slave.getId()+"_TRADER_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>"
-					
+
 					+"<div id='"+slave.getId()+"_TRADER_INVENTORY' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled()+"</div></div>"
-						
+
 					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
-			
+
 			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			}
-			
+
 			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_COSMETICS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
 		}
-		
+
 		miscDialogueSB.append("</div></div>");
-		
+
 		return miscDialogueSB.toString();
 	}
 	
@@ -1676,16 +1813,28 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Permissions");
+			if (Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null) {
+				return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Permissions");
+			} else {
+				return  "Group Permissions";
+			}
 		}
 		
 		@Override
 		public String getContent() {
+			Map<SlavePermission, Set<SlavePermissionSetting>> permissionSettings;
 			NPC character = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
+			if (character == null){
+				permissionSettings = Main.game.getDialogueFlags().getPermissionTemplate().getSlavePermissionSettings();
+			} else {
+				permissionSettings = character.getSlavePermissionSettings();
+			}
 			
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
+
+			if (character != null) {
+				UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
+			}
 			
 			// Permissions:
 			UtilText.nodeContentSB.append(
@@ -1696,10 +1845,9 @@ public class SlaveryManagementDialogue {
 				UtilText.nodeContentSB.append(
 						"<div class='container-full-width inner' style='background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 								+ "<h6 style='color:"+permission.getColour().toWebHexString()+"; text-align:center;'>"+permission.getName()+"</h6>");
-				
-				// Job Settings:
+
 				for(SlavePermissionSetting setting : permission.getSettings()) {
-					boolean settingActive = character.getSlavePermissionSettings().get(permission).contains(setting);
+					boolean settingActive = permissionSettings.get(permission).contains(setting);
 					
 					UtilText.nodeContentSB.append("<div class='container-full-width inner'>"
 													+"<div style='width:20%; float:left; margin:0; padding:0;"+(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":"")+"'>"
@@ -1725,17 +1873,49 @@ public class SlaveryManagementDialogue {
 			UtilText.nodeContentSB.append("</div>"
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");
 			
-			return UtilText.parse(character, UtilText.nodeContentSB.toString());
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 3) {
-				return new Response("Permissions", "You are already viewing the permissions screen.", null);
-				
-			}
+			if (Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null){
+				if(index == 1) {
+					return new Response("Apply", "Apply these permissions to chosen slaves", SLAVE_LIST_APPLY) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							Main.game.getDialogueFlags().setSlavesGroupManagement(true);
+						}
+					};
+				}else if(index == 2) {
+					return new Response("Back", "Exit the slave management screen.", null) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							Main.game.getDialogueFlags().setSlavesGroupManagement(false);
+						}
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							if(slaveListManagementOverview) {
+								return SLAVE_LIST_MANAGEMENT;
+							} else {
+								return SLAVE_LIST;
+							}
+						}
+					};
 
-			return SLAVE_LIST.getResponse(responseTab, index);
+
+				} else {
+					return null;
+				}
+			} else {
+				if (index == 3) {
+					return new Response("Permissions", "You are already viewing the permissions screen.", null);
+
+				}
+
+				return SLAVE_LIST.getResponse(responseTab, index);
+			}
 		}
 		
 		@Override
