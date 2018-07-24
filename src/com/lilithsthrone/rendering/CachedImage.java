@@ -36,6 +36,8 @@ public class CachedImage {
 		// Resize image
 		int[] targetSize = getAdjustedSize(600, 600);
 		image = scaleDown(image, targetSize[0], targetSize[1]);
+		width = image.getWidth();
+		height = image.getHeight();
 
 		// Convert to string
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
