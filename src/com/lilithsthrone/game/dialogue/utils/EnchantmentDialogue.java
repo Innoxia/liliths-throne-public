@@ -26,8 +26,6 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -44,6 +42,8 @@ import java.io.File;
 import java.io.StringWriter;
 import java.util.*;
 import java.util.Map.Entry;
+
+import static com.lilithsthrone.game.dialogue.utils.InventoryDialogue.*;
 
 /**
  * @since 0.1.7
@@ -372,7 +372,7 @@ public class EnchantmentDialogue {
 							if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(ingredient)) {
 								return InventoryDialogue.CLOTHING_EQUIPPED;
 							} else {
-								return InventoryDialogue.CLOTHING_INVENTORY;
+								return CLOTHING_INVENTORY;
 							}
 							
 						} else if(ingredient instanceof AbstractWeapon){
@@ -517,7 +517,7 @@ public class EnchantmentDialogue {
 		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
 		EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
 
-		AbstractClothing enslavingClothing = craftItem(ingredient, effects, consumer);
+		DialogueNodeOld nextDialogue = craftItem(ingredient, effects, consumer);
 
 		if (consumer == null) {
 			if ((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
@@ -539,11 +539,7 @@ public class EnchantmentDialogue {
 				}
 			}
 		} else {
-			if (enslavingClothing != null){
-				Main.game.setContent(new Response("", "", inventoryNPC.getEnslavementDialogue(enslavingClothing)));
-			} else {
-				Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-			}
+				Main.game.setContent(new Response("", "", nextDialogue));
 		}
 
 	}
@@ -555,9 +551,9 @@ public class EnchantmentDialogue {
 		return Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
 	
-	public static AbstractClothing craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects, GameCharacter consumer) {
+	public static DialogueNodeOld craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects, GameCharacter consumer) {
 
-		AbstractClothing enslavingClothing = null;
+		DialogueNodeOld nextDialogue = INVENTORY_MENU;
 		
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
@@ -565,9 +561,19 @@ public class EnchantmentDialogue {
 			if (consumer == null) {
 				Main.game.getPlayer().addItem(craftedItem, false);
 			} else if (consumer.isPlayer()) {
-				Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + consumer.useItem(craftedItem, consumer, true) + "</p>");
+				InventoryDialogue.setItem(craftedItem);
+				InventoryDialogue.setOwner(Main.game.getPlayer());
+				Response response = ITEM_INVENTORY.getResponse(1,6);
+				nextDialogue = response.getNextDialogue();
+				response.effects();
 			} else if (consumer instanceof NPC){
-				Main.game.getTextEndStringBuilder().append(((NPC) consumer).getItemUseEffects((AbstractItem) craftedItem, Main.game.getPlayer(), (NPC) consumer));
+				InventoryDialogue.setItem(craftedItem);
+				InventoryDialogue.setOwner(Main.game.getPlayer());
+				InventoryDialogue.setInventoryNPC((NPC) consumer);
+				InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.FULL_MANAGEMENT);
+				Response response = ITEM_INVENTORY.getResponse(1,11);
+				nextDialogue = response.getNextDialogue();
+				response.effects();
 			}
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
 			
@@ -575,13 +581,20 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
-			if (consumer != null) {
-				Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + consumer.equipClothingFromInventory(craftedClothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
-				if (!consumer.isPlayer() && craftedClothing.isEnslavementClothing() && consumer.isAbleToBeEnslaved() && !consumer.isSlave()){
-					Main.game.getPlayer().addSlave(inventoryNPC);
-					inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-					enslavingClothing = craftedClothing;
-				}
+			if (consumer.isPlayer()){
+				InventoryDialogue.setClothing(craftedClothing);
+				InventoryDialogue.setOwner(Main.game.getPlayer());
+				Response response = CLOTHING_INVENTORY.getResponse(1,6);
+				nextDialogue = response.getNextDialogue();
+				response.effects();
+			} else 	if (consumer instanceof NPC){
+				InventoryDialogue.setClothing(craftedClothing);
+				InventoryDialogue.setOwner(Main.game.getPlayer());
+				InventoryDialogue.setInventoryNPC((NPC) consumer);
+				InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.FULL_MANAGEMENT);
+				Response response = CLOTHING_INVENTORY.getResponse(1,11);
+				nextDialogue = response.getNextDialogue();
+				response.effects();
 			}
 
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
@@ -613,7 +626,7 @@ public class EnchantmentDialogue {
 		
 		resetEnchantmentVariables();
 		EnchantmentDialogue.effects.clear();
-		return enslavingClothing;
+		return nextDialogue;
 	}
 	
 	public static void resetEnchantmentVariables() {
