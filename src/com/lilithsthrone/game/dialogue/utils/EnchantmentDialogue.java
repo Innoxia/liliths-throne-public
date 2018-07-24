@@ -1,32 +1,10 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -38,11 +16,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.enchanting.*;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -52,6 +26,24 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.7
@@ -87,6 +79,10 @@ public class EnchantmentDialogue {
 	private static boolean isEquipped = false;
 	private static GameCharacter isEquippedTo = null;
 	private static InventorySlot isEquippedIn = null;
+	private static NPC inventoryNPC;
+
+	public static void setInventoryNPC(NPC inventoryNPC) { EnchantmentDialogue.inventoryNPC = inventoryNPC;
+	}
 
 	private static String inventoryView() {
 		inventorySB.setLength(0);
@@ -324,15 +320,20 @@ public class EnchantmentDialogue {
 	}
 
 	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item) {
-		return getEnchantmentMenu(item, null, null);
+		return getEnchantmentMenu(item, null, null, null);
+	}
+
+	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item, NPC npc) {
+		return getEnchantmentMenu(item, null, null, npc);
 	}
 	
-	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
+	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot, NPC npc) {
 		EnchantmentDialogue.effects.clear();
 		EnchantmentDialogue.resetEnchantmentVariables();
 		EnchantmentDialogue.initModifiers(item, tattooBearer, tattooSlot);
-		
+
 		EnchantmentDialogue.setOutputName(Util.capitaliseSentence(EnchantingUtils.getPotionName(item, effects)));
+		EnchantmentDialogue.setInventoryNPC(npc);
 		
 		return ENCHANTMENT_MENU;
 	}
@@ -414,30 +415,7 @@ public class EnchantmentDialogue {
 													"Craft '"+EnchantingUtils.getPotionName(ingredient, effects)+"'."){
 						@Override
 						public void effects() {
-							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
-							EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-							
-							craftItem(ingredient, effects);
-							
-							if((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
-									|| (previousIngredient instanceof AbstractClothing && Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient))
-									|| (previousIngredient instanceof AbstractWeapon && Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient))) {
-								ingredient = previousIngredient;
-								effects = new ArrayList<>(previousEffects);
-								Main.game.setContent(new Response("", "", ENCHANTMENT_MENU));
-								
-							} else {
-								if(previousIngredient instanceof Tattoo) {
-									if(BodyChanging.getTarget().isPlayer()) {
-										Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
-									} else {
-										Main.game.setContent(new Response("", "", SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS));
-									}
-								} else {
-									Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-								}
-							}
-							
+							craftEffects(null);
 						}
 					};
 					
@@ -448,7 +426,6 @@ public class EnchantmentDialogue {
 									:"Craft"),
 							"You can't afford to craft this right now!", null);
 				}
-
 			// Save/load
 			} else if (index == 2) {
 				return new Response("Save/Load", "Save/Load enchantment recipes", ENCHANTMENT_SAVE_LOAD) {
@@ -460,9 +437,73 @@ public class EnchantmentDialogue {
 					}
 				};
 			
-			} else {
-				return null;
 			}
+			if (ingredient instanceof AbstractItem || ingredient instanceof AbstractClothing) {
+				if (index == 3) {
+					if ((effects.equals(ingredient.getEffects())
+							|| (effects.isEmpty() && ingredient instanceof AbstractItem))
+							) {
+						return new Response(ingredient instanceof AbstractItem
+								? "Craft and Drink (Self)"
+								: "Craft and Equip (Self)", "You need to add at least one effect before you can craft something!", null);
+
+					} else if(ingredient instanceof AbstractClothing && !((AbstractClothing) ingredient).isCanBeEquipped(Main.game.getPlayer())) {
+						return new Response("Equip (self)", ((AbstractClothing) ingredient).getCannotBeEquippedText(Main.game.getPlayer()), null);
+					} else if (canAffordCost(ingredient, effects)) {
+						return new ResponseEffectsOnly((ingredient instanceof AbstractItem
+								? "Craft and Drink (Self)"
+								: "Craft and Equip (Self)"),
+								"Craft '" + EnchantingUtils.getPotionName(ingredient, effects) + "'.") {
+							@Override
+							public void effects() {
+								craftEffects(Main.game.getPlayer());
+							}
+
+						};
+					} else {
+						return new Response(
+								(ingredient instanceof AbstractItem
+										? "Craft and Drink (Self)"
+										: "Craft and Equip (Self)"),
+								"You can't afford to craft this right now!", null);
+					}
+
+
+				} else if (index == 4 ) {
+					if (inventoryNPC != null){
+						if ((effects.equals(ingredient.getEffects())
+								|| (effects.isEmpty() && ingredient instanceof AbstractItem))
+								) {
+							return new Response(ingredient instanceof AbstractItem
+									? "Craft and Drink ([npc.Name])"
+									: "Craft and Equip ([npc.Name])", "You need to add at least one effect before you can craft something!", null);
+
+						} else if(ingredient instanceof AbstractClothing && !((AbstractClothing) ingredient).isCanBeEquipped(inventoryNPC)) {
+							return new Response("Equip ([npc.Name])", ((AbstractClothing) ingredient).getCannotBeEquippedText(inventoryNPC), null);
+						} else if (canAffordCost(ingredient, effects)) {
+							return new ResponseEffectsOnly((ingredient instanceof AbstractItem
+									? "Craft and Drink ([npc.Name])"
+									: "Craft and Equip ([npc.Name])"),
+									"Craft '" + EnchantingUtils.getPotionName(ingredient, effects) + "'.") {
+								@Override
+								public void effects() {
+									craftEffects(inventoryNPC);
+								}
+
+							};
+						} else {
+							return new Response(
+									(ingredient instanceof AbstractItem
+											? "Craft and Drink ([npc.Name])"
+											: "Craft and Equip ([npc.Name])"),
+									"You can't afford to craft this right now!", null);
+						}
+
+					}
+				}
+
+			}
+			return null;
 		}
 
 		@Override
@@ -470,6 +511,42 @@ public class EnchantmentDialogue {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
+
+	private static void craftEffects(GameCharacter consumer){
+
+		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+		EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+
+		AbstractClothing enslavingClothing = craftItem(ingredient, effects, consumer);
+
+		if (consumer == null) {
+			if ((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
+					|| (previousIngredient instanceof AbstractClothing && Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient))
+					|| (previousIngredient instanceof AbstractWeapon && Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient))) {
+				ingredient = previousIngredient;
+				effects = new ArrayList<>(previousEffects);
+				Main.game.setContent(new Response("", "", ENCHANTMENT_MENU));
+
+			} else {
+				if (previousIngredient instanceof Tattoo) {
+					if (BodyChanging.getTarget().isPlayer()) {
+						Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+					} else {
+						Main.game.setContent(new Response("", "", SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS));
+					}
+				} else {
+					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+				}
+			}
+		} else {
+			if (enslavingClothing != null){
+				Main.game.setContent(new Response("", "", inventoryNPC.getEnslavementDialogue(enslavingClothing)));
+			} else {
+				Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+			}
+		}
+
+	}
 	
 	public static boolean canAffordCost(AbstractCoreItem ingredient, List<ItemEffect> itemEffects) {
 		if(ingredient instanceof Tattoo) {
@@ -478,18 +555,35 @@ public class EnchantmentDialogue {
 		return Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
 	
-	public static void craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	public static AbstractClothing craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects, GameCharacter consumer) {
+
+		AbstractClothing enslavingClothing = null;
 		
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
-			Main.game.getPlayer().addItem(craftedItem, false);
+			if (consumer == null) {
+				Main.game.getPlayer().addItem(craftedItem, false);
+			} else if (consumer.isPlayer()) {
+				Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + consumer.useItem(craftedItem, consumer, true) + "</p>");
+			} else if (consumer instanceof NPC){
+				Main.game.getTextEndStringBuilder().append(((NPC) consumer).getItemUseEffects((AbstractItem) craftedItem, Main.game.getPlayer(), (NPC) consumer));
+			}
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
 			
 		} else if(ingredient instanceof AbstractClothing) {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
+			if (consumer != null) {
+				Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + consumer.equipClothingFromInventory(craftedClothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+				if (!consumer.isPlayer() && craftedClothing.isEnslavementClothing() && consumer.isAbleToBeEnslaved() && !consumer.isSlave()){
+					Main.game.getPlayer().addSlave(inventoryNPC);
+					inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+					enslavingClothing = craftedClothing;
+				}
+			}
+
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
 			
 		} else if(ingredient instanceof AbstractWeapon) { //TODO
@@ -519,6 +613,7 @@ public class EnchantmentDialogue {
 		
 		resetEnchantmentVariables();
 		EnchantmentDialogue.effects.clear();
+		return enslavingClothing;
 	}
 	
 	public static void resetEnchantmentVariables() {

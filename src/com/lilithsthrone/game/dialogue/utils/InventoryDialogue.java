@@ -1,11 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -43,6 +37,12 @@ import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @since 0.1.0
@@ -1202,7 +1202,7 @@ public class InventoryDialogue {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(item);
+											return EnchantmentDialogue.getEnchantmentMenu(item, inventoryNPC);
 										}
 									};
 									
@@ -1211,7 +1211,7 @@ public class InventoryDialogue {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
 											public DialogueNodeOld getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(item);
+												return EnchantmentDialogue.getEnchantmentMenu(item, inventoryNPC);
 											}
 										};
 									}
@@ -3371,7 +3371,7 @@ public class InventoryDialogue {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(clothing);
+											return EnchantmentDialogue.getEnchantmentMenu(clothing, inventoryNPC);
 										}
 									};
 									
@@ -3380,7 +3380,7 @@ public class InventoryDialogue {
 										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
 											public DialogueNodeOld getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(clothing);
+												return EnchantmentDialogue.getEnchantmentMenu(clothing, inventoryNPC);
 											}
 										};
 									}
