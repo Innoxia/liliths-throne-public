@@ -1,117 +1,12 @@
 package com.lilithsthrone.game.character;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AlcoholLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.Dildo;
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidGirlCum;
-import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.NippleType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.TongueType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
-import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.Addiction;
-import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.attributes.*;
+import com.lilithsthrone.game.character.body.*;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.*;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -119,40 +14,13 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Alexa;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
-import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
-import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
-import com.lilithsthrone.game.character.persona.History;
-import com.lilithsthrone.game.character.persona.MoralityValue;
-import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
-import com.lilithsthrone.game.character.persona.Relationship;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.character.persona.*;
+import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.combat.*;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -165,11 +33,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.clothing.*;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -178,15 +42,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.PregnancyDescriptor;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
@@ -195,17 +51,25 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.CachedImage;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ImageCache;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -335,7 +199,7 @@ public abstract class GameCharacter implements XMLSaving {
 	private int daysOrgasmCount;
 	private int daysOrgasmCountRecord;
 	protected Set<CoverableArea> playerKnowsAreas;
-	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
+//	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	
 	
 	// Stats:
@@ -495,7 +359,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Player knowledge:
 		playerKnowsAreas = new HashSet<>();
 		
-		fluidsStoredMap = new HashMap<>();
+//		fluidsStoredMap = new HashMap<>();
 		
 		timeProgressedToFinalPregnancyStage = 1;
 		pregnantLitter = null;
@@ -933,18 +797,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element characterSexStats = doc.createElement("sexStats");
 		properties.appendChild(characterSexStats);
-		
-		Element fluidsStoredMapElement = doc.createElement("fluidsStoredMap");
-		characterSexStats.appendChild(fluidsStoredMapElement);
-		for(Entry<SexAreaOrifice, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
-			Element element = doc.createElement("entry");
-			fluidsStoredMapElement.appendChild(element);
-
-			CharacterUtils.addAttribute(doc, element, "orifice", entry.getKey().toString());
-			for(FluidStored f : entry.getValue()) {
-				f.saveAsXML(element, doc);
-			}
-		}
 
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCount", String.valueOf(this.getDaysOrgasmCount()));
@@ -1958,14 +1810,14 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		// Fluids stored:
+		// Fluids stored for older saves:
 		element = (Element) (sexStatsElement).getElementsByTagName("fluidsStoredMap").item(0);
 		if(element!=null) {
 			NodeList fluidStoredMapEntries = element.getElementsByTagName("entry");
 			for(int i = 0; i < fluidStoredMapEntries.getLength(); i++){
 				Element e = (Element) fluidStoredMapEntries.item(i);
 				SexAreaOrifice ot = SexAreaOrifice.valueOf(e.getAttribute("orifice"));
-				NodeList fluidStoredEntries = e.getElementsByTagName("fluidStored"); 
+				NodeList fluidStoredEntries = e.getElementsByTagName("fluidStored");
 				for (int j = 0; j < fluidStoredEntries.getLength(); j++) {
 					Element fluidStored = (Element) fluidStoredEntries.item(j);
 					character.addFluidStored(ot, FluidStored.loadFromXML(log, fluidStored, doc));
@@ -10460,7 +10312,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param addictive Is this fluid addictive or not.
 	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
-	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, SexAreaOrifice orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
+	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, SexAreaOrifice orificeIngestedThrough, float millilitres, List<FluidModifier> modifiers) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
 		
 		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
@@ -10470,8 +10322,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex()) {
 				Sex.addLubrication(this, orificeIngestedThrough, charactersFluid, LubricationType.CUM);
 			}
-			
-			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+
+
+			for(FluidStored fluidStored : getBody().getOrifice(orificeIngestedThrough).getFluidsStored()) {
 				if(fluidStored.getFluid().equals(charactersFluid.getCum())) {
 					fluidStored.incrementMillilitres(millilitres);
 					found = true;
@@ -10487,7 +10340,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Sex.addLubrication(this, orificeIngestedThrough, charactersFluid, LubricationType.MILK);
 			}
 			
-			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+			for(FluidStored fluidStored : getBody().getOrifice(orificeIngestedThrough).getFluidsStored()) {
 				if(fluidStored.getFluid().equals(charactersFluid.getMilk())) {
 					fluidStored.incrementMillilitres(millilitres);
 					found = true;
@@ -10503,7 +10356,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Sex.addLubrication(this, orificeIngestedThrough, charactersFluid, LubricationType.GIRLCUM);
 			}
 			
-			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+			for(FluidStored fluidStored : getBody().getOrifice(orificeIngestedThrough).getFluidsStored()) {
 				if(fluidStored.getFluid().equals(charactersFluid.getGirlcum())) {
 					fluidStored.incrementMillilitres(millilitres);
 					found = true;
@@ -10518,7 +10371,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if((this.getBodyMaterial()==BodyMaterial.SLIME
 				|| orificeIngestedThrough == SexAreaOrifice.VAGINA)
 				&& fluid.getBaseType()==FluidTypeBase.CUM) {
-			fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres));
+			fluidIngestionSB.append(rollForPregnancy(charactersFluid, (int) millilitres));
 		}
 		
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
@@ -11199,8 +11052,8 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void performHourlyFluidsCheck() {
 		for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-			if(this.fluidsStoredMap.get(ot)!=null) {
-				for(FluidStored fs : this.fluidsStoredMap.get(ot)) {
+			if(getBody().getOrifice(ot) != null) {
+				for(FluidStored fs : getBody().getOrifice(ot).getFluidsStored()) {
 					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
 						addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
 					}
@@ -11216,20 +11069,18 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void performImpregnationCheck() {
-		if(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA)!=null && !this.fluidsStoredMap.get(SexAreaOrifice.VAGINA).isEmpty()) {
-			List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA));
-			Collections.shuffle(fluids);
-			for(FluidStored fs : fluids) {
-				if(fs.isCum()) {
-					GameCharacter partner = null;
-					if(fs.getCharactersFluidID().equals(Main.game.getPlayer().getId())) {
-						partner = Main.game.getPlayer();
-					} else {
-						partner = Main.game.getNPCById(fs.getCharactersFluidID());
-					}
-					if(partner!=null) {
-						rollForPregnancy(partner, fs.getMillilitres());
-					}
+		List<FluidStored> fluids = getBody().getVagina().getOrificeVagina().getFluidsStored();
+		Collections.shuffle(fluids);
+		for(FluidStored fs : fluids) {
+			if(fs.isCum()) {
+				GameCharacter partner = null;
+				if(fs.getCharactersFluidID().equals(Main.game.getPlayer().getId())) {
+					partner = Main.game.getPlayer();
+				} else {
+					partner = Main.game.getNPCById(fs.getCharactersFluidID());
+				}
+				if(partner!=null) {
+					rollForPregnancy(partner, (int) fs.getMillilitres());
 				}
 			}
 		}
@@ -11509,8 +11360,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public List<FluidStored> getAllFluidsStored() {
 		List<FluidStored> list = new ArrayList<>();
-		for(List<FluidStored> stored : fluidsStoredMap.values()) {
-			list.addAll(stored);
+		for(SexAreaOrifice sexAreaOrifice : SexAreaOrifice.values()) {
+			if (sexAreaOrifice != null){
+				list.addAll(getBody().getOrifice(sexAreaOrifice).getFluidsStored());
+			}
 		}
 		return list;
 	}
@@ -11519,61 +11372,61 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return false If the area is not storing any fluids, or if the stored fluids are not only cum.
 	 */
 	public boolean isOnlyCumInArea(SexAreaOrifice area) {
-		for(FluidStored f : fluidsStoredMap.get(area)) {
+		for(FluidStored f : getBody().getOrifice(area).getFluidsStored()) {
 			if(!f.isCum()) {
 				return false;
 			}
 		}
-		return !fluidsStoredMap.get(area).isEmpty();
+		return !getBody().getOrifice(area).getFluidsStored().isEmpty();
 	}
 	
 	public int getTotalFluidInArea(SexAreaOrifice area) {
 		int total = 0;
-		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		for(FluidStored f : fluidsStoredMap.get(area)) {
-			total+=f.getMillilitres();
+		if (area.isIngestive()){
+			for(FluidStored f : getBody().getOrifice(area).getFluidsStored()) {
+				total+=f.getMillilitres();
+			}
 		}
 		return total;
 	}
 	
-	public void drainTotalFluidsStored(SexAreaOrifice area, int drain) {
-		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		int drained = 0;
-		for(FluidStored f : fluidsStoredMap.get(area)) {
+	public void drainTotalFluidsStored(SexAreaOrifice area, float drain) {
+		float drained = 0;
+		//shuffle first?
+		for(FluidStored f : getBody().getOrifice(area).getFluidsStored()) {
 			if(drained>=Math.abs(drain)) {
 				break;
 			}
 			
-			int drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
+			float drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
 			f.incrementMillilitres(-drainAmount);
 			drained+=drainAmount;
 		}
-		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
+        getBody().getOrifice(area).getFluidsStored().removeIf((fs) -> fs.getMillilitres()<=0.01);
 	}
 	
-	public void incrementAllFluidsStored(SexAreaOrifice area, int increment) {
-		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		for(FluidStored f : fluidsStoredMap.get(area)) {
+	public void incrementAllFluidsStored(SexAreaOrifice area, float increment) {
+		for(FluidStored f : getBody().getOrifice(area).getFluidsStored()) {
 			f.incrementMillilitres(increment);
 		}
-		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
+        getBody().getOrifice(area).getFluidsStored().removeIf((fs) -> fs.getMillilitres()<=0.01);
 	}
 	
 	public void addFluidStored(SexAreaOrifice area, FluidStored fluid) {
-		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		fluidsStoredMap.get(area).add(fluid);
+        getBody().getOrifice(area).addFluidStored(fluid);
 	}
 	
 	public void clearFluidsStored(SexAreaOrifice area) {
-		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
-		fluidsStoredMap.get(area).clear();
-	}
-	
-	public void resetFluidsStored() {
-		for(List<FluidStored> f : fluidsStoredMap.values()) {
-			f.clear();
+		if (area.isIngestive()) {
+			getBody().getOrifice(area).getFluidsStored().clear();
 		}
 	}
+	
+//	public void resetFluidsStored() {
+//		for(List<FluidStored> f : fluidsStoredMap.values()) {
+//			f.clear();
+//		}
+//	}
 	
 	public void washAllOrifices() {
 		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
@@ -12377,6 +12230,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	private void applyEquipClothingEffects(AbstractClothing newClothing) {
+		for (SexAreaOrifice sexAreaOrifice : newClothing.getPluggedOrifices()){
+            getBody().getOrifice(sexAreaOrifice).setPlugged(true);
+		}
 		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), e.getValue());
@@ -12416,6 +12272,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	private void applyUnequipClothingEffects(AbstractClothing clothing) {
+		for (SexAreaOrifice sexAreaOrifice : clothing.getPluggedOrifices()){
+            getBody().getOrifice(sexAreaOrifice).setPlugged(false);
+		}
 		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, -clothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), -e.getValue());
@@ -13071,16 +12930,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 
-	public boolean isOrificePlugged(SexAreaOrifice ot) {
-		HashMap<SexAreaOrifice, ItemTag> plugMap = new HashMap<>();
-		plugMap.put(SexAreaOrifice.ANUS, ItemTag.PLUGS_ANUS);
-		plugMap.put(SexAreaOrifice.VAGINA, ItemTag.PLUGS_VAGINA);
-		plugMap.put(SexAreaOrifice.NIPPLE, ItemTag.PLUGS_NIPPLES);
-		ItemTag lookingFor = plugMap.get(ot);
-		
-		return lookingFor != null 
-				&& getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getItemTags().contains(lookingFor));
-	}
 	
 	public int getClothingAverageFemininity() {
 		return inventory.getClothingAverageFemininity();
@@ -14814,6 +14663,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementAssPlasticity(int increment) {
 		return setAssPlasticity(getAssPlasticity().getValue() + increment);
 	}
+	// Ingestion:
+	public IngestionRate getAssIngestionRate() {
+		return body.getAss().getAnus().getOrificeAnus().getIngestionRate();
+	}
+	public String setAssIngestionRate(int ingestionRate) {
+		return body.getAss().getAnus().getOrificeAnus().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementAssIngestionRate(int increment) {
+		return setAssIngestionRate(getAssIngestionRate().getValue() + increment);
+	}
 	// Virginity:
 	public boolean isAssVirgin() {
 		return body.getAss().getAnus().getOrificeAnus().isVirgin();
@@ -15264,6 +15123,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementNipplePlasticity(int increment) {
 		return setNipplePlasticity(getNipplePlasticity().getValue() + increment);
 	}
+	// Ingestion:
+	public IngestionRate getNippleIngestionRate() {
+		return body.getBreast().getNipples().getOrificeNipples().getIngestionRate();
+	}
+	public String setNippleIngestionRate(int ingestionRate) {
+		return body.getBreast().getNipples().getOrificeNipples().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementNippleIngestionRate(int increment) {
+		return setNippleIngestionRate(getNippleIngestionRate().getValue() + increment);
+	}
 	// Virginity:
 	public boolean isNippleVirgin() {
 		return body.getBreast().getNipples().getOrificeNipples().isVirgin();
@@ -15692,6 +15561,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String incrementFacePlasticity(int increment) {
 		return setFacePlasticity(getFacePlasticity().getValue() + increment);
+	}
+	// Ingestion:
+	public IngestionRate getFaceIngestionRate() {
+		return body.getFace().getMouth().getOrificeMouth().getIngestionRate();
+	}
+	public String setFaceIngestionRate(int ingestionRate) {
+		return body.getFace().getMouth().getOrificeMouth().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementFaceIngestionRate(int increment) {
+		return setFaceIngestionRate(getFaceIngestionRate().getValue() + increment);
 	}
 	// Virginity:
 	public boolean isFaceVirgin() {
@@ -16190,6 +16069,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String incrementUrethraPlasticity(int increment) {
 		return setUrethraPlasticity(getUrethraPlasticity().getValue() + increment);
+	}
+	// Ingestion:
+	public IngestionRate getUrethraIngestionRate() {
+		return body.getPenis().getOrificeUrethra().getIngestionRate();
+	}
+	public String setUrethraIngestionRate(int ingestionRate) {
+		return body.getPenis().getOrificeUrethra().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementUrethraIngestionRate(int increment) {
+		return setUrethraIngestionRate(getUrethraIngestionRate().getValue() + increment);
 	}
 	// Virgin:
 	public boolean isUrethraVirgin() {
@@ -16897,6 +16786,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementVaginaPlasticity(int increment) {
 		return setVaginaPlasticity(getVaginaPlasticity().getValue() + increment);
 	}
+	// Ingestion:
+	public IngestionRate getVaginaIngestionRate() {
+		return body.getVagina().getOrificeVagina().getIngestionRate();
+	}
+	public String setVaginaIngestionRate(int ingestionRate) {
+		return body.getVagina().getOrificeVagina().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementVaginaIngestionRate(int increment) {
+		return setVaginaIngestionRate(getVaginaIngestionRate().getValue() + increment);
+	}
 	// Virginity:
 	public boolean isVaginaVirgin() {
 		return body.getVagina().getOrificeVagina().isVirgin();
@@ -17050,6 +16949,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementVaginaUrethraPlasticity(int increment) {
 		return setUrethraPlasticity(getVaginaUrethraPlasticity().getValue() + increment);
 	}
+	// Ingestion:
+	public IngestionRate getVaginaUrethraIngestionRate() {
+		return body.getVagina().getOrificeUrethra().getIngestionRate();
+	}
+	public String setVaginaUrethraIngestionRate(int ingestionRate) {
+		return body.getVagina().getOrificeUrethra().setIngestionRate(this, ingestionRate);
+	}
+	public String incrementVaginaUrethraIngestionRate(int increment) {
+		return setVaginaUrethraIngestionRate(getVaginaUrethraIngestionRate().getValue() + increment);
+	}
 	// Virgin:
 	public boolean isVaginaUrethraVirgin() {
 		return body.getVagina().getOrificeUrethra().isVirgin();
@@ -17109,5 +17018,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public abstract boolean isAbleToBeImpregnated();
+
 
 }

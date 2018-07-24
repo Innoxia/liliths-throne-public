@@ -1,70 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodyCoveringSkinToneColorHelper;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HornLength;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.*;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -81,6 +20,13 @@ import com.lilithsthrone.utils.Builder;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -474,6 +420,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyAnus, "plasticity", String.valueOf(this.ass.anus.orificeAnus.plasticity));
 			CharacterUtils.addAttribute(doc, bodyAnus, "capacity", String.valueOf(this.ass.anus.orificeAnus.capacity));
 			CharacterUtils.addAttribute(doc, bodyAnus, "stretchedCapacity", String.valueOf(this.ass.anus.orificeAnus.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyAnus, "ingestionRate", String.valueOf(this.ass.anus.orificeAnus.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyAnus, "virgin", String.valueOf(this.ass.anus.orificeAnus.virgin));
 			CharacterUtils.addAttribute(doc, bodyAnus, "bleached", String.valueOf(this.ass.anus.bleached));
 			CharacterUtils.addAttribute(doc, bodyAnus, "assHair", this.ass.anus.assHair.toString());
@@ -482,7 +429,12 @@ public class Body implements Serializable, XMLSaving {
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, anusModifiers, om.toString(), String.valueOf(this.ass.anus.orificeAnus.hasOrificeModifier(om)));
 			}
-		
+			Element anusFluidStoredList = doc.createElement("anusFluidStoredList");
+			bodyAnus.appendChild(anusFluidStoredList);
+			for(FluidStored fl : this.ass.anus.orificeAnus.fluidsStored) {
+				fl.saveAsXML(anusFluidStoredList, doc);
+			}
+
 		// Breasts:
 		Element bodyBreast = doc.createElement("breasts");
 		parentElement.appendChild(bodyBreast);
@@ -501,6 +453,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyNipple, "plasticity", String.valueOf(this.breast.nipples.orificeNipples.plasticity));
 			CharacterUtils.addAttribute(doc, bodyNipple, "capacity", String.valueOf(this.breast.nipples.orificeNipples.capacity));
 			CharacterUtils.addAttribute(doc, bodyNipple, "stretchedCapacity", String.valueOf(this.breast.nipples.orificeNipples.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyNipple, "ingestionRate", String.valueOf(this.breast.nipples.orificeNipples.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyNipple, "virgin", String.valueOf(this.breast.nipples.orificeNipples.virgin));
 			CharacterUtils.addAttribute(doc, bodyNipple, "pierced", String.valueOf(this.breast.nipples.pierced));
 			CharacterUtils.addAttribute(doc, bodyNipple, "nippleSize", String.valueOf(this.breast.nipples.nippleSize));
@@ -511,6 +464,11 @@ public class Body implements Serializable, XMLSaving {
 			bodyNipple.appendChild(nippleModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(this.breast.nipples.orificeNipples.hasOrificeModifier(om)));
+			}
+			Element nippleFluidStoredList = doc.createElement("nippleFluidStoredList");
+			bodyNipple.appendChild(nippleFluidStoredList);
+			for(FluidStored fl : this.breast.nipples.orificeNipples.fluidsStored) {
+				fl.saveAsXML(nippleFluidStoredList, doc);
 			}
 			
 		this.breast.milk.saveAsXML(parentElement, doc);
@@ -543,6 +501,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyMouth, "capacity", String.valueOf(this.face.mouth.orificeMouth.capacity));
 			CharacterUtils.addAttribute(doc, bodyMouth, "wetness", String.valueOf(this.face.mouth.orificeMouth.wetness));
 			CharacterUtils.addAttribute(doc, bodyMouth, "stretchedCapacity", String.valueOf(this.face.mouth.orificeMouth.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyMouth, "ingestionRate", String.valueOf(this.face.mouth.orificeMouth.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyMouth, "virgin", String.valueOf(this.face.mouth.orificeMouth.virgin));
 			CharacterUtils.addAttribute(doc, bodyMouth, "piercedLip", String.valueOf(this.face.mouth.piercedLip));
 			CharacterUtils.addAttribute(doc, bodyMouth, "lipSize", String.valueOf(this.face.mouth.lipSize));
@@ -550,6 +509,11 @@ public class Body implements Serializable, XMLSaving {
 			bodyMouth.appendChild(mouthModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, mouthModifiers, om.toString(), String.valueOf(this.face.mouth.orificeMouth.hasOrificeModifier(om)));
+			}
+			Element mouthFluidStoredList = doc.createElement("mouthFluidStoredList");
+			bodyMouth.appendChild(mouthFluidStoredList);
+			for(FluidStored fl : this.face.mouth.orificeMouth.fluidsStored) {
+				fl.saveAsXML(mouthFluidStoredList, doc);
 			}
 			
 		Element bodyTongue = doc.createElement("tongue");
@@ -600,11 +564,17 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "plasticity", String.valueOf(this.penis.orificeUrethra.plasticity));
 			CharacterUtils.addAttribute(doc, bodyPenis, "capacity", String.valueOf(this.penis.orificeUrethra.capacity));
 			CharacterUtils.addAttribute(doc, bodyPenis, "stretchedCapacity", String.valueOf(this.penis.orificeUrethra.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyPenis, "ingestionRate", String.valueOf(this.penis.orificeUrethra.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyPenis, "urethraVirgin", String.valueOf(this.penis.orificeUrethra.virgin));
 			Element urethraModifiers = doc.createElement("urethraModifiers");
 			bodyPenis.appendChild(urethraModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.penis.orificeUrethra.hasOrificeModifier(om)));
+			}
+			Element urethraFluidStoredList = doc.createElement("urethraFluidStoredList");
+			bodyPenis.appendChild(urethraFluidStoredList);
+			for(FluidStored fl : this.penis.orificeUrethra.fluidsStored) {
+				fl.saveAsXML(urethraFluidStoredList, doc);
 			}
 			
 		Element bodyTesticle = doc.createElement("testicles");
@@ -656,6 +626,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "plasticity", String.valueOf(this.vagina.orificeVagina.plasticity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "capacity", String.valueOf(this.vagina.orificeVagina.capacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(this.vagina.orificeVagina.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "ingestionRate", String.valueOf(this.vagina.orificeVagina.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyVagina, "virgin", String.valueOf(this.vagina.orificeVagina.virgin));
 			CharacterUtils.addAttribute(doc, bodyVagina, "squirter", String.valueOf(this.vagina.orificeVagina.squirter));
 			Element vaginaModifiers = doc.createElement("vaginaModifiers");
@@ -663,16 +634,27 @@ public class Body implements Serializable, XMLSaving {
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, vaginaModifiers, om.toString(), String.valueOf(this.vagina.orificeVagina.hasOrificeModifier(om)));
 			}
+			Element vaginaFluidStoredList = doc.createElement("vaginaFluidStoredList");
+			bodyVagina.appendChild(vaginaFluidStoredList);
+			for(FluidStored fl : this.vagina.orificeVagina.fluidsStored) {
+				fl.saveAsXML(vaginaFluidStoredList, doc);
+			}
 
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraElasticity", String.valueOf(this.vagina.orificeUrethra.elasticity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraPlasticity", String.valueOf(this.vagina.orificeUrethra.plasticity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraCapacity", String.valueOf(this.vagina.orificeUrethra.capacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraStretchedCapacity", String.valueOf(this.vagina.orificeUrethra.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "urethraIngestionRate", String.valueOf(this.vagina.orificeUrethra.ingestionRate));
 			CharacterUtils.addAttribute(doc, bodyVagina, "urethraVirgin", String.valueOf(this.vagina.orificeUrethra.virgin));
 			urethraModifiers = doc.createElement("urethraModifiers");
 			bodyVagina.appendChild(urethraModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
 				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.vagina.orificeUrethra.hasOrificeModifier(om)));
+			}
+			urethraFluidStoredList = doc.createElement("urethraFluidStoredList");
+			bodyVagina.appendChild(urethraFluidStoredList);
+			for(FluidStored fl : this.vagina.orificeVagina.fluidsStored) {
+				fl.saveAsXML(urethraFluidStoredList, doc);
 			}
 			
 		this.vagina.girlcum.saveAsXML(parentElement, doc);
@@ -766,7 +748,10 @@ public class Body implements Serializable, XMLSaving {
 				Integer.valueOf(anus.getAttribute("elasticity")),
 				Integer.valueOf(anus.getAttribute("plasticity")),
 				Boolean.valueOf(anus.getAttribute("virgin")));
-		
+
+		if (anus.hasAttribute("ingestionRate")){
+			importedAss.anus.orificeAnus.ingestionRate = Integer.valueOf(anus.getAttribute("ingestionRate"));
+		}
 		importedAss.hipSize = Integer.valueOf(ass.getAttribute("hipSize"));
 		
 		importedAss.anus.orificeAnus.stretchedCapacity = (Float.valueOf(anus.getAttribute("stretchedCapacity")));
@@ -790,6 +775,7 @@ public class Body implements Serializable, XMLSaving {
 					+ "<br/>elasticity: "+importedAss.anus.orificeAnus.plasticity
 					+ "<br/>capacity: "+importedAss.anus.orificeAnus.capacity
 					+ "<br/>stretchedCapacity: "+importedAss.anus.orificeAnus.stretchedCapacity
+					+ "<br/>ingestionRate: "+importedAss.anus.orificeAnus.ingestionRate
 					+ "<br/>virgin: "+importedAss.anus.orificeAnus.virgin
 					+ "<br/>bleached: "+importedAss.anus.bleached
 					+ "<br/>assHair: "+importedAss.anus.assHair
@@ -798,6 +784,8 @@ public class Body implements Serializable, XMLSaving {
 			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
 			anusModifiers.clear();
 			handleLoadingOfModifiers(OrificeModifier.values(), log, anusModifiersElement, anusModifiers);
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+            loadFluidsIfPresent(anus, importedAss.anus.orificeAnus, "anusFluidStoredList", log, doc);
 		}
 		
 
@@ -841,7 +829,9 @@ public class Body implements Serializable, XMLSaving {
 			importedBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
 		} catch(Exception ex) {
 		}
-		
+		if (breasts.hasAttribute("ingestionRate")){
+			importedBreast.nipples.orificeNipples.ingestionRate = Integer.valueOf(breasts.getAttribute("ingestionRate"));
+		}
 		importedBreast.nipples.orificeNipples.stretchedCapacity = (Float.valueOf(nipples.getAttribute("stretchedCapacity")));
 		importedBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
 		importedBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
@@ -858,6 +848,7 @@ public class Body implements Serializable, XMLSaving {
 				+ "<br/>plasticity: "+importedBreast.nipples.orificeNipples.getPlasticity()
 				+ "<br/>capacity: "+importedBreast.nipples.orificeNipples.getRawCapacityValue()
 				+ "<br/>stretchedCapacity: "+importedBreast.nipples.orificeNipples.getStretchedCapacity()
+				+ "<br/>ingestionRate: "+importedBreast.nipples.orificeNipples.getIngestionRate()
 				+ "<br/>virgin: "+importedBreast.nipples.orificeNipples.isVirgin()
 				+ "<br/>pierced: "+importedBreast.nipples.isPierced()
 				+ "<br/>nippleSize: "+importedBreast.nipples.getNippleSize()
@@ -871,7 +862,9 @@ public class Body implements Serializable, XMLSaving {
 		Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
 		nippleOrificeModifiers.clear();
 		handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
-		
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+        loadFluidsIfPresent(nipples, importedBreast.nipples.orificeNipples, "nippleFluidStoredList", log, doc);
+
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
 		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType());
@@ -957,6 +950,9 @@ public class Body implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 		importedFace.mouth.orificeMouth.stretchedCapacity = (Float.valueOf(mouth.getAttribute("stretchedCapacity")));
+		if (mouth.hasAttribute("ingestionRate")){
+			importedFace.mouth.orificeMouth.ingestionRate = (Integer.valueOf(mouth.getAttribute("ingestionRate")));
+		}
 		importedFace.mouth.orificeMouth.virgin = (Boolean.valueOf(mouth.getAttribute("virgin")));
 		importedFace.mouth.piercedLip = (Boolean.valueOf(mouth.getAttribute("piercedLip")));
 		
@@ -965,6 +961,7 @@ public class Body implements Serializable, XMLSaving {
 				+ "<br/>plasticity: "+importedFace.mouth.orificeMouth.getPlasticity()
 				+ "<br/>capacity: "+importedFace.mouth.orificeMouth.getCapacity()
 				+ "<br/>stretchedCapacity: "+importedFace.mouth.orificeMouth.getStretchedCapacity()
+				+ "<br/>ingestionRate: "+importedFace.mouth.orificeMouth.getIngestionRate()
 				+ "<br/>virgin: "+importedFace.mouth.orificeMouth.isVirgin()
 				+ "<br/>piercedLip: "+importedFace.mouth.isPiercedLip()
 				+ "<br/>lipSize: "+importedFace.mouth.getLipSize()
@@ -975,6 +972,8 @@ public class Body implements Serializable, XMLSaving {
 		Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
 		mouthOrificeModifiers.clear();
 		handleLoadingOfModifiers(OrificeModifier.values(), log, mouthModifiersElement, mouthOrificeModifiers);
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+        loadFluidsIfPresent(mouth, importedFace.mouth.orificeMouth, "mouthFluidStoredList", log, doc);
 
 		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
 			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
@@ -1142,6 +1141,9 @@ public class Body implements Serializable, XMLSaving {
 		importedPenis.orificeUrethra.plasticity = (Integer.valueOf(penis.getAttribute("plasticity")));
 		importedPenis.orificeUrethra.capacity = (Float.valueOf(penis.getAttribute("capacity")));
 		importedPenis.orificeUrethra.stretchedCapacity = (Float.valueOf(penis.getAttribute("stretchedCapacity")));
+		if(penis.hasAttribute("ingestionRate")){
+			importedPenis.orificeUrethra.ingestionRate = (Integer.valueOf(penis.getAttribute("ingestionRate")));
+		}
 		if(!penis.getAttribute("urethraVirgin").isEmpty()) {
 			importedPenis.orificeUrethra.virgin = (Boolean.valueOf(penis.getAttribute("urethraVirgin")));
 		} else {
@@ -1153,6 +1155,7 @@ public class Body implements Serializable, XMLSaving {
 				+ "<br/>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
 				+ "<br/>capacity: "+importedPenis.orificeUrethra.getCapacity()
 				+ "<br/>stretchedCapacity: "+importedPenis.orificeUrethra.getStretchedCapacity()
+				+ "<br/>ingestionRate: "+importedPenis.orificeUrethra.getIngestionRate()
 				+ "<br/>virgin: "+importedPenis.orificeUrethra.isVirgin()
 				+ "<br/>Urethra Modifiers:");
 		
@@ -1161,7 +1164,9 @@ public class Body implements Serializable, XMLSaving {
 		Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
 		urethraOrificeModifiers.clear();
 		handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, urethraOrificeModifiers);
-		
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+        loadFluidsIfPresent(penis, importedPenis.getOrificeUrethra(), "urethraFluidStoredList", log, doc);
+
 		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
 		
 		try {
@@ -1252,6 +1257,9 @@ public class Body implements Serializable, XMLSaving {
 				Integer.valueOf(vagina.getAttribute("elasticity")),
 				Integer.valueOf(vagina.getAttribute("plasticity")),
 				Boolean.valueOf(vagina.getAttribute("virgin")));
+		if (vagina.hasAttribute("ingestionRate")){
+			importedVagina.orificeVagina.ingestionRate = Integer.valueOf(vagina.getAttribute("ingestionRate"));
+		}
 		
 		try {
 			importedVagina.clitoris.girth = Integer.valueOf(vagina.getAttribute("clitGirth"));
@@ -1287,6 +1295,7 @@ public class Body implements Serializable, XMLSaving {
 				+ "<br/>plasticity: "+importedVagina.orificeVagina.getPlasticity()
 				+ "<br/>capacity: "+importedVagina.orificeVagina.getCapacity()
 				+ "<br/>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
+				+ "<br/>ingestionRate: "+importedVagina.orificeVagina.getIngestionRate()
 				+ "<br/>virgin: "+importedVagina.orificeVagina.isVirgin());
 		
 		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
@@ -1296,10 +1305,16 @@ public class Body implements Serializable, XMLSaving {
 		if(vaginaModifiers!=null) {
 			handleLoadingOfModifiers(OrificeModifier.values(), log, vaginaModifiers, vaginaOrificeModifiers);
 		}
+
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+        loadFluidsIfPresent(vagina, importedVagina.orificeVagina, "vaginaFluidStoredList", log, doc);
 		
 		try {
 			importedVagina.orificeUrethra.elasticity = (Integer.valueOf(vagina.getAttribute("urethraElasticity")));
 			importedVagina.orificeUrethra.plasticity = (Integer.valueOf(vagina.getAttribute("urethraPlasticity")));
+			if (vagina.hasAttribute("urethraIngestionRate")){
+				importedVagina.orificeUrethra.ingestionRate = (Integer.valueOf(vagina.getAttribute("urethraIngestionRate")));
+			}
 			importedVagina.orificeUrethra.capacity = (Float.valueOf(vagina.getAttribute("urethraCapacity")));
 			importedVagina.orificeUrethra.stretchedCapacity = (Float.valueOf(vagina.getAttribute("urethraStretchedCapacity")));
 			if(!vagina.getAttribute("urethraVirgin").isEmpty()) {
@@ -1313,8 +1328,11 @@ public class Body implements Serializable, XMLSaving {
 			Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
 			vaginaUrethraOrificeModifiers.clear();
 			handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, vaginaUrethraOrificeModifiers);
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Fluids:");
+            loadFluidsIfPresent(vagina, importedVagina.orificeUrethra, "urethraFluidStoredList", log, doc);
 		} catch(Exception ex) {
 		}
+
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Girlcum:");
 		
@@ -5438,6 +5456,7 @@ public class Body implements Serializable, XMLSaving {
 					vagina.getOrificeVagina().getElasticity().getValue(),
 					vagina.getOrificeVagina().getPlasticity().getValue(),
 					vagina.getOrificeVagina().isVirgin());
+			viewedVagina.getOrificeVagina().setIngestionRate(owner, vagina.getOrificeVagina().getIngestionRate().getValue());
 			viewedVagina.setPierced(owner, vagina.isPierced());
 			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive girlcum which you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" pussy to be distorted!</i> ");
 		}
@@ -6790,6 +6809,33 @@ public class Body implements Serializable, XMLSaving {
 			return false;
 		}
 		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
+	}
+
+	private static void loadFluidsIfPresent (Element sourceElement, OrificeInterface targetOrifice, String fluidStoredListName,StringBuilder log, Document doc){
+        Element fluidStoredElement = ((Element) sourceElement.getElementsByTagName(fluidStoredListName).item(0));
+        if (fluidStoredElement != null){
+            NodeList fluidStoredList = fluidStoredElement.getElementsByTagName("fluidStored");
+            for(int i=0; i<fluidStoredList.getLength(); i++){
+                Element fluid = ((Element)fluidStoredList.item(i));
+                targetOrifice.addFluidStored(FluidStored.loadFromXML(log, fluid, doc));
+            }
+        }
+    }
+
+    public void setTotalIngestionRate(IngestionRate ingestionRate){
+		Arrays.stream(SexAreaOrifice.values()).filter(sexAreaOrifice -> sexAreaOrifice.isIngestive()).forEach(sexAreaOrifice -> getOrifice(sexAreaOrifice).setIngestionRate(ingestionRate.getValue()));
+	}
+
+	public OrificeInterface getOrifice(SexAreaOrifice sexAreaOrifice){
+		switch (sexAreaOrifice) {
+			case MOUTH:   			return getFace().getMouth().getOrificeMouth();
+			case VAGINA:  			return getVagina().getOrificeVagina();
+			case ANUS:    			return getAss().getAnus().getOrificeAnus();
+			case NIPPLE:  			return getBreast().getNipples().getOrificeNipples();
+			case URETHRA_PENIS: 	return getPenis().getOrificeUrethra();
+			case URETHRA_VAGINA:	return getVagina().getOrificeUrethra();
+		}
+		return null;
 	}
 
 }

@@ -1,48 +1,26 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @since 0.1.?
  * @version 0.2.1
  * @author Innoxia
  */
-public class OrificeNipples implements OrificeInterface, Serializable {
+public class OrificeNipples extends AbstractOrifice implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	protected int elasticity;
-	protected int plasticity;
-	protected float capacity;
-	protected float stretchedCapacity;
-	protected boolean virgin;
-	protected Set<OrificeModifier> orificeModifiers;
 
 	public OrificeNipples(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
-		this.capacity = capacity;
-		stretchedCapacity = capacity;
-		this.elasticity = elasticity;
-		this.plasticity = plasticity;
-		this.virgin = virgin;
-		
-		this.orificeModifiers = new HashSet<>(orificeModifiers);
+		super(wetness, capacity, elasticity, plasticity, virgin, orificeModifiers);
+		ingestionRate = IngestionRate.TWO_AVERAGE.getValue();
 	}
-	
-	@Override
-	public Wetness getWetness(GameCharacter owner) {
-		return owner.getBreastMilkStorage().getAssociatedWetness();
-	}
+
 	
 	@Override
 	/**<b>DO NOT USE THIS. NIPPLE WETNESS IS DETERMINED BY BREAST LACTATION.</b>*/
@@ -50,16 +28,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		throw new IllegalAccessError(":BlobPeek: (Nipple wetness was attempted to be set manually!)");
 	}
 	
-	@Override
-	public Capacity getCapacity() {
-		return Capacity.getCapacityFromValue((int)capacity);
-	}
-	
-	@Override
-	public float getRawCapacityValue() {
-		return capacity;
-	}
-	
+
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		float oldCapacity = this.capacity;
@@ -147,11 +116,6 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			}
 		}
 	}
-	
-	@Override
-	public float getStretchedCapacity() {
-		return stretchedCapacity;
-	}
 
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
@@ -160,10 +124,6 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
-	@Override
-	public OrificeElasticity getElasticity() {
-		return OrificeElasticity.getElasticityFromInt(elasticity);
-	}
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
@@ -209,11 +169,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			}
 		}
 	}
-	
-	@Override
-	public OrificePlasticity getPlasticity() {
-		return OrificePlasticity.getElasticityFromInt(plasticity);
-	}
+
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
@@ -260,20 +216,44 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		}
 	}
 
-	@Override
-	public boolean isVirgin() {
-		return virgin;
-	}
 
 	@Override
-	public void setVirgin(boolean virgin) {
-		this.virgin = virgin;
+	public String setIngestionRate(GameCharacter owner, int ingestionSpeed) {
+		int oldIngestionSpeed = this.ingestionRate;
+		this.ingestionRate = Math.max(0, Math.min(ingestionSpeed, IngestionRate.FIVE_MAXIMUM.getValue()));
+		int ingestionRateChange = this.ingestionRate - oldIngestionSpeed;
+
+		if(owner==null) {
+			return "";
+		}
+
+		if (ingestionRateChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(Your ingestion rate of fluids taken through nipples doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] ingestion rate of fluids taken through nipples doesn't change...)]</p>");
+			}
+		}
+
+		String ingestionDescriptor = getIngestionRate().getDescriptor();
+		if (ingestionRateChange > 0) {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(feel)] strange warmth in [npc.her] nipples. "
+							+ "[npc.She] [npc.verb(believe)] they should be more absorbent now.<br/>"
+							+ "Now [npc.her] igestion rate for fluids taken through nipples is [style.boldSex(" + ingestionDescriptor + ")]!"
+							+ "</p>");
+
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(feel)] strange cold in [npc.her] nipples. "
+							+ "[npc.She] [npc.verb(believe)] they should be less absorbent now.<br/>"
+							+ "Now [npc.her] igestion rate for fluids taken through nipples is [style.boldSex(" + ingestionDescriptor + ")]!"
+							+ "</p>");
+		}
 	}
 
-	@Override
-	public boolean hasOrificeModifier(OrificeModifier modifier) {
-		return orificeModifiers.contains(modifier);
-	}
 
 	@Override
 	public String addOrificeModifier(GameCharacter owner, OrificeModifier modifier) {
@@ -415,8 +395,9 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
-	public Set<OrificeModifier> getOrificeModifiers() {
-		return orificeModifiers;
+	@Override
+	public float getFluidLeakPerMinute() {
+		return 4;
 	}
 
 }

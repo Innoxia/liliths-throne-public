@@ -1,24 +1,9 @@
 package com.lilithsthrone.game.character.effects;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AlcoholLevel;
-import com.lilithsthrone.game.character.attributes.ArousalLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
+import com.lilithsthrone.game.character.attributes.*;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -49,12 +34,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -64,6 +44,11 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -4838,7 +4823,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
+			float cumLost = target.getBody().getVagina().getOrificeVagina().getFluidLossPerMinute()*minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4862,30 +4847,31 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target);
+			float cumIngested = target.getBody().getVagina().getOrificeVagina().getIngestionRate().getValue();
+            float cumLeaked = target.getBody().getVagina().getOrificeVagina().getIngestionRate().getValue();
 			
-			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
+			if(target.getBody().getVagina().getOrificeVagina().isPlugged()) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used pussy.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)";
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.pussy] has recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)");
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)");
 				}
 			}
 		}
@@ -4945,7 +4931,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
+			float cumLost = target.getBody().getVagina().getOrificeUrethra().getFluidLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4969,17 +4955,18 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
+			float cumIngested = target.getBody().getVagina().getOrificeUrethra().getIngestionRate().getRate();
+			float cumLeaked = target.getBody().getVagina().getOrificeUrethra().getFluidLeakPerMinute();
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
 						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
-						+ "(-"+cumLost+"ml/minute)";
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.NamePos] pussy's urethra has recently been filled with cum.<br/>"
 						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
-						+ "(-"+cumLost+"ml/minute)");
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)");
 			}
 		}
 		
@@ -5038,7 +5025,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
+			float cumLost = target.getBody().getPenis().getOrificeUrethra().getFluidLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -5062,17 +5049,19 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
+			float cumIngested = target.getBody().getPenis().getOrificeUrethra().getIngestionRate().getRate();
+            float cumLeaked =   target.getBody().getPenis().getOrificeUrethra().getFluidLeakPerMinute();
+
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
 						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
-						+ "(-"+cumLost+"ml/minute)";
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.NamePos] cock's urethra has recently been filled with cum.<br/>"
 						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
-						+ "(-"+cumLost+"ml/minute)");
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)");
 			}
 		}
 		
@@ -5131,7 +5120,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
+			float cumLost = target.getBody().getAss().getAnus().getOrificeAnus().getFluidLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -5155,30 +5144,31 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target);
+			float cumIngested = target.getBody().getAss().getAnus().getOrificeAnus().getIngestionRate().getRate();
+            float cumLeaked = target.getBody().getAss().getAnus().getOrificeAnus().getFluidLeakPerMinute();
 
-			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
+			if(target.getBody().getAss().getAnus().getOrificeAnus().isPlugged()) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used asshole.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used asshole.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)";
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.asshole] has recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)");
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)");
 				}
 			}
 		}
@@ -5238,7 +5228,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
+			float cumLost = target.getBody().getBreast().getNipples().getOrificeNipples().getFluidLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -5262,30 +5252,31 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target);
+            float cumIngested = target.getBody().getBreast().getNipples().getOrificeNipples().getIngestionRate().getRate();
+            float cumLeaked = target.getBody().getBreast().getNipples().getOrificeNipples().getFluidLeakPerMinute();
 			
-			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
+			if(target.getBody().getBreast().getNipples().getOrificeNipples().isPlugged()) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
-							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out ("+cumIngested+"ml/minute ingested)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)";
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
 							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
-							+ "(-"+cumLost+"ml/minute)");
+                            + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute leaked)");
 				}
 			}
 		}
@@ -5353,7 +5344,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
+			float cumLost = target.getBody().getFace().getMouth().getOrificeMouth().getFluidLossPerMinute() * minutesPassed;
 			
 			target.drainTotalFluidsStored(SexAreaOrifice.MOUTH, cumLost);
 			
@@ -5362,14 +5353,16 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, 
+            float cumIngested = target.getBody().getFace().getMouth().getOrificeMouth().getIngestionRate().getRate();
+            float cumLeaked = target.getBody().getFace().getMouth().getOrificeMouth().getFluidLeakPerMinute();
+			return UtilText.parse(target,
 					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
 					?"[npc.NamePos] recently swallowed a load of cum.<br/>"
 						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-2ml/minute)"
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute drooling out)"
 					:"[npc.NamePos] recently swallowed some sexual fluids.<br/>"
 						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-2ml/minute)");
+                        + "("+cumIngested+"ml/minute ingested, "+cumLeaked+"ml/minute drooling out)");
 		}
 		
 		@Override
@@ -12106,4 +12099,6 @@ public enum StatusEffect {
 	private static boolean isCumEffectPositive(GameCharacter target) {
 		return target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_CUM_ADDICT);
 	}
+
+
 }

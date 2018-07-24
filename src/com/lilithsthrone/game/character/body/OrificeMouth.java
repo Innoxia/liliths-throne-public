@@ -1,45 +1,21 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
-public class OrificeMouth implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	protected int wetness;
-	protected int elasticity;
-	protected int plasticity;
-	protected float capacity;
-	protected float stretchedCapacity;
-	protected boolean virgin;
-	protected Set<OrificeModifier> orificeModifiers;
+import java.io.Serializable;
+import java.util.Collection;
 
-	public OrificeMouth(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
-		this.wetness = wetness;
-		this.capacity = capacity;
-		stretchedCapacity = capacity;
-		this.elasticity = elasticity;
-		this.plasticity = plasticity;
-		this.virgin = virgin;
-		
-		this.orificeModifiers = new HashSet<>(orificeModifiers);
+public class OrificeMouth extends AbstractOrifice implements OrificeInterface, Serializable {
+	private static final long serialVersionUID = 1L;
+
+	public OrificeMouth(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+		super(wetness, capacity, elasticity, plasticity, virgin, orificeModifiers);
+		ingestionRate = IngestionRate.FOUR_RAPID.getValue();
 	}
 	
-	@Override
-	public Wetness getWetness(GameCharacter owner) {
-		return Wetness.valueOf(wetness);
-	}
 
 	@Override
 	public String setWetness(GameCharacter owner, int wetness) {
@@ -86,15 +62,6 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 	}
 
-	@Override
-	public Capacity getCapacity() {
-		return Capacity.getCapacityFromValue((int)capacity);
-	}
-
-	@Override
-	public float getRawCapacityValue() {
-		return capacity;
-	}
 
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
@@ -144,10 +111,6 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 	}
 	
-	@Override
-	public float getStretchedCapacity() {
-		return stretchedCapacity;
-	}
 
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
@@ -156,10 +119,6 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
-	@Override
-	public OrificeElasticity getElasticity() {
-		return OrificeElasticity.getElasticityFromInt(elasticity);
-	}
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
@@ -206,10 +165,6 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 	}
 	
-	@Override
-	public OrificePlasticity getPlasticity() {
-		return OrificePlasticity.getElasticityFromInt(plasticity);
-	}
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
@@ -256,27 +211,51 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 	}
 
-	@Override
-	public boolean isVirgin() {
-		return virgin;
-	}
 
 	@Override
-	public void setVirgin(boolean virgin) {
-		this.virgin = virgin;
+	public String setIngestionRate(GameCharacter owner, int ingestionRate) {
+		int oldIngestionRate = this.ingestionRate;
+		this.ingestionRate = Math.max(0, Math.min(ingestionRate, IngestionRate.FIVE_MAXIMUM.getValue()));
+		int ingestionRateChange = this.ingestionRate - oldIngestionRate;
+
+		if(owner==null) {
+			return "";
+		}
+
+		if (ingestionRateChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(Your ingestion rate of fluids taken orally doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] ingestion rate of fluids taken orally doesn't change...)]</p>");
+			}
+		}
+
+		String ingestionDescriptor = getIngestionRate().getVerb();
+		if (ingestionRateChange > 0) {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.NamePos] stomach gurgles for a while and after it settles [npc.she] [npc.verb(let)] out a quiet [npc.verb(burp)]. "
+							+ "[npc.She] [npc.verb(feel)] like it should be working harder now.<br/>"
+							+ "Now [npc.she] [style.boldSex(" + ingestionDescriptor + ")] [npc.verb(digest)] fluids taken orally."
+							+ "</p>");
+
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(feel)] heaviness and unpleasang bloating sensation in [npc.her] stomach, "
+							+ "but it quickly passes and [npc.she] [npc.has] impression that it doesn't digest as fast as before.<br/>"
+							+ "Now [npc.she] [style.boldSex(" + ingestionDescriptor + ")] [npc.verb(digest)] fluids taken orally."
+							+ "</p>");
+		}
 	}
 
-	@Override
-	public boolean hasOrificeModifier(OrificeModifier modifier) {
-		return orificeModifiers.contains(modifier);
-	}
 
 	@Override
 	public String addOrificeModifier(GameCharacter owner, OrificeModifier modifier) {
 		if(hasOrificeModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
-		
+
 		orificeModifiers.add(modifier);
 		
 		switch(modifier) {
@@ -411,8 +390,9 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
-	public Set<OrificeModifier> getOrificeModifiers() {
-		return orificeModifiers;
+	@Override
+	public float getFluidLeakPerMinute() {
+		return 2;
 	}
 
 }

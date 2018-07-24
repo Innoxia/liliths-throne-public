@@ -1,51 +1,26 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @since 0.1.?
  * @version 0.2.4
  * @author Innoxia
  */
-public class OrificeVagina implements OrificeInterface, Serializable {
+public class OrificeVagina extends AbstractOrifice implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	protected int wetness;
-	protected int elasticity;
-	protected int plasticity;
-	protected float capacity;
-	protected float stretchedCapacity;
-	protected boolean virgin;
-	protected Set<OrificeModifier> orificeModifiers;
-	protected boolean squirter;
+
+	boolean squirter;
 
 	public OrificeVagina(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
-		this.wetness = wetness;
-		this.capacity = capacity;
-		stretchedCapacity = capacity;
-		this.elasticity = elasticity;
-		this.plasticity = plasticity;
-		this.virgin = virgin;
-		squirter = wetness > Wetness.THREE_WET.getValue();
-		
-		this.orificeModifiers = new HashSet<>(orificeModifiers);
-	}
-	
-	@Override
-	public Wetness getWetness(GameCharacter owner) {
-		return Wetness.valueOf(wetness);
+		super(wetness, capacity, elasticity, plasticity, virgin, orificeModifiers);
+		ingestionRate = IngestionRate.TWO_AVERAGE.getValue();
 	}
 
 	@Override
@@ -112,16 +87,6 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 	}
 
 	@Override
-	public Capacity getCapacity() {
-		return Capacity.getCapacityFromValue((int)capacity);
-	}
-
-	@Override
-	public float getRawCapacityValue() {
-		return capacity;
-	}
-
-	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		if (!owner.hasVagina()) {
 			if(owner.isPlayer()) {
@@ -177,23 +142,6 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 			}
 		}
 	}
-	
-	@Override
-	public float getStretchedCapacity() {
-		return stretchedCapacity;
-	}
-
-	@Override
-	public boolean setStretchedCapacity(float stretchedCapacity) {
-		float oldStretchedCapacity = this.stretchedCapacity;
-		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
-		return oldStretchedCapacity != this.stretchedCapacity;
-	}
-
-	@Override
-	public OrificeElasticity getElasticity() {
-		return OrificeElasticity.getElasticityFromInt(elasticity);
-	}
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
@@ -238,11 +186,6 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 						+ "</p>");
 			}
 		}
-	}
-	
-	@Override
-	public OrificePlasticity getPlasticity() {
-		return OrificePlasticity.getElasticityFromInt(plasticity);
 	}
 
 	@Override
@@ -290,20 +233,44 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		}
 	}
 
-	@Override
-	public boolean isVirgin() {
-		return virgin;
-	}
 
 	@Override
-	public void setVirgin(boolean virgin) {
-		this.virgin = virgin;
+	public String setIngestionRate(GameCharacter owner, int ingestionRate) {
+		int oldIngestionSpeed = this.ingestionRate;
+		this.ingestionRate = Math.max(0, Math.min(ingestionRate, IngestionRate.FIVE_MAXIMUM.getValue()));
+		int ingestionRateChange = this.ingestionRate - oldIngestionSpeed;
+
+		if(owner==null) {
+			return "";
+		}
+
+		if (ingestionRateChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(Your ingestion rate of fluids taken vaginally doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] ingestion rate of fluids taken vaginally doesn't change...)]</p>");
+			}
+		}
+
+		String ingestionDescriptor = getIngestionRate().getDescriptor();
+		if (ingestionRateChange > 0) {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(feel)] strange warmth in [npc.her] vagina. "
+							+ "[npc.She] [npc.verb(believe)] it should be more absorbent now.<br/>"
+							+ "Now [npc.her] igestion rate for fluids taken vaginally is [style.boldSex(" + ingestionDescriptor + ")]!"
+							+ "</p>");
+
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(feel)] strange cold in [npc.her] vagina. "
+							+ "[npc.She] [npc.verb(believe)] it should be less absorbent now.<br/>"
+							+ "Now [npc.her] igestion rate for fluids taken vaginally is [style.boldSex(" + ingestionDescriptor + ")]!"
+							+ "</p>");
+		}
 	}
 
-	@Override
-	public boolean hasOrificeModifier(OrificeModifier modifier) {
-		return orificeModifiers.contains(modifier);
-	}
 
 	@Override
 	public String addOrificeModifier(GameCharacter owner, OrificeModifier modifier) {
@@ -446,12 +413,6 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
-	public Set<OrificeModifier> getOrificeModifiers() {
-		return orificeModifiers;
-	}
-	
-
-
 	public boolean isSquirter() {
 		return squirter;
 	}
@@ -484,4 +445,8 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		}
 	}
 
+	@Override
+	public float getFluidLeakPerMinute() {
+		return 4;
+	}
 }
