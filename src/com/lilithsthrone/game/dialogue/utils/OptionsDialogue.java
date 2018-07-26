@@ -724,9 +724,9 @@ public class OptionsDialogue {
 					+ "<tr style='height:8px;'></tr>"
 
 					+ getKeybindTableRow(KeyboardAction.MOVE_NORTH)
-					+ getKeybindTableRow(KeyboardAction.MOVE_EAST)
-					+ getKeybindTableRow(KeyboardAction.MOVE_SOUTH)
 					+ getKeybindTableRow(KeyboardAction.MOVE_WEST)
+					+ getKeybindTableRow(KeyboardAction.MOVE_SOUTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_EAST)
 					+ "<tr style='height:8px;'></tr>"
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_1)
