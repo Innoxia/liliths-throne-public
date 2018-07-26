@@ -751,6 +751,12 @@ public class OptionsDialogue {
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_TAB)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_TAB)
+					+ "<tr style='height:8px;'></tr>"
+
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_NORTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_WEST)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_SOUTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_EAST)
 					+ "</table>"
 					+ "</p>";
 		}
