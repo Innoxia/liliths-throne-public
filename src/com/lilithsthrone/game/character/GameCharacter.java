@@ -2308,13 +2308,11 @@ public abstract class GameCharacter implements XMLSaving {
 			String imageString = "";
 			int width = 200;
 			int percentageWidth = 33;
-			try {
-				CachedImage image = ImageCache.INSTANCE.getImage(artwork.getCurrentImage());
+			CachedImage image = ImageCache.INSTANCE.getImage(artwork.getCurrentImage());
+			if (image != null) {
 				imageString = image.getImageString();
 				width = image.getWidth();
 				percentageWidth = image.getPercentageWidth();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 
 			boolean revealed = isImageRevealed();

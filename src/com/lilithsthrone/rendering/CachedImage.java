@@ -20,29 +20,35 @@ public class CachedImage {
 	/**
 	 * Load an image from the given file path into a reusable string.
 	 * @param f A File containing the path to a .jpg or .png image
-	 * @throws IOException
+	 * @return True if the image was successfully loaded, false otherwise
 	 */
-	public void load(File f) throws IOException, NullPointerException {
-		// Load the image
-		BufferedImage image = ImageIO.read(f);
-		width = image.getWidth();
-		height = image.getHeight();
-		if(height == width) {
-			percentageWidth = 45;
-		} else if(height < width) {
-			percentageWidth = 65;
+	public boolean load(File f) {
+		try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream()) {
+			// Load the image
+			BufferedImage image = ImageIO.read(f);
+			width = image.getWidth();
+			height = image.getHeight();
+			if(height == width) {
+				percentageWidth = 45;
+			} else if(height < width) {
+				percentageWidth = 65;
+			}
+
+			// Resize image
+			int[] targetSize = getAdjustedSize(600, 600);
+			image = scaleDown(image, targetSize[0], targetSize[1]);
+			width = image.getWidth();
+			height = image.getHeight();
+
+			// Convert to string
+			ImageIO.setUseCache(false);
+			ImageIO.write(image, f.getName().endsWith(".jpg") ? "JPG" : "PNG", byteStream);
+			imageString = "data:image/png;base64," + Base64.getEncoder().encodeToString(byteStream.toByteArray());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
-
-		// Resize image
-		int[] targetSize = getAdjustedSize(600, 600);
-		image = scaleDown(image, targetSize[0], targetSize[1]);
-		width = image.getWidth();
-		height = image.getHeight();
-
-		// Convert to string
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		ImageIO.write(image, f.getName().endsWith(".jpg") ? "JPG" : "PNG", byteStream);
-		imageString = "data:image/png;base64," + Base64.getEncoder().encodeToString(byteStream.toByteArray());
+		return true;
 	}
 
 	/**

@@ -46,13 +46,7 @@ public enum ImageCache {
 				break;
 			}
 
-			try {
-				getImage(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (NullPointerException e) {
-				// Early shutdown, just ignore it
-			}
+			getImage(f);
 		}
 	});
 
@@ -88,15 +82,14 @@ public enum ImageCache {
 	/**
 	 * Retrieves an image. If the image isn't in the cache, load it immediately and block the caller until it is ready.
 	 * @param f A File containing the path to the image
-	 * @return A CachedImage object containing the image string
-	 * @throws IOException Forwarded exception if the image can not be loaded
+	 * @return A CachedImage object containing the image string or null if the image failed to load
 	 */
-	public CachedImage getImage(File f) throws IOException {
+	public CachedImage getImage(File f) {
 		CachedImage image = cache.get(f);
 		if (image == null) {
 			image = new CachedImage();
-			image.load(f);
-			cache.put(f, image);
+			if (image.load(f)) cache.put(f, image);
+			else return null;
 		}
 		return image;
 	}
