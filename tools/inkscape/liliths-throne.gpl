@@ -1,0 +1,24 @@
+GIMP Palette
+Name: Lilith's Throne
+Columns: 1
+# black, white
+255 255 255 White
+0 0 0	Black
+# Primary
+244	215	215	Primary 1
+233 175 175	Primary 2
+222 135 135	Primary 3
+211	95  95	Primary 4
+200 55	55 	Primary 5
+# Secondary
+244 227 215	Secondary 1
+233 198 175	Secondary 2
+222 170 135	Secondary 3
+211 141	95	Secondary 4
+200	113	55	Secondary 5
+# Tertiary
+244 238 215	Tertiary 1
+233 221 175	Tertiary 2
+222 205 135	Tertiary 3
+211 188 95	Tertiary 4
+200 171 55	Tertiary 5
