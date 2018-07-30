@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -77,10 +78,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Builder;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
@@ -1495,7 +1492,7 @@ public class Body implements Serializable, XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
 								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
+						+" Standing at full height, you measure [pc.heightValue].");
 		} else {
 			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("<p>"
@@ -1504,18 +1501,18 @@ public class Body implements Serializable, XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+						+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 			} else {
 				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+							+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 				} else {
 					sb.append("<p>"
 								+ "[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
+								+ " Standing at full height, [npc.she] measures [npc.heightValue].");
 				}
 			}
 		}
@@ -5405,22 +5402,12 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		if (isPlayer) {
-			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures less than one inch in length.");
-			} else {
-				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
-			}
+			descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+					+" clit, which measures [pc.clitSizeValue] in length.");
 			
 		} else {
-			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures less than one inch in length.");
-			} else {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
-						+" clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
-			}
+			descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+					+" clit, which measures [npc.clitSizeValue] in length.");
 		}
 		
 		for(PenetrationModifier pm : PenetrationModifier.values()) {

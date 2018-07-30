@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -2097,43 +2098,16 @@ public class UtilText {
 				return character.getHeight().getDescriptor();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightCm"),
+				Util.newArrayListOfValues("heightValue"),
 				false,
 				false,
-				"",//TODO
-				"Description of method"){//TODO
+				"",
+				"Returns the character's height in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getHeightValue());
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightInches"),
-				false,
-				false,
-				"",//TODO
-				"Description of method"){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return String.valueOf(Util.conversionCentimetresToInches(character.getHeightValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightFeetInches"),
-				false,
-				false,
-				"",//TODO
-				"Description of method"){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(character.getHeightValue()));
+				return Units.size(character.getHeightValue(), Units.UnitType.LONG);
 			}
 		});
 		
@@ -4500,32 +4474,17 @@ public class UtilText {
 				return character.getPenisGirth().getName();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisCm"),
+				Util.newArrayListOfValues("penisValue"),
 				false,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
+				"Returns the localized, formatted size of the penis with long units.",
+				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(Util.conversionInchesToCentimetres(character.getPenisRawSizeValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisInches"),
-				false,
-				false,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getPenisRawSizeValue());
+				return Units.size(character.getPenisRawSizeValue(), Units.UnitType.LONG);
 			}
 		});
 		
@@ -4607,34 +4566,19 @@ public class UtilText {
 				return character.getSecondPenisSize().getDescriptor();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"secondPenisCm",
-						"penis2Cm"),
+						"secondPenisValue",
+						"penis2Value"),
 				false,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
+				"Returns the localized, formatted size of the second penis with long units.",
+				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(Util.conversionInchesToCentimetres(character.getSecondPenisRawSizeValue()));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisInches",
-						"penis2Inches"),
-				false,
-				false,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getSecondPenisRawSizeValue());
+				return Units.size(character.getSecondPenisRawSizeValue(), Units.UnitType.LONG);
 			}
 		});
 		
@@ -4814,19 +4758,19 @@ public class UtilText {
 				return character.getVaginaClitorisSize().getDescriptor();
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"clitSizeInches",
-						"clitorisSizeInches"),
+						"clitSizeValue",
+						"clitorisSizeValue"),
 				true,
 				true,
 				"",
-				"Description of method",
+				"Returns the localized, formatted size of the clitoris with long units.",
 				BodyPartType.VAGINA){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getVaginaRawClitorisSizeValue());
+				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.UnitType.LONG);
 			}
 		});
 		
