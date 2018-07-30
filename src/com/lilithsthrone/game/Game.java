@@ -153,7 +153,6 @@ public class Game implements Serializable, XMLSaving {
 		renderAttributesSection = false;
 		renderMap = false;
 		debugMode = false;
-		imperialMeasurements = false;
 
 		dialogueFlags = new DialogueFlags();
 
@@ -320,7 +319,6 @@ public class Game implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
 				CharacterUtils.addAttribute(doc, informationNode, "minutesPassed", String.valueOf(Main.game.minutesPassed));
 				CharacterUtils.addAttribute(doc, informationNode, "debugMode", String.valueOf(Main.game.debugMode));
-				CharacterUtils.addAttribute(doc, informationNode, "imperialMeasurements", String.valueOf(Main.game.imperialMeasurements));
 				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
 				CharacterUtils.addAttribute(doc, informationNode, "nextStormTime", String.valueOf(Main.game.nextStormTime));
 				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDuration", String.valueOf(Main.game.gatheringStormDuration));
@@ -485,7 +483,6 @@ public class Game implements Serializable, XMLSaving {
 				
 				Main.game.minutesPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"));
 				Main.game.debugMode = Boolean.valueOf(informationNode.getAttribute("debugMode"));
-				Main.game.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
 				Main.game.currentWeather = Weather.valueOf(informationNode.getAttribute("weather"));
 				Main.game.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
 				try {
@@ -2695,14 +2692,6 @@ public class Game implements Serializable, XMLSaving {
 
 	public void setDebugMode(boolean debugMode) {
 		this.debugMode = debugMode;
-	}
-
-	public boolean isImperialMeasurements() {
-		return imperialMeasurements;
-	}
-
-	public void setImperialMeasurements(boolean imperialMeasurements) {
-		this.imperialMeasurements = imperialMeasurements;
 	}
 
 	public Encounter getCurrentEncounter() {

@@ -25,6 +25,7 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 import java.awt.*;
@@ -315,11 +316,7 @@ public class OptionsDialogue {
 			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
 			for(File f : Main.getSavedGames()){
-				try {
-					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
-				} catch (IOException e3) {
-					e3.printStackTrace();
-				}
+				saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				i++;
 			}
 			
@@ -401,11 +398,7 @@ public class OptionsDialogue {
 			Main.getCharactersForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
 			int i = 0;
 			for(File f : Main.getCharactersForImport()){
-				try {
-					saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
-				} catch (IOException e3) {
-					e3.printStackTrace();
-				}
+				saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 			}
 			
 			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
@@ -555,6 +548,22 @@ public class OptionsDialogue {
 					+ "<br/>This option is responsible for fading in the main part of the text each time a new scene is displayed."
 					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>"
+
+					+"<p>"
+					+ "<b>Locale:</b>"
+					+ "<br/>This changes the way in which your locale and therefore the date, time and number formats are determined."
+					+ " For automatic, the system locale is used. Otherwise, you may override the formats using the following settings."
+					+ "</p>"
+
+					+"<p>"
+					+ "<b>Time:</b>"
+					+ "<br/>This toggles the time format between 12 hour (AM/PM) and 24 hour display."
+					+ "</p>"
+
+					+"<p>"
+					+ "<b>Numbers:</b>"
+					+ "<br/>This toggles the units between metric and imperial. If set manually, the english number format is used."
+					+ "</p>"
 					
 					+"<p>"
 					+ "<b>Difficulty (Currently set to "+Main.getProperties().difficultyLevel.getName()+"):</b>");
@@ -626,18 +635,59 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 5) {
-				return new Response("Fade-in: "+(Main.getProperties().hasValue(PropertyValue.fadeInText)
-								?"[style.boldGood(ON)]"
-								:"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
+				return new Response("Fade-in: " + (Main.getProperties().hasValue(PropertyValue.fadeInText)
+						? "[style.boldGood(ON)]"
+						: "[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS) {
 					@Override
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.fadeInText, !Main.getProperties().hasValue(PropertyValue.fadeInText));
-
 						Main.saveProperties();
 					}
 				};
-				
+
 			} else if (index == 6) {
+				return new Response("Locale: " + (Main.getProperties().hasValue(PropertyValue.autoLocale)
+						? "Auto" : "Manual"), "Toggle the method to determine date, time and number formats. When set to automatic, the system locale is used. Otherwise, the two following options may be used to set the desired formats.", OPTIONS) {
+					@Override
+					public void effects() {
+						// Toggle automatic locale
+						Main.getProperties().setValue(PropertyValue.autoLocale, !Main.getProperties().hasValue(PropertyValue.autoLocale));
+
+						// Update date and time format settings to reflect automatic values
+						if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+							String countryCode = Locale.getDefault().getCountry().toUpperCase();
+							Main.getProperties().setValue(PropertyValue.imperialSystem, countryCode.equals("US") || countryCode.equals("LR") || countryCode.equals("MM"));
+							List<String> twelveHourCountries = Arrays.asList("US", "UK", "PH", "CA", "AU", "NZ", "IN", "EG", "SA", "CO", "PK", "MY", "SG", "ZA");
+							Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
+						}
+
+						Main.saveProperties();
+						Units.updateFormats();
+					}
+				};
+			} else if (index == 7) {
+				// Button is disabled when auto locale is set
+				return new Response("Time: " + (Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
+						? "24 hours" : "12 hours"), "Toggle the Time format between 24 hour and 12 hour (AM/PM) display.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+						Main.saveProperties();
+						Units.INSTANCE.updateTimeFormat();
+					}
+				};
+			} else if (index == 8) {
+				// Button is disabled when auto locale is set
+				return new Response("Numbers: " + (Main.getProperties().hasValue(PropertyValue.imperialSystem)
+						? "Imperial" : "Metric"), "Toggle the number format between imperial and metric system.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
+						Main.saveProperties();
+						Units.INSTANCE.updateDateFormat();
+					}
+				};
+			} else if (index == 11) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -670,13 +720,13 @@ public class OptionsDialogue {
 					}
 				};
 				
-			} else if (index == 7) {
+			} else if (index == 12) {
 				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
 				
-			} else if (index == 8) {
+			} else if (index == 13) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
-			} else if (index == 9) {
+			} else if (index == 14) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
 			} else if (index == 0) {
