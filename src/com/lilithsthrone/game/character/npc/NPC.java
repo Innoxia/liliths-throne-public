@@ -1630,11 +1630,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// Body:
 		if(preferredGender.isFeminine()) {
 			// Want feminine bodies to be smaller than them:
-			body.setHeight(getHeightValue() - Util.random.nextInt(25));
+			body.setHeight(getHeightValue() - Util.random.nextInt(10));
 			
 		} else {
 			// Want masculine bodies to be taller than them:
-			body.setHeight(getHeightValue() + Util.random.nextInt(25));
+			body.setHeight(getHeightValue() + Util.random.nextInt(10));
 		}
 		
 		//Breasts:

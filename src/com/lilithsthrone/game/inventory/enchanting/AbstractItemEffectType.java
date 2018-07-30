@@ -293,7 +293,7 @@ public abstract class AbstractItemEffectType {
 			case TF_CORE:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						return Height.SEVEN_COLOSSAL.getMaximumValue() - Height.ZERO_TINY.getMinimumValue();
+						return Math.round(Height.SEVEN_COLOSSAL.getMaximumValue() - Height.ZERO_TINY.getMinimumValue());
 					case TF_MOD_SIZE_SECONDARY:
 						return Muscle.FOUR_RIPPED.getMaximumValue();
 					case TF_MOD_SIZE_TERTIARY:
@@ -2366,17 +2366,17 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in height.", mediumChangeMajorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in height.", mediumChangeMajorDrain, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in height.", mediumChangeDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain); } };
+								return new RacialEffectUtil("Decrease in height.", mediumChangeDrain, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in height.", mediumChangeMinorDrain, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in height.", mediumChangeMinorDrain, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in height.", mediumChangeMinorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in height.", mediumChangeMinorBoost, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in height.", mediumChangeBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost); } };
+								return new RacialEffectUtil("Increase in height.", mediumChangeBoost, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in height.", mediumChangeMajorBoost, "cm") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in height.", mediumChangeMajorBoost, " inches") { @Override public String applyEffect() { return target.incrementHeight(mediumChangeMajorBoost); } };
 						}
 					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {

@@ -940,7 +940,7 @@ public class EnforcerHQDialogue {
 
 						Main.game.getBrax().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
-						Main.game.getBrax().setHeight(175);
+						Main.game.getBrax().setHeight(69);
 						
 						Main.game.getBrax().setVaginaVirgin(true);
 
@@ -1126,7 +1126,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
 						Main.game.getBrax().setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 
-						Main.game.getBrax().setHeight(162);
+						Main.game.getBrax().setHeight(64);
 
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 						Main.game.getBrax().setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
