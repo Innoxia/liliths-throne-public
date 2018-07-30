@@ -53,6 +53,7 @@ import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
@@ -938,11 +939,8 @@ public enum RenderingEngine {
 		} else {
 			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
 		}
-		
-		uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
-								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
-							+"</p>"
+
+		uiAttributeSB.append(Units.time(Main.game.getDateNow()) + "</p>"
 					+ "</div>"
 				+ "</div>"
 				);
