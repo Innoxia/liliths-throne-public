@@ -3369,11 +3369,36 @@ public class UtilText {
 				});
 			}
 		}
-		
-		
-		
-		
-		
+
+
+		// Units
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"size"),
+				true,
+				false,
+				"",
+				"Returns the appropriate length unit in singular form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimeter";
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sizePlural",
+						"sizes"),
+				true,
+				false,
+				"",
+				"Returns the appropriate length unit in plural form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimeters";
+			}
+		});
 		
 		
 		
@@ -5233,7 +5258,7 @@ public class UtilText {
 //		engine = manager.getEngineByName("javascript");
 		
 		for(ParserTarget target : ParserTarget.values()) {
-			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
+			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC) {
 				for(String tag : target.getTags()) {
 					engine.put(tag, target.getCharacter(tag));
 				}

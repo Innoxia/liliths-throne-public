@@ -453,7 +453,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
-					"[npc2.NameIsFull] kneeling on the floor in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+					"[npc2.NameIsFull] kneeling on the floor in front of [npc.name], with [npc2.her] [npc2.face+] hovering just [unit.sizes] away from [npc.her] groin.");
 		}
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
@@ -891,7 +891,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.PET_ORAL_ON_ALL_FOURS), Sex.getCharacterInPosition(SexPositionSlot.PET_ORAL_COCKED_LEG),
-					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just inches away from [npc2.namePos] [npc2.cock+].");
+					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just [unit.sizes] away from [npc2.namePos] [npc2.cock+].");
 		}
 	},
 	
@@ -923,7 +923,7 @@ public enum SexPositionType {
 											SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
-			return "You're kneeling under Ralph's counter, with your face just inches away from his crotch.";
+			return "You're kneeling under Ralph's counter, with your face just [unit.size] away from his crotch.";
 		}
 	},
 	
@@ -1146,7 +1146,7 @@ public enum SexPositionType {
 											SexActionPresets.fingerToLowerHalf)))))) {
 		@Override
 		public String getDescription() {
-			return "You're kneeling at the feet of [npc.name], with your [pc.face+] hovering just inches away from [npc.her] groin.";
+			return "You're kneeling at the feet of [npc.name], with your [pc.face+] hovering just [unit.sizes] away from [npc.her] groin.";
 		}
 	},
 	
@@ -1521,7 +1521,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
-					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just [unit.sizes] away from [npc.her] groin.");
 		}
 	},
 	

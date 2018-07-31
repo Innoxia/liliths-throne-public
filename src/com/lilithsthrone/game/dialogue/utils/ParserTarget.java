@@ -25,6 +25,16 @@ public enum ParserTarget {
 					return Main.game.getPlayer();
 				}
 			},
+
+	UNIT(Util.newArrayListOfValues(
+			"unit",
+			"game"),
+			"Returns the same as 'pc', but should be used for unit methods such as unit.size.") {
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getPlayer();
+		}
+	},
 	
 	PC(Util.newArrayListOfValues(
 			"pc",
