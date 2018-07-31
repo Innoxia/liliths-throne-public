@@ -112,13 +112,14 @@ public enum Units {
     }
 
     /**
-     * Specifies the length of units, where NONE means that they will be omitted, SHORT means the abbreviation and LONG
-     * means the full text unit.
+     * Specifies the length of units, where NONE means that they will be omitted, SHORT means the abbreviation, LONG
+     * means the full text unit and LONG_SINGULAR means full text singular units (concatenated with "-" instead of " ".
      */
     public enum UnitType {
         NONE,
         SHORT,
-        LONG
+        LONG,
+        LONG_SINGULAR
     }
 
     /**
@@ -130,17 +131,17 @@ public enum Units {
 
     /**
      * Formats a size, given in inches, with the current number formatter and units depending on the imperial unit
-     * setting as well as the given type. For examples of the result, see {@link Units#asImperial(double, UnitType)} and
-     * {@link Units#asMetric(double, UnitType)}.
+     * setting as well as the given type. For examples of the result, see {@link Units#sizeAsImperial(double, UnitType)} and
+     * {@link Units#sizeAsMetric(double, UnitType)}.
      * @param inches Amount of inches to convert
      * @param type The desired length of the units, see {@link UnitType} for details
-     * @return A string containing the localized, wrapped, converted numbers and their associated units
+     * @return A string containing the localized, wrapped, converted size and its associated unit
      */
     public static String size(double inches, UnitType type) {
         if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return asImperial(inches, type);
+            return sizeAsImperial(inches, type);
         else
-            return asMetric(inches, type);
+            return sizeAsMetric(inches, type);
     }
 
     /**
@@ -149,11 +150,12 @@ public enum Units {
      * {@link UnitType#NONE}: 56
      * {@link UnitType#SHORT}: 4'8"
      * {@link UnitType#LONG}: 56 inches
+     * {@link UnitType#LONG_SINGULAR}: 56-inch
      * @param inches Amount of inches to format
      * @param type The desired length of the units, see {@link UnitType} for details
-     * @return A string containing the localized, formatted numbers, including units
+     * @return A string containing the imperial, formatted size, including unit
      */
-    public static String asImperial(double inches, UnitType type) {
+    public static String sizeAsImperial(double inches, UnitType type) {
         String output = "";
 
         if (type != UnitType.SHORT) {
@@ -161,6 +163,8 @@ public enum Units {
             output = number(inches);
             if (type == UnitType.LONG) {
                 output += Math.abs(inches) == 1 ? " inch" : " inches";
+            } else if (type == UnitType.LONG_SINGULAR) {
+                output += "-inch";
             }
         } else {
             // Wrap inches to feet
@@ -187,30 +191,118 @@ public enum Units {
      * {@link UnitType#NONE}: 142
      * {@link UnitType#SHORT}: 1.42 m
      * {@link UnitType#LONG}: 1.42 meters
+     * {@link UnitType#LONG_SINGULAR}: 1.42-meter
      * @param inches Amount of inches to convert
      * @param type The desired length of the units, see {@link UnitType} for details
-     * @return A string containing the localized, formatted, converted numbers, including units
+     * @return A string containing the metric, formatted, converted size, including unit
      */
-    public static String asMetric(double inches, UnitType type) {
-        // Convert to meter and centimeter
+    public static String sizeAsMetric(double inches, UnitType type) {
+        // Convert inches to centimetres
         double cm = inches * 2.54;
-        double m = cm / 100;
 
         // Don't wrap without units
         if (type == UnitType.NONE) return number(Math.round(cm));
         if (type == UnitType.LONG && (long) cm == 0) return "less than 1 centimeter";
 
         // Wrap centimeters to meters
-        String output;
-        if (m > 1 || m < -1) {
-            String mUnit = type == UnitType.SHORT ? " m" : (Math.abs(m) == 1 ? " meter" : " meters");
-            output = number(m) + mUnit;
+        double m = cm / 100;
+        return withUnit(cm, "cm", "centimeter", m, "m", "meter", type);
+    }
+
+    /**
+     * Formats a fluid volume in millilitres with short units. See {@link Units#size(double, UnitType)} for details.
+     */
+    public static String fluid(double ml) {
+        return fluid(ml, UnitType.SHORT);
+    }
+
+    /**
+     * Formats a fluid volume, given in millilitres, with the current number formatter and units depending on the
+     * imperial unit setting as well as the given type. For examples of the result, see {@link Units#fluidAsImperial(double, UnitType)}
+     * and {@link Units#fluidAsMetric(double, UnitType)}.
+     * @param ml Amount of millilitres to convert
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the localized, wrapped, converted volume and its associated unit
+     */
+    public static String fluid(double ml, UnitType type) {
+        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
+            return fluidAsImperial(ml, type);
+        else
+            return fluidAsMetric(ml, type);
+    }
+
+    /**
+     * Formats a fluid volume, given in millilitres, to the common imperial form. Note that the type {@link UnitType#NONE}
+     * does not apply wrapping and ounce values are rounded correctly, so the output for 9000 millilitres would be:
+     * {@link UnitType#NONE}: 317
+     * {@link UnitType#SHORT}: 1.98 gal
+     * {@link UnitType#LONG}: 1.98 gallons
+     * {@link UnitType#LONG_SINGULAR}: 1.98-gallon
+     * @param ml Amount of millilitres to format
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the imperial, formatted volume, including unit
+     */
+    public static String fluidAsImperial(double ml, UnitType type) {
+        // Convert millilitres to ounces
+        double oz = ml / 28.4131;
+
+        // Don't wrap without units
+        if (type == UnitType.NONE) return number(Math.round(oz));
+
+        // Wrap ounces to gallons
+        double gal = oz / 160;
+        return withUnit(oz, "oz", "ounce", gal, "gal", "gallon", type);
+    }
+
+    /**
+     * Converts a fluid volume, given in millilitres, to the common metric form. Note that the type {@link UnitType#NONE}
+     * does not apply wrapping and millilitre values are rounded correctly, so the output for 9000 millilitres would be:
+     * {@link UnitType#NONE}: 9000
+     * {@link UnitType#SHORT}: 9 l
+     * {@link UnitType#LONG}: 9 liters
+     * {@link UnitType#LONG_SINGULAR}: 9-liter
+     * @param ml Amount of millilitres to convert
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the metric, formatted, converted volume, including unit
+     */
+    public static String fluidAsMetric(double ml, UnitType type) {
+        // Don't wrap without units
+        if (type == UnitType.NONE) return number(Math.round(ml));
+
+        // Wrap millilitres to litres
+        double l = ml / 1000;
+        return withUnit(ml, "ml", "millilitre", l, "l", "litre", type);
+    }
+
+    /**
+     * Selects the appropriate unit, depending on the given values and type, and appends it to the localized value.
+     * Applies wrapping whenever the wrapped value is above 1 or below -1.
+     * @param value The base value
+     * @param shortUnit The abbreviation of the base value unit
+     * @param unit The full name of the base value unit
+     * @param wrappedValue The wrapped value
+     * @param shortWrappedUnit The abbreviation of the wrapped value unit
+     * @param wrappedUnit The full name of the wrapped value unit
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing, the localized, formatted number with the appropriate unit
+     */
+    public static String withUnit(double value, String shortUnit, String unit,
+                                   double wrappedValue, String shortWrappedUnit, String wrappedUnit,
+                                   UnitType type) {
+        String usedUnit;
+        double usedValue;
+
+        if (wrappedValue > 1 || wrappedValue < -1) {
+            usedUnit = type == UnitType.SHORT ? shortWrappedUnit
+                    : (Math.abs(wrappedValue) == 1 || type == UnitType.LONG_SINGULAR ? wrappedUnit : wrappedUnit + "s");
+            usedValue = wrappedValue;
         } else {
-            String cmUnit = type == UnitType.SHORT ? " cm" : (Math.abs(m) == 1 ? " centimeter" : " centimeters");
-            output = number(Math.round(cm)) + cmUnit;
+            usedUnit = type == UnitType.SHORT ? shortUnit
+                    : (Math.abs(value) == 1 || type == UnitType.LONG_SINGULAR ? unit : unit + "s");
+            usedValue = value;
         }
 
-        return output;
+        return number(usedValue) + (type == UnitType.LONG_SINGULAR ? "-" : " ") + usedUnit;
     }
 
     /**
