@@ -1854,10 +1854,11 @@ public class OptionsDialogue {
 							"PREGNANCY_LACTATION",
 							Colour.BASE_YELLOW,
 							"Average Pregnancy Lactation",
-							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "+Main.getProperties().pregnancyLactationIncreaseVariance+"ml of this value.",
+							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
+									+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
 							Main.getProperties().pregnancyLactationIncrease==0
 								?"[style.boldDisabled(Disabled)]"
-								:Main.getProperties().pregnancyLactationIncrease+"ml",
+								:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
 							Main.getProperties().pregnancyLactationIncrease,
 							0,
 							1000));
@@ -1867,7 +1868,7 @@ public class OptionsDialogue {
 							Colour.BASE_YELLOW_LIGHT,
 							"Pregnancy Lactation Limit",
 							"Set the maximum limit of lactation that characters will gain from pregnancies.",
-							Main.getProperties().pregnancyLactationLimit+"ml",
+							Units.fluid(Main.getProperties().pregnancyLactationLimit),
 							Main.getProperties().pregnancyLactationLimit,
 							0,
 							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));

@@ -48,6 +48,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -515,14 +516,14 @@ public class ItemEffectType {
 			target.incrementBreastStoredMilk(-milkPumped);
 			if(target.isPlayer()) {
 				return "<p>"
-							+ "It only takes a moment before the beaker is filled with "+milkPumped+"ml of your [pc.milk]."
+							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped)+" of your [pc.milk]."
 						+ "</p>"
 						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
 			
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-							+ "It only takes a moment before the beaker is filled with "+milkPumped+"ml of [npc.her] [npc.milk]."
+							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped)+" of [npc.her] [npc.milk]."
 						+ "</p>"
 						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
 			}
@@ -2672,7 +2673,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.DEMON, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2701,7 +2702,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2730,7 +2731,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2759,7 +2760,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2788,7 +2789,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2817,7 +2818,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.RAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.RAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2846,7 +2847,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.RABBIT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.RABBIT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2875,7 +2876,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.BAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.BAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2904,7 +2905,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2933,7 +2934,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2962,7 +2963,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -2991,7 +2992,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HORSE_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.HORSE_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -3020,7 +3021,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -3049,7 +3050,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.WOLF_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.WOLF_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override
@@ -3078,7 +3079,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+			return Util.newArrayListOfValues(getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 		}
 		
 		@Override

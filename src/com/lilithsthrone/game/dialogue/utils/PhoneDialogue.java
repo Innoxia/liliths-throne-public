@@ -49,12 +49,7 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.ClothingRarityComparator;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ItemRarityComparator;
-import com.lilithsthrone.utils.TreeNode;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.WeaponRarityComparator;
+import com.lilithsthrone.utils.*;
 
 /**
  * @since 0.1.0
@@ -680,8 +675,8 @@ public class PhoneDialogue {
 						Colour.TEXT, String.valueOf(character.getFemininityValue()),
 						character.getFemininity().getColour(), Util.capitaliseSentence(character.getFemininity().getName(false)),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Height (cm)",
-						Colour.TEXT, String.valueOf(character.getHeightValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Height",
+						Colour.TEXT, Units.size(character.getHeightValue()),
 						character.getHeight().getColour(), Util.capitaliseSentence(character.getHeight().getDescriptor()),
 						false)
 				+ statRow(Colour.MUSCLE_THREE, "Muscle Definition",
@@ -702,20 +697,20 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Throat Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length (inches)",
-						Colour.TEXT, String.valueOf(character.getHairRawLengthValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length",
+						Colour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue length (inches)",
-						Colour.TEXT, String.valueOf(character.getTongueLengthValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue length",
+						Colour.TEXT, Units.size(character.getTongueLengthValue()),
 						Colour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Wetness",
 						Colour.TEXT, String.valueOf(character.getFaceWetness().getValue()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceWetness().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity (inches)",
-						Colour.TEXT, String.valueOf(character.getFaceRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity",
+						Colour.TEXT, Units.size(character.getFaceRawCapacityValue()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Elasticity",
@@ -734,16 +729,16 @@ public class PhoneDialogue {
 						Colour.TEXT, String.valueOf(character.getBreastRawSizeValue()),
 						Colour.GENERIC_SEX, Util.capitaliseSentence(character.getBreastSize().getCupSizeName()),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage (mL)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getBreastRawMilkStorageValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
 						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(Math.round((character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNippleRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsNipples?"Unknown":Units.size(character.getNippleRawCapacityValue()),
 						Colour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -758,16 +753,16 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Penis Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size (inches)",
-						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size",
+						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Units.size(character.getPenisRawSizeValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getPenisSize().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Testicle Size",
 						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getTesticleSize().getValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor())),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Storage (mL)",
-						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumStorageValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Storage",
+						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Units.fluid(character.getPenisRawCumStorageValue())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getPenisCumStorage().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production Pregnancy Modifier",
@@ -786,16 +781,16 @@ public class PhoneDialogue {
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
 //				+ statHeader()
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size (inches)",
-						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size",
+						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Units.size(character.getVaginaRawClitorisSizeValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaClitorisSize().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Wetness",
 						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue())),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Units.size(character.getVaginaRawCapacityValue())),
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaCapacity().getDescriptor())),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -814,8 +809,8 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsAnus?"Unknown":String.valueOf(character.getAssWetness().getValue()),
 						Colour.GENERIC_SEX, !knowsAnus?"Unknown":Util.capitaliseSentence(character.getAssWetness().getDescriptor()),
 						false)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-						Colour.TEXT, !knowsAnus?"Unknown":String.valueOf(character.getAssRawCapacityValue()),
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity",
+						Colour.TEXT, !knowsAnus?"Unknown":Units.size(character.getAssRawCapacityValue()),
 						Colour.GENERIC_SEX, !knowsAnus?"Unknown":Util.capitaliseSentence(character.getAssCapacity().getDescriptor()),
 						true)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
@@ -1847,7 +1842,7 @@ public class PhoneDialogue {
 										+ "Average stats</p>"
 								+ "<table align='center'>"
 									+ "<tr>"
-										+ "<td>Height (cm)</td>"
+										+ "<td>Height</td>"
 										+ "<td>"+femaleBody.getHeightValue()+"</td>"
 										+ "<td>"+maleBody.getHeightValue()+"</td>"
 									+ "</tr>"
@@ -1866,7 +1861,7 @@ public class PhoneDialogue {
 													:maleBody.getBreast().getSize()+"-cup")+"</td>"
 									+ "</tr>"
 									+ "<tr>"
-										+ "<td>Penis size (inches)</td>"
+										+ "<td>Penis size</td>"
 										+ "<td>-</td>"
 										+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
 									+ "</tr>"

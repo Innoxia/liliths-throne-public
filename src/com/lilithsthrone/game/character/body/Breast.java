@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -154,7 +155,7 @@ public class Breast implements BodyPartInterface, Serializable {
 //		if (milkStorage == 0) {
 //			return " aren't producing any " + milk.getName(gc);
 //		} else {
-//			return " are producing " + getLactation().getDescriptor() + " " + milk.getName(gc) + ", totalling " + milkStorage + "mL when your breasts are full.";
+//			return " are producing " + getLactation().getDescriptor() + " " + milk.getName(gc) + ", totalling " + Units.fluid(milkStorage) + " when your breasts are full.";
 //		}
 //	}
 
@@ -653,9 +654,9 @@ public class Breast implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
-									lactationChange+"ml of your [pc.milk] squirts out of your [pc.nipples+].",
-									lactationChange+"ml of [pc.milk+] leaks out of your [pc.nipples+].",
-									lactationChange+"ml of [pc.milk+] drips out of your [pc.nipples+].")
+								Units.fluid(lactationChange)+" of your [pc.milk] squirts out of your [pc.nipples+].",
+								Units.fluid(lactationChange)+" of [pc.milk+] leaks out of your [pc.nipples+].",
+								Units.fluid(lactationChange)+" of [pc.milk+] drips out of your [pc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
 							?"<br/><i>You now have no more [pc.milk] stored in your breasts!</i>"
@@ -665,9 +666,9 @@ public class Breast implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 								+ UtilText.returnStringAtRandom(
-										lactationChange+"ml of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
-										lactationChange+"ml of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
-										lactationChange+"ml of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
+										Units.fluid(lactationChange)+" of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
+										Units.fluid(lactationChange)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
+										Units.fluid(lactationChange)+" of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
 							?"<br/><i>[npc.Name] now has no more [npc.milk] stored in [npc.her] breasts!</i>"

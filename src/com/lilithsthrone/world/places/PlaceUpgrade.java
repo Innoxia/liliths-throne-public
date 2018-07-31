@@ -17,6 +17,7 @@ import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Cell;
 
@@ -262,7 +263,7 @@ public enum PlaceUpgrade {
 						
 							milkyMilknessSB.append(
 									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+										+ "[style.colourExcellent("+ Units.fluid((entry.getValue()*1))+")]"
 									+ "</div>");
 						
 							milkyMilknessSB.append(
@@ -317,7 +318,7 @@ public enum PlaceUpgrade {
 						
 							milkyMilknessSB.append(
 									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+										+ "[style.colourExcellent("+Units.fluid((entry.getValue()*1))+")]"
 									+ "</div>");
 						
 							milkyMilknessSB.append(
@@ -371,7 +372,7 @@ public enum PlaceUpgrade {
 						
 							milkyMilknessSB.append(
 									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+										+ "[style.colourExcellent("+Units.fluid((entry.getValue()*1))+")]"
 									+ "</div>");
 						
 							milkyMilknessSB.append(

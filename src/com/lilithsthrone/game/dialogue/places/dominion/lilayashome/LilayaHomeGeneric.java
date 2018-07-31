@@ -32,6 +32,7 @@ import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -314,7 +315,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
-										+ milked+"ml of [pc.milk] added to this room's storage!"
+										+ Units.fluid(milked)+" of [pc.milk] added to this room's storage!"
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 									+ "Being milked is tiring, and you lose 25 energy!"
@@ -402,7 +403,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on shaking [pc.legs]."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
-										+ milked+"ml of [pc.cum] added to this room's storage!"
+										+ Units.fluid(milked)+" of [pc.cum] added to this room's storage!"
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 									+ "Being milked is tiring, and you lose 25 energy!"
@@ -490,7 +491,7 @@ public class LilayaHomeGeneric {
 									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on your still-quivering [pc.legs]."
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
-									+ milked+"ml of [pc.girlcum] added to this room's storage!"
+									+ Units.fluid(milked)+" of [pc.girlcum] added to this room's storage!"
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 									+ "Being milked is tiring, and you lose 25 energy!"

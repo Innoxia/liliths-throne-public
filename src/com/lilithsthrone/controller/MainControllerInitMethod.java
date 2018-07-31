@@ -1,5 +1,16 @@
 package com.lilithsthrone.controller;
 
+import java.io.File;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.lilithsthrone.utils.Units;
+import org.w3c.dom.Document;
+import org.w3c.dom.events.EventTarget;
+
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
@@ -1119,10 +1130,11 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(milkAmount>0) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+milkAmount+"ml)", "Drink "+milkAmount+"ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+ Units.fluid(milkAmount)+")", "Drink "+Units.fluid(milkAmount)+" of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
+									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1140,10 +1152,11 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getMilkStorage().get(entry.getKey())>=500) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500), "Drink " + Units.fluid(500) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"There needs to be at least " + Units.fluid(500) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1181,10 +1194,12 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getCumStorage().get(entry.getKey())>0) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+cumAmount+"ml)", "Drink "+cumAmount+"ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (" + Units.fluid(cumAmount) + ")",
+									"Drink " + Units.fluid(cumAmount) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
+									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1202,10 +1217,12 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getCumStorage().get(entry.getKey())>=500) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"Drink " + Units.fluid(500) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"There needs to be at least " + Units.fluid(500) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1243,10 +1260,12 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getGirlcumStorage().get(entry.getKey())>0) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+girlcumAmount+"ml)", "Drink "+girlcumAmount+"ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (" + Units.fluid(girlcumAmount) + ")",
+									"Drink " + Units.fluid(girlcumAmount) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
+									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1264,10 +1283,12 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getGirlcumStorage().get(entry.getKey())>=500) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"Drink " + Units.fluid(500) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"There needs to be at least " + Units.fluid(500) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}

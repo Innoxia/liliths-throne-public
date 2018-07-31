@@ -386,10 +386,6 @@ public class Util {
 	    }
 	}
 	
-	public static float getRoundedFloat(float input, int significantFigures) {
-		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
-	}
-	
 	private static String[] numbersLessThanTwenty = {
 			"zero",
 			"one",
@@ -609,23 +605,6 @@ public class Util {
 	public static String getKeyCodeCharacter(KeyCode code) {
 		String name = KEY_NAMES.get(code);
 		return name != null? name : code.getName();
-	}
-
-	public static int conversionCentimetresToInches(int cm) {
-		// System.out.println(cm + " -> "+(int)(cm/2.54f));
-		return Math.round(cm / 2.54f);
-	}
-
-	public static int conversionInchesToCentimetres(int inches) {
-		return Math.round(inches * 2.54f);
-	}
-
-	public static String centimetresToMetresAndCentimetres(int cm) {
-		return ((cm / 100) + ((cm % 100) != 0 ? ("." + cm % 100) + "m." : "m"));
-	}
-
-	public static String inchesToFeetAndInches(int inches) {
-		return ((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? "'" : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + "&quot;" : ""));
 	}
 
 	public static int conversionKilogramsToPounds(int kg) {
