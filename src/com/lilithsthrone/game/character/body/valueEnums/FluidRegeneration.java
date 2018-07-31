@@ -47,9 +47,9 @@ public enum FluidRegeneration {
 		return verb;
 	}
 	
-	public static FluidRegeneration getFluidRegenerationFromInt(int inches) {
+	public static FluidRegeneration getFluidRegenerationFromInt(int index) {
 		for(FluidRegeneration ls : FluidRegeneration.values()) {
-			if(inches == ls.getValue()) {
+			if(index == ls.getValue()) {
 				return ls;
 			}
 		}
