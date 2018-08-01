@@ -3379,10 +3379,10 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate length unit in singular form."){
+				"Returns the appropriate small length unit in singular form."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimeter";
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimetre";
 			}
 		});
 
@@ -3393,13 +3393,53 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate length unit in plural form."){
+				"Returns the appropriate small length unit in plural form."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimeters";
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimetres";
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"lSize"),
+				true,
+				false,
+				"",
+				"Returns the appropriate large length unit in singular form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"lSizePlural",
+						"lSizes"),
+				true,
+				false,
+				"",
+				"Returns the appropriate large length unit in plural form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "feet" : "metres";
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"parsedSize",
+						"convertedSize"),
+				true,
+				false,
+				"(inches to convert)",
+				"Returns the converted size to the localized form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Units.size(Double.valueOf(arguments), Units.UnitType.ROUGH_TEXT);
+			}
+		});
 		
 		
 		// Body parts:

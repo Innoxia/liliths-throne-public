@@ -119,7 +119,8 @@ public enum Units {
         NONE,
         SHORT,
         LONG,
-        LONG_SINGULAR
+        LONG_SINGULAR,
+        ROUGH_TEXT
     }
 
     /**
@@ -156,42 +157,49 @@ public enum Units {
      * @return A string containing the imperial, formatted size, including unit
      */
     public static String sizeAsImperial(double inches, UnitType type) {
-        String output = "";
+        switch (type) {
+            case NONE:
+                return number(inches);
+            case ROUGH_TEXT:
+                return roughly(inches / 12, "foot", "feet");
+            case LONG:
+            case LONG_SINGULAR:
+                if (Math.floor(inches) == 0) {
+                    return "less than 1 inch";
+                } else {
+                    String number = number(inches);
+                    if (type == UnitType.LONG) {
+                        return number + (Math.abs(inches) == 1 ? " inch" : " inches");
+                    } else {
+                        return number + "-inch";
+                    }
+                }
+            default:
+                // Wrap inches to feet
+                long feet = (long) (inches / 12);
+                double inch = inches % 12;
 
-        if (type != UnitType.SHORT) {
-            // Don't wrap with long or no units
-            output = number(inches);
-            if (type == UnitType.LONG) {
-                output += Math.abs(inches) == 1 ? " inch" : " inches";
-            } else if (type == UnitType.LONG_SINGULAR) {
-                output += "-inch";
-            }
-        } else {
-            // Wrap inches to feet
-            long feet = (long) (inches / 12);
-            double inch = inches % 12;
+                String output = "";
+                if (feet != 0) {
+                    output = number(feet) + "&#39;";
+                }
 
-            if (feet != 0) {
-                output = number(feet) + "&#39;";
-            }
-
-            if (inch != 0) {
-                output += number(output.isEmpty() ? inch : Math.abs(inch)) + "&quot;";
-            } else if (feet == 0) {
-                output = type == UnitType.LONG ? "less than 1 inch" : "0&quot;";
-            }
+                if (inch != 0) {
+                    output += number(output.isEmpty() ? inch : Math.abs(inch)) + "&quot;";
+                } else if (feet == 0) {
+                    output = "0&quot;";
+                }
+                return output;
         }
-
-        return output;
     }
 
     /**
      * Converts a size, given in inches, to the common metric form. Note that the type {@link UnitType#NONE} does not
-     * apply wrapping and centimeter values are rounded correctly, so the output for 56 inches would be:
+     * apply wrapping and centimetre values are rounded correctly, so the output for 56 inches would be:
      * {@link UnitType#NONE}: 142
      * {@link UnitType#SHORT}: 1.42 m
-     * {@link UnitType#LONG}: 1.42 meters
-     * {@link UnitType#LONG_SINGULAR}: 1.42-meter
+     * {@link UnitType#LONG}: 1.42 metres
+     * {@link UnitType#LONG_SINGULAR}: 1.42-metre
      * @param inches Amount of inches to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted, converted size, including unit
@@ -356,6 +364,22 @@ public enum Units {
     }
 
     /**
+     * Converts the given value to text and appends the given unit (in plural form, if necessary). Values above 10 are
+     * rounded to the nearest multiple of 5.
+     * @param value The number to convert
+     * @param unit The unit to append
+     * @param units The plural unit to append
+     * @return A string containing the rounded number as text with the appropriate unit
+     */
+    public static String roughly(double value, String unit, String units) {
+        if (value < 1) return "less than one " + unit;
+        if (value >= 1995) return "thousands of " + units;
+
+        long usedValue = value < 10 ? Math.round(value) : Math.round(value / 5) * 5;
+        return text((int) usedValue) + " " + (Math.abs(value) > 1 ? units : unit);
+    }
+
+    /**
      * Rounds a given number to a given amount of fractional places.
      * @param value Number to round
      * @param places Amount of fractional places
@@ -365,4 +389,31 @@ public enum Units {
         if (places < 0) throw new IllegalArgumentException("Amount of fractional places cannot be less than 0.");
         return BigDecimal.valueOf(value).setScale(places, BigDecimal.ROUND_HALF_UP).floatValue();
     }
+
+    /**
+     * Converts a given number to text.
+     * @param number The value to convert, must be between 0 and 2000
+     * @return A string containing the full text number
+     */
+    public static String text(int number) {
+        if (number >= 2000 || number <= 0) throw new IllegalArgumentException("ROUGH_TEXT can only handle values between 0 and 2000.");
+
+        String output;
+        if (number % 100 < 20) {
+            output = ones[number % 100];
+            number /= 100;
+        } else {
+            output = ones[number % 10];
+            number /= 10;
+            output = tens[number % 10] + output;
+            number /= 10;
+        }
+
+        if (number == 0) return output.trim();
+        return (ones[number] + " hundred" + output).trim();
+    }
+
+    private static final String[] tens = {""," ten"," twenty"," thirty"," forty"," fifty"," sixty"," seventy"," eighty"," ninety"};
+    private static final String[] ones = {"", " one", " two", " three", " four", " five", " six", " seven", " eight", " nine",
+            " ten", " eleven", " twelve", " thirteen", " fourteen", " fifteen", " sixteen", " seventeen", " eighteen", " nineteen"};
 }

@@ -615,7 +615,7 @@ public class CityPlaces {
 					+ "<p>"
 						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
 						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
-						+ " On top of a plinth of at least thirty metres in height, stands a gigantic marble statue of Lilith herself;"
+						+ " On top of a plinth of at least [unit.convertedSize(1181)] in height, stands a gigantic marble statue of Lilith herself;"
 							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
 						+ " Completely naked, every [unit.size] of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
 					+ "</p>");
