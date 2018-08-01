@@ -673,7 +673,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
 						Main.saveProperties();
-						Units.INSTANCE.updateTimeFormat();
+						Units.FORMATTER.updateTimeFormat();
 					}
 				};
 			} else if (index == 8) {
@@ -684,7 +684,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
 						Main.saveProperties();
-						Units.INSTANCE.updateDateFormat();
+						Units.FORMATTER.updateDateFormat();
 					}
 				};
 			} else if (index == 11) {

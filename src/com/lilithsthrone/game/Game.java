@@ -599,7 +599,7 @@ public class Game implements Serializable, XMLSaving {
 				
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 
-				// Convert size from centimeters to inches
+				// Convert size from centimetres to inches
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.9.1")) { // FIXME change version after merging
 					Main.game.player.setHeight(Units.round(Main.game.player.getHeightValue() / 2.54, 1));
 				}
@@ -649,7 +649,7 @@ public class Game implements Serializable, XMLSaving {
 								CharacterUtils.generateDesires(npc);
 							}
 
-							// Convert size from centimeters to inches
+							// Convert size from centimetres to inches
 							if(Main.isVersionOlderThan(loadingVersion, "0.2.9.1")) { // FIXME change version after merging
 								npc.setHeight(Units.round(npc.getHeightValue() / 2.54, 1));
 							}

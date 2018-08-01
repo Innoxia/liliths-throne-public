@@ -607,14 +607,6 @@ public class Util {
 		return name != null? name : code.getName();
 	}
 
-	public static int conversionKilogramsToPounds(int kg) {
-		return Math.round(kg * 2.20462268f);
-	}
-
-	public static String poundsToStoneAndPounds(int pounds) {
-		return ((((pounds) / 14) == 0 ? "" : (pounds) / 14) + (((pounds) / 12) > 0 ? "st." : "") + (((pounds) % 14) == 0 ? "" : " ") + (((pounds) % 14) != 0 ? ((pounds) % 14) + "lb" : ""));
-	}
-
 	public static String capitaliseSentence(String sentence) {
 		if(sentence==null || sentence.isEmpty()) {
 			return sentence;

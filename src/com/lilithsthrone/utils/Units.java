@@ -20,11 +20,11 @@ import java.util.Locale;
  * @author Addi
  */
 public enum Units {
-    INSTANCE;
+    FORMATTER;
 
-    DateTimeFormatter dateFormat;
-    DateTimeFormatter timeFormat;
-    NumberFormat numberFormat;
+    DateTimeFormatter date;
+    DateTimeFormatter time;
+    NumberFormat number;
 
     Units() {
         updateDateFormat();
@@ -36,7 +36,7 @@ public enum Units {
      * Resets the date formatter depending on the system locale (if automatic) or the imperial number flag (if manual).
      */
     public void updateDateFormat() {
-        dateFormat = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+        date = (Main.getProperties().hasValue(PropertyValue.autoLocale)
                 ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
@@ -46,7 +46,7 @@ public enum Units {
      * Resets the time formatter depending on the system locale (if automatic) or the 24 hour time flag (if manual).
      */
     public void updateTimeFormat() {
-        timeFormat = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+        time = (Main.getProperties().hasValue(PropertyValue.autoLocale)
                 ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm" : "hh:mm a"))
                 .withZone(ZoneId.systemDefault());
@@ -57,18 +57,18 @@ public enum Units {
      * In all cases, output numbers are rounded correctly to the 2nd fraction digit.
      */
     public void updateNumberFormat() {
-        numberFormat = NumberFormat.getNumberInstance(Main.getProperties().hasValue(PropertyValue.autoLocale) ? Locale.getDefault() : Locale.ENGLISH);
-        numberFormat.setRoundingMode(RoundingMode.HALF_UP);
-        numberFormat.setMaximumFractionDigits(2);
+        number = NumberFormat.getNumberInstance(Main.getProperties().hasValue(PropertyValue.autoLocale) ? Locale.getDefault() : Locale.ENGLISH);
+        number.setRoundingMode(RoundingMode.HALF_UP);
+        number.setMaximumFractionDigits(2);
     }
 
     /**
      * Resets every formatter. See {@link Units#updateDateFormat()}, {@link Units#updateTimeFormat()} and {@link Units#updateNumberFormat()} for details.
      */
     public static void updateFormats() {
-        INSTANCE.updateDateFormat();
-        INSTANCE.updateTimeFormat();
-        INSTANCE.updateNumberFormat();
+        FORMATTER.updateDateFormat();
+        FORMATTER.updateTimeFormat();
+        FORMATTER.updateNumberFormat();
     }
 
     /**
@@ -77,7 +77,7 @@ public enum Units {
      * @return A string containing the localized number
      */
     public static String number(double amount) {
-        return INSTANCE.numberFormat.format(amount);
+        return FORMATTER.number.format(amount);
     }
 
     /**
@@ -85,7 +85,7 @@ public enum Units {
      * @param amount The integer number to format
      */
     public static String number(long amount) {
-        return INSTANCE.numberFormat.format(amount);
+        return FORMATTER.number.format(amount);
     }
 
     /**
@@ -101,14 +101,14 @@ public enum Units {
      * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the date.
      */
     public static String date(TemporalAccessor timePoint) {
-        return INSTANCE.dateFormat.format(timePoint);
+        return FORMATTER.date.format(timePoint);
     }
 
     /**
      * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the time.
      */
     public static String time(TemporalAccessor timePoint) {
-        return INSTANCE.timeFormat.format(timePoint);
+        return FORMATTER.time.format(timePoint);
     }
 
     /**
@@ -200,13 +200,8 @@ public enum Units {
         // Convert inches to centimetres
         double cm = inches * 2.54;
 
-        // Don't wrap without units
-        if (type == UnitType.NONE) return number(Math.round(cm));
-        if (type == UnitType.LONG && (long) cm == 0) return "less than 1 centimeter";
-
-        // Wrap centimeters to meters
         double m = cm / 100;
-        return withUnit(cm, "cm", "centimeter", m, "m", "meter", type);
+        return withUnit(cm, "cm", "centimetre", m, "m", "metre", type);
     }
 
     /**
@@ -238,18 +233,14 @@ public enum Units {
      * {@link UnitType#SHORT}: 1.98 gal
      * {@link UnitType#LONG}: 1.98 gallons
      * {@link UnitType#LONG_SINGULAR}: 1.98-gallon
-     * @param ml Amount of millilitres to format
+     * @param ml Amount of millilitres to convert
      * @param type The desired length of the units, see {@link UnitType} for details
-     * @return A string containing the imperial, formatted volume, including unit
+     * @return A string containing the imperial, formatted, converted volume, including unit
      */
     public static String fluidAsImperial(double ml, UnitType type) {
         // Convert millilitres to ounces
         double oz = ml / 28.4131;
 
-        // Don't wrap without units
-        if (type == UnitType.NONE) return number(Math.round(oz));
-
-        // Wrap ounces to gallons
         double gal = oz / 160;
         return withUnit(oz, "oz", "ounce", gal, "gal", "gallon", type);
     }
@@ -258,20 +249,73 @@ public enum Units {
      * Converts a fluid volume, given in millilitres, to the common metric form. Note that the type {@link UnitType#NONE}
      * does not apply wrapping and millilitre values are rounded correctly, so the output for 9000 millilitres would be:
      * {@link UnitType#NONE}: 9000
-     * {@link UnitType#SHORT}: 9 l
-     * {@link UnitType#LONG}: 9 liters
-     * {@link UnitType#LONG_SINGULAR}: 9-liter
-     * @param ml Amount of millilitres to convert
+     * {@link UnitType#SHORT}: 9 L
+     * {@link UnitType#LONG}: 9 litres
+     * {@link UnitType#LONG_SINGULAR}: 9-litre
+     * @param ml Amount of millilitres to format
      * @param type The desired length of the units, see {@link UnitType} for details
-     * @return A string containing the metric, formatted, converted volume, including unit
+     * @return A string containing the metric, formatted volume, including unit
      */
     public static String fluidAsMetric(double ml, UnitType type) {
-        // Don't wrap without units
-        if (type == UnitType.NONE) return number(Math.round(ml));
-
-        // Wrap millilitres to litres
         double l = ml / 1000;
-        return withUnit(ml, "ml", "millilitre", l, "l", "litre", type);
+        return withUnit(ml, "mL", "millilitre", l, "L", "litre", type);
+    }
+
+    /**
+     * Formats a weight in grams with short units. See {@link Units#size(double, UnitType)} for details.
+     */
+    public static String weight(double grams) {
+        return weight(grams, UnitType.SHORT);
+    }
+
+    /**
+     * Formats a weight, given in grams, with the current number formatter and units depending on the imperial unit
+     * setting as well as the given type. For examples of the result, see {@link Units#weightAsImperial(double, UnitType)}
+     * and {@link Units#weightAsMetric(double, UnitType)}.
+     * @param grams Amount of grams to convert
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the localized, wrapped, converted weight and its associated unit
+     */
+    public static String weight(double grams, UnitType type) {
+        if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
+            return weightAsImperial(grams, type);
+        else
+            return weightAsMetric(grams, type);
+    }
+
+    /**
+     * Formats a weight, given in grams, to the common imperial form. Note that the type {@link UnitType#NONE} does not
+     * apply wrapping and gram values are rounded correctly, so the output for 9000 grams would be:
+     * {@link UnitType#NONE}: 317
+     * {@link UnitType#SHORT}: 19.84 lb
+     * {@link UnitType#LONG}: 19.84 pounds
+     * {@link UnitType#LONG_SINGULAR}: 19.84-pound
+     * @param grams Amount of grams to convert
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the imperial, formatted, converted weight, including unit
+     */
+    public static String weightAsImperial(double grams, UnitType type) {
+        // Convert grams to ounces
+        double oz = grams / 28.34952;
+
+        double lb = oz / 16;
+        return withUnit(oz, "oz", "ounce", lb, "lb", "pound", type);
+    }
+
+    /**
+     * Converts a weight, given in grams, to the common metric form. Note that the type {@link UnitType#NONE} does not
+     * apply wrapping and gram values are rounded correctly, so the output for 9000 grams would be:
+     * {@link UnitType#NONE}: 9000
+     * {@link UnitType#SHORT}: 9 kg
+     * {@link UnitType#LONG}: 9 kilograms
+     * {@link UnitType#LONG_SINGULAR}: 9-kilogram
+     * @param grams Amount of grams to format
+     * @param type The desired length of the units, see {@link UnitType} for details
+     * @return A string containing the metric, formatted weight, including unit
+     */
+    public static String weightAsMetric(double grams, UnitType type) {
+        double kg = grams / 1000;
+        return withUnit(grams, "g", "gram", kg, "kg", "kilogram", type);
     }
 
     /**
@@ -289,16 +333,22 @@ public enum Units {
     public static String withUnit(double value, String shortUnit, String unit,
                                    double wrappedValue, String shortWrappedUnit, String wrappedUnit,
                                    UnitType type) {
+        if (type == UnitType.NONE) return number(Math.round(value));
+        if (type == UnitType.ROUGH_TEXT) return roughly(wrappedValue, wrappedUnit, wrappedUnit + "s");
+        if ((type == UnitType.LONG || type == UnitType.LONG_SINGULAR) && Math.floor(value) == 0) return "less than 1 " + unit;
+
         String usedUnit;
         double usedValue;
 
         if (wrappedValue > 1 || wrappedValue < -1) {
+            // Use wrapped value
             usedUnit = type == UnitType.SHORT ? shortWrappedUnit
-                    : (Math.abs(wrappedValue) == 1 || type == UnitType.LONG_SINGULAR ? wrappedUnit : wrappedUnit + "s");
+                    : (Math.abs(wrappedValue) <= 1 || type == UnitType.LONG_SINGULAR ? wrappedUnit : wrappedUnit + "s");
             usedValue = wrappedValue;
         } else {
+            // Use base value
             usedUnit = type == UnitType.SHORT ? shortUnit
-                    : (Math.abs(value) == 1 || type == UnitType.LONG_SINGULAR ? unit : unit + "s");
+                    : (Math.abs(value) <= 1 || type == UnitType.LONG_SINGULAR ? unit : unit + "s");
             usedValue = value;
         }
 

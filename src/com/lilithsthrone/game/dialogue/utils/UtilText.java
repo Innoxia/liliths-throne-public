@@ -2116,11 +2116,11 @@ public class UtilText {
 						"weight"),
 				false,
 				false,
-				"",//TODO
-				"Description of method"){//TODO
+				"",
+				"Returns the character's weight in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getWeight());
+				return Units.weight(character.getWeight() / 1000.0, Units.UnitType.LONG);
 			}
 		});
 		
