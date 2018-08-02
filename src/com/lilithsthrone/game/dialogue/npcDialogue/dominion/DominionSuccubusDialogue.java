@@ -46,7 +46,7 @@ public class DominionSuccubusDialogue {
 		public String getContent() {
 			
 			if(Main.game.getActiveNPC().isVisiblyPregnant()){
-				if(Main.game.getActiveNPC().isReactedToPregnancy()) {
+				if(Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 					return("<p>"
 								+ "Although Dominion's alleyways are eerily quiet for most of the time, you suddenly start to feel a deep, unsettling stillness descending upon you."
 								+ " Stopping in your tracks, you glance back the way you came, before looking all around for any sign of danger."
@@ -209,7 +209,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
-							Main.game.getActiveNPC().setReactedToPregnancy(true);
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 					}
 				};
 				
@@ -218,7 +218,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
-							Main.game.getActiveNPC().setReactedToPregnancy(true);
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 					}
 				};
 				

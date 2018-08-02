@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -141,16 +142,17 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public String getDescription() {
-		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
+		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getBirthday(), this.getConceptionDate());
+		
 		if(this.getMother()==null || this.getFather()==null) {
 			return "";
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
-						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
-						+(timeToBirth==0
+						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
+						+(daysToBirth==0
 							?"later that same day"
-							:timeToBirth>1?Util.intToString(timeToBirth)+" days later":Util.intToString(timeToBirth)+" day later")
+							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
 						+(this.getMother().isPlayer()
 							?" you gave birth to [npc.herHim]."
 							:" [npc.she] was born.")

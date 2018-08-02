@@ -1704,6 +1704,7 @@ public abstract class AbstractItemEffectType {
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BLUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_KNOTTED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_PREHENSILE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -1753,6 +1754,7 @@ public abstract class AbstractItemEffectType {
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BLUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_KNOTTED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_PREHENSILE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2895,6 +2897,13 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds flare to penis head.", 0, "") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.FLARED); } };
 						}
+					case TF_MOD_PENIS_BLUNT:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes blunted head from penis.", 0, "") { @Override public String applyEffect() { return target.removePenisModifier(PenetrationModifier.BLUNT); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes penis head blunt.", 0, "") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.BLUNT); } };
+						}
 					case TF_MOD_PENIS_KNOTTED:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -3211,6 +3220,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes flare from clitoris head.", 0, "") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.FLARED); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds flare to clitoris head.", 0, "") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.FLARED); } };
+						}
+					case TF_MOD_PENIS_BLUNT:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes blunted tip from clitoris.", 0, "") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.BLUNT); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes tip of clitoris blunt.", 0, "") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.BLUNT); } };
 						}
 					case TF_MOD_PENIS_KNOTTED:
 						switch(potency) {

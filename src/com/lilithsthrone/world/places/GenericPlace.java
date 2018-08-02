@@ -242,6 +242,15 @@ public class GenericPlace implements Serializable, XMLSaving {
 		return placeUpgrades;
 	}
 	
+	public boolean isSlaveCell() {
+		for(PlaceUpgrade upgrade : placeUpgrades) {
+			if(upgrade.isCoreRoomUpgrade() && upgrade.isSlaverUpgrade()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public int getCapacity() {
 		int c = 0;
 		for(PlaceUpgrade pu : placeUpgrades) {

@@ -18,6 +18,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public enum TongueType implements BodyPartTypeInterface {
 
 	HUMAN(BodyCoveringType.TONGUE, Race.HUMAN, 1),
+	
+	ANGEL(BodyCoveringType.TONGUE, Race.ANGEL, 1),
 
 	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON, 1, TongueModifier.BIFURCATED),
 	
@@ -91,29 +93,31 @@ public enum TongueType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("wide", "strong", "cow-like");
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("wide", "dog-like");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("forked");
+				break;
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("strong", "horse-like");
 			case REINDEER_MORPH:
 				return UtilText.returnStringAtRandom("strong", "reindeer-like");
 			case HUMAN:
-				return UtilText.returnStringAtRandom("");
+				break;
+			case ANGEL:
+				break;
 			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case TENGU:
 				return UtilText.returnStringAtRandom("bird-like");
 			case BAT_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case IMP:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case RAT_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case RABBIT_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case WOLF_MORPH:
 				return UtilText.returnStringAtRandom("wide", "wolf-like");
 			case FOX_MORPH:

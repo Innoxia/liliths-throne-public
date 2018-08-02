@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -527,6 +528,15 @@ public class Amber extends NPC {
 		return super.getMainSexPreference(target);
 	}
 
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+		sexPositionPreferences.clear();
+		
+		sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+		
+		return sexPositionPreferences;
+	}
+	
 	@Override
 	public SexPace getSexPaceDomPreference(){
 		return SexPace.DOM_ROUGH;

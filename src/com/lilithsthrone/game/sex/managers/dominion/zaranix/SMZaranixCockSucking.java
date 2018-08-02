@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.95
@@ -32,8 +33,8 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPartnerWantingToStopSex() {
-		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>0;
+	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+		return Sex.getNumberOfOrgasms(Main.game.getZaranix())>0;
 	}
 
 }

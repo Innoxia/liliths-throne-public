@@ -40,7 +40,7 @@ public class TunnelAttackDialogue {
 			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
-					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+					if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Assaulted again by the [npc.fullRace(true)]!"
 								+ "</p>"
@@ -99,7 +99,14 @@ public class TunnelAttackDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC()) {
+					@Override
+					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getActiveNPC(), true);
+						}
+					}
+				};
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().getMoney()<250) {
@@ -108,6 +115,10 @@ public class TunnelAttackDialogue {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getActiveNPC(), true);
+							}
+							
 							Main.game.getPlayer().incrementMoney(-250);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
@@ -155,7 +166,15 @@ public class TunnelAttackDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "Whimpering in the affirmative, you surrender yourself to [npc.namePos] dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory..."
-							+ "</p>");
+							+ "</p>") {
+						@Override
+						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
+						}
+					};
+					
 				} else {
 					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 				}

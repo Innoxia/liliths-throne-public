@@ -7826,7 +7826,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -7878,7 +7878,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -7930,7 +7930,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -7983,7 +7983,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -8036,7 +8036,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -8089,7 +8089,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							Util.newArrayListOfValues(InventorySlot.ANKLE))),
 			null,
@@ -8142,7 +8142,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -8194,7 +8194,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -8249,7 +8249,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET), 
 							null)),
 			null,
@@ -8301,7 +8301,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
@@ -8647,7 +8647,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null, null, null)),
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9066,6 +9068,7 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(
+					ItemTag.SPREADS_FEET,
 					ItemTag.SOLD_BY_FINCH,
 					ItemTag.REVEALS_CONCEALABLE_SLOT)){
 		
@@ -10242,8 +10245,8 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null)),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
@@ -10295,7 +10298,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null,
+							Util.newArrayListOfValues(CoverableArea.FEET),
 							Util.newArrayListOfValues(ClothingAccess.FEET),
 							Util.newArrayListOfValues(InventorySlot.ANKLE))),
 			null,
@@ -10481,7 +10484,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null, null, null)),
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.KIMONO.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10675,8 +10680,10 @@ public class ClothingType {
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FEET), 
-							null, null, null)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			Util.newArrayListOfValues(
 							Colour.CLOTHING_BLACK,
@@ -10930,7 +10937,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null, null, null)),
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10981,7 +10990,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null, null, null)),
+							Util.newArrayListOfValues(CoverableArea.FEET),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),

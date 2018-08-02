@@ -290,8 +290,8 @@ public class SubmissionAttacker extends NPC {
 				return TunnelSlimeDialogue.ATTACK;
 				
 			} else {
-				if(!this.isReactedToPregnancy() && this.isVisiblyPregnant()) {
-					this.setReactedToPregnancy(true);
+				if(!this.isCharacterReactedToPregnancy(Main.game.getPlayer()) && this.isVisiblyPregnant()) {
+					this.setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 					return TunnelSlimeDialogue.ATTACK_PREGNANCY_REVEAL;
 				}
 				

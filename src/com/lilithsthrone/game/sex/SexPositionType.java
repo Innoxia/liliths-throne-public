@@ -446,7 +446,8 @@ public enum SexPositionType {
 									SexPositionSlot.KNEELING_RECEIVING_ORAL,
 									new SexActionInteractions(
 											Util.mergeMaps(
-												SexActionPresets.fingerToLowerHalf))))))) {
+												SexActionPresets.fingerToLowerHalf,
+												SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
@@ -470,7 +471,8 @@ public enum SexPositionType {
 													SexActionPresets.groinToAss,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
-													SexActionPresets.breastsToMouth))))),
+													SexActionPresets.breastsToMouth,
+													SexActionPresets.penisToFeet))))),
 					new Value<>(
 							SexPositionSlot.MISSIONARY_ON_BACK,
 							Util.newHashMapOfValues(
@@ -557,7 +559,8 @@ public enum SexPositionType {
 									SexPositionSlot.CHAIR_ORAL_SITTING,
 									new SexActionInteractions(
 											Util.mergeMaps(
-													SexActionPresets.fingerToLowerHalf))))),
+													SexActionPresets.fingerToLowerHalf,
+													SexActionPresets.penisToFeet))))),
 					new Value<>(
 							SexPositionSlot.CHAIR_ORAL_SITTING,
 							Util.newHashMapOfValues(
@@ -755,9 +758,7 @@ public enum SexPositionType {
 														SexActionPresets.tentacleToUpperTorso,
 														SexActionPresets.fingerToUpperTorso,
 														SexActionPresets.vaginaToMouth,
-														SexActionPresets.penisToMouth,
-														SexActionPresets.penisToVagina,
-														SexActionPresets.penisToThighs))))),
+														SexActionPresets.penisToMouth))))),
 					new Value<>(
 							SexPositionSlot.MILKING_STALL_PERFORMING_ORAL,
 							Util.newHashMapOfValues(
@@ -775,7 +776,9 @@ public enum SexPositionType {
 														SexActionPresets.fingerToLowerHalf,
 														SexActionPresets.tailToLowerHalf,
 														SexActionPresets.tentacleToLowerHalf,
-														SexActionPresets.penisToAss))))))) {
+														SexActionPresets.penisToAss,
+														SexActionPresets.penisToVagina,
+														SexActionPresets.penisToThighs))))))) {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
@@ -907,7 +910,9 @@ public enum SexPositionType {
 							new Value<>(
 									SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH,
 									new SexActionInteractions(
-											SexActionPresets.fingerToLowerHalf)))))) {
+											Util.mergeMaps(
+											SexActionPresets.fingerToLowerHalf,
+											SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
 			return "You're kneeling under Ralph's counter, with your face just inches away from his crotch.";
@@ -1503,7 +1508,8 @@ public enum SexPositionType {
 									SexPositionSlot.KNEELING_RECEIVING_ORAL,
 									new SexActionInteractions(
 											Util.mergeMaps(
-												SexActionPresets.fingerToLowerHalf))))))) {
+												SexActionPresets.fingerToLowerHalf,
+												SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),

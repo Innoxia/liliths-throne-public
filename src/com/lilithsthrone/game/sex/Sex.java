@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -173,6 +174,7 @@ public class Sex {
 	
 	private static Map<GameCharacter, List<CoverableArea>> areasExposed;
 
+	/**Maps: character -> character's areas -> Map of characters mapped to sets of sexAreas that are contacting character's sexArea*/
 	private static Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>>> ongoingActionsMap;
 	
 	private static Map<GameCharacter, Integer> orgasmCountMap;
@@ -988,7 +990,7 @@ public class Sex {
 						if(Sex.getNumberOfOrgasms(participant)>0
 								|| participant.hasFetish(Fetish.FETISH_DENIAL_SELF)
 								|| (Sex.isDom(participant) && !Sex.isSubHasEqualControl())) {
-							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
+//							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
 						} else {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -2));
 						}
@@ -1351,11 +1353,12 @@ public class Sex {
 				}
 				Sex.setActivePartner((NPC) active);
 				Sex.setCharacterPerformingAction(Main.game.getPlayer());
+				
 			} else {
 				sexDescription = sexSB.toString();
 			}
 			
-			if(Sex.isPublicSex()) {
+			if(Sex.isPublicSex() && !sexFinished) {
 				sexSB.append(Sex.getInitialSexManager().getRandomPublicSexDescription());
 				sexDescription = sexSB.toString();
 			}
@@ -1869,6 +1872,20 @@ public class Sex {
 												cumTarget.addDirtySlot(InventorySlot.HAIR);
 											}
 											break;
+										case HANDS:
+											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.HANDS)!=null) {
+												cumTarget.getHighestZLayerCoverableArea(CoverableArea.HANDS).setDirty(true);
+											} else {
+												cumTarget.addDirtySlot(InventorySlot.HAND);
+											}
+											break;
+										case FEET:
+											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET)!=null) {
+												cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET).setDirty(true);
+											} else {
+												cumTarget.addDirtySlot(InventorySlot.FOOT);
+											}
+											break;
 										case LEGS: case THIGHS:
 											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.LEGS)!=null) {
 												cumTarget.getHighestZLayerCoverableArea(CoverableArea.LEGS).setDirty(true);
@@ -2042,7 +2059,7 @@ public class Sex {
 					for(GameCharacter characterTarget : Sex.getAllParticipants()) {
 						if(entry.getValue().containsKey(characterTarget)) {
 							for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
-								if(entry.getKey().isPenetration()) {//TODO
+								if(entry.getKey().isPenetration()) {
 									applyPenetrationEffects(character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
 								}
 								List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
@@ -2306,7 +2323,7 @@ public class Sex {
 		
 		if(!lubricationTransferred.isEmpty()) {
 			sexSB.append(formatCoverableAreaGettingWet(
-					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
+					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lubricationTransferred.size()>1 || !lastLubricationPlural?"s ":" ")
 						+(targetCharacter.isPlayer()?"your ":targetCharacter.getName("the")+"'s ")+targetArea.getName(targetCharacter)+"."));
 		}
 		
@@ -2324,7 +2341,7 @@ public class Sex {
 		
 		if(!lubricationTransferred.isEmpty()) {
 			sexSB.append(formatCoverableAreaGettingWet(
-					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
+					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lubricationTransferred.size()>1 || !lastLubricationPlural?"s ":" ")
 						+(character.isPlayer()?"your ":character.getName("the")+"'s ")+characterArea.getName(character)+"."));
 		}
 	}
@@ -2632,7 +2649,7 @@ public class Sex {
 			
 			sexSB.append(penileVirginityLoss);
 			
-		} else {
+		} else { // Pen/pen suff:
 			if (penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.PENIS) {
 				if (initialPenetrations.get(characterPenetrated).contains(SexAreaPenetration.PENIS)) {
 					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
@@ -2643,6 +2660,15 @@ public class Sex {
 					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				}
 				
+			} else if (penetrationType == SexAreaPenetration.FOOT && orifice == SexAreaPenetration.PENIS) {
+				if (initialPenetrations.get(characterPenetrated).contains(SexAreaPenetration.PENIS)) {
+					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+					
+					initialPenetrations.get(characterPenetrated).remove(SexAreaPenetration.PENIS);
+					
+				} else {
+					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				}
 			}
 		}
 		
@@ -3106,7 +3132,8 @@ public class Sex {
 					return true;
 				}
 				break;
-			case TOES:
+			case FOOT:
+				penetrationTypesAvailable = Sex.getSexPositionSlot(penetrator).isStanding()?1:2;
 				break;
 		}
 		
@@ -3835,6 +3862,16 @@ public class Sex {
 
 	public static int getTurn() {
 		return turn;
+	}
+	
+	public static boolean isDoubleFootJob(GameCharacter charactersFeet) {
+		for(AbstractClothing clothing : charactersFeet.getClothingCurrentlyEquipped()) {
+			if(clothing.getClothingType().getItemTags().contains(ItemTag.SPREADS_FEET)) {
+				return false;
+			}
+		}
+		
+		return !Sex.getSexPositionSlot(charactersFeet).isStanding();
 	}
 
 }

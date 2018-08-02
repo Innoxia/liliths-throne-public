@@ -78,7 +78,7 @@ public enum RaceStage {
 	},
 	
 	/**Some minor animal-morph parts.<br/>
-	 * When used in GameCharacter's setBody() method, will grant <b>only</b> ears, eyes, tail, horns, antenna, and wings (no genitalia).<br/>
+	 * When used in GameCharacter's setBody() method, will grant <b>only</b> hair, ears, eyes, tail, horns, antenna, and wings (no genitalia).<br/>
 	 * <i>"Not furry"</i> by most standards.*/
 	PARTIAL("partial", Colour.TRANSFORMATION_PARTIAL) {
 		@Override
@@ -111,7 +111,7 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isHairFurry() {
-			return false;
+			return true;
 		}
 		@Override
 		public boolean isHornFurry() {

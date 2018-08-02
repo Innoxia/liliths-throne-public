@@ -117,7 +117,7 @@ public class FingerClit {
 										+ " softly pressing [npc2.her] [npc2.clit+] against [npc.namePos] [npc.fingers] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to continue.",
 	
 								" [npc2.Name] gently [npc2.verb(start)] thrusting [npc2.her] [npc2.hips] back against [npc.namePos] [npc.fingers],"
-										+ " softly [npc2.moaning] as [npc2.she] [npc.verb(focus)] on the pleasure in [npc2.her] [npc2.clit+]."));
+										+ " softly [npc2.moaning] as [npc2.she] [npc2.verb(focus)] on the pleasure in [npc2.her] [npc2.clit+]."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -244,7 +244,7 @@ public class FingerClit {
 										+ " softly pressing [npc2.her] [npc2.clit+] against [npc.namePos] [npc.fingers] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to continue.",
 	
 								" [npc2.Name] gently [npc2.verb(start)] thrusting [npc2.her] [npc2.hips] back against [npc.namePos] [npc.fingers],"
-										+ " softly [npc2.moaning] as [npc2.she] [npc.verb(focus)] on the pleasure in [npc2.her] [npc2.clit+]."));
+										+ " softly [npc2.moaning] as [npc2.she] [npc2.verb(focus)] on the pleasure in [npc2.her] [npc2.clit+]."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

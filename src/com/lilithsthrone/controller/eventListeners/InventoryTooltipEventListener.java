@@ -333,7 +333,8 @@ public class InventoryTooltipEventListener implements EventListener {
 						}
 						
 						if (!renderingTattoos && !clothingBlockingThisSlot.isEmpty()) {
-							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
+							setBlockedTooltipContent(UtilText.parse(equippedToCharacter, "This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by [npc.namePos] ")
+									+ Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
 						} else if (!renderingTattoos && invSlot.slotBlockedByRace(equippedToCharacter) != null) {
 							setBlockedTooltipContent(invSlot.getCannotBeWornDescription(equippedToCharacter));

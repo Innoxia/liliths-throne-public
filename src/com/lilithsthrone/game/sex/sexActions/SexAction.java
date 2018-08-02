@@ -269,6 +269,12 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case HAIR:
 							break;
+						case HANDS:
+							break;
+						case FEET:
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_FOOT_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_FOOT_RECEIVING);
+							break;
 						case LEGS: case THIGHS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
@@ -315,6 +321,12 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
 						case HAIR:
+							break;
+						case HANDS:
+							break;
+						case FEET:
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_FOOT_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_FOOT_GIVING);
 							break;
 						case LEGS: case THIGHS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);

@@ -271,7 +271,7 @@ public enum InventorySlot {
 			return Race.HARPY;
 		}
 		
-		if (character.getArmType() == ArmType.HARPY && (this == InventorySlot.HAND || this == InventorySlot.FINGER)) {
+		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {
 			return Race.HARPY;
 		}
 		
@@ -342,18 +342,10 @@ public enum InventorySlot {
 		
 		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {
 			if(character.isPlayer())
-				return "You can't fit anything onto your harpy wings!";
+				return "You can't fit any hand clothing onto your harpy wings!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name] can't fit anything onto [npc.her] harpy wings!");
-		}
-		
-		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.FINGER) {
-			if(character.isPlayer())
-				return "You only have a single thumb in the middle of your harpy wings, so you can't wear anything that would require fingers!";
-			else
-				return UtilText.parse(character,
-						"[npc.Name] doesn't have any fingers on [npc.her] harpy wings!");
+						"[npc.Name] can't fit any hand clothing onto [npc.her] harpy wings!");
 		}
 		
 		return null;

@@ -234,7 +234,7 @@ public class ChairSex {
 
 		@Override
 		public String getDescription() {
-			return "[npc.Name] [npc.verb(decide)] to switch positions, and, getting [npc2.name] to stand up, [npc.she] [npc.verb(sit)] down, before [npc.verb(pull)] [npc2.herHim] down onto [npc.her] lap."
+			return "[npc.Name] [npc.verb(decide)] to switch positions, and, getting [npc2.name] to stand up, [npc.she] [npc.verb(sit)] down, before pulling [npc2.herHim] down onto [npc.her] lap."
 					+ " Looking up into [npc2.her] [npc2.eyes], [npc.she] [npc.moansVerb], "
 					+ "[npc.speech(Good [npc2.girl]!)]";
 		}

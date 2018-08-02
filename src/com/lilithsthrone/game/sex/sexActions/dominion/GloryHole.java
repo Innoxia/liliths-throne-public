@@ -109,15 +109,13 @@ public class GloryHole {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_FUCKED
-							&& !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA))
+					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_FUCKED && !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA))
 						|| !Sex.getCharacterTargetedForSexAction(this).equals(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_FUCKING))
 						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_KNEELING)
 					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| ((((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.GLORY_HOLE_FUCKED)
-								&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)))
-									|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.GLORY_HOLE_FUCKED)
+								&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS))));
 		}
 		
 		@Override
@@ -212,16 +210,14 @@ public class GloryHole {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_FUCKED
-							&& !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.ANUS))
+					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_FUCKED && !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.ANUS))
 						|| !Sex.getCharacterTargetedForSexAction(this).equals(Sex.getCharacterInPosition(SexPositionSlot.GLORY_HOLE_FUCKING))
 						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.GLORY_HOLE_KNEELING)
 					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 					&& Sex.getCharacterPerformingAction().hasVagina()
 					&& (Sex.getCharacterPerformingAction().isPlayer()
-							|| ((((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.GLORY_HOLE_FUCKED)
-									&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)))
-										|| Sex.getActivePartner().getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).isEmpty()));
+							|| (((NPC) Sex.getCharacterPerformingAction()).getSexPositionPreferences(Sex.getCharacterTargetedForSexAction(this)).contains(SexPositionSlot.GLORY_HOLE_FUCKED)
+								&& ((NPC) Sex.getCharacterPerformingAction()).getMainSexPreference(Sex.getCharacterTargetedForSexAction(this)).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))));
 		}
 		
 		@Override

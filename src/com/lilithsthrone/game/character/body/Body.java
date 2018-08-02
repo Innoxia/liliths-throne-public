@@ -1709,11 +1709,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Hair:
 		
-		if (owner.isPlayer() && hair.getRawLengthValue() == 0) {
-			sb.append(" You are completely bald.");
+		if (hair.getRawLengthValue() == 0) {
 			
-		} else if (!owner.isPlayer() && hair.getRawLengthValue() == 0) {
-			sb.append(" [npc.She] is completely bald.");
+			sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
 			
 		} else {
 
@@ -3752,7 +3750,6 @@ public class Body implements Serializable, XMLSaving {
 	
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace() {
-		raceWeightMap.clear();
 
 		Race race = Race.HUMAN;
 		switch(this.getBodyMaterial()) {
@@ -3803,6 +3800,8 @@ public class Body implements Serializable, XMLSaving {
 	public Race getRaceFromPartWeighting() {
 		Race race = Race.HUMAN;
 		
+		raceWeightMap.clear();
+		
 		addRaceWeight(raceWeightMap, skin.getType().getRace(), 3);
 		addRaceWeight(raceWeightMap, face.getType().getRace(), 3);
 		
@@ -3820,7 +3819,6 @@ public class Body implements Serializable, XMLSaving {
 		// Not using breast, ass, penis, or vagina
 		
 		int max = 0;
-		
 		
 		for(Entry<Race, Integer> e : raceWeightMap.entrySet()) {
 			if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
@@ -6124,14 +6122,18 @@ public class Body implements Serializable, XMLSaving {
 						+ "[npc.Name] has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>");
 			
 			for(Litter litter : owner.getLittersBirthed()) {
-				int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
+				
 				if(litter.getFather() == null) {
-					descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", [npc.she] was impregnated, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
+							+", [npc.she] was impregnated, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					
 				} else if(litter.getFather().isPlayer()) {
-					descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
+							+", you impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					
 				} else {
-					descriptionSB.append("<br/>On day "+litter.getDayOfConception()
-						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())+", "+litter.getFather().getName()
+							+" impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
 				}
 				
 				descriptionSB.append(litter.getBirthedDescriptionList());
@@ -6170,11 +6172,9 @@ public class Body implements Serializable, XMLSaving {
 							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>");
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
-					int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
-					
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
-						descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")
-									+" later, you gave birth to "+litter.getBirthedDescriptionList()+".");
+						descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
+								+", [npc.she] impregnated you, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", you gave birth to "+litter.getBirthedDescriptionList()+".");
 					}
 				}
 				

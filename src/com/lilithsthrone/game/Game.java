@@ -952,6 +952,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 		} catch(Exception ex) {
 			System.err.println("Failed to load NPC class: "+className);
+			ex.printStackTrace();
 			return null;
 		}
 	}

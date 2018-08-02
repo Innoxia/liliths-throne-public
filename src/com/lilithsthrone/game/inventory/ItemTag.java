@@ -2,7 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 /**
  * @since 0.2.1
- * @version 0.2.6
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum ItemTag {
@@ -19,6 +19,8 @@ public enum ItemTag {
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
 
+	SPREADS_FEET, // Prevents double foot actions, like wrap-around footjobs
+	
 	// To detect whether creampies should leak out or not:
 	PLUGS_ANUS,
 	PLUGS_VAGINA,

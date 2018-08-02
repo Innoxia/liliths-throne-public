@@ -78,7 +78,7 @@ public enum SVGImages {
 			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaAss, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs, coverableAreaUrethraVagina, coverableAreaUrethraPenis,
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
 	
@@ -592,6 +592,8 @@ public enum SVGImages {
 			penetrationTypeTail = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTongue.svg");
 			penetrationTypeTongue = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFoot.svg");
+			penetrationTypeFoot = Util.inputStreamToString(is);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
@@ -984,6 +986,10 @@ public enum SVGImages {
 	
 	public String getPenetrationTypePenis() {
 		return penetrationTypePenis;
+	}
+
+	public String getPenetrationTypeFoot() {
+		return penetrationTypeFoot;
 	}
 	
 	public String getCombinationStretching() {

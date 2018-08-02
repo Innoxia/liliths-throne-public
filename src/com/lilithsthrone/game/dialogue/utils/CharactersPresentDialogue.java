@@ -13,10 +13,12 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
@@ -37,6 +39,18 @@ public class CharactersPresentDialogue {
 		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
 		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
 	}
+	
+	private static boolean isCompanionSexPublic() {
+		return Main.game.getPlayer().getLocationPlace().isPopulated()
+				&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_SEATING_AREA
+				&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS;
+	}
+
+	private static boolean isSittingSex() {
+		return Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_SEATING_AREA
+				|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_VIP_AREA;
+	}
+	
 	
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -245,14 +259,23 @@ public class CharactersPresentDialogue {
 						} else {
 							return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 									false, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
-										@Override
-										public boolean isPublicSex() {
-											return Main.game.getPlayer().getLocationPlace().isPopulated();
+									isSittingSex()
+										? new SMChair(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_TOP))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
 										}
-									},
+										: new SMStanding(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
+										},
 									null,
 									AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
@@ -278,14 +301,23 @@ public class CharactersPresentDialogue {
 						} else {
 							return new ResponseSex("Sex", "Have sex with [npc.name].", 
 									true, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
-										@Override
-										public boolean isPublicSex() {
-											return Main.game.getPlayer().getLocationPlace().isPopulated();
+									isSittingSex()
+										? new SMChair(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_TOP))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
 										}
-									},
+										: new SMStanding(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_SUBMISSIVE))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
+										},
 									null,
 									AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
@@ -310,14 +342,23 @@ public class CharactersPresentDialogue {
 							return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 									true, true,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-										@Override
-										public boolean isPublicSex() {
-											return Main.game.getPlayer().getLocationPlace().isPopulated();
+									isSittingSex()
+										? new SMChair(
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.CHAIR_BOTTOM)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
 										}
-									},
+										: new SMStanding(
+												Util.newHashMapOfValues(new Value<>(characterViewed, SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+											@Override
+											public boolean isPublicSex() {
+												return isCompanionSexPublic();
+											}
+										},
 									null,
 									AFTER_SEX, "<p>"
 										+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."

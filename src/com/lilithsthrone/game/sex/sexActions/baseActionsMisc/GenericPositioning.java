@@ -2211,7 +2211,7 @@ public class GenericPositioning {
 		@Override
 		public String getDescription() {
 			return "Taking hold of [npc2.namePos] shoulders, [npc.name] pushes [npc2.herHim] down onto [npc2.her] back."
-					+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVeb] as [npc.she] looks down into [npc2.her] [npc2.eyes+], "
+					+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVerb] as [npc.she] looks down into [npc2.her] [npc2.eyes+], "
 					+ "[npc.speech(That's right, spread your legs for me...)]";
 		}
 
@@ -2252,7 +2252,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Lie down on [npc2.her] back and spread [npc2.her] [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			return "Lie down on [npc2.her] back and spread [npc2.her] [npc2.legs], ready to have sex with [npc2.name] in the missionary position.";
 		}
 
 		@Override

@@ -344,7 +344,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					bannedActions.add(action); // Ban self-anal actions unless the character loves anal
 				}
 				
-				if(action.getSexAreaInteractions().keySet()!=SexAreaPenetration.PENIS && !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+				if(!action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)
+						&& !action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
+						&& !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 					bannedActions.add(action); // Ban non-penis anal actions (like fingering and tail sex) unless the character loves anal
 				}
 				
@@ -499,7 +501,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					&& Sex.getOngoingActionsMap(performingCharacter).get(pen).containsKey(targetedCharacter)) {
 				for(SexAreaInterface sai : Sex.getOngoingActionsMap(performingCharacter).get(pen).get(targetedCharacter)) {
 					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity()
-							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==sai)) {
+							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()==sai
+									&& (sai!=SexAreaOrifice.ASS || !targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						isSexPenetration = true;
 						break outerloop;
 					}
@@ -509,7 +512,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					&& Sex.getOngoingActionsMap(targetedCharacter).get(pen).containsKey(performingCharacter)) {
 				for(SexAreaInterface sai : Sex.getOngoingActionsMap(targetedCharacter).get(pen).get(performingCharacter)) {
 					if(sai.isOrifice() && ((SexAreaOrifice) sai).isTakesPenisVirginity()
-							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==sai)) {
+							|| (performingCharacter.getMainSexPreference(targetedCharacter)!=null && performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea()==sai
+									&& (sai!=SexAreaOrifice.ASS || !targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						isSexPenetration = true;
 						break outerloop;
 					}

@@ -163,7 +163,7 @@ public class FingerPenis {
 									+ " enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+].",
 
 							" [npc2.Name] [npc2.verb(start)] slowly bucking [npc2.her] [npc2.hips] against [npc.namePos] [npc.hand],"
-									+ " [npc2.moaning] softly as [npc2.she] [npc.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
+									+ " [npc2.moaning] softly as [npc2.she] [npc2.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -174,7 +174,7 @@ public class FingerPenis {
 									+ " enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+].",
 							
 							" [npc2.Name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.hips] against [npc.namePos] [npc.hand],"
-									+ " [npc2.moaning+] as [npc2.she] [npc.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
+									+ " [npc2.moaning+] as [npc2.she] [npc2.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -196,7 +196,7 @@ public class FingerPenis {
 									+ " enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+].",
 
 							" [npc2.Name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.hips] against [npc.namePos] [npc.hand],"
-									+ " [npc2.moaning+] as [npc2.she] [npc.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
+									+ " [npc2.moaning+] as [npc2.she] [npc2.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -207,7 +207,7 @@ public class FingerPenis {
 									+ " enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+].",
 
 							" [npc2.Name] [npc2.verb(start)] bucking [npc2.her] [npc2.hips] against [npc.namePos] [npc.hand],"
-									+ " [npc2.moaning+] as [npc2.she] [npc.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
+									+ " [npc2.moaning+] as [npc2.she] [npc2.verb(focus)] on the feeling of [npc.her] [npc.fingers+] sliding up and down [npc2.her] [npc2.cock+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -569,7 +569,7 @@ public class FingerPenis {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc.verb(continue)] to struggle against [npc.name].",
+							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.name].",
 
 							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to protest and struggle in discomfort as [npc.name] holds [npc2.herHim] in place."));
 					break;
@@ -656,19 +656,19 @@ public class FingerPenis {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc.verb(start)] gently stroking [npc.her] [npc.cock+].",
+							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(start)] gently stroking [npc.her] [npc.cock+].",
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] slowly sliding [npc2.her] [npc2.hand] up and down the length of [npc.namePos] [npc.cock+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(start)] eagerly stroking [npc.her] [npc.cock+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] eagerly stroking [npc.her] [npc.cock+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] happily sliding [npc2.her] [npc2.hand] up and down the length of [npc.namePos] [npc.cock+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(start)] forcefully stroking [npc.her] [npc.cock], and, seeking to remind [npc.name] who's in charge,"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] forcefully stroking [npc.her] [npc.cock], and, seeking to remind [npc.name] who's in charge,"
 									+ " [npc2.she] roughly [npc2.verb(squeeze)] [npc2.her] throbbing shaft.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] roughly pumping [npc2.her] [npc2.hand] up and down the length of [npc.namePos] [npc.cock+],"
@@ -676,13 +676,13 @@ public class FingerPenis {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(start)] eagerly stroking [npc.her] [npc.cock+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] eagerly stroking [npc.her] [npc.cock+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] happily sliding [npc2.her] [npc2.hand] up and down the length of [npc.namePos] [npc.cock+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(start)] stroking [npc.her] [npc.cock+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] stroking [npc.her] [npc.cock+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] sliding [npc2.her] [npc2.hand] up and down the length of [npc.namePos] [npc.cock+]."));
 					break;

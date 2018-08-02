@@ -659,6 +659,10 @@ public class Breast implements BodyPartInterface, Serializable {
 		this.milkStored = Math.max(0, (Math.min(milkStored, getRawMilkStorageValue())));
 		float lactationChange = oldStoredMilk - this.milkStored;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		if (lactationChange <= 0) {
 			return "";
 		} else {

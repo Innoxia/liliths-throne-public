@@ -100,7 +100,7 @@ public class PenisAss {
 	
 							" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan], before pleading, [npc2.speech(Go on, use my ass!)]",
 	
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass!)]"));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass!)]"));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -108,7 +108,7 @@ public class PenisAss {
 	
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before growling, [npc2.speech(That's right, use my ass, bitch!)]",
 	
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(demand)], [npc2.speech(Fuck my ass! Do it right now!)]"));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(demand)], [npc2.speech(Fuck my ass! Do it right now!)]"));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -117,7 +117,7 @@ public class PenisAss {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before pleading, [npc2.speech(Go on! Please! Use my ass already!)]",
 
-							" [npc2.Name] [npc2.moan] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass! I need your cock!)]"));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass! I need your cock!)]"));
 					break;
 				case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -133,7 +133,7 @@ public class PenisAss {
 
 							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before pleading, [npc2.speech(Please! Use my ass!)]",
 
-							" [npc2.Name] [npc2.moan] out loud as [npc2.she] [npc2.verb(beg)], [npc2.speech(Come on, use my ass already!)]"));
+							" [npc2.Name] [npc2.moanVerb] out loud as [npc2.she] [npc2.verb(beg)], [npc2.speech(Come on, use my ass already!)]"));
 					break;
 			}
 			
@@ -577,13 +577,7 @@ public class PenisAss {
 		public String getActionDescription() {
 			return "Roughly fuck [npc2.namePos] ass cheeks.";
 		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Sex.getCharacterTargetedForSexAction(this));
-		}
-
-
+		
 		@Override
 		public String getDescription() {
 
@@ -723,8 +717,8 @@ public class PenisAss {
 									+ " gently pushing [npc2.her] [npc2.ass] out against [npc.her] groin as [npc2.she] [npc2.verb(force)] [npc.namePos] [npc.cock+] between [npc2.her] ass cheeks.",
 
 							"[npc.Sobbing] in distress, [npc.name] weakly [npc.verb(struggle)] against [npc2.name] as [npc.she] [npc.verb(plead)] for [npc2.herHim] to let go of [npc.her] [npc.cock]."
-									+ " [npc2.Moaning] in delight, [npc2.name] totally ignore [npc.her] protests,"
-									+ " slowly grinding [npc2.herself] against [npc.herHim] as [npc2.she] [npc.verb(sink)] [npc.her] [npc.cock+] deep between [npc2.her] ass cheeks."));
+									+ " [npc2.Moaning] in delight, [npc2.name] totally [npc2.verb(ignore)] [npc.her] protests,"
+									+ " slowly grinding [npc2.herself] against [npc.herHim] as [npc2.she] [npc2.verb(sink)] [npc.her] [npc.cock+] deep between [npc2.her] ass cheeks."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -736,7 +730,7 @@ public class PenisAss {
 									+ " violently pushing [npc2.her] [npc2.ass] out against [npc.her] groin as [npc2.she] roughly [npc2.verb(force)] [npc.her] [npc.cock+] between [npc2.her] ass cheeks.",
 
 							"[npc.Sobbing] in distress, [npc.name] weakly [npc.verb(struggle)] against [npc2.name] as [npc.she] [npc.verb(plead)] for [npc2.name] to let go of [npc.her] [npc.cock]."
-									+ " [npc2.Moaning] in delight, [npc2.name] totally ignore [npc.her] protests,"
+									+ " [npc2.Moaning] in delight, [npc2.name] totally [npc2.verb(ignore)] [npc.her] protests,"
 									+ " roughly grinding [npc2.herself] against [npc.herHim] as [npc2.she] [npc2.verb(force)] [npc.her] [npc.cock+] deep between [npc2.her] ass cheeks."));
 					break;
 				default: // DOM_NORMAL and in case anything goes wrong:
@@ -749,7 +743,7 @@ public class PenisAss {
 									+ " eagerly pushing [npc2.her] [npc2.ass] out against [npc.her] groin as [npc2.she] desperately [npc2.verb(force)] [npc.her] [npc.cock+] between [npc2.her] ass cheeks.",
 
 							"[npc.Sobbing] in distress, [npc.name] weakly [npc.verb(struggle)] against [npc2.name] as [npc.she] [npc.verb(plead)] for [npc2.name] to let go of [npc.her] [npc.cock]."
-									+ " [npc2.Moaning] in delight, [npc2.name] totally ignore [npc.her] protests,"
+									+ " [npc2.Moaning] in delight, [npc2.name] totally [npc2.verb(ignore)] [npc.her] protests,"
 									+ " eagerly grinding [npc2.herself] against [npc.herHim] as [npc2.she] happily [npc2.verb(force)] [npc.her] [npc.cock+] deep between [npc2.her] ass cheeks."));
 					break;
 			}
@@ -803,7 +797,7 @@ public class PenisAss {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] can't help but let out [npc2.sob+] as [npc.name] moves away,"
-									+ " and [npc2.she] [npc.verb(continue)] crying and protesting as [npc2.she] [npc.verb(plead)] for [npc.herHim] to leave [npc.herHim] alone.",
+									+ " and [npc2.she] [npc2.verb(continue)] crying and protesting as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to leave [npc.herHim] alone.",
 
 							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle against [npc.name], tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(beg)] to be left alone."));
 					break;

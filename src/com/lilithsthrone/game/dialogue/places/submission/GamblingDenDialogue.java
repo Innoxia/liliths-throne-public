@@ -785,7 +785,7 @@ public class GamblingDenDialogue {
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)
-					|| (Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy());
+					|| (Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -813,7 +813,7 @@ public class GamblingDenDialogue {
 				
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_END"));
 				
-			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy()) {
+			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_EPONA_IMPREGNATED"));
 				
 			} else {
@@ -856,12 +856,12 @@ public class GamblingDenDialogue {
 					return null;
 				}
 				
-			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isReactedToPregnancy()) {
+			} else if(Main.game.getEpona().isVisiblyPregnant() && !Main.game.getEpona().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				if(index==1) {
 					return new Response("Continue", "You're happy to see how delighted Epona is to be the mother of your children.", PREGNANCY_ROULETTE_GREETING_UTIL) {
 						@Override
 						public void effects() {
-							Main.game.getEpona().setReactedToPregnancy(true);
+							Main.game.getEpona().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
 						}
 					};
@@ -1230,7 +1230,7 @@ public class GamblingDenDialogue {
 								return false;
 							}
 							@Override
-							public boolean isPartnerWantingToStopSex() {
+							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 								return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 							}
 							@Override
@@ -1267,7 +1267,7 @@ public class GamblingDenDialogue {
 								return false;
 							}
 							@Override
-							public boolean isPartnerWantingToStopSex() {
+							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 								return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 							}
 							@Override
@@ -1327,7 +1327,7 @@ public class GamblingDenDialogue {
 									return false;
 								}
 								@Override
-								public boolean isPartnerWantingToStopSex() {
+								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 									return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 								}
 								@Override
@@ -1364,7 +1364,7 @@ public class GamblingDenDialogue {
 									return false;
 								}
 								@Override
-								public boolean isPartnerWantingToStopSex() {
+								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 									return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 								}
 								@Override
