@@ -45,6 +45,9 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.parse.ParserCommand;
+import com.lilithsthrone.parse.ParserTarget;
+import com.lilithsthrone.utils.ArrayUtil;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
@@ -772,41 +775,41 @@ public class UtilText {
 		// Parsing:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("money"),
+				new String[] {"money"},
 				true,
 				false,
 				"(amount, tag)",
 				"Formats the supplied number as money, using the tag as the html tag."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return UtilText.formatAsMoney(arguments.split(", ")[0], arguments.split(", ")[1]);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moneyUncoloured",
 						"moneyNoColour",
 						"moneyUncolored",
-						"moneyNoColor"),
+						"moneyNoColor"},
 				true,
 				false,
 				"(amount, tag)",
 				"Formats the supplied number as money, using the tag as the html tag."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return UtilText.formatAsMoneyUncoloured(Integer.valueOf(arguments.split(", ")[0]), arguments.split(", ")[1]);
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("random"),
+				new String[] {"random"},
 				true,
 				false,
 				"(text1 | text2 | text3)",
 				"Returns a random string from the supplied arguments."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				List<String> strings = new ArrayList<>();
 				for(String s : arguments.split("\\|")) {
 					strings.add(s);
@@ -816,14 +819,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("name"),
+				new String[] {"name"},
 				true,
 				false,
 				"(prefix)",
 				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && character.isPlayer()) {
 					if(command.startsWith("N")) {
 						return "You";
@@ -843,14 +846,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("namePos"),
+				new String[] {"namePos"},
 				true,
 				false,
 				"(real name)",
 				"Returns a possessive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
@@ -870,14 +873,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("nameIs"),
+				new String[] {"nameIs"},
 				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
@@ -893,13 +896,13 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("nameIsFull"),
+				new String[] {"nameIsFull"},
 				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return character.getName() + " is";
 				} else {
@@ -915,14 +918,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("nameHas"),
+				new String[] {"nameHas"},
 				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
 				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
@@ -938,15 +941,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"verb",
-						"verbPerson"),
+						"verbPerson"},
 				true,
 				false,
 				"(verb)",
 				"Returns a verb in the (probably) correct person for this character. A player might get 'wiggle' where an NPC would get 'wiggles'.") {
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if (character.isPlayer()) {
 					return arguments;
 				} else if (arguments.endsWith("s")
@@ -969,26 +972,26 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("surname"),
+				new String[] {"surname"},
 				true,
 				false,
 				"",
 				"Returns the surname of the target."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getSurname();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("fullName"),
+				new String[] {"fullName"},
 				true,
 				false,
 				"(prefix)",
 				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return character.getName(arguments)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
 				} else {
@@ -1001,43 +1004,43 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pcName",
-						"pcPetName"),
+						"pcPetName"},
 				true,
 				false,
 				"",
 				"Returns the name that this character prefers to call the player by."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getPlayerPetName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"description",
-						"desc"),
+						"desc"},
 				true,
 				false,
 				"",
 				"Returns a breif descriptive overview of this character."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getDescription();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"job",
-						"jobName"),
+						"jobName"},
 				true,
 				true,
 				"",
 				"Returns the name of this character's job."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isSlave()) {
 					return character.getSlaveJob().getName(character);
 				}
@@ -1046,14 +1049,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"gender"),
+				new String[] {
+						"gender"},
 				true,
 				true,
 				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				Gender gender = character.getGender();
 				
 				boolean pronoun = parseAddPronoun;
@@ -1072,16 +1075,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"genderAppears",
 						"genderAppearsAs",
-						"appearsAsGender"),
+						"appearsAsGender"},
 				true,
 				true,
 				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				Gender gender = character.getAppearsAsGender();
 				
 				boolean pronoun = parseAddPronoun;
@@ -1100,15 +1103,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"daughter",
-						"son"),
+						"son"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "daughter";
 				} else {
@@ -1118,15 +1121,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"mother",
-						"father"),
+						"father"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "mother";
 				} else {
@@ -1136,15 +1139,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"mommy",
-						"daddy"),
+						"daddy"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "mommy";
 				} else {
@@ -1154,16 +1157,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"mom",
 						"mum",
-						"dad"),
+						"dad"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "mom";
 				} else {
@@ -1173,15 +1176,15 @@ public class UtilText {
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sister",
-						"brother"),
+						"brother"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "sister";
 				} else {
@@ -1191,15 +1194,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sis",
-						"bro"),
+						"bro"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "sis";
 				} else {
@@ -1209,15 +1212,15 @@ public class UtilText {
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"niece",
-						"nephew"),
+						"nephew"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "niece";
 				} else {
@@ -1227,15 +1230,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"mistress",
-						"master"),
+						"master"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "mistress";
 				} else {
@@ -1245,15 +1248,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"heroine",
-						"hero"),
+						"hero"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "heroine";
 				} else {
@@ -1263,17 +1266,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"miss",
 						"ms",
 						"mister",
-						"mr"),
+						"mr"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "Miss";
 				} else {
@@ -1283,15 +1286,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"boyfriend",
-						"girlfriend"),
+						"girlfriend"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return "girlfriend";
 				} else {
@@ -1301,15 +1304,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"bitch",
-						"slut"),
+						"slut"},
 				true,
 				true,
 				"",
 				"Returns a random mean word to describe this person, based on their femininity."){ // R-Rude!
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
 				} else {
@@ -1319,16 +1322,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"fullRace",
 						"raceFull",
-						"femininityRace"),
+						"femininityRace"},
 				true,
 				true,
 				"(coloured)",
 				"Returns a full description of this characters race (including femininity). Pass in 'true' to colour the text."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				boolean pronoun = parseAddPronoun;
 				parseAddPronoun = false;
 				if(arguments!=null && Boolean.valueOf(arguments)) {
@@ -1350,14 +1353,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"race"),
+				new String[] {
+						"race"},
 				true,
 				true,
 				"(coloured)",
 				"Returns the name of this characters race. Pass in 'true' to colour the text."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
@@ -1373,27 +1376,27 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"races"),
+				new String[] {
+						"races"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getSubspeciesNamePlural(character.getSubspecies());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"raceStage"),
+				new String[] {
+						"raceStage"},
 				true,
 				true,
 				"(coloured)",
 				"Returns the name of the 'stage' of characters race (partial, lesser, greater). Pass in 'true' to colour the text."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
@@ -1409,14 +1412,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"preferredBody"),
+				new String[] {
+						"preferredBody"},
 				false,
 				false,
 				"(tag)",
 				"Returns the description of this character's preferred body."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(!(character instanceof NPC)) {
 					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>preferredBody_not_npc</i>";
 				}
@@ -1428,602 +1431,602 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialName"),
+				new String[] {
+						"materialName"},
 				true,
 				true,
 				"",
 				"Returns the name of the character's BodyMaterial."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialSkin"),
+				new String[] {
+						"materialSkin"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's skin."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getSkinNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialSkinAdjective"),
+				new String[] {
+						"materialSkinAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's skin."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getSkinAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialSkinAlt"),
+				new String[] {
+						"materialSkinAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's skin on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getSkinAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialSkinAltAdjective"),
+				new String[] {
+						"materialSkinAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's skin on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getSkinAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialOrifice"),
+				new String[] {
+						"materialOrifice"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the material lining the character's orifices."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getOrificeNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialOrificeAdjective"),
+				new String[] {
+						"materialOrificeAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the material lining the character's orifices."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getOrificeAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialOrificeAlt"),
+				new String[] {
+						"materialOrificeAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the material lining the character's orifices on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getOrificeAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialOrificeAltAdjective"),
+				new String[] {
+						"materialOrificeAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the material lining the character's orifices on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getOrificeAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialHair"),
+				new String[] {
+						"materialHair"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's hair."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialHairAdjective"),
+				new String[] {
+						"materialHairAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's hair."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialHairBody",
-						"materialBodyHair"),
+						"materialBodyHair"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's body hair."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairBodyNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialHairBodyAdjective",
-						"materialBodyHairAdjective"),
+						"materialBodyHairAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's body hair."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairBodyAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialHairAlt"),
+				new String[] {
+						"materialHairAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's Hair on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialHairAltAdjective"),
+				new String[] {
+						"materialHairAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's hair on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getHairAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialFur"),
+				new String[] {
+						"materialFur"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's fur."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFurNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialFurAdjective"),
+				new String[] {
+						"materialFurAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's fur."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFurAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialFurAlt"),
+				new String[] {
+						"materialFurAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's fur on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFurAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialFurAltAdjective"),
+				new String[] {
+						"materialFurAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's fur on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFurAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialFeather",
-						"materialFeathers"),
+						"materialFeathers"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's feathers."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFeatherNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialFeatherAdjective",
-						"materialFeathersAdjective"),
+						"materialFeathersAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's feathers."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFeatherAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialFeatherAlt",
-						"materialFeathersAlt"),
+						"materialFeathersAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's feathers on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFeatherAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialFeatherAltAdjective",
-						"materialFeathersAltAdjective"),
+						"materialFeathersAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's fur on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getFeatherAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialScale",
-						"materialScales"),
+						"materialScales"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's scales."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getScaleNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialScaleAdjective",
-						"materialScalesAdjective"),
+						"materialScalesAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's scales."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getScaleAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialScaleAlt",
-						"materialScalesAlt"),
+						"materialScalesAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's scales on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getScaleAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"materialScaleAltAdjective",
-						"materialScalesAltAdjective"),
+						"materialScalesAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's scales on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getScaleAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialShell"),
+				new String[] {
+						"materialShell"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's shell."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getShellNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialShellAdjective"),
+				new String[] {
+						"materialShellAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's shell."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getShellAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialShellAlt"),
+				new String[] {
+						"materialShellAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's shell on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getShellAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialShellAltAdjective"),
+				new String[] {
+						"materialShellAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's shell on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getShellAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialKeratin"),
+				new String[] {
+						"materialKeratin"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's keratin."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getKeratinNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialKeratinAdjective"),
+				new String[] {
+						"materialKeratinAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's keratin."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getKeratinAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialKeratinAlt"),
+				new String[] {
+						"materialKeratinAlt"},
 				true,
 				true,
 				"",
 				"Returns a descriptor of the character's keratin on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getKeratinAltNoun();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"materialKeratinAltAdjective"),
+				new String[] {
+						"materialKeratinAltAdjective"},
 				true,
 				true,
 				"",
 				"Returns an adjectival descriptor of the character's keratin on nonhumanoid body parts."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyMaterial().getKeratinAltAdj();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"femininity",
 						"fem",
 						"masculinity",
-						"mas"),
+						"mas"},
 				true,
 				true,
 				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Femininity.valueOf(character.getFemininityValue()).getName(false);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"bodySize"),
+				new String[] {
+						"bodySize"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return BodySize.valueOf(character.getBodySizeValue()).getName(false);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"muscle"),
+				new String[] {
+						"muscle"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Muscle.valueOf(character.getMuscleValue()).getName(false);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"bodyShape"),
+				new String[] {
+						"bodyShape"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBodyShape().getName(false);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"height"),
+				new String[] {
+						"height"},
 				true,
 				true,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getHeight().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightCm"),
+				new String[] {
+						"heightCm"},
 				false,
 				false,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getHeightValue());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightInches"),
+				new String[] {
+						"heightInches"},
 				false,
 				false,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(Util.conversionCentimetresToInches(character.getHeightValue()));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"heightFeetInches"),
+				new String[] {
+						"heightFeetInches"},
 				false,
 				false,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(character.getHeightValue()));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"weight"),
+				new String[] {
+						"weight"},
 				false,
 				false,
 				"",//TODO
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getWeight());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speech",
 						"dialogue",
 						"talk",
-						"say"),
+						"say"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseSpeech(arguments, character);
 				} else {
@@ -2033,17 +2036,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speechMasculine",
 						"dialogueMasculine",
 						"talkMasculine",
-						"sayMasculine"),
+						"sayMasculine"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseNPCSpeech(arguments, Femininity.MASCULINE);
 				} else {
@@ -2053,17 +2056,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speechMasculineStrong",
 						"dialogueMasculineStrong",
 						"talkMasculineStrong",
-						"sayMasculineStrong"),
+						"sayMasculineStrong"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseNPCSpeech(arguments, Femininity.MASCULINE_STRONG);
 				} else {
@@ -2073,17 +2076,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speechAndrogynous",
 						"dialogueAndrogynous",
 						"talkAndrogynous",
-						"sayAndrogynous"),
+						"sayAndrogynous"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseNPCSpeech(arguments, Femininity.ANDROGYNOUS);
 				} else {
@@ -2093,17 +2096,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speechFeminine",
 						"dialogueFeminine",
 						"talkFeminine",
-						"sayFeminine"),
+						"sayFeminine"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseNPCSpeech(arguments, Femininity.FEMININE);
 				} else {
@@ -2113,17 +2116,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"speechNoEffects",
 						"dialogueNoEffects",
 						"talkNoEffects",
-						"sayNoEffects"),
+						"sayNoEffects"},
 				false,
 				false,
 				"(speech content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseSpeechNoEffects(arguments, character);
 				} else {
@@ -2133,14 +2136,14 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"thought"),
+				new String[] {
+						"thought"},
 				false,
 				false,
 				"(thought content)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					return parseThought(arguments, character);
 				} else {
@@ -2150,18 +2153,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moan",
 						"groan",
 						"sob",
-						"cry"),
+						"cry"},
 				true,
 				true,
 				"",
 				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will moan, while if they are masculine, they will groan."
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2181,7 +2184,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moan+",
 						"moanD",
 						"groan+",
@@ -2189,7 +2192,7 @@ public class UtilText {
 						"sob+",
 						"sobD",
 						"cry+",
-						"cryD"),
+						"cryD"},
 				true,
 				true,
 				"",
@@ -2197,7 +2200,7 @@ public class UtilText {
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."
 				+ " <b>Expansion of 'moan' command:</b> This command will append a suitable descriptor before the 'moan' noise. e.g. 'lewd squeal', or 'eager grunt'."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2224,7 +2227,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moanVerb",
 						"groanVerb",
 						"sobVerb",
@@ -2232,14 +2235,14 @@ public class UtilText {
 						"moansVerb",
 						"groansVerb",
 						"sobsVerb",
-						"criesVerb"),
+						"criesVerb"},
 				true,
 				true,
 				"",
 				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will moan, while if they are masculine, they will groan."
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isPlayer()) {
 					if(Main.game.isInSex()) {
 						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
@@ -2277,7 +2280,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moanVerb+",
 						"moanVerbD",
 						"groanVerb+",
@@ -2293,7 +2296,7 @@ public class UtilText {
 						"sobsVerb+",
 						"sobsVerbD",
 						"criesVerb+",
-						"criesVerbD"),
+						"criesVerbD"},
 				true,
 				true,
 				"",
@@ -2301,7 +2304,7 @@ public class UtilText {
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."
 				+ " <b>Expansion of 'moan' command:</b> This command will append a suitable descriptor before the 'moan' noise. e.g. 'lewd squeal', or 'eager grunt'."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isPlayer()) {
 					if(Main.game.isInSex()) {
 						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
@@ -2353,11 +2356,11 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moans",
 						"groans",
 						"sobs",
-						"cries"),
+						"cries"},
 				true,
 				false,
 				"",
@@ -2365,7 +2368,7 @@ public class UtilText {
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobs' or 'cries'."
 				+" <b>Provides an appropriate <i>noun</i> version of 'moans'.</b> (Use 'moansVerb' for the verb version.)"){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2385,7 +2388,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moans+",
 						"moansD",
 						"groans+",
@@ -2393,7 +2396,7 @@ public class UtilText {
 						"sobs+",
 						"sobsD",
 						"cries+",
-						"criesD"),
+						"criesD"},
 				true,
 				false,
 				"",
@@ -2402,7 +2405,7 @@ public class UtilText {
 				+ " <b>Expansion of 'moans' command:</b> This command will append a suitable descriptor before the 'moans' noise. e.g. 'lewd squeals', or 'eager grunts'."
 				+ " <b>Provides an appropriate <i>noun</i> version of 'moans'.</b> (Use 'moansVerb+' for the verb version.)"){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2429,17 +2432,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moaning",
 						"groaning",
 						"sobbing",
-						"crying"),
+						"crying"},
 				true,
 				false,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2459,7 +2462,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"moaning+",
 						"moaningD",
 						"groaning+",
@@ -2467,13 +2470,13 @@ public class UtilText {
 						"sobbing+",
 						"sobbingD",
 						"crying+",
-						"cryingD"),
+						"cryingD"},
 				true,
 				false,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
@@ -2500,7 +2503,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"eagerly",
 						"gently",
 						"roughly"),
@@ -2563,14 +2566,14 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"scent",
-						"smell"),
+						"smell"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.GENERIC){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return returnStringAtRandom("scent", "scent", "perfume");
 				} else {
@@ -2580,18 +2583,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scent+",
 						"scentD",
 						"smell+",
-						"smellD"),
+						"smellD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.GENERIC){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine()) {
 					return returnStringAtRandom("feminine scent", "feminine perfume", "delicate scent");
 				} else {
@@ -2603,15 +2606,15 @@ public class UtilText {
 		// Gender parsing:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"girl",
-						"boy"),
+						"boy"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine())
 					return Gender.F_V_B_FEMALE.getNounYoung();
 				else
@@ -2620,15 +2623,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"woman",
-						"man"),
+						"man"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine())
 					return Gender.F_V_B_FEMALE.getNoun();
 				else
@@ -2637,15 +2640,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"female",
-						"male"),
+						"male"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine())
 					return Gender.F_V_B_FEMALE.getName();
 				else
@@ -2654,15 +2657,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"feminine",
-						"masculine"),
+						"masculine"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.isFeminine())
 					return "feminine";
 				else
@@ -2671,15 +2674,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"have",
-						"has"),
+						"has"},
 				true,
 				true,
 				"",
 				"Returns the correct version of 'has' for this character (has or have)."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "have";
 				} else {
@@ -2689,15 +2692,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"does",
-						"do"),
+						"do"},
 				true,
 				true,
 				"",
 				"Returns the correct version of 'does' for this character (do or does)."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "do";
 				} else {
@@ -2707,20 +2710,20 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"her",
 						"his",
 						"herPos",
 						"herHis",
 						"hisPos",
-						"hisHer"),
+						"hisHer"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific possessive pronoun for this character (your, her, his). By default, returns 'your' for player character."
 				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
 				} else {
@@ -2742,16 +2745,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hers",
 						"hersHis",
-						"hisHers"),
+						"hisHers"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "yours";
 				} else {
@@ -2765,16 +2768,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"nameHers",
 						"nameHersHis",
-						"nameHisHers"),
+						"nameHisHers"},
 				true,
 				true,
 				"",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "yours";
 				} else {
@@ -2787,18 +2790,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"him",
 						"herPro",
 						"herHim",
-						"himHer"),
+						"himHer"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
 				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you";
 				} else {
@@ -2820,18 +2823,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"she",
 						"sheHe",
 						"he",
-						"heShe"),
+						"heShe"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, she, he). By default, returns 'you' for player character."
 				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you";
 				} else {
@@ -2853,18 +2856,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sheIs",
 						"sheHeIs",
 						"heIs",
-						"heSheIs"),
+						"heSheIs"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you're, she's, he's). By default, returns 'you're' for player character."
 				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you're";
 				} else {
@@ -2886,18 +2889,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sheIsFull",
 						"sheHeIsFull",
 						"heIsFull",
-						"heSheIsFull"),
+						"heSheIsFull"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you are, she is, he is). By default, returns 'you are' for player character."
 				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you are";
 				} else {
@@ -2919,18 +2922,18 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sheHas",
 						"sheHeHas",
 						"heHas",
-						"heSheHas"),
+						"heSheHas"},
 				true,
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's). By default, returns 'you've' for player character."
 				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you've";
 				} else {
@@ -2952,17 +2955,17 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"sheHasFull",
 						"sheHeHasFull",
 						"heHasFull",
-						"heSheHasFull"),
+						"heSheHasFull"},
 				true,
 				true,
 				"",
 				"Returns the correct gender-specific pronoun contraction for this character (you have, she has, he has). By default, returns 'you have' for player character."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(target.startsWith("npc") && character.isPlayer()) {
 					return "you have";
 				} else {
@@ -2984,16 +2987,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"herself",
-						"himself"),
+						"himself"},
 				true,
 				true,
 				"",
 				"Returns correct gender-specific reflexive pronoun for this character (yourself, herself, himself). By default, returns 'yourself' for player character."
 						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
 					@Override
-					public String parse(String command, String arguments, String target) {
+					public String parse(String command, String arguments, String target, GameCharacter gc) {
 						if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 							return "yourself";
 						} else {
@@ -3017,10 +3020,10 @@ public class UtilText {
 		// Clothing:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"topClothing",
 						"highestClothing",
-						"highClothing"),
+						"highClothing"},
 				true,
 				true,
 				"(bodyPart)",
@@ -3030,7 +3033,7 @@ public class UtilText {
 				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("vagina") || arguments.equalsIgnoreCase("pussy") || arguments.equalsIgnoreCase("cunt")) {
 						if(character.getHighestZLayerCoverableArea(CoverableArea.VAGINA)==null)
@@ -3072,10 +3075,10 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"bottomClothing",
 						"lowestClothing",
-						"lowClothing"),
+						"lowClothing"},
 				true,
 				true,
 				"(bodyPart)",
@@ -3085,7 +3088,7 @@ public class UtilText {
 				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("vagina") || arguments.equalsIgnoreCase("pussy") || arguments.equalsIgnoreCase("cunt")) {
 						if(character.getLowestZLayerCoverableArea(CoverableArea.VAGINA)==null)
@@ -3130,15 +3133,15 @@ public class UtilText {
 		// Styles:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"bold",
-						"b"),
+						"b"},
 				false,
 				false,
 				"(text to make bold)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null)
 					return "<b>"+arguments+"</b>";
 				else
@@ -3147,16 +3150,16 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"italic",
 						"italics",
-						"i"),
+						"i"},
 				false,
 				false,
 				"(text to italicise)",
 				"Description of method"){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(arguments!=null)
 					return "<i>"+arguments+"</i>";
 				else
@@ -3177,13 +3180,13 @@ public class UtilText {
 				}
 				
 				commandsList.add(new ParserCommand(
-						commandNames,
+						ArrayUtil.convertToArray(commandNames),
 						false,
 						false,
 						"(text to colour)",
 						"Description of method"){//TODO
 					@Override
-					public String parse(String command, String arguments, String target) {
+					public String parse(String command, String arguments, String target, GameCharacter gc) {
 						if(arguments!=null)
 							return "<span style='color:"+c.toWebHexString()+";'>"+arguments+"</span>";
 						else
@@ -3198,13 +3201,13 @@ public class UtilText {
 				}
 				
 				commandsList.add(new ParserCommand(
-						commandNames,
+						ArrayUtil.convertToArray(commandNames),
 						false,
 						false,
 						"(text to make bold)",
 						"Description of method"){//TODO
 					@Override
-					public String parse(String command, String arguments, String target) {
+					public String parse(String command, String arguments, String target, GameCharacter gc) {
 						if(arguments!=null)
 							return "<b style='color:"+c.toWebHexString()+";'>"+arguments+"</b>";
 						else
@@ -3220,13 +3223,13 @@ public class UtilText {
 				}
 				
 				commandsList.add(new ParserCommand(
-						commandNames,
+						ArrayUtil.convertToArray(commandNames),
 						false,
 						false,
 						"(text to italicise)",
 						"Description of method"){//TODO
 					@Override
-					public String parse(String command, String arguments, String target) {
+					public String parse(String command, String arguments, String target, GameCharacter gc) {
 						if(arguments!=null)
 							return "<i style='color:"+c.toWebHexString()+";'>"+arguments+"</i>";
 						else
@@ -3242,13 +3245,13 @@ public class UtilText {
 				}
 				
 				commandsList.add(new ParserCommand(
-						commandNames,
+						ArrayUtil.convertToArray(commandNames),
 						false,
 						false,
 						"(text to glow)",
 						"Description of method"){//TODO
 					@Override
-					public String parse(String command, String arguments, String target) {
+					public String parse(String command, String arguments, String target, GameCharacter gc) {
 						if(arguments!=null)
 							return applyGlow(arguments, c);
 						else
@@ -3270,133 +3273,133 @@ public class UtilText {
 		// Add standard parsing for all types:
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("antenna"),
-				Util.newArrayListOfValues("antennae"),
+				new String[] {"antenna"},
+				new String[] {"antennae"},
 				BodyPartType.ANTENNA);
 				
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("arm"),
-				Util.newArrayListOfValues("arms"),
+				new String[] {"arm"},
+				new String[] {"arms"},
 				BodyPartType.ARM);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("ass", "butt"),
-				Util.newArrayListOfValues("asses", "butts"),
+				new String[] {"ass", "butt"},
+				new String[] {"asses", "butts"},
 				BodyPartType.ASS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("anus", "asshole"),
-				Util.newArrayListOfValues("anuses", "assholes"),
+				new String[] {"anus", "asshole"},
+				new String[] {"anuses", "assholes"},
 				BodyPartType.ANUS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("breast", "tit", "boob", "chest"),
-				Util.newArrayListOfValues("breasts", "tits", "boobs"),
+				new String[] {"breast", "tit", "boob", "chest"},
+				new String[] {"breasts", "tits", "boobs"},
 				BodyPartType.BREAST);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("nipple", "teat"),
-				Util.newArrayListOfValues("nipples", "teats"),
+				new String[] {"nipple", "teat"},
+				new String[] {"nipples", "teats"},
 				BodyPartType.NIPPLES);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("milk"),
-				Util.newArrayListOfValues("milks"), // milks? Really?
+				new String[] {"milk"},
+				new String[] {"milks"}, // milks? Really?
 				BodyPartType.MILK);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("ear"),
-				Util.newArrayListOfValues("ears"),
+				new String[] {"ear"},
+				new String[] {"ears"},
 				BodyPartType.EAR);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("eye"),
-				Util.newArrayListOfValues("eyes"),
+				new String[] {"eye"},
+				new String[] {"eyes"},
 				BodyPartType.EYE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("face"),
-				Util.newArrayListOfValues("faces"),
+				new String[] {"face"},
+				new String[] {"faces"},
 				BodyPartType.FACE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("mouth"),
-				Util.newArrayListOfValues("mouths"),
+				new String[] {"mouth"},
+				new String[] {"mouths"},
 				BodyPartType.MOUTH);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("hairSingular", "feather"),
-				Util.newArrayListOfValues("hair", "feathers"),
+				new String[] {"hairSingular", "feather"},
+				new String[] {"hair", "feathers"},
 				BodyPartType.HAIR);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("horn"),
-				Util.newArrayListOfValues("horns"),
+				new String[] {"horn"},
+				new String[] {"horns"},
 				BodyPartType.HORN);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("leg"),
-				Util.newArrayListOfValues("legs"),
+				new String[] {"leg"},
+				new String[] {"legs"},
 				BodyPartType.LEG);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("penis", "cock", "dick"),
-				Util.newArrayListOfValues("penises", "cocks", "dicks"),
+				new String[] {"penis", "cock", "dick"},
+				new String[] {"penises", "cocks", "dicks"},
 				BodyPartType.PENIS);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("secondPenis", "secondCock", "secondDick", "penis2", "cock2", "dick2"),
-				Util.newArrayListOfValues("secondPenises", "secondCocks", "secondDicks", "penises2", "cocks2", "dicks2"),
+				new String[] {"secondPenis", "secondCock", "secondDick", "penis2", "cock2", "dick2"},
+				new String[] {"secondPenises", "secondCocks", "secondDicks", "penises2", "cocks2", "dicks2"},
 				BodyPartType.SECOND_PENIS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("testicle", "ball"),
-				Util.newArrayListOfValues("testicles", "balls"),
+				new String[] {"testicle", "ball"},
+				new String[] {"testicles", "balls"},
 				BodyPartType.TESTICLES);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("cum"),
-				Util.newArrayListOfValues("cums"), // :s
+				new String[] {"cum"},
+				new String[] {"cums"}, // :s
 				BodyPartType.CUM);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("skin"),
-				Util.newArrayListOfValues("skinPlural"),
+				new String[] {"skin"},
+				new String[] {"skinPlural"},
 				BodyPartType.SKIN);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("tail"),
-				Util.newArrayListOfValues("tails"),
+				new String[] {"tail"},
+				new String[] {"tails"},
 				BodyPartType.TAIL);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("tentacle"),
-				Util.newArrayListOfValues("tentacles"),
+				new String[] {"tentacle"},
+				new String[] {"tentacles"},
 				BodyPartType.TENTACLE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("tongue"),
-				Util.newArrayListOfValues("tongues"),
+				new String[] {"tongue"},
+				new String[] {"tongues"},
 				BodyPartType.TONGUE);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("clit", "clitoris"),
-				Util.newArrayListOfValues("clits", "clitorises"),
+				new String[] {"clit", "clitoris"},
+				new String[] {"clits", "clitorises"},
 				BodyPartType.CLIT);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("vagina", "pussy", "cunt"),
-				Util.newArrayListOfValues("vaginas", "pussies", "cunts"),
+				new String[] {"vagina", "pussy", "cunt"},
+				new String[] {"vaginas", "pussies", "cunts"},
 				BodyPartType.VAGINA);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("girlcum", "gcum"),
-				Util.newArrayListOfValues("girlcums", "gcums"),
+				new String[] {"girlcum", "gcum"},
+				new String[] {"girlcums", "gcums"},
 				BodyPartType.GIRL_CUM);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues("wing"),
-				Util.newArrayListOfValues("wings"),
+				new String[] {"wing"},
+				new String[] {"wings"},
 				BodyPartType.WING);
 		
 		
@@ -3405,15 +3408,15 @@ public class UtilText {
 		// Arm:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"armRows"),
+				new String[] {
+						"armRows"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getArmRows()==1) {
 					return "pair of";
 				} else if(character.getArmRows()==2) {
@@ -3425,117 +3428,117 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"hand"),
+				new String[] {
+						"hand"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getArmType().getHandsNameSingular(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hand+",
-						"handD"),
+						"handD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getArmType().getHandsDescriptor(character), character.getArmType().getHandsNameSingular(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"hands"),
+				new String[] {
+						"hands"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getArmType().getHandsNamePlural(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hands+",
-						"handsD"),
+						"handsD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getArmType().getHandsDescriptor(character), character.getArmType().getHandsNamePlural(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"finger"),
+				new String[] {
+						"finger"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getArmType().getFingersNameSingular(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"finger+",
-						"fingerD"),
+						"fingerD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getArmType().getFingersDescriptor(character), character.getArmType().getFingersNameSingular(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"fingers"),
+				new String[] {
+						"fingers"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getArmType().getFingersNamePlural(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"fingers+",
-						"fingersD"),
+						"fingersD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.ARM){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getArmType().getFingersDescriptor(character), character.getArmType().getFingersNamePlural(character));
 			}
 		});
@@ -3543,60 +3546,60 @@ public class UtilText {
 	
 		// Ass:
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"assSize"),
+				new String[] {
+						"assSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getAssSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"assCapacity",
-						"assholeCapacity"),
+						"assholeCapacity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Capacity.getCapacityFromValue(character.getAssStretchedCapacity()).getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"assElasticity",
-						"assholeElasticity"),
+						"assholeElasticity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getAssElasticity().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"assWetness",
-						"assholeWetness"),
+						"assholeWetness"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getAssWetness().getDescriptor();
 			}
 		});
@@ -3604,78 +3607,78 @@ public class UtilText {
 		// Hips: TODO rough
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hipSkin",
-						"hipsSkin"),
+						"hipsSkin"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getSkinName(character.getSkinType());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hipSkin+",
-						"hipsSkin+"),
+						"hipsSkin+"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getSkinNameWithDescriptor(character.getSkinType());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hip",
-						"hips"),
+						"hips"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "hips";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hip+",
 						"hipD",
 						"hips+",
-						"hipsD"),
+						"hipsD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getHipSize().getDescriptor(), "hips");
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hipSize",
-						"hipsSize"),
+						"hipsSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.ASS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getHipSize().getDescriptor();
 			}
 		});
@@ -3683,75 +3686,75 @@ public class UtilText {
 		// Breasts:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"breastSize",
 						"breastsSize",
 						"titSize",
 						"titsSize",
 						"boobSize",
-						"boobsSize"),
+						"boobsSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBreastSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"breastShape",
 						"breastsShape",
 						"titShape",
 						"titsShape",
 						"boobShape",
-						"boobsShape"),
+						"boobsShape"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBreastShape().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"nippleSize",
-						"nipplesSize"),
+						"nipplesSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getNippleSize().getName();
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"areolaSize",
-						"areolaeSize"),
+						"areolaeSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getAreolaeSize().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"cupSize",
 						"cups",
 						"breastCups",
@@ -3759,67 +3762,67 @@ public class UtilText {
 						"titCups",
 						"titsCups",
 						"boobCups",
-						"boobsCups"),
+						"boobsCups"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBreastSize().getCupSizeName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"breastCapacity",
 						"breastsCapacity",
 						"titCapacity",
 						"titsCapacity",
 						"boobCapacity",
-						"boobsCapacity"),
+						"boobsCapacity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Capacity.getCapacityFromValue(character.getNippleStretchedCapacity()).getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"breastElasticity",
 						"breastsElasticity",
 						"titElasticity",
 						"titsElasticity",
 						"boobElasticity",
-						"boobsElasticity"),
+						"boobsElasticity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getNippleElasticity().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"breastRows",
-						"nippleRows"),
+						"nippleRows"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getBreastRows()==1) {
 					return "pair of";
 				} else {
@@ -3829,45 +3832,45 @@ public class UtilText {
 		});
 		
 //		commandsList.add(new ParserCommand(
-//				Util.newArrayListOfValues(
+//				new String[] {
 //						"milk",
-//						"milkName"),
+//						"milkName"},
 //				true,
 //				true,
 //				"",
 //				"Description of method",
 //				BodyPartType.BREAST){//TODO
 //			@Override
-//			public String parse(String command, String arguments, String target) {
+//			public String parse(String command, String arguments, String target, GameCharacter gc) {
 //				return character.getMilkName();
 //			}
 //		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"lactation"),
+				new String[] {
+						"lactation"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBreastMilkStorage().getDescriptor();
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"milkRegen",
-						"milkRegeneration"),
+						"milkRegeneration"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.BREAST){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBreastLactationRegeneration().getName();
 			}
 		});
@@ -3875,18 +3878,18 @@ public class UtilText {
 		// Eyes:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"eyePairs",
 						"eyesPairs",
 						"eyeRows",
-						"eyesRows"),
+						"eyesRows"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getEyeDeterminer();
 			}
 		});
@@ -3894,117 +3897,117 @@ public class UtilText {
 		// Face:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"tongueLength",
-						"tongueSize"),
+						"tongueSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getTongueLength().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"nose"),
+				new String[] {
+						"nose"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getNoseNameSingular();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"noses"),
+				new String[] {
+						"noses"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getNoseNamePlural();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"lipSize",
-						"lipsSize"),
+						"lipsSize"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLipSize().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"lip"),
+				new String[] {
+						"lip"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLipsNameSingular();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"lip+",
-						"lipD"),
+						"lipD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getLipsDescriptor(), character.getLipsNameSingular());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"lips"),
+				new String[] {
+						"lips"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLipsNamePlural();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"lips+",
-						"lipsD"),
+						"lipsD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.FACE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getLipsDescriptor(), character.getLipsNamePlural());
 			}
 		});
@@ -4012,15 +4015,15 @@ public class UtilText {
 		// Hair:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"hairLength"),
+				new String[] {
+						"hairLength"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.HAIR){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getHairLength().getDescriptor();
 			}
 		});
@@ -4028,18 +4031,18 @@ public class UtilText {
 		// Horns:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"hornSize",
 						"hornsSize",
 						"hornLength",
-						"hornsLength"),
+						"hornsLength"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.HORN){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return HornLength.getHornLengthFromInt(character.getHornLength()).getDescriptor();
 			}
 		});
@@ -4047,117 +4050,117 @@ public class UtilText {
 		// Leg:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"thighs"),
+				new String[] {
+						"thighs"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "thighs";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"thighs+",
-						"thighsD"),
+						"thighsD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "thighs";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"foot"),
+				new String[] {
+						"foot"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLegType().getFeetNameSingular(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"foot+",
-						"footD"),
+						"footD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getLegType().getFeetDescriptor(character), character.getLegType().getFeetNameSingular(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"feet"),
+				new String[] {
+						"feet"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLegType().getFeetNamePlural(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"feet+",
-						"feetD"),
+						"feetD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getLegType().getFeetDescriptor(character), character.getLegType().getFeetNamePlural(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"toes"),
+				new String[] {
+						"toes"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getLegType().getToesNamePlural(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"toes+",
-						"toesD"),
+						"toesD"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getLegType().getToesDescriptor(character), character.getLegType().getToesNamePlural(character));
 			}
 		});
@@ -4188,24 +4191,24 @@ public class UtilText {
 		// Penis:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisUrethra",
 						"cockUrethra",
 						"urethraPenis",
-						"urethraCock"),
+						"urethraCock"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "urethra";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisUrethra+",
 						"cockUrethra+",
 						"urethraPenis+",
@@ -4213,63 +4216,63 @@ public class UtilText {
 						"penisUrethraD",
 						"cockUrethraD",
 						"urethraPenisD",
-						"urethraCockD"),
+						"urethraCockD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getPenisUrethraDescriptor(), "urethra");
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"cumAmount",
 						"cumProduction",
 						"jizzAmount",
 						"jizzProduction",
-						"cumStorage"),
+						"cumStorage"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.TESTICLES){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getPenisCumStorage().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"cumMl",
-						"cumMeasurement"),
+						"cumMeasurement"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.TESTICLES){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getPenisRawCumStorageValue());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"ballsCount",
 						"ballCount",
-						"testiclesCount"),
+						"testiclesCount"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.TESTICLES){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return (parseCapitalise
 						?Util.capitaliseSentence(Util.intToString(character.getPenisNumberOfTesticles()))
 						:Util.intToString(character.getPenisNumberOfTesticles()));
@@ -4277,41 +4280,41 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"ballSize",
 						"ballsSize",
 						"testicleSize",
-						"testiclesSize"),
+						"testiclesSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.TESTICLES){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getTesticleSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisHead",
 						"cockHead",
 						"dickHead",
-						"cockTip"),
+						"cockTip"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBody().getPenis().getPenisHeadName(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisHead+",
 						"penisHeadD",
 						"cockHead+",
@@ -4319,88 +4322,88 @@ public class UtilText {
 						"dickHead+",
 						"dickHeadD",
 						"cockTip+",
-						"cockTipD"),
+						"cockTipD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getBody().getPenis().getPenisHeadDescriptor(character), character.getBody().getPenis().getPenisHeadName(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisSize",
 						"cockSize",
-						"dickSize"),
+						"dickSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getPenisSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"penisGirth",
 						"cockGirth",
-						"dickGrith"),
+						"dickGrith"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getPenisGirth().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisCm"),
+				new String[] {
+						"penisCm"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(Util.conversionInchesToCentimetres(character.getPenisRawSizeValue()));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"penisInches"),
+				new String[] {
+						"penisInches"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getPenisRawSizeValue());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"urethra"),
+				new String[] {
+						"urethra"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "urethra";
 			}
 		});
@@ -4408,26 +4411,26 @@ public class UtilText {
 		// Second penis:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"secondPenisHead",
 						"secondCockHead",
 						"secondDickHead",
 						"penis2Head",
 						"cock2Head",
-						"dick2Head"),
+						"dick2Head"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getBody().getSecondPenis().getPenisHeadName(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"secondPenisHead+",
 						"secondCockHead+",
 						"secondDickHead+",
@@ -4439,77 +4442,77 @@ public class UtilText {
 						"secondDickHeadD",
 						"penis2HeadD",
 						"cock2HeadD",
-						"dick2HeadD"),
+						"dick2HeadD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getBody().getSecondPenis().getPenisHeadDescriptor(character), character.getBody().getSecondPenis().getPenisHeadName(character));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"secondPenisSize",
 						"secondCockSize",
 						"secondDickSize",
 						"penis2Size",
 						"cock2Size",
-						"dick2Size"),
+						"dick2Size"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getSecondPenisSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"secondPenisCm",
-						"penis2Cm"),
+						"penis2Cm"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(Util.conversionInchesToCentimetres(character.getSecondPenisRawSizeValue()));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"secondPenisInches",
-						"penis2Inches"),
+						"penis2Inches"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getSecondPenisRawSizeValue());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondUrethra"),
+				new String[] {
+						"secondUrethra"},
 				false,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.PENIS){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "urethra";
 			}
 		});
@@ -4517,16 +4520,16 @@ public class UtilText {
 		// Tail:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"tailCount",
-						"tailsCount"),
+						"tailsCount"},
 				true,
 				false,
 				"",
 				"Description of method",
 				BodyPartType.TAIL){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getTailDeterminer();
 			}
 		});
@@ -4534,24 +4537,24 @@ public class UtilText {
 		// Vagina:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"vaginaUrethra",
 						"vaginalUrethra",
 						"urethraVagina",
-						"urethraVaginal"),
+						"urethraVaginal"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "urethra";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"vaginaUrethra+",
 						"vaginalUrethra+",
 						"urethraVagina+",
@@ -4559,150 +4562,150 @@ public class UtilText {
 						"vaginaUrethraD",
 						"vaginalUrethraD",
 						"urethraVaginaD",
-						"urethraVaginalD"),
+						"urethraVaginalD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getVaginaUrethraDescriptor(), "urethra");
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"vaginaCapacity",
 						"pussyCapacity",
-						"cuntCapacity"),
+						"cuntCapacity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return Capacity.getCapacityFromValue(character.getVaginaStretchedCapacity()).getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"vaginaElasticity",
 						"pussyElasticity",
-						"cuntElasticity"),
+						"cuntElasticity"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getVaginaElasticity().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"vaginaWetness",
 						"pussyWetness",
-						"cuntWetness"),
+						"cuntWetness"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getVaginaWetness().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"labiaSize"),
+				new String[] {
+						"labiaSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getVaginaLabiaSize().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"labia"),
+				new String[] {
+						"labia"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return "labia";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"labia+",
-						"labiaD"),
+						"labiaD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getVaginaLabiaSize().getName()+" labia";
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"clitSize",
-						"clitorisSize"),
+						"clitorisSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getVaginaClitorisSize().getDescriptor();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"clitSizeInches",
-						"clitorisSizeInches"),
+						"clitorisSizeInches"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return String.valueOf(character.getVaginaRawClitorisSizeValue());
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"clitGirth",
-						"clitorisGirth"),
+						"clitorisGirth"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.VAGINA){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getClitorisGirth().getName();
 			}
 		});
@@ -4710,16 +4713,16 @@ public class UtilText {
 		// Wings:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"wingSize",
-						"wingsSize"),
+						"wingsSize"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.WING){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getWingSize().getName();
 			}
 		});
@@ -4727,56 +4730,56 @@ public class UtilText {
 		// Eyes:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"irisShape",
-						"irisesShape"),
+						"irisesShape"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getIrisShape().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"irisFullDescription",
-						"irisesFullDescription"),
+						"irisesFullDescription"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
 						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"irisColour",
 						"irisColor",
 						"irisesColour",
-						"irisesColor"),
+						"irisesColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
 						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"irisColourPrimary",
 						"irisColorPrimary",
 						"irisesColourPrimary",
@@ -4784,21 +4787,21 @@ public class UtilText {
 						"irisPrimaryColour",
 						"irisPrimaryColor",
 						"irisesPrimaryColour",
-						"irisesPrimaryColor"),
+						"irisesPrimaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
 						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"irisColourSecondary",
 						"irisColorSecondary",
 						"irisesColourSecondary",
@@ -4806,70 +4809,70 @@ public class UtilText {
 						"irisSecondaryColour",
 						"irisSecondaryColor",
 						"irisesSecondaryColour",
-						"irisesSecondaryColor"),
+						"irisesSecondaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
 						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pupilShape",
-						"pupilsShape"),
+						"pupilsShape"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getPupilShape().getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pupilFullDescription",
-						"pupilsFullDescription"),
+						"pupilsFullDescription"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_PUPILS)
 						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pupilColour",
 						"pupilColor",
 						"pupilsColour",
-						"pupilsColor"),
+						"pupilsColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_PUPILS)
 						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pupilColourPrimary",
 						"pupilColorPrimary",
 						"pupilsColourPrimary",
@@ -4877,21 +4880,21 @@ public class UtilText {
 						"pupilPrimaryColour",
 						"pupilPrimaryColor",
 						"pupilsPrimaryColour",
-						"pupilsPrimaryColor"),
+						"pupilsPrimaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_PUPILS)
 						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"pupilColourSecondary",
 						"pupilColorSecondary",
 						"pupilsColourSecondary",
@@ -4899,55 +4902,55 @@ public class UtilText {
 						"pupilSecondaryColour",
 						"pupilSecondaryColor",
 						"pupilsSecondaryColour",
-						"pupilsSecondaryColor"),
+						"pupilsSecondaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_PUPILS)
 						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scleraFullDescription",
-						"scleraeFullDescription"),
+						"scleraeFullDescription"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_SCLERA)
 						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scleraColour",
 						"scleraColor",
 						"scleraeColour",
-						"scleraeColor"),
+						"scleraeColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_SCLERA)
 						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scleraColourPrimary",
 						"scleraColorPrimary",
 						"scleraeColourPrimary",
@@ -4955,21 +4958,21 @@ public class UtilText {
 						"scleraPrimaryColour",
 						"scleraPrimaryColor",
 						"scleraePrimaryColour",
-						"scleraePrimaryColor"),
+						"scleraePrimaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_SCLERA)
 						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scleraColourSecondary",
 						"scleraColorSecondary",
 						"scleraeColourSecondary",
@@ -4977,14 +4980,14 @@ public class UtilText {
 						"scleraSecondaryColour",
 						"scleraSecondaryColor",
 						"scleraeSecondaryColour",
-						"scleraeSecondaryColor"),
+						"scleraeSecondaryColor"},
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
 				"Description of method",
 				BodyPartType.EYE){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getCovering(BodyCoveringType.EYE_SCLERA)
 						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
@@ -4993,33 +4996,33 @@ public class UtilText {
 		// Tail:
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"tailHead",
-						"tailTip"),
+						"tailTip"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.TAIL){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return character.getTailType().getTailTipName(character);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"tailHead+",
 						"tailHeadD",
 						"tailTip+",
-						"tailTipD"),
+						"tailTipD"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.TAIL){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipName(character));
 			}
 		});
@@ -5072,7 +5075,7 @@ public class UtilText {
 			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
 		
-		String output = cmd.parse(command, arguments, target);
+		String output = cmd.parse(command, arguments, target, character);
 		parseCapitalise = parseCapitalise && cmd.isAllowsCapitalisation();
 		parseAddPronoun = parseAddPronoun && cmd.isAllowsPronoun();
 		
@@ -5208,7 +5211,7 @@ public class UtilText {
 	 * names<br/>
 	 * names+<br/>
 	 */
-	private static void addStandardParsingCommands(List<String> tags, List<String> tagsPlural, BodyPartType bodyPart) {
+	private static void addStandardParsingCommands(String[] tags, String[] tagsPlural, BodyPartType bodyPart) {
 		
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Race"),
@@ -5218,7 +5221,7 @@ public class UtilText {
 				"Returns the name of the race that's associated with this body part. Race is *not* gender-specific (i.e. will return 'wolf-morph', not 'wolf-girl').",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				try {
 					return getBodyPartFromType(bodyPart).getType().getRace().getName();
 				} catch(Exception ex) {
@@ -5235,7 +5238,7 @@ public class UtilText {
 //				"Returns the plural name of the race that's associated with this body part. Race is *not* gender-specific (i.e. will return 'wolf-morph', not 'wolf-girl').",
 //				bodyPart){
 //			@Override
-//			public String parse(String command, String arguments, String target) {
+//			public String parse(String command, String arguments, String target, GameCharacter gc) {
 //				return getBodyPartFromType(bodyPart).getType().getRace().getName();
 //			}
 //		});
@@ -5248,7 +5251,7 @@ public class UtilText {
 				"Returns the name of the 'skin' covering this body part. This could, in fact, be quite different from skin, for example: fur, keratin, scales, slime, etc.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getSkinName(getBodyPartFromType(bodyPart).getType());
 			}
 		});
@@ -5261,7 +5264,7 @@ public class UtilText {
 				"Returns the 'skin' covering this body part, just as the 'Skin' command does, but this adds a descriptor to the start (if one is available).",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getSkinNameWithDescriptor(getBodyPartFromType(bodyPart).getType());
 			}
 		});
@@ -5274,7 +5277,7 @@ public class UtilText {
 				"Returns a full description of this part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5295,7 +5298,7 @@ public class UtilText {
 				"Returns a full description of this part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5311,7 +5314,7 @@ public class UtilText {
 				"Returns the colour of whatever 'skin' is covering this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5332,7 +5335,7 @@ public class UtilText {
 				"Returns the primary colour of whatever 'skin' is covering this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5353,7 +5356,7 @@ public class UtilText {
 				"Returns the secondary colour of whatever 'skin' is covering this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5374,7 +5377,7 @@ public class UtilText {
 				"Returns the hex code for the colour of whatever 'skin' is covering this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
@@ -5390,7 +5393,7 @@ public class UtilText {
 				"Returns the basic, singular name for this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return getBodyPartFromType(bodyPart).getNameSingular(character);
 			}
 		});
@@ -5403,7 +5406,7 @@ public class UtilText {
 				"Returns the basic, plural name for this body part.",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(parseAddPronoun) {
 					parseAddPronoun = false;
 					return applyDeterminer(getBodyPartFromType(bodyPart).getDeterminer(character), getBodyPartFromType(bodyPart).getNamePlural(character));
@@ -5422,7 +5425,7 @@ public class UtilText {
 				"Returns the singular name for this body part, with a descriptor appended to the start (if one is available).",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				return applyDescriptor(getBodyPartFromType(bodyPart).getDescriptor(character), getBodyPartFromType(bodyPart).getNameSingular(character));
 			}
 		});
@@ -5435,7 +5438,7 @@ public class UtilText {
 				"Returns the plural name for this body part, with a descriptor appended to the start (if one is available).",
 				bodyPart){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(parseAddPronoun) {
 					parseAddPronoun = false;
 					return applyDeterminer(getBodyPartFromType(bodyPart).getDeterminer(character), applyDescriptor(getBodyPartFromType(bodyPart).getDescriptor(character), getBodyPartFromType(bodyPart).getNamePlural(character)));
@@ -5450,7 +5453,7 @@ public class UtilText {
 	/**
 	 * Helper method for generating tags with specified endings.
 	 */
-	private static List<String> getModifiedTags(List<String> tags, List<String> tagsPlural, String... ending) {
+	private static String[] getModifiedTags(String[] tags, String[] tagsPlural, String... ending) {
 		List<String> modifiedTags = new ArrayList<>();
 		
 		if(tags!=null)
@@ -5465,7 +5468,7 @@ public class UtilText {
 					modifiedTags.add(s+e);
 			}
 		
-		return modifiedTags;
+		return ArrayUtil.convertToArray(modifiedTags);
 	}
 	
 	

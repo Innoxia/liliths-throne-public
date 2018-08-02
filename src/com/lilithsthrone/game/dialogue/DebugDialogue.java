@@ -27,8 +27,8 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
-import com.lilithsthrone.game.dialogue.utils.ParserCommand;
-import com.lilithsthrone.game.dialogue.utils.ParserTarget;
+import com.lilithsthrone.parse.ParserCommand;
+import com.lilithsthrone.parse.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -1362,11 +1362,11 @@ public class DebugDialogue {
 			for(ParserCommand command : UtilText.commandsList) {
 				UtilText.nodeContentSB.append("<hr/>"
 						+ "<p>"
-						+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
+						+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags()[0]+"</i>");
 				
-				if(command.getTags().size()>1) {
-					for(int i = 1; i<command.getTags().size(); i++)
-						UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
+				if(command.getTags().length>1) {
+					for(int i = 1; i<command.getTags().length; i++)
+						UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags()[i]+"</i>");
 				}
 				
 				UtilText.nodeContentSB.append("</p>");
@@ -1435,11 +1435,11 @@ public class DebugDialogue {
 				for(ParserCommand command : UtilText.commandsMap.get(bpt)) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "<hr/>"
-							+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
+							+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags()[0]+"</i>");
 					
-					if(command.getTags().size()>1) {
-						for(int i = 1; i<command.getTags().size(); i++)
-							UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
+					if(command.getTags().length>1) {
+						for(int i = 1; i<command.getTags().length; i++)
+							UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags()[i]+"</i>");
 					}
 					
 					UtilText.nodeContentSB.append("<br/>"
@@ -1450,13 +1450,13 @@ public class DebugDialogue {
 							+command.getDescription()+"<br/>"
 							+"Examples:<br/>"
 							+ command.getExampleBeforeParse("lilaya", (command.getArguments()==""?"":command.getArgumentExample()))+" -> "
-								+UtilText.parse("[lilaya."+command.getTags().get(0)+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")+"<br/>"
+								+UtilText.parse("[lilaya."+command.getTags()[0]+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")+"<br/>"
 							
 							+ command.getExampleBeforeParse("brax", (command.getArguments()==""?"":command.getArgumentExample()))+" -> "
-								+UtilText.parse("[brax."+command.getTags().get(0)+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")+"<br/>"
+								+UtilText.parse("[brax."+command.getTags()[0]+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")+"<br/>"
 							
 							+ command.getExampleBeforeParse("kate", (command.getArguments()==""?"":command.getArgumentExample()))+" -> "
-								+UtilText.parse("[kate."+command.getTags().get(0)+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")
+								+UtilText.parse("[kate."+command.getTags()[0]+(command.getArguments()==""?"":"("+command.getArgumentExample()+")")+"]")
 							+"</p>");
 					
 					count++;

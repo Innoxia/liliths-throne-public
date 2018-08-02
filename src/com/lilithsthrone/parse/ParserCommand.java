@@ -1,8 +1,8 @@
-package com.lilithsthrone.game.dialogue.utils;
+package com.lilithsthrone.parse;
 
-import java.util.List;
-
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -13,14 +13,14 @@ import com.lilithsthrone.utils.Colour;
 public abstract class ParserCommand {
 	private boolean allowsCapitalisation, allowPronoun;
 	private String description, arguments;
-	private List<String> tags;
+	private String[] tags;
 	private BodyPartType relatedBodyPart;
 	
-	public ParserCommand(List<String> tags, boolean allowsCapitalisation, boolean allowPronoun, String arguments, String description) {
+	public ParserCommand(String[] tags, boolean allowsCapitalisation, boolean allowPronoun, String arguments, String description) {
 		this(tags, allowsCapitalisation, allowPronoun, arguments, description, BodyPartType.GENERIC);
 	}
 	
-	public ParserCommand(List<String> tags, boolean allowsCapitalisation, boolean allowPronoun, String arguments, String description, BodyPartType relatedBodyPart) {
+	public ParserCommand(String[] tags, boolean allowsCapitalisation, boolean allowPronoun, String arguments, String description, BodyPartType relatedBodyPart) {
 		this.tags=tags;
 		this.allowsCapitalisation=allowsCapitalisation;
 		this.allowPronoun=allowPronoun;
@@ -45,7 +45,7 @@ public abstract class ParserCommand {
 		return arguments;
 	}
 
-	public List<String> getTags() {
+	public String[] getTags() {
 		return tags;
 	}
 	
@@ -58,11 +58,11 @@ public abstract class ParserCommand {
 	}
 
 	public String getExampleBeforeParse(String target, String arguments) {
-		return "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+target+"</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+tags.get(0)+"</i>"
+		return "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+target+"</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+tags[0]+"</i>"
 				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
 	}
 	
-	public abstract String parse(String command, String arguments, String target);
+	public abstract String parse(String command, String arguments, String target, GameCharacter character);
 	
 	/**
 	 * Some methods might return a null or empty string for a descriptor. This method accounts for that, applying a descriptor if one is available and then returning the descriptor + name combination.
