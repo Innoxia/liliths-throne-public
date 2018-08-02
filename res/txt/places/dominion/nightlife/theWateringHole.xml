@@ -1812,15 +1812,43 @@
 	
 	<!-- Dominant partner content -->
 	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
+	<p>
+		[npc.Name] leads you over to the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
+	<p>
+		[npc.Name] leads you over to the dance floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
+	<p>
+		[npc.Name] leads you over to the nearest of the seating areas...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_TOILETS"><![CDATA[
+	<p>
+		[npc.Name] leads you over to the toilets...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE_DOM"><![CDATA[
 	<p>
 		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowds of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Walking up to [npc.herHim], you introduce yourself, and [npc.she] smiles at you as [npc.she] replies,
 		#IF npc.isTrusting()
-		#THEN [npc.speech(I'm [npc.name], and I'm nice! :3)]
+		#THEN [npc.speech(Hi, I'm [npc.name]!)]
 		#ELSE
 			#IF npc.isSelfish()
-			#THEN [npc.speech(I'm [npc.name], and I'm a cunt.)]
-			#ELSE [npc.speech(I'm [npc.name], an I'm ordinary.)]
+			#THEN [npc.speech(I'm [npc.name]. You looking for a good time?)]
+			#ELSE [npc.speech(Hello, I'm [npc.name].)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2256,7 +2284,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX"><![CDATA[
 	<p>
-		You let [npc.name] lea dyou into [npc.her] bedroom, where [npc.she] starts kissing you.
+		You let [npc.name] lead you into [npc.her] bedroom, where [npc.she] starts kissing you.
 	</p>
 	]]>
 	</htmlContent>

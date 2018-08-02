@@ -4547,7 +4547,9 @@ public class NightlifeDistrict {
 				case SIT_DOWN_KISS:
 					if(index==1) {
 						// Let them kiss you
-						return new Response("", "", WATERING_HOLE_DOM_PARTNER_REACT) {
+						return new Response("Kiss",
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Let [npc.name] start kissing you."),
+								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_ACCEPT", getClubbersPresent()));
@@ -4556,7 +4558,9 @@ public class NightlifeDistrict {
 						};
 					} else if(index==2) {
 						// Shut down
-						return new Response("", "", WATERING_HOLE_DOM_PARTNER_REACT) {
+						return new Response("Push away",
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Reject [npc.namePos] attempt to kiss you and push [npc.herHim] away."),
+								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_DECLINE", getClubbersPresent()));
@@ -4608,7 +4612,9 @@ public class NightlifeDistrict {
 				case SIT_DOWN_TALK:
 					if(index==1) {
 						// Continue conversation
-						return new Response("", "", WATERING_HOLE_DOM_PARTNER_REACT) {
+						return new Response("Continue conversation",
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Happily continue chatting with [npc.name]."),
+								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_ACCEPT", getClubbersPresent()));
@@ -4617,7 +4623,9 @@ public class NightlifeDistrict {
 						};
 					} else if(index==2) {
 						// Show boredom
-						return new Response("", "", WATERING_HOLE_DOM_PARTNER_REACT) {
+						return new Response("Stay silent",
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal humming noise, before waiting for [npc.name] to continue."),
+								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_DECLINE", getClubbersPresent()));
