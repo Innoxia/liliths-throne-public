@@ -698,13 +698,12 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType(owner)));
 
 					if (displayImage) {
-						boolean visible = (owner.isPlayer() || owner.getTotalTimesHadSex(Main.game.getPlayer())>0) || owner.getCurrentArtwork().isCurrentImageClothed();
-						
+						boolean revealed = owner.isImageRevealed();
 						tooltipSB.append("</div>"
 								+ "<div style='float: left;'>"
-									+ "<img id='CHARACTER_IMAGE' style='"+(visible?"":"-webkit-filter: brightness(0%);")
+									+ "<img id='CHARACTER_IMAGE' style='"+(revealed?"":"-webkit-filter: brightness(0%);")
 										+" width: auto; height: auto; max-width: 300; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getImageString()+ "'/>"
-										+(visible?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+										+(revealed?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>");
 					}
 				}

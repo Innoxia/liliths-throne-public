@@ -2297,7 +2297,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public boolean isImageRevealed() {
-		return isPlayer() || Main.game.getPlayer().getSexPartnerStats(this) != null || getCurrentArtwork().isCurrentImageClothed();
+		return isPlayer() || getCurrentArtwork().isCurrentImageClothed() || getTotalTimesHadSex(Main.game.getPlayer()) > 0;
 	}
 	
 	public String getCharacterInformationScreen() {
