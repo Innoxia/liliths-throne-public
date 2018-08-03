@@ -1513,6 +1513,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+				"SILLY",
+				Colour.GENERIC_GOOD,
+				"Silly mode",
+				"This enables funny flavour text throughout the game.",
+					Main.getProperties().hasValue(PropertyValue.sillyMode)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",
 							Colour.GENERIC_MINOR_BAD,
 							"Voluntary NTR",
