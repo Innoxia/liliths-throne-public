@@ -175,13 +175,19 @@ public class MainControllerInitMethod {
 
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+							String description;
+							if (artwork.getArtist().getName().equals("Custom")) {
+								description = "You added this yourself.";
+							} else if (artwork.getArtist().getWebsites().isEmpty()) {
+								description = "This artist has no associated websites!";
+							} else {
+								description = "Click to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
+										+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!";
+							}
 							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 									"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
-									(artwork.getArtist().getWebsites().isEmpty()
-											?"This artist has no associated websites!"
-											:"Click this button to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
-											+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!")),
-									false);
+									description), false);
 						}
 
 						id = "ARTWORK_PREVIOUS";

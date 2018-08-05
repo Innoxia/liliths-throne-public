@@ -1896,7 +1896,9 @@ public class OptionsDialogue {
 						+ "Artists whose character art can be found in the game:<br/>");
 			
 			for(Artist artist : Artwork.allArtists) {
-				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
+				if (!artist.getName().equals("Custom")) {
+					UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
+				}
 			}	
 
 			UtilText.nodeContentSB.append("<br/>"
