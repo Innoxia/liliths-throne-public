@@ -2899,6 +2899,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return surname;
 	}
 
+	public String getFullName() {
+		return this.getName() + ( this.surname.isEmpty() ? "": " " + this.surname);
+	}
+
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
