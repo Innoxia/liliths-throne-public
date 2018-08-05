@@ -89,7 +89,6 @@ public class Parser {
 		// Loop through input, when find '[', start parsing.
 		// [target.command(arguments)]
 		
-		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.namePos]} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
 		try {
 			StringBuilder resultBuilder = new StringBuilder();
 			StringBuilder sb = new StringBuilder();
@@ -321,11 +320,10 @@ public class Parser {
 	}
 
 	private static List<GameCharacter> specialNPCList = new ArrayList<>();
-	private static boolean parseCapitalise;
 	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList) {
 		
 		Parser.specialNPCList = specialNPCList;
-		parseCapitalise = false;
+		boolean parseCapitalise = false;
 			
 		if(Character.isUpperCase(command.charAt(0))) {
 			parseCapitalise = true;
@@ -816,13 +814,17 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] {"job", "jobName"}) {
+		Parser.addParserFunction(new ParserFunction(new String[] {"a_job", "a_jobName", "job", "jobName"}) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				if(target.isSlave()) {
-					return target.getSlaveJob().getName(target);
+				boolean article = StringUtils.startsWithAny(command, "a_", "A_");
+				String result = target.isSlave() ? target.getSlaveJob().getName(target) : target.getHistory().getName();
+
+				if(article){
+					result = UtilText.generateSingularDeterminer(result);
 				}
-				return target.getHistory().getName();
+
+				return result;
 			}
 		});
 
@@ -957,14 +959,20 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] {"bitch", "slut"}) {
+		Parser.addParserFunction(new ParserFunction(new String[] {"a_bitch", "a_slut", "bitch", "slut"}) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				if(target.isFeminine()) {
-					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
-				} else {
-					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
+				boolean article = StringUtils.startsWithAny(command, "a_", "A_");
+
+				String result = target.isFeminine()
+					? UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank")
+					: UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
+
+				if (article) {
+					result = StringUtils.applyDeterminer(result);
 				}
+
+				return result;
 			}
 		});
 
@@ -974,7 +982,6 @@ public class Parser {
 			true) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-
 				boolean article = StringUtils.startsWithAny(command, "a_", "A_");
 				boolean capitalize = StringUtils.startsWithUpperCase(command);
 
@@ -1006,7 +1013,7 @@ public class Parser {
 				String result = target.isRaceConcealed() ? "unknown race" : getSubspeciesName(target);
 
 				if (article) {
-					result = UtilText.generateSingularDeterminer(result) + " " + result;
+					result = StringUtils.applyDeterminer(result);
 				}
 
 				if (capitalize) {
@@ -1033,15 +1040,9 @@ public class Parser {
 		Parser.addParserFunction(new ParserFunction(new String[] {"a_raceStage", "raceStage"}, true) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-
-				boolean article = StringUtils.startsWithAny(command, "a_", "A_");
 				boolean capitalize = StringUtils.startsWithUpperCase(command);
 
-				String result = target.getRaceStage().getName();
-
-				if (article) {
-					result = UtilText.generateSingularDeterminer(result) + " " + result;
-				}
+				String result = Parser.applyDeterminerIfNeeded(target.getRaceStage().getName(), command);
 
 				if (capitalize) {
 					result = Util.capitaliseSentence(result);
@@ -1163,10 +1164,12 @@ public class Parser {
 		});
 
 		
-		Parser.addParserFunction(new ParserFunction(new String[] { "femininity", "fem", "masculinity", "mas" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { 
+			"a_femininity", "a_fem", "a_masculinity", "a_mas",
+			"femininity", "fem", "masculinity", "mas" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return Femininity.valueOf(target.getFemininityValue()).getName(false);
+				return Parser.applyDeterminerIfNeeded(Femininity.valueOf(target.getFemininityValue()).getName(false), command);
 			}
 		});
 
@@ -1191,31 +1194,21 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "height" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "height", "heightCm", "heightInches", "heightFeetInches" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return target.getHeight().getDescriptor();
-			}
-		});
-
-		Parser.addParserFunction(new ParserFunction(new String[] { "heightCm" }) {
-			@Override
-			public String parse(String command, String arguments, GameCharacter target) {
-				return String.valueOf(target.getHeightValue());
-			}
-		});
-
-		Parser.addParserFunction(new ParserFunction(new String[] { "heightInches" }) {
-			@Override
-			public String parse(String command, String arguments, GameCharacter target) {
-				return String.valueOf(Util.conversionCentimetresToInches(target.getHeightValue()));
-			}
-		});
-
-		Parser.addParserFunction(new ParserFunction(new String[] { "heightFeetInches" }) {
-			@Override
-			public String parse(String command, String arguments, GameCharacter target) {
-				return Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(target.getHeightValue()));
+				int height = target.getHeightValue();
+				switch(command){
+					case "heightCm":
+						return String.valueOf(height);
+					case "heightInches":
+						return String.valueOf(Util.conversionCentimetresToInches(height));
+					case "heightFeetInches":
+						return Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(height));
+					case "height":
+					default:
+						return target.getHeight().getDescriptor();
+				}
 			}
 		});
 
@@ -1323,29 +1316,34 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "moan", "groan", "sob", "cry" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] {
+				"a_moan", "a_groan", "a_sob", "a_cry", "moan", "groan", "sob", "cry" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				if(Sex.getSexPace(target)==SexPace.SUB_RESISTING) {
-					return Parser.randomProtest(target);
-				}
-				
-				return Parser.randomMoan(target);
+				return Parser.applyDeterminerIfNeeded(
+					Sex.getSexPace(target)==SexPace.SUB_RESISTING ? Parser.randomProtest(target): Parser.randomMoan(target),
+					command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "moan+", "moanD", "groan+", "groanD", "sob+", "sobD", "cry+", "cryD" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { 
+			"a_moan+", "a_moanD", "a_groan+", "a_groanD", "a_sob+", "a_sobD", "a_cry+", "a_cryD",
+			"moan+", "moanD", "groan+", "groanD", "sob+", "sobD", "cry+", "cryD" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
+				String result;
+
 				if(Sex.getSexPace(target)==SexPace.SUB_RESISTING) {
-					return UtilText.returnStringAtRandom("miserable", "pathetic", "distressed") + " " + Parser.randomProtest(target);
-				}
-				
-				if(target.isFeminine()) {
-					return UtilText.returnStringAtRandom("lewd", "high-pitched", "desperate") + " " + UtilText.returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					result = UtilText.returnStringAtRandom("miserable", "pathetic", "distressed") + " " + Parser.randomProtest(target);
 				} else {
-					return UtilText.returnStringAtRandom("deep", "low", "desperate") + " " + UtilText.returnStringAtRandom("groan", "grunt");
+					if(target.isFeminine()) {
+						result = UtilText.returnStringAtRandom("lewd", "high-pitched", "desperate") + " " + UtilText.returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					} else {
+						result = UtilText.returnStringAtRandom("deep", "low", "desperate") + " " + UtilText.returnStringAtRandom("groan", "grunt");
+					}
 				}
+
+				return Parser.applyDeterminerIfNeeded(result, command);
 			}
 		});
 
@@ -1459,24 +1457,24 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "girl", "boy" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "a_girl", "a_boy", "girl", "boy" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
 				if(target.isFeminine()) {
-					return Gender.F_V_B_FEMALE.getNounYoung();
+					return Parser.applyDeterminerIfNeeded(Gender.F_V_B_FEMALE.getNounYoung(), command);
 				} else {
-					return Gender.M_P_MALE.getNounYoung();
+					return Parser.applyDeterminerIfNeeded(Gender.M_P_MALE.getNounYoung(), command);
 				}
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "woman", "man" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "a_woman", "a_man", "woman", "man" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
 				if(target.isFeminine()) {
-					return Gender.F_V_B_FEMALE.getNoun();
+					return Parser.applyDeterminerIfNeeded(Gender.F_V_B_FEMALE.getNoun(), command);
 				} else {
-					return Gender.M_P_MALE.getNoun();
+					return Parser.applyDeterminerIfNeeded(Gender.M_P_MALE.getNoun(), command);
 				}
 			}
 		});
@@ -2005,17 +2003,19 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "hand" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "a_hand", "hand" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return target.getArmType().getHandsNameSingular(target);
+				return applyDeterminerIfNeeded(target.getArmType().getHandsNameSingular(target), command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "hand+", "handD" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] {"a_hand+", "a_handD", "hand+", "handD" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return applyDescriptor(target.getArmType().getHandsDescriptor(target), target.getArmType().getHandsNameSingular(target));
+				return applyDeterminerIfNeeded(
+					applyDescriptor(target.getArmType().getHandsDescriptor(target), target.getArmType().getHandsNameSingular(target)),
+					command);
 			}
 		});
 
@@ -2033,17 +2033,19 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "finger" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "a_finger", "finger" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return target.getArmType().getFingersNameSingular(target);
+				return applyDeterminerIfNeeded(target.getArmType().getFingersNameSingular(target), command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "finger+", "fingerD" }) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "a_finger+", "a_fingerD", "finger+", "fingerD" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return applyDescriptor(target.getArmType().getFingersDescriptor(target), target.getArmType().getFingersNameSingular(target));
+				return applyDeterminerIfNeeded(
+					applyDescriptor(target.getArmType().getFingersDescriptor(target), target.getArmType().getFingersNameSingular(target)),
+					command);
 			}
 		});
 
@@ -2622,8 +2624,10 @@ public class Parser {
 		Parser.addParserFunction(new ParserFunction(new String[] { "irisColour", "irisColor", "irisesColour", "irisesColor" }) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
+				boolean capitalize = StringUtils.startsWithUpperCase(command);
+
 				return target.getCovering(target.getEyeType().getBodyCoveringType(target))
-					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
+					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), capitalize);
 			}
 		});
 
@@ -2667,8 +2671,10 @@ public class Parser {
 		Parser.addParserFunction(new ParserFunction(new String[] { "pupilColour", "pupilColor", "pupilsColour", "pupilsColor"}) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
+				boolean capitalize = StringUtils.startsWithUpperCase(command);
+
 				return target.getCovering(BodyCoveringType.EYE_PUPILS)
-					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
+					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), capitalize);
 			}
 		});
 
@@ -2702,11 +2708,13 @@ public class Parser {
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(new String[] { "scleraColour", "scleraColor", "scleraeColour", "scleraeColor"}) {
+		Parser.addParserFunction(new ParserFunction(new String[] { "scleraColour", "scleraColor", "scleraeColour", "scleraeColor"}, true) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
+				boolean capitalize = StringUtils.startsWithUpperCase(command);
+				
 				return target.getCovering(BodyCoveringType.EYE_SCLERA)
-					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
+					.getColourDescriptor(target, arguments != null && arguments.equalsIgnoreCase("true"), capitalize);
 			}
 		});
 		
@@ -2769,7 +2777,7 @@ public class Parser {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
 				try {
-					return getBodyPartFromType(target, bodyPart).getType().getRace().getName();
+					return Parser.applyDeterminerIfNeeded(getBodyPartFromType(target, bodyPart).getType().getRace().getName(), command);
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -2779,14 +2787,16 @@ public class Parser {
 		Parser.addParserFunction(new ParserFunction(getModifiedTags(tags, tagsPlural, "Skin")) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return getSkinName(target, getBodyPartFromType(target, bodyPart).getType());
+				return Parser.applyDeterminerIfNeeded(getSkinName(target, getBodyPartFromType(target, bodyPart).getType()), command);
 			}
 		});
 
 		Parser.addParserFunction(new ParserFunction(getModifiedTags(tags, tagsPlural, "Skin+", "SkinD")) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return getSkinNameWithDescriptor(target, getBodyPartFromType(target, bodyPart).getType());
+				return Parser.applyDeterminerIfNeeded(
+					getSkinNameWithDescriptor(target, getBodyPartFromType(target, bodyPart).getType()),
+					command);
 			}
 		});	
 		
@@ -2798,10 +2808,14 @@ public class Parser {
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, true);
+						return Parser.applyDeterminerIfNeeded(
+							target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, true),
+							command);
 					}
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, false);
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, false),
+					command);
 			}
 		});	
 
@@ -2812,22 +2826,30 @@ public class Parser {
 				if(target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target))==null) {
 					return "";
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, true);
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getFullDescription(target, true),
+					command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction( getModifiedTags(tags, tagsPlural, "Colour", "Color")) {
+		Parser.addParserFunction(new ParserFunction( getModifiedTags(tags, tagsPlural, "Colour", "Color"), true) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
+				boolean capitalize = StringUtils.startsWithUpperCase(command);
+
 				if(target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getColourDescriptor(target, true, parseCapitalise);
+						return Parser.applyDeterminerIfNeeded(
+							target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getColourDescriptor(target, true, capitalize),
+							command);
 					}
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getColourDescriptor(target, false, parseCapitalise);
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getColourDescriptor(target, false, capitalize),
+					command);
 			}
 		});
 
@@ -2839,10 +2861,14 @@ public class Parser {
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColourDescriptor(true);
+						return Parser.applyDeterminerIfNeeded(
+							target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColourDescriptor(true),
+							command);
 					}
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColourDescriptor(false);
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColourDescriptor(false),
+					command);
 			}
 		});
 
@@ -2854,10 +2880,14 @@ public class Parser {
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getSecondaryColourDescriptor(true);
+						return Parser.applyDeterminerIfNeeded(
+							target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getSecondaryColourDescriptor(true),
+							command);
 					}
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getSecondaryColourDescriptor(false);
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getSecondaryColourDescriptor(false),
+					command);
 			}
 		});
 
@@ -2867,35 +2897,41 @@ public class Parser {
 				if(target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target))==null) {
 					return "";
 				}
-				return target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColour().toWebHexString();
+				return Parser.applyDeterminerIfNeeded(
+					target.getCovering(getBodyPartFromType(target, bodyPart).getType().getBodyCoveringType(target)).getPrimaryColour().toWebHexString(),
+					command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(tags) {
+		Parser.addParserFunction(new ParserFunction(getModifiedTags(tags, null)) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return getBodyPartFromType(target, bodyPart).getNameSingular(target);
+				return Parser.applyDeterminerIfNeeded(getBodyPartFromType(target, bodyPart).getNameSingular(target), command);
 			}
 		});
 
-		Parser.addParserFunction(new ParserFunction(tagsPlural) {
+		Parser.addParserFunction(new ParserFunction(getModifiedTags(null, tagsPlural)) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return getBodyPartFromType(target, bodyPart).getNamePlural(target);
+				return Parser.applyDeterminerIfNeeded(getBodyPartFromType(target, bodyPart).getNamePlural(target), command);
 			}
 		});
 
 		Parser.addParserFunction(new ParserFunction(getModifiedTags(tags, null, "+", "D")) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return applyDescriptor(getBodyPartFromType(target, bodyPart).getDescriptor(target), getBodyPartFromType(target, bodyPart).getNameSingular(target));
+				return Parser.applyDeterminerIfNeeded(
+					applyDescriptor(getBodyPartFromType(target, bodyPart).getDescriptor(target), getBodyPartFromType(target, bodyPart).getNameSingular(target)),
+					command);
 			}
 		});
 
 		Parser.addParserFunction(new ParserFunction(getModifiedTags(null, tagsPlural, "+", "D")) {
 			@Override
 			public String parse(String command, String arguments, GameCharacter target) {
-				return applyDescriptor(getBodyPartFromType(target, bodyPart).getDescriptor(target), getBodyPartFromType(target, bodyPart).getNamePlural(target));
+				return Parser.applyDeterminerIfNeeded(
+					applyDescriptor(getBodyPartFromType(target, bodyPart).getDescriptor(target), getBodyPartFromType(target, bodyPart).getNamePlural(target)),
+					command);
 			}
 		});
 	}
@@ -2917,6 +2953,14 @@ public class Parser {
 				for(String e : ending)
 					modifiedTags.add(s+e);
 			}
+
+		List<String> aTags = new ArrayList<>();
+
+		for(String t : modifiedTags) {
+			aTags.add("a_" + t);
+		}
+		
+		modifiedTags.addAll(aTags);
 		
 		return ArrayUtil.convertToArray(modifiedTags);
 	}
@@ -2991,6 +3035,12 @@ public class Parser {
 			return name;
 		
 		return (descriptor.length() > 0 ? descriptor + " " : "") + name;
+	}
+
+	private static String applyDeterminerIfNeeded(String phrase, String command){
+		boolean article = StringUtils.startsWithAny(command, "a_", "A_");
+
+		return article ?  StringUtils.applyDeterminer(phrase) : phrase;
 	}
 	
 	private static String getSubspeciesName(GameCharacter character) {
