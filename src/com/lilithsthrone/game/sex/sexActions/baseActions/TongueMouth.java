@@ -58,7 +58,7 @@ public class TongueMouth {
 							
 							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.penis+] slide even deeper into [npc.her] [npc.asshole+] as [npc.she] [npc.verb(lean)] down and [npc.verb(pull)] [npc2.herHim] into a desperate kiss.",
 							
-							"Dropping down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(bury)] [npc2.namePos] [npc2.penis+] in [npc2.her] [npc.asshole+],"
+							"Dropping down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(bury)] [npc2.namePos] [npc2.penis+] in [npc.her] [npc.asshole+],"
 							+ " before leaning down and pressing [npc.her] [npc.lips+] against [npc2.hers]."));
 					
 				} else if (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
@@ -72,7 +72,7 @@ public class TongueMouth {
 							
 							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.penis+] [npc2.verb(slide)] even deeper into [npc.her] [npc.vagina+] as [npc.she] [npc.verb(lean)] down and [npc.verb(pull)] [npc2.herHim] into a desperate kiss.",
 							
-							"Dropping down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(bury)] [npc2.namePos] [npc2.penis+] in [npc2.her] [npc.vagina+],"
+							"Dropping down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(bury)] [npc2.namePos] [npc2.penis+] in [npc.her] [npc.vagina+],"
 							+ " before leaning down and pressing [npc.her] [npc.lips+] against [npc2.hers]."));
 					
 				} else {
@@ -390,16 +390,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of soft kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] slowly [npc.verb(press)] into [npc2.namePos] back, gently pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to gently kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of soft kisses on [npc2.her] mouth.",
+					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of soft kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] gently [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] softly kisses [npc2.her] [npc2.lips+]."));
 			
@@ -440,16 +440,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -490,7 +490,7 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
 					
-					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back,"
 							+ " forcefully pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to [npc.verb(thrust)] [npc.her] [npc.tongue+] deep down [npc2.her] throat."));
@@ -541,16 +541,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -590,16 +590,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -651,7 +651,7 @@ public class TongueMouth {
 								+ " ignoring [npc.her] [npc.sobs] as [npc2.she] gently, but firmly, pushes [npc2.her] [npc2.tongue] past [npc.her] unwilling [npc.lips] and into [npc.her] mouth.",
 						
 						" Letting out a soothing [npc2.moan], [npc2.name] [npc2.verb(press)] [npc2.herself] against [npc.name],"
-								+ " muffling [npc.her] [npc.sobs] against [npc2.her] [npc2.lips+] as [npc2.she] [npc.verb(continue)] to kiss [npc.herHim]."));
+								+ " muffling [npc.her] [npc.sobs] against [npc2.her] [npc2.lips+] as [npc2.she] [npc2.verb(continue)] to kiss [npc.herHim]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -766,16 +766,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of soft kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] slowly [npc.verb(press)] into [npc2.namePos] back, gently pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to gently kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of soft kisses on [npc2.her] mouth.",
+					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of soft kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] gently [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] softly kisses [npc2.her] [npc2.lips+]."));
 			
@@ -816,16 +816,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -866,7 +866,7 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
 					
-					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back,"
 							+ " forcefully pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to [npc.verb(thrust)] [npc.her] [npc.tongue+] deep down [npc2.her] throat."));
@@ -917,16 +917,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -966,16 +966,16 @@ public class TongueMouth {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] plants a series of passionate kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] plants a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] plants a series of soft kisses on [npc2.her] [npc2.lips+].",
+					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately kisses [npc2.her] [npc2.lips+]."));
 			
@@ -1027,7 +1027,7 @@ public class TongueMouth {
 								+ " ignoring [npc.her] [npc.sobs] as [npc2.she] gently, but firmly, pushes [npc2.her] [npc2.tongue] past [npc.her] unwilling [npc.lips] and into [npc.her] mouth.",
 						
 						" Letting out a soothing [npc2.moan], [npc2.name] [npc2.verb(press)] [npc2.herself] against [npc.name],"
-								+ " muffling [npc.her] [npc.sobs] against [npc2.her] [npc2.lips+] as [npc2.she] [npc.verb(continue)] to kiss [npc.herHim]."));
+								+ " muffling [npc.her] [npc.sobs] against [npc2.her] [npc2.lips+] as [npc2.she] [npc2.verb(continue)] to kiss [npc.herHim]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

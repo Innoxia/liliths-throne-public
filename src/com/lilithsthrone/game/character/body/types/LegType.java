@@ -17,48 +17,50 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public enum LegType implements BodyPartTypeInterface {
 
-	HUMAN(FootStructure.PLANTIGRADE, BodyCoveringType.HUMAN, Race.HUMAN),
+	HUMAN(FootStructure.PLANTIGRADE, FootType.HUMANOID, BodyCoveringType.HUMAN, Race.HUMAN),
 
-	ANGEL(FootStructure.PLANTIGRADE, BodyCoveringType.ANGEL, Race.ANGEL),
+	ANGEL(FootStructure.PLANTIGRADE, FootType.HUMANOID, BodyCoveringType.ANGEL, Race.ANGEL),
 
-	COW_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+	COW_MORPH(FootStructure.UNGULIGRADE, FootType.HOOFS, BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
-	DEMON_COMMON(FootStructure.PLANTIGRADE, BodyCoveringType.DEMON_COMMON, Race.DEMON),
-	DEMON_HOOFED(FootStructure.UNGULIGRADE, BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(FootStructure.PLANTIGRADE, FootType.HUMANOID, BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_HOOFED(FootStructure.UNGULIGRADE, FootType.HOOFS, BodyCoveringType.DEMON_COMMON, Race.DEMON),
 	
-	IMP(FootStructure.PLANTIGRADE, BodyCoveringType.IMP, Race.IMP),
+	IMP(FootStructure.PLANTIGRADE, FootType.HUMANOID, BodyCoveringType.IMP, Race.IMP),
 
-	DOG_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	DOG_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
-	LYCAN(FootStructure.DIGITIGRADE, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	LYCAN(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 	
-	FOX_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
+	FOX_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
 
-	SQUIRREL_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
-	RAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+	RAT_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
 	
-	RABBIT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+	RABBIT_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
 
-	BAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
+	BAT_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 	
-	CAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+	CAT_MORPH(FootStructure.DIGITIGRADE, FootType.PAWS, BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
-	ALLIGATOR_MORPH(FootStructure.PLANTIGRADE, BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(FootStructure.PLANTIGRADE, FootType.HUMANOID, BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 	
-	HORSE_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
+	HORSE_MORPH(FootStructure.UNGULIGRADE, FootType.HOOFS, BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
-	REINDEER_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
+	REINDEER_MORPH(FootStructure.UNGULIGRADE, FootType.HOOFS, BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(FootStructure.DIGITIGRADE, BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(FootStructure.DIGITIGRADE, FootType.TALONS, BodyCoveringType.FEATHERS, Race.HARPY);
 	
 	
 	private FootStructure defaultFootStructure;
+	private FootType footType;
 	private BodyCoveringType skinType;
 	private Race race;
 
-	private LegType(FootStructure defaultFootStructure, BodyCoveringType skinType, Race race) {
+	private LegType(FootStructure defaultFootStructure, FootType footType, BodyCoveringType skinType, Race race) {
 		this.defaultFootStructure = defaultFootStructure;
+		this.footType = footType;
 		this.skinType = skinType;
 		this.race = race;
 	}
@@ -85,6 +87,10 @@ public enum LegType implements BodyPartTypeInterface {
 
 	public FootStructure getDefaultFootStructure() {
 		return defaultFootStructure;
+	}
+
+	public FootType getFootType() {
+		return footType;
 	}
 
 	@Override
@@ -183,31 +189,11 @@ public enum LegType implements BodyPartTypeInterface {
 	}
 	
 	public String getFeetNameSingular(GameCharacter gc) {
-		switch(this){
-			case COW_MORPH:
-			case HORSE_MORPH:
-			case REINDEER_MORPH:
-			case DEMON_HOOFED:
-				return UtilText.returnStringAtRandom("hoof");
-			case HARPY:
-				return UtilText.returnStringAtRandom("foot", "talon");
-			default:
-				return UtilText.returnStringAtRandom("foot");
-		}
+		return this.getFootType().getSingularName();
 	}
 	
 	public String getFeetNamePlural(GameCharacter gc) {
-		switch(this){
-		case COW_MORPH:
-			case HORSE_MORPH:
-			case REINDEER_MORPH:
-			case DEMON_HOOFED:
-				return UtilText.returnStringAtRandom("hoofs");
-			case HARPY:
-				return UtilText.returnStringAtRandom("feet", "talons");
-			default:
-				return UtilText.returnStringAtRandom("feet");
-		}
+		return this.getFootType().getPluralName();
 	}
 
 	public String getFeetDescriptor(GameCharacter gc) {
@@ -216,7 +202,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case ANGEL:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case CAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "paw-like", "furry", "feline");
+					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "furry", "feline");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case DEMON_COMMON:
@@ -226,7 +212,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case IMP:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case DOG_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
+					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "furry", "canine");
 				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
@@ -238,24 +224,24 @@ public enum LegType implements BodyPartTypeInterface {
 				case HUMAN:
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
-					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry");
 				case FOX_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "fox-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("soft", "feminine", "fox-like", "furry");
 				case SQUIRREL_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "furry");
 				case BAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like", "furry");
 				case RAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "furry");
 				case RABBIT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "furry");
 			}
 		} else {
 			switch(this){
 				case ANGEL:
 					return UtilText.returnStringAtRandom("soft", "delicate");
 				case CAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "delicate", "cat-like", "paw-like", "furry", "feline");
+					return UtilText.returnStringAtRandom("soft", "delicate", "cat-like", "furry", "feline");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case DEMON_COMMON:
@@ -265,7 +251,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case IMP:
 					return UtilText.returnStringAtRandom("");
 				case DOG_MORPH:
-					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
+					return UtilText.returnStringAtRandom("dog-like", "furry", "canine");
 				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
@@ -277,48 +263,28 @@ public enum LegType implements BodyPartTypeInterface {
 				case HUMAN:
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
-					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("wolf-like", "furry");
 				case FOX_MORPH:
-					return UtilText.returnStringAtRandom("fox-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("fox-like", "furry");
 				case SQUIRREL_MORPH:
-					return UtilText.returnStringAtRandom("soft", "squirrel-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "squirrel-like", "furry");
 				case BAT_MORPH:
-					return UtilText.returnStringAtRandom("bat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("bat-like", "furry");
 				case RAT_MORPH:
-					return UtilText.returnStringAtRandom("rat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("rat-like", "furry");
 				case RABBIT_MORPH:
-					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("rabbit-like", "furry");
 			}
 		}
 		return "";
 	}
 	
 	public String getToesNameSingular(GameCharacter gc) {
-		switch(this){
-			case COW_MORPH:
-			case HORSE_MORPH:
-			case REINDEER_MORPH:
-			case DEMON_HOOFED:
-				return UtilText.returnStringAtRandom("hoof");
-			case HARPY:
-				return UtilText.returnStringAtRandom("claw");
-			default:
-				return UtilText.returnStringAtRandom("toe");
-		}
+		return this.getFootType().getToesSingularName();
 	}
 	
 	public String getToesNamePlural(GameCharacter gc) {
-		switch(this){
-			case COW_MORPH:
-			case HORSE_MORPH:
-			case REINDEER_MORPH:
-			case DEMON_HOOFED:
-				return UtilText.returnStringAtRandom("hoof");
-			case HARPY:
-				return UtilText.returnStringAtRandom("claws");
-			default:
-				return UtilText.returnStringAtRandom("toes");
-		}
+		return this.getFootType().getToesPluralName();
 	}
 	
 	public String getToesDescriptor(GameCharacter gc) {
@@ -327,7 +293,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case ANGEL:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case CAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "paw-like", "furry", "feline");
+					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "furry", "feline");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case DEMON_COMMON:
@@ -337,7 +303,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case IMP:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case DOG_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
+					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "furry", "canine");
 				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
@@ -349,24 +315,24 @@ public enum LegType implements BodyPartTypeInterface {
 				case HUMAN:
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
-					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry");
 				case FOX_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "fox-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("soft", "feminine", "fox-like", "furry");
 				case SQUIRREL_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "furry");
 				case BAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like", "furry");
 				case RAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "furry");
 				case RABBIT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "furry");
 			}
 		} else {
 			switch(this){
 				case ANGEL:
 					return UtilText.returnStringAtRandom("soft", "delicate");
 				case CAT_MORPH:
-					return UtilText.returnStringAtRandom("soft", "delicate", "cat-like", "paw-like", "furry", "feline");
+					return UtilText.returnStringAtRandom("soft", "delicate", "cat-like", "furry", "feline");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case DEMON_COMMON:
@@ -376,7 +342,7 @@ public enum LegType implements BodyPartTypeInterface {
 				case IMP:
 					return UtilText.returnStringAtRandom("");
 				case DOG_MORPH:
-					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
+					return UtilText.returnStringAtRandom("dog-like", "furry", "canine");
 				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
@@ -388,17 +354,17 @@ public enum LegType implements BodyPartTypeInterface {
 				case HUMAN:
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
-					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("wolf-like", "furry");
 				case FOX_MORPH:
-					return UtilText.returnStringAtRandom("fox-like", "furry", "paw-like");
+					return UtilText.returnStringAtRandom("fox-like", "furry");
 				case SQUIRREL_MORPH:
-					return UtilText.returnStringAtRandom("soft", "squirrel-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("soft", "squirrel-like", "furry");
 				case BAT_MORPH:
-					return UtilText.returnStringAtRandom("bat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("bat-like", "furry");
 				case RAT_MORPH:
-					return UtilText.returnStringAtRandom("rat-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("rat-like", "furry");
 				case RABBIT_MORPH:
-					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
+					return UtilText.returnStringAtRandom("rabbit-like", "furry");
 			}
 		}
 		return "";

@@ -870,7 +870,7 @@ public interface SexActionInterface {
 						return false;
 					}
 					break;
-				case TOES:
+				case FOOT:
 					break;
 			}
 		}
@@ -943,7 +943,7 @@ public interface SexActionInterface {
 					break;
 				case TENTACLE:
 					break;
-				case TOES:
+				case FOOT:
 					associatedFetishes.add(Fetish.FETISH_FOOT_GIVING);
 					break;
 				case TONGUE:
@@ -1008,7 +1008,7 @@ public interface SexActionInterface {
 					break;
 				case TENTACLE:
 					break;
-				case TOES:
+				case FOOT:
 					associatedFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
 					break;
 				case TONGUE:

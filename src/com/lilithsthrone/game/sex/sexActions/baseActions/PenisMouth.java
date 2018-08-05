@@ -1043,7 +1043,7 @@ public class PenisMouth {
 				default: // DOM_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Letting out [npc.a_sob+], [npc.name] frantically [npc.verb(try)] to pull [npc.her] hips away from [npc2.namePos] face, but [npc.her] efforts prove to be in vain as [npc2.she] firmly hold [npc.herHim] in place,"
-								+ " eagerly sliding [npc2.her] [npc2.lips+] up and down the length of [npc.her] [npc.cock+] as [npc2.she] [npc.verb(continue)] giving [npc.herHim] an unwanted blowjob.",
+								+ " eagerly sliding [npc2.her] [npc2.lips+] up and down the length of [npc.her] [npc.cock+] as [npc2.she] [npc2.verb(continue)] giving [npc.herHim] an unwanted blowjob.",
 
 						"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
 								+ " [npc2.Her] grip proves to be too strong, however, and [npc2.she] eagerly [npc.verb(continue)] to suck [npc.her] [npc.cock+] as [npc.she] weakly struggles against [npc2.herHim].",
@@ -1316,7 +1316,7 @@ public class PenisMouth {
 							" [npc2.Name] gently [npc2.verb(buck)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], softly [npc2.moaning] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.cock+].",
 
 							" With a gentle buck of [npc2.her] [npc2.hips],"
-									+ " [npc2.name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
+									+ " [npc2.name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -1324,27 +1324,27 @@ public class PenisMouth {
 							" [npc2.Name] greedily [npc2.verb(buck)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.moaning+] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.cock+].",
 
 							" With an energetic buck of [npc2.her] [npc2.hips],"
-									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
+									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.moaning+] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.cock+].",
 
 							" With an rough [npc.verb(thrust)] of [npc2.her] [npc2.hips],"
-									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
+									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(buck)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.moaning+] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.cock+].",
 
 							" Bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.face],"
-									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
+									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+], trying, and failing, to pull [npc2.her] [npc2.cock] out of [npc.namePos] mouth as [npc2.she] [npc2.verb(struggle)] against the unwanted oral attention.",
 
-							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(struggle)] against the unwanted oral attention, [npc2.sobbing] and squirming as [npc2.she] [npc.verb(beg)] for [npc.herHim] to stop."));
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(struggle)] against the unwanted oral attention, [npc2.sobbing] and squirming as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to stop."));
 					break;
 				default:
 					break;
@@ -1476,7 +1476,7 @@ public class PenisMouth {
 	
 						" A muffled [npc2.moan] drifts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] violently thrusting [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 
-						" [npc2.Moaning] in delight, [npc2.name] roughly [npc2.verb(slams)] [npc2.her] [npc2.cock+] as deep as possible into [npc.namePos] throat."));
+						" [npc2.Moaning] in delight, [npc2.name] roughly [npc2.verb(slam)] [npc2.her] [npc2.cock+] as deep as possible into [npc.namePos] throat."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1788,7 +1788,7 @@ public class PenisMouth {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+], struggling against [npc.name] as [npc2.she] [npc.verb(plead)] for [npc.herHim] to let [npc2.herHim] go.",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+], struggling against [npc.name] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to let [npc2.herHim] go.",
 
 							" Tears stream down [npc2.namePos] cheeks as [npc2.she] tries to struggle out of [npc.namePos] grip, letting out [npc2.a_sob+] before begging for [npc.herHim] to let [npc2.herHim] go."));
 					break;

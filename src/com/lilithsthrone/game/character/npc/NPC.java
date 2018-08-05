@@ -133,6 +133,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		
+		loadImages();
 	}
 	
 	@Override
@@ -188,7 +190,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			NodeList npcValues = ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue");
 			for(int i = 0; i < npcValues.getLength(); i++){
 				Element e = (Element) npcValues.item(i);
-				npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
+				try {
+					npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
+				} catch(Exception ex) {
+				}
 			}
 			
 			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("preferredBody").item(0), doc);
@@ -725,28 +730,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			NPCFlagValues.add(NPCFlagValue.introducedToPlayer);
 		} else {
 			NPCFlagValues.remove(NPCFlagValue.introducedToPlayer);
-		}
-	}
-	
-	public boolean isReactedToPregnancy() {
-		return NPCFlagValues.contains(NPCFlagValue.reactedToPregnancy);
-	}
-	public void setReactedToPregnancy(boolean reactedToPregnancy) {
-		if(reactedToPregnancy) {
-			NPCFlagValues.add(NPCFlagValue.reactedToPregnancy);
-		} else {
-			NPCFlagValues.remove(NPCFlagValue.reactedToPregnancy);
-		}
-	}
-	
-	public boolean isReactedToPlayerPregnancy() {
-		return NPCFlagValues.contains(NPCFlagValue.reactedToPlayerPregnancy);
-	}
-	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
-		if(reactedToPlayerPregnancy) {
-			NPCFlagValues.add(NPCFlagValue.reactedToPlayerPregnancy);
-		} else {
-			NPCFlagValues.remove(NPCFlagValue.reactedToPlayerPregnancy);
 		}
 	}
 	
@@ -2299,7 +2282,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case CLIT:
 					break;
-				case TOES:
+				case FOOT:
 					break;
 			}
 		}
@@ -2309,53 +2292,76 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public void endSex() {
 	}
 	
+	
+	
 	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+		
+		boolean keenToPerform = false;
+		
 		if(sexTypeRequest.getPerformingSexArea()!=null) {
 			if(sexTypeRequest.getPerformingSexArea().isOrifice()) {
 				switch((SexAreaOrifice)sexTypeRequest.getPerformingSexArea()) {
 					case ANUS:
 						if(this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case ASS:
 						if(this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case BREAST:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case MOUTH:
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case NIPPLE:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case THIGHS:
 						if(this.getFetishDesire(Fetish.FETISH_STRUTTER).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_STRUTTER).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case URETHRA_PENIS:
 						if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case URETHRA_VAGINA:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case VAGINA:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 				}
@@ -2364,6 +2370,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case CLIT:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case FINGER:
@@ -2371,71 +2379,95 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case PENIS:
 						if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case TAIL:
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
+					case FOOT:
 						if(this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case TONGUE:
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 				}
 			}
 			
-		} else {
+		} else if(sexTypeRequest.getTargetedSexArea()!=null) {
 			if(sexTypeRequest.getTargetedSexArea().isOrifice()) {
 				switch((SexAreaOrifice)sexTypeRequest.getTargetedSexArea()) {
 					case ANUS:
 						if(this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case ASS:
 						if(this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case BREAST:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case MOUTH:
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case NIPPLE:
 						if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case THIGHS:
 						if(this.getFetishDesire(Fetish.FETISH_LEG_LOVER).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_LEG_LOVER).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case URETHRA_PENIS:
 						if(this.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case URETHRA_VAGINA:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case VAGINA:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 				}
@@ -2444,6 +2476,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case CLIT:
 						if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case FINGER:
@@ -2451,27 +2485,33 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					case PENIS:
 						if(this.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case TAIL:
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
+					case FOOT:
 						if(this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 					case TONGUE:
 						if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
 							return true;
+						} else if(this.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isPositive()) {
+							keenToPerform = true;
 						}
 						break;
 				}
 			}
 		}
 		
-		return hasFetish(Fetish.FETISH_SADIST);
+		return !keenToPerform && hasFetish(Fetish.FETISH_SADIST);
 	}
 	
 	protected Map<GameCharacter, SexType> foreplayPreference = new HashMap<>();
@@ -2664,8 +2704,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			for(SexAreaPenetration pen : penTypes) {
 				for(SexAreaOrifice orifice : orificeTypes) {
-					mainSexTypes.add(new SexType(SexParticipantType.NORMAL, orifice, pen));
-					mainSexTypes.add(new SexType(SexParticipantType.NORMAL, pen, orifice));
+					if(!(pen==SexAreaPenetration.TAIL && orifice!=SexAreaOrifice.BREAST)) {
+						mainSexTypes.add(new SexType(SexParticipantType.NORMAL, orifice, pen));
+						mainSexTypes.add(new SexType(SexParticipantType.NORMAL, pen, orifice));
+					}
 				}
 			}
 			
@@ -2972,9 +3014,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return SexPace.DOM_GENTLE;
 		}
 		
-		if(hasFetish(Fetish.FETISH_SADIST)
-				|| hasFetish(Fetish.FETISH_DOMINANT)
-				) {
+		if(hasFetish(Fetish.FETISH_SADIST) || hasFetish(Fetish.FETISH_DOMINANT)) {
 			return SexPace.DOM_ROUGH;
 		}
 		

@@ -7,7 +7,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -144,8 +146,9 @@ public class Kruger extends NPC {
 	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
 		return true;
 	}
-	
-	public Set<SexPositionSlot> getSexPositionPreferences() {
+
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
@@ -156,9 +159,23 @@ public class Kruger extends NPC {
 		
 		return sexPositionPreferences;
 	}
-	
-	public SexType getForeplayPreference() {
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+	}
+	
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+			
+		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+		}
+		
+		return super.getMainSexPreference(target);
 	}
 	
 }

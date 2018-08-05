@@ -1209,7 +1209,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1218,7 +1218,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
@@ -1293,7 +1293,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1303,7 +1303,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");

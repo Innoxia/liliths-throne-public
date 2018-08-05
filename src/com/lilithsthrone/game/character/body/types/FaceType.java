@@ -18,7 +18,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public enum FaceType implements BodyPartTypeInterface {
 	HUMAN(BodyCoveringType.HUMAN, MouthType.HUMAN, TongueType.HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.HUMAN, MouthType.ANGEL, TongueType.HUMAN, Race.ANGEL),
+	ANGEL(BodyCoveringType.ANGEL, MouthType.ANGEL, TongueType.ANGEL, Race.ANGEL),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, MouthType.DEMON_COMMON, TongueType.DEMON_COMMON, Race.DEMON),
 

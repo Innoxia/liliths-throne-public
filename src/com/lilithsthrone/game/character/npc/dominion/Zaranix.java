@@ -241,7 +241,7 @@ public class Zaranix extends NPC {
 					+ "<p>"
 						+ "[zaranix.speech(If it were anyone else, I'd have refused to let you go, but I just realised who this [pc.race] is,)]"
 						+ " Zaranix says, stepping back and collapsing down into a nearby chair."
-						+ " [zaranix.speech(<i>[pc.sheIs</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
+						+ " [zaranix.speech(<i>[pc.SheIs]</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Bloody hell! So it's Lilaya who's behind this rescue?)]"

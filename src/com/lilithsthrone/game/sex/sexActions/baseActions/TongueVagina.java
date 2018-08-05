@@ -214,35 +214,35 @@ public class TongueVagina {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] plants a series soft kisses on [npc2.her] [npc2.labia+],"
+							"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(plant)] a series soft kisses on [npc2.her] [npc2.labia+],"
 									+ " before slowly, but firmly, sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
 
 							"Planting a series of soft kisses on [npc2.namePos] [npc2.labia+], [npc.name] gives [npc2.her] [npc2.pussy+] a long, wet lick, before gently pushing [npc.her] [npc.tongue+] deep inside."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] plants a series of passionate kisses on [npc2.her] [npc2.labia+],"
+							"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.labia+],"
 									+ " before desperately sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
 
 							"Planting a series of passionate kisses on [npc2.namePos] [npc2.labia+], [npc.name] gives [npc2.her] [npc2.pussy+] a hungry lick, before greedily pushing [npc.her] [npc.tongue+] deep inside."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Roughly grinding [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] plants a series of forceful kisses on [npc2.her] [npc2.labia+],"
+							"Roughly grinding [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(plant)] a series of forceful kisses on [npc2.her] [npc2.labia+],"
 									+ " before greedily sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
 
 							"Planting a series of forceful kisses on [npc2.namePos] [npc2.labia+], [npc.name] gives [npc2.her] [npc2.pussy+] a rough lick, before greedily pushing [npc.her] [npc.tongue+] deep inside."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] plants a series of passionate kisses on [npc2.her] [npc2.labia+],"
+							"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.labia+],"
 									+ " before desperately sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
 
 							"Planting a series of passionate kisses on [npc2.namePos] [npc2.labia+], [npc.name] gives [npc2.her] [npc2.pussy+] a hungry lick, before greedily pushing [npc.her] [npc.tongue+] deep inside."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] plants a series of kisses on [npc2.her] [npc2.labia+], before sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
+							"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(plant)] a series of kisses on [npc2.her] [npc2.labia+], before sliding [npc.her] [npc.tongue+] into [npc2.her] [npc2.pussy+].",
 
 							"Planting a series of kisses on [npc2.namePos] [npc2.labia+], [npc.name] gives [npc2.her] [npc2.pussy+] a wet lick, before pushing [npc.her] [npc.tongue+] deep inside."));
 					break;
@@ -255,31 +255,31 @@ public class TongueVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response, gently bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to keep going.",
 
-							" Gently bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moan] out loud, begging for [npc.herHim] to continue."));
+							" Gently bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moanVerb] out loud, begging for [npc.herHim] to continue."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to keep going.",
 
-							" Desperately bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moan] out loud, begging for [npc.herHim] to continue."));
+							" Desperately bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moanVerb] out loud, begging for [npc.herHim] to continue."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, roughly thrusting [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(order)] [npc.herHim] to keep going.",
 
-							" Roughly thrusting [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in an eager response to [npc.her] oral attention, [npc2.name] [npc2.moan] out loud, commanding [npc.herHim] to continue."));
+							" Roughly thrusting [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in an eager response to [npc.her] oral attention, [npc2.name] [npc2.moanVerb] out loud, commanding [npc.herHim] to continue."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to keep going.",
 
-							" Desperately bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moan] out loud, begging for [npc.herHim] to continue."));
+							" Desperately bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moanVerb] out loud, begging for [npc.herHim] to continue."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to keep going.",
 
-							" Bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moan] out loud, begging for [npc.herHim] to continue."));
+							" Bucking [npc2.her] [npc2.hips] out against [npc.namePos] [npc.face] in response to [npc.her] oral attention, [npc2.name] [npc2.moanVerb] out loud, begging for [npc.herHim] to continue."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -820,7 +820,7 @@ public class TongueVagina {
 								+ " and, eagerly pressing [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia+], [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.pussy+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(grind)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia],"
-								+ " before eagerly driving [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
+								+ " before eagerly driving [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
 				break;
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -842,7 +842,7 @@ public class TongueVagina {
 								+ " and, gently pressing [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia+], [npc2.she] [npc2.verb(start)] slowly sliding [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.pussy+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] gently [npc2.verb(press)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia],"
-								+ " before gently sliding [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
+								+ " before gently sliding [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
 				break;
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -853,7 +853,7 @@ public class TongueVagina {
 								+ " and, roughly grinding [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia+], [npc2.she] [npc2.verb(start)] violently thrusting [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.pussy+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] forcefully [npc2.verb(press)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia],"
-								+ " before aggressively thrusting [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
+								+ " before aggressively thrusting [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -864,7 +864,7 @@ public class TongueVagina {
 								+ " and, pressing [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia+], [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.pussy+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] [npc2.verb(grind)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.labia],"
-								+ " before driving [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
+								+ " before driving [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.pussy+]."));
 				break;
 		}
 		return "";

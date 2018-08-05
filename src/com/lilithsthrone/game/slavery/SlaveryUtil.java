@@ -35,6 +35,7 @@ import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * A class to handle all slave-related mechanics.
@@ -1076,4 +1077,33 @@ public class SlaveryUtil implements XMLSaving {
 		return slavesResting;
 	}
 	
+	public static boolean isFreeRoomAvailableForOccupant() {
+		return getFreeRoomForOccupant()!=null;
+	}
+	
+	public static Cell getFreeRoomForOccupant() {
+		Cell[][] grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCellGrid();
+		
+		for(int i=0; i< grid.length; i++) {
+			for(int j=0; j< grid[0].length; j++) {
+				Cell c = grid[i][j];
+				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersPresent(c).isEmpty()) {
+					return c;
+				}
+			}
+		}
+		
+		grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCellGrid();
+		
+		for(int i=0; i< grid.length; i++) {
+			for(int j=0; j< grid[0].length; j++) {
+				Cell c = grid[i][j];
+				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersPresent(c).isEmpty()) {
+					return c;
+				}
+			}
+		}
+		
+		return null;
+	}
 }

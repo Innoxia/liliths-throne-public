@@ -21,7 +21,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
@@ -33,6 +32,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
@@ -461,32 +461,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -505,32 +484,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -549,32 +507,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -593,32 +530,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -1042,7 +958,7 @@ public enum PlaceType {
 		}
 	},
 
-	WATERING_HOLE_BAR("VIP Area", "dominion/nightLife/bar", BaseColour.ORANGE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_BAR, null, false, true, true, "in 'The Watering Hole'") {
+	WATERING_HOLE_BAR("Bar", "dominion/nightLife/bar", BaseColour.ORANGE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_BAR, null, false, true, true, "in 'The Watering Hole'") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return Subspecies.getWorldSpecies().get(WorldType.NIGHTLIFE_CLUB);
@@ -1352,6 +1268,41 @@ public enum PlaceType {
 	
 	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 		return new ArrayList<>();
+	}
+
+	public static ArrayList<PlaceUpgrade> getAvailableLilayaRoomPlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			return PlaceUpgrade.getGuestRoomUpgrades();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+			return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+			return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		
+		return PlaceUpgrade.getCoreRoomUpgrades();
+	}
+	
+	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
+		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomGuest", Colour.BASE_GREEN_LIGHT);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+			
+		} else {
+			return SVGString;
+		}
 	}
 
 	public String getVirgintyLossDescription() {

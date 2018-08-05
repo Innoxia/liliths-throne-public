@@ -614,9 +614,11 @@ public class TooltipInformationEventListener implements EventListener {
 
 					int[] dimensions = new int[]{419, 508};
 					int imagePadding = 0;
+					int imageWidth = 0;
 					if (displayImage) {
 						// Add the scaled width to the tooltip dimensions
 						int[] scaledSize = image.getAdjustedSize(300, 445);
+						imageWidth = scaledSize[0];
 						dimensions[0] += scaledSize[0];
 						// ... and place it in the bottom right corner of the tooltip
 						imagePadding = Math.max(0, 455 - scaledSize[1]);
@@ -695,9 +697,14 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType(owner)));
 
 					if (displayImage) {
-						tooltipSB.append("</div><div style='float: left;'>"
-								+ "<img id='CHARACTER_IMAGE' style='width: auto; height: auto; max-width: 300; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getImageString()
-								+ "'/></div>");
+						boolean visible = (owner.isPlayer() || owner.getTotalTimesHadSex(Main.game.getPlayer())>0) || owner.getCurrentArtwork().isCurrentImageClothed();
+						
+						tooltipSB.append("</div>"
+								+ "<div style='float: left;'>"
+									+ "<img id='CHARACTER_IMAGE' style='"+(visible?"":"-webkit-filter: brightness(0%);")
+										+" width: auto; height: auto; max-width: 300; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getImageString()+ "'/>"
+										+(visible?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+								+ "</div>");
 					}
 				}
 				

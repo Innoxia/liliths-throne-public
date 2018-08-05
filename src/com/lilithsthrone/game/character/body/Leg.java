@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface, Serializable {
@@ -33,6 +33,12 @@ public class Leg implements BodyPartInterface, Serializable {
 
 	public FootStructure getFootStructure() {
 		return footStructure;
+	}
+
+	public String setFootStructure(FootStructure footStructure) {
+		this.footStructure = footStructure;
+		//TODO
+		return "";
 	}
 
 	@Override

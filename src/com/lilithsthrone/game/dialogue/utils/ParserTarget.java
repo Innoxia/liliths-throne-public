@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -73,7 +74,12 @@ public enum ParserTarget {
 							return Main.game.getActiveNPC();
 							
 						} else if (!Main.game.getCharactersPresent().isEmpty()) {
-							return Main.game.getCharactersPresent().get(0);
+							List<NPC> charactersPresent = Main.game.getCharactersPresent();
+							if(tag.equalsIgnoreCase("npc")) {
+								return charactersPresent.get(0);
+							} else {
+								return charactersPresent.get(Math.min(charactersPresent.size()-1, Math.max(0, Integer.parseInt(tag.substring(3))-1)));
+							}
 							
 						} else {
 							throw new NullPointerException();

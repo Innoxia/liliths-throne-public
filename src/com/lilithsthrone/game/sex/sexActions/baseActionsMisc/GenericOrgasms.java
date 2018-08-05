@@ -523,8 +523,8 @@ public class GenericOrgasms {
 							break;
 						case TENTACLE:
 							break;
-						case TOES:
-							genericOrgasmSB.append(" Bucking [npc.her] [npc1.hips], [npc.name] [npc.verb(let)] out [npc1.a_moan+] as [npc2.name] [npc2.verb(continue)] stimulating [npc1.her] [npc1.cock+] with [npc2.her] [npc.feet+].");
+						case FOOT:
+							genericOrgasmSB.append(" Bucking [npc.her] [npc1.hips], [npc.name] [npc.verb(let)] out [npc1.a_moan+] as [npc2.name] [npc2.verb(continue)] stimulating [npc1.her] [npc1.cock+] with [npc2.her] [npc2.feet+].");
 							break;
 						case TONGUE:
 							genericOrgasmSB.append("[npc1.Name] [npc1.verb(slide)] [npc1.her] [npc1.cock+] out of [npc2.namePos] mouth, before reaching down and starting to furiously masturbate;"
@@ -647,8 +647,149 @@ public class GenericOrgasms {
 						break;
 						
 					case ASS:
+						genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] between [npc2.namePos] [npc2.assSize] ass cheeks, letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+						
+						for(PenetrationModifier mod : PenetrationModifier.values()) {
+							switch(mod) {
+								case BARBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] movements cause the barbs lining the sides of [npc.her] [npc.cock] to rake against [npc2.namePos] [npc2.ass], causing [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case BLUNT:
+									break;
+								case FLARED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] flared head swells up, causing [npc2.namePos] cheeks to be parted ever wider, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case KNOTTED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] fat knot swells up, and with each thrust, bumps wildly against [npc2.namePos] [npc2.asshole], which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case PREHENSILE:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" Harnessing the ability of [npc1.her] prehensile cock, [npc.name] bends it down over [npc2.namePos] back on each thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case RIBBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] ribbed shaft repeatedly bumps against [npc2.namePos] [npc2.asshole] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									break;
+								case TENTACLED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" The little tentacles lining [npc1.her] shaft wriggle against and massage [npc2.namePos] [npc2.asshole] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case VEINY:
+									break;
+							}
+						}
 						break;
+						
 					case BREAST:
+						if(characterPenetrated.hasBreasts()) {
+							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] between [npc2.namePos] [npc2.breasts+], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+							
+							for(PenetrationModifier mod : PenetrationModifier.values()) {
+								switch(mod) {
+									case BARBED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] movements cause the barbs lining [npc.her] [npc.cock] to rake against the sides of [npc2.namePos] breasts, causing [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case BLUNT:
+										break;
+									case FLARED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] flared head swells up, bumping wildly against [npc2.namePos] [npc2.breasts+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case KNOTTED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] fat knot swells up, and with each thrust, bumps wildly against [npc2.namePos] [npc2.breasts+], which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case PREHENSILE:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" Harnessing the ability of [npc1.her] prehensile cock, [npc.name] curls it around alternating sides of [npc2.namePos] breasts,"
+													+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case RIBBED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] ribbed shaft repeatedly bumps against [npc2.namePos] [npc2.breasts+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case SHEATHED:
+										break;
+									case TAPERED:
+										break;
+									case TENTACLED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" The little tentacles lining [npc1.her] shaft wriggle against and massage [npc2.namePos] [npc2.breasts+] on every thrust,"
+													+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case VEINY:
+										break;
+								}
+							}
+							
+						} else {
+							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] grinding [npc.her] [npc.cock+] against [npc2.namePos] flat chest, letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+							
+							for(PenetrationModifier mod : PenetrationModifier.values()) {
+								switch(mod) {
+									case BARBED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] movements cause the barbs lining [npc.her] [npc.cock] to rake sharply over [npc2.namePos] torso, causing [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case BLUNT:
+										break;
+									case FLARED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] flared head swells up, bumping wildly against [npc2.namePos] torso on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case KNOTTED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] fat knot swells up, and with each thrust, bumps wildly against [npc2.namePos] torso, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case PREHENSILE:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" Harnessing the ability of [npc1.her] prehensile cock, [npc.name] curls it this way and that as [npc.she] grinds against [npc2.namePos] chest,"
+													+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case RIBBED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" [npc1.Her] ribbed shaft repeatedly bumps over [npc2.namePos] torso on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case SHEATHED:
+										break;
+									case TAPERED:
+										break;
+									case TENTACLED:
+										if(characterOrgasming.hasPenisModifier(mod)) {
+											modifiers.add(" The little tentacles lining [npc1.her] shaft wriggle against and massage [npc2.namePos] torso on every thrust,"
+													+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+										}
+										break;
+									case VEINY:
+										break;
+								}
+							}
+						}
 						break;
 						
 					case MOUTH:
@@ -781,6 +922,51 @@ public class GenericOrgasms {
 						break;
 						
 					case THIGHS:
+						genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] between [npc2.namePos] thighs, letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+						
+						for(PenetrationModifier mod : PenetrationModifier.values()) {
+							switch(mod) {
+								case BARBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] movements cause the barbs lining the sides of [npc.her] [npc.cock] to rake against [npc2.namePos] [npc2.legs+], causing [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case BLUNT:
+									break;
+								case FLARED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] flared head swells up, causing [npc2.namePos] [npc2.legs+] to be parted ever wider, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case KNOTTED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] fat knot swells up, and with each thrust, bumps wildly against [npc2.namePos] [npc2.legs+], which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case PREHENSILE:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" Harnessing the ability of [npc1.her] prehensile cock, [npc.name] bends it around [npc2.namePos] [npc2.legs+] on each thrust,"
+												+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case RIBBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] ribbed shaft repeatedly bumps against [npc2.namePos] [npc2.legs+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									break;
+								case TENTACLED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" The little tentacles lining [npc1.her] shaft wriggle against and massage [npc2.namePos] [npc2.legs+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case VEINY:
+									break;
+							}
+						}
 						break;
 				}
 				
@@ -789,7 +975,51 @@ public class GenericOrgasms {
 					case CLIT:
 						break;
 					case FINGER:
-						genericOrgasmSB.append(" Bucking [npc.her] [npc1.hips], [npc.name] [npc.verb(let)] out [npc1.a_moan+] as [npc2.name] [npc2.verb(continue)] stroking [npc1.her] [npc1.cock+].");
+						genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] into [npc2.namePos] [npc2.hand], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+						
+						for(PenetrationModifier mod : PenetrationModifier.values()) {
+							switch(mod) {
+								case BARBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] movements cause the barbs lining the sides of [npc.her] [npc.cock] to rake against [npc2.namePos] [npc2.fingers+], causing [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case BLUNT:
+									break;
+								case FLARED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] flared head swells up, causing [npc2.namePos] [npc2.fingers+] to be parted ever wider, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case KNOTTED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] fat knot swells up, and with each thrust, bumps wildly against [npc2.namePos] [npc2.fingers+], which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case PREHENSILE:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" Harnessing the ability of [npc1.her] prehensile cock, [npc.name] bends it around [npc2.namePos] [npc2.fingers+] on each thrust,"
+												+ " which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case RIBBED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" [npc1.Her] ribbed shaft repeatedly bumps against [npc2.namePos] [npc2.fingers+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case SHEATHED:
+									break;
+								case TAPERED:
+									break;
+								case TENTACLED:
+									if(characterOrgasming.hasPenisModifier(mod)) {
+										modifiers.add(" The little tentacles lining [npc1.her] shaft wriggle against and massage [npc2.namePos] [npc2.fingers+] on every thrust, which in turn causes [npc2.herHim] to let out [npc2.a_moan+].");
+									}
+									break;
+								case VEINY:
+									break;
+							}
+						}
 						break;
 					case PENIS:
 						break;
@@ -797,8 +1027,12 @@ public class GenericOrgasms {
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
-						genericOrgasmSB.append(" Bucking [npc.her] [npc1.hips], [npc.name] [npc.verb(let)] out [npc1.a_moan+] as [npc2.name] [npc2.verb(continue)] stimulating [npc1.her] [npc1.cock+] with [npc2.her] [npc2.feet+].");
+					case FOOT://TODO modifiers
+						if(Sex.isDoubleFootJob(characterPenetrated)) {
+							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] between [npc2.namePos] [npc2.feet+], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+						} else {
+							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] rubbing [npc.her] [npc.cock+] against [npc2.namePos] [npc2.foot+], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+						}
 						break;
 					case TONGUE:
 						break;
@@ -1209,7 +1443,7 @@ public class GenericOrgasms {
 											+"[pc.cum+] backs up and starts drooling out of [npc2.her] [npc2.asshole], [npc2.she] lets out [npc2.a_moan+]."
 													+ " You keep your [npc1.cock] hilted deep in [npc2.her] ass, [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 								} else {
-									cumTargetSB.append(" After a few seconds, you realise that [npc1.namePos] not even close to stopping, and as you feel [npc1.her] "
+									cumTargetSB.append(" After a few seconds, you realise that [npc1.nameIs] not even close to stopping, and as you feel [npc1.her] "
 											+"[npc.cum+] backing up and drooling out of your [npc2.asshole], you let out [pc.a_moan+]."
 											+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep in your ass, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 								}
@@ -1222,10 +1456,44 @@ public class GenericOrgasms {
 							cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 						}
 						break;
+						
 					case ASS:
+						if (target.getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+							return getClothingCummedOnText(characterOrgasming, target, CoverableArea.ASS);
+						} else {
+							cumTargetSB.append(" all over [npc2.namePos] back and [npc2.ass+].");
+	
+							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
+								case SIX_EXTREME: case SEVEN_MONSTROUS:
+									cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc1.nameIs] not even close to stopping, and after just a moment more,"
+											+ " [npc2.her] [npc2.ass+] is absolutely drenched in [npc.cum+].");
+									break;
+								default:
+									break;
+							}
+						}
 						break;
+						
 					case BREAST:
+						if (target.getHighestZLayerCoverableArea(CoverableArea.BREASTS)!=null) {
+							return getClothingCummedOnText(characterOrgasming, target, CoverableArea.BREASTS);
+						} else {
+							if(target.hasBreasts()) {
+								cumTargetSB.append(" all over [npc2.namePos] [npc2.breasts+] and face.");
+							} else {
+								cumTargetSB.append(" all over [npc2.namePos] flat chest and face.");
+							}
+							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
+								case SIX_EXTREME: case SEVEN_MONSTROUS:
+									cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc1.nameIs] not even close to stopping, and after just a moment more,"
+											+ " [npc2.her] torso is absolutely drenched in [npc.cum+].");
+									break;
+								default:
+									break;
+							}
+						}
 						break;
+						
 					case MOUTH:
 						if(target.isPlayer()) {
 							cumTargetSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
@@ -1328,6 +1596,7 @@ public class GenericOrgasms {
 							cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 						}
 						break;
+						
 					case NIPPLE:
 						if(target.isPlayer()) {
 							cumTargetSB.append(" deep into your [pc.breasts+], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of your [pc.breasts+].");
@@ -1339,8 +1608,23 @@ public class GenericOrgasms {
 							cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 						}
 						break;
+						
 					case THIGHS:
+						if (target.getHighestZLayerCoverableArea(CoverableArea.THIGHS)!=null) {
+							return getClothingCummedOnText(characterOrgasming, target, CoverableArea.THIGHS);
+						} else {
+							cumTargetSB.append(" all over [npc2.namePos] thighs.");
+							
+							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
+								case SIX_EXTREME: case SEVEN_MONSTROUS:
+									cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc1.nameIs] not even close to stopping, and after just a moment more,"
+											+ " [npc2.her] [npc2.legs+] are absolutely drenched in [npc.cum+].");
+									break;
+								default:
+							}
+						}
 						break;
+						
 					case URETHRA_PENIS: case URETHRA_VAGINA: //TODO
 						if(target.isPlayer()) {
 							cumTargetSB.append(" deep into your urethra.");
@@ -1367,6 +1651,7 @@ public class GenericOrgasms {
 							cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 						}
 						break;
+						
 					case VAGINA:
 						if(target.isPlayer()) {
 							if(!target.isVisiblyPregnant()) {
@@ -1407,7 +1692,20 @@ public class GenericOrgasms {
 					case CLIT:
 						break;
 					case FINGER:
-						cumTargetSB.append(" all over [npc2.namePos] [npc2.hands].");
+						if (target.getHighestZLayerCoverableArea(CoverableArea.HANDS)!=null) {
+							return getClothingCummedOnText(characterOrgasming, target, CoverableArea.HANDS);
+						} else {
+							cumTargetSB.append(" all over [npc2.namePos] [npc2.fingers+].");
+							
+							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
+								case SIX_EXTREME: case SEVEN_MONSTROUS:
+									cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc1.nameIs] not even close to stopping, and after just a moment more,"
+											+ " [npc2.her] [npc2.hands+] are absolutely drenched in [npc.cum+].");
+									break;
+								default:
+									break;
+							}
+						}
 						break;
 					case PENIS:
 						break;
@@ -1415,16 +1713,27 @@ public class GenericOrgasms {
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
-						cumTargetSB.append(" all over [npc2.namePos] [npc2.feet].");
+					case FOOT:
+						if (target.getHighestZLayerCoverableArea(CoverableArea.FEET)!=null) {
+							return getClothingCummedOnText(characterOrgasming, target, CoverableArea.FEET);
+						} else {
+							cumTargetSB.append(" all over [npc2.namePos] [npc2.toes+].");
+							
+							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
+								case SIX_EXTREME: case SEVEN_MONSTROUS:
+									cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc1.nameIs] not even close to stopping, and after just a moment more,"
+											+ " [npc2.her] [npc2.feet+] are absolutely drenched in [npc.cum+].");
+									break;
+								default:
+									break;
+							}
+						}
 						break;
 					case TONGUE:
 						break;
 				}
 			}
 		}
-		
-
 		
 		if(target!=null) {
 			switch(target.getBodyMaterial()) {
@@ -1674,7 +1983,7 @@ public class GenericOrgasms {
 						}
 					}
 					break;
-				case TOES: //TODO
+				case FOOT: //TODO
 					break;
 			}
 			
@@ -1814,9 +2123,13 @@ public class GenericOrgasms {
 							return "Anal Creampie";
 						}
 					case ASS:
-						return "Hotdogging Climax";
+						return "Hotdogging climax";
 					case BREAST:
-						break;
+						if(characterPenetrated.hasBreasts()) {
+							return "Paizuri climax";
+						} else {
+							return "Naizuri climax";
+						}
 					case MOUTH:
 						break;
 					case NIPPLE:
@@ -1844,7 +2157,7 @@ public class GenericOrgasms {
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
+					case FOOT:
 						return "Footjob Climax";
 					case TONGUE:
 						break;
@@ -1855,7 +2168,73 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer.";
+			GameCharacter characterPenetrated = Sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+			String returnString = "You've reached your climax, and can't hold back your orgasm any longer. Creampie [npc2.name].";
+			
+			if(areaContacted.isOrifice()) {
+				switch((SexAreaOrifice)areaContacted) {
+					case ANUS:
+						if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
+							returnString = "Push your [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], knotting [npc.herHim] before filling [npc2.herHim] with your [npc.cum+].";
+						} else {
+							returnString = "Push your [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], before filling [npc2.herHim] with your [npc.cum+].";
+						}
+						break;
+					case ASS:
+						returnString = "Keep on hotdogging [npc2.name] as you orgasm, spurting your [npc.cum+] all over [npc2.her] back and [npc2.assSize] ass.";
+						break;
+					case BREAST:
+						if(characterPenetrated.hasBreasts()) {
+							returnString = "Keep on fucking [npc2.namePos] breasts as you orgasm, spurting your [npc.cum+] all over [npc2.her] tits and [npc2.face].";
+						} else {
+							returnString = "Keep on grinding against [npc2.namePos] flat chest as you orgasm, spurting your [npc.cum+] all over [npc2.her] torso and [npc2.face].";
+						}
+						break;
+					case MOUTH:
+						returnString = "Push your [npc.cock+] deep down [npc2.namePos] throat, before filling [npc2.her] stomach with your [npc.cum+].";
+						break;
+					case NIPPLE:
+						returnString = "Push your [npc.cock+] deep into [npc2.namePos] [npc2.nipple+], before filling [npc2.her] breast with your [npc.cum+].";
+						break;
+					case THIGHS:
+						returnString = "Keep on fucking [npc2.namePos] thighs as you start to orgasm, before pulling back and spurting your [npc.cum+] all over [npc2.her] [npc2.legs].";
+						break;
+					case URETHRA_PENIS:
+						returnString = "Push your [npc.cock+] deep into the urethra of [npc2.namePos] [npc2.cock+], before filling [npc2.her] bladder with your [npc.cum+].";
+						break;
+					case URETHRA_VAGINA:
+						returnString = "Push your [npc.cock+] deep into the urethra of [npc2.namePos] [npc2.pussy+], before filling [npc2.her] bladder with your [npc.cum+].";
+						break;
+					case VAGINA:
+						if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
+							returnString = "Push your [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], knotting [npc.herHim] before filling [npc2.her] #IFnpc2.isPregnant()#THEN[npc2.pussy]#ELSEwomb#ENDIF with your [npc.cum+].";
+						} else {
+							returnString = "Push your [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], before filling [npc2.her] #IFnpc2.isPregnant()#THEN[npc2.pussy]#ELSEwomb#ENDIF with your [npc.cum+].";
+						}
+						break;
+				}
+			} else {
+				switch((SexAreaPenetration)areaContacted) {
+					case CLIT:
+						break;
+					case FINGER:
+						returnString = "Carry on focusing on the pleasure that you're getting from [npc2.name] giving you a handjob, before pulling back slightly and spurting your [npc.cum+] all over [npc2.her] [npc2.hand+].";
+						break;
+					case PENIS:
+						break;
+					case TAIL:
+						break;
+					case TENTACLE:
+						break;
+					case FOOT:
+						returnString = "Carry on focusing on the pleasure that you're getting from [npc2.namePos] [npc2.footjob], before spurting your [npc.cum+] all over [npc2.her] [npc2.feet+].";
+						break;
+					case TONGUE:
+						break;
+				}
+			}
+			return UtilText.parse(Sex.getCharacterPerformingAction(), characterPenetrated, returnString);
 		}
 
 		@Override
@@ -1873,8 +2252,6 @@ public class GenericOrgasms {
 					case ASS:
 					case BREAST:
 					case THIGHS:
-						break;
-						
 					case ANUS:
 					case MOUTH:
 					case NIPPLE:
@@ -1884,7 +2261,22 @@ public class GenericOrgasms {
 						return true;
 				}
 			} else {
-				return false;
+				switch((SexAreaPenetration)areaContacted) {
+					case CLIT:
+						break;
+					case FINGER:
+						return true;
+					case FOOT:
+						return true;
+					case PENIS:
+						break;
+					case TAIL:
+						break;
+					case TENTACLE:
+						break;
+					case TONGUE:
+						break;
+				}
 			}
 			
 			return false;
@@ -1906,6 +2298,35 @@ public class GenericOrgasms {
 			} else {
 				return null;
 			}
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer()) {
+				SexAreaInterface areaContacted = Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+	
+				if(!areaContacted.isOrifice()) {
+					switch((SexAreaPenetration)areaContacted) {
+						case CLIT:
+							break;
+						case FINGER:
+							return Util.newArrayListOfValues(
+									CoverableArea.HANDS);
+						case FOOT:
+							return Util.newArrayListOfValues(
+									CoverableArea.FEET);
+						case PENIS:
+							break;
+						case TAIL:
+							break;
+						case TENTACLE:
+							break;
+						case TONGUE:
+							break;
+					}
+				}
+			}
+			return null; 
 		}
 	};
 	
@@ -3363,8 +3784,12 @@ public class GenericOrgasms {
 		@Override
 		public SexActionPriority getPriority() {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY) {
+					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY
+					|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA && Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION))) {
 				return SexActionPriority.UNIQUE_MAX;
+			}
+			if(Math.random()<0.66f) {
+				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
 		}
@@ -3419,7 +3844,7 @@ public class GenericOrgasms {
 						break;
 					case TENTACLE:
 						break;
-					case TOES:
+					case FOOT:
 						return "Footjob Climax";
 					case TONGUE:
 						break;

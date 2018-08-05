@@ -92,7 +92,7 @@ public interface SexManagerInterface {
 							&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker))));
 	}
 	
-	public default boolean isPartnerWantingToStopSex() {
+	public default boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		boolean subsSatisfied = true;
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
@@ -112,10 +112,10 @@ public interface SexManagerInterface {
 			}
 		}
 		
-		if(Sex.isDom(Sex.getActivePartner()) && (!Sex.isConsensual() || subsResisting)) {
+		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting)) {
 			return domsSatisfied;
 			
-		} else if(!Sex.isDom(Sex.getActivePartner()) && !Sex.isSubHasEqualControl()) {
+		} else if(!Sex.isDom(partner) && !Sex.isSubHasEqualControl()) {
 			return false;
 			
 		} else {

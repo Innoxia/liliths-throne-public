@@ -42,7 +42,7 @@ public class BatCavernSlimeAttackerDialogue {
 			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
-					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+					if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 						return UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_REPEAT_PREGNANCY_REACT")
 								+ "<p style='text-align:center;'>" 
 									+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant!</b>"
@@ -74,7 +74,14 @@ public class BatCavernSlimeAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC()) {
+					@Override
+					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
+					}
+				};
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().getMoney()<250) {
@@ -83,6 +90,9 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_PAID_OFF")
 									+ Main.game.getPlayer().incrementMoney(-250));
 						}
@@ -96,6 +106,9 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Offer mushroom", "Offer one of your Glowing Mushrooms to [npc.name] in exchange for leaving you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.MUSHROOM));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_PAID_OFF_WITH_MUSHROOM")
 									+"<p>"
@@ -115,7 +128,15 @@ public class BatCavernSlimeAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_OFFER_BODY"));
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_OFFER_BODY")) {
+						@Override
+						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
+						}
+					};
+					
 				} else {
 					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 				}

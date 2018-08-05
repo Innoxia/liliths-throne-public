@@ -74,7 +74,7 @@ public class AlleywayProstituteDialogue {
 				
 				if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) { // You've fought them before, so they're a little scared:
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
-						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+						if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(
 									"<p>"
 										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp."
@@ -132,7 +132,7 @@ public class AlleywayProstituteDialogue {
 					}
 				} else {
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
-						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+						if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(
 									"<p>"
 										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh."
@@ -234,6 +234,9 @@ public class AlleywayProstituteDialogue {
 				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[pc.speech(I'm not interested,)] you say, stepping around [npc.name] and continuing on your way."
@@ -286,6 +289,9 @@ public class AlleywayProstituteDialogue {
 								+ "</p>") {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementMoney(-cost);
 						}
 					};
@@ -335,13 +341,24 @@ public class AlleywayProstituteDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementMoney(-cost);
 						}
 					};
 				}
 				
 			} else if (index == 4) {
-				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!", ALLEY_PROSTITUTE_FIGHT) {
+				return new Response("Attack",
+						"If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!",
+						ALLEY_PROSTITUTE_FIGHT) {
+					@Override
+					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
+					}
 					@Override
 					public boolean isCombatHighlight() {
 						return true;
@@ -353,6 +370,9 @@ public class AlleywayProstituteDialogue {
 					return new Response("Angel's Kiss", "Offer [npc.name] a job at Angel's Kiss.", ALLEY_PROSTITUTE_SAVED) {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementKarma(25);
 							Main.game.getActiveNPC().setDescription(UtilText.parse(Main.game.getActiveNPC(), "You first found [npc.name] in the alleyways of Dominion, where [npc.she] was illegally selling [npc.her] body."
 									+ " You offered [npc.herHim] the chance to move and work out of Angel's Kiss; an offer that [npc.she] happily accepted."));

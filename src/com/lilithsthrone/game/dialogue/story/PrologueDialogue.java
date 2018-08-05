@@ -1627,7 +1627,7 @@ public class PrologueDialogue {
 						+ " Once you're done, you inform your host that you've finished, and she turns around, smiling, before quickly moving over to you."
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(Right, so lets try out this demonstone! Just hold out your hand, yes, like that,)]"
+						+ "[lilaya.speech(Right, so let's try out this demonstone! Just hold out your hand, yes, like that,)]"
 						+ " Lilaya instructs."
 						+ " [lilaya.speech(Now, when I place it on your palm, just let the energy flow into you. Don't worry, you can draw it back out at any time, but for now, just let it in...)]"
 					+ "</p>"

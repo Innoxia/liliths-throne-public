@@ -32,42 +32,102 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added footjob/hoofjob sex actions, with variations for single or double footjob (single variation is used when standing).
+		Added 'creampie/cum over' variations for hotdogging (cum over back and ass), paizuri/naizuri (cum over chest and face), thigh sex (cum over legs), handjobs (cum over hands), and footjobs (cum over feet).
+		Improved alleyway attacker dialogue and pregnancy reactions for when you have a companion. Also changed companion detection so that your elemental (if you have one) can take part in the sex scenes.
+		In progress: Added a submissive route to the nightclub, but the descriptions are still placeholders.
+		In progress: Added most of the framework for getting non-slave NPCs to move in with you. All the dialogue is placeholders for the moment, and it only works for Dominion alleyway NPCs.
+	
 	Other:
-		Added vaginal urethra modification options to slime and demon transform menus.
-		NPCs in the nightclub can now be any age from 18 to 45. Other NPCs' age range is now 18-45 (instead of 18-38).
-		Slightly reduced base values of arousal increases from sex actions, and limited arousal gains/turn to a maximum of 15. (To prevent huge arousal increase/turn when in a group sex scene.)
-		Reduced chance of NPCs spawning with non-natural hair colours from 20% to 10%.
-	
+		Improved 'bald' description in selfie.
+		Changed hair TF category from 'lesser' to 'minor', so 'minor' furry NPCs will now spawn with race-specific hair.
+		Added detection for shoes blocking foot actions in sex. (I'll add shoe-related actions later on.)
+		Added 'blunt' TF modifier to enchanting penis and clit.
+		Harpy wings no longer block the finger slot.
+		NPCs can no longer gain affection towards you from sex, but can still lose it (if they are resisting at the end without the sub non con fetish, or if they didn't orgasm). This was changed due to the intention of affection being used as a content progression mechanic.
+		
 	Sex AI:
-		NPCs should no longer use non-penis-related anal actions unless they have the anal fetish. (So now they shouldn't finger your/their ass, unless they love anal actions.)
-		Fixed issue where NPCs would take their own anal, nipple, and oral virginity.
-		NPCs should now correctly prioritise vagina+penis actions if they have pregnancy or impregnation fetishes.
-		NPCs should be less likely to perform self-penetration actions before penetrating their partner.
-		Fetishes are now taken into account for when NPCs are deciding what penetrative action to use.
-		NPCs will now prefer to perform actual penetration actions once past their 'foreplay' stage. This should reduce the amount of hotdogging, paizuri, and thigh sex from NPCs that don't have an associated fetish.
-		Fixed issue with NPCs not choosing position correctly.
-		Fixed issue where NPCs would sometimes ignore their preferences.
-		NPCs no longer hold back from losing their oral virginity.
-		Fixed (yet another) cause of NPCs repeatedly penetrating/stopping penetration every turn.
-	 
+		NPCs no longer prefer pulling out in all sex scenes, and now instead have a 66% chance to want to creampie. (100% chance if they have an associated fetish.)
+		NPCs will no longer deny requests if they either like or love the request's associated fetish.
+		NPCs with the anal fetish will now prefer anal penetration instead of hotdogging.
+		Fixed issue where NPCs would be unwilling to initiate any penetrative anal actions. (Mainly an issue in glory hole scenes.)
+	
 	Bugs:
-		Fixed several parsing errors.
-		Typo fixes.
-		Fixed severe issue where games would not save/load correctly after using the glory holes, and added a catch in the game's code to handle corrupted saves. (So your broken 0.2.9 saves should load in correctly in this hotfix.)
-		Fixed slime rainbow colouring not being displayed as a rainbow icon.
-		Fixed vaginal and penile urethra modifiers not being displayed correctly in selfie, and fixed selfie's formatting of vaginal pubic hair.
-		The extra damage from 'Flaming Strikes' is no longer applied when the attack misses.
-		Characters who are in the 'watching' position during sex no longer influence NPCs' willingness to end/continue a sex scene. (Fixes issue where offering yourself or your companion would result in a sex scene that never ends.)
-		Fixed characters without penises spawning in at the glory holes.
-		Fixed yet another issue that was causing fluids to always be loaded in as 'human'.
-		Fixed tooltip in phone's 'contacts' menu revealing concealed race information.
-		Fixed NPCs never spawning with 'rosy', 'tanned', or 'chocolate' skin colour.
-		Fixed partner penetrating your urethra not counting as penetrative sex for the purposes of requesting pullout or creampie.
-		Fixed 'Suck clit' action being disabled during ongoing cunnilingus.
-		Fixed cum count stats being reset every time you loaded the game.
+		Fixed NPCs wanting to use tail+breast actions, even though there are none currently in the game.
+		Fixed parsing error in Zaranix post-victory dialogue, and in a few of the harpy matriarch scenes.
+		Fixed Kruger, Vicky, and Cultists not progressing through positions in sex properly.
+		Fixed sex scenes marked as 'public' (such as Kruger's), repeating the end sex dialogue about essence gains.
+		Fixed 'Tease nipple' action being available when nipple penetration content was turned off.
+		Naked character portraits in tooltips are now correctly concealed if you've never had sex with that character before.
+		Fixed incorrect parsing of virginity loss descriptions.
+		Fixed 'Slap ass' action in stocks sex being available in incorrect positions, and returning errors when used.
+		Fixed incorrect breast grope tooltip description.
+		Numerous typo fixes and corrections to the grammar in sex actions.
+		Fixed angel faces having human skin, and angels having human tongues. (Angels aren't officially in-game yet, this is just through the debug menu.)
+		Amber now correctly prefers the doggy style position.
+		Slightly altered detection for cat-morph subspecies to allow for lesser/minor tigers, lions, and leopards (by detecting either a panther or human face).
+		Sex with your companion in the night club's seating area or toilets is no longer public, and sex in the VIP or seating area using the chair sex options.
+		Fixed incorrect action availability in milking stall sex scenes.
+		Fixed issue with parser targets not applying correctly to characters present.
+		Fixed 'Nympho Queen' option in the 'Angry Harpies' quest not being available even if requirements were met.
+		Fixed litters using a simple day counter for tracking time of conception and birth, which was leading to incorrect descriptions of conception and birth dates.
+		Fixed issue where upon starting a new game, some characters wouldn't display their artwork until after saving & loading.
+		Fixed issue with NPC pregnancy reactions not being saved/applied correctly. The change I made in the code means that some NPCs that have already reacted to being pregnant might react to their pregnancies once more.
 	
 	
 	
+	
+	
+	
+	
+	Need defeat double TF
+	Need different positions
+	
+	Slavery
+		Make clicking on name/icon the same as clicking on action name
+		Add outside permission content
+		Add crawling content
+		(please add more chastity content I love it, why won't slaves receive extra obedience and penalty affection when forbidden from masturbating,
+			why don't they masturbate when they're disobedient making this kinda pointless as they won't get the extra obedience bonus, why not this be the perfect excuse to put them in chastity so they have no escape and get the obedience bonus)
+		I think the female/futa/herm/whoever has a pussy slaves in your house should try to get you to cum, even after they have cummed already if they have a pregnancy fetish and are not pregnant at the moment.
+		
+	Need all dom nightclub done
+	
+	Add cum on feet action
+		
+	Alexa & Slaver Alley
+	
+	end sex aura gain showing twice
+	
+	Can get blowjob from behind doggy
+	
+	Add pace buttons
+	
+	The bug where NPCs constantly start/stop sex actions from one turn to the next is still happening.
+	Also titjobs are doing the penetrate, unpenetrate thing over and over.
+	A lot of NPCs will still start and stop a sex action constatly, at least when you're subbing. Might have something to do with them having the butt fetish
+	(hey when those types of things happen to anyone does it start with the dominate person kissing you? since with both vicky and amber before they started doing the same action over and over they started the kissing one)
+	
+	Rough:
+		Slap breasts
+		Pinch nipples
+	
+	
+	(I think I fixed this)
+	When you have your slave bang someone on the street, they seem to gain affection for YOU one extra time compared to normal scenes, along with you gaining more arcane essence.
+	 Your slave also throws in an extra 'resisting' line at scene end.
+	
+	Just found that you can buy a transformative base (Like Kitty's Reward) for $375 (without the discount).
+	 If you add one simple effect to the enchantment, the price skyrockets to $1125. You can add 20 more enchantments to the item, and the price will stay at $1125. ….
+	  So suggestion: Cost accruement on complexity and strength of transformative potion
+	
+	
+	also i keep forgetting to mention it but the unique first pregnancy dialogue no longer plays. the "erm...Lilaya...you're the one who got me pregnant" (cant remember the exact wording).
+	 I may be doing something wrong but i havent seen it in months
+	
+	
+	Check: Amber does not have any particular preferences and typically ends up repositioning you for oral sex (giving and/or receiving).
 	
 	Alleyway attacker:
 		

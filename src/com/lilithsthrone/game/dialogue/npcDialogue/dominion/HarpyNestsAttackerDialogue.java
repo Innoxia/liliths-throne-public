@@ -43,7 +43,7 @@ public class HarpyNestsAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getActiveNPC().isVisiblyPregnant()){
-				if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+				if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)) {
 						return "<p>"
 								+ "As you travel along the narrow walkways, you find yourself passing the nest of that aggressive [npc.race] who attacked you before."
@@ -221,7 +221,7 @@ public class HarpyNestsAttackerDialogue {
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
-							Main.game.getActiveNPC().setReactedToPregnancy(true);
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 					}
 				};
 				

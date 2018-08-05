@@ -809,6 +809,13 @@ public enum TFModifier {
 			Colour.BASE_BROWN,
 			Rarity.COMMON),
 	
+	TF_MOD_PENIS_BLUNT("blunting",
+			"Applies an effect related to making a body part blunted.",
+			"blunt",
+			"modifier_circle_penis_blunt",
+			Colour.BASE_TAN,
+			Rarity.COMMON),
+	
 	TF_MOD_PENIS_BARBED("barbing",
 			"Applies an effect related to making a body part barbed.",
 			"barbed",

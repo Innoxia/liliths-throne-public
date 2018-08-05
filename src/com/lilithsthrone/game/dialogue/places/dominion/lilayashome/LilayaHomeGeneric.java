@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -200,7 +201,7 @@ public class LilayaHomeGeneric {
 		if(milkingRoom) {
 			slavesAssignedToRoom.addAll(charactersPresent);
 		} else {
-			for(String slave : Main.game.getPlayer().getSlavesOwned()) {
+			for(String slave : Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned())) {
 				NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
 				if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
 					slavesAssignedToRoom.add(slaveNPC);
@@ -213,27 +214,27 @@ public class LilayaHomeGeneric {
 			return null;
 			
 		} else if (index == 1) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Manage Room", "Enter the management screen for this particular room.", SlaveryManagementDialogue.ROOM_UPGRADES) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage room", "Enter the management screen for this particular room.", SlaveryManagementDialogue.ROOM_UPGRADES) {
 					@Override
 					public void effects() {
 						SlaveryManagementDialogue.cellToInspect = Main.game.getPlayerCell();
 					}
 				};
 			} else {
-				return new Response("Manage Room", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
 		}  else if (index == 2) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
 						return SlaveryManagementDialogue.getSlaveryRoomListDialogue(null);
 					}
 				};
 			} else {
-				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
 		} else if(milkingRoom) {
@@ -568,11 +569,12 @@ public class LilayaHomeGeneric {
 			}
 			
 		} else if(index-3<slavesAssignedToRoom.size()) {
-			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			NPC character = slavesAssignedToRoom.get(index-3);
+			if(charactersPresent.contains(character)) {
+				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), character.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(slavesAssignedToRoom.get(index-3));
+						Main.game.setActiveNPC(character);
 					}
 				};
 				

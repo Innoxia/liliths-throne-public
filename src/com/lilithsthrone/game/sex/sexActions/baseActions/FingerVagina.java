@@ -821,7 +821,7 @@ public class FingerVagina {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(gasp)] as [npc.name] withdraws from [npc2.her] [npc2.pussy], before letting out [npc2.a_sob+] as [npc2.she] [npc.verb(continue)] to struggle against [npc.herHim].",
+							" [npc2.Name] [npc2.verb(gasp)] as [npc.name] withdraws from [npc2.her] [npc2.pussy], before letting out [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.herHim].",
 
 							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle against [npc.name] as [npc.she] withdraws from [npc2.her] [npc2.pussy+]."));
 					break;
@@ -1227,7 +1227,7 @@ public class FingerVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Stop fingered";
+			return "Stop getting fingered";
 		}
 
 		@Override

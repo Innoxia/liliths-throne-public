@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -638,8 +638,8 @@ public class RoomPlayer {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("See again",
-						"Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
-								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
+								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
 						BACK_HOME_AFTER_SEX) {
 					@Override
 					public void effects() {
@@ -650,7 +650,7 @@ public class RoomPlayer {
 				
 			} else if(index==2) {
 				return new Response("Hope not (gentle)",
-						"Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]"),
 						BACK_HOME_AFTER_SEX) {
 					@Override
 					public void effects() {
@@ -661,7 +661,7 @@ public class RoomPlayer {
 				
 			} else if(index==3) {
 				return new Response("Hope not (harsh)",
-						"Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]"),
 						BACK_HOME_AFTER_SEX) {
 					@Override
 					public void effects() {

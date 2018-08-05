@@ -2,12 +2,12 @@ package com.lilithsthrone.game.character.npc;
 
 /**
  * @since 0.1.89
- * @version 0.1.95
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum NPCFlagValue {
-	reactedToPregnancy,
-	reactedToPlayerPregnancy,
+	
+	genericNPCBetrayedByPlayer,
 	
 	knowsPlayerGender,
 	introducedToPlayer,

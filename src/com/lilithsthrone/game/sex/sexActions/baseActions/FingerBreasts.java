@@ -372,7 +372,7 @@ public class FingerBreasts {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc.name] to give your [npc2.breasts+] a good squeeze.";
+			return "Get [npc.name] to give your [npc.breasts+] a good squeeze.";
 		}
 
 		@Override
@@ -498,7 +498,7 @@ public class FingerBreasts {
 								" With [npc2.a_moan+], [npc2.name] responds to [npc.namePos] move by sinking [npc2.her] [npc2.fingers] into the soft flesh of [npc.her] [npc.breasts].",
 
 								" [npc2.Moaning+], [npc2.name] [npc2.verb(start)] playing with [npc.namePos] [npc.breasts+],"
-										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
+										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc2.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -643,7 +643,7 @@ public class FingerBreasts {
 								" With [npc2.a_moan+], [npc2.name] responds to [npc.namePos] move by sinking [npc2.her] [npc2.fingers] into the soft flesh of [npc.her] [npc.breasts].",
 
 								" [npc2.Moaning+], [npc2.name] [npc2.verb(start)] playing with [npc.namePos] [npc.breasts+],"
-										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
+										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc2.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

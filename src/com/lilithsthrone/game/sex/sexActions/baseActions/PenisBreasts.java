@@ -183,7 +183,7 @@ public class PenisBreasts {
 									+ " [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Slowly pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -192,7 +192,7 @@ public class PenisBreasts {
 									+ " [npc.name] greedily [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Eagerly pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -200,7 +200,7 @@ public class PenisBreasts {
 									+ " [npc.name] greedily [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -208,7 +208,7 @@ public class PenisBreasts {
 									+ " [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case SUB_RESISTING:
 					break;
@@ -1443,7 +1443,7 @@ public class PenisBreasts {
 				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1463,7 +1463,7 @@ public class PenisBreasts {
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc.verb(beg)] for [npc.herHim] to stop."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to stop."));
 						break;
 					default:
 						break;
@@ -1502,7 +1502,7 @@ public class PenisBreasts {
 				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1522,7 +1522,7 @@ public class PenisBreasts {
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc.verb(beg)] for [npc.herHim] to stop."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to stop."));
 						break;
 					default:
 						break;
@@ -2201,7 +2201,7 @@ public class PenisBreasts {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc.verb(beg)] [npc.name] to leave [npc2.herHim] alone.",
+							" [npc2.Name] [npc2.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc2.verb(beg)] [npc.name] to leave [npc2.herHim] alone.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc.verb(beg)] [npc.name] to leave [npc2.herHim] alone, tears welling up in [npc2.her] [npc2.eyes] as [npc2.she] weakly [npc2.verb(try)] to push [npc.herHim] away."));
 					break;
@@ -2209,7 +2209,7 @@ public class PenisBreasts {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] can't [npc.verb(help)] but [npc.verb(let)] out [npc2.a_moan+], betraying [npc2.her] desire for more of [npc.namePos] attention.",
 
-							" With [npc2.a_moan+], [npc2.she] [npc.verb(beg)] for [npc.name] to keep on using [npc2.herHim]."));
+							" With [npc2.a_moan+], [npc2.she] [npc2.verb(beg)] for [npc.name] to keep on using [npc2.herHim]."));
 					break;
 			}
 			

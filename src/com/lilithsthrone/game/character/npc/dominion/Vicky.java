@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -313,16 +314,18 @@ public class Vicky extends NPC {
 	}
 	
 	// Sex:
-	
-	public Set<SexPositionSlot> getSexPositionPreferences() {
+
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
 		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
 		
 		return sexPositionPreferences;
 	}
-	
-	public SexType getForeplayPreference() {
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
@@ -333,8 +336,9 @@ public class Vicky extends NPC {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 	}
-	
-	public SexType getMainSexPreference() {
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
 		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			

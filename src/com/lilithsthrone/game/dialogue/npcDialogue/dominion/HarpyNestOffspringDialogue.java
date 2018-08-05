@@ -217,9 +217,9 @@ public class HarpyNestOffspringDialogue {
 				UtilText.nodeContentSB.append("</p>");
 
 				boolean offspringPregnant = offspring().isVisiblyPregnant();
-				boolean reactedToOffspringPregnancy = offspring().isReactedToPregnancy();
+				boolean reactedToOffspringPregnancy = offspring().isCharacterReactedToPregnancy(Main.game.getPlayer());
 				boolean playerPregnant = Main.game.getPlayer().isVisiblyPregnant();
-				boolean reactedToPlayerPregnancy = offspring().isReactedToPlayerPregnancy();
+				boolean reactedToPlayerPregnancy = Main.game.getPlayer().isCharacterReactedToPregnancy(offspring());
 				
 				// Taking into account pregnancy reactions
 				if(offspringPregnant || playerPregnant) {
@@ -995,8 +995,8 @@ public class HarpyNestOffspringDialogue {
 	
 	private static void setOffspringFlags() {
 		offspring().setFlag(NPCFlagValue.flagOffspringIntroduced, true);
-		offspring().setReactedToPregnancy(true);
-		offspring().setReactedToPlayerPregnancy(true);
+		offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
 		Main.game.getDialogueFlags().offspringDialogueTokens = 2;
 	}
 	
