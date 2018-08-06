@@ -42,7 +42,7 @@ public class CachedImage {
 
 			// Convert to string
 			ImageIO.setUseCache(false);
-			ImageIO.write(image, f.getName().endsWith(".jpg") ? "JPG" : "PNG", byteStream);
+			ImageIO.write(image, "PNG", byteStream);
 			imageString = "data:image/png;base64," + Base64.getEncoder().encodeToString(byteStream.toByteArray());
 		} catch (IOException e) {
 			e.printStackTrace();
