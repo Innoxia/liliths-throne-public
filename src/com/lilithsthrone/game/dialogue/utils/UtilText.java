@@ -2506,13 +2506,13 @@ public class UtilText {
 				new String[] {
 						"eagerly",
 						"gently",
-						"roughly"),
+						"roughly"},
 				true,
 				false,
 				"(Alternative start string)",
 				"Returns an appropriate descriptor based on the pace of the character. The argument is used in place of a descriptor if the pace is SUB_NORMAL."){
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				if(Main.game.isInSex()) {
 					List<String> descriptors = new ArrayList<>();
 					switch(Sex.getSexPace(character)) {
@@ -2564,7 +2564,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
+				new String[] {
 						"scent",
 						"smell"},
 				true,
@@ -4166,15 +4166,15 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"footjob"),
+				new String[] {
+						"footjob"},
 				true,
 				true,
 				"",
 				"Description of method",
 				BodyPartType.LEG){//TODO
 			@Override
-			public String parse(String command, String arguments, String target) {
+			public String parse(String command, String arguments, String target, GameCharacter gc) {
 				switch(character.getLegType().getFootType()) {
 					case HOOFS:
 						return "hoofjob";
