@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version with comments, see "rental_mommy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[women's latex shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[women's latex shirts]]></namePlural>
+		<description><![CDATA[A latex shirt tightly designed for feminine figure, with thin waistline and enough space for breasts.]]></description>
+		<physicalResistance>2</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>shirt-latex-female.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+		</effects>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="JUST_BLACK"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL_METAL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>BAT_CAVERNS_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You unzip and pull off your shirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You unzip and pull off [npc.name]'s shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You take hold of [npc.name]'s shirt and roughly unzip it, pulling it off afterwards.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] unzips and takes [npc.her] shirt off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] unzips and pulls your shirt off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your shirt and roughly unzips it, pulling it off afterwards.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] unzips and pulls [npc2.name]'s shirt off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s T-shirt and roughly unzips it, pulling it off afterwards.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You put on the shirt and zip it up.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You put the shirt on [npc.name] and zip it up.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force the shirt on [npc.her] body, before zipping it up.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] puts on the shirt and zips it up.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] puts the shirt on you and zips it up.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces the shirt on your body, before zipping it up.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] puts the shirt on [npc2.Name] and zips it up.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the shirt on [npc1.her] body, before zipping it up.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+
+	<displacementText type="UNZIPS">
+		<playerSelf><![CDATA[
+			You unzip your shirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull up [npc.name]'s shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You impatiently unzip [npc.name]'s shirt.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] unzips [npc.her] shirt.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] unzips your shirt.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] impatiently unzips your shirt.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] unzips [npc2.name]'s shirt.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] impatiently unzips [npc2.name]'s shirt.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+	
+	<replacementText type="UNZIPS">
+		<playerSelf><![CDATA[
+			You zip your shirt up, covering your torso.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You zip up [npc.name]'s shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You roughly zip up [npc.name]'s shirt.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] zips [npc.her] shirt back up to cover [npc.her] torso.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] zips down your shirt.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] roughly zips up your shirt.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] zips up [npc2.name]'s shirt.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] roughly zips up [npc2.name]'s shirt.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>
