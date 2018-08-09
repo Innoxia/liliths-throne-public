@@ -382,7 +382,7 @@ public enum Quest {
 	SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Lilaya's B&B";
+			return "Lilaya the Landlady";
 		}
 
 		@Override

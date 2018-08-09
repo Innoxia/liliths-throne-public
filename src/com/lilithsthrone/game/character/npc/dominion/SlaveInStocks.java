@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -30,7 +30,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -213,16 +213,16 @@ public class SlaveInStocks extends NPC {
 			
 			if(this.isFeminine()) {
 				if(Math.random()>0.5f) {
-					this.setHistory(History.NPC_PROSTITUTE);
+					this.setHistory(Occupation.NPC_PROSTITUTE);
 					setSexualOrientation(SexualOrientation.AMBIPHILIC);
 					setName(Name.getRandomProstituteTriplet());
 					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
 				} else {
-					this.setHistory(History.NPC_MUGGER);
+					this.setHistory(Occupation.NPC_MUGGER);
 				}
 				
 			} else {
-				this.setHistory(History.NPC_MUGGER);
+				this.setHistory(Occupation.NPC_MUGGER);
 			}
 			
 			// ADDING FETISHES:
@@ -275,7 +275,7 @@ public class SlaveInStocks extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==History.NPC_PROSTITUTE) {
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
 						"[npc.NamePos] days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));

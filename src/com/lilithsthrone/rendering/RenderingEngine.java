@@ -1634,7 +1634,7 @@ public enum RenderingEngine {
 		}
 		
 		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(Main.game.getActiveWorld().getCell(x, y))) {
-			if(!charactersPresent.contains(gc) && gc.isSlave() && gc.getOwner().isPlayer()) {
+			if(!charactersPresent.contains(gc) && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
 				mapIcons.add(gc.getHomeMapIcon());
 			}
 		}

@@ -240,6 +240,8 @@ public class Penis implements BodyPartInterface, Serializable {
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
 		testicle.setType(owner, type.getTesticleType());
+		owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
+		owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
 		
 		switch (type) {
 			case DILDO:

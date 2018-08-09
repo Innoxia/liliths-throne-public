@@ -16,8 +16,6 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -74,10 +72,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		for(CoverableArea ca : CoverableArea.values()) {
-			playerKnowsAreas.add(ca);
-		}
-		
 		title = "The Human";
 		
 		karma = 0;
@@ -105,9 +99,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
-		
-		this.addPerk(Perk.PHYSICAL_BASE);
-		this.addPerk(Perk.ARCANE_BASE);
 	}
 	
 	@Override
@@ -741,8 +732,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return true;
 	}
 
-	// NPCs living in Lilaya's house:
-	
+	/**
+	 * Returns a list of NPCs either living in Lilaya's house or in an apartment known to the player.
+	 */
 	public List<String> getFriendlyOccupants() {
 		return friendlyOccupants;
 	}

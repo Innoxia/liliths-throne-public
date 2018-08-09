@@ -27,7 +27,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
@@ -97,7 +97,7 @@ public class RentalMommy extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			this.setHistory(History.NPC_PROSTITUTE);
+			this.setHistory(Occupation.NPC_PROSTITUTE);
 
 			this.setPersonalityTrait(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE);
 			this.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);

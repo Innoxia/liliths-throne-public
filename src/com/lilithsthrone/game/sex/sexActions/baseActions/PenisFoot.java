@@ -772,7 +772,7 @@ public class PenisFoot {
 
 		@Override
 		public String getActionDescription() {
-			return "Gently press your [npc.foot] down against [npc2.namePos] [npc.cock+].";
+			return "Gently press your [npc.foot] down against [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override
@@ -814,7 +814,7 @@ public class PenisFoot {
 
 		@Override
 		public String getActionDescription() {
-			return "Press your [npc.foot] down against [npc2.namePos] [npc.cock+].";
+			return "Press your [npc.foot] down against [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override
@@ -856,7 +856,7 @@ public class PenisFoot {
 
 		@Override
 		public String getActionDescription() {
-			return "Roughly grind your [npc.foot] down against [npc2.namePos] [npc.cock+].";
+			return "Roughly grind your [npc.foot] down against [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override
@@ -898,7 +898,7 @@ public class PenisFoot {
 
 		@Override
 		public String getActionDescription() {
-			return "Press your [npc.foot] down against [npc2.namePos] [npc.cock+].";
+			return "Press your [npc.foot] down against [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override
@@ -940,7 +940,7 @@ public class PenisFoot {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly press your [npc.foot] down against [npc2.namePos] [npc.cock+].";
+			return "Eagerly press your [npc.foot] down against [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override

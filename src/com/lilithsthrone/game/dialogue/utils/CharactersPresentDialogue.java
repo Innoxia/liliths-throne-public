@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
@@ -16,13 +18,14 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
- * @version 0.2.2
+ * @version 0.2.10
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
@@ -56,6 +59,11 @@ public class CharactersPresentDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.CHARACTERS_PRESENT;
+		}
+		
+		@Override
 		public String getLabel() {
 			return menuTitle;
 		}
@@ -67,23 +75,22 @@ public class CharactersPresentDialogue {
 		
 		@Override
 		public String getResponseTabTitle(int index) {
-			
 			if(Main.game.getPlayer().hasCompanion(characterViewed)) {
 				if(index == 0) {
 					return "Characters";
 				} else if(index == 1) {
-					return UtilText.parse("[style.colourCompanion(Manage)]");
-				} else if(index == 2) {
 					return UtilText.parse("[style.colourSex(Sex)]");
+				} else if(index == 2) {
+					return UtilText.parse("[style.colourCompanion(Manage)]");
 				}
 				
 			} else {
 				if(index == 0) {
 					return "Characters";
 				} else if(index == 1) {
-					return "Manage";
-				} else if(index == 2) {
 					return "Sex";
+				} else if(index == 2) {
+					return "Manage";
 				}
 			}
 			return null;
@@ -104,6 +111,7 @@ public class CharactersPresentDialogue {
 							Main.mainController.openCharactersPresent();
 						}
 					};
+					
 				} else if (index <= charactersPresent.size()) {
 					String title = "[npc.Name]";
 					String description = "Take a detailed look at [npc.name].";
@@ -140,109 +148,6 @@ public class CharactersPresentDialogue {
 				}
 				
 			} else if (responseTab==1 && Main.game.getPlayer().hasCompanion(characterViewed)){
-				if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
-						@Override
-						public void effects() {
-							Main.mainController.openCharactersPresent();
-						}
-					};
-					
-				} else if(index==1) {
-					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
-									@Override
-									public void effects() {
-										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
-									}
-								};
-					}
-							
-				} else if (index == 2) {
-					
-					if(!characterViewed.isAbleToSelfTransform()) {
-						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
-						
-					} else if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Transformations", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						return new Response("Transformations",
-								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
-								BodyChanging.BODY_CHANGING_CORE){
-							@Override
-							public void effects() {
-								BodyChanging.setTarget(characterViewed);
-							}
-						};
-					}
-					
-				} else if(index==5) {
-					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
-							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
-								@Override
-								public void effects() {
-									if(characterViewed.isElementalSummoned()) {
-										characterViewed.removeCompanion(characterViewed.getElemental());
-										characterViewed.getElemental().returnToHome();
-									}
-									Main.game.getPlayer().removeCompanion(characterViewed);
-									characterViewed.returnToHome();
-									Main.mainController.openCharactersPresent();
-								}
-							};
-						} else {
-							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
-									MENU){
-								@Override
-								public void effects() {
-									if(characterViewed.isElementalSummoned()) {
-										characterViewed.removeCompanion(characterViewed.getElemental());
-										characterViewed.getElemental().returnToHome();
-									}
-									Main.game.getPlayer().removeCompanion(characterViewed);
-									characterViewed.returnToHome();
-									
-									Main.game.setResponseTab(0);
-									characterViewed = charactersPresent.get(0);
-									//no need for character conceal check since its for follower
-									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
-									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
-								}
-							};
-						}
-					}
-					
-				} else if(index==10) {
-					if(!characterViewed.isElementalSummoned()) {
-						return new Response("Dispell Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
-						
-					} else {
-						if(!Main.game.isSavedDialogueNeutral()) {
-							return new Response("Dispell Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-							
-						} else {
-							return new Response("Dispell Elemental", "Tell [npc.name] to dispell [npc.her] elemental.", MENU){
-								@Override
-								public void effects() {
-									characterViewed.removeCompanion(characterViewed.getElemental());
-									characterViewed.getElemental().returnToHome();
-								}
-							};
-						}
-					}
-				}
-				
-			} else if (responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)){
 				if (index == 0) {
 					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
 						@Override
@@ -379,14 +284,115 @@ public class CharactersPresentDialogue {
 					
 				}
 				
+			} else if (responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)){
+				if (index == 0) {
+					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
+						@Override
+						public void effects() {
+							Main.mainController.openCharactersPresent();
+						}
+					};
+					
+				} else if(index==1) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
+									@Override
+									public void effects() {
+										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
+									}
+								};
+					}
+							
+				} else if (index == 2) {
+					
+					if(!characterViewed.isAbleToSelfTransform()) {
+						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+						
+					} else if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Transformations", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						return new Response("Transformations",
+								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+								BodyChanging.BODY_CHANGING_CORE){
+							@Override
+							public void effects() {
+								BodyChanging.setTarget(characterViewed);
+							}
+						};
+					}
+					
+				} else if(index==5) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
+							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
+								@Override
+								public void effects() {
+									if(characterViewed.isElementalSummoned()) {
+										characterViewed.removeCompanion(characterViewed.getElemental());
+										characterViewed.getElemental().returnToHome();
+									}
+									Main.game.getPlayer().removeCompanion(characterViewed);
+									characterViewed.returnToHome();
+									Main.mainController.openCharactersPresent();
+								}
+							};
+						} else {
+							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
+									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+									MENU){
+								@Override
+								public void effects() {
+									if(characterViewed.isElementalSummoned()) {
+										characterViewed.removeCompanion(characterViewed.getElemental());
+										characterViewed.getElemental().returnToHome();
+									}
+									Main.game.getPlayer().removeCompanion(characterViewed);
+									characterViewed.returnToHome();
+									
+									Main.game.setResponseTab(0);
+									characterViewed = charactersPresent.get(0);
+									//no need for character conceal check since its for follower
+									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
+									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
+								}
+							};
+						}
+					}
+					
+				} else if (index == 6) {
+					return new Response("Perk Tree", "Assign [npc.namePos] perk points.", PERKS);
+					
+				} else if(index==10) {
+					if(!characterViewed.isElementalSummoned()) {
+						return new Response("Dispell Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
+						
+					} else {
+						if(!Main.game.isSavedDialogueNeutral()) {
+							return new Response("Dispell Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+							
+						} else {
+							return new Response("Dispell Elemental", "Tell [npc.name] to dispell [npc.her] elemental.", MENU){
+								@Override
+								public void effects() {
+									characterViewed.removeCompanion(characterViewed.getElemental());
+									characterViewed.getElemental().returnToHome();
+								}
+							};
+						}
+					}
+				}
+				
 			}
 			
 			return null;
-		}
-
-		@Override
-		public DialogueNodeType getDialogueNodeType() {
-			return DialogueNodeType.CHARACTERS_PRESENT;
 		}
 	};
 	
@@ -446,4 +452,81 @@ public class CharactersPresentDialogue {
 		}
 	};
 	
+
+	public static final DialogueNodeOld PERKS = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.CHARACTERS_PRESENT;
+		}
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(characterViewed, "[npc.NamePos] Perk Tree");
+		}
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parse(characterViewed,
+					"<div class='container-full-width' style='padding:8px;'>"
+						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
+						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for [npc.name]."
+							+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
+						+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and an extra two perk points every five levels."
+					+ "</div>"
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
+
+			UtilText.nodeContentSB.append(
+					"<div id='OCCUPATION_" + characterViewed.getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+						+ "<div class='square-button-content'>"+characterViewed.getHistory().getAssociatedPerk().getSVGString()+"</div>"
+					+ "</div>");
+			
+			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
+				Perk p = null;
+				if(i<characterViewed.getTraits().size()) {
+					p = characterViewed.getTraits().get(i);
+				}
+				if(p!=null) {
+					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
+							+ "</div>");
+					
+				} else {
+					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
+					
+				}
+			}
+			UtilText.nodeContentSB.append("</div>"
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
+					+ "</div>");
+			
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 6) {
+				return new Response("Perks", UtilText.parse(characterViewed, "You are already assigning [npc.namePos] perk points."), null);
+				
+			} else if(index==7) {
+				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", PERKS) {
+					@Override
+					public void effects() {
+						characterViewed.resetPerksMap();
+						characterViewed.setPerkPoints(characterViewed.getPerkPointsAtLevel(characterViewed.getLevel()));
+						characterViewed.clearTraits();
+					}
+				};
+			}
+			
+			return MENU.getResponse(responseTab, index);
+		}
+	};
 }

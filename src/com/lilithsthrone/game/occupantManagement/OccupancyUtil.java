@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.slavery;
+package com.lilithsthrone.game.occupantManagement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,9 +19,12 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -35,16 +38,17 @@ import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
- * A class to handle all slave-related mechanics.
+ * A class to handle all occupant-related turn mechanics. Deals with moving slaves to/from jobs and generating events for them. Also sends friendly occupants to/from jobs.
  * 
  * @since 0.1.87
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
-public class SlaveryUtil implements XMLSaving {
+public class OccupancyUtil implements XMLSaving {
 	
 	private Map<SlaveJob, List<NPC>> slavesAtJob;
 	private List<NPC> slavesResting;
@@ -54,9 +58,9 @@ public class SlaveryUtil implements XMLSaving {
 	private List<MilkingRoom> milkingRooms;
 	
 	// Slave income:
-	private Map<NPC, Integer> slaveDailyIncome;
+	private Map<NPC, Integer> dailyIncome;
 	
-	public SlaveryUtil() {
+	public OccupancyUtil() {
 		slavesAtJob = new HashMap<>();
 		for(SlaveJob job : SlaveJob.values()) {
 			slavesAtJob.put(job, new ArrayList<>());
@@ -68,15 +72,15 @@ public class SlaveryUtil implements XMLSaving {
 		
 		milkingRooms = new ArrayList<>();
 		
-		slaveDailyIncome = new HashMap<>();
+		dailyIncome = new HashMap<>();
 	}
 
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("slavery");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
-		CharacterUtils.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
+		CharacterUtils.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getOccupancyUtil().getGeneratedIncome()));
+		CharacterUtils.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getOccupancyUtil().getGeneratedUpkeep()));
 		
 		for(MilkingRoom room : this.getMilkingRooms()) {
 			room.saveAsXML(element, doc);
@@ -85,9 +89,9 @@ public class SlaveryUtil implements XMLSaving {
 		return element;
 	}
 	
-	public static SlaveryUtil loadFromXML(Element parentElement, Document doc) {
+	public static OccupancyUtil loadFromXML(Element parentElement, Document doc) {
 		try {
-			SlaveryUtil slaveryUtil = new SlaveryUtil();
+			OccupancyUtil slaveryUtil = new OccupancyUtil();
 			
 			slaveryUtil.setGeneratedIncome(Integer.valueOf(parentElement.getAttribute("generatedIncome")));
 			slaveryUtil.setGeneratedUpkeep(Integer.valueOf(parentElement.getAttribute("generatedUpkeep")));
@@ -119,7 +123,52 @@ public class SlaveryUtil implements XMLSaving {
 		slavesResting.clear();
 	}
 	
+	/**
+	 * Resets daily dialogue flags and searches for a job (if the occupant is still marked as a lowlife).
+	 */
+	public void dailyOccupantUpdate(NPC occupant) {
+		occupant.resetOccupantFlags();
+		
+		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
+			if(occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+				if(Math.random()<0.1) {
+					List<Occupation> occupations = new ArrayList<>();
+					for(Occupation occ : Occupation.values()) {
+						if(!occ.isAvailableToPlayer() && !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES) && occ.isAvailable(occupant) && occ!=Occupation.NPC_UNEMPLOYED) {
+							occupations.add(occ);
+						}
+					}
+					occupant.setHistory(Util.randomItemFrom(occupations));
+					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
+				}
+			}
+		}
+	}
+	
 	public void performHourlyUpdate(int day, int hour) {
+		
+		// Non-slave occupants:
+		
+		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
+			NPC occupant = (NPC) Main.game.getNPCById(id);
+
+			if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
+				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+					if(Main.game.getDateNow().getDayOfWeek().getValue()>=occupant.getHistory().getStartDay().getValue()
+							&& Main.game.getDateNow().getDayOfWeek().getValue()<=occupant.getHistory().getEndDay().getValue()
+							&& occupant.getHistory().getWorkHours()[hour]) {
+						occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+						
+					} else {
+						occupant.setLocation(occupant.getHomeWorldLocation(), occupant.getHomeLocation(), false);
+					}
+				}
+			}
+		}
+		
+		
+		// Slaves:
+		
 		clearSlavesJobTracking();
 		
 		// First need to set correct jobs:
@@ -129,22 +178,24 @@ public class SlaveryUtil implements XMLSaving {
 				continue;
 			}
 			
-			if(slave.getWorkHours()[hour]) {
-				slave.getSlaveJob().sendToWorkLocation(slave);
-				slavesAtJob.get(slave.getSlaveJob()).add(slave);
-				
-			} else {
-				if(slave.getSlaveJob()==SlaveJob.PROSTITUTE) {
-					// Remove client before leaving:
-					List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
-					for(NPC npc : charactersPresent) {
-						if(npc instanceof GenericSexualPartner) {
-							Main.game.banishNPC(npc);
+			if(!Main.game.getCharactersPresent().contains(slave)) { // If the player isn't interacting with them, then move them:
+				if(slave.getWorkHours()[hour]) {
+					slave.getSlaveJob().sendToWorkLocation(slave);
+					slavesAtJob.get(slave.getSlaveJob()).add(slave);
+					
+				} else {
+					if(slave.getSlaveJob()==SlaveJob.PROSTITUTE) {
+						// Remove client before leaving:
+						List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
+						for(NPC npc : charactersPresent) {
+							if(npc instanceof GenericSexualPartner) {
+								Main.game.banishNPC(npc);
+							}
 						}
 					}
+					slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
+					slavesResting.add(slave);
 				}
-				slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
-				slavesResting.add(slave);
 			}
 		}
 		
@@ -258,8 +309,8 @@ public class SlaveryUtil implements XMLSaving {
 						true);
 				
 				// Payments:
-				if(slaveDailyIncome.containsKey(slave)) {
-					dailyEntry.addExtraEffect("[style.boldGood(Earned)] "+UtilText.formatAsMoney(slaveDailyIncome.get(slave)));
+				if(dailyIncome.containsKey(slave)) {
+					dailyEntry.addExtraEffect("[style.boldGood(Earned)] "+UtilText.formatAsMoney(dailyIncome.get(slave)));
 				}
 				
 				// Muscle:
@@ -299,10 +350,16 @@ public class SlaveryUtil implements XMLSaving {
 		}
 		
 		if(hour%24==0) { // Reset daily income tracking:
-			slaveDailyIncome.clear();
+			dailyIncome.clear();
 			// Rooms:
-			for(Cell c : SlaveryManagementDialogue.getImportantCells()) {
+			for(Cell c : OccupantManagementDialogue.getImportantCells()) {
 				generatedUpkeep += c.getPlace().getUpkeep();
+			}
+			for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
+				NPC occupant = (NPC) Main.game.getNPCById(id);
+				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+					generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
+				}
 			}
 		}
 		
@@ -1065,8 +1122,8 @@ public class SlaveryUtil implements XMLSaving {
 	}
 	
 	private void incrementSlaveDailyIncome(NPC slave, int increment) {
-		slaveDailyIncome.putIfAbsent(slave, 0);
-		slaveDailyIncome.put(slave, slaveDailyIncome.get(slave)+increment);
+		dailyIncome.putIfAbsent(slave, 0);
+		dailyIncome.put(slave, dailyIncome.get(slave)+increment);
 	}
 
 	public Map<SlaveJob, List<NPC>> getSlavesAtJob() {

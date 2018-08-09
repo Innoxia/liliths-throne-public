@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.slavery;
+package com.lilithsthrone.game.occupantManagement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -142,7 +142,7 @@ public class MilkingRoom implements XMLSaving {
 	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
 		List<Cell> milkingCells = new ArrayList<>();
 		
-		for(MilkingRoom room : Main.game.getSlaveryUtil().getMilkingRooms()) {
+		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
 		
 			int charactersPresent = Main.game.getCharactersPresent(c).size();

@@ -16,7 +16,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public class World implements Serializable, XMLSaving {
@@ -161,6 +161,26 @@ public class World implements Serializable, XMLSaving {
 		
 		return corridorCells.get(Util.random.nextInt(corridorCells.size()));
 	}
+	
+	public Cell getNearestCell(PlaceType place, Vector2i startLocation) {
+		Cell nearestCell = null;
+		float closestDistance = 10000f;
+		
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					float distance = (float) Math.sqrt(Math.pow(Math.abs(i-startLocation.getX()), 2) + Math.pow(Math.abs(j-startLocation.getY()), 2));
+					if(distance < closestDistance) {
+						nearestCell = grid[i][j];
+						closestDistance = distance;
+					}
+				}
+			}
+		}
+		
+		return nearestCell;
+	}
+	
 
 	public Cell[][] getCellGrid() {
 		return grid;

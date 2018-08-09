@@ -51,7 +51,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Main extends Application {
@@ -66,7 +66,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.9.5",
+	public static final String VERSION_NUMBER = "0.2.10",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -82,13 +82,13 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Here's my current progress towards 0.2.10. The content for the submissive nightclub route still requires placeholders to be filled in, although it should be functional."
-			+ " The non-slavery moving in content has most of the background mechanics sorted out, but it took a lot longer to implement than I expected."
-			+ " While it will definitely be finished for the full release, it's in a very basic state right now."
+			+ "Here's 0.2.10! I've got all the non-slavery moving in content added for alleyway attackers, as well ad adding in all the dialogue that was placeholders for the dom clubber route in 0.2.9.5."
+			+ " I've also added some more shops to Slaver Alley, as well adding a few other things here and there."
+			+ " Alexa's content will have to be added in the next version, as I simply ran out of time in which to get it finished."
 		+ "</p>"
 		
 		+ "<p>"
-			+ "The full release will be out in one week, on the 8th-9th August."
+			+ "I don't expect to need to make a hotfix, but if one is required, it will be out by Sunday."
 		+ "</p>"
 			
 		+ "<p>"
@@ -142,8 +142,50 @@ public class Main extends Application {
 			+"<ul>Fixed litters using a simple day counter for tracking time of conception and birth, which was leading to incorrect descriptions of conception and birth dates.</ul>"
 			+"<ul>Fixed issue where upon starting a new game, some characters wouldn't display their artwork until after saving & loading.</ul>"
 			+"<ul>Fixed issue with NPC pregnancy reactions not being saved/applied correctly. The change I made in the code means that some NPCs that have already reacted to being pregnant might react to their pregnancies once more.</ul>"
-	+ "</list>"
-	
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.10</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Added support for the parsing engine to use the same scripting feature as it's conditional statements in regular parsing statements. (Basically, just put a '#' at the start of the parsing command, then use the same syntax as conditional IFs.)</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added all descriptions for the club's 'sub' scenes (where an NPC is leading you around the club), with variations for nice/normal/sleazy partners.</ul>"
+			+"<ul>Filled in all the placeholders for the alleyway attacker's non-violent scenes, with variations of the 'talk' action based on their affection towards you.</ul>"
+			+"<ul>Added more talk options for non-slave occupants, and some further progression for them in the form of them getting a job (10% chance each day) and being able to move out into their own apartment (after getting a job).</ul>"
+			+"<ul>Enabled 'Inspect' and 'Send to Kate' options for non-slave occupants.</ul>"
+			+"<ul>You can now manage your slaves' and friendly occupants' perks. The action is alongside the other management ones (Inspect/Job/etc.).</ul>"
+			+"<ul>Updated Slaver Alley's map to add some stores that you can buy slaves from, as well as some new descriptions for the other tiles.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Both sub and dom NPCs that are re-encountered in the club (through the 'contacts' action) now have their affection towards you reset to 5, so that they'll go through the full sequence of buying drinks/talking/flirting each time you encounter them.</ul>"
+			+"<ul>Added ability for NPCs to remember your body areas, so they won't be surprised every time they see your penis/vagina, and improved reveal dialogue. (Their reactions will reset if you TF your genitalia/breasts/nipples.)</ul>"
+			+"<ul>Repositioned talk/manage/sex tabs in slavery & occupant dialogue to be in the same as in the view character dialogue (so all three now have the format: talk/sex/manage).</ul>"
+			+"<ul>Added day of the week + year to date tooltip (when hovering over the calendar icon above the minimap).</ul>"
+			+"<ul>Clicking on your name while in combat will now set your target to yourself, instead of opening the perk screen.</ul>"
+			+"<ul>Added version of Java used to compile LT at the top of the README.</ul>"
+			+"<ul>Added footjob climaxes given/received to tattoo counter types.</ul>"
+			+"<ul>Improved creampie/pull out requests to be available for paizuri and footjobs.</ul>"
+			+"<ul>Added feet as an orgasm target.</ul>"
+			+"<ul>Alexa now stocks 3 slaves instead of 5.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed typos and parsing errors.</ul>"
+			+"<ul>Slaves will no longer go to their job while having sex with you.</ul>"
+			+"<ul>Fixed alleyway attackers incorrectly saying you were the one to get them pregnant, even if it wasn't you.</ul>"
+			+"<ul>Added catch for null characters being returned by some methods, which will have fixed some instances of the game becoming unresponsive.</ul>"
+			+"<ul>Fixed clothing mods' 'imageEquippedName' not working correctly.</ul>"
+			+"<ul>Fixed issue in group sex orgasm scenes where incorrect characters would be described as performing or being targeted by actions.</ul>"
+			+"<ul>Fixed knotting orgasm scenes describing hands/breasts/thighs/ass getting locked to the knot.</ul>"
+			+"<ul>Fixed squirrel face TF being labelled as simply 'furry' instead of 'squirrel'.</ul>"
+			+"<ul>Fixed issue that was causing some newly spawned characters to have a conception date three years earlier than intended.</ul>"
+			+"<ul>Fixed bug where accessing your perk screen while in slavery management could cause a background error to be thrown.</ul>"
+			+"<ul>Fixed issue where sex scenes with you watching your companion + NPC could go on forever if your companion was resisting.</ul>"
+			+"<ul>Cumming on feet/hands will now correctly dirty any clothing in the foot/hand slot.</ul>"
+			+"<ul>Fixed autosave code so that the game now correctly autosaves when entering a new area, except if the entrance dialogue is unique. (e.g. The first entry to the Harpy Nests, where the Enforcer questions you, won't autosave, but subsequent visits will.)</ul>"
+		+ "</list>"
 	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -556,9 +598,18 @@ public class Main extends Application {
 		try {
 			int maxlength = (v1.length > v2.length) ? v1.length : v2.length;
 			for (int i = 0; i < maxlength; i++) {
-				int v1i = (i < v1.length) ? Integer.valueOf((v1[i]+"00").substring(0, 3)) : 0;
-				int v2i = (i < v2.length) ? Integer.valueOf((v2[i]+"00").substring(0, 3)) : 0;
-			
+				int v1i;
+				int v2i;
+				
+				if(v1[1].charAt(0)=='1') { // Versions prior to 0.2.x used an old system of the format: 0.1.10.1 being a lower version than 0.1.9.1:
+					v1i = (i < v1.length) ? Integer.valueOf((v1[i]+"00").substring(0, 3)) : 0;
+					v2i = (i < v2.length) ? Integer.valueOf((v2[i]+"00").substring(0, 3)) : 0;
+					
+				} else { // Versions of 0.2.x and higher use a new system of the format: 0.2.10.1 being a higher version than 0.2.9.1:
+					v1i = (i < v1.length) ? Integer.valueOf(v1[i]) : 0;
+					v2i = (i < v2.length) ? Integer.valueOf(v2[i]) : 0;
+				}
+				
 				if (v1i < v2i) {
 					return true;
 				} else if (v1i > v2i) {

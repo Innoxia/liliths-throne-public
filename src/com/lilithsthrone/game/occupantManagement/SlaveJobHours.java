@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.slavery;
+package com.lilithsthrone.game.occupantManagement;
 
 /**
  * @since 0.1.87

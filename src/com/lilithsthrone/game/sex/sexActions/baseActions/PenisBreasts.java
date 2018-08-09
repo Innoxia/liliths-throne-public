@@ -150,7 +150,7 @@ public class PenisBreasts {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()) {
+			if(Sex.getCharacterPerformingAction().isBreastFuckablePaizuri()) {
 				return "Paizuri into mouth";
 			} else {
 				return "Naizuri into mouth";

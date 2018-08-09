@@ -137,7 +137,7 @@ public class Alexa extends NPC {
 			}
 			this.removeAllSlaves();
 			
-			for(int i=0; i<5; i++) {
+			for(int i=0; i<3; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
 				try {
 					Main.game.addNPC(newSlave, false);
@@ -150,7 +150,6 @@ public class Alexa extends NPC {
 				newSlave.resetInventory();
 				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
 				newSlave.setPlayerKnowsName(true);
-				
 			}
 		}
 	}

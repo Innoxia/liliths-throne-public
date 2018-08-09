@@ -35,7 +35,8 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.BACK,
 					OrgasmCumTarget.ASS,
 					OrgasmCumTarget.GROIN,
-					OrgasmCumTarget.LEGS)),
+					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET)),
 
 	/**The partner who's behind the doggy-style target. They are also on all fours, and can perform oral on the doggy-style target.*/
 	DOGGY_BEHIND_ORAL("On all fours behind",
@@ -151,7 +152,8 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.SELF_STOMACH,
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_LEGS,
-					OrgasmCumTarget.FLOOR)),
+					OrgasmCumTarget.FLOOR,
+					OrgasmCumTarget.FEET)),
 	
 	/* Standing */
 	
@@ -174,6 +176,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.SELF_STOMACH,
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.SELF_FEET,
 					OrgasmCumTarget.FLOOR)),
 	
 	/* Chair */
@@ -183,6 +186,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.SELF_STOMACH,
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 
 	CHAIR_ORAL_SITTING("Sitting",
@@ -190,6 +194,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.SELF_STOMACH,
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_LEGS,
+					OrgasmCumTarget.SELF_FEET,
 					OrgasmCumTarget.FLOOR,
 					OrgasmCumTarget.FACE,
 					OrgasmCumTarget.BREASTS,
@@ -235,6 +240,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.BACK,
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 
 	/* Milking Stall */
@@ -259,6 +265,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.BACK,
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 	
 	/* Missionary */
@@ -280,6 +287,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.STOMACH,
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 	
 	/* UNIQUE SEX SCENES */
@@ -334,6 +342,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.STOMACH,
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 	
 
@@ -407,6 +416,7 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.ASS,
 					OrgasmCumTarget.GROIN,
 					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
 	
 
