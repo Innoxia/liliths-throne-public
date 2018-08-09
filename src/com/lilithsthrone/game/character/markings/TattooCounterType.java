@@ -2,10 +2,11 @@ package com.lilithsthrone.game.character.markings;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 
 /**
  * @since 0.2.6
- * @version 0.2.9
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum TattooCounterType {
@@ -41,21 +42,28 @@ public enum TattooCounterType {
 	CUM_GIVEN_PUSSY("pussy creampies given", "Keeps a count of how many times the bearer has cummed into someone's pussy.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.VAGINA, true, false);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.VAGINA, true, false);
 		}
 	},
 
 	CUM_GIVEN_ANUS("anal creampies given", "Keeps a count of how many times the bearer has cummed into someone's ass.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, true, false);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.ANUS, true, false);
 		}
 	},
 
 	CUM_GIVEN_ORAL("oral loads given", "Keeps a count of how many times the bearer has cummed down someone's throat.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.MOUTH, true, false);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.MOUTH, true, false);
+		}
+	},
+
+	CUM_GIVEN_FEET("footjob climaxes received", "Keeps a count of how many times the bearer has cummed onto their partner's feet.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaPenetration.FOOT, true, false);
 		}
 	},
 	
@@ -69,21 +77,28 @@ public enum TattooCounterType {
 	CUM_TAKEN_PUSSY("pussy creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their pussy.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.VAGINA, false, true);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.VAGINA, false, true);
 		}
 	},
 
 	CUM_TAKEN_ANUS("anal creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their ass.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, false, true);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.ANUS, false, true);
 		}
 	},
 
 	CUM_TAKEN_ORAL("loads swallowed", "Keeps a count of how many times the bearer has swallowed a load of cum.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.MOUTH, false, true);
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.MOUTH, false, true);
+		}
+	},
+
+	CUM_TAKEN_FEET("footjob climaxes given", "Keeps a count of how many times the bearer has had their partner cum over their feet.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaPenetration.FOOT, false, true); 
 		}
 	},
 

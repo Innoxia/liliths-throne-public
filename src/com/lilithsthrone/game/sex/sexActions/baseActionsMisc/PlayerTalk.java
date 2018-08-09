@@ -459,7 +459,7 @@ public class PlayerTalk {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).hasVagina()
-					&& Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
+					&& Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())
 					&& Sex.getCharacterTargetedForSexAction(this).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null))
 					&& Sex.getCharacterPerformingAction().isPlayer()
@@ -847,7 +847,7 @@ public class PlayerTalk {
 					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
 					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+					&& Sex.getActivePartner().isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -914,7 +914,7 @@ public class PlayerTalk {
 					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
 					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+					&& Sex.getActivePartner().isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 

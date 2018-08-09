@@ -261,6 +261,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 			}
 
 			this.type = VaginaType.HUMAN;
+			owner.resetAreaKnownByCharacters(CoverableArea.VAGINA);
 			
 			if(type==VaginaType.HUMAN) {
 				this.girlcum.setType(type.getFluidType());

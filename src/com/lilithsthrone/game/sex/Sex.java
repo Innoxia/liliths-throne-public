@@ -1815,11 +1815,12 @@ public class Sex {
 							if(!cumProvidor.isWearingCondom() || sexAction.ignoreCondom(cumProvidor)){
 								Sex.incrementTimesCummedInside(cumProvidor, cumTarget, 1);
 								
-								for(SexAreaOrifice ot : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
-									cumTarget.incrementCumCount(new SexType(SexParticipantType.NORMAL, ot, SexAreaPenetration.PENIS));
-									cumProvidor.incrementCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot));
-									sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getPenisRawOrgasmCumQuantity(), cumProvidor.getCum().getFluidModifiers()));
-									
+								for(SexAreaInterface area : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
+									cumTarget.incrementCumCount(new SexType(SexParticipantType.NORMAL, area, SexAreaPenetration.PENIS));
+									cumProvidor.incrementCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
+									if(area.isOrifice()) {
+										sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), (SexAreaOrifice)area, cumProvidor.getPenisRawOrgasmCumQuantity(), cumProvidor.getCum().getFluidModifiers()));
+									}
 								}
 							}
 						}
@@ -1884,6 +1885,7 @@ public class Sex {
 												cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET).setDirty(true);
 											} else {
 												cumTarget.addDirtySlot(InventorySlot.FOOT);
+												cumTarget.addDirtySlot(InventorySlot.ANKLE);
 											}
 											break;
 										case LEGS: case THIGHS:

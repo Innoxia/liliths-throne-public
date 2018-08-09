@@ -38,6 +38,22 @@ public enum Perk {
 		}
 	},
 	
+	JOB_SLAVE(20,
+			true,
+			"A life of servitude",
+			PerkCategory.JOB,
+			"perks/jobs/slave",
+			Colour.BASE_CRIMSON,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 10)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] steeled [npc.her] body and mind to help [npc.herHim] deal with the fact that [npc.sheIs] now just someone else's property.");
+		}
+	},
+	
 	JOB_PROSTITUTE(20,
 			true,
 			"The oldest profession",
@@ -50,7 +66,7 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return ".";//TODO
+			return UtilText.parse(owner, "[npc.NameIsFull] experienced at selling [npc.her] body to strangers in order to make a living. After having sex so many times, it takes a lot to get [npc.sheHim] turned on.");
 		}
 	},
 	
@@ -66,7 +82,7 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return ".";//TODO
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(live)] a life of crime, stealing from the rich and poor alike.");
 		}
 	},
 	
@@ -447,6 +463,21 @@ public enum Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You have a surprisingly large amount of natural arcane power.";
+		}
+	},
+
+	ARCANE_BASE_NPC(20,
+			false,
+			"natural arcane power",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence1",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Everybody in this world has an arcane aura, no matter how weak, and so at the very least has a tiny hint of arcane power available to them.";
 		}
 	},
 	

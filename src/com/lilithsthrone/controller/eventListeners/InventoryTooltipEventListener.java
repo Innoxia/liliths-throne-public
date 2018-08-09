@@ -349,7 +349,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getVaginaType()==VaginaType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"You don't have a vagina.",
-													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
+													(equippedToCharacter.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
@@ -357,7 +357,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
+												(equippedToCharacter.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())
 														?"[npc.NamePos] vagina has not been pierced."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
@@ -391,7 +391,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										if(!equippedToCharacter.isPiercedNipple()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nipples have not been pierced.",
-													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
+													(equippedToCharacter.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())
 															?"[npc.NamePos] nipples have not been pierced."
 															:"You don't know if [npc.namePos] nipples have been pierced.")));
 											piercingBlocked=true;
@@ -414,7 +414,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"You don't have a penis.",
-												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+												(equippedToCharacter.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 														?"[npc.Name] doesn't have a penis."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
@@ -422,7 +422,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+												(equippedToCharacter.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 														?"[npc.NamePos] penis has not been pierced."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;

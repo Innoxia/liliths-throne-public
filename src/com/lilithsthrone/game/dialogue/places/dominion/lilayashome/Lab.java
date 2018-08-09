@@ -125,7 +125,7 @@ public class Lab {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO check
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(// pregnant
 								"<p>"
@@ -2234,9 +2234,7 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "TODO" //TODO
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_FRIEND_ACCOMMODATION");
 		}
 
 		@Override

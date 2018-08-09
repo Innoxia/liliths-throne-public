@@ -669,10 +669,10 @@ public class PhoneDialogue {
 	};
 	
 	public static String getBodyStatsPanel(GameCharacter character) {
-		boolean knowsNipples = character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES);
-		boolean knowsPenis = character.getPlayerKnowsAreas().contains(CoverableArea.PENIS);
-		boolean knowsVagina = character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA);
-		boolean knowsAnus = character.getPlayerKnowsAreas().contains(CoverableArea.ANUS);
+		boolean knowsNipples = character.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer());
+		boolean knowsPenis = character.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer());
+		boolean knowsVagina = character.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer());
+		boolean knowsAnus = character.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer());
 		
 		return "<div class='container-full-width'>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; text-align:center;'>Core Attributes</h6>"
@@ -1931,8 +1931,9 @@ public class PhoneDialogue {
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
 					+ "<h6 style='text-align:center;'>Active Traits</h6>");
 
-			UtilText.nodeContentSB.append("<div id='HISTORY_" + Main.game.getPlayer().getHistory().getAssociatedPerk() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-					+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
+			UtilText.nodeContentSB.append(
+					"<div id='OCCUPATION_" + Main.game.getPlayer().getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+						+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
 					+ "</div>");
 			
 			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
@@ -1955,7 +1956,7 @@ public class PhoneDialogue {
 						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay());
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
 			
 			return UtilText.nodeContentSB.toString();
 		}

@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -385,7 +385,7 @@ public class EnchantmentDialogue {
 							if(BodyChanging.getTarget().isPlayer()) {
 								return SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS;
 							} else {
-								return SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS;
+								return OccupantManagementDialogue.SLAVE_MANAGEMENT_TATTOOS;
 							}
 							
 						} else {
@@ -431,7 +431,7 @@ public class EnchantmentDialogue {
 									if(BodyChanging.getTarget().isPlayer()) {
 										Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
 									} else {
-										Main.game.setContent(new Response("", "", SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS));
+										Main.game.setContent(new Response("", "", OccupantManagementDialogue.SLAVE_MANAGEMENT_TATTOOS));
 									}
 								} else {
 									Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
