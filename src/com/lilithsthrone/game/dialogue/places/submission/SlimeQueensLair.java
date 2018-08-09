@@ -5,7 +5,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -258,7 +258,7 @@ public class SlimeQueensLair {
 					if(Main.game.getSlimeGuardFire().getFoughtPlayerCount()>0) {
 						return new Response("Servant Bluff", "It's a little too late to be trying to bluff your way past these two, what with having already fought them...", null);
 						
-					} else if(Main.game.getPlayer().getHistory()==History.BUTLER) {
+					} else if(Main.game.getPlayer().getHistory()==Occupation.BUTLER) {
 						return new Response("Butler Bluff", "Use the knowledge that you've gained by working as a butler to bluff your way past these slimes.", GUARD_POST_BUTLER_BLUFF) {
 							@Override
 							public void effects() {
@@ -267,7 +267,7 @@ public class SlimeQueensLair {
 							}
 						};
 						
-					} else if(Main.game.getPlayer().getHistory()==History.MAID) {
+					} else if(Main.game.getPlayer().getHistory()==Occupation.MAID) {
 						return new Response("Maid Bluff", "Use the knowledge that you've gained by working as a maid to bluff your way past these slimes.", GUARD_POST_MAID_BLUFF) {
 							@Override
 							public void effects() {
@@ -713,7 +713,7 @@ public class SlimeQueensLair {
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Excellent! Now, defend yourself!)] [slimeRoyalGuard.name] booms, before moving forwards to attack.")));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasTraitActivated(Perk.BRAWLER) || Main.game.getPlayer().getHistory()==History.SOLDIER) {
+				if(Main.game.getPlayer().hasTraitActivated(Perk.BRAWLER) || Main.game.getPlayer().getHistory()==Occupation.SOLDIER) {
 					return new Response("Instruct", "Tell [slimeRoyalGuard.name] what [slimeRoyalGuard.he]'s doing wrong in an attempt to fluster [slimeRoyalGuard.him] into wearing [slimeRoyalGuard.himself] out.", ROYAL_GUARD_POST_ADMIRE_INSTRUCT) {
 						@Override
 						public void effects() {

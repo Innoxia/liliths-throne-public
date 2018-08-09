@@ -95,6 +95,7 @@ public class Ass implements BodyPartInterface, Serializable {
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
 		anus.setType(type.getAnusType());
+		owner.resetAreaKnownByCharacters(CoverableArea.ANUS);
 		
 		// Asshole properties are defined independently from type.
 		switch (type) {

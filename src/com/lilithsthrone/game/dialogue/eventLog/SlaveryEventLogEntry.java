@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.slavery.SlaveEvent;
-import com.lilithsthrone.game.slavery.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.SlaveEventTag;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 

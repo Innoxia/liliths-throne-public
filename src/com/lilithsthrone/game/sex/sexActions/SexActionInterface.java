@@ -257,28 +257,28 @@ public interface SexActionInterface {
 			// Return null if the player doesn't know about the partners penis/vagina
 			if(Sex.getCharacterPerformingAction().isPlayer()) { //TODO check
 				if(this.getTargetedCharacterPenetrations().contains(SexAreaPenetration.PENIS)
-						&& !Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+						&& !Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())) {
 					return null;
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
 					switch(sArea){
 						case NIPPLE:
-							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
 								return null;
 							}
 							break;
 						case URETHRA_PENIS:
-							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())) {
 								return null;
 							}
 							break;
 						case URETHRA_VAGINA:
-							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 								return null;
 							}
 							break;
 						case VAGINA:
-							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 								return null;
 							}
 							break;
@@ -909,7 +909,7 @@ public interface SexActionInterface {
 		return true;
 	}
 	
-	public default List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+	public default List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 
 	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	

@@ -19,20 +19,36 @@
 	<p>
 		As [npc.she] steps out from the shadows, however, you notice that there's definitely something different about [npc.herHim] this time. The consequence of ejaculating inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at [npc.her] [style.colourSex(pregnant belly)].
 	</p>
-	#IF npc.hasFetish(FETISH_PREGNANCY)
-	#THEN
-		<p>
-			[npc.speech(That's right, you got me knocked up!)] she shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheIs] got a thing for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+	<p>
+		#IF npc.getPregnantLitter().isFatherId(pc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, you got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant.
 				#IF npc.isAttractedTo(pc)
-				#THEN [npc.speech(Don't think I'm letting you off the hook though! Pregnant [npc.girl]s get horny too, and you're gonna help me with that, understood?!)]
-				#ELSE [npc.speech(Don't think I'm letting you off the hook though! I could do with some cash, so just give up and let me rob you already!)])
+				#THEN [npc.speech(Just 'cause I love being a mommy, don't think I'm letting you off the hook! I'm so fucking horny all the time, and you're gonna take responsibility for that!)]
+				#ELSE [npc.speech(Just 'cause I love being a mommy, don't think I'm letting you off the hook! I could do with some cash, so just give up and let me rob you already!)]
 				#ENDIF
-		</p>
-	#ELSE
-		<p>
-			[npc.speech(Look what you did, you asshole!)] [npc.she] shouts, confirming that you're the father of [npc.her] children. [npc.speech(Do you know how annoying it is being pregnant?! You're gonna pay for this!)]
-		</p>
-	#ENDIF
+			#ELSE [npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, before clearing [npc.her] throat and glaring at you.
+				#IF npc.isAttractedTo(pc)
+				#THEN [npc.speech(Even though I'm pregnant, I'm still so fucking horny all the time, s-so you're gonna take responsibility for that, understand?!)]
+				#ELSE [npc.speech(You're going to take responsibility for this! I need some cash for food, so just hand it over already!)]
+				#ENDIF
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_PREGNANCY)
+			#THEN [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant.
+				#IF npc.isAttractedTo(pc)
+				#THEN [npc.speech(Just 'cause I love being a mommy, don't think I'm letting you off the hook! I'm so fucking horny all the time, and you're gonna take responsibility for that!)]
+				#ELSE [npc.speech(Just 'cause I love being a mommy, don't think I'm letting you off the hook! I could do with some cash, so just give up and let me rob you already!)]
+				#ENDIF
+			#ELSE [npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, before clearing [npc.her] throat and glaring at you.
+				#IF npc.isAttractedTo(pc)
+				#THEN [npc.speech(Even though I'm pregnant, I'm still so fucking horny all the time, s-so you're gonna take responsibility for that, understand?!)]
+				#ELSE [npc.speech(You're going to take responsibility for this! I need some cash for food, so just hand it over already!)]
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -50,7 +66,18 @@
 	
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_PLAYER_PREGNANCY"><![CDATA[
 	<p>
-		[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
+		#IF pc.getPregnantLitter().isFatherId(npc.getId())
+		#THEN
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
+			#ELSE [npc.speech(Wait, I got you pregnant?!)] [npc.name] exclaims, staring down at your swollen belly. [npc.speech(Fuck... Don't think that I'm going to be helping out or anything! I've barely got enough money to buy food for myself!)]
+			#ENDIF
+		#ELSE
+			#IF npc.hasFetish(FETISH_IMPREGNATION)
+			#THEN [npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+			#ELSE [npc.speech(Heh, you've got yourself knocked up, huh?)] [npc.name] asks, grinning as [npc.she] looks down at your swollen belly. [npc.speech(Don't think that'll make me go easy on you! I'm still gonna need your cash!)]
+			#ENDIF
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -87,37 +114,43 @@
 	
 	<htmlContent tag="ALLEY_ATTACK_CANAL_PEACEFUL_INTRO"><![CDATA[
 	<p>
-		Knowing that [npc.name(a)] calls this area [npc.her] home, you make sure to stay on the lookout for [npc.herHim] as you wander down the track that runs alongside Dominion's canal. Just as you suspected, as you pass a collection of leafy bushes growing on one side of the path, you see a familiar figure leaning against a brick wall up ahead. You instantly recognise the [npc.fullRace(true)], and as you approach, [npc.she] turns towards you and cautiously waves a greeting.
+		Knowing that [npc.name] calls this area [npc.her] home, you make sure to stay on the lookout for [npc.herHim] as you wander down the track that runs alongside Dominion's canal. Just as you suspected, as you pass a collection of leafy bushes growing on one side of the path, you see a familiar figure leaning against a brick wall up ahead.
+	</p>
+	<p>
+		You instantly recognise the [npc.fullRace(true)], and as [npc.she] notices you approach out of the corner of [npc.her] [npc.eye], [npc.she] turns towards you and instinctively assumes a fighting stance. As [npc.she] sees that it's you, however, [npc.name] quickly straightens up, before taking a step and apologising, [npc.speech(Oh, sorry, [pc.name]. I thought you were someone else...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_INTRO"><![CDATA[
 	<p>
-		Knowing that [npc.name(a)] calls this area [npc.her] home, you make sure to stay on the lookout for [npc.herHim] as you walk through the twisting passages. Just as you suspected, as you turn around a sharp corner, you see a familiar figure leaning against a brick wall up ahead. You instantly recognise the [npc.fullRace(true)], and as you approach, [npc.she] turns towards you and cautiously waves a greeting
+		Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages. Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path!
+	</p>
+	<p>
+		You instantly recognise the [npc.fullRace(true)], and as [npc.she] sees that it's you, [npc.she] quickly takes a step back, before apologising, [npc.speech(Oh, sorry, [pc.name]. I thought you were someone else...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_PREGNANCY_REVEAL"><![CDATA[
 	<p>
-		As [npc.she] steps forwards to say hello, you immediately notice that there's something very different about [npc.herHim]. The consequence of ejaculating inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at [npc.her] [style.colourSex(pregnant belly)].
+		As you step forwards and start to say hello, you immediately notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of ejaculating inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
 	</p>
 	#IF npc.hasFetish(FETISH_PREGNANCY)
 	#THEN
 		<p>
-			[npc.speech(Hi [pc.name]! Yeah, before you ask, it was you. You got me knocked up. Isn't it exciting?!)] she exclaims, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHas] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+			[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHas] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
-				#THEN [npc.speech(If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
-				#ELSE [npc.speech(If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
+				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 				#ENDIF
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(Hi [pc.name]! Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, confirming that you're the father of [npc.her] children. 
+			[npc.speech(Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that you're the father of [npc.her] children. 
 				#IF npc.isAttractedTo(pc)
-				#THEN [npc.speech(If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
-				#ELSE [npc.speech(If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
+				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 				#ENDIF
 		</p>
 	#ENDIF
@@ -128,16 +161,16 @@
 	<p>
 		#IF npc.hasFetish(FETISH_PREGNANCY)
 		#THEN
-			You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs,
+			As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs,
 				#IF npc.isAttractedTo(pc)
-				#THEN [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
-				#ELSE [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
+				#THEN [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+				#ELSE [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 				#ENDIF
 		#ELSE
-			You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] sighs,
+			As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] sighs,
 				#IF npc.isAttractedTo(pc)
-				#THEN [npc.speech(That's right, I'm still pregnant... If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
-				#ELSE [npc.speech(That's right, I'm still pregnant... If you wanted to help out with things, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
+				#THEN [npc.speech(That's right, I'm still pregnant... If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+				#ELSE [npc.speech(That's right, I'm still pregnant... If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 				#ENDIF
 		#ENDIF
 	</p>
@@ -146,128 +179,368 @@
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_PLAYER_PREGNANCY"><![CDATA[
 	<p>
-		[npc.speech(Well, well, well,)] [npc.name] says, smiling as [npc.she] looks down at your swollen belly. [npc.speech(Looks like I got you knocked up! You make sure to take good care of our kids!)]
+		#IF npc.hasFetish(FETISH_IMPREGNATION)
+		#THEN Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps as [npc.she] looks down at your pregnant bump. [npc.speech(I-I got you pregnant?! I really should have pulled out... I don't have any money to support you or anything, but you'll be ok, right?)]
+		#ELSE Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps in delight as [npc.she] looks down at your pregnant bump. [npc.speech(I got you pregnant?! Fuck, that turns me on so much... I knew I'd get you knocked up when I cummed in your hot little pussy!)]
+		#ENDIF
+	</p>
+	<p>
+		You smile back at [npc.name], before confirming that [npc.sheIs] the one who got you pregnant. Stepping forwards, [npc.name] places one of [npc.her] [npc.hands] on your belly, smiling happily as [npc.she] tells you to take care of your children.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
-		[npc.speech(Looks like you're still carrying my kids around!)] [npc.name] says, smiling as [npc.she] looks down at your swollen belly. [npc.speech(You make sure to take good care of them!)]
+		#IF npc.hasFetish(FETISH_IMPREGNATION)
+		#THEN [npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing you a delighted smile as [npc.she] steps forwards and places a [npc.hand] on your swollen belly. [npc.speech(That's so fucking hot... You make sure to take good care of our kids!)]
+		#ELSE [npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing you a smile as [npc.she] steps forwards and places a [npc.hand] on your swollen belly. [npc.speech(You make sure to take good care of our kids.)]
+		#ENDIF
+	</p>
+	<p>
+		You smile back at [npc.name], before reassuring [npc.herHim] that you're taking care to look after the children you're having together.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL"><![CDATA[
 	<p>
-		[npc.speech(Hi, [pc.name]!)] [npc.she] shouts. [npc.speech(There's no need for any violence or anything...)] 
+		Stepping forwards, you greet [npc.herHim], [pc.speech(Hi, [npc.name]. I hope you've been taking care of yourself, and not causing too much trouble.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_END"><![CDATA[
 	<p>
-		#IF npc.isAttractedTo(pc)
-		#THEN
-			Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you can tell that [npc.she] wants to have sex with you.
-		#ELSE
-			Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body, and is only interested in talking to you.
-		#ENDIF
+		The two of you spend the next couple of minutes talking with one another, but your conversation is nothing more than idle chatter, and you quickly find yourself ready to move on. Then again, you could spend some time talking with [npc.name], in order to get to know [npc.herHim] a little better. You could also offer [npc.herHim] some money to help [npc.herHim] out, or, if you were feeling like this has gone far enough, you could always betray [npc.her] trust and attack [npc.herHim]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM"><![CDATA[
 	<p>
-		Start sex as Dom.
+		[npc.Name] is quite clearly attracted to you, and, as you're harbouring similar feelings towards [npc.herHim], you step forwards and take hold of [npc.her] [npc.hips]. [pc.speech(I know what you really want, [npc.name]. There's no use denying it, I've noticed the lust in your [npc.eyes]...)]
+	</p>
+	<p>
+		Before [npc.she] can respond, you press your [pc.lips] against [npc.hers], before slipping your [pc.hands] around to grab [npc.her] [npc.ass+] and pull [npc.her] in against you. Just as you already knew, [npc.name] is desperate to have sex with you, and happily throws [npc.her] [npc.arms] around you, passionately returning your kiss as [npc.she] fully submits to you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB"><![CDATA[
 	<p>
-		Start sex as sub.
+		[npc.Name] is quite clearly attracted to you, and, as you're harbouring similar feelings towards [npc.herHim], you step forwards and tease, [pc.speech(I know what you really want, [npc.name]. All you have to do is come and take it...)]
+	</p>
+	<p>
+		Encouraged by your words, [npc.name] steps up against you, and, placing [npc.her] [npc.hands] on your [pc.hips], presses [npc.her] [npc.lips] against yours. As you lean in and return the sudden kiss, you feel [npc.her] grip slipping around to grab your [pc.ass+], and with a firm tug, [npc.name] pulls you in against [npc.herHim]. Happily throwing your [pc.arms] around [npc.herHim], you passionately return [npc.namePos] kiss as you fully submit to [npc.herHim]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_TALK"><![CDATA[
-	<p>
-		You talk with [npc.name] for a while.
-	</p>
+	#IF npc.getAffection(pc)<20
+	#THEN
+		<p>
+			Deciding to spend some time getting to know [npc.name] a little better, you ask, [pc.speech(How are you doing these days, [npc.name]? Do you have somewhere safe to sleep, and do you get enough to eat?)]
+		</p>
+		<p>
+			[npc.Name] casts [npc.her] [npc.eyes] to the floor, shuffling [npc.her] [npc.feet] a little as [npc.she] replies, [npc.speech(Nobody ever asks me stuff like that... I guess I'm ok, I usually get enough money to buy food and stuff. I don't really have any fixed place to sleep, but the alleys nearest to the street are usually safe enough...)]
+		</p>
+		<p>
+			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned that ever for [npc.her] well-being.
+		</p>
+		<p>
+			[npc.speech(No...)] [npc.name] replies, letting out a disheartening sigh, before trying to force [npc.herself] to smile back at you. [npc.speech(You're the only friend I've got. Sure, I used to know some other people, but they've all moved on now... I don't know how they're doing, or even where they went...)]
+		</p>
+		<p>
+			You see [npc.namePos] [npc.eyes] starting to tear up a little, but before you can say anything to comfort [npc.herHim], [npc.she] turns around and starts to run off, calling out behind [npc.herHim] in a broken voice, [npc.speech(S-Sorry, [pc.name]! I-I've got to get going! Thank you for talking to me!)]
+		</p>
+		<p>
+			Not wanting to make [npc.herHim] feel too uncomfortable, you decide against chasing after [npc.herHim], and, letting out a sigh, you move off and continue on your way...
+		</p>
+	#ELSE
+		#IF npc.getAffection(pc)<30
+		#THEN
+			<p>
+				Wanting to know if [npc.name] has started to get [npc.her] affairs in order, you smile at [npc.herHim] as you ask, [pc.speech(How are things going, [npc.name]? Are you eating enough?)]
+			</p>
+			<p>
+				[npc.speech(Well, they could always be going better,)] [npc.name] replies, half-heartedly laughing as [npc.she] does [npc.her] best to make light of [npc.her] dire situation. [npc.speech(I mean, I'm fine, I get enough to eat and stuff, but it's really hard to keep going sometimes, you know?)]
+			</p>
+			<p>
+				[pc.speech(I'm so sorry to hear that,)] you reply, wondering what you can do to help your friend. [pc.speech(You'll be ok, won't you?)]
+			</p>
+			<p>
+				[npc.speech(Yeah, yeah, don't worry about me!)] [npc.name] says, putting on a brave face. [npc.speech(Things have been a lot better recently. After all, I've got you to talk to these days! It's been a while since I had a real friend...)]
+			</p>
+			<p>
+				Before you can say anything in response to that, [npc.name] smiles and continues, [npc.speech(Anyway! I need to get going, I, erm, earned some flames earlier, and I need to go buy some bread before the shops close. Thanks for talking with me again, [pc.name], it really means a lot to me...)]
+			</p>
+			<p>
+				Throwing you a smile, [npc.name] turns and runs off. You call out a farewell to [npc.herHim], and [npc.she] briefly turns and waves goodbye, before disappearing around a corner. Letting out a sigh, you move off and continue on your way...
+			</p>
+		#ELSE
+			#IF npc.getAffection(pc)<40
+			#THEN
+				<p>
+					Having got to know [npc.name] fairly well by now, and wanting to spend some time talking with [npc.herHim], you ask, [pc.speech(How are you, [npc.name]? You're still getting enough to eat, right?)]
+				</p>
+				<p>
+					[npc.speech(Yeah, I'm eating well enough, thanks for asking,)] [npc.she] replies, smiling happily at you. [npc.speech(Things really do seem to be getting better for me recently. I mean, I'm still living rough out here in the alleys, but now at least I've got a friend...)]
+				</p>
+				<p>
+					You can't help but smile as you hear [npc.name] saying that, and reply, [pc.speech(I'm glad to hear that you're doing ok for yourself. I'm happy to call you my friend as well. Just make sure to take care of yourself, ok? I'm always concerned about you, and wondering how you're getting on.)]
+				</p>
+				<p>
+					[npc.speech(Aww, [pc.name]!)] [npc.name] laughs, playfully pushing you on the shoulder as [npc.she] tries to hide [npc.her] emotions. [npc.speech(You don't need to worry about me, I'm fine! I-I've even saved up a couple hundred flames, and was just about to go buy myself some food.)]
+				</p>
+				<p>
+					Before you can offer to go with [npc.herHim], [npc.name] continues, [npc.speech(A-Anyway, you've got things to do, and I'm pretty hungry already, so I'll catch you later, ok? It was really great talking with you again!)]
+				</p>
+				<p>
+					[npc.Name] suddenly steps forwards and gives you a hug. Responding to [npc.her] gesture in kind, you throw your [pc.arms] around [npc.herHim] and hold [npc.herHim] close for a moment, before the two of you finally step back from one another.
+				</p>
+				<p>
+					[npc.speech(See you, [pc.name]!)] [npc.name] shouts, before turning around and running off. Letting out a sigh, you move off and continue on your way...
+				</p>
+			#ELSE
+				#IF npc.getAffection(pc)<50
+				#THEN
+					<p>
+						Wanting to find out how your friend has been recently, you ask [npc.herHim], [pc.speech(How are you these days, [npc.name]? Still eating well enough?)]
+					</p>
+					<p>
+						[npc.NamePos] [npc.eyes] immediately light up as [npc.she] hears that you're asking about [npc.her] well-being. Eager to spend some time talking with you, [npc.she] happily replies, [npc.speech(Oh, I've been fine, thank you, [pc.name]! I've always got enough to eat these days, and I'm feeling so much happier now that I've finally got a really close friend. M-Meeting you was the best thing that's ever happened to me..)]
+					</p>
+					<p>
+						[pc.speech(I'm so happy to hear that,)] you reply, stepping forwards and throwing your [pc.arms] around [npc.name]. [pc.speech(I'm so happy that I met you, too. You just keep on making sure to take proper care of yourself, ok?)]
+					</p>
+					<p>
+						[npc.speech(Y-Yes, [pc.name].)] [npc.she] replies, holding you close as the two of you share a loving hug. After a moment, however, [npc.name] pulls back, and, smiling happily at you, [npc.she] says, [npc.speech(I'm honestly doing so much better than when you first met me. A-And I know I never really said it, but I'm so sorry for attacking you...)]
+					</p>
+					<p>
+						[pc.speech(I forgive you,)] you reply. [pc.speech(I know that you have no choice, what with your current circumstances. I'm sure things will change for the better soon, though.)]
+					</p>
+					<p>
+						[npc.speech(I hope so. I've even been asking around in some places to try and get a proper job, but it's hard when I'm living like this. Oh, speaking of which, I'm meant to go for an interview in fifteen minutes or so! I'd better get going!)]
+					</p>
+					<p>
+						After telling [npc.name] to do [npc.her] best, the two of you say goodbye, and you wave at [npc.herHim] as [npc.she] runs off and turns a corner. Letting out a sigh, you move off and continue on your way...
+					</p>
+				#ELSE
+					<p>
+						Curious to find out how [npc.name] is holding up these days, you ask [npc.herHim], [pc.speech(How are you, [npc.name]? I hope you're taking proper care of yourself.)]
+					</p>
+					<p>
+						[npc.speech(Yes, I'm fine, thank you, [pc.name]!)] [npc.she] happily replies, clearly overjoyed by the fact that you're choosing to spend some time talking with [npc.herHim]. [npc.speech(I've been applying for jobs here and there around the city, but it's harder to actually get one than I expected... I just need to keep trying though, I'm sure my luck will change at some point!)]
+					</p>
+					<p>
+						[pc.speech(That's the right attitude,)] you reply. [pc.speech(You can do it, I know you can!)]
+					</p>
+					<p>
+						Wanting to reassure [npc.name], you step forwards and give [npc.herHim] a big hug. Happily throwing [npc.her] [npc.arms] around you, [npc.she] returns the gesture, pressing [npc.her] body against yours for a moment, before stepping back and smiling lovingly at you. [npc.speech(Thanks, [pc.name]! I'm so happy to be your friend! You're the one thing in my life that doesn't suck...)]
+					</p>
+					<p>
+						Before you can say anything in response, [npc.name] quickly continues, [npc.speech(Oh! I almost forgot! I've got another interview in five minutes! I need to get going!)]
+					</p>
+					<p>
+						After telling [npc.name] to do [npc.her] best, the two of you say goodbye, and you wave at [npc.herHim] as [npc.she] runs off and turns a corner. Letting out a sigh, you move off and continue on your way...
+					</p>
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_MONEY"><![CDATA[
 	<p>
-		You give [npc.name] some money.
+		Knowing that [npc.name] could always use some money with which to buy [npc.herself] food and clothing, you step forwards and hold out some flames. [pc.speech(I'm worried that you're not getting enough to eat. Here you go, you should buy yourself something good with this.)]
+	</p>
+	<p>
+		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so, so much, [pc.name]! You have no idea how much this will help!)]
+	</p>
+	<p>
+		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to care of yourself, ok?)]
+	</p>
+	<p>
+		[npc.speech(I will! Thank you! In fact, I'm going to go buy myself some food right now. Thank you so much!)]
+	</p>
+	<p>
+		With that, [npc.name] turns around and rushes off, calling out a farewell as [npc.she] disappears around a corner. Letting out a sigh, you move off and continue on your way...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_ATTACK"><![CDATA[
 	<p>
-		You attack [npc.name].
+		Having had enough of this joke of a friendship between you and [npc.name], you step forwards and sneer, [pc.speech(You know, I never really expected much of you, being the worthless trash that you are, yet somehow I'm still disappointed by how pathetic you are.)]
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_SADISTIC)
+		#THEN You see tears start to well up in [npc.namePos] [npc.eyes] as you deliver the crushing insult, and, feeling particularly sadistic today, you continue, [pc.speech(Aww, what's the matter? Going to cry? You disgust me. To think that the citizens of Dominion put up with the likes of you skulking around in their city. All you're really good for is being a slave. At least then someone could make use of you as a cock-sleeve.)]
+		#ELSE You see tears start to well up in [npc.namePos] [npc.eyes] as you deliver the crushing insult, and you continue, [pc.speech(Knock it off. You don't get to play the victim here, having attacked and mugged countless innocent people!)]
+		#ENDIF
+	</p>
+	<p>
+		Completely broken from being betrayed by the only friend [npc.she] ever had, [npc.name] lets out a miserable sob, tears running down [npc.her] face as [npc.she] mumbles, [npc.speech(I-I can't... W-Why would say that? J-Just l-leave me alone! I-I don't ever w-want to see you again!)]
+	</p>
+	<p>
+		[pc.speech(I don't think so. I'm not letting you go until I've taught you a lesson!)] you say, grinning at [npc.name] as you prepare to attack [npc.herHim].
+	</p>
+	<p>
+		[npc.speech(F-Fuck you! I-I'll show you!)] [npc.name] shouts, before preparing to defend [npc.herself]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_TALK"><![CDATA[
 	<p>
-		You talk to [npc.name].
+		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstance. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="AFTER_COMBAT_VICTORY_APOLOGISE"><![CDATA[
 	<p>
-		You apologise to [npc.name].
+		[npc.speech(W-What?)] the [npc.race] stammers, caught off guard by the amicable tone of your voice. [npc.speech(Y-You're not going to punish me?)]
+	</p>
+	<p>
+		[pc.speech(No, I just want to find out why you're attempting to mug innocent travellers.)]
+	</p>
+	<p>
+		[npc.speech(W-Well...)] the [npc.race] stammers. [npc.speech(I-I don't have a job, or anything, and no way to get food without doing this...)]
+	</p>
+	<p>
+		You let out a sigh as you hear [npc.namePos] reason for attacking you. [pc.speech(So you need to steal in order to survive... What's your name?)]
+	</p>
+	<p>
+		The [npc.race] looks a little uncomfortable at answering your question at first, but after simply waiting a moment and giving [npc.herHim] time to think, you're rewarded with an answer, [npc.speech(M-My name's [npc.name]... Why do you want to know?)]
+	</p>
+	<p>
+		[pc.speech(Well, because if I bump into you down here again, I'd like to greet you properly. My name's [pc.name], I hope I didn't hurt you too much back there,)] you reply, standing back upright as [npc.name] pushes [npc.herself] to [npc.her] [npc.feet].
+	</p>
+	<p>
+		[npc.speech(You're going to come back here? A-After I attacked you like that?)] [npc.name] nervously asks, looking as though [npc.sheIs] on the verge of turning and running away.
+	</p>
+	<p>
+		[pc.speech(Sure I will. This is a nice shortcut, and besides, I'd like to get to know you a little more in the future,)] you reply, smiling at [npc.name] to try and reassure [npc.herHim].
+	</p>
+	<p>
+		[npc.speech(Y-You want to get to know... m-me?)] [npc.name] asks, not quite believing what it is you've just said.
+	</p>
+	<p>
+		[pc.speech(That's right. Look, I need to be on my way now, and I'm sure you'd like to take a moment to think all of this over, but I'll come and find you here some other time, alrgiht?)]
+	</p>
+	<p>
+		[npc.speech(O-Ok... That would be good... I-I'll see you another time... [pc.name]...)] [npc.name] stammers. You see [npc.herHim] starting to blush as [npc.she] says your name, but before you can say anything else, [npc.she] turns around and sprints off, leaving you alone once again.
+	</p>
+	<p>
+		Smiling to yourself as you think that you might have just made a new friend, you set off and continue on your way...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italics(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you. You'd need to get Lilaya's permission first, however...)]
+		[style.italicsGood(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you. You'd need to get Lilaya's permission first, however...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italics(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you.)]
+		[style.italicsExcellent(You feel as though you've got to know [npc.name] well enough to feel comfortable with inviting [npc.herHim] to come and live with you.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_ROOM"><![CDATA[
 	<p>
-		You ask [npc.name] if [npc.she]'d like to escape the life of a mugger and come live with you. [npc.She] can't quite believe it, and holds back tears as [npc.she] accepts.
+		Having spent a good amount of time building up the level of trust between you and [npc.name], you feel as though your relationship is now at the point where it would be acceptable to offer [npc.herHim] your help in escaping [npc.her] life of crime. Smiling fondly at your friend, you ask, [pc.speech([npc.Name], I've been wanting to ask you something for a while now... After seeing how hard is it for you to live like this, I wanted to offer you a room in the place where I live. So, do you want to move in with me?)]
+	</p>
+	<p>
+		[npc.Name] doesn't say anything at first, and you wonder if perhaps you've inadvertently said the wrong thing, but just as you're wondering what you should say to fix the situation, you see tears start to stream from [npc.namePos] [npc.eyes], and [npc.she] asks in a stuttering voice, [npc.speech(R-Really? Y-You're not teasing me or anything? Y-You actually... I-I mean, y-you really want me to... Y-You're o-offering me a place t-to live?!)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's right. I live over near Dominion's central plaza, and the house is filled with empty rooms, and I just can't stand seeing you living on the streets anymore. So, would you like to-)]
+	</p>
+	<p>
+		Before you can finish your sentence, [npc.name] rushes forwards, throwing [npc.her] [npc.arms] around you and crying into your shoulder as [npc.she] wails, [npc.speech(Yes! Thank you! Thank you so much! I-I don't know what to say! Thank you!)]
+	</p>
+	<p>
+		You pull [npc.name] into a loving hug, and hold [npc.herHim] close until [npc.she] regains control of [npc.her] emotions. As [npc.her] tears of joy finally fade away, [npc.she] hesitantly steps back, before giving you one of the most heart-warming, genuine smiles that you've ever seen. [npc.speech(Thank you so much, [pc.name]... I'll repay your kindness someday!)]
+	</p>
+	<p>
+		Telling [npc.name] that there's no need for [npc.herHim] to feel indebted to you, you take hold of [npc.her] [npc.hand], before setting off towards Lilaya's mansion. On the way, [npc.name] tells you that [npc.sheHas] never had a real home, and while it clearly wasn't [npc.her] intention, [npc.her] words convince you even more that you've done the right thing in helping [npc.herHim] out like this.
+	</p>
+	<p>
+		After a while, you find yourself outside the mansion that you call home, and as you lead [npc.name] up the front steps, [npc.she] gasps, [npc.speech(You live <i>here</i>? W-Wow...)]
+	</p>
+	<p>
+		[pc.speech(Yeah, it's kind of a long story, but my aunt's the daughter of a Lilin, and while this is her house, she has no interest in anything outside the experiments she performs in her lab, so she lets me use all the rooms as I see fit,)] you explain, reaching up to knock on the front door.
+	</p>
+	<p>
+		[npc.speech(So you're related to a Lilin?!)] [npc.name] gasps once again. [npc.speech(Are you royalty or something?!)]
+	</p>
+	<p>
+		[pc.speech(Haha, well, not quite,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+	</p>
+	<p>
+		[rose.speech(Ah, [pc.name], welcome back,)] Rose greets you, curtsying and stepping aside to let you and [npc.name] enter. [rose.speech(I see you have company, would you like me to prepare a room?)]
+	</p>
+	<p>
+		[pc.speech(One's already been set aside for [npc.herHim],)] your reply. [pc.speech(I was going to let [npc.name] have the guest room that you prepared for me before, remember?)]
+	</p>
+	<p>
+		[rose.speech(Ah, of course,)] Rose replies, shutting the door behind you and [npc.name] as the two of you enter the grand entrance hall. The cat-girl maid then turns to address your friend, [rose.speech(Welcome to the household, [npc.name]. If there's anything you need, please don't hesitate to use the pull-cord in your room to summon me. Now, if the two of you will excuse me, I'll inform Mistress Lilaya of your arrival.)]
+	</p>
+	<p>
+		Curtsying once more, Rose turns and hurries off back to the lab. Taking hold of [npc.namePos] [npc.hand], you then set off into the mansion, leading [npc.herHim] to [npc.her] new room...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
-		[npc.Name] is eternally grateful to you for saving [npc.herHim] from [npc.her] terrible life.
+		After just a minute, you find yourself opening the door to [npc.namePos] new room, and, leading [npc.herHim] inside, you turn towards [npc.herHim] and tell [npc.herHim] that this is it, [pc.speech(Well, this is your room, [npc.name]. I hope it's alright. You've got an ensuite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
+	</p>
+	<p>
+		[npc.NamePos] slowly steps forwards, looking all around in awe as [npc.she] mutters, [npc.speech(I-Is this really happening? I... I get to live <i>here</i>?)]
+	</p>
+	<p>
+		[pc.speech(Yes, this is your room now. Is everything ok?)]
+	</p>
+	<p>
+		[npc.speech(It's more than ok... I don't know what to say... This is the best thing that's ever happened to me!)] [npc.name] replies, trying to hold back tears of joy. before you can reply, [npc.she] suddenly rushes forwards and throws [npc.her] [npc.arms] around you. [npc.speech(Thank you so, so much! You've changed my life!)]
+	</p>
+	<p>
+		You happily return [npc.namePos] hug for a moment, before [npc.she] pulls back and wipes the tears from [npc.her] [npc.eyes]. [npc.speech(I'll keep on looking for a job, and once I've got one, I'll start paying rent. I'll repay you for all of this, I promise!)]
+	</p>
+	<p>
+		Telling [npc.name] to take it easy, and to spend some time getting used to [npc.her] new room, you step over to the door and prepare to take your leave. Before you depart, however, [npc.name] once again thanks you for your kindness, and tells you that [npc.she] is eternally grateful to you for having saved [npc.herHim] from [npc.her] terrible life.
+	</p>
+	<p>
+		Promising [npc.herHim] that you'll be back later to check up on [npc.herHim], you step out of [npc.namePos] room and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_PEACEFUL"><![CDATA[
 	<p>
-		You gather your things and prepare to continue on your way.
+		Both you and [npc.name] let out a happy sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] smiles and says, [npc.speech(That was great... Thanks [pc.name], I really needed that.)]
+	</p>
+	<p>
+		The two of you set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you then set off on your journey...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_PEACEFUL_NO_ORGASM"><![CDATA[
 	<p>
-		You gather your things and prepare to continue on your way. [npc.Name] is annoyed that [npc.she] didn't orgasm.
+		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but I wish you'd let me orgasm... Oh well, it was still nice sharing that time with you, [pc.name].)]
+	</p>
+	<p>
+		The two of you set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you then set off on your journey...
 	</p>
 	]]>
 	</htmlContent>
-	
 	
 	
 	<htmlContent tag="ALLEY_ATTACK_CANAL_INTRO"><![CDATA[
@@ -397,6 +670,22 @@
 	</p>
 	<p>
 		You wonder if you should indulge [npc.her] request. After all, [npc.she] <i>was</i> planning on doing the same to you, and [npc.she] quite clearly wants it. Then again, maybe it's best to just turn around and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_BETRAYED"><![CDATA[
+	<p>
+		[npc.Name] collapses to the floor, completely defeated. [npc.She] glances up at you for a moment, before casting [npc.her] gaze to the floor, and in that brief moment, you see that all of the hope and energy in [npc.namePos] face has totally vanished. Making a pitiful little whining noise, [npc.she] then bursts into tears, sobbing and wailing for a moment before wiping [npc.her] [npc.eyes] and looking up at you.
+	</p>
+	<p>
+		[npc.speech(J-Just take all my money and leave!)] [npc.she] pleads, throwing [npc.her] #IFnpc.isFeminine()#THENpurse#ELSEwallet#ENDIF at your feet. [npc.speech(I thought you were different, but you just wanted to hurt me, like all the others!)]
+	</p>
+	<p>
+		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this will be the last time you ever see [npc.herHim].)]
 	</p>
 	]]>
 	</htmlContent>
@@ -579,6 +868,25 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_BETRAYED"><![CDATA[
+	<p>
+		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A pitiful whine causes you to look up, and you see tears starting to fill [npc.namePos] [npc.eyes] as [npc.she] looks down at you.
+	</p>
+	<p>
+		[npc.speech(W-Why did you do this?!)] [npc.she] asks, not even bothering to wait to hear your answer before continuing, [npc.speech(I thought you were different, but you just wanted to hurt me, like all the others! J-Just give me your money!)]
+	</p>
+	<p>
+		Pulling you to your feet, [npc.name] roughly pushes you against a nearby wall, [npc.her] sorrow quickly turning to anger as [npc.she] violently forces you hand over some of your cash. Having taken your moeny, [npc.she] then roughly pushes you to the floor once more.
+	</p>
+	<p>
+		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this was be the last time you'll ever see [npc.herHim].)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
@@ -652,6 +960,26 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_VICTORY_RAPE_BETRAYED"><![CDATA[
+	#IF game.isNonConEnabled()
+	#THEN
+		<p>
+			As you step back from [npc.name], [npc.she] sinks to the floor, letting out a pitiful wail as [npc.she] realises that you've finished. Completely broken by the sudden betrayal and rape, [npc.she] starts uncontrollably sobbing and crying.
+		</p>
+		<p>
+			Letting out a triumphant laugh, you start gathering your things, but before taking your leave, you wonder if you should help yourself to any of [npc.namePos] belongings...
+		</p>
+	#ELSE
+		<p>
+			As you step back from [npc.name], [npc.she] sinks to the floor, letting out a deep sigh as [npc.she] realises that you've finished. Still deeply upset at the way you betrayed [npc.her] trust, [npc.she] quickly starts gathering [npc.her] things, intent on leaving this place for good.
+		</p>
+		<p>
+			Similarly getting your things back in order, you wonder if you should help yourself to any of [npc.namePos] belongings before you move on...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>	
 	
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	<p>

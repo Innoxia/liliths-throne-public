@@ -190,6 +190,8 @@ public class Breast implements BodyPartInterface, Serializable {
 		this.type = type;
 		nipples.setType(owner, type.getNippleType());
 		milk.setType(type.getFluidType());
+		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
+		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
 		
 		switch (type) {
 			case HUMAN:

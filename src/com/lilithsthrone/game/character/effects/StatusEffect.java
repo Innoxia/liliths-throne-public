@@ -49,13 +49,13 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -4376,7 +4376,7 @@ public enum StatusEffect {
 					&& target.getPenisRawCumStorageValue()>0
 					&& target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue()
 					&& target.hasPenisIgnoreDildo()
-					&& (target.isPlayer() || target.getPlayerKnowsAreas().contains(CoverableArea.PENIS));
+					&& (target.isPlayer() || target.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -4415,7 +4415,7 @@ public enum StatusEffect {
 					&& target.getPenisRawCumStorageValue()>0
 					&& target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue()
 					&& target.hasPenisIgnoreDildo()
-					&& (target.isPlayer() || target.getPlayerKnowsAreas().contains(CoverableArea.PENIS));
+					&& (target.isPlayer() || target.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()));
 		}
 		
 		@Override

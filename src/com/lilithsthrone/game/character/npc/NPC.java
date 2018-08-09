@@ -42,7 +42,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
@@ -67,6 +67,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -76,7 +77,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -129,7 +129,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-					getPlayerKnowsAreas().add(ca);
+					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
 		}
@@ -201,14 +201,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public void resetSlaveFlags() {
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveBackground);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveSmallTalk);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveEncourage);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveHug);
-		NPCFlagValues.remove(NPCFlagValue.flagSlavePettings);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveInspect);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveSpanking);
-		NPCFlagValues.remove(NPCFlagValue.flagSlaveMolest);
+		for(NPCFlagValue flag : NPCFlagValue.getSlaveFlags()) {
+			NPCFlagValues.remove(flag);
+		}
+	}
+	
+	public void resetOccupantFlags() {
+		for(NPCFlagValue flag : NPCFlagValue.getOccupantFlags()) {
+			NPCFlagValues.remove(flag);
+		}
 	}
 	
 	/**
@@ -2973,7 +2974,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 				
-				if (getHistory() == History.NPC_PROSTITUTE) {
+				if (getHistory() == Occupation.NPC_PROSTITUTE) {
 					if(Sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}

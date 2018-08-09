@@ -18,7 +18,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.79
- * @version 0.1.89
+ * @version 0.2.10
  * @author Innoxia
  */
 public class GenericAndrogynousNPC extends NPC {
@@ -28,7 +28,7 @@ public class GenericAndrogynousNPC extends NPC {
 	}
 	
 	public GenericAndrogynousNPC(boolean isImported) {
-		super(new NameTriplet("Androgynous"), "Generic androgynous.",
+		super(new NameTriplet("Someone"), "Generic androgynous.",
 				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
@@ -39,6 +39,8 @@ public class GenericAndrogynousNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		this.setName(new NameTriplet("Someone"));
 	}
 	
 	@Override

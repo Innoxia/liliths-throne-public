@@ -135,7 +135,7 @@ import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.MoralityValue;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -155,7 +155,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
@@ -178,6 +178,10 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
@@ -188,10 +192,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
-import com.lilithsthrone.game.slavery.SlavePermission;
-import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
@@ -212,7 +212,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.10
  * @author Innoxia
  */
 public abstract class GameCharacter implements XMLSaving {
@@ -237,7 +237,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected int level;
 	protected LocalDateTime birthday;
 	
-	protected History history;
+	protected Occupation history;
 	protected Map<PersonalityTrait, PersonalityWeight> personality;
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
@@ -336,7 +336,7 @@ public abstract class GameCharacter implements XMLSaving {
 	private int totalOrgasmCount;
 	private int daysOrgasmCount;
 	private int daysOrgasmCountRecord;
-	protected Set<CoverableArea> playerKnowsAreas;
+	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
 	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	
 	
@@ -394,7 +394,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game != null) {
 				this.birthday = Main.game.getDateNow().minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0)).minusDays(1);
 			} else {
-				this.birthday = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0));
+				this.birthday = LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), 00, 00).minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0));
 			}
 		} else {
 			this.setBirthday(birthday);
@@ -493,8 +493,11 @@ public abstract class GameCharacter implements XMLSaving {
 		daysOrgasmCount = 0;
 		daysOrgasmCountRecord = 0;
 		
-		// Player knowledge:
-		playerKnowsAreas = new HashSet<>();
+		// Coverable area knowledge:
+		areasKnownByCharactersMap = new HashMap<>();
+		for(CoverableArea area : CoverableArea.values()) {
+			areasKnownByCharactersMap.put(area, new HashSet<>());
+		}
 		
 		fluidsStoredMap = new HashMap<>();
 		
@@ -531,7 +534,7 @@ public abstract class GameCharacter implements XMLSaving {
 			bonusAttributes.put(a, 0f);
 		}
 		
-		setHistory(History.UNEMPLOYED);
+		setHistory(Occupation.UNEMPLOYED);
 		// Set starting attributes based on the character's race
 		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
 			attributes.put(a, startingRace.getAttributeModifiers().get(a).getMinimum() + startingRace.getAttributeModifiers().get(a).getRandomVariance());
@@ -559,6 +562,8 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateStatusEffects(0);
 
 		artworkList = new ArrayList<>();
+		
+		PerkManager.initialisePerks(this);
 	}
 	
 
@@ -623,13 +628,20 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
 		
 		// Knows area map:
-		Element characterPlayerKnowsAreas = doc.createElement("playerKnowsAreas");
-		characterCoreInfo.appendChild(characterPlayerKnowsAreas);
-		for(CoverableArea area: getPlayerKnowsAreas()){
-			Element element = doc.createElement("area");
-			characterPlayerKnowsAreas.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "type", area.toString());
+		Element areasKnownByCharactersElement = doc.createElement("areasKnownByCharacters");
+		characterCoreInfo.appendChild(areasKnownByCharactersElement);
+		for(CoverableArea area: CoverableArea.values()){
+			if(!this.areasKnownByCharactersMap.get(area).isEmpty()) {
+				Element element = doc.createElement("area");
+				areasKnownByCharactersElement.appendChild(element);
+				CharacterUtils.addAttribute(doc, element, "type", area.toString());
+				
+				for(String id : areasKnownByCharactersMap.get(area)) {
+					Element elementId = doc.createElement("character");
+					element.appendChild(elementId);
+					CharacterUtils.addAttribute(doc, elementId, "id", id);
+				}
+			}
 		}
 		
 		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
@@ -980,7 +992,7 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "sexAsDomCount", String.valueOf(entry.getValue().getSexAsDomCount()));
 		}
 		
-		Element characterCumCount = doc.createElement("cumCounts"); //TODO
+		Element characterCumCount = doc.createElement("cumCounts");
 		characterSexStats.appendChild(characterCumCount);
 		for(SexParticipantType participant : SexParticipantType.values()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
@@ -1212,10 +1224,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		if(element.getElementsByTagName("history").getLength()!=0) {
 			try {
-				character.setHistory(History.valueOf(((Element)element.getElementsByTagName("history").item(0)).getAttribute("value")));
+				String history = ((Element)element.getElementsByTagName("history").item(0)).getAttribute("value");
+				
+				if(history.equals("OCCUPATION_UNEMPLOYED_NPC")) {
+					history = "OCCUPATION_NPC_UNEMPLOYED";
+				}
+				
+				character.setHistory(Occupation.valueOf(history));
 				CharacterUtils.appendToImportLog(log, "<br/>Set history: "+character.getHistory());
 			} catch(Exception ex) {
-				character.setHistory(History.STUDENT);
+				character.setHistory(Occupation.STUDENT);
 				CharacterUtils.appendToImportLog(log, "<br/>History import failed. Set history to: "+character.getHistory());
 			}
 		}
@@ -1322,19 +1340,50 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set mana: "+character.getMana());
 		}
 
-		nodes = parentElement.getElementsByTagName("playerKnowsAreas");
-		Element knowsElement = (Element) nodes.item(0);
-		if(knowsElement!=null) {
-			NodeList knownAreas = knowsElement.getElementsByTagName("area");
-			for(int i=0; i<knownAreas.getLength(); i++){
-				Element e = ((Element)knownAreas.item(i));
+		// Knows area map:
+		try {
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10")) {
+				nodes = parentElement.getElementsByTagName("playerKnowsAreas");
+				Element knowsElement = (Element) nodes.item(0);
+				if(knowsElement!=null) {
+					NodeList knownAreas = knowsElement.getElementsByTagName("area");
+					for(int i=0; i<knownAreas.getLength(); i++){
+						Element e = ((Element)knownAreas.item(i));
+
+						CoverableArea ca = CoverableArea.valueOf(e.getAttribute("type"));
+						try {
+							String id = Main.game.getPlayer().getId();
+							character.setAreaKnownByCharacter(ca, id, true);
+							CharacterUtils.appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
+						}catch(IllegalArgumentException ex){
+						}
+					}
+				}
 				
-				try {
-					character.getPlayerKnowsAreas().add(CoverableArea.valueOf(e.getAttribute("type")));
-					CharacterUtils.appendToImportLog(log, "<br/>Added knows area: "+CoverableArea.valueOf(e.getAttribute("type")).getName());
-				}catch(IllegalArgumentException ex){
+			} else {
+				nodes = parentElement.getElementsByTagName("areasKnownByCharacters");
+				Element knowsElement = (Element) nodes.item(0);
+				if(knowsElement!=null) {
+					NodeList knownAreas = knowsElement.getElementsByTagName("area");
+					for(int i=0; i<knownAreas.getLength(); i++){
+						Element e = ((Element)knownAreas.item(i));
+						
+						CoverableArea ca = CoverableArea.valueOf(e.getAttribute("type"));
+						
+						NodeList characters = e.getElementsByTagName("character");
+						for(int j=0; j<knownAreas.getLength(); j++){
+							Element characterIdElement = ((Element)characters.item(j));
+							try {
+								String id = characterIdElement.getAttribute("id");
+								character.setAreaKnownByCharacter(ca, id, true);
+								CharacterUtils.appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
+							}catch(IllegalArgumentException ex){
+							}
+						}
+					}
 				}
 			}
+		} catch(Exception ex) {
 		}
 		
 		
@@ -2008,7 +2057,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		
-		// Cum counts: TODO
+		// Cum counts:
 		element = (Element) (sexStatsElement).getElementsByTagName("cumCounts").item(0);
 		NodeList cumCountElements = element.getElementsByTagName("cumCountGiving");
 		for(int i = 0; i < cumCountElements.getLength(); i++){
@@ -2191,6 +2240,20 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// Initialize artworks (name and femininity must be set at this point)
 		character.loadImages(artistIndex, imageIndex);
+		
+		
+		// ************** Version Overrides **************//
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10") && !character.isPlayer()) {
+			character.setPerkPoints(character.getPerkPointsAtLevel(character.getTrueLevel()));
+			PerkManager.initialisePerks(character);
+			
+			// All non-unique characters are muggers or prostitutes as of version 0.2.10:
+			if(!character.isUnique() && character.getHistory()!=Occupation.NPC_PROSTITUTE) {
+				character.setHistory(Occupation.NPC_MUGGER);
+			}
+			
+		}
 	}
 
 	/**
@@ -2486,8 +2549,59 @@ public abstract class GameCharacter implements XMLSaving {
 		this.playerKnowsName = playerKnowsName;
 	}
 
-	public Set<CoverableArea> getPlayerKnowsAreas() {
-		return playerKnowsAreas;
+	/**
+	 * @param area
+	 * @param target
+	 * @return true if the target knows what this character's area looks like.
+	 */
+	public boolean isAreaKnownByCharacter(CoverableArea area, GameCharacter target) {
+		if(target.equals(this)) {
+			return true;
+		}
+		return areasKnownByCharactersMap.get(area).contains(target.getId());
+	}
+	
+	public void setAreaKnownByCharacter(CoverableArea area, String targetId, boolean known) {
+		if(known) {
+			areasKnownByCharactersMap.get(area).add(targetId);
+		} else {
+			areasKnownByCharactersMap.get(area).remove(targetId);
+		}
+	}
+	
+	public void setAreaKnownByCharacter(CoverableArea area, GameCharacter target, boolean known) {
+		setAreaKnownByCharacter(area, target.getId(), known);
+	}
+
+	/**
+	 * Removes all other character's knowledge of this area.
+	 */
+	public void resetAreaKnownByCharacters(CoverableArea area) {
+		areasKnownByCharactersMap.get(area).clear();
+	}
+	
+	/**
+	 * @param area
+	 * @param target
+	 * @return true if this character knows what the target's area looks like.
+	 */
+	public boolean isKnowsCharacterArea(CoverableArea area, GameCharacter target) {
+		if(target.equals(this)) {
+			return true;
+		}
+		return target.isAreaKnownByCharacter(area, this);
+	}
+
+	public void setKnowsCharacterArea(CoverableArea area, String targetId, boolean known) {
+		try {
+			Main.game.getNPCById(targetId).setAreaKnownByCharacter(area, this, known);
+		} catch(Exception ex) {
+			System.err.println("Error in GameCharacter method: setKnowsCharacterArea() - No character with supplied Id '"+targetId+"' found!");
+		}
+	}
+
+	public void setKnowsCharacterArea(CoverableArea area, GameCharacter target, boolean known) {
+		target.setAreaKnownByCharacter(area, this, known);
 	}
 
 	public String getSpeechColour() {
@@ -2963,15 +3077,17 @@ public abstract class GameCharacter implements XMLSaving {
 		return birthday.getDayOfMonth();
 	}
 	
-
-	public History getHistory() {
+	public Occupation getHistory() {
+		if(!this.isPlayer() && this.isSlave()) {
+			return Occupation.NPC_SLAVE;
+		}
 		return history;
 	}
 
 	/**
 	 * Only player character gets job attribute bonuses.
 	 */
-	public void setHistory(History history) {
+	public void setHistory(Occupation history) {
 		// Revert attributes from old History:
 		if (this.history != null) {
 			if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
@@ -3464,7 +3580,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getSlaveryTotalDailyUpkeep() {
 		int i=0;
-		for(Cell c : SlaveryManagementDialogue.getImportantCells()) {
+		for(Cell c : OccupantManagementDialogue.getImportantCells()) {
 			i += c.getPlace().getUpkeep();
 		}
 		return i;
@@ -4202,9 +4318,8 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateSpecialAttacks();
 		
 		updateAttributeListeners();
-
-		this.addPerk(Perk.PHYSICAL_BASE);
-		this.addPerk(Perk.ARCANE_BASE);
+		
+		PerkManager.initialisePerks(this);
 	}
 	
 	public Map<Integer, Set<Perk>> getPerksMap() {
@@ -4231,7 +4346,7 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if(equipped) {
 				return traits.contains(p);
 			} else {
-				return hasPerkInTree(PerkManager.MANAGER.getPerkRow(p), p);
+				return hasPerkInTree(PerkManager.MANAGER.getPerkRow(this, p), p);
 			}
 		}
 		return false;
@@ -4254,7 +4369,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public boolean addPerk(Perk perk) {
-		return addPerk(PerkManager.MANAGER.getPerkRow(perk), perk);
+		return addPerk(PerkManager.MANAGER.getPerkRow(this, perk), perk);
 	}
 	
 	public boolean addPerk(int row, Perk perk) {
@@ -4973,15 +5088,15 @@ public abstract class GameCharacter implements XMLSaving {
 		return cumCountMap.get(sexType);
 	}
 	
-	public int getTotalCumCountInOrifice(SexAreaOrifice ot, boolean includeGiven, boolean includeTaken) {
+	public int getTotalCumCountInArea(SexAreaInterface area, boolean includeGiven, boolean includeTaken) {
 		int total = 0;
 		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {
-			if(count.getKey().getPerformingSexArea()==ot) {
+			if(count.getKey().getPerformingSexArea()==area) {
 				if(includeTaken) {
 					total+=count.getValue();
 				}
 			}
-			if(count.getKey().getTargetedSexArea()==ot) {
+			if(count.getKey().getTargetedSexArea()==area) {
 				if(includeGiven) {
 					total+=count.getValue();
 				}
@@ -4993,13 +5108,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getTotalCumCount(boolean includeGiven, boolean includeTaken) {
 		int total = 0;
 		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {
-			if(count.getKey().getPerformingSexArea().isOrifice()) {
-				if(includeTaken) {
+			if(count.getKey().getPerformingSexArea()==SexAreaPenetration.PENIS) {
+				if(includeGiven) {
 					total+=count.getValue();
 				}
 			}
-			if(count.getKey().getTargetedSexArea().isOrifice()) {
-				if(includeGiven) {
+			if(count.getKey().getTargetedSexArea()==SexAreaPenetration.PENIS) {
+				if(includeTaken) {
 					total+=count.getValue();
 				}
 			}
@@ -8457,241 +8572,135 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "[npc2.speech(Looking to have a little extra fun, huh?)]"
 						+ "</p>");
 				}
-				// Feminine NPC:
-				if(this.isFeminine()) {
-					if(!Sex.isDom(this)) {
-						if(characterBeingRevealed.isFeminine()) {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.Name] fails to suppress a little giggle as your tiny [npc.cock] is revealed, "
-											+ "[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.TWO_AVERAGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised gasp as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Ooh! You're [npc.a_gender]?!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("[npc2.Name] grins as your [npc.cockSize] [npc.cock] is revealed, "
-												+ "[npc2.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [npc.a_gender]!)]");
-								} else {
-									sb.append("[npc2.Name] gasps in surprise as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! Y-You're [npc.a_gender]?!)]");
-								}
-								
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("Her eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-												+ "[npc2.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [npc.a_gender] with such a huge cock!)]");
-								} else {
-									sb.append("[npc2.NamePos] eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! I've never seen [npc.a_gender] with such a huge cock!)]");
-								}
-								
+
+				switch(characterBeingRevealed.getPenisSize()) {
+					case NEGATIVE_UTILITY_VALUE:
+					case ZERO_MICROSCOPIC:
+					case ONE_TINY:
+						if(this.isFeminine()) {
+							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] fails to suppress a mocking giggle your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a little giggle as your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a derisive sneer as your tiny [npc.cock] is revealed, "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(Your little clitty dick is as cute as ever!)]",
+										"[npc2.speech(That's just so unbelievably pathetic!)]",
+										"[npc2.speech(What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!)]"));
 							} else {
-								sb.append("[npc2.NamePos] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Holy shit! I didn't think [npc.gender]s could get cocks like that!)]");
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] fails to suppress a mocking giggle as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], ",
+										"[npc2.Name] lets out a surprised laugh as your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a derisive laugh as [npc2.she] sees your tiny [npc.cock], "));
+								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]",
+											"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic little clitty dick you've got!)]"));
+								} else {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Aww, that's so cute! I love it when [npc.gender]s have little clitty dicks like that!)]",
+											"[npc2.speech(Aww, that's such a cute little clitty dick, for such a cute little [npc.gender]!)]"));
+								}
 							}
 							
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
-								sb.append("[npc2.She] fails to suppress a mocking laugh as your tiny [npc.cock] is revealed, "
-											+ "[npc2.speech(Hahaha, that's so pathetic! It's like a little clit!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.She] lets out a patronising 'aww' as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Look at that cute little thing!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
-								sb.append("[npc2.She] grins as your [npc.cockSize] [npc.cock] is revealed, "
-												+ "[npc2.speech(~Mmm!~ Now that's what I like to see!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								sb.append("Her eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Oh wow... This is gonna be good!)]");
-								
+							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] fails to suppress a booming, mocking laugh your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a grunt as your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a derisive grunt as your tiny [npc.cock] is revealed, "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(That thing's more like a clit than a real cock!)]",
+										"[npc2.speech(That's just so unbelievably pathetic!)]",
+										"[npc2.speech(Your cock is as pathetic as ever! Hah!)]"));
 							} else {
-								sb.append("[npc2.NamePos] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Holy shit! Now <i>that's</i> a cock!)]");
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] lets out a booming, mocking laugh your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a derisive grunt as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], "));
+								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc.a_gender]!)]",
+											"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
+								} else {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Is that pathetic little thing your cock?! Well, I guess you <i>are</i> a [npc.gender]...)]",
+											"[npc2.speech(Such a pathetic little clitty dick, for such a helpless little [npc.gender]!)]"));
+								}
 							}
 						}
-						
-					} else {
-						if (characterBeingRevealed.isFeminine()) {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
-								sb.append("[npc2.She] lets out a little giggle as your tiny [npc.cock] is revealed, "
-										+ "[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]");
-			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.She] lets out a surprised gasp as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(Ooh! You're a cute little [npc.gender], aren't you?!)]");
-			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("[npc2.Name] grins as your [npc.cockSize] [npc.cock] is revealed, "
-												+ "[npc2.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [npc.a_gender]!)]");
-								} else {
-									sb.append("[npc2.Name] gasps in surprise as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! Y-You're [npc.a_gender]?!)]");
-								}
-								
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("Her eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-												+ "[npc2.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [npc.a_gender] with such a huge cock!)]");
-								} else {
-									sb.append("[npc2.NamePos] eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! I've never seen [npc.a_gender] with such a huge cock!)]");
-								}
-			
-							} else {
-								sb.append("[npc2.Her] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(Holy shit! I didn't think [npc.gender]s could get cocks like that!)]");
-							}
-			
+						break;
+					case TWO_AVERAGE:
+					case THREE_LARGE:
+						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.speech(That's a nice cock you've got!)]",
+									"[npc2.speech(Oh yeah, bring that over here!)]",
+									"[npc2.speech(Come on, put that cock of yours to use!)]"));
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
-								sb.append("[npc2.She] lets out a mocking laugh as your tiny [npc.cock] is revealed, "
-										+ "[npc2.speech(Hahaha, that's so pathetic!)]");
-			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.She] lets out a patronising 'aww' as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(Look at that cute little thing!)]");
-			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								sb.append("[npc2.She] grins as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(~Mmm!~ That looks pretty good!)]");
-			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								sb.append("Her eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(Oh wow...)]");
-			
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] fails to suppress a flustered [npc2.moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+									"[npc2.Name] lets out a surprised [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a startled [npc2.moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+							if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(Hey! I didn't realise you were [npc.a_gender]! Well, whatever...)]",
+										"[npc2.speech(Wait, you're [npc.a_gender]?! Well, whatever...)]"));
 							} else {
-								sb.append("[npc2.Her] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-										+ "[npc2.speech(Holy shit! Now <i>that's</i> a cock!)]");
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(That's a nice cock... For [npc.a_gender], that is...)]",
+										"[npc2.speech(Mmm, nice cock, I guess...)]"));
 							}
 						}
-					}
-					
-				// Masculine NPC:
-				} else {
-					if(!Sex.isDom(this)){
-						if (characterBeingRevealed.isFeminine()) {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, "
-											+ "[npc2.speech(Wait, what?! I thought you were a girl... Well, it looks cute enough...)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Wait, what?! You're [npc.a_gender]?!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(I should have guessed from that bulge...)]");
-								} else {
-									sb.append("[npc2.Name] gasps in surprise as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! Y-You're [npc.a_gender]?!)]");
-								}
-								
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								if(characterBeingRevealed.isPenisBulgeVisible()) {
-									sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													?"[npc2.speech(I saw you had a bulge, but what the hell?! How does [npc.a_gender] have a bigger cock than <i>me</i>?!)]"
-													:"[npc2.speech(I saw you had a bulge, but damn! That's one massive cock !)]"));
-								} else {
-									sb.append("[npc2.NamePos] eyes open wide as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(W-Wait, what?! I've never seen [npc.a_gender] with such a huge cock!"
-												+(this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()?" It's even bigger than mine!":"")+")]");
-								}
-								
-							} else {
-								sb.append("[npc2.NamePos] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Holy shit! I didn't think "+characterBeingRevealed.getGender().getName()+"s could get cocks that big!)]");
-							}
-							
+						break;
+					case FOUR_HUGE:
+					case FIVE_ENORMOUS:
+						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.speech(Your cock's so huge! I'll never get tired of seeing it bounce free like that...)]",
+									"[npc2.speech(Oh yeah, bring that huge cock of yours over to me!)]",
+									"[npc2.speech(Oh yeah, your cock's just so huge, I'll never get tired of it!)]"));
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
-								sb.append("[npc2.Name] struggles to suppress a mocking grunt as your tiny [npc.cock] is revealed, "
-											+ "[npc2.speech(Pfft! What a cute little thing...)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a patronising grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Hah! Look at that little thing!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													? "[npc2.speech(Huh... That's even bigger than mine...)]"
-													: "[npc2.speech(That's pretty big, I guess...)]"));
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													? "[npc2.speech(Fuck... It's even bigger than mine!)]"
-													: "[npc2.speech(Now that's one huge cock!)]"));
-								
-							} else {
-								sb.append("[npc2.Name] gulps nervously as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Fuck... That thing's massive...)]");
-							}
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] fails to suppress [npc2.a_moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+									"[npc2.Name] lets out [npc2.a_moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out [npc2.a_moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.speech(That thing's huge! I mean, I could tell it was from your bulge, but damn...)]",
+									"[npc2.speech(Holy shit! I could see it was big from your bulge, but wow...)]"));
 						}
-						
-					} else {
-						if (characterBeingRevealed.isFeminine()) {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, "
-											+ "[npc2.speech(Wait, what?! I thought you were a girl! Well, it doesn't really matter...)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Wait, what?! You're [npc.a_gender]?!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(I should have guessed from that bulge...)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													? "[npc2.speech(I saw you had a bulge, but what the hell?! How does [npc.a_gender] have a bigger cock than <i>me</i>?!)]"
-													: "[npc2.speech(Now that's one huge cock!)]"));
-								
-							} else {
-								sb.append("[npc2.NamePos] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Holy shit! I didn't think [npc.gender]s could get cocks that big!)]");
-							}
-							
+						break;
+					case SIX_GIGANTIC:
+					case SEVEN_STALLION:
+						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.speech(I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...)]",
+									"[npc2.speech(Oh yeah, bring that gigantic cock of yours over to me!)]",
+									"[npc2.speech(Your cock's so huge! I don't think I'll ever get tired of it!)]"));
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a derisive sneer as your tiny [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-												? "[npc2.speech(Hah! That's so pathetic! I'll show you what a real cock looks like!)]"
-												: "[npc2.speech(Hah! That's so pathetic!)]"));
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a patronising sneer as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Hah! Look at that little thing!)]");
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a derisive sneer as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-												? "[npc2.speech(Huh... Trying to compete with me for size are you?)]"
-												: "[npc2.speech(That's pretty big, I guess...)]"));
-					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								sb.append("[npc2.Name] lets out a surprised grunt as your [npc.cockSize] [npc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-												? "[npc2.speech(Fuck... You're even bigger than me...)]"
-												: "[npc2.speech(Now that's one huge cock!)]"));
-								
-							} else {
-								sb.append("[npc2.NamePos] jaw drops as your [npc.cockSize] [npc.cock] is revealed, "
-											+ "[npc2.speech(Fuck...)]");
-							}
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.Name] fails to suppress [npc2.a_moan+] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+									"[npc2.Name] lets out [npc2.a_moan+] as your [npc.cockSize] [npc.cock] is revealed, ",
+									"[npc2.Name] lets out [npc2.a_moan+] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+							sb.append(UtilText.returnStringAtRandom(
+									"[npc2.speech(What?! Holy shit! Your cock's <i>huge</i>!)]",
+									"[npc2.speech(Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!)]"));
 						}
-					}
+						break;
 				}
+				
 			} else {
 				sb.append(UtilText.returnStringAtRandom(
 								"[npc2.Name] lets out [npc2.a_sob+] as your [npc.penis+] is revealed.",
@@ -8703,7 +8712,7 @@ public abstract class GameCharacter implements XMLSaving {
 				sb.append("[npc.Name] grins as [npc.she] reveals the fact that [npc.sheIs] wearing a strap-on. "
 						+ "[npc.speech(Time for a little extra fun!)]");
 			}
-			if(this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) || !isFeminine()) {
+			if(this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) || !isFeminine()) {
 				switch(pace) {
 					case DOM_GENTLE:
 							sb.append("[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.cock+] is revealed.");
@@ -8821,7 +8830,7 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 			}
 			
-		} else if(this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) || !charactersReacting.contains(Main.game.getPlayer()) || isFeminine()) {
+		} else if(this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) || !charactersReacting.contains(Main.game.getPlayer()) || isFeminine()) {
 			switch(pace) {
 				case DOM_GENTLE:
 					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed."));
@@ -11691,6 +11700,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void setWorldLocation(WorldType worldLocation) {
+		if(this.worldLocation != worldLocation && this.isPlayer()) {
+			Main.game.setRequestAutosave(true);
+		}
 		this.worldLocation = worldLocation;
 	}
 	
@@ -11712,17 +11724,44 @@ public abstract class GameCharacter implements XMLSaving {
 		if(setAsHomeLocation) {
 			setHomeLocation(worldType, location);
 		}
-		if(this.isPlayer() && Main.game.isStarted() && Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
-			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
-		}
+//		if(this.isPlayer() && Main.game.isStarted() && Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
+//			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
+//		}
 	}
 
 	public void setRandomUnoccupiedLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(), setAsHomeLocation);
 	}
+
+	/**
+	 * Moves this character to a random unoccupied cell, of one of the supplied placeTypes. If none of the placeTypes have an unoccupied cell, this character is moved to a random occupied one instead.
+	 */
+	public void setRandomUnoccupiedLocation(WorldType worldType, boolean setAsHomeLocation, PlaceType... placeTypes) {
+		List<Cell> unoccupiedCells = new ArrayList<>();
+		List<Cell> occupiedCells = new ArrayList<>();
+		
+		for(PlaceType pt : placeTypes) {
+			Cell c = Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(pt);
+			if(Main.game.getCharactersPresent(c).isEmpty()) {
+				unoccupiedCells.add(c);
+			} else {
+				occupiedCells.add(c);
+			}
+		}
+		
+		if(!unoccupiedCells.isEmpty()) {
+			setLocation(worldType, Util.randomItemFrom(unoccupiedCells).getLocation(), setAsHomeLocation);
+		} else {
+			setLocation(worldType, Util.randomItemFrom(occupiedCells).getLocation(), setAsHomeLocation);
+		}
+	}
 	
 	public void setRandomLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
+	}
+	
+	public void setNearestLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getNearestCell(placeType, this.getLocation()).getLocation(), setAsHomeLocation);
 	}
 	
 	public void setLocation(WorldType worldType, PlaceType placeType) {
@@ -11767,6 +11806,11 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
+	public void setHomeLocation() {
+		this.homeWorldLocation = this.getWorldLocation();
+		this.homeLocation = this.getLocation();
+	}
+	
 	public void setHomeLocation(WorldType homeWorldLocation, PlaceType placeType) {
 		this.homeWorldLocation = homeWorldLocation;
 		this.homeLocation = Main.game.getWorlds().get(homeWorldLocation).getCell(placeType).getLocation();
@@ -11780,7 +11824,11 @@ public abstract class GameCharacter implements XMLSaving {
 	public void returnToHome() {
 		setLocation(homeWorldLocation, homeLocation, true);
 	}
-
+	
+	public boolean isAtHome() {
+		return this.getLocation().equals(this.getHomeLocation()) && this.getWorldLocation().equals(this.getHomeWorldLocation());
+	}
+	
 	private int getTrueLevel() {
 		return level;
 	}
@@ -12627,10 +12675,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String unequipClothingIntoUnequippersInventory(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
-		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.getPlayerKnowsAreas().contains(CoverableArea.ANUS) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -12658,7 +12706,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!this.isPlayer() && Main.game.getCharactersPresent().contains(this)) {
 				for(CoverableArea ca : CoverableArea.values()) {
 					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-						this.getPlayerKnowsAreas().add(ca);
+						this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 					}
 				}
 			}
@@ -12707,10 +12755,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String unequipClothingIntoInventory(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
-		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.getPlayerKnowsAreas().contains(CoverableArea.ANUS) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -12738,7 +12786,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 				for(CoverableArea ca : CoverableArea.values()) {
 					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-						this.getPlayerKnowsAreas().add(ca);
+						this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 					}
 				}
 			}
@@ -12788,10 +12836,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public String unequipClothingOntoFloor(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
-		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.getPlayerKnowsAreas().contains(CoverableArea.ANUS) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -12821,7 +12869,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-					this.getPlayerKnowsAreas().add(ca);
+					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
 		}
@@ -12870,10 +12918,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
-		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.getPlayerKnowsAreas().contains(CoverableArea.ANUS) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
 
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
 
@@ -12894,7 +12942,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner()!=null && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-					this.getPlayerKnowsAreas().add(ca);
+					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
 		}
@@ -12958,10 +13006,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return True if the clothing can be displaced, false if it can't/
 	 */
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement, GameCharacter characterClothingDisplacer) {
-		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
-		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
-		boolean unknownVagina = !this.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
-		boolean unknownAss = !this.getPlayerKnowsAreas().contains(CoverableArea.ANUS) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
+		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
+		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
+		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.VAGINA);
+		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaExposed(CoverableArea.ANUS);
 		
 		boolean wasAbleToDisplace = inventory.isAbleToBeDisplaced(clothing, dt, displaceIfAble, automaticClothingManagement, this, characterClothingDisplacer);
 
@@ -12974,7 +13022,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-					this.getPlayerKnowsAreas().add(ca);
+					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
 			

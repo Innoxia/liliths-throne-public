@@ -1792,6 +1792,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	public boolean isCoverableAreaExposed(CoverableArea area) {
+		if(area==CoverableArea.TESTICLES) { // TODO I haven't added proper checks in clothing for testicle access, so use penis access:
+			return isAbleToAccessCoverableArea(CoverableArea.PENIS, false);
+		}
 		return isAbleToAccessCoverableArea(area, false);
 	}
 

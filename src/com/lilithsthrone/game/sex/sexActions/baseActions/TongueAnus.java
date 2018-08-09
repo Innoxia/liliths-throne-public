@@ -731,7 +731,7 @@ public class TongueAnus {
 
 					"With a soft [npc.moan], [npc.name] [npc.verb(press)] [npc.her] [npc.ass+] against [npc2.namePos] [npc2.face+], before gently grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
-					"Letting out a soft [npc.moan], [npc.name] gently [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc.lips]."));
+					"Letting out a soft [npc.moan], [npc.name] gently [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc2.lips]."));
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
 			
@@ -769,7 +769,7 @@ public class TongueAnus {
 
 					"With [npc.a_moan+], [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.ass+] against [npc2.namePos] [npc2.face+], before greedily grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
-					"Letting out [npc.a_moan+], [npc.name] eagerly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc.lips]."));
+					"Letting out [npc.a_moan+], [npc.name] eagerly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc2.lips]."));
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
 			
@@ -807,7 +807,7 @@ public class TongueAnus {
 
 					"With [npc.a_moan+], [npc.name] roughly [npc.verb(slam)] [npc.her] [npc.ass+] against [npc2.namePos] [npc2.face+], before forcefully grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
-					"Letting out [npc.a_moan+], [npc.name] roughly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc.lips]."));
+					"Letting out [npc.a_moan+], [npc.name] roughly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc2.lips]."));
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
 					
@@ -913,7 +913,7 @@ public class TongueAnus {
 
 					"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] [npc.ass+] against [npc2.namePos] [npc2.face+], before grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
-					"Letting out [npc.a_moan+], [npc.name] [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc.lips]."));
+					"Letting out [npc.a_moan+], [npc.name] [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc2.lips]."));
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
 			
@@ -951,7 +951,7 @@ public class TongueAnus {
 
 					"With [npc.a_moan+], [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.ass+] against [npc2.namePos] [npc2.face+], before greedily grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
-					"Letting out [npc.a_moan+], [npc.name] eagerly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc.lips]."));
+					"Letting out [npc.a_moan+], [npc.name] eagerly [npc.verb(grind)] [npc.her] [npc.asshole+] down against [npc2.namePos] [npc2.lips]."));
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
 			

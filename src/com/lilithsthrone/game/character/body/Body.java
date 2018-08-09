@@ -1498,7 +1498,7 @@ public class Body implements Serializable, XMLSaving {
 						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
-			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("<p>"
 						+ "[npc.Name] is "
 							+(owner.getRace()==Race.HUMAN
@@ -2544,7 +2544,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 		} else {
-			if (owner.getPlayerKnowsAreas().contains(CoverableArea.MOUTH)) {
+			if (owner.isAreaKnownByCharacter(CoverableArea.MOUTH, Main.game.getPlayer())) {
 				if (face.getMouth().getOrificeMouth().isVirgin()) {
 					sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.sheIs] never given head before.</span>");
 				} else {
@@ -3693,7 +3693,7 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("[npc.Her] [npc.hips+] and [npc.assSize] [npc.ass] are "+getCoveredInDescriptor(owner)+" [npc.assFullDescription(true)].");
 		}
 		
-		if(owner.getPlayerKnowsAreas().contains(CoverableArea.ANUS)) {
+		if(owner.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer())) {
 			sb.append(" " + getAssDescription(owner));
 			sb.append("</p>");
 		} else {
@@ -3701,14 +3701,14 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("</p>");
 		}
 		//TODO pubic hair
-		if(owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+		if(owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())) {
 			// Vagina, virgin/capacity, wetness:
 			if (vagina.getType() == VaginaType.NONE && penis.getType() == PenisType.NONE) {
 				sb.append("<p>" + getMoundDescription(owner) + "</p>");
 			}
 		}
 		
-		if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+		if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())) {
 			// Penises, cum production, testicle size, capacity:
 			if (owner.hasPenis()) {
 				sb.append("<p>" + getPenisDescription(owner) + "</p>");
@@ -3719,7 +3719,7 @@ public class Body implements Serializable, XMLSaving {
 					+ "</p>");
 		}
 		
-		if(owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+		if(owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 			// Vagina, virgin/capacity, wetness:
 			if (vagina.getType() != VaginaType.NONE) {
 				sb.append("<p>" + getVaginaDescription(owner) + "</p>");
@@ -4365,7 +4365,7 @@ public class Body implements Serializable, XMLSaving {
 		descriptionSB = new StringBuilder();
 		
 		boolean isPlayer = owner.isPlayer();
-		boolean playerKnowledgeOfBreasts = owner.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES);
+		boolean playerKnowledgeOfBreasts = owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer());
 		
 		if(!isPlayer && !playerKnowledgeOfBreasts) {
 			descriptionSB.append("You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.");

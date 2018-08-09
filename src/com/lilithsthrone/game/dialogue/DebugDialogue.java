@@ -359,7 +359,7 @@ public class DebugDialogue {
 					public void effects() {
 						activeOffspring = Main.game.getOffspring().get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
-							activeOffspring.getPlayerKnowsAreas().add(ca);
+							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
 					}
 				};
@@ -1112,15 +1112,17 @@ public class DebugDialogue {
 					+"or, for the few special commands that require arguments,<br/>"
 					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
 							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/>"
+					+"or, for parsing as a script,<br/>"
+					+"[#<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
 					+ "</p>"
 					
 					+ "<p>"
 					+"An example of use in a sentence would be:<br/><br/>"
 					+"As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]'<br/><br/>"
+					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]'<br/><br/>"
 					+ "parses to:<br/><br/>"
 					+ UtilText.parse("As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]")
+							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]")
 					+ "</p>"
 					+ "<br/>"
 					

@@ -1835,7 +1835,7 @@ public enum Combat {
 		return Main.game.getPlayer();
 	}
 
-	public static void setTargetedCombatant(NPC targetedCombatant) {
+	public static void setTargetedCombatant(GameCharacter targetedCombatant) {
 		Combat.targetedCombatant = targetedCombatant;
 	}
 

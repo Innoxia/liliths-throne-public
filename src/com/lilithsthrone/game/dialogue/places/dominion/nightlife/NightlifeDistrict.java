@@ -1053,6 +1053,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							character.setLocation(WorldType.NIGHTLIFE_CLUB, Main.game.getPlayer().getLocation(), false);
+							character.setAffection(Main.game.getPlayer(), 5);
 						}
 					};
 				}
@@ -1856,8 +1857,8 @@ public class NightlifeDistrict {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getKalahari().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
-								Main.game.getKalahari().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
+								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_BAR_KALAHARI_FLIRT.getMinutesPassed()));
 							}
 						};
@@ -2548,9 +2549,9 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getKalahari().incrementAffection(Main.game.getPlayer(), 20));
 								Main.game.getTextEndStringBuilder().append(getKalahariStatus(false, WATERING_HOLE_KALAHARI_BREAK_GROPE.getMinutesPassed()));
-								Main.game.getKalahari().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
-								Main.game.getKalahari().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
-								Main.game.getKalahari().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+								Main.game.getKalahari().setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, true);
 								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.BREASTS);
 								Main.game.getKalahari().displaceClothingForAccess(CoverableArea.VAGINA);
@@ -3793,6 +3794,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							character.setLocation(WorldType.NIGHTLIFE_CLUB, Main.game.getPlayer().getLocation(), false);
+							character.setAffection(Main.game.getPlayer(), 5);
 							resetPreviousBehaviour(); 
 						}
 					};
@@ -3826,10 +3828,12 @@ public class NightlifeDistrict {
 	
 	private static ClubberBehaviour currentBehaviour = ClubberBehaviour.INTRODUCTION;
 	private static int turnsAtPlace = 0;
+	private static boolean buyingDrinks = true;
 	
 	private static void resetPreviousBehaviour() {
 		currentBehaviour = ClubberBehaviour.INTRODUCTION;
 		turnsAtPlace = 0;
+		buyingDrinks = true;
 	}
 	
 	private static PlaceType getCurrentPlaceType() {
@@ -3841,13 +3845,15 @@ public class NightlifeDistrict {
 	}
 	
 	private static boolean isPartnerOfferingDrinks() {
-		switch(getPartnerAgreeableness()) {
-			case AVERAGE:
-				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.THREE_DRUNK.getMinimumValue();
-			case HIGH:
-				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.ONE_TIPSY.getMinimumValue();
-			case LOW:
-				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.FOUR_HAMMERED.getMinimumValue();
+		if(buyingDrinks) {
+			switch(getPartnerAgreeableness()) {
+				case AVERAGE:
+					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.THREE_DRUNK.getMinimumValue();
+				case HIGH:
+					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.ONE_TIPSY.getMinimumValue();
+				case LOW:
+					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.FOUR_HAMMERED.getMinimumValue();
+			}
 		}
 		return false;
 	}
@@ -4131,6 +4137,7 @@ public class NightlifeDistrict {
 									public void effects() {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY", getClubbersPresent()));
 										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
 										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 									}
 								};
@@ -4143,7 +4150,10 @@ public class NightlifeDistrict {
 									@Override
 									public void effects() {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY", getClubbersPresent()));
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
 										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
+										buyingDrinks = false;
 									}
 								};
 							}
@@ -4167,6 +4177,11 @@ public class NightlifeDistrict {
 											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER", getClubbersPresent()));
 											Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 										}
+										if(getPartner().isFeminine()) {
+											Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+										} else {
+											Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+										}
 										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 									}
 								};
@@ -4186,7 +4201,10 @@ public class NightlifeDistrict {
 										} else {
 											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_BEER", getClubbersPresent()));
 										}
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -5));
+										buyingDrinks = false;
 									}
 								};
 							}
@@ -4201,6 +4219,7 @@ public class NightlifeDistrict {
 									public void effects() {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM", getClubbersPresent()));
 										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
 										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 									}
 								};
@@ -4213,7 +4232,8 @@ public class NightlifeDistrict {
 									@Override
 									public void effects() {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_RUM", getClubbersPresent()));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
+										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -15));
+										buyingDrinks = false;
 									}
 								};
 							}
@@ -4256,6 +4276,8 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_BAR_GROPE_ACCEPT", getClubbersPresent()));
 								Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 20));
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.PENIS, getPartner(), true);
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.VAGINA, getPartner(), true);
 							}
 						};
 					} else if(index==2) {
@@ -4404,6 +4426,8 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_DANCE_GROPE_ACCEPT", getClubbersPresent()));
 								Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 20));
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.PENIS, getPartner(), true);
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.VAGINA, getPartner(), true);
 							}
 						};
 					} else if(index==2) {
@@ -4481,6 +4505,8 @@ public class NightlifeDistrict {
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT", getClubbersPresent()));
 								Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 20));
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.PENIS, getPartner(), true);
+								Main.game.getPlayer().setAreaKnownByCharacter(CoverableArea.VAGINA, getPartner(), true);
 							}
 						};
 					} else if(index==2) {
@@ -4642,7 +4668,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								WATERING_HOLE_TOILETS_AFTER_SEX,
+								WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX,
 								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START", getClubbersPresent()));
 						
 					} else if(index==4) {
@@ -4743,8 +4769,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {
+	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {//TODO Your Room
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -4859,5 +4884,71 @@ public class NightlifeDistrict {
 		}
 	};
 
+
+	
+	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNodeOld("Toilets", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parse(getPartner(), "You and [npc.name] stop having sex with one another...");
+		}
+		
+		@Override
+		public String getContent() {
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX", NightlifeDistrict.getClubbersPresent());
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("See again",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
+								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.saveClubbers();
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Hope not (gentle)",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]"),
+						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Hope not (harsh)",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]"),
+						PlaceType.DOMINION_BOULEVARD.getDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+			}
+			return null;
+		}
+	};
 	
 }
