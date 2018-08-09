@@ -2251,21 +2251,22 @@ public abstract class GameCharacter implements XMLSaving {
 			// Cache current image
 			ImageCache.INSTANCE.requestCache(character.getCurrentArtwork().getCurrentImage());
 		}
-	}
 
-		
+
 		// ************** Version Overrides **************//
-		
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10") && !character.isPlayer()) {
 			character.setPerkPoints(character.getPerkPointsAtLevel(character.getTrueLevel()));
 			PerkManager.initialisePerks(character);
-			
+
 			// All non-unique characters are muggers or prostitutes as of version 0.2.10:
 			if(!character.isUnique() && character.getHistory()!=Occupation.NPC_PROSTITUTE) {
 				character.setHistory(Occupation.NPC_MUGGER);
 			}
-			
+
 		}
+	}
+
 	/**
 	 * Equivalent to {@link GameCharacter#loadImages(boolean)} without forcing a reload if the folder didn't change.
 	 */

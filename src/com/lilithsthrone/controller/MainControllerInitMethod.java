@@ -138,109 +138,107 @@ public class MainControllerInitMethod {
 				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				|| Main.game.getCurrentDialogueNode().equals(OccupantManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
 			GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE) ? Main.game.getPlayer() : CharactersPresentDialogue.characterViewed;
-			if(character instanceof GameCharacter) {
-				id = "ARTWORK_ADD";
-				if (MainController.document.getElementById(id) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						// Create file chooser for .jpg and .png images in the most recently used directory
-						FileChooser chooser = new FileChooser();
-						chooser.setTitle("Add Images");
-						chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"));
-						if (lastOpened != null)
-							chooser.setInitialDirectory(lastOpened);
+			id = "ARTWORK_ADD";
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					// Create file chooser for .jpg and .png images in the most recently used directory
+					FileChooser chooser = new FileChooser();
+					chooser.setTitle("Add Images");
+					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"));
+					if (lastOpened != null)
+						chooser.setInitialDirectory(lastOpened);
 
-						List<File> files = chooser.showOpenMultipleDialog(Main.primaryStage);
-						if (files != null && !files.isEmpty()) {
-							lastOpened = files.get(0).getParentFile();
+					List<File> files = chooser.showOpenMultipleDialog(Main.primaryStage);
+					if (files != null && !files.isEmpty()) {
+						lastOpened = files.get(0).getParentFile();
 
-							character.importImages(files);
+						character.importImages(files);
 
-							if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					}, false);
-
-					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-							"Add custom artwork","Browse your own images and add them to the character."),false);
-				}
-
-				if (character.hasArtwork()) {
-					try {
-						Artwork artwork = character.getCurrentArtwork();
-
-						id = "ARTWORK_INFO";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(!artwork.getArtist().getWebsites().isEmpty()) {
-									Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
-								}
-							}, false);
-
-							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-
-							String description;
-							if (artwork.getArtist().getName().equals("Custom")) {
-								description = "You added this yourself.";
-							} else if (artwork.getArtist().getWebsites().isEmpty()) {
-								description = "This artist has no associated websites!";
-							} else {
-								description = "Click to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
-										+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!";
-							}
-							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-									"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
-									description), false);
-						}
-
-						id = "ARTWORK_PREVIOUS";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(artwork.getTotalArtworkCount()>1) {
-									artwork.incrementIndex(-1);
-									if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}
-							}, false);
-						}
-
-						id = "ARTWORK_NEXT";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(artwork.getTotalArtworkCount()>1) {
-									artwork.incrementIndex(1);
-									if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}
-							}, false);
-						}
-
-						id = "ARTWORK_ARTIST_PREVIOUS";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(character.getArtworkList().size()>1) {
-									character.incrementArtworkIndex(-1);
-									if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}
-							}, false);
-						}
-
-						id = "ARTWORK_ARTIST_NEXT";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(character.getArtworkList().size()>1) {
-									character.incrementArtworkIndex(1);
-									if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}
-							}, false);
-						}
-					} catch(Exception ex) {
-						System.err.println("MainController Artwork handling error.");
+						if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
+				}, false);
+
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+						"Add custom artwork","Browse your own images and add them to the character."),false);
+			}
+
+			if (character.hasArtwork()) {
+				try {
+					Artwork artwork = character.getCurrentArtwork();
+
+					id = "ARTWORK_INFO";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(!artwork.getArtist().getWebsites().isEmpty()) {
+								Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
+							}
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						String description;
+						if (artwork.getArtist().getName().equals("Custom")) {
+							description = "You added this yourself.";
+						} else if (artwork.getArtist().getWebsites().isEmpty()) {
+							description = "This artist has no associated websites!";
+						} else {
+							description = "Click to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
+									+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!";
+						}
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
+								description), false);
+					}
+
+					id = "ARTWORK_PREVIOUS";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(artwork.getTotalArtworkCount()>1) {
+								artwork.incrementIndex(-1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+
+					id = "ARTWORK_NEXT";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(artwork.getTotalArtworkCount()>1) {
+								artwork.incrementIndex(1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+
+					id = "ARTWORK_ARTIST_PREVIOUS";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(character.getArtworkList().size()>1) {
+								character.incrementArtworkIndex(-1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+
+					id = "ARTWORK_ARTIST_NEXT";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(character.getArtworkList().size()>1) {
+								character.incrementArtworkIndex(1);
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+				} catch(Exception ex) {
+					System.err.println("MainController Artwork handling error.");
 				}
 			}
 		}
