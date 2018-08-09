@@ -50,6 +50,21 @@ public class SlaverAlleyDialogue {
 
 	public static void dailyReset() {
 		
+//		List<String> ids = Main.game.getFinch().getSlavesOwned();
+//		for(String id : ids) {
+//			NPC slaveToRemove = (NPC) Main.game.getNPCById(id);
+//			if(slaveToRemove.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK) {
+//				Main.game.getFinch().removeSlave(slaveToRemove);
+//				Main.game.banishNPC(slaveToRemove);
+//			}
+//		}
+		for(String id : Main.game.getFinch().getSlavesOwned()) {
+			if(Main.game.isCharacterExisting(id)) {
+				Main.game.banishNPC(id);
+			}
+		}
+		Main.game.getFinch().removeAllSlaves();
+		
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for(int i=0; i<genders.length; i++) {
