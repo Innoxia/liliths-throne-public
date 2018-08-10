@@ -937,11 +937,10 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
 		String raceName;
-		if(owner.getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+		raceName = race.getName();
+
+		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
 			raceName = "awoo-morph";
-		}
-		else{
-			raceName = race.getName();
 		}
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(raceName) + "</span> - "
 					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
