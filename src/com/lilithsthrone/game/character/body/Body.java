@@ -2076,19 +2076,19 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case DOG_MORPH_POINTED:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case DOG_MORPH_FOLDED:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
@@ -2106,19 +2106,19 @@ public class Body implements Serializable, XMLSaving {
 				break;	
 			case LYCAN:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH_TUFTED:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
@@ -2138,41 +2138,41 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case RAT_MORPH:
 				if (owner.isPlayer()) {
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, rat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, rat-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				} else {
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, rat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				}
 				break;
 			case RABBIT_MORPH:
 				if (owner.isPlayer()) {
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, rabbit-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, rabbit-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				} else {
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, rabbit-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				}
 				break;
 			case RABBIT_MORPH_FLOPPY:
 				if (owner.isPlayer()) {
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"floppy, rabbit-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"floppy, rabbit-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				} else {
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"floppy, rabbit-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				}
 				break;
 			case BAT_MORPH:
 				if (owner.isPlayer()) {
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"triangular, bat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"triangular, bat-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				} else {
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"triangular, bat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				}
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head and are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
@@ -2534,10 +2534,9 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt)).isEmpty()) {
+					if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt))!=null) {
 						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt)) + ".</span>");
+								+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt))+ ".</span>");
 						break;
 					}
 				}
@@ -4157,10 +4156,9 @@ public class Body implements Serializable, XMLSaving {
 				boolean virginityLossFound = false;
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)).isEmpty()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt))!=null) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)) + ".</span>");
+									+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -4490,8 +4488,9 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null) {
+							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "
+									+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
 							break;
 						}
 					}
@@ -4699,8 +4698,9 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null) {
+							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "
+									+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
 							break;
 						}
 					}
@@ -4940,9 +4940,10 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.isPlayer()) {
 				if (!viewedPenis.isVirgin()) {
 						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-							if(ot.isTakesPenisVirginity()) {
-								if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)).isEmpty()) {
-									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)) + ".)]");
+							if(ot.isInternalOrifice()) {
+								if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)) != null) {
+									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "
+											+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)) + ".)]");
 									break;
 								}
 							}
@@ -4954,8 +4955,8 @@ public class Body implements Serializable, XMLSaving {
 			} else {
 				if (!viewedPenis.isVirgin()) {
 					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-						if(ot.isTakesPenisVirginity()) {
-							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)).isEmpty()) {
+						if(ot.isInternalOrifice()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot))!=null) {
 								descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
 								break;
 							}
@@ -5070,10 +5071,9 @@ public class Body implements Serializable, XMLSaving {
 		if(viewedPenis.getType()!=PenisType.DILDO) {
 			if (isPlayer && !owner.isUrethraVirgin()) {
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt)).isEmpty()) {
+					if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt))!=null) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt)) + ".</span>");
+								+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt)) + ".</span>");
 						break;
 					}
 				}
@@ -5651,10 +5651,9 @@ public class Body implements Serializable, XMLSaving {
 				boolean virginityLossFound = false;
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)).isEmpty()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt))!=null) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)) + ".</span>");
+									+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -5996,10 +5995,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (isPlayer && !owner.isVaginaUrethraVirgin()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-				if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt))!=null
-						&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt)).isEmpty()) {
+				if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt))!=null) {
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-						+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt)) + ".</span>");
+							+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt))+ ".</span>");
 					break;
 				}
 			}

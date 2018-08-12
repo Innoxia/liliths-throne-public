@@ -51,7 +51,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -424,17 +423,17 @@ public class Kate extends NPC {
 	};
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+	public String getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){
 			// Player uses item on themselves:
 			if(target.isPlayer()){
-				return Main.game.getPlayer().useItem(item, target, false);
+				return itemOwner.useItem(item, target, false);
 						
 			// Player uses item on NPC:
 			}else{
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
-					Main.game.getPlayer().useItem(item, target, false);
+					itemOwner.useItem(item, target, false);
 						return "<p>"
 							+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
 							+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
@@ -448,7 +447,7 @@ public class Kate extends NPC {
 			
 		// NPC is using an item:
 		} else {
-			return Sex.getActivePartner().useItem(item, target, false);
+			return itemOwner.useItem(item, target, false);
 		}
 	}
 	

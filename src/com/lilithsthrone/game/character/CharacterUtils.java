@@ -168,7 +168,7 @@ public class CharacterUtils {
 				saveLocation = "data/characters/"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
 			}
 			
-			StreamResult result = new StreamResult(new File(saveLocation));
+			StreamResult result = new StreamResult(saveLocation);
 			
 			transformer.transform(source, result);
 		

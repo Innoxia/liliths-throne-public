@@ -2,6 +2,10 @@ package com.lilithsthrone.game.character;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +23,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+
+import com.lilithsthrone.rendering.*;
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -205,7 +212,7 @@ import com.lilithsthrone.utils.ImageCache;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.XMLSaving
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -371,7 +378,8 @@ public abstract class GameCharacter implements XMLSaving {
 	private Map<String, SexCount> sexCount; // Character ID to count
 	private Map<SexType, Integer> sexCountMap;
 	private Map<SexType, Integer> cumCountMap;
-	private Map<SexType, String> virginityLossMap;
+	/** Entry Strings are: Character ID who took virginity, virginity loss description.*/
+	private Map<SexType, Entry<String, String>> virginityLossMap;
 	/** String is partner ID*/
 	private Map<String, Map<SexType, Integer>> sexPartnerMap;
 	
@@ -584,6 +592,8 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateStatusEffects(0);
 
 		artworkList = new ArrayList<>();
+		if (isUnique())
+			loadImages();
 		
 		PerkManager.initialisePerks(this);
 	}
@@ -1086,14 +1096,15 @@ public abstract class GameCharacter implements XMLSaving {
 		for(SexParticipantType participant : SexParticipantType.values()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-					if(this.getVirginityLoss(new SexType(participant, pt, ot))!=null && !this.getVirginityLoss(new SexType(participant, pt, ot)).isEmpty()) {
+					if(this.getVirginityLoss(new SexType(participant, pt, ot))!=null && !this.getVirginityLoss(new SexType(participant, pt, ot)).getKey().isEmpty()) {
 						Element element = doc.createElement("virginity");
 						characterVirginityTakenBy.appendChild(element);
 	
 						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
 						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
 						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
-						CharacterUtils.addAttribute(doc, element, "takenBy", String.valueOf(this.getVirginityLoss(new SexType(participant, pt, ot))));
+						CharacterUtils.addAttribute(doc, element, "takenBy", this.getVirginityLoss(new SexType(participant, pt, ot)).getKey());
+						CharacterUtils.addAttribute(doc, element, "takenDescription", this.getVirginityLoss(new SexType(participant, pt, ot)).getValue());
 					}
 				}
 			}
@@ -1396,7 +1407,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 			} else {
-				nodes = parentElement.getElementsByTagName("areasKnownByCharacters");
+				nodes = element.getElementsByTagName("areasKnownByCharacters");
 				Element knowsElement = (Element) nodes.item(0);
 				if(knowsElement!=null) {
 					NodeList knownAreas = knowsElement.getElementsByTagName("area");
@@ -1406,7 +1417,7 @@ public abstract class GameCharacter implements XMLSaving {
 						CoverableArea ca = CoverableArea.valueOf(e.getAttribute("type"));
 						
 						NodeList characters = e.getElementsByTagName("character");
-						for(int j=0; j<knownAreas.getLength(); j++){
+						for(int j=0; j<characters.getLength(); j++){
 							Element characterIdElement = ((Element)characters.item(j));
 							try {
 								String id = characterIdElement.getAttribute("id");
@@ -2168,9 +2179,26 @@ public abstract class GameCharacter implements XMLSaving {
 		NodeList virginityElements = element.getElementsByTagName("virginity");
 		for(int i=0; i<virginityElements.getLength(); i++){
 			Element e = ((Element)virginityElements.item(i));
-
+			
 			try {
-				character.setVirginityLoss(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.1")) {
+					character.setVirginityLoss(
+							new SexType(
+								SexParticipantType.valueOf(e.getAttribute("participantType")),
+								SexAreaPenetration.valueOf(e.getAttribute("penetrationType")),
+								SexAreaOrifice.valueOf(e.getAttribute("orificeType"))),
+							"",//Main.game.getUniqueNPCId(GenericAndrogynousNPC.class),
+							e.getAttribute("takenBy"));
+				} else {
+					character.setVirginityLoss(
+							new SexType(
+								SexParticipantType.valueOf(e.getAttribute("participantType")),
+								SexAreaPenetration.valueOf(e.getAttribute("penetrationType")),
+								SexAreaOrifice.valueOf(e.getAttribute("orificeType"))),
+							e.getAttribute("takenBy"),
+							e.getAttribute("takenDescription"));
+				}
+				
 				CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
 			}catch(Exception ex){
 			}
@@ -2274,53 +2302,71 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// ************** Artwork **************//
 
-		// Retrieve overrides for artist and image index
-		nodes = parentElement.getElementsByTagName("artwork");
-		int artistIndex = -1, imageIndex = -1;
-		if (nodes.getLength() > 0) {
-			Element artworkElement = (Element) nodes.item(0);
-			nodes = artworkElement.getElementsByTagName("overrideArtist");
+		// Initialize artworks (name and femininity must be set at this point)
+		character.loadImages();
+
+		if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+			// Retrieve overrides for artist and image index
+			nodes = parentElement.getElementsByTagName("artwork");
+			int artistIndex = -1, imageIndex = -1;
 			if (nodes.getLength() > 0) {
-				Element artistElement = (Element) nodes.item(0);
-				artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
+				Element artworkElement = (Element) nodes.item(0);
+				nodes = artworkElement.getElementsByTagName("overrideArtist");
+				if (nodes.getLength() > 0) {
+					Element artistElement = (Element) nodes.item(0);
+					artistIndex = Integer.valueOf(artistElement.getAttribute("index"));
+				}
+
+				nodes = artworkElement.getElementsByTagName("overrideImage");
+				if (nodes.getLength() > 0) {
+					Element artistElement = (Element) nodes.item(0);
+					imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
+				}
 			}
 
-			nodes = artworkElement.getElementsByTagName("overrideImage");
-			if (nodes.getLength() > 0) {
-				Element artistElement = (Element) nodes.item(0);
-				imageIndex = Integer.valueOf(artistElement.getAttribute("index"));
-			}
+			// Apply override indices
+			if (artistIndex > -1)
+				character.setArtworkIndex(artistIndex);
+			if (imageIndex > -1)
+				character.getCurrentArtwork().setIndex(imageIndex);
+
+			// Cache current image
+			ImageCache.INSTANCE.requestCache(character.getCurrentArtwork().getCurrentImage());
 		}
 
-		// Initialize artworks (name and femininity must be set at this point)
-		character.loadImages(artistIndex, imageIndex);
-		
-		
+
 		// ************** Version Overrides **************//
-		
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10") && !character.isPlayer()) {
 			character.setPerkPoints(character.getPerkPointsAtLevel(character.getTrueLevel()));
 			PerkManager.initialisePerks(character);
-			
+
 			// All non-unique characters are muggers or prostitutes as of version 0.2.10:
 			if(!character.isUnique() && character.getHistory()!=Occupation.NPC_PROSTITUTE) {
 				character.setHistory(Occupation.NPC_MUGGER);
 			}
-			
+
 		}
 	}
 
 	/**
-	 * Load or reload all artworks associated with the character and cache the image given by the indices.
-	 * @param artistIndex Overrides the default artist, pass -1 to ignore
-	 * @param imageIndex Overrides the default image, pass -1 to ignore
+	 * Equivalent to {@link GameCharacter#loadImages(boolean)} without forcing a reload if the folder didn't change.
 	 */
-	protected void loadImages(int artistIndex, int imageIndex) {
+	public void loadImages() {
+		loadImages(false);
+	}
+
+	/**
+	 * Load or reload all artworks associated with the character. If the parameter is set to true, a reload will always
+	 * happen. Otherwise, nothing will be done if the folder name didn't change.
+	 * @param forceReload Always reload, even if the folder name didn't change
+	 */
+	public void loadImages(boolean forceReload) {
 		String folder = getArtworkFolderName();
 		
 //		System.out.println(folder);
 		
-		if (folder.equals(artworkFolderName)) {
+		if (folder.equals(artworkFolderName) && !forceReload) {
 			// Nothing changed, abort loading
 			return;
 		} else {
@@ -2331,8 +2377,8 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!folder.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
 				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
-				if(f.exists()) {
-					Artwork art = new Artwork(folder, artist);
+				if(f.exists() && f.isDirectory()) {
+					Artwork art = new Artwork(f, artist);
 					// Cull empty artwork lists
 					if (art.getTotalArtworkCount() > 0) {
 						artworkList.add(art);
@@ -2340,28 +2386,33 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-
-		if (hasArtwork()) {
-			// Update artist and image index if present
-			if (artistIndex > -1) {
-				setArtworkIndex(artistIndex);
-			}
-			if (imageIndex > -1) {
-				getCurrentArtwork().setIndex(imageIndex);
-			}
-
-			// Cache the current image
-			if (Main.getProperties().hasValue(PropertyValue.artwork)) {
-				ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
-			}
-		}
 	}
 
 	/**
-	 * Load or reload all artworks associated with the character and cache the default image.
+	 * Copies a list of files into this character's image directory and forces a reload of the artwork list.
+	 * @param imageFiles The list of files to import
 	 */
-	public void loadImages() {
-		loadImages(-1, -1);
+	public void importImages(List<File> imageFiles) {
+		try {
+			// Copy files to the character's custom image folder
+			Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
+			Files.createDirectories(destination);
+			for (File source : imageFiles) {
+				// Copy to temporary file and use atomic move to guarantee that the file is available
+				Path tmp = destination.resolve(source.getName() + ".tmp");
+				Files.copy(source.toPath(), tmp);
+				Files.move(tmp, destination.resolve(source.getName()), StandardCopyOption.ATOMIC_MOVE);
+			}
+
+			// Reload the character's images
+			loadImages(true);
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Images imported)]",
+					imageFiles.size() + (imageFiles.size() > 1 ? " images were" : " image was") + " added"), false);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
+					"See error.log for details"), false);
+		}
 	}
 	
 	public abstract boolean isUnique();
@@ -2429,46 +2480,50 @@ public abstract class GameCharacter implements XMLSaving {
 
 		return rv;
 	}
+
+	public boolean isImageRevealed() {
+		return isPlayer() || getCurrentArtwork().isCurrentImageClothed() || getTotalTimesHadSex(Main.game.getPlayer()) > 0;
+	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 
-		if (hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
-			Artwork artwork = this.getCurrentArtwork();
-			String imageString = "";
-			int width = 200;
-			int percentageWidth = 33;
-			try {
-				CachedImage image = ImageCache.INSTANCE.getImage(new File(artwork.getCurrentImage()));
-				imageString = image.getImageString();
-				width = image.getWidth();
-				percentageWidth = image.getPercentageWidth();
-			} catch (IOException e) {
-				e.printStackTrace();
+		if (Main.getProperties().hasValue(PropertyValue.artwork)) {
+			if (hasArtwork()) {
+				Artwork artwork = this.getCurrentArtwork();
+				String imageString = "";
+				int width = 200;
+				int percentageWidth = 33;
+				CachedImage image = ImageCache.INSTANCE.getImage(artwork.getCurrentImage());
+				if (image != null) {
+					imageString = image.getImageString();
+					width = image.getWidth();
+					percentageWidth = image.getPercentageWidth();
+				}
+
+				boolean revealed = isImageRevealed();
+
+				infoScreenSB.append(
+						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
+								+ "<div class='full-width-container' style='width:100%; margin:0;'>"
+								+ "<img id='CHARACTER_IMAGE' style='"+(revealed ? "" : "-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
+								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
+								+ (revealed ? "" : "<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+								+ "</div>"
+								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
+								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+								+ "</div>"
+								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
+								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+
+								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
+								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+								+ "</div>");
+			} else {
+				infoScreenSB.append("<div class='title-button' id='ARTWORK_ADD' style='position:relative; float:right; background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>");
 			}
-
-			boolean nakedRevealed = false;
-			if(this.isPlayer() || this.getTotalTimesHadSex(Main.game.getPlayer())>0) {
-				nakedRevealed = true;
-			}
-
-			infoScreenSB.append(
-					"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
-							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
-							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-							+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-							+"</div>"
-							+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-							+ "</div>"
-							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
-							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-
-							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
-							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-							+ "</div>");
 		}
 
 		infoScreenSB.append("<h4>Background</h4>"
@@ -2578,7 +2633,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return infoScreenSB.toString();
 	}
 
-	protected String getArtworkFolderName() {
+	public String getArtworkFolderName() {
 		// Get folder by class name if unique, character name otherwise
 		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
 	}
@@ -2593,7 +2648,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getArtworkIndex() {
 		if(artworkIndex >= getArtworkList().size() || artworkIndex < 0) {
-			artworkIndex = 0;
+			artworkIndex = getDefaultArtworkIndex();
 		}
 		return artworkIndex;
 	}
@@ -3055,22 +3110,34 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public String getName() {
 		if(this.isSlave()) {
-			if(Main.game.isStarted() && (this.getOwner() != null && this.getOwner().isPlayer())) {
-				playerKnowsName = true;
+			if(Main.game.isStarted() && ((this.getOwner() != null && this.getOwner().isPlayer()))) {
+				this.setPlayerKnowsName(true);
 			}
+		}
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
+			this.setPlayerKnowsName(true);
 		}
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
 			if(isFeminine()) {
-				if(getSubspecies()==Subspecies.HUMAN)
+				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+					return "awoo-girl";
+				}
+				if(getSubspecies()==Subspecies.HUMAN){
 					return "woman";
-				else
+				}
+				else{
 					return getSubspecies().getSingularFemaleName();
-				
+				}
 			} else {
-				if(getSubspecies()==Subspecies.HUMAN)
+				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+					return "awoo-boy";
+				}
+				if(getSubspecies()==Subspecies.HUMAN){
 					return "man";
-				else
+				}
+				else{
 					return getSubspecies().getSingularMaleName();
+				}
 			}
 			
 		} else {
@@ -3699,6 +3766,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean addSlave(NPC slave) {
 		boolean added = slavesOwned.add(slave.getId());
+		Main.game.getPlayer().removeFriendlyOccupant(slave);
 		
 		if(added) {
 			if(slave.isSlave()) {
@@ -4355,8 +4423,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void companionshipCheck() {
-		if(!this.isCompanionAvailable(Main.game.getNPCById(partyLeader))) {
+		if(Main.game.isStarted() && !this.isCompanionAvailable(Main.game.getNPCById(partyLeader))) {
+			String s = "";
+			if(Main.game.getNPCById(partyLeader).statusEffectDescriptions.get(StatusEffect.COMPANIONS_LEAVING)!=null) {
+				s = Main.game.getNPCById(partyLeader).statusEffectDescriptions.get(StatusEffect.COMPANIONS_LEAVING);
+			}
+			
+			Main.game.getNPCById(partyLeader).getStatusEffectDescriptions().put(StatusEffect.COMPANIONS_LEAVING, s+getCompanionRejectionReason());
 			Main.game.getNPCById(partyLeader).removeCompanion(this);
+			this.returnToHome();
 		}
 	}
 	
@@ -4364,13 +4439,26 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Override if needed. Returns true if this companion is available to that character. Is called during turn updates to make sure NPCs keep their companionship state updated. 
 	 */
 	public boolean isCompanionAvailable(GameCharacter partyLeader) {
-		return (this.isSlave() && this.getOwner().equals(partyLeader)) || (this instanceof Elemental && ((Elemental)this).getSummoner().equals(partyLeader));
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay())) {
+			return false;
+		}
+		
+		return (this.isSlave() && this.getOwner().equals(partyLeader))
+				|| (Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()))
+				|| (this instanceof Elemental && ((Elemental)this).getSummoner().equals(partyLeader));
 	}
 	
 	/**
 	 * Added during turn update to the report to make sure player knows why NPCs leave them. By default will just make some generic excuse up.
 	 */
 	public String getCompanionRejectionReason() {
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay())) {
+			return UtilText.parse(this,
+					"<p>"
+						+ "[npc.speech(Ah! I need to get to work! Sorry, [pc.name], I'll see you later! Bye!)] [npc.name] suddenly says, before turning and running off..."
+					+ "</p>");
+		}
+		
 		return this.getName()+" leaves your party for unknown reasons.";
 	}
 	
@@ -4420,6 +4508,16 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 			}
 		}
+		
+		if(!this.isSlave()) {
+			if(!this.isAttractedTo(getPartyLeader())) {
+				return UtilText.parse(this, getPartyLeader(), "[npc.Name] doesn't want to have sex with [npc2.name]!");
+			}
+			if(!this.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive() && this.getLocationPlace().getPlaceType().isPopulated()) {
+				return UtilText.parse(this, "As [npc.she] isn't an exhibitionist, [npc.name] is not going to agree to have sex in public!");
+			}
+		}
+		
 		switch(this.getWorldLocation()) {
 			case ANGELS_KISS_FIRST_FLOOR:
 			case ANGELS_KISS_GROUND_FLOOR:
@@ -5662,16 +5760,36 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	// Virginity:
-	public void setVirginityLoss(SexType sexType, String description) {
-		virginityLossMap.put(sexType, description);
+	
+	public void setVirginityLoss(SexType sexType, GameCharacter characterTakingVirginity, String description) {
+		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginity.getId(), description));
 	}
 	
-	public String getVirginityLoss(SexType sexType) {
+	public void setVirginityLoss(SexType sexType, String characterTakingVirginityId, String description) {
+		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginityId, description));
+	}
+	
+	public void resetVirginityLoss(SexType sexType) {
+		virginityLossMap.remove(sexType);
+	}
+	
+	public Entry<String, String> getVirginityLoss(SexType sexType) {
 		return virginityLossMap.get(sexType);
 	}
 	
-	public Map<SexType, String> getVirginityLossMap() {
+	public Map<SexType, Entry<String, String>> getVirginityLossMap() {
 		return virginityLossMap;
+	}
+	
+	
+	public String getVirginityLossDescription(SexType sexType) {
+		if(Main.game.getPlayer().getVirginityLoss(sexType).getKey().isEmpty()) { // Support for versions prior to 0.2.10
+			return virginityLossMap.get(sexType).getValue();
+			
+		} else {
+			return UtilText.parse(Main.game.getNPCById(Main.game.getPlayer().getVirginityLoss(sexType).getKey()),
+					"[npc.name] "+virginityLossMap.get(sexType).getValue());
+		}
 	}
 	
 	// ****************** Sex & Dirty talk: ***************************
@@ -5712,38 +5830,41 @@ public abstract class GameCharacter implements XMLSaving {
 			boolean isPlayerDom = Sex.isDom(Main.game.getPlayer());
 			List<String> speech = new ArrayList<>();
 			String s = "";
+			GameCharacter target = Sex.getTargetedPartner(this);
 			
 			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-				switch(orifice) {
-					case ANUS:
-						s = getDirtyTalkAssPenetrated(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case ASS:
-						s = null;
-						break;
-					case BREAST:
-						s = getDirtyTalkBreastsPenetrated(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case MOUTH:
-						s = getDirtyTalkMouthPenetrated(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case NIPPLE:
-						s = getDirtyTalkNipplePenetrated(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case THIGHS:
-						s = null;
-						break;
-					case URETHRA_PENIS:
-						s = null;
-						break;
-					case URETHRA_VAGINA:
-						s = null;
-						break;
-					case VAGINA:
-						s = getDirtyTalkVaginaPenetrated(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
+				if(Sex.getCharactersUsingSexAreaOnCharacter(this, orifice).contains(target)) {
+					switch(orifice) {
+						case ANUS:
+							s = getDirtyTalkAssPenetrated(target, isPlayerDom);
+							break;
+						case ASS:
+							s = null;
+							break;
+						case BREAST:
+							s = getDirtyTalkBreastsPenetrated(target, isPlayerDom);
+							break;
+						case MOUTH:
+							s = getDirtyTalkMouthPenetrated(target, isPlayerDom);
+							break;
+						case NIPPLE:
+							s = getDirtyTalkNipplePenetrated(target, isPlayerDom);
+							break;
+						case THIGHS:
+							s = null;
+							break;
+						case URETHRA_PENIS:
+							s = null;
+							break;
+						case URETHRA_VAGINA:
+							s = null;
+							break;
+						case VAGINA:
+							s = getDirtyTalkVaginaPenetrated(target, isPlayerDom);
+							break;
+					}
 				}
-				if(s!=null) {
+				if(s!=null && !s.isEmpty()) {
 					if(!Sex.getCharacterContactingSexArea(this, orifice).contains(this)) {
 						speech.add(s);
 					}
@@ -5751,30 +5872,32 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		
 			for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-				switch(penetration) {
-					case FINGER:
-						s = getDirtyTalkFingerPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case PENIS:
-						s = getDirtyTalkPenisPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case TAIL:
-						s = getDirtyTalkTailPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case TENTACLE:
-						s = getDirtyTalkTentaclePenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case TONGUE:
-						s = getDirtyTalkTonguePenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case CLIT:
-						s = getDirtyTalkClitPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
-					case FOOT:
-						s = getDirtyTalkToesPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
-						break;
+				if(Sex.getCharactersUsingSexAreaOnCharacter(this, penetration).contains(target)) {
+					switch(penetration) {
+						case FINGER:
+							s = getDirtyTalkFingerPenetrating(target, isPlayerDom);
+							break;
+						case PENIS:
+							s = getDirtyTalkPenisPenetrating(target, isPlayerDom);
+							break;
+						case TAIL:
+							s = getDirtyTalkTailPenetrating(target, isPlayerDom);
+							break;
+						case TENTACLE:
+							s = getDirtyTalkTentaclePenetrating(target, isPlayerDom);
+							break;
+						case TONGUE:
+							s = getDirtyTalkTonguePenetrating(target, isPlayerDom);
+							break;
+						case CLIT:
+							s = getDirtyTalkClitPenetrating(target, isPlayerDom);
+							break;
+						case FOOT:
+							s = getDirtyTalkToesPenetrating(target, isPlayerDom);
+							break;
+					}
 				}
-				if(s!=null) {
+				if(s!=null && !s.isEmpty()) {
 					if(!Sex.getCharactersHavingOngoingActionWith(this, penetration).contains(this) || Sex.getCharactersHavingOngoingActionWith(this, penetration).size()>1) {
 						speech.add(s);
 					}
@@ -6103,10 +6226,11 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-
+		
 		if(returnedLine.isEmpty()) {
 			return null;
 		}
+		
 		return UtilText.parse(this, target, returnedLine);
 	}
 	
@@ -11078,11 +11202,13 @@ public abstract class GameCharacter implements XMLSaving {
 				Sex.addLubrication(this, orificeIngestedThrough, charactersFluid, LubricationType.CUM);
 			}
 			
-			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
-				if(fluidStored.getFluid().equals(charactersFluid.getCum())) {
-					fluidStored.incrementMillilitres(millilitres);
-					found = true;
-					break;
+			if(fluidsStoredMap.containsKey(orificeIngestedThrough)) {
+				for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+					if(fluidStored.getFluid().equals(charactersFluid.getCum())) {
+						fluidStored.incrementMillilitres(millilitres);
+						found = true;
+						break;
+					}
 				}
 			}
 			if(!found) {
@@ -12392,6 +12518,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getLevel() {
 		if(this.isPlayer()
 				|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
+				|| (this.isSlave() && this.getOwner().isPlayer())
+				|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 				|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
 			return level;
 			
@@ -12445,7 +12573,7 @@ public abstract class GameCharacter implements XMLSaving {
 					"<p style='text-align:center;'>"
 						+ "[npc.Name] drops [npc.her] " + item.getName() + " on the floor."
 						+ "<br/>"
-						+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
+						+ "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
 					+ "</p>");
 			}
 		}
@@ -13095,6 +13223,20 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	private void applyUnequipClothingEffects(AbstractClothing clothing) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(this)) {
+			if(clothing.getItemTags().contains(ItemTag.DILDO_AVERAGE)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_ENORMOUS)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_GIGANTIC)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_HUGE)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_LARGE)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_STALLION)
+					|| clothing.getItemTags().contains(ItemTag.DILDO_TINY)) {
+				for(GameCharacter character : Sex.getCharacterContactingSexArea(this, SexAreaPenetration.PENIS)) {
+					Sex.stopAllOngoingActions(this, SexAreaPenetration.PENIS, character, true);
+				}
+			}
+		}
+		
 		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, -clothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), -e.getValue());
@@ -13161,15 +13303,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
-	 * <b>!!!ONLY FOR USE IN CHARACTER IMPORT!!!</b>
+	 * Overrides all clothing equip checks, making sure that this piece of clothing is equipped, no matter what. Should only be used in exceptional circumstances.
 	 * @param newClothing
 	 */
-	public void equipClothingOverride(AbstractClothing newClothing) {
+	public void equipClothingOverride(AbstractClothing newClothing, boolean removeFromInventoryOrFloor) {
 		inventory.getClothingCurrentlyEquipped().add(newClothing);
-
+		
 		applyEquipClothingEffects(newClothing);
 		
-		newClothing.setEnchantmentKnown(true);
+		this.removeClothing(newClothing);
+		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
 
 		updateInventoryListeners();
 	}

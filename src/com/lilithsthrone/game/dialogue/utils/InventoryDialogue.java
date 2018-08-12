@@ -1278,7 +1278,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1293,7 +1293,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1304,7 +1304,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1329,7 +1329,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1347,7 +1347,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1361,7 +1361,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1400,7 +1400,7 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), Main.game.getPlayer()));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1435,7 +1435,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1453,7 +1453,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1466,7 +1466,7 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1850,7 +1850,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1865,7 +1865,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1875,7 +1875,7 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1901,7 +1901,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
@@ -1919,7 +1919,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
@@ -1933,7 +1933,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
@@ -1973,7 +1973,7 @@ public class InventoryDialogue {
 //											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, Main.game.getPlayer()));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, Main.game.getPlayer()));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2010,7 +2010,7 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2028,7 +2028,7 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2041,7 +2041,7 @@ public class InventoryDialogue {
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);

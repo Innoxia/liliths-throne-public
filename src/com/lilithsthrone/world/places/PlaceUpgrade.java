@@ -150,7 +150,18 @@ public enum PlaceUpgrade {
 		
 		@Override
 		protected boolean isExtraConditionsMet(Cell cell) {
-			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+			return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)
+					&& Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()
+					&& !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
+		@Override
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+				return "To install a guest bedroom, you'd need to first find someone to invite to live with you, and then get Lilaya's permission to make the upgrade!";
+			} else {
+				return super.getExtraConditionalAvailabilityDescription(cell);
+			}
 		}
 		
 		@Override

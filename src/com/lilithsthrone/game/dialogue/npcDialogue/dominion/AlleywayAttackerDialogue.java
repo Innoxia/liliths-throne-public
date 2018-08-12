@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -717,7 +718,7 @@ public class AlleywayAttackerDialogue {
 						}
 					};
 					
-				} else if (index == 7) {
+				} else if (index == 7 && getMugger().getLocationPlace().getPlaceType().getEncounterType()!=Encounter.DOMINION_STREET) {
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 						

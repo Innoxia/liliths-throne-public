@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -204,7 +205,7 @@ public enum Occupation {
 	
 	BUTLER(Perk.JOB_BUTLER,
 			"butler",
-			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.") {
+			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.", OccupationTag.PLAYER_ONLY) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
@@ -295,6 +296,12 @@ public enum Occupation {
 
 	public List<OccupationTag> getOccupationTags() {
 		return occupationTags;
+	}
+	
+	public boolean isAtWork(int hour) {
+		return Main.game.getDateNow().getDayOfWeek().getValue()>=getStartDay().getValue()
+				&& Main.game.getDateNow().getDayOfWeek().getValue()<=getEndDay().getValue()
+				&& getWorkHours()[hour];
 	}
 	
 	public boolean[] getWorkHours() {

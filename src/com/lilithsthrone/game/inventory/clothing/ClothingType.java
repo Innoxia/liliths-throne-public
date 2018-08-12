@@ -2087,7 +2087,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									InventorySlot.ANKLE,
 									InventorySlot.ANUS,
@@ -2114,7 +2116,9 @@ public class ClothingType {
 									CoverableArea.VAGINA,
 									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
+									
 									ClothingAccess.GROIN,
+									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							Util.newArrayListOfValues(
@@ -2770,7 +2774,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -2862,7 +2868,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			Util.newArrayListOfValues(
 					InventorySlot.STOMACH,
@@ -2932,7 +2940,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -2979,7 +2989,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -3066,7 +3078,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -3157,7 +3171,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -3239,7 +3255,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -3369,7 +3387,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							null,
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									InventorySlot.VAGINA,
 									InventorySlot.PENIS,
@@ -4262,7 +4282,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GENITALS.getPresetInventorySlotList()),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(ClothingAccess.CHEST),
@@ -5237,7 +5259,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5314,7 +5338,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5391,7 +5417,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5564,7 +5592,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -5631,7 +5661,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5692,7 +5724,9 @@ public class ClothingType {
 										CoverableArea.ANUS,
 										CoverableArea.PENIS,
 										CoverableArea.VAGINA),
-								Util.newArrayListOfValues(ClothingAccess.GROIN),
+								Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 								PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5753,7 +5787,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -5816,7 +5852,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -5885,7 +5923,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -5954,7 +5994,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -6023,7 +6065,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNZIPS,
@@ -6092,7 +6136,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6297,7 +6343,9 @@ public class ClothingType {
 							null,
 							null, null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6354,11 +6402,14 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null, null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6415,12 +6466,15 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6477,11 +6531,15 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null, null, null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6539,13 +6597,17 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6602,13 +6664,17 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6665,13 +6731,17 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null),
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6728,12 +6798,16 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6790,10 +6864,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null, null, null),
 					new BlockedParts(DisplacementType.UNBUTTONS,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.PENIS),
 							null,
@@ -6801,7 +6878,9 @@ public class ClothingType {
 									InventorySlot.PENIS,
 									InventorySlot.PIERCING_PENIS)),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -7004,7 +7083,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null)),
@@ -7060,7 +7141,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null,
 							null,
 							null)),
@@ -7114,11 +7197,15 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
 									ClothingAccess.LEGS_UP_TO_GROIN,
-									ClothingAccess.GROIN),
+									
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null, null, null),
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							Util.newArrayListOfValues(CoverableArea.ANUS),
 							null,
 							Util.newArrayListOfValues(InventorySlot.ANUS))),
@@ -7582,12 +7669,15 @@ public class ClothingType {
 							null),
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							null)),
 
 			null,
@@ -8500,7 +8590,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN), 
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS), 
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
@@ -9243,7 +9335,10 @@ public class ClothingType {
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA,
 									CoverableArea.ANUS),
-							null, null)),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9413,7 +9508,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
+									
 									ClothingAccess.GROIN,
+									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							null,
@@ -9550,7 +9647,9 @@ public class ClothingType {
 											CoverableArea.ANUS,
 											CoverableArea.PENIS,
 											CoverableArea.VAGINA),
-									Util.newArrayListOfValues(ClothingAccess.GROIN),
+									Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 									PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -9615,7 +9714,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
@@ -9836,7 +9937,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
@@ -10228,7 +10331,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
@@ -10478,7 +10583,9 @@ public class ClothingType {
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
+									
 									ClothingAccess.GROIN,
+									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
@@ -10489,7 +10596,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.KIMONO.getPresetColourList(),
@@ -10615,7 +10724,9 @@ public class ClothingType {
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
+									
 									ClothingAccess.GROIN,
+									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
@@ -10626,7 +10737,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
@@ -10920,7 +11033,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
@@ -11114,7 +11229,9 @@ public class ClothingType {
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.ANUS),
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.UNBUTTONS,
@@ -11126,7 +11243,9 @@ public class ClothingType {
 									CoverableArea.VAGINA,
 									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
+									
 									ClothingAccess.GROIN,
+									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList())),

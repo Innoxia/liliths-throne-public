@@ -301,7 +301,7 @@ public class Game implements Serializable, XMLSaving {
 				saveNumber++;
 				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
 			}
-			StreamResult result = new StreamResult(new File(saveLocation));
+			StreamResult result = new StreamResult(saveLocation);
 			
 			transformer.transform(source, result);
 
@@ -506,7 +506,7 @@ public class Game implements Serializable, XMLSaving {
 				DOMSource source = new DOMSource(doc);
 				
 				String saveLocation = "data/saves/"+exportFileName+".xml";
-				StreamResult result = new StreamResult(new File(saveLocation));
+				StreamResult result = new StreamResult(saveLocation);
 				
 				transformer.transform(source, result);
 				
@@ -927,11 +927,20 @@ public class Game implements Serializable, XMLSaving {
 			}
 		}
 		
+		if(Main.game.getGenericAndrogynousNPC()==null) { // If was accidentally deleted in version 0.2.10:
+			try {
+				Main.game.addNPC(new GenericAndrogynousNPC(), false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
 		Main.game.started = true;
+		
+		Main.game.setRequestAutosave(false);
 		
 		DialogueNodeOld startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
@@ -1184,6 +1193,16 @@ public class Game implements Serializable, XMLSaving {
 			}
 		}
 		
+		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
+		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
+		for(GameCharacter companion : companions) {
+			// Updating companion NPCs:
+			companion.companionshipCheck();
+		}
+		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+			character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		}
+		
 		// Occupancy:
 		int hoursPassed = (int) (getHour() - startHour);
 		int hourStartTo24 = (int) (startHour%24);
@@ -1295,6 +1314,7 @@ public class Game implements Serializable, XMLSaving {
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
+					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
 					}
@@ -1430,19 +1450,13 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			// Companions:
-			
-			List<GameCharacter> companionsToRemove = new ArrayList<>();
-			for(GameCharacter companion : npc.getCompanions()) {
-				// Updating companion NPCs
-				if(companion.isCompanionAvailable(npc)) {
-					companion.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
-				} else {
-					companionsToRemove.add(companion);
-				}
+			companions = new ArrayList<>(npc.getCompanions());
+			for(GameCharacter companion : companions) {
+				// Updating companion NPCs:
+				companion.companionshipCheck();
 			}
-			for(GameCharacter character : companionsToRemove) {
-				npc.removeCompanion(character);
-				character.returnToHome();
+			for(GameCharacter character : npc.getCompanions()) {
+				character.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
 			}
 			
 			npc.turnUpdate();
@@ -1485,6 +1499,7 @@ public class Game implements Serializable, XMLSaving {
 				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
 				&& !Main.game.isInSex()
 				&& !Main.game.isInCombat()) {
+			
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
@@ -1501,6 +1516,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}	
 			});
+			
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
 		
@@ -1527,8 +1543,6 @@ public class Game implements Serializable, XMLSaving {
 				Main.game.setActiveNPC(null);
 			}
 		}
-		
-		
 		// Miscellaneous things:
 		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) { // Catch slavery management NPC not correctly being assigned to null:
@@ -2759,6 +2773,10 @@ public class Game implements Serializable, XMLSaving {
 		return Main.game.getMinutesPassed() / 60l;
 	}
 	
+	public int getHourOfDay() {
+		return (int) (getHour()%24);
+	}
+	
 	public boolean isDayTime() {
 		return minutesPassed % (24 * 60) >= (60 * 7) && minutesPassed % (24 * 60) < (60 * 21);
 	}
@@ -3148,20 +3166,36 @@ public class Game implements Serializable, XMLSaving {
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
-				|| npc.getFather()!=null) {
+				|| npc.getFather()!=null
+				|| npc.isUnique()) {
 			npc.deleteAllEquippedClothing(); // To cut down on save size.
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
+			
 		} else {
 			removeNPC(npc);
 			return true;
 		}
 	}
 	
-	public void banishNPC(String id) {
+	public boolean banishNPC(String id) {
 		NPC npc = (NPC) getNPCById(id);
-		this.banishNPC(npc);
-			npc.deleteAllEquippedClothing(); // To cut down on save size.
+		if(npc.equals(Main.game.getGenericAndrogynousNPC())) {
+			return false; // This is the npc returned if there's a problem in getNPCById().
+		}
+		return banishNPC(npc);
+//		if(Main.game.getPlayer().getSexPartners().containsKey(id)
+//				|| npc.getPregnantLitter()!=null
+//				|| npc.getLastLitterBirthed()!=null 
+//				|| npc.getMother()!=null
+//				|| npc.getFather()!=null
+//				|| npc.isUnique()) {
+//			npc.deleteAllEquippedClothing(); // To cut down on save size.
+//			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+//			
+//		} else {
+//			removeNPC(npc);
+//		}
 	}
 
 	public void removeNPC(String id) {
