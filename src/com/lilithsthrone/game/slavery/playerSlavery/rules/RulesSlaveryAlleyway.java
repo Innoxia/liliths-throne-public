@@ -1,30 +1,36 @@
 package com.lilithsthrone.game.slavery.playerSlavery.rules;
 
+import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryRule;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 public class RulesSlaveryAlleyway {
-	
+
 	static public PlayerSlaveryRule RULE_ALLEYWAY_BRIBE_COURIER = new PlayerSlaveryRule() {
 
 		private static final long serialVersionUID = 1L;
-		
+
 		private long timer;
 
 		@Override
 		public Element saveAsXML(Element parentElement, Document doc) {
 			Element slaveryRule = doc.createElement("rule");
 			parentElement.appendChild(slaveryRule);
-			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "uniqueName", this.getUniqueName());	
+			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "uniqueName", this.getUniqueName());
 			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "timer", String.valueOf(this.timer));
 			return slaveryRule;
 		}
@@ -33,10 +39,10 @@ public class RulesSlaveryAlleyway {
 		public void initFromXML(Element parentElement, Document doc) {
 			timer = Long.valueOf(((Element)parentElement.getElementsByTagName("timer").item(0)).getAttribute("value"));
 		}
-		
+
 		@Override
 		public float getPerformanceQuality() {
-			return 0f; 
+			return 0f;
 		}
 
 		@Override
@@ -64,19 +70,19 @@ public class RulesSlaveryAlleyway {
 			}
 			return null;
 		}
-		
+
 		@Override
 		public void timerDecrease(long time)
 		{
 			this.timer -= time;
 		}
-		
+
 		@Override
 		public void timerSet(long time)
 		{
 			this.timer = time;
 		}
-		
+
 		@Override
 		public boolean isTimeUp()
 		{
@@ -84,15 +90,15 @@ public class RulesSlaveryAlleyway {
 		}
 
 	};
-	
+
 	static public PlayerSlaveryRule RULE_ALLEYWAY_SUPPLY_RUN = new PlayerSlaveryRule() {
 
 		private static final long serialVersionUID = 1L;
-		
+
 		private boolean isClothing; // True if clothing; false if an item
 		private String itemID; // Item/Clothing ID that is requested.
 		private long timer;
-		
+
 		@Override
 		public String getTargetName()
 		{
@@ -110,8 +116,8 @@ public class RulesSlaveryAlleyway {
 		public Element saveAsXML(Element parentElement, Document doc) {
 			Element slaveryRule = doc.createElement("rule");
 			parentElement.appendChild(slaveryRule);
-			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "uniqueName", this.getUniqueName());	
-			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "itemID", itemID);	
+			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "uniqueName", this.getUniqueName());
+			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "itemID", itemID);
 			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "timer", String.valueOf(this.timer));
 			CharacterUtils.createXMLElementWithValue(doc, slaveryRule, "isClothing", String.valueOf(this.isClothing));
 			return slaveryRule;
@@ -123,10 +129,10 @@ public class RulesSlaveryAlleyway {
 			itemID = String.valueOf(((Element)parentElement.getElementsByTagName("itemID").item(0)).getAttribute("value"));
 			isClothing = Boolean.valueOf(((Element)parentElement.getElementsByTagName("isClothing").item(0)).getAttribute("value"));
 		}
-		
+
 		@Override
 		public float getPerformanceQuality() {
-			return 0f; 
+			return 0f;
 		}
 
 		@Override
@@ -153,25 +159,25 @@ public class RulesSlaveryAlleyway {
 			}
 			return null;
 		}
-		
+
 		@Override
 		public void timerDecrease(long time)
 		{
 			this.timer -= time;
 		}
-		
+
 		@Override
 		public void timerSet(long time)
 		{
 			this.timer = time;
 		}
-		
+
 		@Override
 		public boolean isTimeUp()
 		{
 			return this.timer <= 0;
 		}
-		
+
 		@Override
 		public void resetRule()
 		{
@@ -185,10 +191,17 @@ public class RulesSlaveryAlleyway {
 			else // 25% chance to request clothing
 			{
 				this.isClothing = true;
-				itemID = ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())).getId();
+				List<AbstractClothingType> randomClothingList = ClothingType.getAllClothing();
+				randomClothingList.removeIf((clothing) ->
+					(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
+					&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+					&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+					|| clothing.getRarity()==Rarity.EPIC
+					|| clothing.getRarity()==Rarity.LEGENDARY);
+				itemID = randomClothingList.get(Util.random.nextInt(randomClothingList.size())).getId();
 			}
 		}
-		
+
 		@Override
 		public boolean canCompleteRule()
 		{
@@ -220,7 +233,7 @@ public class RulesSlaveryAlleyway {
 			}
 			return false;
 		}
-		
+
 		@Override
 		public String canCompleteRuleReason()
 		{
@@ -230,7 +243,7 @@ public class RulesSlaveryAlleyway {
 			}
 			return "";
 		}
-		
+
 		@Override
 		public void completeRule()
 		{
@@ -239,7 +252,7 @@ public class RulesSlaveryAlleyway {
 			{
 				return;
 			}
-			
+
 			Main.game.getPlayer().getOwner().removeRule(this);
 			this.timer = 1;
 			if(this.isClothing)

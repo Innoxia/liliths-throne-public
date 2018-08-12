@@ -25,14 +25,13 @@ import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 public class EventsSlaveryAlleyway {
-	
+
 	public static Value<String, AbstractItem> potion = null;
 	public static Value<String, AbstractItem> kinkPotion = null;
-	
+
 	// ======
 	//
 	//
@@ -40,7 +39,7 @@ public class EventsSlaveryAlleyway {
 	//
 	//
 	// ======
-	
+
 	public static final DialogueNodeOld ALLEYWAY_SLAVE_NORMAL_SEX_END = new DialogueNodeOld("Collapse", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -48,12 +47,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 30;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "You're completely worn out from sex with [npc.name], and need a while to recover.";
@@ -79,16 +78,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEYWAY_SLAVE_PUNISHMENT_SEX_END = new DialogueNodeOld("Collapse", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -101,12 +100,12 @@ public class EventsSlaveryAlleyway {
 		public Colour getAuthorColour(){
 			return Colour.BASE_ORANGE;
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 30;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "You're completely worn out from [npc.name]'s punishment, and need a while to recover.";
@@ -134,16 +133,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_TF_POTION_DIALOGUE_START = new DialogueNodeOld("Punished", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -156,7 +155,7 @@ public class EventsSlaveryAlleyway {
 		public Colour getAuthorColour(){
 			return Colour.BASE_ORANGE;
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return "You are been punished by [npc.name]!";
@@ -185,7 +184,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -203,15 +202,15 @@ public class EventsSlaveryAlleyway {
 					return new Response("Spit", "Spit out the potion.", PUNISHMENT_TF_POTION_DIALOGUE_END_RESISTED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));	
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));
 						}
 					};
 				}
-				
+
 			} else if (index == 2) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING), new ListValue<>(Fetish.FETISH_SLAVE));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING, Fetish.FETISH_SLAVE);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Swallow", "Do as you're told and swallow the strange potion.", PUNISHMENT_TF_POTION_DIALOGUE_END_OBEYED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -219,7 +218,7 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){			
+					public void effects(){
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
@@ -231,13 +230,13 @@ public class EventsSlaveryAlleyway {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(5f, false));
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_TF_POTION_DIALOGUE_END_RESISTED = new DialogueNodeOld("Avoided Transformation", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -271,7 +270,7 @@ public class EventsSlaveryAlleyway {
 							+Main.game.getActiveNPC().getPreferredBodyDescription("b")
 							+" next time! For now, I'm going to get some fun out of you just as you are!)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -284,7 +283,7 @@ public class EventsSlaveryAlleyway {
 							+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -295,12 +294,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -316,12 +316,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -337,34 +338,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_TF_POTION_DIALOGUE_END_OBEYED = new DialogueNodeOld("Transformed", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -389,7 +391,7 @@ public class EventsSlaveryAlleyway {
 							+ Main.game.getActiveNPC().getPreferredBodyDescription("b")
 							+ "! Now for the real fun!)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -404,7 +406,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -415,12 +417,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -436,12 +439,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -457,34 +461,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_KINK_POTION_DIALOGUE_START = new DialogueNodeOld("Punished", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -497,7 +502,7 @@ public class EventsSlaveryAlleyway {
 		public Colour getAuthorColour(){
 			return Colour.BASE_ORANGE;
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return "You are been punished by [npc.name]!";
@@ -526,7 +531,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -544,15 +549,15 @@ public class EventsSlaveryAlleyway {
 					return new Response("Spit", "Spit out the potion.", PUNISHMENT_KINK_POTION_DIALOGUE_END_RESISTED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));	
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));
 						}
 					};
 				}
-				
+
 			} else if (index == 2) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_RECEIVING), new ListValue<>(Fetish.FETISH_SLAVE));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING, Fetish.FETISH_SLAVE);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Swallow", "Do as you're told and swallow the strange potion.", PUNISHMENT_KINK_POTION_DIALOGUE_END_OBEYED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -560,7 +565,7 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){	
+					public void effects(){
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
@@ -572,13 +577,13 @@ public class EventsSlaveryAlleyway {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(5f, false));
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_KINK_POTION_DIALOGUE_END_RESISTED = new DialogueNodeOld("Avoided Transformation", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -611,7 +616,7 @@ public class EventsSlaveryAlleyway {
 							+ " [npc.speech(I'll turn you into my perfect little plaything"
 							+" next time! For now, I'm going to get some fun out of you just as you are!)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -624,7 +629,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -635,12 +640,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -656,12 +662,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -677,34 +684,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_KINK_POTION_DIALOGUE_END_OBEYED = new DialogueNodeOld("Transformed", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -728,7 +736,7 @@ public class EventsSlaveryAlleyway {
 							+ " [npc.speech(I'll turn you into my perfect slutty plaything"
 							+ "! Now for the real fun!)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -743,7 +751,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -754,12 +762,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -775,12 +784,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -796,34 +806,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_BEGGING_DIALOGUE_START = new DialogueNodeOld("Punished", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -836,7 +847,7 @@ public class EventsSlaveryAlleyway {
 		public Colour getAuthorColour(){
 			return Colour.BASE_ORANGE;
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return "You are been punished by [npc.name]!";
@@ -858,7 +869,7 @@ public class EventsSlaveryAlleyway {
 						+ " [npc.speech(<i>Beg</i> for me! I want you to understand how much of a worthless <i>bitch</i> you are! Go on, do it.)]"
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -871,15 +882,15 @@ public class EventsSlaveryAlleyway {
 					return new Response("Don't beg", "Fuck that asshole. Keep your mouth shut!", PUNISHMENT_BEGGING_DIALOGUE_END_RESISTED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));	
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));
 						}
 					};
 				}
-				
+
 			} else if (index == 2) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Beg", "Do as you're told and beg.", PUNISHMENT_BEGGING_DIALOGUE_END_OBEYED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -887,15 +898,15 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){	
+					public void effects(){
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(5f, false));
 					}
 				};
-				
+
 			} else if (index == 3) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Beg (Perform)", "Do as you're told and beg, not holding back and being as eager to please as you can.", PUNISHMENT_BEGGING_DIALOGUE_END_PERFORMED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -903,18 +914,18 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){	
+					public void effects(){
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(15f, false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getOwner().incrementAffection(Main.game.getPlayer(), 10f));
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_BEGGING_DIALOGUE_END_RESISTED = new DialogueNodeOld("Defiance", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -940,7 +951,7 @@ public class EventsSlaveryAlleyway {
 							+ "[npc.speech(I see, you think your little rebellion is going to get you somewhere?)], [npc.she] asks you, before glancing around impatiently and suddenly starting to grope you,"
 							+ " [npc.speech(Fuck it, I don't have time for that, you'll learn your lesson one way or another!)]."
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -953,7 +964,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -964,12 +975,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -985,12 +997,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1006,34 +1019,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_BEGGING_DIALOGUE_END_OBEYED = new DialogueNodeOld("Obedience", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1058,7 +1072,7 @@ public class EventsSlaveryAlleyway {
 						+ "<p>"
 							+ "[npc.She] wasn't that convinced, but sighed. [npc.speech(That'll do, I suppose. And now, for the fun part...)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -1070,7 +1084,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -1081,12 +1095,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1102,12 +1117,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1123,34 +1139,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_BEGGING_DIALOGUE_END_PERFORMED = new DialogueNodeOld("Obedience", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1183,7 +1200,7 @@ public class EventsSlaveryAlleyway {
 						+ "<p>"
 							+ "[npc.name] nods, approvingly, patting you on your head. [npc.speech(Good slut! Now get up and actually get your worthless body to work!)]"
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -1203,7 +1220,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -1214,12 +1231,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1235,12 +1253,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1256,34 +1275,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld PUNISHMENT_MUG = new DialogueNodeOld("Punished", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1291,12 +1311,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] is punishing you!";
@@ -1304,7 +1324,7 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -1316,7 +1336,7 @@ public class EventsSlaveryAlleyway {
 							+ "You close your eyes, bracing yourself for the punishment as [npc.name] scowls, slapping you."
 							+ " That wasn't it, however, as she lowers her hands to your body, starting to check you for your money."
 						+ "</p>";
-			
+
 			if(player.getMoney() > 0)
 			{
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -1357,16 +1377,16 @@ public class EventsSlaveryAlleyway {
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
 						Main.game.getPlayer().setMoney(0);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld RULE_CHANGE_DAILY_TRIBUTE_MONEY = new DialogueNodeOld("Rule Change", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1374,12 +1394,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to have a talk with you.";
@@ -1387,11 +1407,11 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
-			
+
 			// If for some reason the rule isn't added, we need to actually have it added.
 			if(owner.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
 			{
@@ -1408,7 +1428,7 @@ public class EventsSlaveryAlleyway {
 							+ "You nod, acknowledging the change, making a mental note of it."
 						+ "</p>");
 			}
-			
+
 			// Disobedient slaves will have to pay at least 2000 flames daily
 			if(player.getObedienceValue() < 0 && RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.getDailyCashRequirement() < 2000)
 			{
@@ -1424,7 +1444,7 @@ public class EventsSlaveryAlleyway {
 							+ "You nod, acknowledging the change, making a mental note of it."
 						+ "</p>");
 			}
-			
+
 			// Obedient slaves will have a slight cut
 			RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.setDailyCashRequirement(1000);
 			return UtilText.parse(Main.game.getActiveNPC(),
@@ -1446,31 +1466,31 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld RULE_CHANGE_NAKED = new DialogueNodeOld("Rule Change", "", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		private PlayerSlaveryRule ruleToAdd = null;
 
 		@Override
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to have a talk with you.";
@@ -1478,14 +1498,14 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
 			String rulePrefix;
 			ruleToAdd = null;
-			
-			if((owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
+
+			if((owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST))
 					&& owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS;
@@ -1495,7 +1515,7 @@ public class EventsSlaveryAlleyway {
 								+ ")] [npc.she] says, [npc.speech(You'll be wearing nothing that covers your breasts. Understood?)]"
 							+ "</p>";
 			}
-			else if((owner.hasFetish(Fetish.FETISH_ANAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
+			else if((owner.hasFetish(Fetish.FETISH_ANAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST))
 					&& owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS;
@@ -1505,7 +1525,7 @@ public class EventsSlaveryAlleyway {
 								+ ")] [npc.she] says, [npc.speech(So from now and on, nothing has to cover it. Understood?)]"
 							+ "</p>";
 			}
-			else if((owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
+			else if((owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST))
 					&& owner.getRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS;
@@ -1532,7 +1552,7 @@ public class EventsSlaveryAlleyway {
 								+ " Please do send this one as a bug report if you run into it!"
 							+ "</p>";
 			}
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 					rulePrefix
 					+"<p>"
@@ -1554,16 +1574,16 @@ public class EventsSlaveryAlleyway {
 						{
 							Main.game.getPlayer().getOwner().addRule(ruleToAdd);
 						}
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld RULE_CHANGE_OUTSIDE_FREEDOM = new DialogueNodeOld("Rule Change", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1571,12 +1591,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to have a talk with you.";
@@ -1584,11 +1604,11 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
-			
+
 			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
 			{
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -1602,7 +1622,7 @@ public class EventsSlaveryAlleyway {
 							+ "You nod, acknowledging the change, making a mental note of it."
 						+ "</p>");
 			}
-			
+
 			if(player.getObedienceValue() < 0 && owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
 			{
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -1620,7 +1640,7 @@ public class EventsSlaveryAlleyway {
 							+ "You nod, acknowledging the change, making a mental note of it."
 						+ "</p>");
 			}
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "[npc.Name] walks over to you, scratching [npc.her] chin."
@@ -1638,7 +1658,7 @@ public class EventsSlaveryAlleyway {
 				return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 					@Override
 					public void effects() {
-						
+
 						PlayerCharacter player = Main.game.getPlayer();
 						NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -1660,16 +1680,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld RULE_CHANGE_DEGRADING_NAME_START = new DialogueNodeOld("Rule Change", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1677,12 +1697,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to have a talk with you.";
@@ -1700,30 +1720,30 @@ public class EventsSlaveryAlleyway {
 						+ " [npc.speech(Will you, bitch, actually change your name to [npc.name]'s Bitch for me?)]"
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("No way.", "You have at least <i>some</i> dignity remaining.", RULE_CHANGE_DEGRADING_NAME_REFUSED);
-				
+
 			} else if (index == 2) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Agree", "Agree to that. The rule will remain in place untill your master releases you, so beware! Not agreeing will not result in an obedience or affection penalty.", RULE_CHANGE_DEGRADING_NAME_ACCEPTED,
 						applicableFetishes,
 						applicableCorrutionLevel,
 						null,
 						null,
 						null);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
-	
+
+
 	public static final DialogueNodeOld RULE_CHANGE_DEGRADING_NAME_REFUSED = new DialogueNodeOld("Refused", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1731,12 +1751,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "You refuse such a degrading treatment.";
@@ -1744,10 +1764,10 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "You shake your head, knowing full well that you wouldn't be able to live with that name."
@@ -1762,7 +1782,7 @@ public class EventsSlaveryAlleyway {
 				return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 					@Override
 					public void effects() {
-						
+
 						PlayerCharacter player = Main.game.getPlayer();
 						NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -1771,17 +1791,17 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
-	
+
+
 	public static final DialogueNodeOld RULE_CHANGE_DEGRADING_NAME_ACCEPTED = new DialogueNodeOld("Accepted", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1789,12 +1809,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "You accept such a sexy treatment.";
@@ -1802,10 +1822,10 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "You nod, eagerly, ready to please and degrade yourself with any way possible."
@@ -1821,7 +1841,7 @@ public class EventsSlaveryAlleyway {
 				return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 					@Override
 					public void effects() {
-						
+
 						PlayerCharacter player = Main.game.getPlayer();
 						NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -1830,16 +1850,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_ARCANE_STORM_SEX = new DialogueNodeOld("Back Alley", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1859,7 +1879,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(Come on, I know you want it too...)]"
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1869,12 +1889,13 @@ public class EventsSlaveryAlleyway {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] remained on your hands, still pinning you to the wall, as [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 							+ " Giving you an lusty smirk, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 						+ "</p>");
-				
+
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -1890,12 +1911,13 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 								+ "[npc.Name]'s [npc.arms] remained on your hands, still pinning you to the wall, as [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an lusty smirk, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-				
+
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -1911,19 +1933,20 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] pin you to the wall, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 						+ "</p>");
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_NORMAL_SEX = new DialogueNodeOld("Back Alley", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1941,7 +1964,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(You know what you have to do,)] [npc.name] says, smirking, grabbing you by your arms and pinning you to the wall, [npc.speech(I want to get a real close look to that sexy body of yours.)]"
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1951,12 +1974,13 @@ public class EventsSlaveryAlleyway {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] remained on your hands, still pinning you to the wall, as [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 							+ " Giving you an lusty smirk, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 						+ "</p>");
-				
+
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -1972,12 +1996,13 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 								+ "[npc.Name]'s [npc.arms] remained on your hands, still pinning you to the wall, as [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an lusty smirk, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-				
+
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -1993,19 +2018,20 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] pin you to the wall, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 						+ "</p>");
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_SUBMISSIVE_SEX = new DialogueNodeOld("Back Alley", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2028,7 +2054,7 @@ public class EventsSlaveryAlleyway {
 						+ " You can probably even just say no, but [npc.she] wouldn't like it..."
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -2036,10 +2062,10 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().getOwner().incrementAffection(Main.game.getPlayer(), -15f));
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else if (index == 2) {
 				return new ResponseSex("Have some fun",
 						"Well, [npc.she] <i>is</i> asking for it!",
@@ -2047,8 +2073,9 @@ public class EventsSlaveryAlleyway {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END);
-				
+
 			} else if (index == 3) {
 				return new ResponseSex("Have some gentle fun",
 						"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
@@ -2064,8 +2091,9 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END);
-				
+
 			} else if (index == 4) {
 				return new ResponseSex("Have some rough fun",
 						"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
@@ -2081,14 +2109,15 @@ public class EventsSlaveryAlleyway {
 								return null;
 							}
 						},
+						null,
 						ALLEYWAY_SLAVE_NORMAL_SEX_END);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_INSPECTION_START = new DialogueNodeOld("Inspecting", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2096,7 +2125,7 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return "[npc.name] is inspecting you.";
@@ -2113,7 +2142,7 @@ public class EventsSlaveryAlleyway {
 						+ " [npc.speech(Show me your body, I want to see it all.)]"
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -2126,15 +2155,15 @@ public class EventsSlaveryAlleyway {
 					return new Response("Ignore", "Fuck that asshole. Don't show off yourself!", EVENT_INSPECTION_END_RESISTED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));	
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(-5f, false));
 						}
 					};
 				}
-				
+
 			} else if (index == 2) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE), new ListValue<>(Fetish.FETISH_EXHIBITIONIST));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE, Fetish.FETISH_EXHIBITIONIST);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Show off", "Do as you're told and show your body off.", EVENT_INSPECTION_END_OBEYED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -2142,15 +2171,15 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){	
+					public void effects(){
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(5f, false));
 					}
 				};
-				
+
 			} else if (index == 3) {
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE), new ListValue<>(Fetish.FETISH_EXHIBITIONIST));
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE, Fetish.FETISH_EXHIBITIONIST);
 				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
-				
+
 				return new Response("Show off (Perform)", "Do as you're told and show your body off, eargerly letting your master see <i>everything</i>.", EVENT_INSPECTION_END_PERFORMED,
 						applicableFetishes,
 						applicableCorrutionLevel,
@@ -2158,18 +2187,18 @@ public class EventsSlaveryAlleyway {
 						null,
 						null){
 					@Override
-					public void effects(){	
+					public void effects(){
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(15f, false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getOwner().incrementAffection(Main.game.getPlayer(), 10f));
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_INSPECTION_END_RESISTED = new DialogueNodeOld("Defiance", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2190,7 +2219,7 @@ public class EventsSlaveryAlleyway {
 							+ "[npc.speech(I see, you think your little rebellion is going to get you somewhere?)], [npc.she] asks you, before glancing around impatiently and suddenly starting to grope you,"
 							+ " [npc.speech(Fuck it, I don't have time for that.!)]."
 						+ "</p>");
-			
+
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -2203,7 +2232,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -2214,12 +2243,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2235,12 +2265,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2256,34 +2287,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_PUNISHMENT_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_INSPECTION_END_OBEYED = new DialogueNodeOld("Obedience", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2291,7 +2323,7 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public String getContent() {
 			boolean isPlayerNaked = Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS)
@@ -2318,7 +2350,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(Mmmmh... I liked it... Now for the <i>good</i> part!)] [npc.she] says, grinning, wrapping [npc.her] [npc.arms] around your waist, groping you."
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -2329,12 +2361,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2350,12 +2383,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2371,34 +2405,35 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld EVENT_INSPECTION_END_PERFORMED = new DialogueNodeOld("Obedience", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2435,7 +2470,7 @@ public class EventsSlaveryAlleyway {
 						+ "[npc.speech(Mmmmh... I liked it a <i>lot</i>... Now for the <i>good</i> part!)] [npc.she] says, grinning, wrapping [npc.her] [npc.arms] around your waist, groping you."
 					+ "</p>");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
@@ -2446,12 +2481,13 @@ public class EventsSlaveryAlleyway {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2467,12 +2503,13 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>");
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2488,35 +2525,36 @@ public class EventsSlaveryAlleyway {
 									return null;
 								}
 							},
+							null,
 							ALLEYWAY_SLAVE_NORMAL_SEX_END,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>");
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							Main.game.setActiveNPC(null);
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
-	
+
+
 	public static final DialogueNodeOld QUEST_BRIBE = new DialogueNodeOld("A little errand", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2524,12 +2562,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to give you a task.";
@@ -2537,7 +2575,7 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -2546,9 +2584,9 @@ public class EventsSlaveryAlleyway {
 			{
 				owner.setPlayerKnowsName(true);
 			}
-			
+
 			player.incrementMoney(5000);
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] walks over to you, pulling out five thousand flames, before giving them to you."
@@ -2569,7 +2607,7 @@ public class EventsSlaveryAlleyway {
 				return new Response("Continue", "Carry on your way.", ALLEYWAY_SLAVE_PUNISHMENT_SEX_END){
 					@Override
 					public void effects() {
-						
+
 						PlayerCharacter player = Main.game.getPlayer();
 						NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
@@ -2579,16 +2617,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld QUEST_SUPPLY_RUN = new DialogueNodeOld("A little errand", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -2596,12 +2634,12 @@ public class EventsSlaveryAlleyway {
 		public String getAuthor(){
 			return "Irbynx";
 		}
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 0;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "[npc.name] wants to give you a task.";
@@ -2609,10 +2647,10 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] walks over to you, clearly intent on asking you to do something."
@@ -2635,16 +2673,16 @@ public class EventsSlaveryAlleyway {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						Main.game.setActiveNPC(null);
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	// ======
 	//
 	//
@@ -2652,55 +2690,55 @@ public class EventsSlaveryAlleyway {
 	//
 	//
 	// ======
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_PUNISHMENT_TF_POTION = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)Math.random()*25; // Random portion. Will get added if result is non-zero
-			
+
 			// Doesn't give more weight to obedient characters, but otherwise increases in likelyhood for disobedient ones.
 			if(player.getObedienceValue() < 0)
 			{
 				weight += (int)(player.getObedienceValue() * -0.50);
 			}
-			
+
 			if(isForced)
 			{
 				weight += 25;
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if master is interested in it
 			if(player.getOwner().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if player is interested in it
 			if(player.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			potion = owner.generateTransformativePotion(); // Making a new potion. Making sure it's not a fetish one.
-			
+
 			// Making sure this event won't get picked if the player doesn't need a transformation.
 			if(potion == null)
 			{
 				weight = -100;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2713,57 +2751,57 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return true;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_PUNISHMENT_KINK_POTION = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*25f); // Random portion. Will get added if result is non-zero
-			
+
 			// Doesn't give more weight to obedient characters, but otherwise increases in likelyhood for disobedient ones.
 			if(player.getObedienceValue() < 0)
 			{
 				weight += (int)(player.getObedienceValue() * -0.50);
 			}
-			
+
 			if(isForced)
 			{
 				weight += 25;
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if master is interested in it
 			if(player.getOwner().hasFetish(Fetish.FETISH_KINK_GIVING) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if player is interested in it
 			if(player.hasFetish(Fetish.FETISH_KINK_RECEIVING) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			kinkPotion = owner.generateFetishPotion(true); // Making a new potion. Making sure it's not a tf one.
-			
+
 			// Making sure this event won't get picked if the player doesn't need a transformation.
 			if(kinkPotion == null)
 			{
 				weight = -100;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2776,44 +2814,44 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return true;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_PUNISHMENT_BEGGING = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*25f); // Random portion. Will get added if result is non-zero
-			
+
 			// Doesn't give more weight to obedient characters, but otherwise increases in likelyhood for disobedient ones.
 			if(player.getObedienceValue() < 0)
 			{
 				weight += (int)(player.getObedienceValue() * -0.50);
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if master is interested in it
 			if(owner.hasFetish(Fetish.FETISH_DOMINANT) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			// Doesn't give more weight if it's at 0; if non-zero, increases weight if player is interested in it
 			if(player.hasFetish(Fetish.FETISH_SUBMISSIVE) && weight > 0)
 			{
 				weight += 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2826,31 +2864,31 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return true;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_PUNISHMENT_MUG = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*25f); // Random portion. Will get added if result is non-zero
-			
+
 			if(player.getObedienceValue() < -90)
 			{
 				weight += 75;
 			}
-			
+
 			// Adding random variance if needed. Unlike other punishments, we don't want to force this one to happen for obedient slaves begging for it.
 			if(weight > 0)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2863,9 +2901,9 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return true;
 		}
-		
+
 	};
-	
+
 	// ======
 	//
 	//
@@ -2873,42 +2911,42 @@ public class EventsSlaveryAlleyway {
 	//
 	//
 	// ======
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_RULE_DAILY_TRIBUTE = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			// If for some reason the rule isn't added, we need to actually have it added.
 			if(owner.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
 			{
 				weight += 75;
 			}
-			
+
 			// Disobedient slaves will have to pay at least 2000 flames daily
 			if(player.getObedienceValue() < 0 && RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.getDailyCashRequirement() < 2000)
 			{
 				weight += 75;
 			}
-			
+
 			// Obedient slaves will have a slight cut
 			if(player.getObedienceValue() >= 50 && RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.getDailyCashRequirement() > 1000)
 			{
 				weight += 75;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2921,22 +2959,22 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_RULE_NAKED = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			//Checking if the rules are not in place yet.
-			if(owner.hasFetish(Fetish.FETISH_VOYEURIST) 
+			if(owner.hasFetish(Fetish.FETISH_VOYEURIST)
 					|| (owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) && owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
 					|| (owner.hasFetish(Fetish.FETISH_ANAL_GIVING)  && owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
 					|| (owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) && owner.getRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null && player.hasVagina())
@@ -2945,13 +2983,13 @@ public class EventsSlaveryAlleyway {
 			{
 				weight += 25;
 			}
-			
+
 			// Doubling RNG influence on the outcome for this one if the player is an exhibitionist.
 			if(player.hasFetish(Fetish.FETISH_EXHIBITIONIST))
 			{
 				randomPart *= 2;
 			}
-			
+
 			// Owner has set all the rules, no need to generate this one.
 			if(owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) != null
 					&& owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) != null
@@ -2960,13 +2998,13 @@ public class EventsSlaveryAlleyway {
 			{
 				weight = -100;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -2979,50 +3017,50 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_RULE_OUTSIDE_FREEDOM = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			// Adds the rule for obedient slaves
 			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
 			{
 				weight += 75;
 			}
-			
+
 			// Disobedient slaves will get stripped of their free hours
 			if(player.getObedienceValue() < 0 && owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
 			{
 				weight += 75;
 			}
-			
+
 			// Obedient slaves will slowly start gaining free hours
 			if(player.getObedienceValue() > 75f && RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.getFreeTime() < 720)
 			{
 				weight += 75;
 			}
-			
+
 			// Avoiding duplicate rule settings
 			if(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.wasRuleChangedToday())
 			{
 				weight = -100;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3035,37 +3073,37 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_RULE_DEGRADING_NAME_CHANGE = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			if(player.getObedienceValue() >= 90f && owner.getRule(RulesSlaveryDefault.RULE_OWNERS_BITCH) == null  && owner.getRule(RulesSlaveryDefault.RULE_NAME_FREEDOM) == null )
 			{
 				weight += 150;
 			}
-			
+
 			// Avoiding duplicate rule settings
 			if(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.wasRuleChangedToday())
 			{
 				weight = -100;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3078,9 +3116,9 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	// ======
 	//
 	//
@@ -3088,30 +3126,30 @@ public class EventsSlaveryAlleyway {
 	//
 	//
 	// ======
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_QUEST_BRIBE = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = -50 + (int)(Math.random()*100f); // Random portion. Will get added if result is non-zero
-			
+
 			// Quest is given to players who can actually go outside for errands.
 			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) == null)
 			{
 				weight += 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3124,32 +3162,32 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_QUEST_SUPPLY_RUN = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = -50 + (int)(Math.random()*100f); // Random portion. Will get added if result is non-zero
-			
+
 			// Quest is given to players who can actually go outside for errands.
 			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) == null)
 			{
 				weight += 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3164,9 +3202,9 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	// ======
 	//
 	//
@@ -3174,21 +3212,21 @@ public class EventsSlaveryAlleyway {
 	//
 	//
 	// ======
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_EVENT_ARCANE_STORM_SEX = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			// This is a special event that can only happen if an arcane storm is present.
-			
+
 			int weight = -100; // Normal "base" value.
 
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
 			{
 				weight = 150;
 			}
-			
+
 			return weight;
 		}
 
@@ -3201,42 +3239,42 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_EVENT_NORMAL_SEX = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50); // Random portion. Will get added if result is non-zero
-			
+
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
 			{
 				weight = -150;
 			}
-			
+
 			if(owner.isAttractedTo(player))
 			{
 				weight += 25;
 			}
-			
+
 			if(owner.hasFetish(Fetish.FETISH_DOMINANT))
 			{
 				weight += 25;
 				randomPart -= 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3249,36 +3287,36 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_EVENT_SUBMISSIVE_SEX = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
 			{
 				weight = -150;
 			}
-			
+
 			if(owner.isAttractedTo(player) && owner.hasFetish(Fetish.FETISH_SUBMISSIVE) && owner.getAffection(player) > 50)
 			{
 				weight += 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3291,36 +3329,36 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 	static public final PlayerSlaveryEvent ALLEYWAY_SLAVE_EVENT_INSPECTION = new PlayerSlaveryEvent() {
 
 		@Override
 		public int getWeight(boolean isForced) {
-			
+
 			PlayerCharacter player = Main.game.getPlayer();
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
-			
+
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
-			
+
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
 			{
 				weight = -150;
 			}
-			
+
 			if(owner.isAttractedTo(player))
 			{
 				weight += 25;
 			}
-			
+
 			// Adding random variance if needed.
 			if(weight > 0 || isForced)
 			{
 				weight += randomPart;
 			}
-			
+
 			return weight;
 		}
 
@@ -3333,8 +3371,8 @@ public class EventsSlaveryAlleyway {
 		public boolean isPunishment() {
 			return false;
 		}
-		
+
 	};
-	
+
 
 }

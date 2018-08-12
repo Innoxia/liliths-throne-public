@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import java.util.ArrayList;
 
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -31,6 +32,8 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 
 /**
  * @since 0.1.?
@@ -45,19 +48,19 @@ public class AlleywayAttackerDialogue {
 				|| pt == PlaceType.DOMINION_CANAL
 				|| pt == PlaceType.DOMINION_CANAL_END);
 	}
-	
+
 	private static NPC getMugger() {
 		return Main.game.getActiveNPC();
 	}
-	
+
 	private static boolean isWantsToFight() {
 		return getMugger().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
 	}
-	
+
 	private static boolean isAffectionHighEnoughToInviteHome() {
 		return getMugger().getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
 	}
-	
+
 	private static void applyPregnancyReactions() {
 		if(getMugger().isVisiblyPregnant()){
 			getMugger().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
@@ -66,10 +69,10 @@ public class AlleywayAttackerDialogue {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(getMugger(), true);
 		}
 	}
-	
+
 	private static String getStatus() {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("<p style='text-align:center;'><i>");
 		AffectionLevel al = getMugger().getAffectionLevel(Main.game.getPlayer());
 		switch(al) {
@@ -117,35 +120,35 @@ public class AlleywayAttackerDialogue {
 				break;
 		}
 		sb.append("</i></p>");
-		
+
 		return UtilText.parse(getMugger(), sb.toString());
 	}
-	
+
 	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			boolean pregnancyReaction = false;
-			
+
 			if(getMugger().getLastTimeEncountered() != -1) {
-				
+
 				if(isWantsToFight()) {
 					if(isCanal()) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_CANAL_REPEAT_INTRO", getMugger()));
-						
+
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_INTRO", getMugger()));
 					}
-					
+
 					if(getMugger().isVisiblyPregnant()) {
 						pregnancyReaction = true;
-						
+
 						if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_PREGNANCY_REVEAL", getMugger()));
-						
+
 						} else {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_STILL_PREGNANT", getMugger()));
 						}
@@ -153,36 +156,36 @@ public class AlleywayAttackerDialogue {
 
 					if(Main.game.getPlayer().isVisiblyPregnant()) {
 						pregnancyReaction = true;
-						
+
 						if(!Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger())) {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_PLAYER_PREGNANCY", getMugger()));
-						
+
 						} else {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getMugger()));
 						}
 					}
-					
+
 					if(!pregnancyReaction) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT", getMugger()));
 					}
-					
+
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_REPEAT_END", getMugger()));
-					
-				
+
+
 				} else { // The mugger doesn't want to attack the player:
 					if(isCanal()) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_CANAL_INTRO", getMugger()));
-						
+
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_INTRO", getMugger()));
 					}
-					
+
 					if(getMugger().isVisiblyPregnant()) {
 						pregnancyReaction = true;
-						
+
 						if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_PREGNANCY_REVEAL", getMugger()));
-						
+
 						} else {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_STILL_PREGNANT", getMugger()));
 						}
@@ -190,35 +193,35 @@ public class AlleywayAttackerDialogue {
 
 					if(Main.game.getPlayer().isVisiblyPregnant()) {
 						pregnancyReaction = true;
-						
+
 						if(!Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger())) {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_PLAYER_PREGNANCY", getMugger()));
-						
+
 						} else {
 							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY", getMugger()));
 						}
 					}
-					
+
 					if(!pregnancyReaction) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL", getMugger()));
 					}
-					
+
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_END", getMugger()));
 
 					UtilText.nodeContentSB.append(getStatus());
 				}
-				
+
 			} else {
 				if(isCanal()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_CANAL_INTRO", getMugger()));
-					
+
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_INTRO", getMugger()));
 				}
 
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK", getMugger()));
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -232,7 +235,7 @@ public class AlleywayAttackerDialogue {
 							applyPregnancyReactions();
 						}
 					};
-					
+
 				} else if (index == 2) {
 					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
@@ -248,7 +251,7 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
-					
+
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 						return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
@@ -266,15 +269,15 @@ public class AlleywayAttackerDialogue {
 								applyPregnancyReactions();
 							}
 						};
-						
+
 					} else {
 						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 					}
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Talk", "Talk to [npc.name] for a while in order to get to know [npc.herHim] a little better.", ALLEY_PEACEFUL_TALK) {
@@ -282,13 +285,13 @@ public class AlleywayAttackerDialogue {
 						public void effects() {
 							applyPregnancyReactions();
 							Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
-							
+
 							if(isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
 							}
 						}
 					};
-					
+
 				} else if (index == 2) {
 					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
@@ -308,7 +311,7 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
-					
+
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
@@ -326,11 +329,11 @@ public class AlleywayAttackerDialogue {
 								applyPregnancyReactions();
 							}
 						};
-						
+
 					} else {
 						return new Response("Sex (dom)", "You can tell that [npc.name] isn't interested in having sex with you...", null);
 					}
-					
+
 				} else if (index == 4) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
@@ -348,28 +351,28 @@ public class AlleywayAttackerDialogue {
 								applyPregnancyReactions();
 							}
 						};
-						
+
 					} else {
 						return new Response("Sex (sub)", "You can tell that [npc.name] isn't interested in having sex with you...", null);
 					}
-					
+
 				} if (index == 5) {
 					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) || !isAffectionHighEnoughToInviteHome()) {
 						return new Response("Offer room",
 								"You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...<br/>"
 								+ "[style.italics(Requires [npc.name] to have at least "+AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()+" affection towards you.)]",
 								null);
-						
+
 					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
 						return new Response("Offer room",
 								"You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion...",
 								null);
-						
+
 					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
 						return new Response("Offer room",
 								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
 								null);
-						
+
 					}else {
 						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", ALLEY_PEACEFUL_OFFER_ROOM) {
 							@Override
@@ -381,7 +384,7 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
-					
+
 				} else if (index==10) {
 					return new Response("Attack",
 							"Betray [npc.namePos] trust and attack [npc.herHim]!<br/>"
@@ -399,28 +402,28 @@ public class AlleywayAttackerDialogue {
 							return true;
 						}
 					};
-					
+
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogueNoEncounter());
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEY_PEACEFUL_TALK = new DialogueNodeOld("Talk", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_TALK", getMugger()));
 
 			UtilText.nodeContentSB.append(getStatus());
-			
+
 			if(isAffectionHighEnoughToInviteHome()) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_CAN_INVITE_HOME", getMugger()));
@@ -428,32 +431,32 @@ public class AlleywayAttackerDialogue {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getMugger()));
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogueNoEncounter());
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_MONEY = new DialogueNodeOld("Offer money", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_OFFER_MONEY", getMugger()));
 
 			UtilText.nodeContentSB.append(getStatus());
-			
+
 			if(isAffectionHighEnoughToInviteHome()) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_CAN_INVITE_HOME", getMugger()));
@@ -461,29 +464,29 @@ public class AlleywayAttackerDialogue {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getMugger()));
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogueNoEncounter());
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_ROOM = new DialogueNodeOld("Offer room", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_OFFER_ROOM", getMugger());
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -497,21 +500,21 @@ public class AlleywayAttackerDialogue {
 						Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 50));
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNodeOld("New Room", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME", getMugger());
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -525,29 +528,29 @@ public class AlleywayAttackerDialogue {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNodeOld ALLEY_PEACEFUL_ATTACK = new DialogueNodeOld("Attack", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_ATTACK", getMugger());
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "Start fighting [npc.name]!", getMugger());
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_SEX_PEACEFUL = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(getMugger())>0) {
@@ -556,21 +559,21 @@ public class AlleywayAttackerDialogue {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getMugger());
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getLabel(){
 			return "Assaulted!";
@@ -581,17 +584,17 @@ public class AlleywayAttackerDialogue {
 			// Storm attackers are different from alley attackers. They are not saved as persistent NPCs, so don't worry about giving any repeat-encounter descriptions.
 			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK", getMugger());
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "Defend yourself against the unwanted advances of [npc.name]!", getMugger());
-				
+
 			} else if (index == 2) {
 				return new Response("Offer money",
 						"Due to the ongoing arcane storm, [npc.name] isn't interested in your money, and only wants to have sex! You'll have to either fight [npc.herHim] or give [npc.herHim] what [npc.she] wants!",
 						null);
-				
+
 			} else if (index == 3) {
 				return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
@@ -603,13 +606,13 @@ public class AlleywayAttackerDialogue {
 						null,
 						AFTER_SEX_DEFEAT,
 						UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -623,7 +626,7 @@ public class AlleywayAttackerDialogue {
 			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getMugger());
-				
+
 			} else {
 				if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_BETRAYED", getMugger());
@@ -632,7 +635,7 @@ public class AlleywayAttackerDialogue {
 				}
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
@@ -646,7 +649,7 @@ public class AlleywayAttackerDialogue {
 							}
 						}
 					};
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
@@ -657,7 +660,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
-					
+
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
@@ -676,7 +679,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
-					
+
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
@@ -695,7 +698,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
-					
+
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now... Perhaps it would be best to let [npc.name] choose what to do next?",
@@ -708,7 +711,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
-					
+
 				} else if (index == 6) {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
@@ -716,11 +719,11 @@ public class AlleywayAttackerDialogue {
 							Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
-					
+
 				} else if (index == 7) {
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
-						
+
 					} else {
 						return new Response("Talk", "Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.", AFTER_COMBAT_VICTORY_TALK){
 							@Override
@@ -730,7 +733,7 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
-					
+
 				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
 							"Remove character",
@@ -742,11 +745,11 @@ public class AlleywayAttackerDialogue {
 							Main.game.banishNPC(getMugger());
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
@@ -757,7 +760,7 @@ public class AlleywayAttackerDialogue {
 							}
 						}
 					};
-					
+
 				} else if (index == 2) {
 					if(!Main.game.isNonConEnabled()) {
 						return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
@@ -772,7 +775,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
-					
+
 				} else if (index == 3) {
 					if(!Main.game.isNonConEnabled()) {
 						return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
@@ -794,7 +797,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
-					
+
 				} else if (index == 4) {
 					if(!Main.game.isNonConEnabled()) {
 						return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
@@ -815,12 +818,12 @@ public class AlleywayAttackerDialogue {
 							},
 							null,
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
-					
+
 				} else if (index == 5) {
 					return new Response("Submit",
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
-					
+
 				} else if (index == 6) {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
@@ -828,11 +831,11 @@ public class AlleywayAttackerDialogue {
 							Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
-					
+
 				} else if (index == 7) {
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
-						
+
 					} else {
 						return new Response("Talk", "Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.", AFTER_COMBAT_VICTORY_TALK){
 							@Override
@@ -842,7 +845,7 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
-					
+
 				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
 							"Remove character",
@@ -854,40 +857,41 @@ public class AlleywayAttackerDialogue {
 							Main.game.banishNPC(getMugger());
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_TALK = new DialogueNodeOld("Talk", "", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_TALK", getMugger());
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue",
 						"Let [npc.name] go.",
 						Main.game.getDefaultDialogueNoEncounter());
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		Value<String, AbstractItem> potion = null;
-		
+		AbstractClothing enslavementItem = null;
+
 		@Override
 		public String getDescription() {
 			return "You have been defeated by [npc.name]!";
@@ -899,30 +903,52 @@ public class AlleywayAttackerDialogue {
 			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_BETRAYED", getMugger());
 			}
-			
-			if(getMugger().hasTransformationFetish() && getMugger().isWillingToRape(Main.game.getPlayer()) ) {
+
+			if(getMugger().hasTransformationFetish() && getMugger().isWillingToRape(Main.game.getPlayer()) && (!Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) || Main.game.getPlayer().isSlave()) ){
 				potion = getMugger().getTransfomativePotion(true);
-				
-//				System.out.println("Potion Check 1"); 
-//				System.out.println(potion); 
-//				System.out.println(potion.getValue().getName()); 
-				
+
+//				System.out.println("Potion Check 1");
+//				System.out.println(potion);
+//				System.out.println(potion.getValue().getName());
+
 				if(potion == null) {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF_FINISHED", getMugger());
-					
+
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF", getMugger());
 				}
 			}
-				
+
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) && !Main.game.getPlayer().isSlave() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+					enslavementItem = Main.game.getActiveNPC().getEnslavementItem();
+					return UtilText.parse(Main.game.getActiveNPC(),
+							"<p>"
+								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ "</p>"
+							+ "<p>"
+								+ "Pulling you to your feet, [npc.name] takes out a collar from somewhere out of sight and twirls it around [npc.her] finger."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Oh what a coincidence that you've showed up! And I just got this little slave-making toy here...)] [npc.she] mockingly says, starting to fiddle with it, [npc.speech(Don't you <i>dare</i> to run, or I'll make your sorry slave ass regret it.)]"
+							+ "</p>"
+							+ "<p>"
+								+ "While [npc.name] is fiddling with the collar, you see a brief opening to run away..."
+							+ "</p>");
+
+			}
+
 			if(getMugger().isAttractedTo(Main.game.getPlayer()) && getMugger().isWillingToRape(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_NO_TF_ATTRACTED", getMugger());
-				
+
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_NO_TF_NOT_ATTRACTED", getMugger());
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -931,15 +957,15 @@ public class AlleywayAttackerDialogue {
 				}
 				return null;
 			}
-			
+
 			if(getMugger().hasTransformationFetish()
 					&& potion != null
 					&& getMugger().isWillingToRape(Main.game.getPlayer())) {
-				
-//				System.out.println("Potion Check 2"); 
-//				System.out.println(potion); 
-//				System.out.println(potion.getValue()); 
-				
+
+//				System.out.println("Potion Check 2");
+//				System.out.println(potion);
+//				System.out.println(potion.getValue());
+
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
@@ -949,16 +975,16 @@ public class AlleywayAttackerDialogue {
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					}
-					
+
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
-					
+
 					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
 						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
 						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
 					}
-					
+
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
 							applicableFetishes,
 							applicableCorrutionLevel,
@@ -968,11 +994,11 @@ public class AlleywayAttackerDialogue {
 						@Override
 						public void effects(){
 							Util.Value<String, AbstractItem> potion = getMugger().getTransfomativePotion();
-							
-//							System.out.println("Potion Check 3"); 
-//							System.out.println(potion.getValue().getName()); 
-//							System.out.println(potion); 
-							
+
+//							System.out.println("Potion Check 3");
+//							System.out.println(potion.getValue().getName());
+//							System.out.println(potion);
+
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
@@ -983,11 +1009,65 @@ public class AlleywayAttackerDialogue {
 									+"</p>");
 						}
 					};
-					
+
 				}
-				
+
+			} else if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) && !Main.game.getPlayer().isSlave()) {
+				if (index == 1) {
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
+						return new Response("Run Away",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_SLAVE.getName(Main.game.getPlayer())
+									+"</b> fetish, you love being a slave so much that you can't bring yourself to use this window of opportunity to run away!",
+								null);
+					} else {
+						return new Response("Run Away", "Use the opportunity to run away, avoiding enslavement.", AFTER_COMBAT_ENSLAVEMENT_REFUSED);
+					}
+
+				} else if (index == 2) {
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SLAVE);
+					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SLAVE.getAssociatedCorruptionLevel();
+
+					return new Response("Enslaved...", "There is nothing you can do, clearly, to avoid being enslaved. Warning: This will limit your freedom for a while and you will lose all your items and flames!", AFTER_COMBAT_ENSLAVEMENT,
+							applicableFetishes,
+							applicableCorrutionLevel,
+							null,
+							null,
+							null){
+						@Override
+						public void effects(){
+							Main.game.getActiveNPC().addPlayerAsSlave();
+
+							// Obedience changes
+							Main.game.getPlayer().setObedience(-100, false);
+							if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
+								Main.game.getPlayer().setObedience(0, false);
+							}
+
+							// Daily tribute setup
+							Main.game.getActiveNPC().addRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY);
+							RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.setDailyCashRequirement(2000);
+
+							// Removing owned money
+							Main.game.getActiveNPC().incrementMoney(Main.game.getPlayer().getMoney());
+							Main.game.getPlayer().setMoney(0);
+
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "[npc.Name] finishes up with the preparation, bringing the item's potent echantment onto you,"
+										+ " [npc.speech(Good [pc.girl]! Now you will do as I tell you, understand?)]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getPlayer().equipClothingFromNowhere(enslavementItem, true, Main.game.getActiveNPC())
+									+"</p>"
+									+"<p>"
+										+ "[npc.Name] then takes all of your flames, leaving you without a single one to your name."
+									+ "</p>");
+						}
+					};
+				}
+				return null;
 			} else if(getMugger().isAttractedTo(Main.game.getPlayer()) && getMugger().isWillingToRape(Main.game.getPlayer())) {
-				
+
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -998,7 +1078,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1017,7 +1097,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1036,9 +1116,9 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
-					
+
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
@@ -1047,15 +1127,15 @@ public class AlleywayAttackerDialogue {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-					
+
 				}
 			}
-			
+
 			return null;
-			
+
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1063,12 +1143,12 @@ public class AlleywayAttackerDialogue {
 		public String getContent() {
 			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_TRANSFORMATION_REFUSED_ATTRACTED", getMugger());
-			
+
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_TRANSFORMATION_REFUSED_NOT_ATTRACTED", getMugger());
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
@@ -1082,7 +1162,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1101,7 +1181,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1120,22 +1200,22 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION = new DialogueNodeOld("Transformed", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1143,12 +1223,12 @@ public class AlleywayAttackerDialogue {
 		public String getContent() {
 			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_TRANSFORMATION_ATTRACTED", getMugger());
-			
+
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_TRANSFORMATION_NOT_ATTRACTED", getMugger());
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
@@ -1162,7 +1242,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
-					
+
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1181,7 +1261,7 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
-					
+
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -1200,25 +1280,25 @@ public class AlleywayAttackerDialogue {
 							null,
 							AFTER_SEX_DEFEAT,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
-					
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
@@ -1234,7 +1314,7 @@ public class AlleywayAttackerDialogue {
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getMugger());
 				}
-				
+
 			} else {
 				if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY_RAPE_BETRAYED", getMugger());
@@ -1255,7 +1335,7 @@ public class AlleywayAttackerDialogue {
 						}
 					}
 				};
-				
+
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.namePos] clothing and items..."){
 					@Override
@@ -1263,7 +1343,7 @@ public class AlleywayAttackerDialogue {
 						Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
-				
+
 			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
@@ -1278,21 +1358,21 @@ public class AlleywayAttackerDialogue {
 						Main.game.banishNPC(getMugger());
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
 		private static final long serialVersionUID = 1L;
-		
+
 		@Override
 		public int getMinutesPassed(){
 			return 15;
 		}
-		
+
 		@Override
 		public String getDescription(){
 			return "You're completely worn out from [npc.namePos] dominant treatment, and need a while to recover.";
@@ -1312,7 +1392,115 @@ public class AlleywayAttackerDialogue {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
-				
+
+			} else {
+				return null;
+			}
+		}
+	};
+
+	public static final DialogueNodeOld AFTER_COMBAT_ENSLAVEMENT = new DialogueNodeOld("Enslaved...", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+
+		@Override
+		public String getDescription(){
+			return "You are enslaved by [npc.name]!";
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "You didn't manage to escape in time and thus, [npc.name] managed to get the collar onto your neck."
+						+ " You felt lethargic and weak at first, but the feeling quickly passed as you found yourself on your knees in front of [npc.name]..."
+					+ "</p>"
+					+ "<p>"
+						+ "Your master."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(Good, good. I see the collar fits you very well,)] [npc.name] says, walking around you as you are still unable to move, sitting on your knees in a state of vertigo."
+						+ " [npc.speech(Now, here are a few rules. First of all, you are my slave and I am your master, but that is obvious."
+						+ " Second - you are to obey every single command I give to you. The rules that are make will be enforced by the collar and if you are breaking them, even out of my sight, I will know about it."
+						+ " Third - don't worry about muggers trying to rob you. You are <i>my</i> bitch, so they won't dare to touch you. You can whore yourself out here too, since that's a pretty good spot and you can crash at my place if you need it.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(Finally, you will give me two thousand flames every day. I won't pull them out of your pocket myself, so you'd better make sure you have them every day,)]"
+						+ " [npc.she] says, stopping in front of you, [npc.speech(And now... get to work.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "<b>You are enslaved!</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "If you'll try to get away from your master's home location, your energy and arcane will drain and as soon as it hits zero, you will pass out, waking up to a punishment from your master!"
+						+ " You can see what rules your master imposed on you in the selfie screen and you can talk to them by clicking on their name and using the 'talk' tab."
+						+ " You will need to have a lot of money ready if you want to get away from enslavement normally, unless you can come up with something else."
+					+ "</p>");
+			}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on with your new life.", AFTER_SEX_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+
+	public static final DialogueNodeOld AFTER_COMBAT_ENSLAVEMENT_REFUSED = new DialogueNodeOld("Escaped!", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+
+		@Override
+		public String getDescription(){
+			return "You have escaped [npc.name]!";
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "Spotting a perfect opportunity to make your escape, you run away from [npc.name], not letting them put that thing on you!"
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way... After catching your breath, that's it.", AFTER_SEX_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+				};
+
 			} else {
 				return null;
 			}

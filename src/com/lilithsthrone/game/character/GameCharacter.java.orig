@@ -193,8 +193,15 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+<<<<<<< HEAD
+import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.game.slavery.SlavePermission;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryEvent;
 import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryRule;
+=======
+>>>>>>> master
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
@@ -2521,45 +2528,63 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
 			
 			}
-        
 			
-		    if(this.isPlayer() && this.getOwner() != null && this.getOwner().getRules().size() > 0)
-		    {
-			    infoScreenSB.append("</br>"
-					    + "<h4>Master's Orders</h4>");
-			    
-			    boolean playerIsObeyingRules = true;
-			    if(!this.getOwner().isPlayerObeyingRules())
-			    {
-				    playerIsObeyingRules = false;
-				    infoScreenSB.append("<p>"
-										    + "You are <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>disobeying</b> some of the rules"
-										    + " and as a result, your positive obedience gains are halted."
-									    + "</p>");
-			    }
-			    
-			    infoScreenSB.append("<p>");
-			    
-			    for(PlayerSlaveryRule rule : this.getOwner().getRules())
-			    {
-				    Colour performanceQualityColour = Colour.BASE_GREY;
-				    if(rule.getPerformanceQuality() > 0 && playerIsObeyingRules)
-				    {
-					    performanceQualityColour = Colour.GENERIC_GOOD;
-				    }
-				    else if(rule.getPerformanceQuality() < 0)
-				    {
-					    performanceQualityColour = Colour.GENERIC_MINOR_BAD;
-				    }
-				    infoScreenSB.append("<b>" + rule.getName() + "</b>: " + rule.getDescription()
-						    + "<i style='color:" + performanceQualityColour.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>"
-						    + "</br>");
-			    }
-			    
-			    infoScreenSB.append("</p>");
-            }
-
-		    infoScreenSB.append("</br>"
+<<<<<<< HEAD
+		} else {
+			infoScreenSB.append("<p>"
+					+ "[style.boldObedience(Obedience:)]</br>"
+					+ UtilText.parse(this,
+							(this.isSlave()
+								?"You [style.boldArcane(are a slave)], owned by "+(this.getOwner().isPlayer()?"you! (How did this happen?!)":this.getOwner().getName("a")+".")
+								:"You [style.boldGood(are not a slave)]."))
+					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
+		
+		}
+		
+		if(this.isPlayer() && this.getOwner() != null && this.getOwner().getRules().size() > 0)
+		{
+			infoScreenSB.append("</br>"
+					+ "<h4>Master's Orders</h4>");
+			
+			boolean playerIsObeyingRules = true;
+			if(!this.getOwner().isPlayerObeyingRules())
+			{
+				playerIsObeyingRules = false;
+				infoScreenSB.append("<p>"
+										+ "You are <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>disobeying</b> some of the rules"
+										+ " and as a result, your positive obedience gains are halted."
+									+ "</p>");
+			}
+			
+			infoScreenSB.append("<p>");
+			
+			for(PlayerSlaveryRule rule : this.getOwner().getRules())
+			{
+				Colour performanceQualityColour = Colour.BASE_GREY;
+				if(rule.getPerformanceQuality() > 0 && playerIsObeyingRules)
+				{
+					performanceQualityColour = Colour.GENERIC_GOOD;
+				}
+				else if(rule.getPerformanceQuality() < 0)
+				{
+					performanceQualityColour = Colour.GENERIC_MINOR_BAD;
+				}
+				infoScreenSB.append("<b>" + rule.getName() + "</b>: " + rule.getDescription()
+						+ "<i style='color:" + performanceQualityColour.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>"
+						+ "</br>");
+			}
+			
+			infoScreenSB.append("</p>");
+		}
+		
+		infoScreenSB.append("</br>"
+				+ "<h4>Personality</h4>"
+				+ "<p>");
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			infoScreenSB.append("<b>"+trait.getName()+":</b> <i style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getNameFromWeight(this, this.getPersonality().get(trait)))+"</i></br>"
+					+trait.getDescriptionFromWeight(this, this.getPersonality().get(trait))+"</br>");
+=======
+			infoScreenSB.append("<br/>"
 					+ "<h4>Personality</h4>"
 					+ "<p>");
 			for(PersonalityTrait trait : PersonalityTrait.values()) {
@@ -2575,6 +2600,7 @@ public abstract class GameCharacter implements XMLSaving {
 						+ this.getBodyDescription()
 					+ "</p>"
 					+ PhoneDialogue.getBodyStatsPanel(this));
+>>>>>>> master
 		}
 		
 		return infoScreenSB.toString();
@@ -3328,6 +3354,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience+increment));
 		
+<<<<<<< HEAD
 		float shownObedience = Math.round(this.obedience);
 		
 		if(this.isPlayer())
@@ -3337,6 +3364,17 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "You "+(increment>0?"[style.boldGrow(gain)]":"[style.boldShrink(lose)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
 							+ "You now have "+(shownObedience>0?"<b>+":"<b>")+shownObedience+"</b> [style.boldObedience(obedience)].</br>"
 							+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
+=======
+		return UtilText.parse(this,
+				"<p style='text-align:center'>"
+						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
+						+ "[npc.She] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].<br/>"
+						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
+					+ "</p>"
+					+ (teacherPerkGain
+						?"<p style='text-align:center'>"
+							+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+>>>>>>> master
 						+ "</p>"
 						+ (teacherPerkGain
 							?"<p style='text-align:center'>"
@@ -4178,6 +4216,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Companions:
 	
 	/**
+<<<<<<< HEAD
 	 * Override to give the NPC something interesting to say. Basically will return a bunch of responses like normal.
 	 * 
 	 * Index 0 is reserved for "Back" button. You can try to handle it here, but don't cause game already does it.
@@ -4189,7 +4228,8 @@ public abstract class GameCharacter implements XMLSaving {
 		return null;
 	}
 	
-    /**
+	private void setElementalID(String elementalID) {
+=======
 	 * <b>Only to be called on character slave import! Don't use this method!!!</b>
 	 */
 	protected void clearAllCompanionVariables() {
@@ -4198,7 +4238,8 @@ public abstract class GameCharacter implements XMLSaving {
 		this.elementalID = "";
 	}
 	
-	protected void setElementalID(String elementalID) {	
+	protected void setElementalID(String elementalID) {
+>>>>>>> master
 		this.elementalID = elementalID;
 	}
 	

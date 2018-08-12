@@ -1,12 +1,20 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
 import java.time.Month;
+>>>>>>> master
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD
+import java.util.Map.Entry;
 import java.util.Set;
+
+=======
+>>>>>>> master
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,22 +38,33 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+<<<<<<< HEAD
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.PlayerAlleywaySlavery;
+=======
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogueCompanions;
-import com.lilithsthrone.game.dialogue.places.dominion.PlayerAlleywaySlavery;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayProstituteDialogue;
+>>>>>>> master
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+<<<<<<< HEAD
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryEvent;
 import com.lilithsthrone.game.slavery.playerSlavery.events.EventsSlaveryAlleyway;
 import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryAlleyway;
 import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
+=======
+>>>>>>> master
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -59,15 +78,15 @@ public class DominionAlleywayAttacker extends NPC {
 	public DominionAlleywayAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}
-
+	
 	public DominionAlleywayAttacker(Gender gender) {
 		this(gender, false);
 	}
-
+	
 	public DominionAlleywayAttacker(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
-
+	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
 		super(null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
@@ -75,10 +94,10 @@ public class DominionAlleywayAttacker extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-
+	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-
+			
 			boolean canalSpecies = false;
 			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
 			if(pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
@@ -86,12 +105,12 @@ public class DominionAlleywayAttacker extends NPC {
 					|| pt == PlaceType.DOMINION_CANAL_END) {
 				canalSpecies = true;
 			}
-
+			
 			// Set random level from 1 to 3:
 			setLevel(Util.random.nextInt(3) + 1);
-
+			
 			// RACE & NAME:
-
+			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
@@ -113,7 +132,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
 						break;
-
+						
 					// Canals spawn only:
 					case ALLIGATOR_MORPH:
 						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
@@ -152,14 +171,14 @@ public class DominionAlleywayAttacker extends NPC {
 					case RAT_MORPH:
 						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
 						break;
-
+						
 					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
 							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						}
 						break;
-
+						
 					// Regular spawns:
 					case CAT_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
@@ -223,62 +242,62 @@ public class DominionAlleywayAttacker extends NPC {
 						break;
 				}
 			}
-
+			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
-
+			
 			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
-
+	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
-
+			
 			// PERSONALITY & BACKGROUND:
-
+			
 			CharacterUtils.setHistoryAndPersonality(this, true);
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				this.setHistory(Occupation.NPC_MUGGER);
 			}
-
+			
 			// ADDING FETISHES:
-
+			
 			CharacterUtils.addFetishes(this);
-
+			
 			// BODY RANDOMISATION:
-
+			
 			CharacterUtils.randomiseBody(this);
-
+			
 			// INVENTORY:
-
+			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
-
+	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
-
+			
 			// Set starting attributes based on the character's race
 			for (Attribute a : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().keySet()) {
 				attributes.put(a, RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getRandomVariance());
 			}
-
+			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
 	}
-
+	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
-
+	
 	@Override
 	public boolean isUnique() {
 		return false;
 	}
-
+	
 	@Override
 	public void hourlyUpdate() {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
@@ -291,10 +310,10 @@ public class DominionAlleywayAttacker extends NPC {
 						Main.game.banishNPC(npc);
 					}
 				}
-
+				
 			} else if(Math.random()<0.33f) { // Add client:
 				GenericSexualPartner partner;
-
+				
 				if(Math.random()<0.25f) {
 					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
 				} else {
@@ -308,7 +327,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 		}
 	}
-
+	
 	@Override
 	public String getDescription() {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -319,7 +338,7 @@ public class DominionAlleywayAttacker extends NPC {
 				return (UtilText.parse(this,
 						"[npc.Name] is a prostitute who whores [npc.herself] out in the backalleys of Dominion."));
 			}
-
+			
 		} else {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
@@ -330,7 +349,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 		}
 	}
-
+	
 	@Override
 	public void endSex() {
 		if(!isSlave()) {
@@ -342,29 +361,29 @@ public class DominionAlleywayAttacker extends NPC {
 	public boolean isClothingStealable() {
 		return true;
 	}
-
+	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-
+	
 	@Override
 	public void changeFurryLevel(){
 	}
-
+	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
-
+		
 		if(pt == PlaceType.DOMINION_BACK_ALLEYS
 				|| pt == PlaceType.DOMINION_CANAL
 				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
 				|| pt == PlaceType.DOMINION_CANAL_END) {
-
+			
 			if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
-
+				
 			} else {
 				if(Main.game.getPlayer().getCompanions().isEmpty()) {
 					return AlleywayAttackerDialogue.ALLEY_ATTACK;
@@ -372,7 +391,7 @@ public class DominionAlleywayAttacker extends NPC {
 					return AlleywayAttackerDialogueCompanions.ALLEY_ATTACK;
 				}
 			}
-
+			
 		} else {
 			return AlleywayAttackerDialogue.STORM_ATTACK;
 		}
@@ -404,60 +423,60 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 		}
 	}
-
+	
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		return getItemUseEffectsAllowingUse(item, user, target);
 	}
-
+	
 	/**
 	 * Automatically enters the scene that triggers when player passes out from their collar or gets brought back by enforcers.
-	 *
+	 * 
 	 * It should handle the movement to a new location as well.
 	 */
 	@Override
 	public void triggerSlaveRetrivalDialogue()
 	{
 		Main.game.getPlayer().setLocation(this.worldLocation, this.location, false);
-
+		
 		// Warning: We are doing dangerous shit there. Since slavery system is supposed to be an overbearing one, it's safe to do it here, but to other contributors, here's a note - don't do it without a good reason!
 		// To explain - this function below sets the dialogue node.
 		// It can force it in the middle of anything, potentially sequence breaking a quest dialogue.
 		// Using it outside of these tight constraints should be avoided.
 		// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
-		Main.game.setContent(new Response("", "", PlayerAlleywaySlavery.ALLEYWAY_SLAVE_RECOVERED));
+		Main.game.setContent(new Response("", "", PlayerAlleywaySlavery.ALLEYWAY_SLAVE_RECOVERED));		
 	}
-
+	
 	@Override
 	public Set<PlayerSlaveryEvent> getSlaveryEvents()
 	{
 		Set<PlayerSlaveryEvent> returnable = new HashSet<>();
-
+		
 		// Punishments
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_TF_POTION);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_KINK_POTION);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_BEGGING);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_MUG);
-
+		
 		// Rule changes
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_DAILY_TRIBUTE);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_NAKED);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_OUTSIDE_FREEDOM);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_DEGRADING_NAME_CHANGE);
-
+		
 		// "Quests"
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_QUEST_BRIBE);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_QUEST_SUPPLY_RUN);
-
+		
 		// Special events
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_ARCANE_STORM_SEX);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_NORMAL_SEX);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_SUBMISSIVE_SEX);
 		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_INSPECTION);
-
+		
 		return returnable;
 	}
-
+	
 	@Override
 	public Response getTalkResponse(int index)
 	{
@@ -474,7 +493,7 @@ public class DominionAlleywayAttacker extends NPC {
 				{
 					return new Response("Pay up", "You've paid off your tribute for today.", null);
 				}
-
+				
 				int toPay = Math.min(this.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement(), player.getMoney());
 				return new Response("Pay up "+UtilText.formatAsMoney(toPay), "Pay "+UtilText.formatAsMoney(toPay)+" to your master to hopefully fullfill the tribute for today", CharactersPresentDialogue.MENU)	{
 					@Override
@@ -504,9 +523,9 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			else if(index == 3)
 			{
-				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_SLAVE);
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
 				CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
-
+				
 				if(player.getObedienceValue() < 0f &&  !player.hasFetish(Fetish.FETISH_SUBMISSIVE) &&  !player.hasFetish(Fetish.FETISH_MASOCHIST))
 				{
 					return new Response("Beg for Punishment", "You can't even <i>begin</i> to think about that! That's too demeaning for you.", null);
@@ -551,4 +570,5 @@ public class DominionAlleywayAttacker extends NPC {
 		}
 		return null;
 	}
+	
 }
