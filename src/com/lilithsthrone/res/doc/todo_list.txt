@@ -36,6 +36,9 @@
 		Enabled friendly occupants to be added as party members, both from their room, and new apartment (if you get them to move out).
 		All non-unique NPCs that have the 'transformation test subject' fetish will now accept all TF potions that you ask for them to drink.
 		
+	Contributors:
+		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees)
+		
 	Other:
 		You can now use non-transformative items on Elementals.
 		Standardised the decision making of all non-unique NPCs in regards to accepting an item from you, and improved some of the descriptions of them using items you give to them, based on their fetishes.
@@ -99,7 +102,7 @@
 	
 	
 	
-	
+	make those companions leave your party when it's time for them to get to work
 	
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
