@@ -924,11 +924,20 @@ public class Game implements Serializable, XMLSaving {
 			}
 		}
 		
+		if(Main.game.getGenericAndrogynousNPC()==null) { // If was accidentally deleted in version 0.2.10:
+			try {
+				Main.game.addNPC(new GenericAndrogynousNPC(), false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
 		Main.game.started = true;
+		
+		Main.game.setRequestAutosave(false);
 		
 		DialogueNodeOld startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
@@ -1255,6 +1264,7 @@ public class Game implements Serializable, XMLSaving {
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
+					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
 					}
@@ -3093,28 +3103,36 @@ public class Game implements Serializable, XMLSaving {
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
-				|| npc.getFather()!=null) {
+				|| npc.getFather()!=null
+				|| npc.isUnique()) {
 			npc.deleteAllEquippedClothing(); // To cut down on save size.
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
+			
 		} else {
 			removeNPC(npc);
 			return true;
 		}
 	}
 	
-	public void banishNPC(String id) {
+	public boolean banishNPC(String id) {
 		NPC npc = (NPC) getNPCById(id);
-		if(Main.game.getPlayer().getSexPartners().containsKey(id)
-				|| npc.getPregnantLitter()!=null
-				|| npc.getLastLitterBirthed()!=null 
-				|| npc.getMother()!=null
-				|| npc.getFather()!=null) {
-			npc.deleteAllEquippedClothing(); // To cut down on save size.
-			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-		} else {
-			removeNPC(npc);
+		if(npc.equals(Main.game.getGenericAndrogynousNPC())) {
+			return false; // This is the npc returned if there's a problem in getNPCById().
 		}
+		return banishNPC(npc);
+//		if(Main.game.getPlayer().getSexPartners().containsKey(id)
+//				|| npc.getPregnantLitter()!=null
+//				|| npc.getLastLitterBirthed()!=null 
+//				|| npc.getMother()!=null
+//				|| npc.getFather()!=null
+//				|| npc.isUnique()) {
+//			npc.deleteAllEquippedClothing(); // To cut down on save size.
+//			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+//			
+//		} else {
+//			removeNPC(npc);
+//		}
 	}
 
 	public void removeNPC(String id) {

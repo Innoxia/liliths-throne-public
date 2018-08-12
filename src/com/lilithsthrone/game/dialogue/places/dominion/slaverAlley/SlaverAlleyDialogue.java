@@ -487,7 +487,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_STATUE = new DialogueNodeOld("Staue of the Fallen Angel", ".", false) {
+	public static final DialogueNodeOld MARKET_STALL_STATUE = new DialogueNodeOld("Statue of the Fallen Angel", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

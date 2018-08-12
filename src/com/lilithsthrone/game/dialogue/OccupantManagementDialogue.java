@@ -1059,14 +1059,17 @@ public class OccupantManagementDialogue {
 					int i = 0;
 					for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 						NPC occupant = (NPC) Main.game.getNPCById(id);
-						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(occupant.getAffection(Main.game.getPlayer()));
-						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(occupant.getObedienceValue());
-						float affectionChange = occupant.getDailyAffectionChange();
-						float obedienceChange = occupant.getDailyObedienceChange();
-						GenericPlace place = Main.game.getPlayerCell().getPlace();
-						
-						UtilText.nodeContentSB.append(getOccupantEntry(place, occupant, affection, affectionChange, obedience, obedienceChange, i%2==0));
-						i++;
+						if(!occupant.equals(Main.game.getGenericAndrogynousNPC()) && occupant.getHomeWorldLocation()!=WorldType.DOMINION) {
+							System.out.println(occupant.getName());
+							AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(occupant.getAffection(Main.game.getPlayer()));
+							ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(occupant.getObedienceValue());
+							float affectionChange = occupant.getDailyAffectionChange();
+							float obedienceChange = occupant.getDailyObedienceChange();
+							GenericPlace place = Main.game.getPlayerCell().getPlace();
+							
+							UtilText.nodeContentSB.append(getOccupantEntry(place, occupant, affection, affectionChange, obedience, obedienceChange, i%2==0));
+							i++;
+						}
 					}
 				}
 				
@@ -1160,6 +1163,9 @@ public class OccupantManagementDialogue {
 					if(characterSelected() == null) {
 						return new Response("Send to Kate", "You haven't selected anyone...", null);
 						
+					} else if(!characterSelected().getOwner().isPlayer()) {
+						return new Response("Send to Kate", "You send slaves that you do not own to Kate!", null);
+						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 						return new Response("Send to Kate",
 								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
@@ -1177,7 +1183,10 @@ public class OccupantManagementDialogue {
 					if(characterSelected() == null) {
 						return new Response("Perk Tree", "You haven't selected anyone...", null);
 						
-					}
+					} else if(!characterSelected().getOwner().isPlayer()) {
+						return new Response("Perk Tree", "You can't manage the perks of slaves that you do not own!", null);
+						
+					} 
 					return new Response("Perk Tree", "Spend your slave's perk points.", SLAVE_MANAGEMENT_PERKS);
 					
 				} else if(index == 0) {
@@ -1500,6 +1509,7 @@ public class OccupantManagementDialogue {
 					
 				+ "<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
 							|| place.isSlaveCell()
+							|| occupant.getHomeWorldLocation()==WorldType.DOMINION
 							|| (occupant.getLocation().equals(Main.game.getPlayer().getLocation()) && occupant.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
 									?" id='"+occupant.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
 									:" id='"+occupant.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));

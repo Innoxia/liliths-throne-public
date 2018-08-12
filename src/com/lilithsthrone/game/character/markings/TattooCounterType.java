@@ -3,6 +3,9 @@ package com.lilithsthrone.game.character.markings;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.6
@@ -99,6 +102,113 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInArea(SexAreaPenetration.FOOT, false, true); 
+		}
+	},
+	
+
+	VIRGINITIES_TAKEN_TOTAL("total deflowerments", "Keeps a count of how many virginities of all types (vaginal, anal, oral, nipple, urethral) the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+						if(orifice.isInternalOrifice()) {
+							for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+								if(pen.isTakesVirginity()
+										&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, orifice, pen))!=null
+										&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, orifice, pen)).getKey().equals(bearer.getId())) {
+									count++;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+					if(orifice.isInternalOrifice()) {
+						for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+							if(pen.isTakesVirginity()
+									&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, orifice, pen))!=null
+									&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, orifice, pen)).getKey().equals(bearer.getId())) {
+								count++;
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
+	
+	VIRGINITIES_TAKEN_VAGINAL("vaginal deflowerments", "Keeps a count of how many vaginal virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+						if(pen.isTakesVirginity()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+					if(pen.isTakesVirginity() && character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
+	
+	VIRGINITIES_TAKEN_ANAL("anal deflowerments", "Keeps a count of how many anal virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+						if(pen.isTakesVirginity()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+					if(pen.isTakesVirginity() && character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
 		}
 	},
 

@@ -282,7 +282,12 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		return cumAbsorptionPerMinute;
 	}
 
-	public boolean isTakesPenisVirginity() {
+	/**
+	 * @return true If this orifice is a fully internal orifice, capable of taking penile virginity.<br/>
+	 * Mouth, vagina, anus, urethras, and nipple are considered internal orifices.<br/>
+	 * Ass, breasts, and thighs are not.
+	 */
+	public boolean isInternalOrifice() {
 		return takesPenisVirginity;
 	}
 	

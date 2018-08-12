@@ -2345,9 +2345,9 @@ public class UtilText {
 						
 					} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 						if(character.isFeminine()) {
-							return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("moan", "sigh", "gasp");
+							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("moan", "sigh", "gasp");
 						} else {
-							return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("groan", "grunt");
+							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("groan", "grunt");
 						}
 					}
 				}

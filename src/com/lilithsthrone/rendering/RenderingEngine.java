@@ -56,6 +56,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1379,8 +1380,11 @@ public enum RenderingEngine {
 										+(playerOnTile?" border:2px solid "+getPlayerIconColour(dangerousTile).toWebHexString()+";":"")+"'>"
 											+c.getPlace().getSVGString()+"</div>"
 									: "")
-								+(playerOnTile?"<div class='overlay map-player'></div>":"")
-							+ "</div>");
+								+(playerOnTile?"<div class='overlay map-player'></div>":""));
+
+					appendNPCIcon(Main.game.getWorlds().get(world), j, i);
+					
+					mapSB.append("</div>");
 				}
 			}
 		}
@@ -1460,7 +1464,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
-								appendNPCIcon(x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
 								
 								// Close the tile's div:
@@ -1488,7 +1492,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
-								appendNPCIcon(x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
 								
 								// Close the tile's div:
@@ -1516,7 +1520,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
-								appendNPCIcon(x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
 								
 								// Close the tile's div:
@@ -1544,7 +1548,7 @@ public enum RenderingEngine {
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
 
-								appendNPCIcon(x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
 								
 								// Close the tile's div:
@@ -1587,7 +1591,7 @@ public enum RenderingEngine {
 									}
 								}
 								
-								appendNPCIcon(x, y);
+								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
 
 								// Close the tile's div:
@@ -1624,10 +1628,10 @@ public enum RenderingEngine {
 		return mapSB.toString();
 	}
 	
-	private void appendNPCIcon(int x, int y) {
+	private void appendNPCIcon(World world, int x, int y) {
 		
 		List<String> mapIcons = new ArrayList<>();
-		List<NPC> charactersPresent = Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y));
+		List<NPC> charactersPresent = Main.game.getCharactersPresent(world.getCell(x, y));
 
 		for(NPC gc : charactersPresent) {
 			mapIcons.add(gc.getMapIcon());

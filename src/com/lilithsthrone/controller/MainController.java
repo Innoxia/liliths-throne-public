@@ -4,11 +4,13 @@ import java.net.URL;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
@@ -66,6 +68,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -1164,7 +1167,23 @@ public class MainController implements Initializable {
 		addEventListener(document, id, "mousemove", moveTooltipListener, false);
 		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 		
-		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
+		Set<NPC> charactersPresent = new HashSet<>(Main.game.getCharactersPresent(c));
+		charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(c));
+		
+		StringBuilder charactersPresentDescription = new StringBuilder();
+		if(!charactersPresent.isEmpty()) {
+			for(NPC character : charactersPresent) {
+				charactersPresentDescription.append(
+						(Main.game.getCharactersPresent(c).contains(character)
+								?character.getName("The")
+								:"[style.colourDisabled("+character.getName("The")+")]")
+						+": "+UtilText.parse(character, "[npc.FullRace(true)]<br/>"));
+			}
+		} else {
+//			charactersPresentDescription.append("[style.italics(There are no characters present in this tile...)]");
+		}
+
+		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), charactersPresentDescription.toString());
 		addEventListener(document, id, "mouseenter", el2, false);
 		
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {

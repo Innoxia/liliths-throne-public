@@ -204,7 +204,7 @@ public enum Occupation {
 	
 	BUTLER(Perk.JOB_BUTLER,
 			"butler",
-			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.") {
+			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.", OccupationTag.PLAYER_ONLY) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();

@@ -6,7 +6,7 @@
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[tail ribbon]]></name>
     <namePlural pluralByDefault="false"><![CDATA[tail ribbons]]></namePlural>
-    <description><![CDATA[A small, cute cotton ribbon meant to be tied around the tip of a tail.]]></description>
+    <description><![CDATA[A small, cute cotton ribbon which is meant to be tied around a tail.]]></description>
     
     <physicalResistance>1</physicalResistance>
     <femininity>FEMININE</femininity>

@@ -270,6 +270,35 @@ public class OccupantDialogue {
 						return new Response("Slaves", "You've already talked with [npc.name] about [npc.her] interactions with your slaves today.", null);
 					}
 					
+				} else if (index == 5) {
+					if(!Main.game.getPlayer().hasCompanion(occupant())) {
+						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+							return new Response("Add to party",
+									UtilText.parse(occupant(), "Command [npc.name] to start following you around."),
+									OCCUPANT_START){
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.getPlayer().addCompanion(occupant());
+								}
+							};
+						} else {
+							return new Response("Add to party",
+									"You are already at your party limit!",
+									null);
+						}
+					} else {
+						return new Response("Remove from party",
+								"Command [npc.name] to leave your party.",
+								OCCUPANT_START){
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getPlayer().removeCompanion(occupant());
+							}
+						};
+					}
+					
 				} else if (index == 10) {
 					if(hasJob()) {
 						return new Response("Move out", "Tell [npc.name] that you think that [npc.her] idea of moving out would be good for [npc.herHim].<br/>"
@@ -909,6 +938,35 @@ public class OccupantDialogue {
 							}
 						}
 					};
+					
+				} else if (index == 5) {
+					if(!Main.game.getPlayer().hasCompanion(occupant())) {
+						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+							return new Response("Add to party",
+									UtilText.parse(occupant(), "Command [npc.name] to start following you around."),
+									OCCUPANT_APARTMENT){
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.getPlayer().addCompanion(occupant());
+								}
+							};
+						} else {
+							return new Response("Add to party",
+									"You are already at your party limit!",
+									null);
+						}
+					} else {
+						return new Response("Remove from party",
+								"Command [npc.name] to leave your party.",
+								OCCUPANT_APARTMENT){
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getPlayer().removeCompanion(occupant());
+							}
+						};
+					}
 					
 				} else if (index == 10) {
 					return new Response("Remove Character", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"

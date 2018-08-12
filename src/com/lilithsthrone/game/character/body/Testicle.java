@@ -103,7 +103,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	}
 
 	public String setTesticleSize(GameCharacter owner, int testicleSize) {
-		if(!owner.hasPenis()) {
+		if(!owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -119,8 +119,11 @@ public class Testicle implements BodyPartInterface, Serializable {
 			}
 			
 		} else if (sizeChange > 0) {
-			return UtilText.parse(owner, "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].<br/>"
-					+ "[npc.She] now [npc.has] [style.boldSex(" + owner.getTesticleSize().getDescriptor() + " [pc.balls])]!");
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldSex(" + owner.getTesticleSize().getDescriptor() + " [pc.balls])]!"
+					+ "</p>");
 			
 		} else {
 			if (owner.isPlayer()) {
@@ -145,7 +148,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	public String setTesticleCount(GameCharacter owner, int testicleCount) {
 		testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
-		if(owner.getTesticleCount() == testicleCount || !owner.hasPenis()) {
+		if(owner.getTesticleCount() == testicleCount || !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -192,7 +195,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return "";
 		}
 		
-		if(owner.isInternalTesticles() == internal || !owner.hasPenis()) {
+		if(owner.isInternalTesticles() == internal || !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 
