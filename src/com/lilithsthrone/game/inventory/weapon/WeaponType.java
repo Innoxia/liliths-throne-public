@@ -1129,7 +1129,7 @@ public class WeaponType {
 			"Arcane Short Bows",
 			"Fire Arrow",
 			"This bow is infused with a potent arcane enchantment, which, once the string is drawn back, extracts an arcane essence out of the user's aura, before converting it into a bolt of energy to be fired at the target.",
-			InventorySlot.WEAPON_OFFHAND,
+			InventorySlot.WEAPON_MAIN,
 			"bowandarrow",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(

@@ -40,6 +40,7 @@
 		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)
 		Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)
 		<b>Added:</b> Arcane Bow. Sold by Vicky, and comes in Physical, Fire, Ice, and Poison types. (Rfpnj PR#669)
+		Added fox-morph book to Lilaya's Library. (Rfpnj PR#871)
 		
 	DJ4ddi's Artwork image improvements (PR#881):
 		Improved image scaling (removes jagged edges from a lot of in-game images).
