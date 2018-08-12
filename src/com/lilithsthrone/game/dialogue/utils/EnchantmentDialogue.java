@@ -888,7 +888,7 @@ public class EnchantmentDialogue {
 			DOMSource source = new DOMSource(doc);
 			
 			String saveLocation = "data/enchantments/"+name+".xml";
-			StreamResult result = new StreamResult(new File(saveLocation));
+			StreamResult result = new StreamResult(saveLocation);
 			
 			transformer.transform(source, result);
 			
