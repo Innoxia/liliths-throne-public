@@ -3,8 +3,11 @@ package com.lilithsthrone.game.dialogue;
 import java.io.Serializable;
 
 import com.lilithsthrone.game.dialogue.responses.Response;
+<<<<<<< HEAD
 import com.lilithsthrone.utils.Colour;
+=======
 import com.lilithsthrone.main.Main;
+>>>>>>> master
 
 /**
  * @since 0.1.0

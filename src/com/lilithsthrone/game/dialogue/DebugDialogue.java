@@ -116,7 +116,7 @@ public class DebugDialogue {
 				};
 				
 			} else if (index == 4) {
-				return new Response("Debug mode: ", "Reveal the entire map. Unlock enchanting in Lilaya's house.", DEBUG_MENU){
+				return new Response("Debug mode: ", "Reveal the entire map. Unlock enchanting in Lilaya's house. Add buttons to instantly reach 100 arousal in sex or set target health to 0 in combat", DEBUG_MENU){
 					@Override
 					public String getTitle() {
 						return "Debug mode: "+(Main.game.isDebugMode()?"ON":"OFF");

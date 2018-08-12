@@ -33,6 +33,7 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryAlleyway;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -633,9 +634,30 @@ public class EnforcerHQDialogue {
 				} else {
 					return null;
 				}
+			} else if (index == 6 && Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner().getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) != null) { // Bribery for master
+				if(Main.game.getPlayer().getMoney() < 5000)
+				{
+					return new Response("Bribe "+UtilText.formatAsMoney(5000), "You don't have enough money for a bribe! You need "+UtilText.formatAsMoney(5000)+"!", null);
+				}
+				else
+				{
+					return new Response("Bribe "+UtilText.formatAsMoney(5000), "There's a little business that needs to be done...", INTERIOR_SECRETARY_BRIBE) {
+						
+						@Override
+						public void effects()
+						{
+							Main.game.getPlayer().incrementMoney(-5000);
+							Main.game.getPlayer().getOwner().removeRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementObedience(10f, false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getOwner().incrementAffection(Main.game.getPlayer(), 5f));
+						}
+						
+					};
+				}
 			} else {
 				return null;
 			}
+				
 		}
 	};
 	
@@ -1263,6 +1285,34 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "You turn away from the reception desk, confident that you did the right thing."
+						+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld INTERIOR_SECRETARY_BRIBE = new DialogueNodeOld("Enforcer HQ", "-", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+		
+		@Override
+		public String getContent() {
+				return "<p>"
+							+ "You come up to the reception desk, placing the five thousand flames on the table discreetely, glancing at Candi."
+							+ " [candi.speech(Oooh, is that, like, what I think it is?)] she asks, smirking. "
+							+ " She might be a bimbo, but she's a policewoman bimbo; she knows <i>exactly</i> what these flames are for. You nod, smirking."
+							+ " [pc.speech(Yep. That's for a certain friend of mine called "+Main.game.getPlayer().getOwner().getName()+",)] you reply as Candi swiftly snatches the money."
+						+ "</p>"
+						+ "<p>"
+							+ "[candi.speech(Gotcha. Tell 'em that all stuff will be, like, <i>veeeery</i> good!)] she replies with a wink."
 						+ "</p>";
 		}
 		

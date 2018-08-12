@@ -168,7 +168,7 @@ public class CharacterUtils {
 				saveLocation = "data/characters/"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
 			}
 			
-			StreamResult result = new StreamResult(saveLocation);
+			StreamResult result = new StreamResult(new File(saveLocation));
 			
 			transformer.transform(source, result);
 		
@@ -1423,13 +1423,16 @@ public class CharacterUtils {
 				character.addFetish(Fetish.FETISH_KINK_GIVING);
 				fetishesAssigned++;
 			}
+<<<<<<< HEAD
 			
 			if(Math.random() < (Main.getProperties().randomMastersPercentage/100f)) {
 				character.addFetish(Fetish.FETISH_MASTER);
 				availableFetishes.remove(Fetish.FETISH_MASTER);
 				fetishesAssigned++;
 			}
+=======
 			availableFetishes.remove(Fetish.FETISH_KINK_GIVING);
+>>>>>>> master
 		}
 		
 		if(character.getRace()==Race.COW_MORPH && availableFetishes.contains(Fetish.FETISH_BREASTS_SELF)) {

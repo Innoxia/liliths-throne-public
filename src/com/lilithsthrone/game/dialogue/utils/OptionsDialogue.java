@@ -1791,6 +1791,16 @@ public class OptionsDialogue {
 													+ "</div>"));
 			UtilText.nodeContentSB.append("</div></div>");
 			
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+							"RANDOM_SLAVE_MASTERS",
+							Colour.OBEDIENCE,
+							"Random Slave Masters",
+							"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_MASTER.getName(null)+"' fetish, which causes them to try to enslave you after beating you in combat.",
+							Main.getProperties().randomMastersPercentage+"%",
+							Main.getProperties().randomMastersPercentage,
+							0,
+							100));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 						"FURRY_TAIL_PENETRATION",
 						Colour.BASE_MAGENTA,

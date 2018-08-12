@@ -406,10 +406,14 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
-		return getItemUseEffectsAllowingUse(item, itemOwner, user, target);
+	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+		return getItemUseEffectsAllowingUse(item, user, target);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 34b9232ecc48d6069e46ae916cf38656165fe361
 	/**
 	 * Automatically enters the scene that triggers when player passes out from their collar or gets brought back by enforcers.
 	 *
@@ -550,5 +554,9 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 		}
 		return null;
+<<<<<<< HEAD
 	}
+=======
+  }
+>>>>>>> 34b9232ecc48d6069e46ae916cf38656165fe361
 }

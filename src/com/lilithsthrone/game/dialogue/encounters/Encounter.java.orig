@@ -188,11 +188,12 @@ public enum Encounter {
 				
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+<<<<<<< HEAD
 					if(Main.game.getPlayer().getOwner() == npc)
 					{
-						return null;
-					}
+=======
 					if(npc instanceof Lumi) {
+>>>>>>> master
 						return null;
 					}
 					Main.game.setActiveNPC(npc);

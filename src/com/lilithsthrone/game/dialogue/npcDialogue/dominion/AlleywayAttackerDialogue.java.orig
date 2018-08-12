@@ -720,8 +720,13 @@ public class AlleywayAttackerDialogue {
 							Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
+<<<<<<< HEAD
 
+				} else if (index == 7) {
+=======
+					
 				} else if (index == 7 && getMugger().getLocationPlace().getPlaceType().getEncounterType()!=Encounter.DOMINION_STREET) {
+>>>>>>> 34b9232ecc48d6069e46ae916cf38656165fe361
 					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 

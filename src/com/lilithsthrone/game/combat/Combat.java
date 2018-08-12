@@ -855,7 +855,16 @@ public enum Combat {
 					}
 				};
 
-			}  else if (index == 9) {
+			} else if (index == 6 && Main.game.isDebugMode()) {
+				return new Response("Debug: Kill", "Set the target's energy to 0.", ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						getTargetedCombatant(Main.game.getPlayer()).setHealth(0);
+						endCombatTurn();
+					}
+				};
+
+			} else if (index == 9) {
 				return new Response("Submit", "Consider submitting to " + enemies.get(0).getName("the") + ".", SUBMIT);
 
 			} else if (index == 10) {
