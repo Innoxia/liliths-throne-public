@@ -562,10 +562,6 @@ public class DoggyStyle {
 			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
