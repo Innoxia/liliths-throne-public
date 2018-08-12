@@ -235,6 +235,13 @@ public enum TFModifier {
 	
 	
 	// Racial parts:
+
+	TF_MATERIAL_FLESH("flesh",
+			"Turns a person's body material to flesh.",
+			"flesh",
+			"modifier_circle_tf_material_flesh",
+			Colour.BASE_CRIMSON,
+			Rarity.LEGENDARY),
 	
 	TF_ANTENNA("antennae",
 			"Applies a transformative effect to your antennae.",
@@ -765,69 +772,84 @@ public enum TFModifier {
 			Colour.BASE_CRIMSON,
 			Rarity.COMMON),
 	
-	// penis modifiers:
+	// penis & clit modifiers:
 	
 	TF_MOD_PENIS_SHEATHED("sheathing",
-			"Applies an effect related to making a penis sheathed.",
+			"Applies an effect related to making a body part sheathed.",
 			"sheathed",
 			"modifier_circle_penis_sheathed",
 			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_RIBBED("ribbing",
-			"Applies an effect related to making a penis ribbed.",
+			"Applies an effect related to making a body part ribbed.",
 			"ribbed",
 			"modifier_circle_penis_ribbed",
 			Colour.BASE_PINK,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_TENTACLED("tentacled",
-			"Applies an effect related to making a penis tentacled.",
+			"Applies an effect related to making a body part tentacled.",
 			"tentacled",
 			"modifier_circle_orifice_tentacled",
 			Colour.BASE_VIOLET,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_KNOTTED("knotting",
-			"Applies an effect related to making a penis knotted.",
+			"Applies an effect related to making a body part knotted.",
 			"knotted",
 			"modifier_circle_penis_knotted",
 			Colour.BASE_CRIMSON,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_TAPERED("tapering",
-			"Applies an effect related to making a penis tapered.",
+			"Applies an effect related to making a body part tapered.",
 			"tapered",
 			"modifier_circle_penis_tapered",
 			Colour.BASE_LILAC,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_FLARED("flaring",
-			"Applies an effect related to making a penis flared.",
+			"Applies an effect related to making a body part flared.",
 			"flared",
 			"modifier_circle_penis_flared",
 			Colour.BASE_BROWN,
 			Rarity.COMMON),
 	
+	TF_MOD_PENIS_BLUNT("blunting",
+			"Applies an effect related to making a body part blunted.",
+			"blunt",
+			"modifier_circle_penis_blunt",
+			Colour.BASE_TAN,
+			Rarity.COMMON),
+	
 	TF_MOD_PENIS_BARBED("barbing",
-			"Applies an effect related to making a penis barbed.",
+			"Applies an effect related to making a body part barbed.",
 			"barbed",
 			"modifier_circle_penis_barbed",
 			Colour.BASE_RED,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_VEINY("veins",
-			"Applies an effect related to making a penis veiny.",
+			"Applies an effect related to making a body part veiny.",
 			"veiny",
 			"modifier_circle_penis_veiny",
 			Colour.BASE_VIOLET,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_PREHENSILE("prehensile",
-			"Applies an effect related to making a penis prehensile.",
+			"Applies an effect related to making a body part prehensile.",
 			"prehensile",
 			"modifier_circle_penis_prehensile",
 			Colour.BASE_TEAL,
+			Rarity.COMMON),
+
+	
+	TF_MOD_CUM_EXPULSION("cum expulsion",
+			"Applies an effect related to modifying the amount of cum expelled at each orgasm.",
+			"cumming",
+			"modifier_circle_squirter",
+			Colour.BASE_AQUA,
 			Rarity.COMMON),
 	
 	// vagina:
@@ -999,18 +1021,21 @@ public enum TFModifier {
 	TF_MOD_FETISH_ANAL_RECEIVING(Fetish.FETISH_ANAL_RECEIVING),
 	TF_MOD_FETISH_VAGINAL_GIVING(Fetish.FETISH_VAGINAL_GIVING),
 	TF_MOD_FETISH_VAGINAL_RECEIVING(Fetish.FETISH_VAGINAL_RECEIVING),
+	TF_MOD_FETISH_PENIS_GIVING(Fetish.FETISH_PENIS_GIVING),
+	TF_MOD_FETISH_PENIS_RECEIVING(Fetish.FETISH_PENIS_RECEIVING),
 	TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
 	TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
 	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
 	TF_MOD_FETISH_LEG_LOVER(Fetish.FETISH_LEG_LOVER),
 	TF_MOD_FETISH_STRUTTER(Fetish.FETISH_STRUTTER),
+	TF_MOD_FETISH_FOOT_GIVING(Fetish.FETISH_FOOT_GIVING),
+	TF_MOD_FETISH_FOOT_RECEIVING(Fetish.FETISH_FOOT_RECEIVING),
 	TF_MOD_FETISH_LACTATION_OTHERS(Fetish.FETISH_LACTATION_OTHERS),
 	TF_MOD_FETISH_LACTATION_SELF(Fetish.FETISH_LACTATION_SELF),
 	
 	TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
 	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
-	TF_MOD_FETISH_BROODMOTHER(Fetish.FETISH_BROODMOTHER),
 	TF_MOD_FETISH_CROSS_DRESSER(Fetish.FETISH_CROSS_DRESSER),
 	TF_MOD_FETISH_CUM_ADDICT(Fetish.FETISH_CUM_ADDICT),
 	TF_MOD_FETISH_CUM_STUD(Fetish.FETISH_CUM_STUD),
@@ -1030,7 +1055,6 @@ public enum TFModifier {
 	TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
 	TF_MOD_FETISH_PURE_VIRGIN(Fetish.FETISH_PURE_VIRGIN),
 	TF_MOD_FETISH_SADIST(Fetish.FETISH_SADIST),
-	TF_MOD_FETISH_SEEDER(Fetish.FETISH_SEEDER),
 	TF_MOD_FETISH_TRANSFORMATION_GIVING(Fetish.FETISH_TRANSFORMATION_GIVING),
 	TF_MOD_FETISH_TRANSFORMATION_RECEIVING(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
@@ -1049,6 +1073,8 @@ public enum TFModifier {
 
 	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
+	
+	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
 	
 	static {
 
@@ -1117,8 +1143,12 @@ public enum TFModifier {
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ORAL_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_VAGINAL_GIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_VAGINAL_RECEIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_PENIS_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_PENIS_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LEG_LOVER);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_STRUTTER);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_FOOT_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_FOOT_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LACTATION_OTHERS);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LACTATION_SELF);
 
@@ -1130,8 +1160,6 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_PURE_VIRGIN);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_IMPREGNATION);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_PREGNANCY);
-		TFBehaviouralFetishList.add(TF_MOD_FETISH_SEEDER);
-		TFBehaviouralFetishList.add(TF_MOD_FETISH_BROODMOTHER);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_TRANSFORMATION_GIVING);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_TRANSFORMATION_RECEIVING);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_SADIST);
@@ -1164,7 +1192,6 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
-
 		clothingAttributeList.add(TFModifier.FERTILITY);
 		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
@@ -1184,6 +1211,18 @@ public enum TFModifier {
 		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
 		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
+		
+
+		tattooPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
+		tattooPrimaryList.add(TF_FACE);
+		tattooPrimaryList.add(TF_CORE);
+		tattooPrimaryList.add(TF_HAIR);
+		tattooPrimaryList.add(TF_ASS);
+		tattooPrimaryList.add(TF_BREASTS);
+		tattooPrimaryList.add(TF_PENIS);
+		tattooPrimaryList.add(TF_VAGINA);
 	}
 	
 	
@@ -1212,6 +1251,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1243,6 +1285,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1366,5 +1411,9 @@ public enum TFModifier {
 
 	public static List<TFModifier> getClothingPrimaryList() {
 		return clothingPrimaryList;
+	}
+
+	public static List<TFModifier> getTattooPrimaryList() {
+		return tattooPrimaryList;
 	}
 }

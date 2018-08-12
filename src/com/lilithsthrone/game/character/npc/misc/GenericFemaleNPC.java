@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -21,14 +23,13 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class GenericFemaleNPC extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public GenericFemaleNPC() {
 		this(false);
 	}
 	
 	public GenericFemaleNPC(boolean isImported) {
 		super(new NameTriplet("unknown female"), "Unknown.",
+				25, Month.JUNE, 15,
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}
@@ -54,7 +55,7 @@ public class GenericFemaleNPC extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 

@@ -1,13 +1,21 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+import java.util.List;
+import java.util.Set;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -40,8 +48,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -50,22 +58,20 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.sexActions.dominion.AmberSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Amber extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Amber() {
 		this(false);
@@ -74,14 +80,18 @@ public class Amber extends NPC {
 	public Amber(boolean isImported) {
 		super(new NameTriplet("Amber"),
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
+				39, Month.OCTOBER, 17,
 				12, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
-
+		
 		this.setPersonality(Util.newHashMapOfValues(
 				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 55);
+		this.setAttribute(Attribute.MAJOR_ARCANE, 30);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -93,6 +103,7 @@ public class Amber extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
+			this.addFetish(Fetish.FETISH_FOOT_GIVING);
 			
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 			
@@ -112,6 +123,8 @@ public class Amber extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.unequipAllClothingIntoVoid();
+		this.removeFetish(Fetish.FETISH_FOOT_RECEIVING);
+		this.addFetish(Fetish.FETISH_FOOT_GIVING);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED_DARK, false), true, this);
@@ -132,6 +145,7 @@ public class Amber extends NPC {
 		
 		this.setTailType(TailType.DEMON_HAIR_TIP);
 		this.setWingType(WingType.NONE);
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, Colour.EYE_AMBER, true, Colour.EYE_AMBER, true));
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), true);
@@ -167,8 +181,26 @@ public class Amber extends NPC {
 	}
 	
 	@Override
+	public String getDescription() {
+		if(!playerKnowsName) {
+			return "This fiery maid is clearly outraged by the fact that you're wandering around her master's house unsupervised";
+			
+		} else {
+			return "The highest-ranking of Zaranix's maids, Amber is one of the most striking succubi you've ever seen."
+					+ " Her amber hair and eyes, from which she gets her name, glow with a brilliant luminosity, providing a stark contrast to her jet-black ebony skin."
+					+ "<br/>"
+					+ "Amber is ruthlessly sadistic, and delights in imposing her dominance over her subordinates.";
+		}
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 28;
 	}
 	
 	@Override
@@ -186,10 +218,8 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if (applyEffects) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false), true, this);
-		}
+	public void endSex() {
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false), true, this);
 	}
 	
 	@Override
@@ -200,11 +230,6 @@ public class Amber extends NPC {
 
 	// Combat:
 	
-	@Override
-	public String getCombatDescription() {
-		return "The maid's fiery amber hair and eyes both glow with an intense fury as she fiercely launches her attack!";
-	}
-
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
 		return "<p>"
@@ -289,8 +314,8 @@ public class Amber extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household are coming to help her, so you decide to take this opportunity to have a little fun with Amber."
 							+ " Stepping over to where she's leaning against the wall, you reach forwards and take hold of her arm, before pulling her hand out from under her dress."
 							+ " Denied the freedom to get herself off, Amber pitifully looks up into your eyes, and instead of fury, you see them filled with burning lust."
@@ -303,13 +328,13 @@ public class Amber extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "Despite her currently-defeated state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's leaning against the wall, and sigh,"
 							+ " [pc.speech('Miss Amber' was it? Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -415,10 +440,10 @@ public class Amber extends NPC {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						null,
+						AFTER_SEX_DEFEAT, "<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
 							+ " The sharp slap of her hand across your right cheek causes you to let out a little cry, which is met by the maid's aggressive growl,"
 							+ " [amber.speech(Squeal all you want bitch, <i>you're mine now!</i>)]"
@@ -472,30 +497,47 @@ public class Amber extends NPC {
 
 	// Sex:
 	
-	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_AMBER) {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA);
+	@Override
+	public List<Class<?>> getUniqueSexClasses() {
+		return Util.newArrayListOfValues(AmberSpecials.class);
+	}
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
+			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS);
 			}
 		}
 		
-		return super.getForeplayPreference();
+		return super.getForeplayPreference(target);
 	}
-	
-	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_AMBER) {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
+			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			}
 		}
 
-		return super.getMainSexPreference();
+		return super.getMainSexPreference(target);
+	}
+
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+		sexPositionPreferences.clear();
+		
+		sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+		
+		return sexPositionPreferences;
 	}
 	
+	@Override
 	public SexPace getSexPaceDomPreference(){
 		return SexPace.DOM_ROUGH;
 	}

@@ -28,20 +28,18 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Lab {
@@ -59,7 +57,7 @@ public class Lab {
 						+ "</p>"
 						+"<p style='text-align:center;'>"
 							+ "<i>"
-								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.</br></br>"
+								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.<br/><br/>"
 								+ "I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not."
 							+ "</i>"
 						+ "</p>"
@@ -127,7 +125,7 @@ public class Lab {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO check
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(// pregnant
 								"<p>"
@@ -135,12 +133,12 @@ public class Lab {
 									+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
 								+ "</p>"
 								+ "<p>"
-									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
-									+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
+									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
+									+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Be quiet!)]"
-									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
 									+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
 								+ "</p>"
 								+ "<p>"
@@ -161,12 +159,12 @@ public class Lab {
 									+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
 								+ "</p>"
 								+ "<p>"
-									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
-									+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
+									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
+									+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Be quiet!)]"
-									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
 									+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
 								+ "</p>"
 								+ "<p>"
@@ -187,12 +185,12 @@ public class Lab {
 								+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
 							+ "</p>"
 							+ "<p>"
-								+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
-								+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
+								+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding."
+								+ " [arthur.speech(Sorry, Lilaya, I just thought that-)]"
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(Be quiet!)]"
-								+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+								+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab."
 								+ " [lilaya.speech([pc.Name]! Please come in and take a seat!)]"
 							+ "</p>"
 							+ "<p>"
@@ -200,7 +198,6 @@ public class Lab {
 							+ "</p>");
 				}
 				
-				// Core argument:
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Lilaya starts pacing back and forth in front of you as she explains the situation,"
@@ -310,7 +307,7 @@ public class Lab {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,"
-									+ " [rose.speech(~Mmm!~ Come on slut, you can do better than that! ~Aaah!~ Yes, good girl!)]"
+									+ " [rose.speech(~Mmm!~ Come on, slut, you can do better than that! ~Aaah!~ Yes, good girl!)]"
 								+ "</p>");
 					}
 					
@@ -320,20 +317,20 @@ public class Lab {
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic aunt,"
 										+ " before letting out a little eek and jumping to her feet as she feigns surprise."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
-									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right Rose?!)]"
+									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[rose.speech(Yes Mistress!)]"
-									+ " Rose squeaks,"
+									+ "[rose.speech(Yes, Mistress!)]"
+									+ " Rose squeaks."
 									+ " [rose.speech(That's right!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Brushing down her skirt, Lilaya clears her throat,"
-									+ " [lilaya.speech(Ahem! Well, it's a good job that you came here to see me [pc.name]."
+									+ " [lilaya.speech(Ahem! Well, it's a good job that you came here to see me, [pc.name]."
 									+ " Rose has already told me all about your little adventure in my room. So, what do you have to say for yourself?)]"
 								+ "</p>"
 								+ "<p>"
@@ -346,8 +343,8 @@ public class Lab {
 									+ " Lilaya responds, trying her best to sound stern and in control, but utterly failing as her thoughts shift to wanting to do lewd things with you."
 								+ "</p>"
 								+ "<p>"
-									+ "[pc.speech(Yes, Lilaya.)]"
-									+ " You respond, much in the same way you always used to with your aunt Lily."
+									+ "[pc.speech(Yes, Lilaya,)]"
+									+ " you respond, much in the same way you always used to with your aunt Lily."
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(So, now that that's out of the way, what is it you need?)]"
@@ -358,14 +355,14 @@ public class Lab {
 								"<p>"
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
-									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right Rose?!)]"
+									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right, Rose?!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[rose.speech(Yes Mistress!)] Rose squeaks, [rose.speech(That's right!)]"
+									+ "[rose.speech(Yes, Mistress!)] Rose squeaks. [rose.speech(That's right!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Brushing down her skirt, Lilaya clears her throat,"
@@ -402,13 +399,13 @@ public class Lab {
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
 						return new ResponseSex("\"Tests\"",
 								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								null,
+								Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -428,15 +425,15 @@ public class Lab {
 					} else {
 						return new ResponseSex("\"Tests\"",
 								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+								Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 								null,
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								null,
+								Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -532,6 +529,21 @@ public class Lab {
 								}
 							});
 						}
+					}
+				}
+
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+					if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+						generatedResponses.add(new Response("Accommodation", "You'll need to complete Lilaya's initial tests before you can ask her about inviting friends home!", null));
+						
+					} else {
+						generatedResponses.add(new Response("Accommodation", "Ask Lilaya about inviting your new friend to live in one of the many spare rooms in the mansion.", LILAYA_FRIEND_ACCOMMODATION){
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ACCOMMODATION, Quest.SIDE_UTIL_COMPLETE));
+							}
+						});
 					}
 				}
 				
@@ -717,8 +729,8 @@ public class Lab {
 						+ "[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)]"
 						+ " Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
 						+ " Lifting off the lid, your easily-embarrassed aunt fails to contain an excited little cry as she sees what's inside."
-						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getName()+", before turning and beaming at you in delight,"
-						+ " [lilaya.speech(Thank you so, so much [pc.name]! This is the best Yuletide ever!)]"
+						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getName()+", before turning and beaming at you in delight."
+						+ " [lilaya.speech(Thank you so, so much, [pc.name]! This is the best Yuletide ever!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Before you can say anything, your demonic aunt leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
@@ -732,7 +744,7 @@ public class Lab {
 						+ " [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Your aunt's cheeks flush bright red as you give her another gift,"
+						+ "Your aunt's cheeks flush bright red as you give her another gift."
 						+ " [lilaya.speech([pc.name]! Y-You didn't have to! O-One gift was more than enough!)]"
 					+ "</p>"
 					+ "<p>"
@@ -743,7 +755,7 @@ public class Lab {
 					+ "<p>"
 						+ "Doing as you suggest, Lilaya places the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
 						+ " Taking off the lid, she reaches inside and produces a pair of "+ClothingType.KIMONO_GETA.getNamePlural()+", before turning and smiling lovingly at you,"
-						+ " [lilaya.speech(Thank you [pc.name]! These will go perfectly with the "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+" you got me before!)]"
+						+ " [lilaya.speech(Thank you, [pc.name]! These will go perfectly with the "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+" you got me before!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Now all you need is the kimono itself,)]"
@@ -764,19 +776,19 @@ public class Lab {
 				return "<p>"
 							+ "[pc.speech(I wanted to get you something for Yuletide, to thank you for everything,)]"
 							+ " you say, holding out the wrapped gift towards Lilaya,"
-							+ " [pc.speech(so here you go. Happy Yuletide Lilaya!)]"
+							+ " [pc.speech(so here you go. Happy Yuletide, Lilaya!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Your aunt gasps as you give her the gift you bought,"
 							+ " [lilaya.speech([pc.Name]! Y-You didn't have to do that! Oh my goodness, t-thank you so much!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "She seems completely shocked at the fact that you're giving her a gift, and awkwardly takes the present from out of your hands,"
+							+ "She seems completely shocked at the fact that you're giving her a gift, and awkwardly takes the present from out of your hands."
 							+ " [lilaya.speech(S-Should I open it now?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Go on, it'll be fun,)]"
-							+ " you reply,"
+							+ " you reply."
 							+ " [pc.speech(I got it from one of the reindeer-morphs who're working to keep the streets clear of snow."
 								+ " The contents are a surprise, so I guess we'll find out what's in there together!)]"
 						+ "</p>"
@@ -837,7 +849,7 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(Aah! I-I forgot you were there!)]"
-						+ " Lilaya calls out, proving the second assumption to be true,"
+						+ " Lilaya calls out, proving the second assumption to be true."
 						+ " [lilaya.speech(Y-You can turn around now.)]"
 					+ "</p>"
 					+ "<p>"
@@ -851,11 +863,11 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(R-Really?)]"
-						+ " Lilaya asks, stepping forwards as a huge smile breaks out across her face,"
+						+ " Lilaya asks, stepping forwards as a huge smile breaks out across her face."
 						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind,"
+						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind."
 						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
 					+ "</p>";
 		}
@@ -864,14 +876,14 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex", "Start having sex with Lilaya.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-						"<p>"
-							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace,"
+						null,
+						Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
@@ -886,14 +898,14 @@ public class Lab {
 
 			} if (index == 2) {
 				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-								"<p>"
-									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace,"
+						null,
+								Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 								+ "</p>"
 								+ "<p>"
@@ -926,13 +938,13 @@ public class Lab {
 						
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "[pc.speech(You really do look amazing Lilaya, but that might be going a little too far,)]"
+									+ "[pc.speech(You really do look amazing, Lilaya, but that might be going a little too far,)]"
 									+ " you respond, not liking the idea of having sex with your aunt."
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Aww, well, I understand,)]"
-									+ " Lilaya responds, before turning around to get changed back into her regular clothes,"
-									+ " [lilaya.speech(just let me know if you want to see me in this again!)]"
+									+ " Lilaya responds, before turning around to get changed back into her regular clothes."
+									+ " [lilaya.speech(Just let me know if you want to see me in this again!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Reassuring her that you will, you exit your aunt's bedroom and head back to your own, pleased that your gift looks so good on her."
@@ -962,13 +974,13 @@ public class Lab {
 				if(getJinxedClothingExample() == null) { // If the PC has somehow removed the clothing already (jinxed condom):
 					UtilText.nodeContentSB.append("<p>"
 							+ "[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)]"
-							+ " you explain, "
+							+ " you explain. "
 							+ "[pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]"
 						+ "</p>");
 				} else {
 					UtilText.nodeContentSB.append("<p>"
 							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
-							+ " you explain, "
+							+ " you explain. "
 							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
 						+ "</p>");
 				}
@@ -1031,7 +1043,7 @@ public class Lab {
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(Oh! Of course! I should have mentioned that,)]"
-								+ " Lilaya responds,"
+								+ " Lilaya responds."
 								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]"
 							+ "</p>"
 							+ "<p>"
@@ -1060,7 +1072,7 @@ public class Lab {
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(Well, I could just channel some of my absorbed essences into "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" to remove it, but...)]"
-								+ " Lilaya responds, her sentence trailing off a little as she suddenly thinks of something,"
+								+ " Lilaya responds, her sentence trailing off a little as she suddenly thinks of something."
 								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences too,"
 														+ " and then you could remove "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" yourself!"
 													+ " I really should have tested you for that as well... But we can just do it now!)]"
@@ -1122,7 +1134,7 @@ public class Lab {
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(Oh! Of course! I should have mentioned that,)]"
-								+ " Lilaya responds,"
+								+ " Lilaya responds."
 								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]"
 							+ "</p>"
 							+ "<p>"
@@ -1187,8 +1199,8 @@ public class Lab {
 							+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
-							+ " [lilaya.speech(you really, <i>really</i> shouldn't be able to do that!)]"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds."
+							+ " [lilaya.speech(You really, <i>really</i> shouldn't be able to do that!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Pointing at the ball of energy that's orbiting your aura, she continues,"
@@ -1201,7 +1213,7 @@ public class Lab {
 						+ "<p>"
 							+ "[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura."
 								+ " Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
-								+ " Lilaya explains, pacing back and forth,"
+								+ " Lilaya explains, pacing back and forth."
 								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
 								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can!"
 								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
@@ -1210,7 +1222,7 @@ public class Lab {
 							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
 							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
 							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
-							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]"
 						+ "</p>");
 			
 			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
@@ -1219,11 +1231,11 @@ public class Lab {
 								+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
-							+ " [lilaya.speech(your aura really, <i>really</i> shouldn't look like that!)]"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds."
+							+ " [lilaya.speech(Your aura really, <i>really</i> shouldn't look like that!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Lilaya points up above your head, and you look up to see that there's a ball of energy orbiting your aura,"
+							+ "Lilaya points up above your head, and you look up to see that there's a ball of energy orbiting your aura."
 							+ "[lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours..."
 							+ " I-It has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]"
 						+ "</p>"
@@ -1234,7 +1246,7 @@ public class Lab {
 						+ "<p>"
 							+ "[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled."
 								+ " Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
-								+ " Lilaya explains, pacing back and forth,"
+								+ " Lilaya explains, pacing back and forth."
 								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
 								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can!"
 								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
@@ -1243,7 +1255,7 @@ public class Lab {
 							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
 							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
 							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
-							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]"
 						+ "</p>");
 				
 			} else {
@@ -1252,8 +1264,8 @@ public class Lab {
 								+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
-							+ " [lilaya.speech(your aura really, <i>really</i> shouldn't look like that! I-I need to try something, hold still!)]"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds."
+							+ " [lilaya.speech(Your aura really, <i>really</i> shouldn't look like that! I-I need to try something, hold still!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Doing as Lilaya asks, you sit still as she turns around and runs over to a nearby desk."
@@ -1268,7 +1280,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours...)]"
-							+ " Lilaya says, shaking her head in disbelief,"
+							+ " Lilaya says, shaking her head in disbelief."
 							+ " [lilaya.speech(Your aura has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]"
 						+ "</p>"
 						+ "<p>"
@@ -1278,7 +1290,7 @@ public class Lab {
 						+ "<p>"
 							+ "[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled."
 								+ " Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
-								+ " Lilaya explains, pacing back and forth,"
+								+ " Lilaya explains, pacing back and forth."
 								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
 								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can!"
 								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
@@ -1287,7 +1299,7 @@ public class Lab {
 							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
 							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
 							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
-							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]"
 						+ "</p>");
 			}
 			
@@ -1319,7 +1331,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from."
 							+ " It's not as though you're trapping a part of their soul into enchanted items or anything like that!)]"
-					+ " Lilaya starts explaining,"
+					+ " Lilaya starts explaining."
 					+ " [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]"
 				+ "</p>"
 				+ "<p>"
@@ -1327,11 +1339,11 @@ public class Lab {
 				+ "</p>"
 				+ "<p>"
 					+ "[lilaya.speech(Right, well I should probably demonstrate enchanting first! I still have a few essences absorbed from some work I was doing earlier, so I might as well use them on this!)]"
-					+ " she says, and you notice that her earlier look of worry has been replaced with one of excitement,"
+					+ " she says, and you notice that her earlier look of worry has been replaced with one of excitement."
 					+ "[lilaya.speech(So, you don't need any special equipment for this, all you need is an item to enchant, and the concentration to draw the essence out from your aura.)]"
 				+ "</p>"
 				+ "<p>"
-					+ "Lilaya picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it,"
+					+ "Lilaya picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it."
 					+ " [lilaya.speech(So, you have your base ingredient, and that's all well and good, but you can also add elements to an enchantment."
 					+ " Depending on what elements you choose to add, the resulting enchanted item will have different effects."
 					+ " Once you've decided on what ingredient and which elements you're going to use, you just need to focus on combining them...)]"
@@ -1343,7 +1355,7 @@ public class Lab {
 				+ "</p>"
 				+ "<p>"
 					+ "[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)]"
-					+ " Lilaya picks up the little potion and places it off to one side,"
+					+ " Lilaya picks up the little potion and places it off to one side."
 					+ " [lilaya.speech(And that's all there is to it!)]"
 				+ "</p>");
 			
@@ -1379,7 +1391,7 @@ public class Lab {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "[pc.speech(Thanks Lilaya, I understand now, but it still seems a little strange.)]"
+									+ "[pc.speech(Thanks, Lilaya, I understand now, but it still seems a little strange.)]"
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(The only strange thing about all this is how you're able to absorb essences like a Lilin,)]"
@@ -1387,7 +1399,7 @@ public class Lab {
 									+ " [lilaya.speech(but anyway, I've already got that arcane observation device set up in your room, so hopefully the test results will give me some idea of what's happening.)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[pc.speech(Yeah, hopefully, thanks again Lilaya.)]"
+									+ "[pc.speech(Yeah, hopefully, thanks again, Lilaya.)]"
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(You're welcome!)] she answers, before stepping away and giving you some time to think."
@@ -1397,7 +1409,7 @@ public class Lab {
 									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
 								+ "</p>"
 								+ "<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
+									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/><br/>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
 								+ "</div>"
 								+ Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE));
@@ -1424,7 +1436,7 @@ public class Lab {
 							+ "Turning towards Lilaya, you get her attention before asking, [pc.speech(Is it ok if I extract some more essences?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Of course!)] she responds, [lilaya.speech(Use as many vials as you'd like!)]"
+							+ "[lilaya.speech(Of course!)] she responds. [lilaya.speech(Use as many vials as you'd like!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Reaching down to pull a few of the little glass containers out from their storage, you wonder which, and how many, of your essences to extract..."
@@ -1437,8 +1449,8 @@ public class Lab {
 							+ " you ask."
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Oh, of course that's possible,)] Lilaya happily replies, beckoning you over to one of the many tables in her lab,"
-							+ " [lilaya.speech(it's actually one of the easiest things about essence manipulation!)]"
+							+ "[lilaya.speech(Oh, of course that's possible,)] Lilaya happily replies, beckoning you over to one of the many tables in her lab."
+							+ " [lilaya.speech(It's actually one of the easiest things about essence manipulation!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Bending down, Lilaya pulls out a heavy cardboard box, and you hear the high-pitched tinkling sound of countless little glass vials as they knock against each other."
@@ -1450,11 +1462,11 @@ public class Lab {
 								+ " This one's empty at the moment, so if you take the cork out and concentrate on drawing an essence out from your aura, the vial's special enchantment will do the rest!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Turning the little glass container over in your [pc.hands], you look up at Lilaya,"
+							+ "Turning the little glass container over in your [pc.hands], you look up at Lilaya."
 							+ " [pc.speech(So <i>all</i> essences that 'ordinary' arcane users have absorbed come from little vials like this?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(That's right,)] Lilaya responds, [lilaya.speech(well, they come from a Lilin originally, then are extracted into these vials and sold on!"
+							+ "[lilaya.speech(That's right,)] Lilaya responds. [lilaya.speech(Well, they come from a Lilin originally, then are extracted into these vials and sold on!"
 								+ " Thanks to this unique ability of theirs, and I guess also being given anything they want from Lilith herself, all Lilin are extremely wealthy."
 								+ " I mean, essences are always in high demand, so all a Lilin has to do to earn money is extract some essences and sell them."
 								+ " These empty containers are next to worthless, so if you wanted to extract some essences, please feel free to use as many as you'd like!)]"
@@ -1636,7 +1648,7 @@ public class Lab {
 					+ " [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]"
 				+ "</p>"
 				+ "<p>"
-					+ "Lilaya frowns as she hears you say that, and leans back against the desk behind her,"
+					+ "Lilaya frowns as she hears you say that, and leans back against the desk behind her."
 					+ " [lilaya.speech(Well, I can assure you that the year is "+Main.game.getYear()+". Your world was still in "+(Main.game.getYear()-3)+", huh?)]"
 				+ "</p>"
 				+ "<p>"
@@ -1651,11 +1663,11 @@ public class Lab {
 				+ "</p>"
 				+ "<p>"
 					+ "You start to chat with Lilaya about the peculiarities of these shared features between your worlds."
-					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has,"
+					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has."
 					+ " [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith."
 					+ " She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence."
-					+ " I don't think anybody other then Lilith herself, or her favourite Lilin, really know."
-					+ " Maybe my mother-)]"
+					+ " I don't think anybody other than Lilith herself really knows much about this world's history."
+					+ " Maybe mommy-)]"
 				+ "</p>"
 				+ "<p>"
 					+ "Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation,"
@@ -1689,8 +1701,8 @@ public class Lab {
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/lab_testing.txt", AuntsHome.getContext());
 			
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt,"
-						+ " [pc.speech(Hi Lilaya, I'm here for those tests you mentioned.)]"
+						+ "Stepping forwards, you smile at your demonic aunt."
+						+ " [pc.speech(Hi, Lilaya, I'm here for those tests you mentioned.)]"
 					+ "</p>"
 					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)
 							? "<p>"
@@ -1708,7 +1720,7 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(Hmmm... Yes... That's what I thought...)]"
-						+ " she says, but before you have a chance to ask her what's going on, she steps back and places the wand to one side, "
+						+ " she says, but before you have a chance to ask her what's going on, she steps back and places the wand to one side. "
 						+ "[lilaya.speech(Your arcane aura hasn't shown any signs of degradation at all."
 							+ " It looks like it's permanent. If you've been out in Dominion, maybe you've noticed by now, but with an aura that strong, you have the same effect on people that a demon would.)]"
 					+ "</p>"
@@ -1769,8 +1781,8 @@ public class Lab {
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/lab_testing_repeat.txt", AuntsHome.getContext());
 
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt,"
-						+ " [pc.speech(Hi Lilaya, I'm here for some more of those tests...)]"
+						+ "Stepping forwards, you smile at your demonic aunt."
+						+ " [pc.speech(Hi, Lilaya, I'm here for some more of those tests...)]"
 					+ "</p>"
 					+ (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)
 							? "<p>"
@@ -1827,8 +1839,8 @@ public class Lab {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Stepping forwards, you smile at your demonic aunt,"
-						+ " [pc.speech(Hi Lilaya, I was wondering if you wanted to run some more of those... <i>tests</i>?)]"
+						+ "Stepping forwards, you smile at your demonic aunt."
+						+ " [pc.speech(Hi, Lilaya, I was wondering if you wanted to run some more of those... <i>tests</i>?)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(Ah! Y-Yes! I was hoping for some more of those...)] she responds, fiercely blushing."
@@ -1848,15 +1860,15 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
-						"Start having sex with Lilaya.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+						"Start having sex with Lilaya.", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+						null,
+						Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -1910,7 +1922,7 @@ public class Lab {
 
 					+ "<p>"
 					+ UtilText.parseSpeech("Sorry, but no. That's what I needed to talk to you about,", Main.game.getLilaya())
-					+ " Lilaya answers, "
+					+ " Lilaya answers. "
 					+ UtilText.parseSpeech("The truth is, even though I'm considered one of the top experts in all things related to the arcane, I have no idea how you've ended up here.", Main.game.getLilaya())
 					+ "</p>"
 
@@ -2069,7 +2081,7 @@ public class Lab {
 
 					+ "<p>"
 					+ (Main.game.getPlayer().isFeminine() ? UtilText.parseSpeech("Good girl...", Main.game.getLilaya()) : UtilText.parseSpeech("Good boy...", Main.game.getLilaya()))
-					+ " she whispers in your ear, "
+					+ " she whispers in your ear. "
 					+ UtilText.parseSpeech("And just to think, I was worried that you wouldn't like this...", Main.game.getLilaya())
 					+ "</p>"
 
@@ -2094,14 +2106,14 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Let it happen",
-						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+						null,
+						Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -2159,7 +2171,7 @@ public class Lab {
 //		public String getContent() {
 //				return "<p>"
 //							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
-//							+ " you explain, "
+//							+ " you explain. "
 //							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
 //						+ "</p>"
 //						+ "<p>"
@@ -2187,7 +2199,7 @@ public class Lab {
 //									+ " Feel free to destroy that demonstone I gave you, it's just a common variety anyway.)]"
 //						+ "</p>"
 //						+ "<p>"
-//							+ "[pc.speech(Thanks Lilaya, I really appreciate the help!)] you say, smiling at her."
+//							+ "[pc.speech(Thanks, Lilaya, I really appreciate the help!)] you say, smiling at her."
 //						+ "</p>"
 //						+ "<p>"
 //							+ "[lilaya.speech(You're welcome! And please, do try to be careful out there!)] Lilaya responds, before moving off a little to give you a chance to remove your jinxed clothing."
@@ -2215,6 +2227,27 @@ public class Lab {
 //		}
 //	};
 	
+	
+	public static final DialogueNodeOld LILAYA_FRIEND_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_FRIEND_ACCOMMODATION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "You've now got Lilaya's permission to invite friends back home!", LAB_EXIT);
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
 
 		private static final long serialVersionUID = 1L;
@@ -2227,7 +2260,7 @@ public class Lab {
 							+ " [pc.speech(so I was wondering if you could write one for me?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Lilaya lets out a little sigh and raises her eyebrow,"
+							+ "Lilaya lets out a little sigh and raises her eyebrow."
 							+ " [lilaya.speech(I'm fine with writing a letter for you, but have you thought about where you're going to keep your slaves?)]"
 						+ "</p>"
 						+ "<p>"
@@ -2270,17 +2303,17 @@ public class Lab {
 		@Override
 		public String getContent() {
 				return "<p>"
-							+ "[pc.speech(You're right Lilaya, I didn't think about that...)]"
+							+ "[pc.speech(You're right, Lilaya, I didn't think about that...)]"
 							+ " you admit, feeling like you're on the receiving end of yet another of your aunt's scoldings."
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(Well, luckily for you, I think I can help,)]"
-							+ " Lilaya responds, standing up from behind her desk with the completed letter of recommendation in her hand,"
+							+ " Lilaya responds, standing up from behind her desk with the completed letter of recommendation in her hand."
 							+ " [lilaya.speech(I'm sure you've noticed, but this house is extremely large, which also means that it's an extremely time-consuming job to keep clean."
 								+ " Isn't that right Rose?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[rose.speech(Yes Mistress!)]"
+							+ "[rose.speech(Yes, Mistress!)]"
 							+ " Rose's voice calls out from one side of the room."
 						+ "</p>"
 						+ "<p>"
@@ -2291,22 +2324,22 @@ public class Lab {
 						+ "<p>"
 							+ "Lilaya holds the letter of recommendation behind her back, smiling as she awaits your answer."
 							+ " You think that her deal sounds fair enough, and, nodding in agreement, you reply,"
-							+ " [pc.speech(That sounds more than reasonable, thanks Lilaya. It's a deal.)]"
+							+ " [pc.speech(That sounds more than reasonable. Thanks, Lilaya, it's a deal.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(Great!)]"
-							+ " Lilaya responds, beaming at you as she gives you the letter,"
+							+ " Lilaya responds, beaming at you as she gives you the letter."
 							+ " [lilaya.speech(If you want to use any of the rooms to house slaves, just go into the one you'd like and ring the bell pull."
 								+ " Rose will handle all the necessary arrangements."
 								+ " Oh, and if you'd like to get Rose to manage your slaves for you, she's more than capable!"
 								+ " Just ring the little bell beside her room's door, and she'll come running, won't you Rose?!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[rose.speech(Yes Mistress! I'd love to help!)]"
+							+ "[rose.speech(Yes, Mistress! I'd love to help!)]"
 							+ " Rose calls out yet again."
 						+ "</p>"
 						+ "<p>"
-							+ "[pc.speech(Thanks Lilaya,)]"
+							+ "[pc.speech(Thanks, Lilaya,)]"
 							+ " you say, smiling at your demonic aunt."
 							+ " She cheerily returns your smile, before backing off to give you some space."
 						+ "</p>";
@@ -2337,7 +2370,7 @@ public class Lab {
 				
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly,"
+							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
 							+ " [pc.speech(Erm... Lilaya...)]"
 						+ "</p>"
 						+"<p>"
@@ -2368,7 +2401,7 @@ public class Lab {
 								+ "<p>"
 									+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
 									+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
-									+ " Her cheeks go red as she starts to blush, "
+									+ " Her cheeks go red as she starts to blush. "
 									+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
 								+ "</p>"
 								+ "<p>"
@@ -2399,7 +2432,7 @@ public class Lab {
 								+ "<p>"
 									+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
 									+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
-									+ " Her cheeks go red as she starts to blush, "
+									+ " Her cheeks go red as she starts to blush. "
 									+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
 								+ "</p>"
 								+ "<p>"
@@ -2430,7 +2463,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane has a big influence on pregnancy speed around here,)]"
-							+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved, "
+							+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved. "
 							+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", aunt)
 						+ "</p>"
 						+ "<p>"
@@ -2440,7 +2473,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(Well, that's a relief! Oh, right, I need to explain what's going on!)]"
-							+ " she says, putting the instrument down on a nearby table before turning back to face you, "
+							+ " she says, putting the instrument down on a nearby table before turning back to face you. "
 							+ "[lilaya.speech(So, it turns out that your body has completely adapted to this world, and you're going to be obeying the same sort of rules for pregnancy as the rest of us!"
 									+ " What I'm trying to say is that you're not going to be pregnant for the better part of a year; it's going to be more like a few weeks."
 									+ " Oh, and also, the races of the children you're going to give birth to will be a split between your race, and the race of the father."
@@ -2453,7 +2486,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "Much to your surprise, Lilaya's face momentarily scrunches up into a look of confusion, as though she doesn't quite know what you're talking about."
-							+ " Thankfully, after just a moment, she lets out an understanding sigh, and quickly moves to put your fears to rest, "
+							+ " Thankfully, after just a moment, she lets out an understanding sigh, and quickly moves to put your fears to rest. "
 							+ "[lilaya.speech(Aah, of course, the arcane is the thing responsible for the rapid growth as well..."
 									+ " I'm sure this will come as a major relief, but you don't have to worry about raising your children here; thanks to the arcane, they'll reach full maturity in just a couple of hours."
 									+ " The arcane grants them their mother's general knowledge about things, so they get all the information they need to make their own way in the world."
@@ -2486,7 +2519,7 @@ public class Lab {
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly,"
+							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
 							+ " [pc.speech(Erm... Lilaya...)]"
 						+ "</p>");
 
@@ -2558,7 +2591,7 @@ public class Lab {
 						}
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "[pc.speech(Thanks for your help Lilaya, but can I just have a moment to think?)] you ask, smiling at your demonic aunt."
+									+ "[pc.speech(Thanks for your help, Lilaya, but can I just have a moment to think?)] you ask, smiling at your demonic aunt."
 								+ "</p>"
 								+ "<p>"
 									+ "[lilaya.speech(Sure, just let me know if you need anything else!)] she says, before backing off a little to give you some space."
@@ -2586,7 +2619,7 @@ public class Lab {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "Cradling your swollen belly with both hands, you look up at Lilaya, "
+						+ "Cradling your swollen belly with both hands, you look up at Lilaya. "
 						+ "[pc.speech(I'm ready to give birth now...)]"
 					+ "</p>");
 
@@ -2649,10 +2682,7 @@ public class Lab {
 							@Override
 							public void effects() {
 								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
-								Main.game.setActiveWorld(
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-										false);
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 							}
 						};
 					default:
@@ -2660,10 +2690,7 @@ public class Lab {
 							@Override
 							public void effects() {
 								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
-								Main.game.setActiveWorld(
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_BIRTHING_ROOM)),
-										false);
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_BIRTHING_ROOM, false);
 							}
 						};
 				}
@@ -2775,7 +2802,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "<i>"
 					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
-					+ "</br></br>");
+					+ "<br/><br/>");
 			
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
@@ -2785,22 +2812,22 @@ public class Lab {
 			
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				}
 			}
@@ -2824,10 +2851,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-								false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 					}
 				};
 
@@ -2849,7 +2873,7 @@ public class Lab {
 						+ " you ask, looking up at Lilaya hopefully."
 					+ "</p>"
 					+ "<p>"
-						+ "She laughs and walks over to the drinks cabinet, "
+						+ "She laughs and walks over to the drinks cabinet. "
 						+ "[Lilaya.speech(You know, I thought you might ask for that! I prepared this for you earlier!)]"
 					+ "</p>");
 
@@ -2883,10 +2907,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-								false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 					}
 				};
 
@@ -2936,7 +2957,7 @@ public class Lab {
 									+ " Oh, and don't worry about your behaviour, I understand that your maternal instinct is going to get pretty intense.)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You fidget about uncomfortably a little, but Lilaya makes a soothing shushing noise as she pushes you down into the middle of your bed, before shuffling around to sit behind you, "
+							+ "You fidget about uncomfortably a little, but Lilaya makes a soothing shushing noise as she pushes you down into the middle of your bed, before shuffling around to sit behind you. "
 							+ "[lilaya.speech(It's alright, don't worry!"
 								+ " So, after you've laid your eggs, you're going to incubate them for roughly twenty-four hours, during which time you'll find that you'll be unable to sleep or get any rest."
 								+ " Once the eggs start hatching, all that built-up tiredness will suddenly wash over you, and you might collapse from exhaustion."
@@ -2988,7 +3009,7 @@ public class Lab {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You nod as you look down at Lilaya's hands resting on your swollen stomach, "
+						+ "You nod as you look down at Lilaya's hands resting on your swollen stomach. "
 						+ "[pc.speech(I'm ready...)]"
 					+ "</p>"
 
@@ -3056,7 +3077,7 @@ public class Lab {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append("<p>"
 						+ "As you look down at your clutch of eggs, you find yourself burning with an overwhelming need to protect them at all costs."
-						+ " Throwing Lilaya's arms from off of you, you collapse forwards, wrapping your [pc.arms] around your precious brood as you turn your head back and shout,"
+						+ " Throwing Lilaya's arms off of you, you collapse forwards, wrapping your [pc.arms] around your precious brood as you turn your head back and shout,"
 						+ " [pc.speech(Get away! Don't hurt them!)]"
 					+ "</p>"
 					+ "<p>"
@@ -3177,12 +3198,12 @@ public class Lab {
 
 					+ "<p style='text-align:center;'>"
 						+ "<i>"
-						+ "Hey [pc.name], congratulations! Everything went perfectly!</br>"
+						+ "Hey [pc.name], congratulations! Everything went perfectly!<br/>"
 						+ "I hope you don't mind, but I collected a lot of data about your aura while we were doing this!"
 						+ " I had to start analysing it straight away, and you were fast asleep anyway, so I hope you don't mind me leaving you there to rest."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "If you need anything, or perhaps if you'd like some more \"tests\", then you know where to find me!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ (Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount() > 1
 								?"P.S. I managed to get your kids together for a picture before they left, it's under this note!"
 								:"P.S. I got a picture of your kid before they left, it's under this note!")
@@ -3197,7 +3218,7 @@ public class Lab {
 					+ "In the picture you see:");
 
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather()))
 						+ "</b>");
 
@@ -3206,7 +3227,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3219,6 +3249,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3227,10 +3261,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3243,13 +3280,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3283,7 +3330,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()))
 						+ "</b>");
 
@@ -3292,7 +3339,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3305,6 +3361,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3313,10 +3373,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3329,13 +3392,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3369,7 +3442,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()))
 						+ "</b>");
 
@@ -3378,7 +3451,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3391,6 +3473,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3399,10 +3485,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3415,13 +3504,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3455,7 +3554,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()))
 						+ "</b>");
 
@@ -3464,7 +3563,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3477,6 +3585,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3485,10 +3597,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3501,13 +3616,23 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
+					case SLIME_HARPY_BALD_EAGLE:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3571,13 +3696,13 @@ public class Lab {
 						+ " you answer, trying to get your aunt to calm down as you agree to do as she asks."
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(Thank you [pc.name], I would have asked Rose to do it for me, but as I agreed to let you use the empty rooms already, I thought it best that you should be the one to decide where Arthur goes,)]"
+						+ "[lilaya.speech(Thank you, [pc.name], I would have asked Rose to do it for me, but as I agreed to let you use the empty rooms already, I thought it best that you should be the one to decide where Arthur goes,)]"
 						+ " Lilaya says, before stepping to one side and turning to face Arthur,"
 						+ " [lilaya.speech(You should let [pc.name] know how you ended up as Zaranix's slave; after all, [pc.she] was the one who went through all that trouble to free you.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(Yes Lilaya,)]"
-						+ " Arthur responds, before turning to address you,"
+						+ "[arthur.speech(Yes, Lilaya,)]"
+						+ " Arthur responds, before turning to address you."
 						+ " [arthur.speech(We can discuss it a little more some other time, but the basic gist of it is that I decided to do a little research into arcane teleportation.)]"
 					+ "</p>"
 					+ "<p>"
@@ -3585,7 +3710,7 @@ public class Lab {
 						+ " Lilaya interjects."
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(Yes, thank you Lilaya. Which is illegal."
+						+ "[arthur.speech(Yes, thank you, Lilaya. Which is illegal."
 							+ " Anyway, thanks to a certain amber-haired demon, who I <i>assumed</i> was no more than a succubus looking to make some quick cash, I ended up creating a teleportation device that actually worked!"
 							+ " Well, it sort of worked... It didn't quite take me to where I wanted to go...)]"
 					+ "</p>"
@@ -3611,7 +3736,7 @@ public class Lab {
 						+ "[arthur.speech(L-Lilaya, we can discuss that another time. What I'm talking about it demonic essences being, by their very nature, incompatible with transformative consumables, or indeed items of any sort!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(I honestly can't believe how thick you are sometimes Arthur. But then again, it is to be expected of someone who'd go behind their lover's back to fuck-)]"
+						+ "[lilaya.speech(I honestly can't believe how thick you are sometimes, Arthur. But then again, it is to be expected of someone who'd go behind their lover's back to fuck-)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(How many times do I have to apologise?)]"

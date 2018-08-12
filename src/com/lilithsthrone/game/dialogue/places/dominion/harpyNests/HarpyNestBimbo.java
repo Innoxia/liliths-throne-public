@@ -10,15 +10,14 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -38,7 +37,7 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 
 		@Override
@@ -46,7 +45,7 @@ public class HarpyNestBimbo {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
-								+ "Due to the ongoing arcane storm, [bimboHarpy.name]'s nest is completely deserted."
+								+ "Due to the ongoing arcane storm, [bimboHarpy.namePos] nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
 							+ "</p>";
 				} else {
@@ -59,15 +58,15 @@ public class HarpyNestBimbo {
 			} else {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
-							+ "You find yourself standing on the outskirts of [bimboHarpy.name]'s nest; one of the largest and most populous of all the nests in Dominion."
-							+ " Huge, multi-level platforms extend across the rooves of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
+							+ "You find yourself standing on the outskirts of [bimboHarpy.namePos] nest; one of the largest and most populous of all the nests in Dominion."
+							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
 							+ (Main.game.isDayTime()
 									?""
 									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
 						+ "</p>"
 						+ "<p>"
-							+ "Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of [bimboHarpy.name]'s flock have, in an attempt to copy their matriarch, had their feathers dyed bleach-blonde."
-							+ " Looking closer, you see that their proportions are also similar to [bimboHarpy.name]'s."
+							+ "Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of [bimboHarpy.namePos] flock have, in an attempt to copy their matriarch, had their feathers dyed bleach-blonde."
+							+ " Looking closer, you see that their proportions are also similar to [bimboHarpy.namePos]."
 							+ " From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger."
 							+ " Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest is devoted to imitating their leader."
 						+ "</p>"
@@ -78,7 +77,7 @@ public class HarpyNestBimbo {
 				} else {
 					return "<p>"
 							+ "You find yourself standing on the outskirts of one of the largest harpy nests in Dominion."
-							+ " Huge, multi-level platforms extend across the rooves of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
+							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
 							+ (Main.game.isDayTime()
 									?""
 									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
@@ -129,7 +128,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -138,7 +137,7 @@ public class HarpyNestBimbo {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
 					return "<p>"
 								+ "Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest."
-								+ " Most of the bimbo harpies recognise you as [bimboHarpy.name]'s "+(Main.game.getPlayer().isFeminine()?"mistress":"master")+", and submissively bow their heads or drop to their knees as you pass."
+								+ " Most of the bimbo harpies recognise you as [bimboHarpy.namePos] "+(Main.game.getPlayer().isFeminine()?"mistress":"master")+", and submissively bow their heads or drop to their knees as you pass."
 								+ " Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight."
 							+ "</p>"
 							+ "<p>"
@@ -152,14 +151,14 @@ public class HarpyNestBimbo {
 								+ " Looking up with her big [bimboHarpy.eyeColour] eyes, she pushes out her chest and bites her lip."
 							+ "</p>"
 							+ "<p>"
-								+ "[bimboHarpy.speechNoEffects(Ah! "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I've been, like, super good and stuff!)] she happily squeals,"
+								+ "[bimboHarpy.speechNoEffects(Ah! "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I've been, like, super good and stuff!)] she happily squeals."
 										+ " [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]"
 							+ "</p>"
 							+ "<p>"
 								+ "A chorus of eager voices cry out in agreement, and you can't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you."
 							+ "</p>"
 							+ "<p>"
-								+ "[bimboHarpy.speechNoEffects(Like, erm, I wanna, like, show my girls how good I am!)] she moans, barely able to contain the excitement in her voice,"
+								+ "[bimboHarpy.speechNoEffects(Like, erm, I wanna, like, show my girls how good I am!)] she moans, barely able to contain the excitement in her voice."
 										+ " [bimboHarpy.speechNoEffects(I mean, like, only if you want to and stuff!)]"
 							+ "</p>"
 							+ "<p>"
@@ -182,10 +181,10 @@ public class HarpyNestBimbo {
 						+ "</p>"
 						+ "<p>"
 						+ (Main.game.getPlayer().getFemininityValue()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
-							?"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture,"
+							?"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture."
 								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something!"
 								+ " You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]"
-							:"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture,"
+							:"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture."
 								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Y'know, you're like, super annoying and stuff!)]")
 						+ "</p>";
 				}
@@ -200,9 +199,9 @@ public class HarpyNestBimbo {
 						+ " Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature."
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]</br>"
-						+ "[style.speechFeminine(...uh-huh, and, like, her feathers were like, totally blech!...)]</br>"
-						+ "[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]</br>"
+						+ "[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>"
+						+ "[style.speechFeminine(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>"
+						+ "[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]<br/>"
 					+ "</p>"
 					+ "<p>"
 						+ "Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here."
@@ -238,8 +237,8 @@ public class HarpyNestBimbo {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_BIMBO_AFTER_SEX,
-							"<p>"
+							null,
+							HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 							+ "</p>"
@@ -278,7 +277,7 @@ public class HarpyNestBimbo {
 						
 				} else if (index == 2) {
 					return new Response("Bimbo queen", "This bitch is, like, super not cool. You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
+							Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
@@ -338,7 +337,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -362,7 +361,7 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Bimbo queen", "Well, you, like, tried to talk and stuff, but this bitch isn't listening! You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
@@ -415,17 +414,17 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Annoyed by how this stupid bimbo is treating you, you decide to give her a taste of her own medicine,"
+						+ "Annoyed by how this stupid bimbo is treating you, you decide to give her a taste of her own medicine."
 						+ " [pc.speech(How about you stop offending everyone, and put a bag over that ugly face of yours?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[bimboHarpy.Name]'s face goes bright red, and with a furious scream, she cries out to her companion,"
+						+ "[bimboHarpy.NamePos] face goes bright red, and with a furious scream, she cries out to her companion,"
 						+ " [bimboHarpy.speechNoEffects([bimboHarpyCompanion.Name]! Get [pc.herHim]! Get [pc.herHim]! Nobody talks to me like that!)]"
 					+ "</p>"
 					+ "<p>"
@@ -449,7 +448,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -460,7 +459,7 @@ public class HarpyNestBimbo {
 					+ "</p>"
 					+ "<p>"
 						+ "The combination of your beautiful features and potent arcane aura seems to be having a strong effect on these harpies."
-						+ " Speaking in the same manner as their matriarch seems to be just enough to start to sway [bimboHarpy.name]'s followers to your side."
+						+ " Speaking in the same manner as their matriarch seems to be just enough to start to sway [bimboHarpy.namePos] followers to your side."
 						+ " Before she knows what she's doing, [bimboHarpyCompanion.name] is rushing forwards to obey your command."
 					+ "</p>"
 					+ "<p>"
@@ -471,7 +470,7 @@ public class HarpyNestBimbo {
 						+ " You notice that the rest of the flock haven't come to the defence of their matriarch, and are watching, waiting to see what [bimboHarpyCompanion.name] decides to do."
 					+ "</p>"
 					+"<p>"
-						+ "[pc.speechNoEffects([bimboHarpyCompanion.Name]!)] you shout, [pc.speechNoEffects(Come over here and kneel to me, like, <i>right this instant</i>!)]"
+						+ "[pc.speechNoEffects([bimboHarpyCompanion.Name]!)] you shout. [pc.speechNoEffects(Come over here and kneel to me, like, <i>right this instant</i>!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Not quite knowing how to react, [bimboHarpy.name] watches in disbelief as her companion rushes forwards and obediently drops to her knees in front of you."
@@ -479,7 +478,7 @@ public class HarpyNestBimbo {
 					+ "</p>"
 					+ "<p>"
 						+ "As what's just happened starts to sink in, [bimboHarpy.name] quickly runs forwards, pushing [bimboHarpyCompanion.name] out of the way and taking her place as she kneels in front of you."
-						+ " Shuffling forwards, she looks up into your eyes,"
+						+ " Shuffling forwards, she looks up into your eyes."
 						+ " [bimboHarpy.speechNoEffects(Like, <i>I'm</i> the prettiest one here! A-Apart from you, of course! Let me be your personal pet, please!)]"
 					+ "</p>"
 					+ "<p>"
@@ -493,15 +492,15 @@ public class HarpyNestBimbo {
 						+ " If I hear they've been trouble, you're gonna, like, be demoted from being my pet, got it?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[bimboHarpy.speechNoEffects(Yes mistress!)] [bimboHarpy.name] cries out, [bimboHarpy.speechNoEffects(I'll get them under control! Ooh! Ooh! Also! Mistress! I got a special lollipop for you!)]"
+						+ "[bimboHarpy.speechNoEffects(Yes, mistress!)] [bimboHarpy.name] cries out. [bimboHarpy.speechNoEffects(I'll get them under control! Ooh! Ooh! Also! Mistress! I got a special lollipop for you!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Producing a pink-and-white swirly lollipop, [bimboHarpy.name] holds it out towards you,"
+						+ "Producing a pink-and-white swirly lollipop, [bimboHarpy.name] holds it out towards you."
 						+ " [bimboHarpy.speechNoEffects(This is, like, what I give to all the new members of the flock! It'll, like turn you into one of us!)]"
-						+ " You take the lollipop in recognition of [bimboHarpy.name]'s submission, but you're unsure whether you'll actually use it..."
+						+ " You take the lollipop in recognition of [bimboHarpy.namePos] submission, but you're unsure whether you'll actually use it..."
 					+ "</p>"
 					+ "<p>"
-						+ "Thanks to your bimbo personality and good looks, you've been able to subdue [bimboHarpy.name]'s nest without fighting!"
+						+ "Thanks to your bimbo personality and good looks, you've been able to subdue [bimboHarpy.namePos] nest without fighting!"
 						+ " Looking down at the bimbo matriarch, you wonder if you should publicly prove to all these harpies who's in control here..."
 					+ "</p>";
 		}
@@ -514,8 +513,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -531,7 +530,7 @@ public class HarpyNestBimbo {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and head back down the stairs."
 									+ " You hear [bimboHarpy.name] shouting at the harpies as you leave,"
-									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.She]'s</i> the new leader around here, got it?!)]"
+									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.SheIs]</i> the new leader around here, got it?!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."
@@ -550,17 +549,17 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Having had enough of [bimboHarpy.name]'s attitude, you make your final demand,"
+						+ "Having had enough of [bimboHarpy.namePos] attitude, you make your final demand,"
 						+ " [pc.speech(You're going to get your nest to calm down, or I'm going to make you!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[bimboHarpy.Name]'s face goes bright red, and she shouts out to her companion,"
+						+ "[bimboHarpy.NamePos] face goes bright red, and she shouts out to her companion,"
 						+ " [bimboHarpy.speechNoEffects([bimboHarpyCompanion.Name], teach this [pc.race] a lesson! Like, <i>nobody</i> talks to me like that!)]"
 					+ "</p>"
 					+ "<p>"
@@ -584,7 +583,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -595,16 +594,16 @@ public class HarpyNestBimbo {
 						+ " [bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! Like, I did it! I got [pc.herHim]!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[bimboHarpy.speechNoEffects(Good girl [bimboHarpyCompanion.name]!)] you hear her respond,"
-						+ " [bimboHarpy.speechNoEffects(Like, help her out girls! It's time to teach this little [pc.race] a lesson!)]"
+						+ "[bimboHarpy.speechNoEffects(Good girl, [bimboHarpyCompanion.name]!)] you hear her respond."
+						+ " [bimboHarpy.speechNoEffects(Like, help her out, girls! It's time to teach this little [pc.race] a lesson!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As [bimboHarpyCompanion.name] continues holding you down, the rest of [bimboHarpy.Name]'s inner-circle moves in."
+						+ "As [bimboHarpyCompanion.name] continues holding you down, the rest of [bimboHarpy.NamePos] inner-circle moves in."
 						+ " Several of them help to pin your [pc.arms] and [pc.legs] to the floor, giggling all the while."
 					+ "</p>"
 					+"<p>"
 						+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
-						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
+						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you."
 						+ " [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]"
 					+ "</p>"
 					+ "<p>"
@@ -613,7 +612,7 @@ public class HarpyNestBimbo {
 					+ "</p>"
 					+ "<p>"
 						+ "[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)]"
-						+ " she laughs,"
+						+ " she laughs."
 						+ " [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]"
 					+ "</p>"
 					+ "<p>"
@@ -634,7 +633,7 @@ public class HarpyNestBimbo {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -661,7 +660,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -693,7 +692,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -703,11 +702,11 @@ public class HarpyNestBimbo {
 					+ " As you collapse, [bimboHarpy.name] orders her flock to hold you still, and, quickly jumping down on top of you, you're quickly pinned to the floor by several bimbo harpies."
 				+ "</p>"
 				+ "<p>"
-					+ "[bimboHarpy.speechNoEffects(Like, [bimboHarpyCompanion.name], are you ok?!)] you hear [bimboHarpy.name] softly calling out to her friend,"
+					+ "[bimboHarpy.speechNoEffects(Like, [bimboHarpyCompanion.name], are you ok?!)] you hear [bimboHarpy.name] softly calling out to her friend."
 					+ " [bimboHarpy.speechNoEffects(Come on, it's time to teach this little [pc.race] a lesson!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "As the members of [bimboHarpy.name]'s inner-circle continue to hold you down, you hear the bimbo matriarch and her companion walking towards you."
+					+ "As the members of [bimboHarpy.namePos] inner-circle continue to hold you down, you hear the bimbo matriarch and her companion walking towards you."
 					+ " The bimbo harpies start giggling as you try to wriggle free, but you're too weak from the fight to offer any real resistance."
 				+ "</p>"
 				+ "<p>"
@@ -717,7 +716,7 @@ public class HarpyNestBimbo {
 				+ "</p>"
 				+"<p>"
 					+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
-					+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
+					+ " [bimboHarpy.name] giggles, stepping forwards to tower over you."
 					+ " [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]"
 				+ "</p>"
 				+ "<p>"
@@ -726,7 +725,7 @@ public class HarpyNestBimbo {
 				+ "</p>"
 				+ "<p>"
 					+ "[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)]"
-					+ " she laughs,"
+					+ " she laughs."
 					+ " [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]"
 				+ "</p>"
 				+ "<p>"
@@ -747,7 +746,7 @@ public class HarpyNestBimbo {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -774,18 +773,18 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[bimboHarpy.Name]'s inner-circle of bimbo harpies, cheering and shouting just moments ago, falls completely silent as they see their matriarch slump to the floor."
+						+ "[bimboHarpy.NamePos] inner-circle of bimbo harpies, cheering and shouting just moments ago, falls completely silent as they see their matriarch slump to the floor."
 						+ " Walking forwards, you look down on her pitiful form, and you hear the bimbo let out an erotic moan as she pushes herself up onto her knees,"
 						+ " [bimboHarpy.speechNoEffects(Aah! Like, you're so powerful and stuff! W-Who are you?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Your new leader,)] you respond,"
+						+ "[pc.speech(Your new leader,)] you respond."
 						+ " [pc.speech(I don't care how you normally determine a flock's leader; I'm in charge now!)]"
 					+ "</p>"
 					+ "<p>"
@@ -798,15 +797,15 @@ public class HarpyNestBimbo {
 					+ "</p>"
 					+ "<p>"
 						+ "Your words seem to sink in, and are met by a chorus of eager agreements."
-						+ " Shuffling ever closer to you, [bimboHarpy.name] holds up a swirly pink-and-white lollipop,"
+						+ " Shuffling ever closer to you, [bimboHarpy.name] holds up a swirly pink-and-white lollipop."
 						+ " [bimboHarpy.speechNoEffects("+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! If you, like, wanted to look like us, give this a lick!"
-								+ " I promise to keep everything under control for you! We'll all be good, won't we girls?!)]"
+								+ " I promise to keep everything under control for you! We'll all be good, won't we, girls?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As the bimbo harpies cry out in the affirmative, you bend down and take the lollipop in recognition of [bimboHarpy.name]'s submission, but you're unsure whether you'll actually use it..."
+						+ "As the bimbo harpies cry out in the affirmative, you bend down and take the lollipop in recognition of [bimboHarpy.namePos] submission, but you're unsure whether you'll actually use it..."
 					+ "</p>"
 					+ "<p>"
-						+ "Thanks to your victory over [bimboHarpy.name], and the power of your arcane aura, you've been able to subdue [bimboHarpy.name]'s nest!"
+						+ "Thanks to your victory over [bimboHarpy.name], and the power of your arcane aura, you've been able to subdue [bimboHarpy.namePos] nest!"
 						+ " Looking down at the bimbo matriarch, you wonder if you should publicly prove to all these harpies who's in control here..."
 					+ "</p>";
 		}
@@ -819,8 +818,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -836,7 +835,7 @@ public class HarpyNestBimbo {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and head back down the stairs."
 									+ " You hear [bimboHarpy.name] shouting at the harpies as you leave,"
-									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.She]'s</i> the new leader around here, got it?!)]"
+									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.SheIs]</i> the new leader around here, got it?!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."
@@ -855,23 +854,23 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
 		public String getContent() {
 				return "<p>"
 							+ "With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches."
-							+ " Before they're able to restrain you again, you grab the lollipop out of [bimboHarpy.name]'s feathered hand, before smashing it on the floor beneath you."
+							+ " Before they're able to restrain you again, you grab the lollipop out of [bimboHarpy.namePos] feathered hand, before smashing it on the floor beneath you."
 						+ "</p>"
 						+ "<p>"
 							+ "[bimboHarpy.speechNoEffects(Aaah! You stupid whore!)]"
-							+ " [bimboHarpy.name] screams, jumping to her feet and towering over you,"
+							+ " [bimboHarpy.name] screams, jumping to her feet and towering over you."
 							+ " [bimboHarpy.speechNoEffects(You're gonna, like, pay for wasting that! You're gonna, like, do <i>exactly</i> what we say, or else you're gonna be our little pet forever!)]"
 						+ "</p>"
 						+"<p>"
 							+ "After flapping her wings and jumping around in anger for a little while, [bimboHarpy.name] storms off to elsewhere in the nest."
-							+ " Only a few moments later, she returns and kneels down beside you, setting a makeup bag down next to your face before letting out a giggle,"
+							+ " Only a few moments later, she returns and kneels down beside you, setting a makeup bag down next to your face before letting out a giggle."
 							+ " [bimboHarpy.speechNoEffects(So, like, first, how about us girls give you a makeover?!)]"
 						+ "</p>"
 						+ "<p>"
@@ -883,7 +882,7 @@ public class HarpyNestBimbo {
 							+ " Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things."
 						+ "</p>"
 						+ "<p>"
-							+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you,"
+							+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you."
 							+ " [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]"
 						+ "</p>";
 		}
@@ -897,7 +896,7 @@ public class HarpyNestBimbo {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Finally given an opportunity to escape, you do as [bimboHarpy.name] commands."
-									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
+									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.namePos] nest..."
 								+ "</p>");
 					}
 				};
@@ -913,7 +912,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -921,7 +920,7 @@ public class HarpyNestBimbo {
 			return
 				"<p>"
 					+ "As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
-					+ " Blinking slowly a few times, you let out an exhausted little moan,"
+					+ " Blinking slowly a few times, you let out an exhausted little moan."
 					+ " [pc.speechNoEffects(Like, I feel all bubbly inside! That was, like, super intense!)]"
 				+ "</p>"
 				+ "<p>"
@@ -945,7 +944,7 @@ public class HarpyNestBimbo {
 					+ " Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things."
 				+ "</p>"
 				+ "<p>"
-					+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you,"
+					+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you."
 					+ " [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]"
 				+ "</p>";
 		}
@@ -959,7 +958,7 @@ public class HarpyNestBimbo {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Finally given an opportunity to escape, you do as [bimboHarpy.name] commands."
-									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
+									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.namePos] nest..."
 								+ "</p>");
 					}
 				};
@@ -975,7 +974,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getLabel() {
-			return "[harpyBimbo.Name]'s nest";
+			return "[harpyBimbo.NamePos] nest";
 		}
 		
 		@Override
@@ -1002,7 +1001,7 @@ public class HarpyNestBimbo {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "Having shown [bimboHarpy.name] her place, you set off down the staircase, and, walking back across the lower platform, you quickly find yourself on the outskirts of [bimboHarpy.name]'s nest once again."
+									+ "Having shown [bimboHarpy.name] her place, you set off down the staircase, and, walking back across the lower platform, you quickly find yourself on the outskirts of [bimboHarpy.namePos] nest once again."
 								+ "</p>");
 					}
 				};

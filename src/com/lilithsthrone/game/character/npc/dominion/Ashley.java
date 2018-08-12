@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -39,12 +41,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.2.9
  * @author Kumiko, Innoxia
  */
 public class Ashley extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
 			ItemType.GIFT_CHOCOLATES,
@@ -60,6 +60,7 @@ public class Ashley extends NPC {
 		super(new NameTriplet("Ashley"),
 				"Ashley is the owner of the shop 'Dream Lover', and is seemingly also its only working staff."
 						+ " They are very stand-offish and loathe helping out their customers, to the point where they'd rather stare at the walls instead of offering any help.",
+				200, Month.AUGUST, 14,//TODO
 				10,
 				Gender.N_P_TRAP,
 				RacialBody.ANGEL,
@@ -83,6 +84,8 @@ public class Ashley extends NPC {
 			this.setHeight(186);
 			
 			this.setMoney(0);
+
+			this.setRaceConcealed(true);
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_CLOAK, Colour.CLOTHING_BLACK, Colour.CLOTHING_SILVER, null, false), true, this);
 			
@@ -92,6 +95,9 @@ public class Ashley extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.9")) {
+			this.setRaceConcealed(true);
+		}
 	}
 
 	@Override
@@ -100,10 +106,10 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public boolean isRaceConcealed() {
-		return true;
+	public int getAppearsAsAge() {
+		return 25;
 	}
-
+	
 	@Override
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
@@ -113,29 +119,29 @@ public class Ashley extends NPC {
 				+ "<p>"
 					+ this.getDescription()
 				+ "</p>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<h4>Relationships</h4>"
 				+ "<p>"
-					+ "[style.boldAffection(Affection:)]</br>"
+					+ "[style.boldAffection(Affection:)]<br/>"
 					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
 		
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 			GameCharacter target = Main.game.getNPCById(entry.getKey());
 			if(!target.isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+				infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 			}
 		}
 		
-		infoScreenSB.append("</br></br>"
-					+ "[style.boldObedience(Obedience:)]</br>"
+		infoScreenSB.append("<br/><br/>"
+					+ "[style.boldObedience(Obedience:)]<br/>"
 					+ UtilText.parse(this,
 							(this.isSlave()
 								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
+					+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
 				+"</p>"
-				+ "</br>"
+				+ "<br/>"
 					+ "<h4>Appearance</h4>"
 				+ "<p>"
 					+ (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)
@@ -188,7 +194,7 @@ public class Ashley extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 }

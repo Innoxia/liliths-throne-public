@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,8 +40,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Scarlett extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Scarlett() {
 		this(false);
 	}
@@ -48,6 +48,7 @@ public class Scarlett extends NPC {
 		super(new NameTriplet("Scarlett"),
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
+				23, Month.NOVEMBER, 14,
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 
@@ -62,8 +63,8 @@ public class Scarlett extends NPC {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_RED));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLACK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
 			this.setAssVirgin(true);
@@ -95,8 +96,8 @@ public class Scarlett extends NPC {
 			getDressed();
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_RED));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLACK), true);
 		}
 		
 	}
@@ -152,7 +153,7 @@ public class Scarlett extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 

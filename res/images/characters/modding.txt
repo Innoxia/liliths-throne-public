@@ -2,31 +2,29 @@
 
 All images must be .png or .jpg!
 
-In order for them to display properly in-game, you need to call the NPC's folder the same name as the NPC's class name.
-NPC class names can be seen here: https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc
+In order to add your own images to the game, you first need to figure out where to put the files. For unique NPCs, the folder has the same name as the class. For reference, check:
+https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc
 
-Within these NPC folders, you'll need to add a new artist folder.
-The artist folder name **MUST BE SPECIFIED** in an artist's .xml file. (Use the 'artistJam.xml' as a template.)
+For generic (aka dynamically generated) characters, you can create a "generic" folder (without quotation marks) and then create a folder using the in-game name of the character. The game will neither check for duplicates nor update the folder when a character is renamed (either by yourself or by a femininity threshold).
 
-Within the new artist-name folder, you need to name the images as 'clothedX', 'partialX', or 'nakedX', where X is a number starting at 1.
-These names determine which images are always visible (those named 'clothedX'), and which images are only shown after having sex with the character (those named 'partialX' and 'nakedX').
+Once you found or created the character's folder, create a new subdirectory called "custom". This is where you put your images. For the image names, there are three prefixes: Image names starting with "clothed" can always be accessed. If the name starts with "partial" or "naked", it can only be seen after having sex with the character. Other prefixes will be ignored.
 
-Example:
-To add custom images for Rose, you'd need to:
-1) Create an 'artistX.xml' file (where X is whatever name you'd like), in the exact same format and location as the attached artistJam.xml file. For this example, we'll use the artist name 'mod'.
-2) Within Rose's folder, create a new folder called 'mod' (or 'Mod' - the case doesn't matter).
-3) Within this folder, place your images of Rose. In this example, let's say you're adding two images of her with clothing on, and one with her being naked.
-4) Rename the images accordingly. In this example, the images would be called 'clothed1', 'clothed2', and 'naked1'.
-5) Start (or restart) the game, and the images should display.
+For example, adding an own image for the unique character Scarlett requires the following:
+1) Go to the "Scarlett" folder and create a folder called "custom" inside it.
+2) Put your .png or .jpg images within that folder.
+3) Rename your images so that they all start with "clothed", "partial" or "naked", e.g. (clothed1.jpg, clothed2.png and naked1.jpg).
+4) Save and reload to apply the changes.
 
-Example 2:
-To add custom images for Candi, you'd need to:
-1) Create a new folder alongside all the other character folders, called 'candi'.
-2) Follow the steps as outlined in Rose's example above.
+Another example for adding images to a randomized character:
+1) Go inside the "generic" directory (create it if necessary).
+2) Create a folder with the name of the NPC. Remember that automatically generated names aren't unique, so you may want to rename the character in the game.
+3) Create a subfolder called "custom".
+4) Put your images inside it and rename them accordingly.
+5) Save and reload to apply the changes. Alternatively, you can rename a slave to update that character only.
 
 
-SPECIAL EXCEPTIONS:
+EXCEPTIONS:
 
-Brax has the folders 'brax', 'bree', and 'brandi' for his TFs.
-
-Lilaya has the folders 'lilayaPale', 'lilayaLight', 'lilayaOlive', 'lilayaDark', 'lilayaEbony' for the variations of her skin tone. (Based on your character's starting skin tone.)
+Some unique NPCs have different folders based on their states:
+- Brax has the folders 'Brax', 'Bree', and 'Brandi' based on his femininity (which changes by transforming him).
+- Lilaya has the folders 'LilayaPale', 'LilayaLight', 'LilayaOlive', 'LilayaDark', 'LilayaEbony' for the variations of her skin tone (based on your character's starting skin tone).

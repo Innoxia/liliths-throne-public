@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -36,8 +38,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Angel extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Angel() {
 		this(false);
 	}
@@ -46,6 +46,7 @@ public class Angel extends NPC {
 		super(new NameTriplet("Angel"),
 				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's Red-light district."
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
+				34, Month.JANUARY, 4,
 				10, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(30), WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, true);
 
@@ -129,7 +130,7 @@ public class Angel extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 

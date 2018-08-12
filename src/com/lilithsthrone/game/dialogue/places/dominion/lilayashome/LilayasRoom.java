@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -23,7 +24,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -81,7 +81,7 @@ public class LilayasRoom {
 
 			} else if (index == 1) {
 				return new Response("Panties", "Look through Lilaya's pile of panties.", PANTIES,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), CorruptionLevel.TWO_HORNY,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), CorruptionLevel.TWO_HORNY,
 						null, null, null) {
 					@Override
 					public void effects() {
@@ -129,8 +129,8 @@ public class LilayasRoom {
 						true, true,
 						new SMPantyMasturbation(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MASTURBATING_KNEELING))),
-						PANTIES_POST_MASTURBATION,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
+						null,
+						PANTIES_POST_MASTURBATION, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
 
 			} else {
 				return null;
@@ -140,11 +140,6 @@ public class LilayasRoom {
 	
 	public static final DialogueNodeOld PANTIES_POST_MASTURBATION = new DialogueNodeOld("Lilaya's Room", "As you stop masturbating, you wonder what you should do with Lilaya's panties next...", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
 
 		@Override
 		public String getContent() {
@@ -332,17 +327,19 @@ public class LilayasRoom {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Submit", "Let Rose push you back on to the bed and fuck you.",
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
+						null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, false,
 						new SMMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},
-						AFTER_ROSE_AS_DOM,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
+						null,
+						AFTER_ROSE_AS_DOM, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getRose().incrementAffection(Main.game.getPlayer(), 15));
@@ -371,11 +368,6 @@ public class LilayasRoom {
 	
 	public static final DialogueNodeOld AFTER_ROSE_AS_DOM = new DialogueNodeOld("Lilaya's Room", ".", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 20;
-		}
 
 		@Override
 		public String getContent() {
@@ -464,11 +456,6 @@ public class LilayasRoom {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 20;
-		}
-
-		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "AFTER_LILAYA_AND_ROSE_AS_DOMS");
 		}
@@ -514,12 +501,12 @@ public class LilayasRoom {
 										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))) {
 							@Override
-							public boolean isPositionChangingAllowed() {
+							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
 							}
 						},
-						AFTER_ROSE_AND_LILAYA_AS_SUBS,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AND_LILAYA_AS_SUBS"));
+						null,
+						AFTER_ROSE_AND_LILAYA_AS_SUBS, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AND_LILAYA_AS_SUBS"));
 					
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Leave", "Turn down their offer and head back to your room.") {

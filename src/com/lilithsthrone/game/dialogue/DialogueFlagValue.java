@@ -2,13 +2,15 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum DialogueFlagValue {
+	
 	quickTrade,
 	stormTextUpdateRequired,
 	hasSnowedThisWinter,
+	
 	
 	// Essence reactions:
 	jinxedClothingDiscovered,
@@ -16,13 +18,17 @@ public enum DialogueFlagValue {
 	essenceOrgasmDiscovered,
 	essenceBottledDiscovered,
 
+	
 	// Misc.:
 	foundHappiness,
+	visitedSubmission,
+	mommyFound,
 	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
 	gymIsMember,
+	
 	
 	// Introductions:
 	angelIntroduced,
@@ -34,12 +40,17 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+
+	roxyIntroduced,
+	axelIntroduced,
+	eponaIntroduced,
+	
 	
 	// Red-light district:
 	prostitutionLicenseObtained,
 	
+	
 	// Shopping arcade:
-
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -57,7 +68,7 @@ public enum DialogueFlagValue {
 	
 	reactedToKatePregnancy,
 	
-	// Aunt's Home:
+	// Lilaya's Home:
 	knowsDate,
 	lilayaDateTalk,
 	auntHomeJustEntered,
@@ -114,7 +125,36 @@ public enum DialogueFlagValue {
 	amberRepeatEncountered,
 	katherineRepeatEncountered,
 	kellyRepeatEncountered,
-	zaranixRepeatEncountered
+	zaranixRepeatEncountered,
+	
+	// Lumi:
+	lumiMet,
+	lumiDisabled,
+	lumiPromisedDinner,
+	
+	// Slime Queen's Tower:
+	slimeGuardsIntroduced,
+	slimeGuardsBluffed,
+	slimeGuardsDefeated,
+	slimeRoyalGuardIntroduced,
+	slimeRoyalGuardDefeated,
+	slimeQueenHelped,
+	slimeQueenConvinced,
+	slimeQueenForced,
+	
+	// Gambling Den:
+	axelToldAboutVengar,
+	roxyAddicted,
+	playedPregnancyRouletteAsMother,
+	playedPregnancyRouletteAsBreeder,
+	
+	// Nightlife:
+	julesIntroduced,
+	suckedJulesCock,
+	passedJules,
+	kalahariIntroduced,
+	kalahariWantsSex,
+	krugerIntroduced,
 	
 	
 	;

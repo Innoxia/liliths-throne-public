@@ -1,12 +1,17 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -33,8 +38,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -44,19 +49,16 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Zaranix extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Zaranix() {
 		this(false);
@@ -66,6 +68,7 @@ public class Zaranix extends NPC {
 		super(new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
+				47, Month.JULY, 3,
 				15, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
@@ -78,18 +81,7 @@ public class Zaranix extends NPC {
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_ORANGE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PURPLE), true);
-			
-			this.setHeight(Height.THREE_TALL.getMedianValue());
-			
-			this.setHornType(HornType.STRAIGHT);
-			
-			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-
-			this.setWingSize(WingSize.THREE_LARGE.getValue());
+			this.resetBody();
 			
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			
@@ -97,6 +89,8 @@ public class Zaranix extends NPC {
 			this.setFaceVirgin(true);
 			this.setNippleVirgin(true);
 			this.setPenisVirgin(false);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
@@ -118,6 +112,8 @@ public class Zaranix extends NPC {
 		
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		
+		this.setLegType(LegType.DEMON_COMMON);
+		
 		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 	}
 	
@@ -136,11 +132,21 @@ public class Zaranix extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
+
+		this.setAssVirgin(true);
+		this.setFaceVirgin(true);
+		this.setNippleVirgin(true);
+		this.setPenisVirgin(false);
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 32;
 	}
 	
 	@Override
@@ -162,7 +168,7 @@ public class Zaranix extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override
@@ -172,11 +178,6 @@ public class Zaranix extends NPC {
 	
 
 	// Combat:
-	
-	@Override
-	public String getCombatDescription() {
-		return "Zaranix is furious at your intrusion into his laboratory, and who knows what he'll do to you if you fall here?";
-	}
 
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
@@ -240,7 +241,7 @@ public class Zaranix extends NPC {
 					+ "<p>"
 						+ "[zaranix.speech(If it were anyone else, I'd have refused to let you go, but I just realised who this [pc.race] is,)]"
 						+ " Zaranix says, stepping back and collapsing down into a nearby chair."
-						+ " [zaranix.speech(<i>[pc.She]'s</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
+						+ " [zaranix.speech(<i>[pc.SheIs]</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Bloody hell! So it's Lilaya who's behind this rescue?)]"
@@ -283,14 +284,14 @@ public class Zaranix extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
 							+ " you say, stepping towards the exhausted [zaranix.race],"
 							+ " [pc.speech(I think you owe me an apology...)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Despite the fact that [zaranix.she]'s a powerful demon, [zaranix.name] lets out a lewd little sigh as [zaranix.she] looks up into your [pc.eyes]."
+							+ "Despite the fact that [zaranix.sheIs] a powerful demon, [zaranix.name] lets out a lewd little sigh as [zaranix.she] looks up into your [pc.eyes]."
 							+ " Your strong arcane aura is quite clearly having a profound effect on [zaranix.herHim], and as you approach, [zaranix.she] pleads,"
 							+ " [zaranix.speech(Please! Let me make it up to you!)]"
 						+ "</p>"
@@ -301,13 +302,13 @@ public class Zaranix extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Allow Zaranix to fuck you.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						AFTER_SEX_VICTORY, "<p>"
 							+ "You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and, feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house,"
 								+ " you decide to try and make it up to [zaranix.herHim]."
 							+ " Looking down at [zaranix.her] crotch and biting your [pc.lip], you let out a pleading little whine,"
@@ -430,13 +431,13 @@ public class Zaranix extends NPC {
 						Main.game.getTextEndStringBuilder().append(
 								"<p>"
 									+ "A desperate, overwhelming need to have Zaranix's huge demonic cock thrusting deep down your throat causes you to let out an incredibly lewd moan."
-									+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_ORAL_GIVING.getName(Main.game.getPlayer())+" fetish!</b>"
+									+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_ORAL_GIVING.getName(Main.game.getPlayer())+" fetish!</b>"
 								+ "</p>");
 						Main.game.getPlayer().addFetish(Fetish.FETISH_CUM_ADDICT);
 						Main.game.getTextEndStringBuilder().append(
 								"<p>"
 									+ "You can't help but lick your huge new cock-sucking lips as you imagine the incubus giving you your delicious reward; a huge load of salty, demonic cum...."
-									+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_CUM_ADDICT.getName(Main.game.getPlayer())+" fetish!</b>"
+									+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_CUM_ADDICT.getName(Main.game.getPlayer())+" fetish!</b>"
 								+ "</p>");
 					}
 				};
@@ -468,10 +469,10 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Used", "Zaranix forces you to orally service him.",
 						false, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+						null,
+						AFTER_SEX_DEFEAT, "<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
 							+ " Collapsing down in a nearby chair, he pulls you forwards on your knees as he spreads his legs, bringing your face right up against his crotch and booming,"
 							+ " [zaranix.speech(You're going to love my cock, slut!)]"
@@ -520,10 +521,10 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Need... Cock...", "Zaranix's potion has had quite a strong effect... You really need to suck his cock, then maybe you'll be able to think clearly again?",
 						true, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+						null,
+						AFTER_SEX_DEFEAT, "<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
 							+ " Spreading his legs, he grins down at you,"
 							+ " [zaranix.speech(I bet you want to put those new lips of yours to use, don't you, my little cock-sucker?)]"
@@ -581,20 +582,22 @@ public class Zaranix extends NPC {
 	
 	// Sex:
 
-	public SexType getForeplayPreference() {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
-		return super.getForeplayPreference();
+		return super.getForeplayPreference(target);
 	}
-	
-	public SexType getMainSexPreference() {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 
-		return super.getMainSexPreference();
+		return super.getMainSexPreference(target);
 	}
 
 }

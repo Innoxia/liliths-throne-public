@@ -25,7 +25,7 @@
 	</p>
 	<p>
 		Before you have a chance to say anything, she looks up and catches sight of you.
-		 Letting out a little cry, she curtsies as she greets you.
+		 Letting out a little cry, she curtsies as she greets you,
 		 [kelly.speech(Ah! [pc.Miss] [pc.name]! Mistress Amber informed me of your visit. I'm Kelly, at your service!)]
 	</p>
 	<p>
@@ -37,7 +37,7 @@
 	<p>
 		Kelly giggles, and, as she bats her eyelids at you, drops the little feather duster that she's holding.
 		 [kelly.speech(Oops!)]
-		 She cries, pretending that it was by accident.
+		 she cries, pretending that it was by accident.
 		 Bending over right in front of you, she makes a show of flashing her crotchless pink thong in your direction, granting you an unobstructed view of her [kelly.pussy+].
 		 Obviously desperate for you to fuck her, you wonder if you should make a move on this horny maid...
 	</p>
@@ -84,7 +84,7 @@
 	<p>
 		Kelly lets out an excited squeal, interrupting your sentence as she bounds forwards and wraps her arms around your back.
 		 With a desperate moan, she quickly presses her [kelly.lips+] against yours.
-		 You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Kelly pulls back, moaning.
+		 You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Kelly pulls back, moaning,
 		 [kelly.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]
 	</p>
 	]]>
@@ -93,7 +93,7 @@
 	<htmlContent tag="KELLY_SEX_DECLINED"><![CDATA[
 	<p>
 		You're not really interested in Kelly's transparent offer of sex right now.
-		 [pc.speech(Thank you Kelly, but there's nothing I need from you at the moment.)]
+		 [pc.speech(Thank you, Kelly, but there's nothing I need from you at the moment.)]
 	</p>
 	<p>
 		[kelly.speech(Aww! Well, if you change your mind, you know where to find me!)]
@@ -104,7 +104,7 @@
 	
 	<htmlContent tag="AFTER_KELLY_SEX"><![CDATA[
 	<p>
-		Kelly lets out a deeply-satisfied sigh as you pull away from her.
+		Kelly lets out a deeply satisfied sigh as you pull away from her,
 		 [kelly.speech(~Aaah!~ Fuck... That was great!)]
 	</p>
 	<p>
@@ -119,7 +119,7 @@
 	
 	<htmlContent tag="AFTER_KELLY_SEX_NO_ORGASM"><![CDATA[
 	<p>
-		Kelly lets out a disappointed whine as you pull away from her.
+		Kelly lets out a disappointed whine as you pull away from her,
 		 [kelly.speech(Aww! I didn't even get to cum!)]
 	</p>
 	<p>
@@ -154,13 +154,13 @@
 		 [pc.speech(I'd better get going now. It was good talking to you again, Zaranix.)]
 	</p>
 	<p>
-		[zaranix.speech(Likewise.)]
-		 The imposing incubus states, grinning back at you.
+		[zaranix.speech(Likewise,)]
+		 the imposing incubus states, grinning back at you.
 		 [zaranix.speech(Do please visit again! Oh, and if you could, put in a good word with Lilaya about me, hmm?)]
 	</p>
 	<p>
-		[pc.speech(I will.)]
-		 You say, heading towards the door.
+		[pc.speech(I will,)]
+		 you say, heading towards the door.
 		 [pc.speech(Bye!)]
 	</p>
 	<p>
@@ -176,8 +176,8 @@
 	<htmlContent tag="ZARANIX_ROOM_ENTER"><![CDATA[
 	<p>
 		Deciding to pay Zaranix another visit, you raise your hand and deliver a short rap on the bedroom door.
-		 [zaranix.speech(Enter.)]
-		 The incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
+		 [zaranix.speech(Enter,)]
+		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
 	</p>
 	<p>
 		Well-lit by several ceiling-mounted, arcane-powered lights, and with a series of large windows set into the opposite wall, the spacious room that you find yourself stepping into is particularly well-illuminated.
@@ -191,7 +191,7 @@
 	</p>
 	<p>
 		[pc.speech(Hello again, Zaranix. Amber told me that you'd instructed her to let me in. There's no hard feelings between us then?)]
-		 You ask, looking around for any sign of a trap.
+		 you ask, looking around for any sign of a trap.
 	</p>
 	<p>
 		[zaranix.speech(Not at all!)]
@@ -199,8 +199,8 @@
 		 [zaranix.speech(I couldn't harbour any ill will towards one of Lilaya's relatives!)]
 	</p>
 	<p>
-		[pc.speech(Well, that's good to hear.)]
-		 You say, smiling at the friendly incubus as he finally releases your [pc.hand].
+		[pc.speech(Well, that's good to hear,)]
+		 you say, smiling at the friendly incubus as he finally releases your [pc.hand].
 	</p>
 	<p>
 		[zaranix.speech(So, what can old Zaranix do for you this time, [pc.name]?)]
@@ -211,8 +211,8 @@
 	<htmlContent tag="ZARANIX_ROOM_ENTER_REPEAT"><![CDATA[
 	<p>
 		Deciding to pay Zaranix another visit, you raise your hand and deliver a short rap on the bedroom door.
-		 [zaranix.speech(Enter.)]
-		 The incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
+		 [zaranix.speech(Enter,)]
+		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
 	</p>
 	<p>
 		Well-lit by several ceiling-mounted, arcane-powered lights, and with a series of large windows set into the opposite wall, the spacious room that you find yourself stepping into is particularly well-illuminated.
@@ -226,7 +226,7 @@
 	</p>
 	<p>
 		[pc.speech(Hello, Zaranix. How are you?)]
-		 You ask, smiling at the friendly incubus as he strides towards you.
+		 you ask, smiling at the friendly incubus as he strides towards you.
 	</p>
 	<p>
 		[zaranix.speech(I'm very well thank you! Well, apart from my experiments not working... Again! Hah!)]
@@ -234,8 +234,8 @@
 		 [zaranix.speech(So how's Lilaya's [pc.niece] these days?)]
 	</p>
 	<p>
-		[pc.speech(I'm fine, thank you.)]
-		 You say, smiling at the friendly incubus as he finally releases your [pc.hand].
+		[pc.speech(I'm fine, thank you,)]
+		 you say, smiling at the friendly incubus as he finally releases your [pc.hand].
 	</p>
 	<p>
 		[zaranix.speech(So, what can old Zaranix do for you this time, [pc.name]?)]
@@ -246,10 +246,10 @@
 	<htmlContent tag="ZARANIX_ROOM_MAIDS"><![CDATA[
 	<p>
 		[pc.speech(I was wondering how you came by these maids of yours. Kelly and Katherine are sisters, right? And I'm surprised that someone as... dominant... as Amber chooses to work as a maid. What's her story?)]
-		 You ask, curious about Zaranix's household.
+		 you ask, curious about Zaranix's household.
 	</p>
 	<p>
-		Collapsing down onto a nearby chair, Zaranix grins as he starts to tell you the story.
+		Collapsing down onto a nearby chair, Zaranix grins as he starts to tell you the story,
 		 [zaranix.speech(Well, as you know, I haven't been recognised by my Lilin mother, so, unable to rely on her support, I decided early on in my life to focus on making and selling transformative potions.
 		 It didn't take me long to find success. After all, it's only us demons who are really able to harness the arcane well enough to make such potions.)]
 		 Zaranix smiles as he remembers the events in his past.
@@ -270,8 +270,8 @@
 		 The very instant that I met her, she started scolding me, insulting me, and forcing me to help her clean the house!)]
 	</p>
 	<p>
-		[pc.speech(That sounds like her.)]
-		 You say, smiling as you imagine that first day's interaction between Amber and Zaranix.
+		[pc.speech(That sounds like her,)]
+		 you say, smiling as you imagine that first day's interaction between Amber and Zaranix.
 	</p>
 	<p>
 		[zaranix.speech(Yes, well, I put up with it for that first day, intent on firing her after she left.
@@ -285,16 +285,16 @@
 	</p>
 	<p>
 		[pc.speech(And Kelly and Katherine?)]
-		 You inquire.
+		 you inquire.
 		 [pc.speech(When did you hire them?)]
 	</p>
 	<p>
 		[zaranix.speech(Ah, that was after I moved into this house here.
 		 Amber told me that this place was too large for her to keep clean alone, so I sent her to hire a couple more maids.
-		 Kelly and Katherine were her choices, not mine.)]
+		 Kelly and Katherine were her choices, not mine,)]
 		 Zaranix says, smiling.
 		 [zaranix.speech(Apparently, they've only ever worked as a pair, and had caused quite a bit of trouble in their previous posts.
-		 Thanks to that, they were considerably cheaper than similarly-experienced maids, and their troublesome ways were soon dealt with by Amber. Hah!)]
+		 Thanks to that, they were considerably cheaper than similarly experienced maids, and their troublesome ways were soon dealt with by Amber. Hah!)]
 	</p>
 	<p>
 		Coming to the end of his long story, Zaranix stands up, before smiling at you in his friendly manner.
@@ -306,7 +306,7 @@
 	<htmlContent tag="ZARANIX_ROOM_EXPERIMENTS"><![CDATA[
 	<p>
 		[pc.speech(What are all these experiments that you're running?)]
-		 You ask, curious about what the incubus is working on.
+		 you ask, curious about what the incubus is working on.
 		 [pc.speech(You were trying to get Arthur to make a demonic transformative potion, weren't you?)]
 	</p>
 	<p>
@@ -318,7 +318,7 @@
 	</p>
 	<p>
 		[pc.speech(So what are you working on instead?)]
-		 You ask, keen to hear the answer to your first question.
+		 you ask, keen to hear the answer to your first question.
 	</p>
 	<p>
 		[zaranix.speech(Nothing ground-breaking, honestly.)]
@@ -336,8 +336,8 @@
 	
 	<htmlContent tag="ZARANIX_ROOM_INCUBUS_FORM"><![CDATA[
 	<p>
-		[pc.speech(Almost all of the demons that I see are succubi. In fact, you're the only incubus that I've had any significant contact with.)]
-		 You say as you lead up to asking Zaranix why he isn't like the vast majority of demons.
+		[pc.speech(Almost all of the demons that I see are succubi. In fact, you're the only incubus that I've had any significant contact with,)]
+		 you say as you lead up to asking Zaranix why he isn't like the vast majority of demons.
 	</p>
 	<p>
 		Sensing the incoming question, Zaranix chuckles as he cuts you short.
@@ -350,7 +350,7 @@
 	<p>
 		Zaranix grins and glances down at his crotch.
 		 [zaranix.speech(Well, I am partial to a bit of oral sex, so not having to grow myself a cock every time I get horny sure is good! Hah!)]
-		 He booms, the grin on his face widening into a big smile.
+		 he booms, the grin on his face widening into a big smile.
 		 [zaranix.speech(Anything else you want to talk about?)]
 	</p>
 	<p>
@@ -361,7 +361,7 @@
 	<htmlContent tag="ZARANIX_ROOM_BLOWJOB"><![CDATA[
 	<p>
 		[pc.speech(Well, I did come here with something on my mind...)]
-		 You say in your most seductive tone.
+		 you say in your most seductive tone.
 		 [pc.speech(I really am grateful that you let me take control of Arthur, and I was wondering if you'd let me show you my <i>appreciation</i>.)]
 	</p>
 	<p>
@@ -388,13 +388,13 @@
 		 [pc.speech(Sure thing, Zaranix! I had a good time with you today.)]
 	</p>
 	<p>
-		[zaranix.speech(Likewise.)]
-		 The imposing incubus states, grinning at you.
+		[zaranix.speech(Likewise,)]
+		 the imposing incubus states, grinning at you.
 		 [zaranix.speech(Do please visit again! Oh, and if you could, put in a good word with Lilaya about me, hmm?)]
 	</p>
 	<p>
-		[pc.speech(I will.)]
-		 You say, heading towards the door.
+		[pc.speech(I will,)]
+		 you say, heading towards the door.
 		 [pc.speech(Bye!)]
 	</p>
 	<p>

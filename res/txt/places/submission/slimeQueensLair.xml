@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		You find yourself standing in the tower's long, deserted entrance hall. The floor beneath you, just like the surrounding walls, is made out of a dark grey stone, and is mostly covered by a thick burgundy-and-gold rug. The ceiling above you consists of wooden beams and planks, and between some of the gaps, you can see faint slivers of light, letting you know that there's at least one floor above this one.
+	</p>
+	<p>
+		Thick fabric tapestries, each one representing a medieval scene of one sort or another, hang all along the walls, and interspersed between them are free-standing, life-sized stone statues of medieval-looking knights. The entire area is cast in a soft amber glow from a pair of rather rudimentary wooden chandeliers hanging from the beams above.
+	</p>
+	<p>
+		The heavy iron-barred, oaken door of the main entrance is one of only two exits from this area, the other being a smaller, lighter-coloured wooden door on the far side of the hall. You can hear the faint sound of a pair of voices coming from there, with one being high-pitched and feminine, the other deep and masculine. Proceeding past this point is sure to result in an encounter with this tower's residents.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_TOWER"><![CDATA[
+	<p>
+		Deciding to leave the Slime Queen's tower, you push open the front door and make your exit. As you step back outside onto the lake's small island, you wonder whether you should return to the far shore, or turn around and enter the tower once more.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_AREA"><![CDATA[
+	<p>
+		The room linking on to the tower's entrance hall is half-corridor, half-guard post. Like the rest of this tower's decor, the walls are covered in medieval-themed tapestries, with stone statues of knights interspersed between them in regular intervals. Here and there, a low stone bench has been pushed up alongside the wall, and down the middle of the corridor, a thick burgundy-and-gold rug has been laid.
+	</p>
+	<p>
+		Unlike the rest of the tower's corridors, however, this area is home to a chest-height wooden barricade, which has been constructed from wall to wall. A gap in the very centre of this barricade is flanked on both sides by a pair of padded chairs, offering a place to rest for the tower's guards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_PACIFIED"><![CDATA[
+	<p>
+		[slimeIce.Name] is currently being pinned against the barricade by [slimeFire.name], who appears to be whispering something into [slimeIce.her] [slimeIce.ear]. As you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
+	</p>
+	<p>
+		[slimeFire.Name] spins around, grinning as [slimeFire.he] sees you come to a halt in front of [slimeFire.him]. Unashamedly naked, and sporting a huge erection, [slimeFire.he] places [slimeFire.his] [slimeFire.hands] on [slimeFire.his] [slimeFire.hips] and calls out to you.
+		 [slimeFire.speech(Hey, [pc.name]! Her Majesty's ordered us to let you come and go as you please, but you've got time to have some fun, right? #IFgame.isIncestEnabled()#THENSis'#ELSE[slimeIce.name]#ENDIF over here was just begging for me to fu-)]
+	</p>
+	<p>
+		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I may have said some things... B-But that's no reason to shout it out for everyone to hear!)]
+	</p>
+	<p>
+		[slimeFire.speech(You know you love it.)] [slimeFire.name] laughs, before turning back to you. [slimeFire.speech(So, how about it? You want to have some fun with #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_DEFEATED"><![CDATA[
+	<p>
+		[slimeFire.Name] and [slimeIce.name] are currently collapses down next to each other on one of the stone benches. As you approach, you see that [slimeIce.name]'s got her hand in her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF lap, and is slowly stroking his throbbing cock as he whispers lewd things into her ear.
+	</p>
+	<p>
+		[slimeIce.Name] suddenly notices you, and with a little eek, buries her face in her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF shoulder. You notice that despite her show of embarrassment, she doesn't stop the handjob she's currently giving to [slimeFire.name], who looks up at you and suppresses a groan as he calls out, [slimeFire.speech(~Aaah!~ [pc.Name]! Please, join us! Fuck... So horny...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_REPEAT_BLUFFED"><![CDATA[
+	<p>
+		[slimeFire.Name] and [slimeIce.name] are still standing guard beside the wooden barricade, and as you approach, [slimeIce.name] catches sight of you, and squeaks, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name] is back!)]
+	</p>
+	<p>
+		[slimeFire.Name] turns and smiles at you, waving you past as he grins. [slimeFire.speech(Carry on through! Oh, and if you want to have some fun, just say so! #IFgame.isIncestEnabled()#THENSis'#ELSE[slimeIce.Name]#ENDIF and I are always up for a good fuck!)]
+	</p>
+	<p>
+		You wonder if you should take [slimeFire.name] up on his offer, or decline and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_REPEAT"><![CDATA[
+	<p>
+		[slimeFire.Name] and [slimeIce.name] are, once again, off to one side of the corridor, and both almost completely naked. [slimeIce.Name] has her back against the wall, while her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF is leaning in over her, with one hand placed just to one side of her head. As you approach, you see that [slimeFire.name] appears to be whispering something into his #IFgame.isIncestEnabled()#THENsister's#ELSEpartner's#ENDIF [slimeIce.ear].
+	</p>
+	<p>
+		Before you can say anything, [slimeIce.name] turns her head away from her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF, blushing. This results in her catching sight of you, causing her to immediately squeak out, [slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF [pc.Name]'s back!)]
+	</p>
+	<p>
+		[slimeFire.Name] spins around, grinning as [slimeFire.he] sees you come to a halt in front of [slimeFire.him]. Unashamedly naked, and sporting a huge erection, [slimeFire.he] grips his arcane sword and buckler in his fists, and calls out,
+		 [slimeFire.speech(Ah, if it isn't [pc.name] again! You back to have some more fun with sis and I, huh?)]
+	</p>
+	<p>
+		[slimeIce.speech(Y-You're going to pay for trespassing here!)] [slimeIce.name] calls out, her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF words encouraging her to grab her own sword and buckler and get ready for a fight. There's not much chance of attempting to talk your way past them, and so you prepare to defend yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST"><![CDATA[
+	<p>
+		Up ahead, and off to one side of the corridor, you see a pair of slimes wrapped in one another's arms as they share a passionate kiss. From what you can see, they both appear to be all-but naked, with the exception of a few pieces of jewellery each one of them is wearing. The larger of the two, an orange slime-boy, has his back to you, while the other, a light-blue slime-girl, is far too busy kissing her partner to notice your approach. As you move forwards, they suddenly break off the kiss, and you hear the slime girl moan, [slimeIce.speech(~Aah!~ Hold still, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF, I'll take care of you...)]
+	</p>
+	<p>
+		As she begins to drop to her knees, the slime-girl suddenly catches sight of you, and lets out a startled cry. [slimeIce.speech(~Eek!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF Someone's here!)] 
+	</p>
+	<p>
+		The slime-boy instantly spins around, presenting you with the sight of his raging erection as he grabs a nearby arcane sword and buckler and shouts, [slimeFire.speech(Who are you?)]
+	</p>
+	<p>
+		Before you can respond, the slime-girl nervously starts hopping around on her feet, stammering, [slimeIce.speech([slimeFire.Name]! [pc.She] saw us! A-And I was a-about to... Y-You know!)]
+	</p>
+	<p>
+		[slimeFire.speech(Calm down, [slimeIce.name]. I don't care who sees us doing those things, but right now, we need to remember our duty! We must protect the Queen!)] the slime-boy, '[slimeFire.name]' says to his #IFgame.isIncestEnabled()#THENsister#ELSEpartner#ENDIF, before turning to you. [slimeFire.speech(Don't make me ask again. Who are you?!)]
+	</p>
+	<p>
+		As you prepare to respond, [slimeIce.name] grabs a sword and buckler for herself, and you notice that the blades of each of the slimes' weapons match their body colours. It looks like both of them are ready for a fight, and you choose your next words carefully as you step forwards...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_SEX_SIDE_BY_SIDE"><![CDATA[
+	<p>
+		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.isIncestEnabled()#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s shoulders, before pushing him down onto his hands and knees before you.
+	</p>
+	<p>
+		[slimeIce.speech(~Ah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.Name]!#ENDIF)] [slimeIce.name] stutters, stepping forwards to make sure her lover is ok. As she does so, you take hold of her wrist, and, with a firm tug, pull her down beside her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF. Stepping around behind the two slimes, you can't help but grin as you find yourself looking down on their naked asses as they bump into one another.
+	</p>
+	<p>
+		[slimeIce.speech(~Ahh...~ #IFgame.isIncestEnabled()#THENBrother#ELSE[slimeFire.Name]#ENDIF...)] [slimeIce.name] moans, looking across at [slimeFire.name] before pressing her lips against his. With the two slimes obviously ready and willing to be fucked side-by-side, you drop down onto your knees behind them, and prepare to have some fun...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_SEX_SPITROASTED"><![CDATA[
+	<p>
+		[pc.speech(I could do with having some fun,)] you say, smiling at the slime #IFgame.isIncestEnabled()#THENsiblings#ELSElovers#ENDIF. Stepping forwards, you take hold of [slimeFire.name]'s hand, before turning around and guiding it down onto your [pc.ass+]. Immediately, he gives it a firm squeeze, which causes you to let out a desperate [pc.moan] and drop down onto all fours in front of him. Just as you'd hoped, he sinks to his knees behind you, ready to fuck you in the doggy-style position.
+	</p>
+	<p>
+		[slimeIce.speech(~Ah!~ I-I want some fun too!)] [slimeIce.name] whines, stepping forwards and sinking to her knees in front of you. Placing her hands on your head, she shuffles forwards, presenting her slimy pussy to your mouth as she moans, [slimeIce.speech(~Mmmm!~ Come on! Get your tongue in here!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_SLIME_BLUFF"><![CDATA[
+	<p>
+		Thinking on your feet, you decide to try and trick these slimes into thinking you're one of the Slime Queen's newest subjects. Bowing down a little, you explain, [pc.speech(I was told by one of our fellow slimes in the tunnels that this is where my new Queen lives. I wanted to personally pledge my allegiance to her, and ask if there was any special task she needs performed.)]
+	</p>
+	<p>
+		[slimeIce.speech(Huh... Well, I don't see any problem with that. What about you, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
+	</p>
+	<p>
+		[slimeFire.speech(Not at all! It's about time we got a friendly visitor! All the other slimes that find their way in here are those damn mushroom addicts!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, I was actually thinking how it'd be kind of fun to have someone join #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_BUTLER_BLUFF"><![CDATA[
+	<p>
+		Deciding to put your years of knowledge working as a butler to good use, you decide to try and trick these slimes into thinking you've been hired by the Slime Queen. Bowing down a little, you explain, [pc.speech(I presume from your questioning that her Highness's staff haven't been informed of my appointment. My name is [pc.name], and, through my agency, I was recently engaged to act as a butler for her Highness.)]
+	</p>
+	<p>
+		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
+	</p>
+	<p>
+		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place in order!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_MAID_BLUFF"><![CDATA[
+	<p>
+		Deciding to put your years of knowledge working as a maid to good use, you decide to try and trick these slimes into thinking you've been hired by the Slime Queen. Curtsying, you explain, [pc.speech(I presume from your questioning that her Highness's staff haven't been informed of my appointment. My name is [pc.name], and, through my agency, I was recently engaged to act as a maid for her Highness.)]
+	</p>
+	<p>
+		[slimeIce.speech(Huh... Well, I didn't hear about this, but you certainly act the part, and her Majesty doesn't always tell us everything that's going on... What do you think, #IFgame.isIncestEnabled()#THENbrother#ELSE[slimeFire.name]#ENDIF?)] [slimeIce.name] asks her #IFgame.isIncestEnabled()#THENsibling#ELSElover#ENDIF.
+	</p>
+	<p>
+		[slimeFire.speech(I think it's about time we got some help around here! I'm sick of spending my days off having to keep this place dusted!)] [slimeFire.name] laughs, before placing his sword and buckler to one side. [slimeFire.speech(Anyway, now that's all sorted, how about we celebrate your appointment by joining #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I for a good fu-)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BLUFF_SUCCESS"><![CDATA[
+	<p>
+		[slimeIce.speech([slimeFire.Name]!)] [slimeIce.name] shouts, cutting her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. [slimeIce.speech(I-I mean, I d-do like that sort of stuff... B-But do you have to be so open about it?)]
+	</p>
+	<p>
+		[slimeFire.speech(You know you love it.)] [slimeFire.name] laughs, before turning back to you. [slimeFire.speech(So, how about it? You want to have some fun with [slimeIce.name] and I?)]
+	</p>
+	<p>
+		You wonder if you should take [slimeFire.name] up on his offer, or decline and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<htmlContent tag="GUARD_POST_TALK"><![CDATA[
+	<p>
+		Curious about the #IFgame.isIncestEnabled()#THENslime siblings'#ELSEslimes'#ENDIF history, and how they came to serve the Slime Queen, you decide to ask them about it. [pc.speech(So, how did you two end up working here?)]
+	</p>
+		[slimeFire.speech(Well, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I used to work up in Submission, at the Gambling Den. I was one of the security, while #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF used to referee that pregnancy roulette game they've got going in there,)]
+		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IFgame.isIncestEnabled()#THENI wasn't afraid of giving my sis' what it is she likes the most#ELSEI'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
+	</p>
+	<p>
+		[slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF Please!)] [slimeIce.name] stutters, turning away to hide her blushing cheeks, and exposing her rear ones in the process.
+	</p>
+	<p>
+		[slimeFire.speech(Hah!)] [slimeFire.name] laughs. [slimeFire.speech(That's what I love about you, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF. You're always so shy in front of others, but when it's just the two of us, you're begging for my co-)]
+	</p>
+	<p>
+		[slimeIce.speech([slimeFire.Name]! You're not even answering [pc.name]'s question!)] [slimeIce.name] shouts, spinning back around to face the two of you as she cuts her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF off. With a little cough, she then turns to address you, and continues her #IFgame.isIncestEnabled()#THENbrother's#ELSElover's#ENDIF story. [slimeIce.speech(So, the two of us were working at the Gambling Den, and, partly due to the harassment [slimeFire.name] was receiving, we were looking for something a bit more in our lives. That's when [slimeRoyalGuard.name] came along.)]
+	</p>
+	<p>
+		[slimeFire.speech(Yeah,)] [slimeFire.name] continues, not being able to help himself from telling the rest of the story, [slimeFire.speech(good old [slimeRoyalGuard.name] was the first demon-slime I'd ever seen, and when he overheard the stuff my co-workers were saying about me, he immediately jumped to my aid. Well, one thing led to another, and before we could defuse the situation, [slimeRoyalGuard.name] and I were having to defend ourselves against the entire security staff!)]
+	</p>
+	<p>
+		[slimeIce.speech(And [slimeFire.name] won, of course!)] [slimeIce.name] excitedly shouts, gazing at her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF with wonder in her eyes.
+	</p>
+	<p>
+		[slimeFire.speech(Of course I did!)] [slimeFire.name] exclaims. [slimeFire.speech(Well, with more than a little help from [slimeRoyalGuard.name], of course. Anyway, after that, [slimeRoyalGuard.name] offered us shelter and a real purpose in life; swearing ourselves to protect the Queen of all Slimes!)]
+	</p>
+	<p>
+		[slimeIce.speech([slimeRoyalGuard.name] even taught me how to use a sword!)] [slimeIce.name] interrupts again.
+	</p>
+	<p>
+		[slimeFire.speech(That's right!)] [slimeFire.name] laughs. [slimeFire.speech(My #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF can do anything if she puts her mind to it, and now she's even almost as good as me! Well, that's our story, such as it is...)]
+	</p>
+	<p>
+		[pc.speech(Thanks for sharing it with me,)] you respond, your curiosity sated.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_GUARD_SEX_AS_DOM"><![CDATA[
+	<p>
+		As you step back from the #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF, they both crawl over to the nearest stone bench, before sinking down onto it.
+		 [slimeFire.Name] lets out a deep sigh, and as he leans back against the wall, [slimeIce.name] lies down to rest her head in his lap.
+	</p>
+	<p>
+		You quickly get your things in order, before preparing to continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_GUARD_SEX_AS_SUB"><![CDATA[
+	<p>
+		The #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF both move away from you, before stepping over to the nearest stone bench and sinking down onto it.
+		 [slimeFire.Name] lets out a deep sigh, and as he leans back against the wall, [slimeIce.name] lies down to rest her head in his lap.
+	</p>
+	<p>
+		You quickly get your things in order, before preparing to continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_GUARDS_COMBAT_PLAYER_VICTORY"><![CDATA[
+	<p>
+		[slimeFire.Name] and [slimeIce.name] both stagger back, dropping their swords and bucklers in defeat.
+	</p>
+	<p>
+		[slimeIce.speech(~Aah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF I can't carry on...)] [slimeIce.name] moans, before sinking to the floor and reaching down between her legs.
+	</p>
+	<p>
+		[slimeFire.Name] seems to be in a similar state of affairs, and as you step towards the defeated #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF, he drops down on one knee, panting, [slimeFire.speech(We... We surrender... No more...)]
+	</p>
+	<p>
+		With your powerful arcane aura clearly causing these two slimes to be overwhelmed with lust, you wonder if you should take advantage of the situation, or continue on your way through the Slime Queen's tower...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_GUARDS_COMBAT_PLAYER_DEFEAT"><![CDATA[
+	<p>
+		You can't carry on fighting any longer, and stagger back against the nearest wall, panting, [pc.speech(P-Please... No more...)]
+	</p>
+	<p>
+		[slimeIce.speech(~Aah!~ #IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF This fight's got me all... Y-You know...)] [slimeIce.name] moans, reaching down between her legs and starting to stroke her [slimeIce.pussy+] as she watches you desperately trying to catch your breath.
+	</p>
+	<p>
+		[slimeFire.speech(~Mmm!~ Me too #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF!)] [slimeFire.name] replies, before stepping forwards and grabbing you by the [pc.arm]. With a devious smirk on his face, he growls, [slimeFire.speech(I think it's time for some fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_POST_SEX_SPITROASTED_UPON_DEFEAT"><![CDATA[
+	<p>
+		In one swift move, [slimeFire.name] throws you to the floor, laughing, [slimeFire.speech(That's right, get down on all fours so me and #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF can have some fun!)]
+	</p>
+	<p>
+		Before you can react, [slimeFire.name] drops down onto his knees behind you, before grabbing hold of your [pc.hips+] and grinding his [slimeFire.cock+] against your [pc.ass+]. Seeing her #IFgame.isIncestEnabled()#THENbrother#ELSElover#ENDIF take such a bold move, [slimeIce.name] quickly steps forwards, before dropping down onto her knees right in front of your face. Shuffling forwards, she presents her [slimeIce.pussy+] to you, and moans, [slimeIce.speech(Come on! Get that tongue working already!)]
+	</p>
+	<p>
+		Completely exhausted from your fight with #IFgame.isIncestEnabled()#THENthis brother-sister pair#ELSEthe slimes#ENDIF, you're in no position to try and break free, and realise that they're going to have their way with you, one way or another...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_GUARD_SEX_DEFEATED"><![CDATA[
+	<p>
+		The #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF both step back, allowing you to sink to the floor as you're completely overcome with exhaustion. You aren't given much time to rest, however, as after just a moment you're seized by [slimeFire.name], before being hauled to your feet.
+	</p>
+	<p>
+		[slimeIce.speech(Here's your stuff,)] [slimeIce.name] says, shoving your things into your [pc.arms].
+	</p>
+	<p>
+		With that, [slimeFire.name] half-carries, half-drags you to the front door of the tower, before releasing you and stepping back. [slimeFire.speech(Maybe this'll teach you a lesson about trespassing!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_GUARD_SEX_DEFEATED_KICKED_OUT"><![CDATA[
+	<p>
+		Before you can say anything in your defence, [slimeFire.name] pulls open the tower's front door, before kicking your rear end.
+		 You stagger forwards from the blow, and, still exhausted from the fight and resulting sex, you find yourself tumbling to the floor.
+	</p>
+	<p>
+		You don't try to get up right away, and simply lie back on the island's gentle hill, trying to catch your breath. After some time, you finally feel like you've recovered enough energy to be able to stand, and, pushing yourself to your feet, you make sure that you're still in possession of all your things, before looking back at the Slime Queen's tower. You see that the front door has been left slightly ajar, and while you're in no state to try and take another fight right away, you know that you can always come back and give it another go some other time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRCASE_UP"><![CDATA[
+	<p>
+		You find yourself at the bottom of a narrow, spiral staircase. To either side of the opening, life-sized stone statues of medieval knights are standing guard, and beside each one, a flickering arcane torch is held in a metal sconce.
+	</p>
+	<p>
+		It doesn't look like the statues are going to present much of a barrier to your passage, and so there's nothing stopping you from travelling up the stairs to the tower's upper floor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRCASE_DOWN"><![CDATA[
+	<p>
+		You find yourself at the top of a narrow, spiral staircase. To either side of the opening, and just like the ones on the ground floor, life-sized stone statues of a medieval knights are standing guard, and beside each one, a flickering arcane torch is held in a metal sconce.
+	</p>
+	<p>
+		It doesn't look like the statues are going to present much of a barrier to your passage, and so there's nothing stopping you from travelling down the stairs to the tower's ground floor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The corridors of the Slime Queen's Tower are very similar in aesthetic to its entrance hall. Underfoot, a thick burgundy-and-gold rug runs down the middle of the floor, while the stone walls to either side are covered in thick fabric tapestries, each one bearing a depiction of a medieval scene. In between these tapestries, and evenly positioned down the corridor, stand life-sized stone statues of knights clad in armour. 
+	</p>
+	<p>
+		It's obvious even from a cursory glance at the tower's decor that the Slime Queen is a big fan of medieval history, and, not wanting to miss this opportunity to find out a little more about Dominion's past, you find yourself stopping to take a look at some of tapestries' scenes. Apart from the occupants being some form of animal-morph or another, the style and content are identical to the medieval art of your world, and you can't help but marvel at how similar Dominion's culture, scenery, and history are to that of the place where you came from.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM"><![CDATA[
+	<p>
+		Just like the rest of the tower, the stone walls of this bedroom are covered in tapestries, and a thick burgundy rug covers most of the floor. On one side of the room stands a neatly made four-poster bed, and opposite to that, a small fire flickers happily away in a stone hearth.
+	</p>
+	<p>
+		From the pile of clothes on top of one of the room's dressers, it's obvious that this bedroom is in regular use, but after a cursory look around the place, you discover that there's nothing of any interest being stored in here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORAGE_VATS"><![CDATA[
+	<p>
+		The majority of this room is taken up by a huge distillation device. A large glass tank, filled with a sweet-smelling pink liquid, is joined to a metal tower by means of a glass tube. Taking a closer look, you see the pink slime slowly moving up through the pipe as it's sucked into the tower, and, letting your gaze wander down over the adjoining pipes, valves, and other such machinery, you find yourself looking at a little tap set into the bottom of the metal tower.
+	</p>
+	<p>
+		Beside this tap, at least a hundred empty bottles and canisters are neatly stacked, and you realise that this is the place where all of the 'biojuice' is coming from. Upon further inspection, you find a roll of familiar-looking bottle labels, which reveal this to be not just the source of all the transformative slime fluids in Submission, but also the place where the popular drink 'Slime Quencher' is manufactured.
+	</p>
+	<p>
+		While the machine is steadily humming away - no doubt producing the next batch of the Slime Queen's beverages - there's nobody in here monitoring the process, and you suppose that it's all set up so as to only require someone for the final bottling stage.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_PACIFIED"><![CDATA[
+	<p>
+		Up ahead, you see [slimeRoyalGuard.name] swinging his huge sword back and forth as he charges up and down the corridor. He catches sight of you as you approach, and, slinging the sword over his shoulder, he steps forwards and bars the way as he calls out to you, [slimeRoyalGuard.speech(Ah! If it isn't [pc.name], coming to challenge the mighty [slimeRoyalGuard.name]!)]
+	</p>
+	<p>
+		Coming to a halt in front of the [slimeRoyalGuard.race], you smile as you reply, [pc.speech(Hello again, [slimeRoyalGuard.name]. You're as energetic as ever, I see.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Why of course!)] [slimeRoyalGuard.name] cries out. [slimeRoyalGuard.speech(There's no time to be resting! Not while there are still combat techniques to be learned!)]
+	</p>
+	<p>
+		As if to demonstrate his resolve, [slimeRoyalGuard.name] suddenly grasps his sword in both hands, and, spinning around, he darts forwards, before slicing and thrusting into mid-air as shows off his ability to wield his weapon. Once he's done, he turns back to you, panting slightly as he issues a challenge, [slimeRoyalGuard.speech(Her royal Highness has instructed me to allow you to come and go as you please, but she never forbade me from issuing challenges! If you'd like to have a little sparring match, I'd love to put my moves to the test! What do you say?)]
+	</p>
+	<p>
+		Before you can answer, [slimeRoyalGuard.name] gets carried away, and continues, [slimeRoyalGuard.speech(Oh! And whoever wins gets to use the losers body in whatever way they like for the next hour! Ha-ha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_DEFEATED"><![CDATA[
+	<p>
+		Completely and utterly exhausted, [slimeRoyalGuard.name] is still sunk down on one of the low stone benches in this area. As you pass, he lets out a low groan, and you wonder if you should take advantage of his weakened state, or continue on your way through the Slime Queen's tower...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_REPEAT"><![CDATA[
+	<p>
+		Up ahead, you see the familiar figure of [slimeRoyalGuard.name] swinging his huge sword back and forth as he charges up and down the corridor. He catches sight of you as you approach, and, slinging the sword over his shoulder, he steps forwards and bars the way as he calls out to you, [slimeRoyalGuard.speech(Ah! If it isn't [pc.name], coming to challenge the mighty [slimeRoyalGuard.name] once more!)]
+	</p>
+	<p>
+		Coming to a halt in front of the [slimeRoyalGuard.race], you see a look of steely determination in his eyes, and know that you have no choice but to fight your way out of this.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST"><![CDATA[
+	<p>
+		Up ahead, a little way down the corridor, you see a rather curious sight. A purple incubus-slime, standing at well over six feet tall, is charging back and forth, wildly swinging a huge two-handed sword this way and that as he shouts and grunts from exertion. As you approach, you see that he's wearing a pair of black leather chaps, and, apart from a cloth wrapping around his stomach, is currently topless. Preparing to defend yourself, you continue walking forwards, until the muscular demonic slime finally notices your presence. 
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Who dares approach I, the mighty [slimeRoyalGuard.name], royal bodyguard of her Highness, the Queen of all Slimes?!)] the [slimeRoyalGuard.race] booms, slinging his huge sword over his shoulder as he turns to bar your way forwards.
+	</p>
+	<p>
+		[pc.speech(My name is [pc.name],)] you offer, [pc.speech(and I have business with the Slime Queen.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Is that so?)] [slimeRoyalGuard.name] laughs, his huge, barrel-like chest reverberating from his deafening roar as he booms, [slimeRoyalGuard.speech(I don't know how you got past the two downstairs, but your trespassing ends here! None can defeat the mighty [slimeRoyalGuard.name]!)]
+	</p>
+	<p>
+		As if to prove his point, the huge purple slime grips his sword in both hands, and, turning to one side, he thrusts the blade out into mid-air, before turning it back and performing a perfectly horizontal slice. You're alarmed by how agile [slimeRoyalGuard.name] appears to be, despite his huge size, and before you can think about what to do next, he steps forwards, booming once more as he points his sword at you. [slimeRoyalGuard.speech(Defend yourself, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"><![CDATA[
+	<p>
+		You can't resist the sight of [slimeRoyalGuard.name]'s huge, muscular figure sitting on the stone bench before you. The way his broad, strong chest rises and falls with ever breath has you captivated, and before you're able to stop yourself, you're stepping forwards and reaching down to take hold of his arm. As he looks up at you, you pull him to his feet, and, stepping forwards, you plant a passionate kiss on his slightly parted lips.
+	</p>
+	<p>
+		[slimeRoyalGuard.Name] reaches around to pull you close to him, but, not wanting to let him take control, you quickly break off the kiss, before grabbing hold of his wrists and warning him, [pc.speech(Don't forget, [slimeRoyalGuard.name], <i>I'm</i> the one in charge here.)] 
+	</p>
+	<p>
+		With that, you release your grip on his wrists, and prepare to have some fun...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"><![CDATA[
+	<p>
+		You can't resist the sight of [slimeRoyalGuard.name]'s huge, muscular figure sitting on the stone bench before you. The way his broad, strong chest rises and falls with ever breath has you captivated, and before you're able to stop yourself, you're stepping forwards and sitting down next to him. As he looks over at you, you lean into his chest, before planting a passionate kiss on his slightly parted lips.
+	</p>
+	<p>
+		[slimeRoyalGuard.Name] reaches around to pull you close to him, and, perfectly content to let him take control, you gently break off the kiss, before [pc.moaning] [pc.speech(Oh yes, [slimeRoyalGuard.name], take me! Take me now!)] 
+	</p>
+	<p>
+		With that, the [slimeRoyalGuard.race] dominantly grabs hold of you, pulling you to your feet as he prepares to have some fun with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_TALK"><![CDATA[
+	<p>
+		Curious as to how [slimeRoyalGuard.name] came to be the Slime Queen's royal bodyguard, you step forwards and ask, [pc.speech(What series of events led to you becoming the Slime Queen's royal guard?)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Well, I suppose it all started back when I was still a demon. Although my Lilin mother, Lunette, was unwilling to recognise me as her son, she didn't completely cut me off, and amongst other things, she gave me this sword.)] [slimeRoyalGuard.name] holds his sword up in front of him, smiling as he recalls the memory. [slimeRoyalGuard.speech(Eager to try and impress her, I devoted myself to learning how to wield it, but no matter how much I tried, nor how good I became, nothing I did was enough to earn her praise.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.name]'s smile disappears, and he frowns as he continues, [slimeRoyalGuard.speech(After a while, I gave up on trying to impress her, and travelled from the Foloi Fields to find adventure in Dominion.)]
+	</p>
+	<p>
+		[pc.speech(And that's when you met Catherine?)] you ask.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(That's right,)] [slimeRoyalGuard.name] replies. [slimeRoyalGuard.speech(Soon after arriving in the city, I realised that the lowlifes who haunt the alleyways wouldn't ever be able to challenge my skill with the sword, so, after hearing that Submission was more dangerous, I travelled down there in search of worthy opponents. Fate must have decreed that we meet, for I found her Highness in the very first tunnel that I decided to explore.)]
+	</p>
+	<p>
+		At this point, you see [slimeRoyalGuard.name]'s cheeks turn a slightly darker shade of purple, and he shuffles about on his feet a little as he continues, [slimeRoyalGuard.speech(She'd just run into a pair of rat-boys, you see, who were about to have their way with her... Needless to say, I quickly gave them a sound beating, and once I'd seen them off, I turned to help her Highness. S-She had the wrong idea at first, and thought that I wanted to ~Ahem!~ 'ravish' her.)]
+	</p>
+	<p>
+		Knowing what Catherine is like, you nod in understanding, imagining how the situation must have played out. [slimeRoyalGuard.name] quickly moves on, and continues with his tale, [slimeRoyalGuard.speech(After I'd explained that I was simply protecting her, I helped her to her feet. She was so happy to have been saved, she immediately hugged me, which caught me completely off guard. Still weakened from her ordeal, she accidentally collapsed on top of me, and before I knew what was happening, I'd been sucked into her body!)]
+	</p>
+	<p>
+		[pc.speech(So this is how you became a slime?)] you ask, seeing where this is going.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(That's right,)] [slimeRoyalGuard.name] replies. [slimeRoyalGuard.speech(By the time her Highness managed to spit me out, I'd already swallowed down litres of her slime. Needless to say, and as you've already guessed, her body's transformative properties quickly turned me into the slime you see today.)]
+	</p>
+	<p>
+		[pc.speech(So you decided to protect the one who'd transformed you?)] you ask, curious to find out how this led to [slimeRoyalGuard.name] becoming Catherine's guard.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Well, at first, I was shocked and angry, but her Highness was so distressed by what she'd done, I couldn't stay mad at her for long. She insisted on following me back up to Dominion, calling me 'her heroic knight', and saying that it was fate that led me to her,)] [slimeRoyalGuard.name] recalls, smiling at the memory. [slimeRoyalGuard.speech(By the time I'd gathered enough flames to have a solidification potion made, I'd seen enough of her Highness's antics to realise that she needs someone to protect her. Having grown used to this form, I decided to stay as a slime, and pledged to protect her Highness for as long as she wanted me to.)]
+	</p>
+	<p>
+		[pc.speech(At this point, Catherine wasn't calling herself the 'Slime Queen' though, right?)] you ask, wondering when that happened.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(It was shortly after I'd pledged myself to her that she started doing that,)] [slimeRoyalGuard.name] admits. [slimeRoyalGuard.speech(She grew rather attached to the idea of me being her knight, and decided that forcing her slime transformation onto others made her their queen. Although I was reluctant to carry out some of her more erratic orders at first, I'd already sworn to obey her, and helped her to transform her first subjects.)]
+	</p>
+	<p>
+		[pc.speech(Thanks for sharing your story with me,)] you say, your curiosity sated.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_ADMIRE"><![CDATA[
+	<p>
+		Taking note of the fact that [slimeRoyalGuard.name] seems eager to show off his moves, you decide to see if you can trick him into showing off, hoping to get him to tire himself out. [pc.speech(That's some fancy footwork you've got there. I don't think I've seen someone wield a sword that well before.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(You're a sharp one!)] [slimeRoyalGuard.name] quickly replies, before lowering his sword and stepping back. [slimeRoyalGuard.speech(But you haven't seen anything yet! Watch this!)] 
+	</p>
+	<p>
+		Just as you'd hoped, the [slimeRoyalGuard.race] starts swinging his sword back and forth, dashing this way and that as he tries to impress you with his moves. You remain silent as you watch, waiting for him to tire himself out.
+	</p>	
+	<p>
+		After a minute or two, [slimeRoyalGuard.name] lowers his sword and turns back to face you, panting slightly from exertion. You can't help but feel like you've already won a small victory as you hear the distinct hint of fatigue in his voice as he points his arcane blade at you one more. [slimeRoyalGuard.speech(Now that you've seen what I'm capable of, I hope you'll at least try to give me a challenge!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_ADMIRE_INSTRUCT"><![CDATA[
+	<p>
+		From your fighting experience, you're able to identify several key mistakes that [slimeRoyalGuard.name] made in his demonstration, and, putting on your most commanding tone, you express your concerns, [pc.speech(On your third turn, you dropped your guard, exposing yourself to an attack from your left. Then when you repeated that move for a second time later on in your performance, you failed once again to keep your head and left-side protected.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(W-What?)] [slimeRoyalGuard.name] stutters, caught off guard by your sudden critique. [slimeRoyalGuard.speech(But I was leading into-)]
+	</p>
+	<p>
+		[pc.speech(You were leading into getting yourself hit,)] you say, cutting the [slimeRoyalGuard.race] off. [pc.speech(And that wasn't your only mistake. You have a habit of lowering your guard before every strike. While your average untrained opponent won't pick up on it, you're telegraphing each and every one of your moves, leaving yourself open to a counter-attack. You're also far too reliant on overhead swings, and when you do attempt to strike from a different position, your footwork gets pretty sloppy.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(W-Well, I don't have anyone to train with,)] [slimeRoyalGuard.name] tries to explain, [slimeRoyalGuard.speech(so I don't notice these things when I'm practising by myself.)]
+	</p>
+	<p>
+		From the tone of his voice, you can tell that you've flustered [slimeRoyalGuard.name], and, wanting to tire him out even more, you seek to capitalise on this opportunity by offering some advice. [pc.speech(Perform that third turn again, and I'll show you where you're going wrong.)]
+	</p>
+	<p>
+		Eager to learn from you, [slimeRoyalGuard.name] does as you ask, and for the next ten minutes, you get him to repeat as many of his moves as possible, pointing out all the places where he's going wrong. Just as you'd hoped, by the time you're done, [slimeRoyalGuard.name] is breathing heavily, and looks to be on the verge of exhaustion. 
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Thank you... Thank you for your help...)] [slimeRoyalGuard.name] pants, desperately trying to catch his breath as he readies his sword once more. [slimeRoyalGuard.speech(Now let us fight! I... I want to put these moves... to the test!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_ADMIRE_INSTRUCT_OVERPOWER"><![CDATA[
+	<p>
+		Sensing that you'd be able to overpower [slimeRoyalGuard.name], you step forwards, before giving him one final instruction. [pc.speech(There's one final thing you're lacking in your technique, and it's the difference between an easy victory, and being defeated before you're able to land even one hit.)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(What... What's that?)] [slimeRoyalGuard.name] asks, still panting as he tries to get his breath back.
+	</p>
+	<p>
+		[pc.speech(It's an issue with your favourite stance, where you strike from above. Show me it again,)] you say, preparing to deliver a decisive strike.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Like this?)] the [slimeRoyalGuard.race] asks, raising his sword above his head.
+	</p>
+	<p>
+		[pc.speech(That's right. It's an issue with your mobility. Try doing a complete turn on the spot, and feel how your feet almost trip over one another.)]
+	</p>
+	<p>
+		As [slimeRoyalGuard.name] starts to do as you command, you prepare to make your move. Half-way through his turn, with his back towards you, you strike. Dashing forwards, you reach up to grab his arms, twisting them and forcing him to drop his sword before pinning them behind his back. Before he can react to your move, you hook one leg in front of his, and with a forceful shove, you tackle [slimeRoyalGuard.name] to the ground. As his chest hits the solid floor, you drive your weight into his back, completely winding him as you grapple him into a choke-hold.
+	</p>
+	<p>
+		[pc.speech(This is the final thing you're lacking,)] you explain to [slimeRoyalGuard.name] as you pin him to the floor. [pc.speech(You lack the awareness of what your enemy is trying to do. You allowed me to trick you into wearing yourself out, and now you've been defeated before even landing a single hit.)]
+	</p>
+	<p>
+		Completely overcome by your sudden move, [slimeRoyalGuard.name] isn't even able to offer a response, and, sensing that he's not going to be in fighting condition again fro some time, you release your hold on him and step back.
+	</p>
+	<p>
+		[slimeRoyalGuard.Name] pushes himself up onto his hands and knees, before crawling over to one side of the corridor and collapsing down onto a stone bench. [slimeRoyalGuard.speech(You... You got me...)] he pants, slouching down in defeat.
+	</p>
+	<p>
+		With [slimeRoyalGuard.name] defeated, you could take advantage of him, or choose to continue on towards your final goal of meeting the Slime Queen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_POST_ADMIRE_SEDUCE"><![CDATA[
+	<p>
+		Sensing that [slimeRoyalGuard.name] is very proud of his ability with the sword, you try to play up to this in order to seduce him. [pc.speech(Wow! You're amazing with that thing! Can you show me your moves again?)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Well, if you insist!)] [slimeRoyalGuard.name] laughs, before starting to repeat the motions he just went through. As he does this, you give him plenty of encouraging comments, making sure to put on your most seductive voice as you tell him how amazing he is.
+	</p>
+	<p>
+		After a few minutes of this, [slimeRoyalGuard.name] finishes his display and turns back towards you. You make sure to let him catch you staring at his body, and, looking longingly into his eyes, you sigh, [pc.speech(The queen sure is lucky to have you as her guard... I bet she calls you for some private assistance all the time...)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(I-It's nothing like that!)] [slimeRoyalGuard.name] stutters. [slimeRoyalGuard.speech(I just protect her, t-that's all!)]
+	</p>
+	<p>
+		[pc.speech(So you mean you're free to have some fun, hmm?)] you ask, winking at the [slimeRoyalGuard.race] and biting your lip. 
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(W-Well yes, but, you're an intruder!)] [slimeRoyalGuard.name] stammers, clearly flustered by your advances. [slimeRoyalGuard.speech(A-Anyway, are we going to fight or what?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROYAL_GUARD_SEX_SEDUCTION"><![CDATA[
+	<p>
+		[pc.speech(There's no need to fight...)] you sigh, smiling at [slimeRoyalGuard.name]. [pc.speech(I bet you're all worked up after training so hard. How about we have some fun instead?)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(W-Well I-I'd love to but-)] [slimeRoyalGuard.name] starts, but you quickly step forwards and press a finger to his lips.
+	</p>
+	<p>
+		[pc.speech(You don't need to make any excuses,)] you say, looking down at the [slimeRoyalGuard.race]'s crotch and letting out a delighted cry as you see the distinctive shape of an erection pressing out beneath the fabric of his clothes. [pc.speech(How about you show me your skill with your other sword?)]
+	</p>
+	<p>
+		Unable to resist your advances any longer, [slimeRoyalGuard.name] places his blade to one side, before taking hold of your [pc.arms] and pulling you into a passionate kiss. You let out a happy, muffled [pc.moan] as you feel his tongue slide into your mouth, and, closing your eyes, you tilt your head to one side and press yourself against the [slimeRoyalGuard.race] as you return his kiss.
+	</p>
+	<p>
+		After a moment, he pulls back, breaking off the kiss before grinning at you and sighing, [slimeRoyalGuard.speech(I haven't had a good fuck in weeks...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM"><![CDATA[
+	<p>
+		As you step back from [slimeRoyalGuard.name], [slimeRoyalGuard.he] staggers over to a nearby stone bench, before sinking down onto it and sighing, [slimeRoyalGuard.speech(Ah... That was good...)]
+	</p>
+	<p>
+		Grinning at the [slimeRoyalGuard.race], you set about gathering your things, and once you've got everything in order, you prepare to move off and continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB"><![CDATA[
+	<p>
+		Stepping away from you, [slimeRoyalGuard.name] staggers over to a nearby stone bench, before sinking down onto it and sighing, [slimeRoyalGuard.speech(Ah... That was good...)]
+	</p>
+	<p>
+		Grinning at the [slimeRoyalGuard.race], you set about gathering your things, and once you've got everything in order, you prepare to move off and continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION"><![CDATA[
+	<p>
+		Having had his fun, [slimeRoyalGuard.name] staggers over to a nearby stone bench, before sinking down onto it and sighing, [slimeRoyalGuard.speech(Ah... That was good...)]
+	</p>
+	<p>
+		Grinning at the [slimeRoyalGuard.race], you set about gathering your things, and once you've got everything in order, you prepare to move off and continue on your way. Now that you've worn [slimeRoyalGuard.name] out, you can be sure that he won't have the energy to stop you from proceeding to the Slime Queen's room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_COMBAT_PLAYER_VICTORY"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] staggers back against the nearest wall, before sinking down to his knees before you. His huge, two-handed sword clatters to the ground, and he looks up at you, panting, [slimeRoyalGuard.speech(I yield! No more...)]
+	</p>
+	<p>
+		You step forwards, grinning at the [slimeRoyalGuard.race] as he surrenders to you. With the Slime Queen's royal guard defeated, there's nothing stopping you from continuing on to her room. Then again, you could stop to have some fun with [slimeRoyalGuard.name] first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, you stagger back against the nearest wall, panting, [pc.speech(N-No more...)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(There's no shame in losing to me!)] [slimeRoyalGuard.name] laughs, before placing his blade to one side and stepping up to you. [slimeRoyalGuard.speech(Now, I think you and I should have a little fun before you leave.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] staggers back against the nearest wall, before sinking down to his knees before you. His huge, two-handed sword clatters to the ground, and he looks up at you, panting, [slimeRoyalGuard.speech(I yield! No more...)]
+	</p>
+	<p>
+		You step forwards, grinning at the [slimeRoyalGuard.race] as he surrenders to you. With the Slime Queen's royal guard defeated, there's nothing stopping you from continuing on to her room. Then again, you could stop to have some fun with [slimeRoyalGuard.name] first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, you stagger back against the nearest wall, panting, [pc.speech(N-No more...)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(There's no shame in losing to me!)] [slimeRoyalGuard.name] laughs, before placing his blade to one side and stepping up to you. [slimeRoyalGuard.speech(Now, just as we agreed, I get to have some fun with you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"><![CDATA[
+	<p>
+		As you look up at [slimeRoyalGuard.name], he suddenly steps forwards, and, pinning you back against the wall, he presses forwards and kisses you passionately on the lips. Before you're able to react, he thrusts his tongue into your mouth, reaching down behind you to give your [pc.ass+] a firm squeeze as he starts grinding his crotch against your leg.
+	</p>
+	<p>
+		As suddenly as he started, [slimeRoyalGuard.name] quickly pulls back, grinning at you as he growls, [slimeRoyalGuard.speech(All that fighting's got me pumped up. Mmm, this is gonna be good...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] steps back, allowing you to sink to the floor as you're completely overcome with exhaustion. You aren't given much time to rest, however, as after just a moment the [slimeRoyalGuard.race] reaches down and pulls you to your feet.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Here's your stuff,)] he says, before shoving your things into your [pc.arms].
+	</p>
+	<p>
+		With that, [slimeRoyalGuard.name] half-carries, half-drags you back down the corridor, down the spiral stairs, and over to the front door of the tower, before releasing you and stepping back. [slimeRoyalGuard.speech(I hope you've learned your lesson!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED_KICKED_OUT"><![CDATA[
+	<p>
+		Before you can say anything in your defence, [slimeRoyalGuard.name] pulls open the tower's front door, before kicking your rear end. You stagger forwards from the blow, and, still exhausted from the fight and resulting sex, you find yourself tumbling to the floor.
+	</p>
+	<p>
+		You don't try to get up right away, and simply lie back on the island's gentle hill, trying to catch your breath. After some time, you finally feel like you've recovered enough energy to be able to stand, and, pushing yourself to your feet, you make sure that you're still in possession of all your things, before looking back at the Slime Queen's tower. You see that the front door has been left slightly ajar, and while you're in no state to try and take another fight right away, you know that you can always come back and give it another go some other time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] steps back, allowing you to sink to the floor as you're completely overcome with exhaustion.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Hah! That was fun!)] He laughs. [slimeRoyalGuard.speech(Let me know if you want to go again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<htmlContent tag="BED_CHAMBER"><![CDATA[
+	<p>
+		Unlike all of the other doors that you've passed so far, the one at the end of this corridor is painted a soft shade of pink, and hanging from the handle, a little sign reads; 'Her Majesty's Room; Do not disturb!'. 
+	</p>
+	<p>
+		As commanding as the statement on the sign may be, you have no intention of turning back now. Reaching out to turn the handle, you find that the door to the Slime Queen's room is unlocked, and, preparing yourself for an ambush, you push it open and cautiously step inside.
+	</p>
+	<p>
+		The room in front of you is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over fifteen feet in length.
+	</p>
+	<p>
+		Along with this abnormally sized piece of furniture, there's another feature of this room which catches your attention. In the far right corner, you see a decoratively carved wooden wall, no higher than two feet, and measuring roughly ten feet on each of its square sides. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
+	</p>
+	<p>
+		Glancing around the room, you don't see any sign of the Slime Queen, and, highly suspicious of the bath's slimy pink contents, you slowly make your way towards it. As you approach, you see several pieces of gold jewellery scattered around the bath's floor. In the middle of all of these, there's a small, glowing pink core, confirming that the bath's contents are concealing the slime that you've been seeking.
+	</p>
+	<p>
+		So as not to be caught off-guard and dragged into the bath, you step back, before calling out, [pc.speech(It's no use hiding! I know you're in there, Slime Queen!)]
+	</p>
+	<p>
+		[slimeQueen.speech(~Aah!~)] a surprised, yet slightly erotic, cry calls out from the bath. [slimeQueen.speech(You found me!)]
+	</p>
+	<p>
+		Before you can respond, the bath's surface starts to push upwards, carrying a golden tiara, earrings, and necklace up from the tiled floor. The distinctive shape of a woman's head quickly forms out of the slime, and you watch, ready to defend yourself from any attack, as the rest of the Queen's naked body starts to take shape.
+	</p>
+	<p>
+		To begin with, nothing seems to be out of the ordinary as the pink, female slime stands up before you. As her hips lift up out of the bath's slimy waters, however, the Queen starts to rapidly grow in size. Initially standing at just over five-and-a-half feet tall, it only takes a couple of seconds before her entire body has proportionally expanded up to seven feet in height.
+	</p>
+	<p>
+		You instinctively step back as the slime before you continues to grow in height. Eight feet... Nine... Ten... Her growth shows no sign of stopping as she backs away from you, making no attempt to cover up her [slimeQueen.breastSize], [slimeQueen.cupSize]-cup breasts and [slimeQueen.pussy+].
+	</p>
+	<p>
+		[slimeQueen.speech(~Aaah!~)] she cries again, as she finished growing up to a final twelve-feet in height. [slimeQueen.speech(H-How did you get past my guards?! W-What do you want?)]
+	</p>
+	<p>
+		Despite her immense size, the Slime Queen shows no sign of aggression, and almost trips over the edge of the bath as she attempts to manoeuvre her way towards her bed. Worried that she might try to draw strength from the considerable amount of pink goo still left in the bath, you give the Slime Queen some space, allowing her to rush over and hide behind her huge bed.
+	</p>
+	<p>
+		Sensing that the Queen isn't going to fight, you step forwards and start to answer her question, [pc.speech(Let's just say that your guards won't be bothering us. As to what it is I want, I-)]
+	</p>
+	<p>
+		[slimeQueen.speech(I knew it!)] the Slime Queen cries. [slimeQueen.speech(You struck them down, and then had your wicked way with them, didn't you?!)]
+	</p>
+	<p>
+		[pc.speech(Well, I-)] you start to explain, but the colossal Slime Queen suddenly jumps to her feet, before pressing the back of her hand to her forehead and swooning.
+	</p>
+	<p>
+		[slimeQueen.speech(~Ah!~ Say no more! I know that you cut your way through them, intent on storming my personal bed chambers, where you'd claim your reward and ravish my supple, defenceless body!)] she cries, falling backwards onto her bed in such a position that she's presenting her exposed pussy to you. [slimeQueen.speech(Y-You monster! To think I, Catherine, the Queen of all Slimes, am about to be despoiled by an invading [pc.race]! M-Mercy! I beg of you!)]
+	</p>
+	<p>
+		Despite her words, Catherine shows no hint of trying to run or protect herself from you. Quite on the contrary, she spreads her legs and slips one of her hands down to part her [slimeQueen.labia+], moaning as she does so, [slimeQueen.speech(No! Please! Don't ruin me! You can't do this to royalty!)]
+	</p>
+	<p>
+		It's quite obvious that Catherine is getting immensely turned on at the thought of being 'despoiled' by you. Being convinced by her behaviour that she's not at all interested in putting up a fight, you step forwards, deciding how best to handle this kinky Slime Queen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BED_CHAMBER_PACIFIED"><![CDATA[
+	<p>
+		The Slime Queen's room is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over fifteen feet in length.
+	</p>
+	<p>
+		Along with this abnormally sized piece of furniture, there's another feature of this room which is out of the ordinary. In the far right corner, you see a decoratively carved wooden wall, no higher than two feet, and measuring roughly ten feet on each of its square sides. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
+	</p>
+	<p>
+		Relaxing in this pool of pink slime is Catherine, who jumps to her feet as she sees you enter. Making no attempt to cover her huge, naked body, she cries, [slimeQueen.speech(~Aah!~ You've returned! I-I knew you wouldn't be able to resist your lustful impulses for long!)]
+	</p>
+	<p>
+		[pc.speech(I was-)] you start to explain, but the Slime Queen cuts you off as she dashes out of the bath and over to her bed.
+	</p>
+	<p>
+		[slimeQueen.speech(You were thinking about how easy it would be to force your way into my bed chamber, before having your wicked way with me, I know!)] she cries, falling back on her bed and spreading her legs to present you with her [slimeQueen.pussy+]. [slimeQueen.speech(I'm sure that there's nothing I can say to make you leave! Oh, woe is me! To think, the queen of all slimes is about to be ravished by [pc.a_race]!)]
+	</p>
+	<p>
+		It's quite obvious that Catherine is getting immensely turned on at the thought of being 'ravished' by you. Used to her behaviour by now, you step forwards, deciding how best to handle this kinky Slime Queen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_CONVINCE"><![CDATA[
+	<p>
+		[pc.speech(Please calm down,)] you say. [pc.speech(I'm here on behalf of Submission's enforcers. Your subjects up in the tunnels have been causing quite a problem, what with transforming everyone into slimes and all. I'm here to put an end to it.)]
+	</p>
+	<p>
+		[slimeQueen.speech(S-So you're not going to ravish me?)] Catherine whines, sitting up on her bed and sulking. [slimeQueen.speech(You just want me to stop my subjects from transforming people?)]
+	</p>
+	<p>
+		[pc.speech(That's right. Why are you doing this anyway? There are plenty of slimes in Submission already.)]
+	</p>
+	<p>
+		[slimeQueen.speech(Mmm... Well...)] the Slime Queen mumbles, looking down at her feet as she kicks them back and forth. [slimeQueen.speech(I was kind of hoping to attract someone like you... I thought that if I made a nuisance of myself, a sexy, strong [pc.hero] would storm my tower, beat my guards, and...)] Catherine shudders in delight, [slimeQueen.speech(<i>ravish</i> me...)]
+	</p>
+	<p>
+		You can't help but let out a sigh as you hear the Slime Queen's ridiculous reason for wanting to transform people into slimes. [pc.speech(So you were only ordering your subjects to do this in order to get someone to defeat you?)]
+	</p>
+	<p>
+		[slimeQueen.speech(W-Well, it is kind of nice gaining more followers, but yeah. That's why I was doing this.)] Catherine looks up and pouts. [slimeQueen.speech(But now that you've finally come, you're not even going to have your way with me! That's not fair...)]
+	</p>
+	<p>
+		[pc.speech(I'm sure that there are plenty of people out there who are seeking revenge for being turned into slimes,)] you say. [pc.speech(And one of them is bound to want to 'ravish' you when they finally find you. I'm not asking you to leave your tower or stop calling yourself the Slime Queen, I just need you to stop telling your subjects to transform people. And if you're supplying them with those 'biojuice canisters', you need to stop that too.)]
+	</p>
+	<p>
+		[slimeQueen.speech(F-Fine... I guess I don't have much say in the matter, now that my guards have failed me. I'll stop telling my subjects to transform people, and will only use the distillery to make Slime Quenchers from now on.)] Catherine whines, before suddenly throwing you a cheeky smile and continuing, [slimeQueen.speech(Do you wanna know how I've been making them?)]
+	</p>
+	<p>
+		[pc.speech(I think I can guess...)] you say, realising that Catherine's slimy body is the exact same colour as the liquid within the 'biojuice canisters'.
+	</p>
+	<p>
+		[slimeQueen.speech(~Mhm!~ That's right.)] Catherine giggles, sliding two of her fingers into her exposed pussy. [slimeQueen.speech(I spend all day in that bath, drinking water and letting my body convert it into more of my yummy slime! The distillery downstairs splits the transformative and non-transformative parts, and that's how we make Slime Quencher!)]
+	</p>
+	<p>
+		[pc.speech(And from now on, you'll throw the transformative part away,)] you firmly state, crossing your [pc.arms] and frowning at Catherine.
+	</p>
+	<p>
+		[slimeQueen.speech(Yes, I will, but there's a little problem. I don't really have any way to contact my subjects, and I've distributed quite a few of those canisters by now. I won't make any more, but I don't think your problem's going to disappear any time soon...)]
+	</p>
+	<p>
+		[pc.speech(Fine. At least there's not going to be any more encouragement from you from now on.)] You sigh. [pc.speech(Now, I'm going to need some proof for the enforcers that you won't be a problem anymore.)]
+	</p>
+	<p>
+		[slimeQueen.speech(Hmm, you can have this, I guess,)] Catherine says, taking off her crown and throwing it to you. [slimeQueen.speech(It's kind of uncomfortable to wear, so I was thinking of getting rid of it anyway.)]
+	</p>
+	<p>
+		As you catch the crown, Catherine lies back on her bed, spreading her legs once more and sighing, [slimeQueen.speech(Now, if you'll excuse me, I'll just lie here for a while, all defenceless and innocent, hoping that you don't change your mind and decide to have your wicked way with me...)]
+	</p>
+	<p>
+		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_FORCE"><![CDATA[
+	<p>
+		[pc.speech(If that's how you want it, then fine,)] you snarl, stepping up to the bed and grabbing the Slime Queen's arm. With a rough yank, you pull her up so that she's in a sitting position, before putting on your most menacing tone and continuing, [pc.speech(You're going to put an end to your subjects transforming people up in the tunnels!)]
+	</p>
+	<p>
+		[slimeQueen.speech(Y-Yes! I-I'll do whatever you ask!)] Catherine cries, failing to conceal the aroused tone of her voice. [slimeQueen.speech(I'll just make the Slime Quenchers from now on! N-No more of the transformatives, I promise!)]
+	</p>
+	<p>
+		Pulling the Slime Queen close to you, you growl, [pc.speech(Why are you doing this anyway?!)]
+	</p>
+	<p>
+		[slimeQueen.speech(Mmm... Well...)] the Slime Queen mumbles, [slimeQueen.speech(I was kind of hoping to attract someone like you... I thought that if I made a nuisance of myself, a sexy, strong [pc.hero] would storm my tower, beat my guards, and...)] Catherine shudders in delight, [slimeQueen.speech(<i>ravish</i> me...)]
+	</p>
+	<p>
+		[pc.speech(What kind of reason is that?! You're going to tell your subjects to stop this nonsense,)] you say, roughly tugging on the Slime Queen's arm to emphasise your point.
+	</p>
+	<p>
+		[slimeQueen.speech(W-Well, I don't really have any way to contact my subjects, and I've distributed quite a few of those canisters by now... I-I won't make any more, but I don't think your problem's going to disappear any time soon...)]
+	</p>
+	<p>
+		You let out a frustrated sigh as the Slime Queen tells you this. [pc.speech(But you're the only one who can make them, right? And now that you're not going to make any more, at least it can't continue forever.)]
+	</p>
+	<p>
+		[slimeQueen.speech(~Mhmm~ T-That's right.)] Catherine giggles, sliding her free hand down to rub at her exposed pussy. [slimeQueen.speech(I-I spend all day in that bath, drinking water and letting my body convert it into more of my yummy slime! The distillery downstairs splits the transformative and non-transformative parts, and that's how we make Slime Quencher!)]
+	</p>
+	<p>
+		[pc.speech(Enough,)] you snap, tightening your grip as you continue, [pc.speech(I'm going to need some proof for the enforcers that you won't be a problem anymore.)]
+	</p>
+	<p>
+		[slimeQueen.speech(M-My crown...)] Catherine mutters, dropping her head down a little. [slimeQueen.speech(A-As a sign of my submission, y-you should take my crown.)]
+	</p>
+	<p>
+		Doing as the Slime Queen suggests, you snatch the crown from her head, causing her to let out a particularly erotic moan, [slimeQueen.speech(~Aah!~ Stripped of my sign of authority! Y-You brute! I bet you want to have your wicked way with me now, as well!)]
+	</p>
+	<p>
+		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_SUBMIT"><![CDATA[
+	<p>
+		[pc.speech(Actually, I'm here to help,)] you say, stepping towards the Slime Queen's bed.
+	</p>
+	<p>
+		[slimeQueen.speech(H-Help?)] she asks, sitting up and looking at you with a puzzled expression on her face. [slimeQueen.speech(You aren't here to put an end to my reign?)]
+	</p>
+	<p>
+		[pc.speech(No, I want to help you transform as many people in Submission into slimes as possible.)]
+	</p>
+	<p>
+		[slimeQueen.speech(O-Oh! Well, t-thank you...)] the Slime Queen mumbles. [slimeQueen.speech(But I should probably let you know why I'm doing all this first... You see, by ordering my subjects to make more people into slimes, I was kind of hoping to attract someone like you... I thought that if I made a nuisance of myself, a sexy, strong [pc.hero] would storm my tower, beat my guards, and...)] Catherine shudders in delight, [slimeQueen.speech(<i>ravish</i> me...)]
+	</p>
+	<p>
+		[pc.speech(Whatever your motive, I just want there to be more slimes,)] you say. [pc.speech(So what can I do to help?)]
+	</p>
+	<p>
+		[slimeQueen.speech(Mmm... Well... It would be kind of anticlimactic if the enforcers stormed my tower and simply arrested me. I'm sure they wouldn't want to ravish me, which would be just awful,)] Catherine whines, before suddenly having an idea. [slimeQueen.speech(Oh! If you could get the enforcers to stop investigating the slime problem, then only strong adventurers would come seeking me out! Oh, and I guess there'd be more slimes, as my subjects wouldn't be getting arrested as much...)]
+	</p>
+	<p>
+		[pc.speech(So you need me to convince the enforcers that you're not a problem? I can do that, but I'll need some proof to show them that you've been dealt with.)]
+	</p>
+	<p>
+		[slimeQueen.speech(Hmm, you can have this, I guess,)] Catherine says, taking off her crown and throwing it to you. [slimeQueen.speech(It's kind of uncomfortable to wear, so I was thinking of getting rid of it anyway.)]
+	</p>
+	<p>
+		As you catch the crown, Catherine lies back on her bed, spreading her legs once more and sighing, [slimeQueen.speech(Now, if you'll excuse me, I'll just lie here for a while, all defenceless and innocent, hoping that you don't change your mind and decide to have your wicked way with me...)]
+	</p>
+	<p>
+		With your business with the Slime Queen finally resolved, and with the proof needed to convince the enforcers grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_SEX_START"><![CDATA[
+	<p>
+		Deciding to give Catherine what she wants, you take hold of her shoulders and pin her down onto the bed. [pc.speech(Seeing as you want to be 'ravished' so badly, I think I'll have a little fun with you...)]
+	</p>
+	<p>
+		[slimeQueen.speech(Ah! No! Please! Y-You can't do this to royalty! I-I'm a queen!)] Catherine screams, completely failing to conceal the tone of arousal in her voice as she shuffles back and tries, rather half-heartedly, to wriggle out of your grasp.
+	</p>
+	<p>
+		Stepping forwards to kneel on the bed, you crawl forwards between the Catherine's legs as she shuffles away from you. Looking down at the huge pink Slime Queen, you grin as you prepare to give her the ravishing she so badly desires...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_BATH_SEX_START"><![CDATA[
+	<p>
+		Deciding to give Catherine what she so clearly wants, you sink down onto your knees behind her and grab her hips. [pc.speech(Seeing as you want to be 'ravished' so badly, I think I'll have a little fun with you...)]
+	</p>
+	<p>
+		[slimeQueen.speech(Ah! No! Please! Y-You can't do this to royalty! I-I'm a queen!)] Catherine screams, completely failing to conceal the tone of arousal in her voice as she tries, rather half-heartedly, to crawl away from you.
+	</p>
+	<p>
+		Pulling Catherine back into your groin, you look down at the huge pink Slime Queen, grinning as you prepare to give her the ravishing she so badly desires...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_BATH"><![CDATA[
+	<p>
+		Wanting to relax before continuing on your way, you step over to the side of the huge bath, and take a look down into the pink slime. Sensing what it is you want, Catherine gets up from her bed and walks over to your side, before giggling, [slimeQueen.speech(Would you like to get in with me?)]
+	</p>
+	<p>
+		Quickly stripping off, you take hold of the Slime Queen's hand and pull her along with you as you step forwards into the bath's warm, slimy contents. Catherine immediately sinks down into the slime, letting out a relaxed sigh as you sit down next to her.
+	</p>
+	<p>
+		[slimeQueen.speech(You must be tired from travelling all this way to see me. Please, let me wash you,)] she sighs, sliding around behind you before starting to rub her slimy hands all over your back.
+	</p>
+	<p>
+		Her warm touch instantly puts you at ease, and, once she's finished with your back, you lean back into Catherine, using her [slimeQueen.breastSize] breasts as a cushion as you let out a contented sigh. The Slime Queen giggles as she hugs you close to her, and, running her hands up and down the length of your body, she submissively cleans you with her warm pink slime.
+	</p>
+	<p>
+		After a while of this, you feel as though you really should be getting on your way, and, sliding away from Catherine, you stand up and exit the bath.
+	</p>
+	<p>
+		 The Slime Queen moves to follow your lead, but as she steps out of the bath, she makes a show of knocking a nearby bottle of water to the floor. Instantly sinking down onto her hands and knees, she crawls towards it, shaking her naked ass in your direction as she sighs, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
+	</p>
+	<p>
+		You shake your head at Catherine's transparent attempt at getting you to fuck her, but, as you finish dressing yourself, you wonder if you should take advantage of this situation to give her what she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_BATH_TRANSFORM"><![CDATA[
+	<p>
+		Wanting to relax before continuing on your way, you step over to the side of the huge bath, and take a look down into the pink slime. Sensing what it is you want, Catherine gets up from her bed and walks over to your side, before giggling, [slimeQueen.speech(Would you like to get in with me?)]
+	</p>
+	<p>
+		Quickly stripping off, you take hold of the Slime Queen's hand and pull her along with you as you step forwards into the bath's warm, slimy contents. Catherine immediately sinks down into the slime, letting out a relaxed sigh as you sit down next to her.
+	</p>
+	<p>
+		[slimeQueen.speech(You must be tired from travelling all this way to see me. Please, let me wash you,)] she sighs, sliding around behind you before starting to rub her slimy hands all over your back.
+	</p>
+	<p>
+		Her warm touch instantly puts you at ease, and, once she's finished with your back, you lean back into Catherine, using her [slimeQueen.breastSize] breasts as a cushion as you let out a contented sigh. The Slime Queen giggles as she hugs you close to her, and, running her hands up and down the length of your body, she submissively cleans you with her warm pink slime.
+	</p>
+	<p>
+		As you lean back into Catherine, you feel her warm, slimy body start to envelop you, and before you know what's happening, you suddenly sink back <i>into</i> her. Your world is immediately transformed into one of total pink, and you instinctively struggle against your slimy surrounding as you try to get back to the surface.
+	</p>
+	<p>
+		[slimeQueen.speech(H-Hold on! I-I'll get you out of me, just- ~Aaaah!~)] you hear Catherine's muffled voice calling out from above, before being interrupted by an incredibly erotic moan. [slimeQueen.speech(S-Stop! You're pressing on my- ~Aaaaaah!~)]
+	</p>
+	<p>
+		Before you have time to realise what Catherine's saying, the need for oxygen overwhelms you, and you instinctively breathe in, taking a huge gulp of Catherine's slimy pink body into your lungs. At that moment, the Slime Queen is finally able to expel you from her body, and pushes you out of the bath, panting, [slimeQueen.speech(Oh no! Are you ok? Cough it all up!)]
+	</p>
+	<p>
+		As Catherine rubs your back, you cough up a small amount of the pink goo, but you can feel that the damage is already done, and your body starts to change...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_BATH_TRANSFORM_END"><![CDATA[
+	<p>
+		[slimeQueen.speech(Y-You're a slime!)] Catherine exclaims, stating the obvious. [slimeQueen.speech(I-I'm so sorry! I didn't mean to do this to you!)]
+	</p>
+	<p>
+		Feeling completely recovered from your sudden transformation, you let out a little sigh and stand up on your new slimy legs. [pc.speech(I-I think I'm ok...)]
+	</p>
+	<p>
+		The Slime Queen moves to follow your lead, but as she starts to stand up, she makes a show of knocking a nearby bottle of water to the floor. Instantly sinking down onto her hands and knees, she crawls towards it, shaking her naked ass in your direction as she sighs, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
+	</p>
+	<p>
+		You shake your head at Catherine's transparent attempt at getting you to fuck her, but, as you finish dressing yourself, you wonder if you should take advantage of this situation to give her what she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX"><![CDATA[
+	<p>
+		Exhausted from her orgasm, [slimeQueen.name] collapses back onto her huge bed. [slimeQueen.speech(~Aah!~ T-That was amazing...)]
+	</p>
+	<p>
+		Grinning at the Slime Queen, you can't help but question her satisfied sigh. [pc.speech(But I thought you didn't want to be 'ravished'?)]
+	</p>
+	<p>
+		[slimeQueen.speech(O-Oh! T-That's right!)] Catherine stutters. [slimeQueen.speech(I-I meant to say; Oh no! Now that you've had your wicked way with me, nobody will respect me any more! To think, the queen of all slimes was ravished like a common whore!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Frustrated from not getting to orgasm even once, [slimeQueen.name] collapses back onto her huge bed. [slimeQueen.speech(~Aah!~ Y-You brute! You wouldn't even let me orgasm!)]
+	</p>
+	<p>
+		Grinning at the Slime Queen, you can't help but reply, [pc.speech(Well, the one who's being 'ravished' doesn't really get a say in the matter, does she?)]
+	</p>
+	<p>
+		[slimeQueen.speech(W-Well, you could have at least let me cum once!)] Catherine stutters. [slimeQueen.speech(The next time you decide to have your wicked way with me, make sure I get to have some fun too!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_TALK"><![CDATA[
+	<p>
+		Wanting to find out how Catherine came to be the 'Slime Queen', you ask her, [pc.speech(How did you end up in this position? And how is it that your slime can transform others?)]
+	</p>
+	<p>
+		[slimeQueen.speech(Mmm...)] Catherine hums, sitting up on her bed. [slimeQueen.speech(Well, I used to be a normal slime-girl, and would attack people in Submission's tunnels, before letting them beat me and have their way with me. After a while of this, I started to think that it would be more fun if I looked really intimidating, so that when I got beaten, it would be extra humiliating to be ravished by my opponents. To this end, I started forcing myself to drink loads of water, so that I'd get really big and scary-looking!)]
+	</p>
+	<p>
+		[pc.speech(Well, that explains your size,)] you comment.
+	</p>
+	<p>
+		[slimeQueen.speech(Yeah, and then once I'd grown really big, I thought I'd look even more threatening if I was like the slimes down here in the Bat Caverns. You know, what with the glowing and all. So I came down here and started eating the glowing mushrooms, but all they did was make my inside bits glow, see?)] Catherine explains, reaching down to spread her pussy and show you her glowing-pink insides. [slimeQueen.speech(I soon got bored of the taste though, so before my whole body started glowing, I travelled back up to Submission to have some fun!)]
+	</p>
+	<p>
+		[pc.speech(I'm guessing that's how your slime became transformative. The mushrooms down here seem to have some weird effects on slimes,)] you interject.
+	</p>
+	<p>
+		[slimeQueen.speech(Yeah, I guess so too. At the time, however, I had no idea that my slime could do that. I soon found out about it though, as after I'd thrown my first fight to a pair of rat-boys in the tunnels, I kind of accidentally transformed [slimeRoyalGuard.name] into a slime...)] Catherine blushes, looking embarrassed as she recounts this part of her tale. [slimeQueen.speech(He'd just saved me, you see, and I went to give him a really big, annoying hug, in an attempt to frustrate him into wanting to take advantage of me. Well, I was still weak from my fight, and accidentally collapsed on top of him. By the time I managed to spit him out, he'd already swallowed a lot of my slime, and right there before my eyes, he transformed into a slime!)]
+	</p>
+	<p>
+		[pc.speech(So how did that lead into you being the Slime Queen?)] you ask. 
+	</p>
+	<p>
+		[slimeQueen.speech(Ah, well, I was feeling so guilty at having transformed [slimeRoyalGuard.name], that I started following him around and offering to help him find a way to turn back. I kept on calling him 'my heroic knight' to try and make him feel better, and I think he kind of got used to it,)] Catherine explains. [slimeQueen.speech(He ended up getting kind of attached to me, and instead of transforming back to how he used to be, he decided to offer me his service as my knight. It was at that point he started calling me his 'Queen', and the name kind of stuck.)]
+	</p>
+	<p>
+		[pc.speech(So that's when you decided to build this tower and gather new subjects?)]
+	</p>
+	<p>
+		[slimeQueen.speech(That's right!)] Catherine giggles. [slimeQueen.speech(It was all so much fun! Well, up until I realised that all of the intruders were getting defeated by my guards... All I wanted was a different adventurer each day, coming to claim me as their prize!)]
+	</p>
+	<p>
+		With Catherine's story now told, and your curiosity sated, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_LEAVE"><![CDATA[
+	<p>
+		Having finished your business with Catherine, you walk over to the bedroom door, and, after saying a brief goodbye, open it and step out into the corridor beyond. As you close the Queen's door behind you, you wonder where you should head off to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

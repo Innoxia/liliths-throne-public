@@ -5,21 +5,34 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -30,11 +43,163 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.10
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
 
+	public static void dailyReset() {
+		
+//		List<String> ids = Main.game.getFinch().getSlavesOwned();
+//		for(String id : ids) {
+//			NPC slaveToRemove = (NPC) Main.game.getNPCById(id);
+//			if(slaveToRemove.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK) {
+//				Main.game.getFinch().removeSlave(slaveToRemove);
+//				Main.game.banishNPC(slaveToRemove);
+//			}
+//		}
+		for(String id : Main.game.getFinch().getSlavesOwned()) {
+			if(Main.game.isCharacterExisting(id)) {
+				Main.game.banishNPC(id);
+			}
+		}
+		Main.game.getFinch().removeAllSlaves();
+		
+		// Female stall:
+		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
+		for(int i=0; i<genders.length; i++) {
+			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES, true);
+			slave.resetInventory();
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getFinch());
+			Main.game.getFinch().addSlave(slave);
+			slave.setPlayerKnowsName(true);
+			
+			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
+			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
+			slave.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
+			slave.setObedience(100);
+		}
+
+		// Male stall:
+		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
+		for(int i=0; i<genders.length; i++) {
+			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
+			slave.resetInventory();
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			Main.game.getFinch().addSlave(slave);
+			slave.setPlayerKnowsName(true);
+			
+			slave.addFetish(Fetish.FETISH_DOMINANT);
+			slave.addFetish(Fetish.FETISH_CUM_STUD);
+			slave.setPersonalityTrait(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW);
+			slave.setObedience(75);
+		}
+
+		// Anal stall:
+		for(int i=0; i<3; i++) {
+			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
+			slave.resetInventory();
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			if(i==0) {
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getFinch());
+			} else if(i==1) {
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getFinch());
+			} else {
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getFinch());
+			}
+			Main.game.getFinch().addSlave(slave);
+			slave.setPlayerKnowsName(true);
+			
+			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+			slave.setAssBleached(true);
+			slave.setAssCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
+			slave.setAssVirgin(false);
+			Main.game.getPlayer().setKnowsCharacterArea(CoverableArea.ANUS, slave, true);
+			
+			slave.addFetish(Fetish.FETISH_ANAL_GIVING);
+			slave.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			slave.setObedience(75);
+		}
+
+		// Vaginal stall:
+		for(int i=0; i<3; i++) {
+			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(true, false));
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
+			slave.resetInventory();
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			Main.game.getFinch().addSlave(slave);
+			slave.setPlayerKnowsName(true);
+			
+			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+			slave.setVaginaCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
+			slave.setVaginaVirgin(false);
+			
+			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			slave.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			slave.setObedience(75);
+		}
+
+		// Oral stall:
+		for(int i=0; i<3; i++) {
+			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
+			slave.resetInventory();
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			if(Math.random()<0.5f) {
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getFinch());
+			}
+			Main.game.getFinch().addSlave(slave);
+			slave.setPlayerKnowsName(true);
+
+			slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+			slave.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
+			slave.setFaceElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+			slave.setLipSize(LipSize.FOUR_HUGE.getValue());
+			slave.setFaceVirgin(false);
+
+			slave.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
+			slave.setObedience(75);
+		}
+	}
+	
+	
+	
+	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Slaver Alley", "-", false) {
 		private static final long serialVersionUID = 1L;
 		
@@ -172,7 +337,233 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL = new DialogueNodeOld("Slaver's shop", ".", false) {
+	public static final DialogueNodeOld MARKET_STALL_FEMALE = new DialogueNodeOld("A Woman's Touch", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_FEMALE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Slave Manager", "You don't have a slaver license, so can't buy or sell any slaves...", null);
+				}
+				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_MALE = new DialogueNodeOld("Iron & Steel", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_MALE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Slave Manager", "You don't have a slaver license, so can't buy or sell any slaves...", null);
+				}
+				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_ANAL = new DialogueNodeOld("The Rear Entrance", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_ANAL");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Slave Manager", "You don't have a slaver license, so can't buy or sell any slaves...", null);
+				}
+				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_VAGINAL = new DialogueNodeOld("White Lilies", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_VAGINAL");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Slave Manager", "You don't have a slaver license, so can't buy or sell any slaves...", null);
+				}
+				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_ORAL = new DialogueNodeOld("Viva Voce", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_ORAL");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Slave Manager", "You don't have a slaver license, so can't buy or sell any slaves...", null);
+				}
+				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_STATUE = new DialogueNodeOld("Staue of the Fallen Angel", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_EXCLUSIVE = new DialogueNodeOld("Zaibatsu Exchange", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_EXCLUSIVE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_BULK = new DialogueNodeOld("Royal Dominion Company", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_BULK");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL_CAFE = new DialogueNodeOld("", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld MARKET_STALL = new DialogueNodeOld("", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -297,7 +688,7 @@ public class SlaverAlleyDialogue {
 					boolean alternateBackground = i%2==0;
 					
 					UtilText.nodeContentSB.append(UtilText.parse(slave,
-							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:#292929;'":"'")+"'>"
+							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
@@ -307,10 +698,10 @@ public class SlaverAlleyDialogue {
 									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney(slave.getValueAsSlave())
+									+ UtilText.formatAsMoney(slave.getValueAsSlave(), "span")
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave()*0.5f))
+									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave()*0.5f), "span")
 								+"</div>"
 								+ "<div style='float:left; width:9%; font-weight:bold; margin:0; padding:0;'>"
 									+ "<div id='"+slave.getId()+"_BID' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBid()+"</div></div>"
@@ -414,7 +805,7 @@ public class SlaverAlleyDialogue {
 			if(biddingRounds==0) {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.she]'s up for auction."
+							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.sheIs] up for auction."
 							+ " Thankfully, you don't have to wait long, and soon enough you see the [npc.race], stark naked except for the slave collar around [npc.her] neck, being led up onto the platform."
 						+ "</p>"
 						+ "<p>"
@@ -422,7 +813,7 @@ public class SlaverAlleyDialogue {
 								+ UtilText.parseNPCSpeech(currentRivalBidder.getRandomBiddingComment(), (currentRivalBidder.getGender().isFeminine()?Femininity.FEMININE:Femininity.MASCULINE_STRONG))
 						+ "</p>"
 						+ "<p>"
-							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice)+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100)+" to get in the lead for buying [npc.name].</i>"
+							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice, "span")+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100, "span")+" to get in the lead for buying [npc.name].</i>"
 						+ "</p>");
 				
 			} if(biddingRounds==biddingRoundsTotal) {
@@ -437,7 +828,7 @@ public class SlaverAlleyDialogue {
 								+ " [maleNPC.speech(Going once... Going twice... Sold! To the [pc.race] at the back!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "Walking towards the stage, you pay the auctioneer's assistant the amount that you bid, totalling "+UtilText.formatAsMoney(biddingPrice)+"."
+								+ "Walking towards the stage, you pay the auctioneer's assistant the amount that you bid, totalling "+UtilText.formatAsMoney(biddingPrice, "span")+"."
 								+ " She informs you that your new slave will be ready for collection from the Slavery Administration building, before handing over the paperwork which proves your ownership of [npc.name]."
 							+ "</p>");
 				} else {
@@ -458,10 +849,10 @@ public class SlaverAlleyDialogue {
 			} else {
 				return UtilText.parse(biddingNPC,
 						"<p>"
-							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.name]'s asking price up to "+UtilText.formatAsMoney(biddingPrice)+"."
+							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.namePos] asking price up to "+UtilText.formatAsMoney(biddingPrice, "span")+"."
 						+ "</p>"
 						+ "<p>"
-							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice)+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100)+" to get in the lead for buying [npc.name].</i>"
+							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice, "span")+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100, "span")+" to get in the lead for buying [npc.name].</i>"
 						+ "</p>");
 			}
 		}
@@ -493,7 +884,7 @@ public class SlaverAlleyDialogue {
 			} else {
 				if(index==1) {
 					if(Main.game.getPlayer().getMoney()>=biddingPrice+100) {
-						return new Response("Bid "+UtilText.formatAsMoney(biddingPrice+100), UtilText.parse(biddingNPC, "Place a bid of "+(biddingPrice+100)+" flames for [npc.name]."), AUCTION_BIDDING) {
+						return new Response("Bid "+UtilText.formatAsMoney(biddingPrice+100, "span"), UtilText.parse(biddingNPC, "Place a bid of "+(biddingPrice+100)+" flames for [npc.name]."), AUCTION_BIDDING) {
 							@Override
 							public void effects() {
 								biddingPrice += 100;
@@ -571,16 +962,15 @@ public class SlaverAlleyDialogue {
 					+ "</p>");
 
 			List<String> sexAvailability = new ArrayList<>();
-			
 
-			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
 							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
-								+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
+							+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span>"
+									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
 				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
@@ -608,8 +998,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			if(index==0) {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
@@ -625,8 +1014,8 @@ public class SlaverAlleyDialogue {
 								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))),
-						AFTER_STOCKS_SEX,
-						"<p>"
+						null,
+						AFTER_STOCKS_SEX, "<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
 							+ " [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen..."
 						+ "</p>") {
@@ -717,16 +1106,16 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(Ah, if it isn't my <i>favourite</i> customer, [pc.name]!)]"
-						+ " he shouts, beckoning you over to the desk,"
+						+ " he shouts, beckoning you over to the desk."
 						+ " [finch.speech(What can I help you with today?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Walking forwards, you return [finch.name]'s greeting,"
-						+ " [pc.speech(Hi [finch.name].)]"
+						+ "Walking forwards, you return [finch.namePos] greeting,"
+						+ " [pc.speech(Hi, [finch.name].)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)]"
-						+ " he says, standing up to reveal his tiny feline cock,"
+						+ " he says, standing up to reveal his tiny feline cock."
 						+ " [finch.speech(I've got slave collars, with the appropriate paperwork already completed, as well as a large selection of clothing suitable for your slaves!)]"
 					+ "</p>"
 					+ "<p>"
@@ -749,7 +1138,7 @@ public class SlaverAlleyDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[finch.speech(Welcome!)]"
-								+ " he shouts, beckoning you over to the desk,"
+								+ " he shouts, beckoning you over to the desk."
 								+ " [finch.speech(Can I help you with anything?)]"
 							+ "</p>"
 							+ "<p>"
@@ -760,7 +1149,7 @@ public class SlaverAlleyDialogue {
 								+ "[finch.speech(I'm afraid that there's not really much to see here."
 									+ " All the <i>fun</i> happens in the holding cells, and they're off-limits."
 									+ " Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)]"
-								+ " he says, standing up and bowing a little,"
+								+ " he says, standing up and bowing a little."
 								+ " [finch.speech(Oh, where are my manners?! I'm [finch.name], the manager of the Slavery Administration."
 									+ " I keep petitioning my superiors to have the name changed to something a little more <i>exciting</i>, but they're quite set in their ways.)]"
 							+ "</p>"
@@ -786,11 +1175,11 @@ public class SlaverAlleyDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[finch.speech(Hello again!)]"
-							+ " he shouts, beckoning you over to the desk,"
+							+ " he shouts, beckoning you over to the desk."
 							+ " [finch.speech(Can I help you with anything?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Walking forwards, you return [finch.name]'s greeting,"
+							+ "Walking forwards, you return [finch.namePos] greeting,"
 							+ " [pc.speech(Hello, I was just looking around.)]"
 						+ "</p>"
 						+ "<p>"
@@ -813,7 +1202,7 @@ public class SlaverAlleyDialogue {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
 				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", SlaveryManagementDialogue.getSlaveryOverviewDialogue());
+					return new Response("Slave Manager", "Open the slave management screen.", OccupantManagementDialogue.getSlaveryOverviewDialogue());
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);
@@ -871,18 +1260,18 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you ask,"
+						+ "Walking up to [finch.namePos] desk, you ask,"
 						+ " [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.Name] leans back in his chair, grinning up at you,"
+						+ "[finch.Name] leans back in his chair, grinning up at you."
 						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone."
 							+ " If you're looking to apply for one, you're going to have to join the waiting list."
 							+ " Last time I looked, I think the estimated wait time for new applicants is just over four years...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Four years?!)]"
-						+ " you exclaim in disbelief,"
+						+ " you exclaim in disbelief."
 						+ " [pc.speech(Is there no other way to get one?)]"
 					+ "</p>"
 					+ "<p>"
@@ -907,7 +1296,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you place the letter of recommendation down in front of him,"
+						+ "Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him."
 						+ " [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]"
 					+ "</p>"
 					+ "<p>"
@@ -920,12 +1309,12 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(Your aunt is <i>Lilaya</i>?)]"
-						+ " he asks, putting the letter to one side,"
-						+ " [finch.speech(why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
+						+ " he asks, putting the letter to one side."
+						+ " [finch.speech(Why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Oh, great!)]"
-						+ " you cheerily reply, handing over the money,"
+						+ " you cheerily reply, handing over the money."
 						+ " [pc.speech(I guess you know Lilaya then?)]"
 					+ "</p>"
 					+ "<p>"
@@ -971,7 +1360,7 @@ public class SlaverAlleyDialogue {
 		public String getContent() {
 			return "<p>"
 						+ "[finch.speech(So, before you run off and try to enslave the first person you meet, you need to be aware of the basics,)]"
-							+ " [finch.name] states, pointing down at the checklist in front of him,"
+							+ " [finch.name] states, pointing down at the checklist in front of him."
 						+ " [finch.speech(First off, all slaves are meant to wear an enchanted slave collar, which can only be purchased from here at the Slavery Administration building."
 							+ " Although some slave owners allow their slaves to work without wearing one, we strongly advise against this."
 							+ " We're unable to track down any runaway slaves who don't have their collars on, so if you decide to take theirs off, don't come crying to me when they run away!)]"
@@ -1002,7 +1391,7 @@ public class SlaverAlleyDialogue {
 							+ " With this new system, we're making sure that all slaves go through the proper channels.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.Name] picks up the last piece of paper you signed and holds it out for you to take,"
+						+ "[finch.Name] picks up the last piece of paper you signed and holds it out for you to take."
 						+ " [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like."
 							+ " The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers.)]"
 					+ "</p>"

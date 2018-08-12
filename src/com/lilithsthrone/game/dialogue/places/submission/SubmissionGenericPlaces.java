@@ -1,8 +1,16 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -158,7 +166,30 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Gambling Den", "Enter the Gambling Den. <b>Not yet added!</b>", null);
+				return new Response("Gambling Den", "Enter the Gambling Den.", GamblingDenDialogue.ENTRANCE) {
+					@Override
+					public void effects() {
+						List<NPC> gamblersPresent = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.GAMBLING_DEN).getCell(PlaceType.GAMBLING_DEN_GAMBLING));
+						
+						for(NPC npc : gamblersPresent) {
+							if(npc instanceof GamblingDenPatron) {
+								Main.game.removeNPC(npc);
+							}
+						}
+						
+						try {
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, false), false);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
+					}
+				};
 
 			} else {
 				return null;
@@ -461,15 +492,7 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A large stone building, spanning the entire width of the tunnel, has been erected here."
-						+ " Signs reading 'Dominion Enforcer Post' are displayed above each of the entrances, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways."
-					+ "</p>"
-					+ "<p>"
-						+ "The Enforcers here don't seem to pay you much attention, allowing you to come and go as you please."
-						+ " You notice that one of the desks looks like an information booth, and the Enforcer stationed behind it doesn't seem to be as busy as all the others."
-						+ " If you wanted to, you could probably approach and ask for information about Submission..."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE");
 		}
 
 		@Override
@@ -483,14 +506,160 @@ public class SubmissionGenericPlaces {
 				};
 
 			} else if (index == 2) {
-				return new Response("Information", "Ask about Submission society. <b>Not yet added!</b>", null);
+				return new Response("Information", "Ask Claire about Submission society.", CLAIRE_INFO_SUBMISSION_SOCIETY);
 
 			} else if (index == 3) {
-				return new Response("Lyssieth", "Ask about Lyssieth. <b>Not yet added!</b>", null);
+				return new Response("Lyssieth", "Ask Claire about Lyssieth.", CLAIRE_INFO_LYSSIETH);
 
+			} else if (index == 4) {
+				return new Response("Teleportation", "Ask Claire about teleportation.", CLAIRE_INFO_TELEPORTATION);
+
+			} else if(index==5) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_TWO) {
+					return new Response("Report Back", "Report what the slime said about a 'Slime Queen'.", CLAIRE_INFO_REPORT_BACK) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_THREE));
+						}
+					};
+					
+				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_SUBMIT
+							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_FORCE
+							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_CONVINCE) {
+					return new Response("Report Back", "Report to Claire that you've defeated the Slime Queen.", CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SIDE_UTIL_COMPLETE));
+						}
+					};
+					
+				} else {
+					return null;
+				}
+				
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_REPORT_BACK = new DialogueNodeOld("Enforcer Checkpoint", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_REPORT_BACK");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Let Claire get back on with her work, and continue on your way.", SEWER_ENTRANCE);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+
+	public static final DialogueNodeOld CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK = new DialogueNodeOld("Enforcer Checkpoint", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped)) {
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE");
+			} else {
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK");
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Let Claire get back on with her work, and continue on your way.", SEWER_ENTRANCE);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SUBMISSION_SOCIETY"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==2) {
+				return new Response("Information", "You are already asking Claire about Submission society!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_LYSSIETH = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_LYSSIETH"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==3) {
+				return new Response("Lyssieth", "You are already asking Claire about Lyssieth!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_TELEPORTATION = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_TELEPORTATION"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==4) {
+				return new Response("Teleportation", "You are already asking Claire about Teleportation!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
 		}
 	};
 

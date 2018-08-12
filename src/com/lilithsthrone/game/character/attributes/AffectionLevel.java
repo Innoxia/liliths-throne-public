@@ -150,7 +150,7 @@ public enum AffectionLevel {
 	}
 
 	/**
-	 * To fit into a sentence such as:</br>
+	 * To fit into a sentence such as:<br/>
 	 * "Due to the fact that Kate "+getDescriptor()+" you..."
 	 * @return
 	 */

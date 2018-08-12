@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -46,8 +47,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SupplierPartner extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SupplierPartner() {
 		this(false);
 	}
@@ -55,6 +54,7 @@ public class SupplierPartner extends NPC {
 	public SupplierPartner(boolean isImported) {
 		super(new NameTriplet("Karl", "Karl", "Karla"),
 				".",
+				28, Month.AUGUST, 8,
 				5,
 				Gender.M_P_MALE,
 				RacialBody.DOG_MORPH,
@@ -118,12 +118,9 @@ public class SupplierPartner extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			setPendingClothingDressing(true);
-		}
+	public void endSex() {
+		setPendingClothingDressing(true);
 	}
-	
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -140,10 +137,6 @@ public class SupplierPartner extends NPC {
 	}
 
 	// Combat:
-	@Override
-	public String getCombatDescription() { //TODO
-		return ".";
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
@@ -151,7 +144,7 @@ public class SupplierPartner extends NPC {
 			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
 						SupplierDepot.applySuppliersBeatenEffects();
 					}
 				}

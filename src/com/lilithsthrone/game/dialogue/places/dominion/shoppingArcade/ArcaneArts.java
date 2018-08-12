@@ -20,7 +20,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMVickyOverDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -137,24 +136,24 @@ public class ArcaneArts {
 				} else {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 						return new ResponseSex("Offer body", "Let Vicky use your body.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMVickyOverDesk(
 										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-								VICKY_POST_SEX,
-									"<p>"
+								null,
+									VICKY_POST_SEX, "<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
 									+ "</p>"
 									+ "<p>"
 										+ "[vicky.speech(Sounds good to me, bitch,)]"
-										+ " she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door,"
+										+ " she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door."
 										+ " [vicky.speech(I love fucking submissive customers like you.)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-										+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+										+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 										+ " [vicky.speech(I hope you like it rough!)]"
 									+ "</p>");
 					} else {
@@ -167,8 +166,8 @@ public class ArcaneArts {
 					
 					return new ResponseSex("Nervously leave", "Vicky is far too intimidating for you... Turn around and try to escape from her gaze. [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
-									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
-									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+									Fetish.FETISH_SUBMISSIVE,
+									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
@@ -181,8 +180,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE,
-							"<p>"
+							null,
+							VICKY_POST_SEX_RAPE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -193,7 +192,7 @@ public class ArcaneArts {
 							+ "</p>"
 							+ "<p>"
 								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you."
 								+ " [vicky.speech(You're just begging to be fucked!)]"
 							+ "</p>"
 							+ "<p>"
@@ -201,7 +200,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -260,7 +259,7 @@ public class ArcaneArts {
 					+ "<p>"
 						+ "Vicky presses herself close to you, and you feel her hot breath falling on your neck as she starts letting out a low growl once again."
 						+ " As she traps you against the wall, you suddenly feel something hard, and alarmingly-large, pressing against your leg."
-						+ " Looking down, you see a huge erection tenting out the fabric of the wolf-girl's miniskirt, which she then starts to dominantly rub up against you,"
+						+ " Looking down, you see a huge erection tenting out the fabric of the wolf-girl's miniskirt, which she then starts to dominantly rub up against you."
 						+ " [vicky.speech(So what's it going to be? You got the flames? Or am I going to have to fuck the payment out of you?)]"
 					+ "</p>";
 		}
@@ -284,24 +283,24 @@ public class ArcaneArts {
 			} else if (index == 2) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					return new ResponseSex("Offer body", "Let Vicky use your body as payment for the fee.",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 							true, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX_PACKAGE,
-								"<p>"
+							null,
+								VICKY_POST_SEX_PACKAGE, "<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
 								+ "</p>"
 								+ "<p>"
 									+ "[vicky.speech(Suits me, bitch,)]"
-									+ " she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door,"
+									+ " she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door."
 									+ " [vicky.speech(I love fucking submissive customers like you.)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-									+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+									+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 									+ " [vicky.speech(I hope you like it rough!)]"
 								+ "</p>");
 				} else {
@@ -313,8 +312,8 @@ public class ArcaneArts {
 					
 					return new ResponseSex("Weakly refuse", "You can't bring yourself to say no to such an intimidating person... Try to wriggle free and leave... [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
-									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
-									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+									Fetish.FETISH_SUBMISSIVE,
+									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
@@ -327,8 +326,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE_PACKAGE,
-							"<p>"
+							null,
+							VICKY_POST_SEX_RAPE_PACKAGE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -338,7 +337,7 @@ public class ArcaneArts {
 							+ "</p>"
 							+ "<p>"
 								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you."
 								+ " [vicky.speech(You're just begging to be fucked!)]"
 							+ "</p>"
 							+ "<p>"
@@ -346,7 +345,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -386,7 +385,7 @@ public class ArcaneArts {
 						+ " you say, side-stepping the wolf-girl before producing one-hundred flames."
 					+ "</p>"
 					+ "<p>"
-						+ "Vicky looks noticeably disappointed as you hand over the money, and, after walking back around to the correct side of the counter, she pushes the package towards you,"
+						+ "Vicky looks noticeably disappointed as you hand over the money, and, after walking back around to the correct side of the counter, she pushes the package towards you."
 						+ " [vicky.speech(Go on then, it's all yours."
 							+ " If you wanted to take a look at my goods, or if you ever get curious about what you just missed out on, then let me know.)]"
 					+ "</p>"
@@ -486,7 +485,7 @@ public class ArcaneArts {
 				+ "</p>"
 				+ "<p>"
 					+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
-					+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+					+ " You quickly finish gathering your things, and prepare to make your next move."
 					+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
 				+ "</p>";
 		}

@@ -37,7 +37,7 @@ public class SMPetOral extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPartnerWantingToStopSex() {
+	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>0;
 	}
 }

@@ -42,11 +42,11 @@
 		 She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
 	</p>
 	<p>
-		Before you have a chance to take any action, however, she looks up and catches sight of you,
-		 [kelly.speech(Ah! Sorry [pc.miss]! I didn't know we were expecting guests! My name is Kelly, at your service!)]
+		Before you have a chance to take any action, however, she looks up and catches sight of you.
+		 [kelly.speech(Ah! Sorry, [pc.miss]! I didn't know we were expecting guests! My name is Kelly, at your service!)]
 	</p>
 	<p>
-		The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down,
+		The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down.
 		 [kelly.speech(Wait a moment... I would have been told if guests were expected...)]
 	</p>
 	<p>
@@ -65,7 +65,7 @@
 		 You instantly recognise her as Kelly, and, once again, she doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
 	</p>
 	<p>
-		Before you have a chance to take any action, she looks up and catches sight of you,
+		Before you have a chance to take any action, she looks up and catches sight of you.
 		 [kelly.speech(It's you again! How do you keep on getting in here?! You'll pay for this, you thief! Thief! Thief!)]
 	</p>
 	<p>
@@ -115,10 +115,10 @@
 	<p>
 		All the other doors that you've passed so far have been pretty nondescript and uninteresting, but as you come to the end of this particular corridor, you see a curious purple flash shine out from beneath the one in front of you.
 		 Moments later, you hear the voices of two people within, with the first being particularly loud and booming,
-		 [zaranix.speech(Damn it Arthur! How many times is this now?! If I wanted a standard transformative potion, I'd go and buy one!)]
+		 [zaranix.speech(Damn it, Arthur! How many times is this now?! If I wanted a standard transformative potion, I'd go and buy one!)]
 	</p>
 	<p>
-		[arthur.speech(Bloody hell Zaranix, I mean, how many times do I have to repeat myself? It's just not possible to make a demonic transformation!)]
+		[arthur.speech(Bloody hell, Zaranix, I mean, how many times do I have to repeat myself? It's just not possible to make a demonic transformation!)]
 	</p>
 	<p>
 		You feel your heart skip a beat as you hear that reply.
@@ -136,7 +136,7 @@
 		[arthur.speech(Bloody hell. I'm afraid that she's far more than I can handle. No, you keep that delightful little succubus to yourself, and I'll carry on trying to make the impossible, possible.)]
 	</p>
 	<p>
-		[zaranix.speech(Good.)]
+		[zaranix.speech(Good,)]
 		 Zaranix grunts, signalling the end of their conversation.
 	</p>
 	<p>
@@ -202,7 +202,7 @@
 		 [zaranix.speech(Hah! I think not! And how did you even get up here?! I would have been informed if there was a guest, which means you've forced your way in here!)]
 	</p>
 	<p>
-		The incubus's tone grows angrier and angrier, and you see him clench his fist as he comes to a halt in front of you,
+		The incubus's tone grows angrier and angrier, and you see him clench his fist as he comes to a halt in front of you.
 		 [zaranix.speech(I'll show you what I do to trespassers!)]
 	</p>
 	<p>
@@ -220,19 +220,19 @@
 		 [pc.speech(And so if I could buy Arthur from you, both my aunt and I would be extremely grateful. Without him, she's not going to be able to solve this problem of hers.)]
 	</p>
 	<p>
-		[zaranix.speech(Hah!)] Zaranix half-laughs, half-sighs,
+		[zaranix.speech(Hah!)] Zaranix half-laughs, half-sighs.
 		 [zaranix.speech(So <i>you're</i> the [pc.race] who's moved in with Lilaya? Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]
 	</p>
 	<p>
 		[arthur.speech(Bloody hell! Lilaya wants my help does she?)]
-		 Arthur interjects,
+		 Arthur interjects.
 		 [arthur.speech(The last I heard, oh, what was it now... Oh yes! She was going to 'blast me into a million pieces, or banish me into an alternate dimension' the next time she saw me.
 			 I mean, considering that nobody's managed to travel between dimensions before, I couldn't quite take her threat seriously, but she <i>did</i> seem to be pretty angry.
 			 Maybe I'd be better off staying he-)]
 	</p>
 	<p>
-		[zaranix.speech(Be quiet Arthur!)]
-		 Zaranix shouts,
+		[zaranix.speech(Be quiet, Arthur!)]
+		 Zaranix shouts.
 		 [zaranix.speech(You really do drone on!)]
 	</p>
 	<p>
@@ -242,14 +242,14 @@
 			 And it's not just any demon! Hah! Lyssieth's precious little half-demon herself!)]
 	</p>
 	<p>
-		With a defeated sigh, Zaranix steps over to a nearby chair, before sinking down into it and looking over to Arthur,
+		With a defeated sigh, Zaranix steps over to a nearby chair, before sinking down into it and looking over to Arthur.
 		 [zaranix.speech(You won't need to trouble yourself with these experiments anymore, I suppose.
 			 If truth be told, you'd already convinced me making a demonic transformative wasn't going to happen after your first day here.
 			 It's a moot point now anyway. Lilaya wants you back, so go on, you're free.)]
 	</p>
 	<p>
-		[arthur.speech(Well, bloody hell! Maybe I'll see you around Zaranix. It wasn't too bad living here, all things considered!)]
-		 Arthur says, before turning to you,
+		[arthur.speech(Well, bloody hell! Maybe I'll see you around, Zaranix. It wasn't too bad living here, all things considered!)]
+		 Arthur says, before turning to you.
 		 [arthur.speech(I'll go on ahead, so I suppose I'll see you over at Lilaya's place!)]
 	</p>
 	<p>
@@ -274,24 +274,24 @@
 		 [pc.speech(I'd like to show you my thanks...)]
 	</p>
 	<p>
-		Looking up at you with a grin, Zaranix spreads his legs a little wider,
+		Looking up at you with a grin, Zaranix spreads his legs a little wider.
 		 [zaranix.speech(Well, if I can get at least a little compensation for losing my slave, I'll gladly take it!)]
 	</p>
 	<p>
 		Letting out a happy little sigh, you drop to your knees in front of the huge incubus, looking up into his eyes as you moan,
-		 [pc.speech(Thank you Zaranix!)]
+		 [pc.speech(Thank you, Zaranix!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ZARANIX_ROOM_EXPLANATION_SEXY_THANKS_POST_SEX"><![CDATA[
 	<p>
-		You shuffle back from Zaranix's lap, grinning up at him,
+		You shuffle back from Zaranix's lap, grinning up at him.
 		 [pc.speech(That was fun!)]
 	</p>
 	<p>
 		[zaranix.speech(Well, I can't say that I'm too happy at having lost Arthur, but that performance certainly makes me feel a little better about it,)]
-		 Zaranix says, looking down at you,
+		 Zaranix says, looking down at you.
 		 [zaranix.speech(perhaps we'll meet again some time. You'd better be on your way.)]
 	</p>
 	<p>

@@ -9,7 +9,7 @@
 	</p>
 	<p>
 		Much like all the other buildings in this area of the city, Zaranix's home takes the form of a grand, regency-style townhouse.
-		 Unlike the majority of the other buildings, however, his home has what appears to be a modestly-sized private garden adjoining the property to the right-hand side.
+		 Unlike the majority of the other buildings, however, his home has what appears to be a modestly sized private garden adjoining the property to the right-hand side.
 		 A cast-iron fence, standing at around eight-feet tall, separates the garden from the street in which you're standing, but despite its height, you're sure that you could climb over it if you wanted to try and sneak inside.
 	</p>
 	<p>
@@ -23,7 +23,7 @@
 	<p>
 		Once more you find yourself standing outside Zaranix's home.
 		 Much like all the other buildings in this area of the city, the incubi's residence takes the form of a grand, regency-style townhouse.
-		 Unlike the majority of the other buildings, however, his home has what appears to be a modestly-sized private garden adjoining the property to the right-hand side.
+		 Unlike the majority of the other buildings, however, his home has what appears to be a modestly sized private garden adjoining the property to the right-hand side.
 		 A cast-iron fence, standing at around eight-feet tall, separates the garden from the street in which you're standing, but despite its height, you're sure that you could climb over it if you wanted to try and sneak inside.
 	</p>
 	]]>
@@ -52,13 +52,13 @@
 	</p>
 	<p>
 		After just a few moments, you hear the sound of a lock being slid back, before the heavy oak door swings inwards to reveal one of the most striking succubi you've ever seen.
-		 Her gorgeous face and perfectly-proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to.
+		 Her gorgeous face and perfectly proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to.
 		 Styled into loose waves, and giving off a luminescent, yellowy-orange glow, it's her extraordinary amber hair, which reaches down to just above her ass, that you find yourself gazing at.
 		 As her eyes fixate themselves onto yours, you see that her irises are the exact same glowing-amber shade as her hair, giving this demon a truly remarkable appearance.
 	</p>
 	<p>
 		Despite the fact that her maid's dress quite clearly identifies her as a servant in this household, her attitude is not at all one of subservience, and as she crosses her arms and leans against the door frame,
-			 she makes a disapproving clicking noise with her tongue,
+			 she makes a disapproving clicking noise with her tongue.
 		 [amber.speech(And who are <i>you</i> supposed to be? We're not expecting any visitors, and you're wasting my valuable time, so this had better be good!)]
 	</p>
 	<p>
@@ -80,7 +80,7 @@
 	</p>
 	<p>
 		[amber.speech(Eugh! It's <i>you</i> again?! Don't you know when to take a hint? Fuck off already!)]
-		 She shouts, before stepping back and grabbing the edge of the door, ready to slam it in your face.
+		 she shouts, before stepping back and grabbing the edge of the door, ready to slam it in your face.
 	</p>
 	]]>
 	</htmlContent>
@@ -153,20 +153,20 @@
 	<p>
 		Not seeing any alternative, you hesitantly drop down onto all fours as the maid commands.
 		 Sensing your reluctance, the succubus growls down to you,
-		 [amber.speech(Come on bitch, I haven't got all day!)]
+		 [amber.speech(Come on, bitch, I haven't got all day!)]
 	</p>
 	<p>
 		[pc.speech(Ok...)] you mumble, dropping your face down towards her feet.
 	</p>
 	<p>
 		[amber.speech('Ok'?!)]
-		 the succubus angrily shouts,
-		 [amber.speech(Don't you <i>dare</i> 'ok' me again! 'Yes Mistress Amber!' is the correct response, now let's try it again shall we?!
-		 'Come on bitch, I haven't got all day!')]
+		 the succubus angrily shouts.
+		 [amber.speech(Don't you <i>dare</i> 'ok' me again! 'Yes, Mistress Amber!' is the correct response, now let's try it again shall we?!
+		 'Come on, bitch, I haven't got all day!')]
 	</p>
 	<p>
 		You let out a humiliated whimper as you do as you're told, and answer Amber in the proper manner,
-		 [pc.speech(Yes Mistress Amber!)]
+		 [pc.speech(Yes, Mistress Amber!)]
 	</p>
 	<p>
 		An evil, mocking laugh drifts down to you, and, still in full sight of the street behind you, you drop your mouth down to Amber's feet.
@@ -174,7 +174,7 @@
 		 Deciding to choose her right foot, you bring your [pc.lips+] down to the black leather, breathing in the faint, warm scent of sweat as your nose draws near to her white cotton stockings.
 	</p>
 	<p>
-		[amber.speech(Lick it bitch,)] Amber snarls, eager to see you humiliate yourself,
+		[amber.speech(Lick it, bitch,)] Amber snarls, eager to see you humiliate yourself,
 		 [amber.speech(or would you rather not see your little friend after all?)]
 	</p>
 	<p>
@@ -183,12 +183,12 @@
 			 wiping your tongue on your shoulder as you try to remove the horrible taste from your mouth.
 	</p>
 	<p>
-		[amber.speech(Hahaha! How pathetic!)] Amber laughs, lifting her foot and using your arm to wipe the saliva clean from her shoe,
-		 [amber.speech(Stay there bitch, I'll be back shortly. Oh, and don't even <i>think</i> about standing up, or else the deal's off!)]
+		[amber.speech(Hahaha! How pathetic!)] Amber laughs, lifting her foot and using your arm to wipe the saliva clean from her shoe.
+		 [amber.speech(Stay there, bitch, I'll be back shortly. Oh, and don't even <i>think</i> about standing up, or else the deal's off!)]
 	</p>
 	<p>
 		With that, Amber steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 			 Looking to the floor as you do your best to ignore their words, you remind yourself that you're doing all of this in order to finally get hold of Arthur.
@@ -199,7 +199,7 @@
 		 Thankfully, you're not subjected to this humiliation for long, as after just a few moments the door swings open again; the sight of the fiery-haired succubus quickly dispelling your tormentors.
 	</p>
 	<p>
-		[amber.speech(Heel.)]
+		[amber.speech(Heel,)]
 		 Amber commands, snapping her fingers and pointing to her side.
 	</p>
 	<p>
@@ -218,31 +218,31 @@
 		[pc.speech(Yes, right away!)] you respond, moving your face down towards her feet.
 	</p>
 	<p>
-		[amber.speech(That's 'Right away Mistress Amber' to you!)]
-		 the succubus angrily shouts,
+		[amber.speech(That's 'Right away, Mistress Amber' to you!)]
+		 the succubus angrily shouts.
 		 [amber.speech(Don't you <i>dare</i> talk to me as though you're my equal! Let's try it again shall we?!)]
 	</p>
 	<p>
 		You let out a humiliated whimper as you do as you're told, and answer Amber in the proper manner,
-		 [pc.speech(Right away Mistress Amber!)]
+		 [pc.speech(Right away, Mistress Amber!)]
 	</p>
 	<p>
 		An evil, mocking laugh drifts down to you, and, still in full sight of the street behind you, you drop your mouth down to Amber's feet.
 		 The black high heels that she's wearing are in keeping with the rest of her maid's uniform, with a little lacy white bow adorning each one.
-		 Deciding to start with her right foot, you bring your [pc.lips+] down to the black leather, letting out a little moan in anticipation as you breathe in the warm, faintly-sweaty scent of her white cotton stockings.
+		 Deciding to start with her right foot, you bring your [pc.lips+] down to the black leather, letting out a little moan in anticipation as you breathe in the warm, faintly sweaty scent of her white cotton stockings.
 	</p>
 	<p>
-		[amber.speech(You're enjoying this, aren't you bitch?)] Amber mocks, clearly amused by the fact that you're so eager to humiliate yourself.
+		[amber.speech(You're enjoying this, aren't you, bitch?)] Amber mocks, clearly amused by the fact that you're so eager to humiliate yourself.
 	</p>
 	<p>
-		[pc.speech(Yes Mistress Amber!)]
+		[pc.speech(Yes, Mistress Amber!)]
 		 you enthusiastically reply, before pressing your [pc.lips] down against the tip of her shoe.
 		 Pushing forwards, you eagerly drag your [pc.tongue+] up and over her feminine footwear, relishing the bitter, tangy taste of leather, dirt, and shoe polish that immediately strikes your taste buds.
 		 Pulling back, you start once more from the tip of Amber's shoe, licking up and down as you seek to clean every inch of the delicious black leather.
 	</p>
 	<p>
-		[amber.speech(Hahaha! How pathetic!)] Amber laughs, tilting her foot to one side to present the un-licked areas of her shoe to your eager [pc.tongue],
-		 [amber.speech(That's right bitch, keep on going!!)]
+		[amber.speech(Hahaha! How pathetic!)] Amber laughs, tilting her foot to one side to present the un-licked areas of her shoe to your eager [pc.tongue].
+		 [amber.speech(That's right, bitch, keep on going!!)]
 	</p>
 	<p>
 		You continue licking and kissing Amber's shoe, the sadistic succubus encouraging you to keep on going until it's spotlessly clean.
@@ -250,7 +250,7 @@
 	</p>
 	<p>
 		After a short while, you've polished both of Amber's heels to a shiny finish, and she lets out a spiteful, derisive laugh,
-		 [amber.speech(Hahaha! I can't believe how pathetic you are! Stay there bitch, I'll be back shortly. Oh, and don't even <i>think</i> about standing up, or else the deal's off!)]
+		 [amber.speech(Hahaha! I can't believe how pathetic you are! Stay there, bitch, I'll be back shortly. Oh, and don't even <i>think</i> about standing up, or else the deal's off!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -258,7 +258,7 @@
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_WAITING"><![CDATA[
 	<p>
 		You remain still as Amber steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 		#ELSE
@@ -267,7 +267,7 @@
 		 You're not subjected to their humiliating words for long, however, as after just a few moments the door swings open again; the sight of the fiery-haired succubus quickly dispelling your tormentors.
 	</p>
 	<p>
-		[amber.speech(Heel.)]
+		[amber.speech(Heel,)]
 		 Amber commands, snapping her fingers and pointing to her side.
 	</p>
 	<p>
@@ -278,11 +278,11 @@
 	
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_EAGER_LICK_SOLES"><![CDATA[
 	<p>
-		You can't help but feel like you haven't done a good enough job, and before Amber can step back, you drop your head to the ground and try to lick at the sides of her shoe's soles,
-		 [pc.speech(Please Mistress Amber! I haven't finished!)]
+		You can't help but feel like you haven't done a good enough job, and before Amber can step back, you drop your head to the ground and try to lick at the sides of her shoe's soles.
+		 [pc.speech(Please, Mistress Amber! I haven't finished!)]
 	</p>
 	<p>
-		The sadistic maid lets out another mocking laugh, and, lifting her foot up, pushes the filthy sole of her heel into your face,
+		The sadistic maid lets out another mocking laugh, and, lifting her foot up, pushes the filthy sole of her heel into your face.
 		 [amber.speech(Stupid bitch! You'd better make this quick!)]
 	</p>
 	<p>
@@ -296,7 +296,7 @@
 		 [amber.speech(Pathetic bitch! Come on, you can do better than that!)]
 	</p>
 	<p>
-		[pc.speech(Yes Mistress Amber!)]
+		[pc.speech(Yes, Mistress Amber!)]
 		 you reply, letting out whimpering little moans as you obediently lick all the dirt from the soles of her shoes.
 	</p>
 	<p>
@@ -306,11 +306,11 @@
 	<p>
 		Finally, you're done, and as Amber steps back, you feel thoroughly pleased with your work.
 		 Both of her shoes are now spotlessly clean, but despite the amount of effort that you put in, the tone of Amber's voice remains as cold as ice as she speaks down to you,
-		 [amber.speech(Stay there bitch!)]
+		 [amber.speech(Stay there, bitch!)]
 	</p>
 	<p>
 		With that, she steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 		#ELSE
@@ -319,7 +319,7 @@
 		 You're not subjected to their humiliating words for long, however, as after just a few moments the door swings open again; the sight of the fiery-haired succubus quickly dispelling your tormentors.
 	</p>
 	<p>
-		[amber.speech(Heel.)]
+		[amber.speech(Heel,)]
 		 Amber commands, snapping her fingers and pointing to her side.
 	</p>
 	<p>
@@ -344,14 +344,14 @@
 		 She covers her mouth with one hand to stifle her laughter, but too late to avoid attracting the ire of Amber.
 	</p>
 	<p>
-		[amber.speech(Be silent Katherine!)]
+		[amber.speech(Be silent, Katherine!)]
 		 Amber snaps, reprimanding the subordinate maid for her outburst,
 		 [amber.speech(If you have time to fritter away by giggling at this pathetic bitch, then you surely have time to go and help Kelly clean the kitchen.
 			 Once I've finished with bitch here, I'll be coming to inspect you and your sister's work, and if I find so much as a single speck of dust in there, you'll both be spending a night in the kennels.
 			 <i>Understood?</i>)]
 	</p>
 	<p>
-		[katherine.speech(Yes Mistress Amber! Sorry Mistress Amber!)] the maid exclaims, before hurrying off in what you assume to be the direction of the kitchen.
+		[katherine.speech(Yes, Mistress Amber! Sorry, Mistress Amber!)] the maid exclaims, before hurrying off in what you assume to be the direction of the kitchen.
 	</p>
 	<p>
 		After that brief encounter, you follow Amber a little further down the corridor, before turning off and being led through a heavy oaken door into a grand drawing room.
@@ -359,17 +359,17 @@
 		 The high ceiling is home to yet another extravagant chandelier, and you suddenly feel very small as you crawl alongside the succubus maid.
 	</p>
 	<p>
-		[amber.speech(Sit.)] Amber commands, snapping her fingers at the floor beside the central coffee table.
+		[amber.speech(Sit,)] Amber commands, snapping her fingers at the floor beside the central coffee table.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MEETING_ZARANIX_SIT_FLOOR"><![CDATA[
 	<p>
-		[pc.speech(Yes Mistress Amber!)] you say, quickly crawling over to the spot that the succubus is pointing at, before sitting down and waiting for her next command.
+		[pc.speech(Yes, Mistress Amber!)] you say, quickly crawling over to the spot that the succubus is pointing at, before sitting down and waiting for her next command.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)] Amber says, walking over to the door through which you entered,
+		[amber.speech(Good bitch,)] Amber says, walking over to the door through which you entered.
 		 [amber.speech(Now stay.)]
 	</p>
 	<p>
@@ -385,11 +385,11 @@
 		 He strides over towards the sofa opposite to where you're sitting, and, clearly having missed you at first, he does a double-take as he catches sight of you.
 	</p>
 	<p>
-		[zaranix.speech(Hah!)] he cries, not at all in a mean-spirited manner, but in one more of mild surprise,
+		[zaranix.speech(Hah!)] he cries, not at all in a mean-spirited manner, but in one more of mild surprise.
 		 [zaranix.speech(I'll wager this is Amber's doing! Well, if you're comfortable down there, no need to move!)]
 	</p>
 	<p>
-		The huge incubus bounds over to the sofa and collapses down onto it, before throwing you such a disarmingly-friendly smile that you suddenly find yourself a little flustered.
+		The huge incubus bounds over to the sofa and collapses down onto it, before throwing you such a disarmingly friendly smile that you suddenly find yourself a little flustered.
 		 You were half-expecting Amber's master to be just as harsh as she is, but, much to your surprise, Zaranix seems to be the complete opposite, and cheerily booms,
 		 [zaranix.speech(Anyone who manages to get past my little inferno over there is worth every moment of my time! Now, what can I do for you, [pc.miss]...?)]
 	</p>
@@ -401,7 +401,7 @@
 		[pc.speech(I'd rather sit down if I'm going to meet Zaranix,)] you say, quickly standing up and disobediently taking a seat on one of the sofas.
 	</p>
 	<p>
-		[amber.speech(Why you <i>insolent bitch</i>,)] Amber shouts, her luminous eyes positively burning with rage as she furiously storms towards you,
+		[amber.speech(Why, you <i>insolent bitch</i>,)] Amber shouts, her luminous eyes positively burning with rage as she furiously storms towards you,
 		 [amber.speech(how <i>dare</i> yo-)]
 	</p>
 	<p>
@@ -414,11 +414,11 @@
 		 He strides over towards the sofa opposite to the one upon which you're sitting, and as he approaches, he looks over in your direction.
 	</p>
 	<p>
-		[zaranix.speech(Greetings!)] he cries in a booming voice,
+		[zaranix.speech(Greetings!)] he cries in a booming voice.
 		 [zaranix.speech(I hope Amber hasn't been too much trouble for you!)]
 	</p>
 	<p>
-		The huge incubus bounds over towards you, throwing you such a disarmingly-friendly smile that you suddenly find yourself a little flustered.
+		The huge incubus bounds over towards you, throwing you such a disarmingly friendly smile that you suddenly find yourself a little flustered.
 		 You were half-expecting Amber's master to be just as harsh as she is, but, much to your surprise, Zaranix seems to be the complete opposite, and cheerily booms,
 		 [zaranix.speech(Anyone who manages to get past my little inferno over there is worth every moment of my time! Now, what can Zaranix do for you, [pc.miss]...?)]
 	</p>
@@ -433,7 +433,7 @@
 		[pc.speech([pc.Name],)] you reply, seeing no harm in giving Zaranix your first name, even though you're not planning on telling him everything.
 	</p>
 	<p>
-		[zaranix.speech(Pleased to make your acquaintance [pc.name],)] the incubus says, leaning back on the sofa.
+		[zaranix.speech(Pleased to make your acquaintance, [pc.name],)] the incubus says, leaning back on the sofa.
 	</p>
 	<p>
 		[pc.speech(The reason I'm here is to find Arthur, who I believe is a slave of yours.
@@ -442,7 +442,7 @@
 		 [pc.speech(so if I could buy him from you, both my aunt and I would be extremely grateful.)]
 	</p>
 	<p>
-		Zaranix smiles, but you can tell from the look in his eyes what his words will be before he even says them,
+		Zaranix smiles, but you can tell from the look in his eyes what his words will be before he even says them.
 		 [zaranix.speech(I'm afraid Arthur isn't for sale. He's crucial to my own research you see. In fact, that's the whole reason I had him ensl- *Ahem* I mean, that's the whole reason I bought him in the first place.
 			 After all, his expertise in the field of arcane research is unrivalled, and I'm sure that you'll be the first of many that I have to turn down like this.
 			 So, I'm afraid my answer is no.
@@ -458,11 +458,11 @@
 	</p>
 	<p>
 		[pc.speech(Erm, that <i>is</i> my aunt,)]
-		 you explain,
-		 [pc.speech(she used to work with Arthur, and now she needs his help again. I've been trying to track him down for her for quite a while now...)]
+		 you explain.
+		 [pc.speech(She used to work with Arthur, and now she needs his help again. I've been trying to track him down for her for quite a while now...)]
 	</p>
 	<p>
-		[zaranix.speech(Hah!)] zaranix laughs again, but you notice that his cry sounds rather more deflated than before,
+		[zaranix.speech(Hah!)] Zaranix laughs again, but you notice that his cry sounds rather more deflated than before.
 		 [zaranix.speech(So your aunt's Lilaya herself, huh? I suppose <i>you're</i> the [pc.race] who's living with her? Yes, I've heard all about you. I may not get out much, but I still keep my ear close to the grapevine.)]
 	</p>
 	<p>
@@ -470,10 +470,10 @@
 		 [zaranix.speech(Bring Arthur down here would you, Amber?)]
 	</p>
 	<p>
-		The succubus quickly makes her exit, leaving you alone with the imposing incubus as he starts pacing back and forth,
-		 [zaranix.speech(Today's your lucky day I suppose,)]
-		 he says,
-		 [zaranix.speech(you'll be getting what you're after. I may have wealth and a modicum of power in this city, but having never been recognised by my Lilin mother, I'd be a fool to stand against the wishes of a demon who has.
+		The succubus quickly makes her exit, leaving you alone with the imposing incubus as he starts pacing back and forth.
+		 [zaranix.speech(Today's your lucky day, I suppose,)]
+		 he says.
+		 [zaranix.speech(You'll be getting what you're after. I may have wealth and a modicum of power in this city, but having never been recognised by my Lilin mother, I'd be a fool to stand against the wishes of a demon who has.
 			 And it's not just any demon! Hah! Lyssieth's precious little half-demon herself!)]
 	</p>
 	<p>
@@ -501,7 +501,7 @@
 		 [pc.speech(And so if I could buy Arthur from you, both my aunt and I would be extremely grateful. Without him, we're not going to be able to find out a way for me to get back to my world.)]
 	</p>
 	<p>
-		[zaranix.speech(Hah!)] zaranix laughs again, but you notice that his cry sounds rather more deflated than the first time you heard it,
+		[zaranix.speech(Hah!)] Zaranix laughs again, but you notice that his cry sounds rather more deflated than the first time you heard it.
 		 [zaranix.speech(So <i>you're</i> the [pc.race] who's moved in with Lilaya? Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.
 			 Your story is fascinating, but whether I chose to believe it or not makes no difference.)]
 	</p>
@@ -511,9 +511,9 @@
 	</p>
 	<p>
 		The succubus quickly makes her exit, leaving you alone with the imposing incubus as he starts pacing back and forth,
-		 [zaranix.speech(Today's your lucky day I suppose,)]
-		 he says,
-		 [zaranix.speech(you'll be getting what you're after. I may have wealth and a modicum of power in this city, but having never been recognised by my Lilin mother, I'd be a fool to stand against the wishes of a demon who has.
+		 [zaranix.speech(Today's your lucky day, I suppose,)]
+		 he says.
+		 [zaranix.speech(You'll be getting what you're after. I may have wealth and a modicum of power in this city, but having never been recognised by my Lilin mother, I'd be a fool to stand against the wishes of a demon who has.
 			 And it's not just any demon! Hah! Lyssieth's precious little half-demon herself!)]
 	</p>
 	<p>
@@ -525,7 +525,7 @@
 	
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR"><![CDATA[
 	<p>
-		[arthur.speech(Alright, alright! Bloody hell Amber, would it kill for you to learn some manners?)]
+		[arthur.speech(Alright, alright! Bloody hell, Amber, would it kill for you to learn some manners?)]
 		 the distinctive voice of Arthur, very familiar to you after having met him numerous times at Lily's museum, precedes his entrance into the room.
 	</p>
 	<p>
@@ -541,19 +541,19 @@
 	</p>
 	<p>
 		[zaranix.speech(You won't need to trouble yourself with proving that to me anymore,)]
-		 Zaranix replies,
-		 [zaranix.speech(if truth be told, you'd already convinced me that it wasn't going to happen after your first day here.
+		 Zaranix replies.
+		 [zaranix.speech(If truth be told, you'd already convinced me that it wasn't going to happen after your first day here.
 		 It's a moot point now anyway. Apparently, Lilaya wants you back. So go on, you're free. Oh, and you have [pc.name] here to thank for tracking you down.)]
 	</p>
 	<p>
 		[arthur.speech(Bloody hell! And here I was, all ready to resign myself to a life of misery and servitude. But if it's <i>Lilaya</i> who's after me, then maybe the life of a slave doesn't sound so bad after all...)]
-		 Arthur looks across at you and smiles,
+		 Arthur looks across at you and smiles.
 		 [arthur.speech(If she doesn't blast me to pieces the moment she sees me, then I'll owe you my thanks for my freedom.
 			 I suppose I'll see you over at her place; I wouldn't want to overstay my welcome here, so I'd best be on my way!
 			 Thank you Zaranix for a delightful stay, and, my dear Amber, do try to allow yourself to smile now and again!)]
 	</p>
 	<p>
-		With that, Arthur turns about and practically skips away through the door, promising the momentarily-flustered Amber that he'll show himself out as he makes his exit.
+		With that, Arthur turns about and practically skips away through the door, promising the momentarily flustered Amber that he'll show himself out as he makes his exit.
 	</p>
 	<p>
 		[amber.speech(That insolent-)] Amber starts, but is quickly cut off by her master.
@@ -562,7 +562,7 @@
 		[zaranix.speech(Let him go, Amber, it's not worth getting caught up in the affairs of Lyssieth's favourite child.)]
 	</p>
 	<p>
-		[amber.speech(Yes master,)] Amber replies, before turning her attention towards you,
+		[amber.speech(Yes, master,)] Amber replies, before turning her attention towards you,
 		 [amber.speech(but <i>this one</i> should at least show [pc.her] gratitude.)]
 	</p>
 	<p>
@@ -574,18 +574,18 @@
 	
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_REFUSE_SEX"><![CDATA[
 	<p>
-		You're not really too keen on performing any sexual acts with Zaranix or Amber, and so you quickly stand up, before stepping over towards the door,
+		You're not really too keen on performing any sexual acts with Zaranix or Amber, and so you quickly stand up, before stepping over towards the door.
 		 [pc.speech(Thank you for being so understanding, but I really do need to get going now...)]
 	</p>
 	<p>
 		[zaranix.speech(Hrmph... Very well. Amber, please show [pc.name] out,)]
-		 Zaranix responds,
-		 [zaranix.speech(perhaps we'll meet again some time.)]
+		 Zaranix responds.
+		 [zaranix.speech(Perhaps we'll meet again some time.)]
 	</p>
 	<p>
 		Amber opens the door and steps out of the room, beckoning for you to follow her.
-		 As soon as you step back outside into the corridor, she closes the door behind you, before snapping her fingers and pointing to the floor,
-		 [amber.speech(You'll leave the same way you entered bitch. Now heel.)]
+		 As soon as you step back outside into the corridor, she closes the door behind you, before snapping her fingers and pointing to the floor.
+		 [amber.speech(You'll leave the same way you entered, bitch. Now heel.)]
 	</p>
 	<p>
 		Eager to get this business finished without causing a scene, you do as the fiery maid commands, and obediently drop down onto all fours next to her.
@@ -613,7 +613,7 @@
 		 [zaranix.speech(Amber, why don't you show your new bitch how to thank me in the proper manner!)]
 	</p>
 	<p>
-		[amber.speech(Yes master,)]
+		[amber.speech(Yes, master,)]
 		 you hear Amber reply from behind you, and before you can say or do anything else, the firm grip of the succubus' hand closes around the back of your neck.
 		 With a determined push, Amber forces you down onto your hands and knees, and, not loosening her grip on you for a moment, starts to drag you towards Zaranix.
 	</p>
@@ -655,11 +655,11 @@
 		 [zaranix.speech(You have my permission, my little inferno.)]
 	</p>
 	<p>
-		[amber.speech(<i>Present yourself.</i>)]
+		[amber.speech(<i>Present yourself,</i>)]
 		 Amber growls, her voice as cold as ice.
 	</p>
 	<p>
-		[pc.speech(Yes Mistress Amber!)]
+		[pc.speech(Yes, Mistress Amber!)]
 		 you cry, dropping down onto all fours and shuffling about to present your rear end to her.
 		 Glancing back over your shoulder, you see Amber pull off her maid dress, revealing her underwear to consist of a red, cupless bra, a tight black underbust corset, and a red, crotchless thong.
 	</p>
@@ -673,17 +673,17 @@
 	
 	<htmlContent tag="AFTER_SEX_THANKING_ZARANIX"><![CDATA[
 	<p>
-		Amber pulls you back from Zaranix's lap, grinning down at you,
+		Amber pulls you back from Zaranix's lap, grinning down at you.
 		 [amber.speech(Good bitch.)]
 	</p>
 	<p>
 		[zaranix.speech(Well, I can't say that I'm too happy at having lost Arthur, but that performance certainly makes me feel a little better about it. Amber, please show [pc.name] out now,)]
-		 Zaranix says, before looking down at you,
-		 [zaranix.speech(perhaps we'll meet again some time.)]
+		 Zaranix says, before looking down at you.
+		 [zaranix.speech(Perhaps we'll meet again some time.)]
 	</p>
 	<p>
-		With that, Amber snaps her fingers and points to her side once more,
-		 [amber.speech(You'll leave the same way you entered bitch. Now heel.)]
+		With that, Amber snaps her fingers and points to her side once more.
+		 [amber.speech(You'll leave the same way you entered, bitch. Now heel.)]
 	</p>
 	<p>
 		Eager to get this business finished without causing a scene, you do as the fiery maid commands, and obediently crawl over next to her.
@@ -702,17 +702,17 @@
 	
 	<htmlContent tag="AFTER_SEX_THANKING_AMBER"><![CDATA[
 	<p>
-		Amber pulls back from you, letting out a little laugh, as she delivers one last slap to your exposed ass,
+		Amber pulls back from you, letting out a little laugh, as she delivers one last slap to your exposed ass.
 		 [amber.speech(Good bitch, you were a pretty good fuck!)]
 	</p>
 	<p>
-		[zaranix.speech(Good job Amber,)]
-		 Zaranix calls out from his place on the sofa,
+		[zaranix.speech(Good job, Amber,)]
+		 Zaranix calls out from his place on the sofa.
 		 [zaranix.speech(Now why don't you show our guest out, then perhaps I'll take you for a ride.)]
 	</p>
 	<p>
-		[amber.speech(~Mmm~ Yes Master!)]
-		 Amber replies, standing up and snapping her fingers to her side once again,
+		[amber.speech(~Mmm~ Yes, Master!)]
+		 Amber replies, standing up and snapping her fingers to her side once again.
 		 [amber.speech(You'll leave the same way you entered bitch. Now heel.)]
 	</p>
 	<p>
@@ -746,7 +746,7 @@
 		[katherine.speech(Mistress Amber! There was a loud noise at the door!)]
 	</p>
 	<p>
-		[amber.speech(Be quiet Katherine! Get on with your work, I'll deal with this!)]
+		[amber.speech(Be quiet, Katherine! Get on with your work, I'll deal with this!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -766,7 +766,7 @@
 	<htmlContent tag="ENTRANCE_KICK_DOWN_DOOR_MAIDS_NOT_MET"><![CDATA[
 	<p>
 		Before you have the chance to take any action, one of the most striking succubi you've ever seen, who you assume to be 'Mistress Amber', enters the hall.
-		 Her gorgeous face and perfectly-proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to.
+		 Her gorgeous face and perfectly proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to.
 		 Styled into loose waves, and giving off a luminescent, yellowy-orange glow, it's her extraordinary amber hair, which reaches down to just above her ass, that you find yourself gazing at.
 		 As her eyes fixate themselves onto yours, you see that her irises are the exact same glowing-amber shade as her hair, giving this demon a truly remarkable appearance.
 	</p>
@@ -880,7 +880,7 @@
 		 To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
 	</p>
 	<p>
-		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly-coloured flower in the centre of each one looking unmistakably like a vagina.
+		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina.
 		 Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,
 			 and you spend a moment reflecting on the fact that even the plantlife in this world is sexual in nature.
 		 From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
@@ -898,7 +898,7 @@
 		 To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
 	</p>
 	<p>
-		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly-coloured flower in the centre of each one looking unmistakably like a vagina.
+		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina.
 		 Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,
 			 and you spend a moment reflecting on the fact that even the plantlife in this world is sexual in nature.
 		 From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
@@ -943,11 +943,11 @@
 		 She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
 	</p>
 	<p>
-		Before you have a chance to take any action, however, she looks up and catches sight of you,
-		 [katherine.speech(Ah! Sorry [pc.miss]! I didn't know we were expecting guests! My name is Katherine, at your service!)]
+		Before you have a chance to take any action, however, she looks up and catches sight of you.
+		 [katherine.speech(Ah! Sorry, [pc.miss]! I didn't know we were expecting guests! My name is Katherine, at your service!)]
 	</p>
 	<p>
-		The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down,
+		The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down.
 		 [katherine.speech(Wait a moment... I would have been told if guests were expected...)]
 	</p>
 	<p>
@@ -966,7 +966,7 @@
 		 You instantly recognise her as Katherine, and, once again, she doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
 	</p>
 	<p>
-		Before you have a chance to take any action, she looks up and catches sight of you,
+		Before you have a chance to take any action, she looks up and catches sight of you.
 		 [katherine.speech(It's you again! How do you keep on getting in here?! You'll pay for this, you thief! Thief! Thief!)]
 	</p>
 	<p>
@@ -1118,7 +1118,7 @@
 	<p>
 		Deciding that you'd like to say hello to the succubus, you begin to walk towards her.
 		 As you draw near, she turns her head to one side, obviously having heard your approach as she calls out,
-		 [amber.speech(If I have to tell you or your sister to announce your presence with 'Excuse me Mistress Amber' <i>one</i> more time, I swear I'll-)]
+		 [amber.speech(If I have to tell you or your sister to announce your presence with 'Excuse me, Mistress Amber' <i>one</i> more time, I swear I'll-)]
 	</p>
 	<p>
 		Having mistaken you for one of the other household maids, Amber turns around to face you.

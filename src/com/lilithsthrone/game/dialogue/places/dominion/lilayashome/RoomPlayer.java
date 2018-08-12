@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -14,20 +13,26 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.98
+ * @version 0.2.8
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -82,10 +87,10 @@ public class RoomPlayer {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					Set<OrificeType> dirtyOrifices = new HashSet<>();
-					for(Entry<OrificeType, Integer> entry : Main.game.getPlayer().getCummedInAreaMap().entrySet()) {
-						if(entry.getValue()>0) {
-							dirtyOrifices.add(entry.getKey());
+					Set<SexAreaOrifice> dirtyOrifices = new HashSet<>();
+					for(SexAreaOrifice ot: SexAreaOrifice.values()) {
+						if(Main.game.getPlayer().getTotalFluidInArea(ot)>0) {
+							dirtyOrifices.add(ot);
 						}
 					}
 					
@@ -94,65 +99,65 @@ public class RoomPlayer {
 					Main.game.getPlayer().cleanAllDirtySlots();
 					Main.game.getPlayer().cleanAllClothing();
 					
-					for(OrificeType orifice : OrificeType.values()) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
 						if(dirtyOrifices.contains(orifice)) {
 							switch(orifice) {
 								case ANUS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.asshole] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.asshole]."));
 									}
 									break;
 								case ASS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.ass] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.ass]."));
 									}
 									break;
 								case BREAST:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.breasts] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.breasts]."));
 									}
 									break;
 								case MOUTH:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "The shower does nothing to clean the cum out of your stomach!"));
 									}
 									break;
 								case NIPPLE:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.nipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.nipples]."));
 									}
 									break;
 								case THIGHS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.thighs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.thighs]."));
 									}
 									break;
 								case URETHRA_PENIS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your cock's urethra."));
 									}
 									break;
 								case URETHRA_VAGINA:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your vagina's urethra."));
 									}
 									break;
 								case VAGINA:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.pussy] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.pussy]."));
@@ -180,7 +185,7 @@ public class RoomPlayer {
 				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
+						return OccupantManagementDialogue.getSlaveryOverviewDialogue();
 					}
 				};
 			} else {
@@ -209,12 +214,12 @@ public class RoomPlayer {
 	}
 	
 	private static String formatWashingArea(boolean isFullyCleaned, String input) {
-		return "<p style='color:"+(isFullyCleaned?Colour.GENERIC_GOOD.toWebHexString():Colour.CUMMED.toWebHexString())+";'><i>"
+		return "<p style='color:"+(isFullyCleaned?Colour.GENERIC_GOOD.toWebHexString():Colour.CUM.toWebHexString())+";'><i>"
 					+ input
 				+ "</i></p>";
 	}
 
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -238,7 +243,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -276,7 +281,7 @@ public class RoomPlayer {
 			return false;
 		}
 	};
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -315,7 +320,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -345,7 +350,7 @@ public class RoomPlayer {
 		}
 	};
 
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -423,7 +428,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -447,7 +452,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
 					+ "</h4>"
 					+ "<p><i>"
@@ -483,7 +488,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNodeOld("Your room", "", false) {
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNodeOld("Your Room", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -507,7 +512,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_RED.toWebHexString()+";'>December</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
 					+ "</h4>"
 					+ "<i>"
@@ -543,6 +548,167 @@ public class RoomPlayer {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+
+	
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 30;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME", NightlifeDistrict.getClubbersPresent());
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex("Sex (dom)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have dominant sex with [npc.name]."),
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
+						BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_DOM", NightlifeDistrict.getClubbersPresent()));
+				
+			} else if(index==2) {
+				return new ResponseSex("Sex (sub)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
+						BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_SUB", NightlifeDistrict.getClubbersPresent()));
+				
+			} else if(index==4) {
+				return new Response("Say goodbye",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind, sending [npc.herHim] home with the promise of seeing [npc.herHim] at the club another time."
+								+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+						AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else if(index==5) {
+				return new Response("Send home",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind and abruptly send [npc.herHim] home."
+								+ "</br>[style.italicsBad(Removes this character from the game.)]"),
+						AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND_RUDE", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNodeOld("Your Room", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 15;
+		}
+		
+		@Override
+		public String getContent() {
+			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>0) {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX", NightlifeDistrict.getClubbersPresent());
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("See again",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you hope to see [npc.herHim] again.</br>"
+								+ "[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+						BACK_HOME_AFTER_SEX) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.saveClubbers();
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Hope not (gentle)",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]"),
+						BACK_HOME_AFTER_SEX) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Hope not (harsh)",
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]"),
+						BACK_HOME_AFTER_SEX) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE", NightlifeDistrict.getClubbersPresent()));
+						NightlifeDistrict.removeClubbers();
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNodeOld BACK_HOME_AFTER_SEX = new DialogueNodeOld("Your Room", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROOM.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNodeOld AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNodeOld("Your Room", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROOM.getResponse(responseTab, index);
 		}
 	};
 }

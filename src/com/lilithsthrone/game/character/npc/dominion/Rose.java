@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -43,8 +45,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Rose extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public Rose() {
 		this(false);
 	}
@@ -54,6 +54,7 @@ public class Rose extends NPC {
 				"Rose is Lilaya's slave, and is the only other member of her household that you've ever seen."
 						+ " A partial cat-girl, Rose is treated with extreme fondness by Lilaya, and appears to be the only other person Lilaya has any regular contact with."
 						+ " Their relationship strays into something more than a master-slave arrangement, and Rose and Lilaya can often be seen hugging and whispering to one another.",
+				18, Month.MARCH, 5,
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 
@@ -128,26 +129,19 @@ public class Rose extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
-				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
-				if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
-					this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
-				}
-				this.replaceAllClothing();
+	public void endSex() {
+		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
+			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
+			if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
 			}
+			this.replaceAllClothing();
 		}
 	}
 	
 	public static final DialogueNodeOld END_HAND_SEX = new DialogueNodeOld("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {
 		private static final long serialVersionUID = 1L;
 		
-		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"

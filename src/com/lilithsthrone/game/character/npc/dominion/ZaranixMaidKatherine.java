@@ -1,12 +1,16 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -39,7 +43,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -51,8 +54,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixMaidKatherine extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public ZaranixMaidKatherine() {
 		this(false);
 	}
@@ -60,6 +61,7 @@ public class ZaranixMaidKatherine extends NPC {
 	public ZaranixMaidKatherine(boolean isImported) {
 		super(new NameTriplet("Katherine"),
 				"One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.",
+				26, Month.SEPTEMBER, 20,
 				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_MAID, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
@@ -85,6 +87,8 @@ public class ZaranixMaidKatherine extends NPC {
 			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_MASOCHIST);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
@@ -109,6 +113,8 @@ public class ZaranixMaidKatherine extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
 		this.setPlayerKnowsName(true);
+		
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		if(this.getMainWeapon()==null) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
@@ -155,6 +161,11 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 	
 	@Override
+	public int getAppearsAsAge() {
+		return 18;
+	}
+	
+	@Override
 	public String getSpeechColour() {
 		return "#E48AFF";
 	}
@@ -169,7 +180,7 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override
@@ -179,11 +190,6 @@ public class ZaranixMaidKatherine extends NPC {
 	
 
 	// Combat:
-	
-	@Override
-	public String getCombatDescription() {
-		return "Despite her commitment to defending her master's home, Katherine's choice of weapon - the feather duster that she was using to clean the corridor - doesn't strike you as being the most effective of combat implements...";
-	}
 
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
@@ -247,7 +253,8 @@ public class ZaranixMaidKatherine extends NPC {
 						+ " Unable to wait even two seconds to hear your reply, her hands slip under her dress, and she starts shamelessly masturbating right there in front of you."
 					+ "</p>"
 					+ "<p>"
-						+ "In her current lust-filled state, Katherine isn't going to pose much of a threat from now on, so you could either do what she obviously want you t do, and have sex with her, or simply ignore her and continue on your way."
+						+ "In her current lust-filled state, Katherine isn't going to pose much of a threat from now on, so you could either do what she obviously wants you to do, and have sex with her,"
+							+ " or simply ignore her and continue on your way."
 					+ "</p>";
 		}
 
@@ -262,6 +269,7 @@ public class ZaranixMaidKatherine extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
 						AFTER_SEX_VICTORY,
 						"<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
@@ -276,12 +284,13 @@ public class ZaranixMaidKatherine extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+						null,
+						AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -387,7 +396,7 @@ public class ZaranixMaidKatherine extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT);
+						null, AFTER_SEX_DEFEAT);
 			} else {
 				return null;
 			}

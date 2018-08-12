@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.slavery.SlaveEvent;
-import com.lilithsthrone.game.slavery.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.SlaveEventTag;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -110,11 +110,18 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		Element tagNode = (Element) nodes.item(0);
 		if(tagNode != null) {
 			loadedTags = new ArrayList<>();
-			for(int i=0; i<tagNode.getElementsByTagName("tag").getLength(); i++){
-				Element e = ((Element)tagNode.getElementsByTagName("tag").item(i));
+			NodeList tagElements = tagNode.getElementsByTagName("tag");
+			for(int i=0; i<tagElements.getLength(); i++){
+				Element e = ((Element)tagElements.item(i));
 
 				try {
-					loadedTags.add(SlaveEventTag.valueOf(e.getAttribute("value")));
+					String value = e.getAttribute("value");
+					if(value.equals("JOB_LILAYA_MILK_SOLD")) {
+						value = "JOB_MILK_SOLD";
+					} else if(value.equals("JOB_LILAYA_CUM_SOLD")) {
+						value = "JOB_CUM_SOLD";
+					}
+					loadedTags.add(SlaveEventTag.valueOf(value));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -125,9 +132,11 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("extraEffects");
 		Element extraEffectNode = (Element) nodes.item(0);
 		if(extraEffectNode != null) {
-			loadedExtraEffects = new ArrayList<>();
-			for(int i=0; i<extraEffectNode.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)extraEffectNode.getElementsByTagName("entry").item(i));
+			NodeList extraEffectElements = extraEffectNode.getElementsByTagName("entry");
+			loadedExtraEffects = new ArrayList<>(extraEffectElements.getLength());
+			
+			for(int i=0; i<extraEffectElements.getLength(); i++){
+				Element e = ((Element)extraEffectElements.item(i));
 				
 				try {
 					loadedExtraEffects.add(e.getAttribute("value"));
@@ -164,7 +173,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(tags!=null) {
 			for(SlaveEventTag tag : tags) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(tag.getDescription());
 			}
@@ -173,7 +182,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(extraEffects!=null) {
 			for(String s : extraEffects) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(s);
 			}

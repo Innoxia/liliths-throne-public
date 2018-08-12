@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
@@ -12,7 +15,8 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -20,12 +24,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
-import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -129,16 +135,16 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" [npc.She]'s currently "));
+								" [npc.sheIs] currently "));
 					}
 					
 					switch(slave.getObedience()) {
 						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										"not even bothering to pretend that [npc.she]'s cleaning."
+										"not even bothering to pretend that [npc.sheIs] cleaning."
 									+ "</p>"));
 							break;
 						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
@@ -192,63 +198,395 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static Response getRoomResponse(int index, boolean milkingRoom) {
-		List<NPC> charactersPresent = Main.game.getCharactersPresent();
+		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
 		if(milkingRoom) {
 			slavesAssignedToRoom.addAll(charactersPresent);
 		} else {
-			for(String slave : Main.game.getPlayer().getSlavesOwned()) {
+			for(String slave : Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned())) {
 				NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
 				if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
 					slavesAssignedToRoom.add(slaveNPC);
 				}
 			}
 		}
-		charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent) && !slavesAssignedToRoom.contains(characterPresent));
+//		charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent) && !slavesAssignedToRoom.contains(characterPresent));
 		
 		if(index==0) {
 			return null;
 			
 		} else if (index == 1) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Manage Room", "Enter the management screen for this particular room.", SlaveryManagementDialogue.ROOM_UPGRADES) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage room", "Enter the management screen for this particular room.", OccupantManagementDialogue.ROOM_UPGRADES) {
 					@Override
 					public void effects() {
-						SlaveryManagementDialogue.cellToInspect = Main.game.getPlayerCell();
+						OccupantManagementDialogue.cellToInspect = Main.game.getPlayerCell();
 					}
 				};
 			} else {
-				return new Response("Manage Room", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
 		}  else if (index == 2) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return SlaveryManagementDialogue.getSlaveryRoomListDialogue(null);
+						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
 					}
 				};
 			} else {
-				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+			}
+			
+		} else if(milkingRoom) {
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
+			
+			if(index==3) {
+				if(Main.game.getPlayer().getBreastRawStoredMilkValue()==0) {
+					return new Response("Milk Self", "There is no milk stored in your [pc.breasts], so you can't milk yourself at the moment!",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+					return new Response("Milk Self", "You are unable to get access to your nipples, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self", "Use this room's spare milking equipment to milk yourself.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
+							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
+							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" soft suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a delighted sigh at the satisfying feeling of being milked in comfort, and, allowing your eyes to close, you take a relaxing, well-earned break from your daily activities."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" hard suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to roughly squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a distressed moan at the harsh feeling of being milked by such a crude machine, but,"
+												+ " determined to see this through to the end, you hold still and allow the industrial-grade contraption to do its work."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a little moan at the feeling of being milked by the machine, and hold still as you allow the contraption to do its work."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append(
+								"<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+										+ milked+"ml of [pc.milk] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+			} else if(index==4) {
+				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
+					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
+					
+				} else if(Main.game.getPlayer().getPenisRawStoredCumValue()==0) {
+					return new Response("Milk Self Cum", "There isn't any cum stored in your balls, so you can't milk your cock...",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self Cum", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self Cum", "Use this room's spare milking equipment to milk your cock.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualCumPerHour(Main.game.getPlayer());
+							room.incrementCumStorage(Main.game.getPlayer().getCum(), milked);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" soft suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to squeeze and stroke your [pc.cock+].")
+											+ " It doesn't take long before you're letting out a delighted groan, and, bucking your [pc.hips] into the bed's soft leather padding, you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" hard suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to crudely squeeze and stroke your [pc.cock+].")
+											+ " You let out a distressed moan at the harsh feeling of being milked by such a crude machine, but,"
+												+ " determined to see this through to the end, you hold still and allow the industrial-grade contraption to do its work."
+											+ " Despite the machine's rough touch, it doesn't take long before you're letting out a heavy groan, and, bucking your [pc.hips] against the bed's cold metal,"
+												+ " you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to squeeze and stroke your [pc.cock+].")
+											+ " It doesn't take long before you're letting out a heavy groan, and, bucking your [pc.hips] into the bed's padding, you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+									+ "You're given no time to recover from your orgasm, and the machine continues stroking and sucking away at your [pc.cock+]."
+									+ " Within minutes, you've reached a second climax, and, collapsing fully down onto the bed, you surrender yourself to the ceaseless workings of the milking machine..."
+								+ "</p>"
+								+ "<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on shaking [pc.legs]."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
+										+ milked+"ml of [pc.cum] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+			} else if(index==5) {
+				if(!Main.game.getPlayer().hasVagina()) {
+					return new Response("Milk Self Girlcum", "You don't have a vagina, so you can't produce any girlcum...",  null);
+					
+				} else if(Main.game.getPlayer().getVaginaWetness().getValue()==0) {
+					return new Response("Milk Self Girlcum", "Your pussy is completely dry...",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					return new Response("Milk Self Girlcum", "You are unable to get access to your pussy, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self Girlcum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualGirlcumPerHour(Main.game.getPlayer());
+							room.incrementGirlcumStorage(Main.game.getPlayer().getGirlcum(), milked);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" soft pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins rapidly vibrating against your [pc.clit+]."
+													:" begins to gently vibrate against your [pc.clit+].")
+											+ " It doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's soft leather padding,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" hard pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins crudely and rapidly vibrating against your [pc.clit+]."
+													:" begins to crudely vibrate against your [pc.clit+].")
+											+ " Despite the machine's rough touch, it doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's cold metal surface,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" suction pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins rapidly vibrating against your [pc.clit+]."
+													:" begins to vibrate against your [pc.clit+].")
+											+ " It doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's leather padding,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+									+ "You're given no time to recover from your orgasm, and the machine continues vibrating and pumping away at your [pc.pussy+]."
+									+ " Within minutes, you've reached a second climax, and, collapsing fully down onto the bed, you surrender yourself to the ceaseless workings of the milking machine..."
+								+ "</p>"
+								+ "<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on your still-quivering [pc.legs]."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
+									+ milked+"ml of [pc.girlcum] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+				
+			} else if(index==6) {
+				if(room.isAutoSellMilk()) {
+					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==7) {
+				if(room.isAutoSellCum()) {
+					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==8) {
+				if(room.isAutoSellGirlcum()) {
+					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index-9<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-9), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-9), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(charactersPresent.get(index-9));
+					}
+				};
+				
 			}
 			
 		} else if(index-3<slavesAssignedToRoom.size()) {
-			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			NPC character = slavesAssignedToRoom.get(index-3);
+			if(charactersPresent.contains(character)) {
+				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), character.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.OCCUPANT_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(slavesAssignedToRoom.get(index-3));
+						Main.game.setActiveNPC(character);
 					}
 				};
 				
 			} else {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.name]'s room, [npc.she]'s not here at the moment."), null);
+				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
 			}
 			
-		} else {
-			return null;
 		}
+		
+		return null;
 	}
 	
 	private static StringBuilder roomSB = new StringBuilder();
@@ -262,16 +600,75 @@ public class LilayaHomeGeneric {
 			}
 		}
 		
+		if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell());
+			for(String occupantId: Main.game.getPlayer().getFriendlyOccupants()) {
+				NPC occupant = (NPC) Main.game.getNPCById(occupantId);
+				if(occupant!=null && charactersHome.contains(occupant) && !Main.game.getCharactersPresent().contains(occupant)) {
+					roomSB.append(UtilText.parse(occupant,
+							"<p>"
+								+ "[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
+										+ " Walking over and picking it up, you read:"
+							+ "</p>"
+							+ "<p style='text-align:center;'><i>"
+								+ "Hi, [pc.name]!<br/>"
+								+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
+									+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"<br/>"
+								+ "Come and see me when I'm not at work!<br/>"
+								+ "- [npc.Name]"
+							+ "</i></p>"));
+				}
+			}
+		}
+		
 		return roomSB.toString();
 	}
 	
 
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
-				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
-				+ upgrade.getRoomDescription(Main.game.getPlayer().getLocationPlace())
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b><br/>"
+				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}
+	
+	public static final DialogueNodeOld MILKED = new DialogueNodeOld("Room", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 60;
+		}
+		
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld ROOM_WINDOW = new DialogueNodeOld("Room", ".", false) {
 		private static final long serialVersionUID = 1L;
@@ -297,7 +694,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	
@@ -324,7 +721,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	
@@ -352,173 +749,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_WINDOW_SLAVE = new DialogueNodeOld("Slave's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_WINDOW_MILKING = new DialogueNodeOld("Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	
@@ -552,22 +783,22 @@ public class LilayaHomeGeneric {
 						+ " Rose says, before slipping out of the room."
 					+ "</p>"
 					+ "<p>"
-						+ "After just a couple of minutes, the door pushes open again, and Rose steps into the room, followed by Arthur,"
+						+ "After just a couple of minutes, the door pushes open again, and Rose steps into the room, followed by Arthur."
 						+ " [rose.speech(Here you are, sir. If there's anything you need, please use the bell-pull to call for me.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "With that, Rose exits the room once again, leaving you alone with Arthur."
-						+ " He lets out a deep sigh as he walks over to sit on his new bed, before looking up at you and smiling,"
+						+ " He lets out a deep sigh as he walks over to sit on his new bed, before looking up at you and smiling."
 						+ " [arthur.speech(I don't think I've said it properly yet, so thank you [pc.name], for rescuing me.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(You're welcome,)]"
-						+ " you reply,"
+						+ " you reply."
 						+ " [pc.speech(So do you think you can figure out how I was transported into your world? Lilaya told me that you're the best arcane researcher out there...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Lilaya said that, huh?)]"
-						+ " Arthur says, leaning back and smiling,"
+						+ " Arthur says, leaning back and smiling."
 						+ " [arthur.speech(Well, I do have a certain theory, but when I told Lilaya about it, she wasn't too convinced."
 							+ " Considering my position, I don't really have a choice but to perform the experiments and research that she asks for, but I'm absolutely convinced that they'll get us no closer to unravelling your mystery."
 							+ " What I'd really like to do is get to talk to someone about my theory...)]"
@@ -622,7 +853,7 @@ public class LilayaHomeGeneric {
 						+ " [pc.speech(but if I'm to keep this from Lilaya, I'll need to know why.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur smiles happily as he hears that you're willing to help, but as you demand an explanation, he lets out a heavy sigh,"
+						+ "Arthur smiles happily as he hears that you're willing to help, but as you demand an explanation, he lets out a heavy sigh."
 						+ " [arthur.speech(That's fair enough, I suppose. I'd have to explain the whole situation to you anyway, as it's the reason why Lyssieth isn't exactly easy to get hold of these days.)]"
 					+ "</p>"
 					+ "<p>"
@@ -648,7 +879,7 @@ public class LilayaHomeGeneric {
 							+ " I mean, polyamory isn't exactly uncommon - hell, Lilaya herself was still sleeping with Rose at the time - but seeing as it was with her mother, as well as the fact that we'd done it behind her back...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur falls into silence for a moment again, before shaking his head and looking up at you,"
+						+ "Arthur falls into silence for a moment again, before shaking his head and looking up at you."
 						+ " [arthur.speech(Anyway, that's the whole reason for Lilaya living alone like this."
 							+ " You see, Lyssieth only has a few recognised children, and amongst them, Lilaya was clearly her favourite."
 							+ " When Lilaya told her mother that she never wanted to see her again, Lyssieth really took it hard."
@@ -758,12 +989,12 @@ public class LilayaHomeGeneric {
 						+ " [pc.speech(What was Lyssieth like back when you used to work with Lilaya?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur smiles a little at the question,"
+						+ "Arthur smiles a little at the question."
 						+ " [arthur.speech(In a lot of ways, she was exactly what you'd expect one of Lilith's daughters to be; confident, controlling, and immensely powerful."
 							+ " My first impression of her was one of incredible haughtiness and arrogance, but as I watched her interactions with Lilaya, I saw that she had a softer, more loving side...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur seems to get a little caught-up in his thoughts for a moment, before shaking his head and looking up at you,"
+						+ "Arthur seems to get a little caught-up in his thoughts for a moment, before shaking his head and looking up at you."
 						+ " [arthur.speech(Of course, as you'd expect from a Lilin, she's practically dripping with sex appeal."
 							+ " She also has a thing for humans, which explains why most of her daughters are half-demons; if a Lilin's partner isn't corrupted into a demon before having sex, then their offspring end up like Lilaya."
 							+ " Not that that's a bad thing, of course, but society does typically treat half-demons as the lowest of all the demonic races."
@@ -809,7 +1040,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Loving, but very controlling,)]"
-						+ " Arthur replies with a sad smile,"
+						+ " Arthur replies with a sad smile."
 						+ " [arthur.speech(While she'd often spend entire evenings alone with Rose, she all but banned me from spending any time with anyone else."
 							+ " Not that I really had other people that I wanted to see, but it still felt a little stifling."
 							+ " I'm not trying to make excuses for what I did, but maybe that's partly why I... erm, you know... with Lyssieth..."
@@ -817,7 +1048,7 @@ public class LilayaHomeGeneric {
 							+ " Like others with demonic blood, she's naturally gifted with the arcane, and also has quite a high sex drive...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Arthur blushes and clears his throat, before turning back to his experiments,"
+						+ "Arthur blushes and clears his throat, before turning back to his experiments."
 						+ " [arthur.speech(I-I need to get on with this now!)]"
 					+ "</p>";
 		}
@@ -852,7 +1083,7 @@ public class LilayaHomeGeneric {
 						+ "[arthur.speech(Nothing too interesting, really;"
 							+ " Lilaya's tasked me to repeat one of her experiments that's related to detecting inter-dimensional particles."
 							+ " I've already told her that it doesn't hold up in theory, let alone practice, but she doesn't listen,)]"
-							+ " Arthur sighs, before a mischievous look flashes across his face,"
+							+ " Arthur sighs, before a mischievous look flashes across his face."
 						+ " [arthur.speech(You know... there is <i>something</i> a little more interesting that I could do."
 							+ " You see, back when I was working for Zaranix, one of his ideas was to get me to find an arcane method of changing a person's sexual orientation."
 							+ " At first I thought it might prove impossible, like all his other ideas, but after doing a little research into it, I think I might actually have found a way to enchant a certain item that could do the trick."
@@ -872,7 +1103,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Excellent!)]"
-						+ " Arthur exclaims,"
+						+ " Arthur exclaims."
 						+ " [arthur.speech(Thank you so much, [pc.name]! Now, I really should get on with this pointless experiment, or else Lilaya'll have yet more ammunition to use against me...)]"
 					+ "</p>";
 		}
@@ -901,7 +1132,7 @@ public class LilayaHomeGeneric {
 						+ " [pc.speech(Here's the package from Arcane Arts. I couldn't help but wonder, though, what's inside?)]" // What's in the box?!
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(Ah! Thank you [pc.name]! I hope you didn't have any trouble with Vicky; she can be a little overwhelming sometimes,)]"
+						+ "[arthur.speech(Ah! Thank you, [pc.name]! I hope you didn't have any trouble with Vicky; she can be a little overwhelming sometimes,)]"
 						+ " Arthur says, taking the package from you and ringing the bell-pull in the corner of his room."
 						+ " [arthur.speech(As to what's inside, I'll show you right now!)]"
 					+ "</p>"
@@ -915,7 +1146,7 @@ public class LilayaHomeGeneric {
 						+ " You ask, a little unimpressed."
 					+ "</p>"
 					+ "<p>"
-						+ "Before Arthur can answer, there's a knock at the door, before Rose steps inside the room,"
+						+ "Before Arthur can answer, there's a knock at the door, before Rose steps inside the room."
 						+ " [rose.speech(You called, sir?)]"
 					+ "</p>"
 					+ "<p>"
@@ -924,7 +1155,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "Arthur hurriedly grabs several pages of notes, before placing them beside the watch on the table in front of you."
-						+ " Before he has any time to explain what his plan is, the door suddenly burts open, and a very angry-looking Lilaya strides into the room,"
+						+ " Before he has any time to explain what his plan is, the door suddenly burts open, and a very angry-looking Lilaya strides into the room."
 						+ " [lilaya.speech(What is it now Arthur?! Oh, [pc.name], you're here too!)]"
 					+ "</p>"
 					+ "<p>"
@@ -937,7 +1168,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(I don't intend to use it, Lilaya!)]"
-						+ " Arthur objects,"
+						+ " Arthur objects."
 						+ " [arthur.speech(It's only for research purposes! If I could harness the arcane, I'd do it all myself... Please, all I need you to do is follow these instructions and enchant this watch.)]"
 					+ "</p>"
 					+ "<p>"
@@ -947,12 +1178,12 @@ public class LilayaHomeGeneric {
 					+ "<p>"
 						+ "After a few minutes, and several flashes of arcane energy, Lilaya's work is done, and you step forwards to see that the watch has undergone a drastic change."
 						+ " Now, instead of looking like a regular time-piece, the face of the watch is a swirling vortex of purple energy."
-						+ " Before you can take a closer look, Lilaya picks the watch up by the chain, and turns to Arthur,"
+						+ " Before you can take a closer look, Lilaya picks the watch up by the chain, and turns to Arthur."
 						+ " [lilaya.speech(So how does this thing work?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[arthur.speech(C-Careful Lilaya!)]"
-						+ " Arthur exclaims, averting his eyes from the watch,"
+						+ "[arthur.speech(C-Careful, Lilaya!)]"
+						+ " Arthur exclaims, averting his eyes from the watch."
 						+ " [arthur.speech(You just have to swing it back and forth in front of someone, and they should undergo a hypnotic-type effect, which, if my calculations are correct, will change their orientation."
 							+ " Oh, you should be able to channel arcane essences into it to change the desired orientation as well."
 							+ " We really need a test subject for this...)]"
@@ -960,7 +1191,7 @@ public class LilayaHomeGeneric {
 					+ "<p>"
 						+ "[lilaya.speech(Well, whatever the result is, we can always undo it, right?"
 							+ " I want to be the one who uses it, as I'll be able to sense if anything starts to go wrong, and you can't be the test subject, Arthur, as you'll need to be the one to fix any unexpected effects...)]"
-						+ " Lilaya muses, before both she and Arthur turn towards you,"
+						+ " Lilaya muses, before both she and Arthur turn towards you."
 						+ " [lilaya.speech([pc.Name]! You're ok letting us test this on you, aren't you? I promise that I won't apply the full effect, so there's really nothing to worry about!)]"
 					+ "</p>";
 		}
@@ -1042,7 +1273,7 @@ public class LilayaHomeGeneric {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-						+ "Reassured by the fact Lilaya and Arthur are both highly-competent arcane researchers, you step forwards,"
+						+ "Reassured by the fact Lilaya and Arthur are both highly-competent arcane researchers, you step forwards."
 						+ " [pc.speech(Ok, ok... But this had better not be permanent. Seeing as I'm "+Main.game.getPlayer().getSexualOrientation().getName()+", you'll probably need to set the watch to something other than that...)]"
 					+ "</p>"
 					+ "<p>"
@@ -1085,13 +1316,13 @@ public class LilayaHomeGeneric {
 								+ "[arthur.speech(Perhaps we can leave the experiment for later,)] Arthur states, getting Lilaya to put the watch to one side, before leading her out of the room."
 							+ "</p>"
 							+ "<p>"
-								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] You start to question, but Arthur confidently steps around behind you and takes a firm hold of your waist."
+								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Arthur confidently steps around behind you and takes a firm hold of your waist."
 							+ "</p>"
 							+ "<p>"
 								+ "[arthur.speech(I could see that look in your eyes...)] he says, and a jolt of excitement suddenly runs through you as you feel Arthur's hands run down to your groin."
 							+ "</p>"
 							+ "<p>"
-								+ "[pc.speech(Mmm... Yes...)] You moan, turning your head and pressing your lips against Arthur's."
+								+ "[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Arthur's."
 								+ " Leaning back into him, you passionately thrust your tongue into his mouth as you reach down to help guide his fingers between your legs..."
 							+ "</p>"
 							+ "<p>"
@@ -1108,16 +1339,16 @@ public class LilayaHomeGeneric {
 								+ " You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing..."
 							+ "</p>"
 							+ "<i><p>"
-								+ "[lilaya.speech(Honestly Arthur, we should leave this experiment for later,)] Lilaya states, putting the watch to one side, before leading Arthur out of the room."
+								+ "[lilaya.speech(Honestly, Arthur, we should leave this experiment for later,)] Lilaya states, putting the watch to one side, before leading Arthur out of the room."
 							+ "</p>"
 							+ "<p>"
-								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] You start to question, but Lilaya suddenly steps around behind you, and with a little giggle, reaches forwards to wrap her arms around you."
+								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Lilaya suddenly steps around behind you, and with a little giggle, reaches forwards to wrap her arms around you."
 							+ "</p>"
 							+ "<p>"
 								+ "[lilaya.speech(I could see that look in your eyes...)] she says, and a jolt of excitement suddenly runs through you as you feel your aunt's hands run down to your groin."
 							+ "</p>"
 							+ "<p>"
-								+ "[pc.speech(Mmm... Yes...)] You moan, turning your head and pressing your lips against Lilaya's."
+								+ "[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Lilaya's."
 								+ " Leaning back into her, you passionately thrust your tongue into her mouth as you reach down to help guide her fingers between your legs..."
 							+ "</p>"
 							+ "<p>"
@@ -1160,12 +1391,12 @@ public class LilayaHomeGeneric {
 					+ " You're standing just where you were when the experiment started, but Lilaya, now with a mildly-concerned expression on her face, has placed the watch to one side, and is holding you by the shoulders."
 				+ "</p>"
 				+ "<p>"
-					+ "[pc.speech(W-What was that?!)] you ask, trying to shake the vision you just had from your head,"
+					+ "[pc.speech(W-What was that?!)] you ask, trying to shake the vision you just had from your head."
 					+ " [pc.speech(It was so real! We were... well...)]"
 				+ "</p>"
 				+ "<p>"
 					+ "[lilaya.speech(Good, you're ok,)]"
-					+ " Lilaya says, releasing you and stepping back,"
+					+ " Lilaya says, releasing you and stepping back."
 					+ " [lilaya.speech(I stopped the test before the change in orientation became permanent, and, more importantly, before a surge of corruptive arcane energy seeped into your mind.)]"
 				+ "</p>"
 				+ "<p>"
@@ -1173,18 +1404,18 @@ public class LilayaHomeGeneric {
 				+ "</p>"
 				+ "<p>"
 					+ "[arthur.speech(I'm sorry, [pc.name], I didn't know that could be a side-effect,)]"
-					+ " Arthur says, stepping forwards,"
+					+ " Arthur says, stepping forwards."
 					+ " [arthur.speech(It's a good job Lilaya was the one to carry out the test...)]"
 				+ "</p>"
 				+ "<p>"
 					+ "[lilaya.speech(Well, at least you've come to no harm, [pc.name],)]"
-					+ " Lilaya says,"
+					+ " Lilaya says."
 					+ " [lilaya.speech(You see, just as you appeared to enter that strange trance, I felt a wave of corruptive energy surging forwards."
 						+ " If I hadn't stopped the test, not only would your sexual orientation have been permanently changed, but whatever vision you were witnessing would have undoubtedly played out in full;"
 							+ " corrupting your mind in the process.)]"
 				+ "</p>"
 				+ "<p>"
-					+ "[pc.speech(Thank you Lilaya,)]"
+					+ "[pc.speech(Thank you, Lilaya,)]"
 					+ " you say, stepping forwards to give your aunt a loving hug,"
 					+ " [pc.speech(you saved me again, huh?)]"
 				+ "</p>"
@@ -1192,12 +1423,12 @@ public class LilayaHomeGeneric {
 					+ "[lilaya.speech(Y-Yes, well, y-you're welcome,)]"
 					+ " she stammers, clearly a little embarrassed to be hugged in front of Arthur."
 					+ " After a moment, she breaks off the hug, and, turning to pick up the watch, waves her hand over the face."
-					+ " The swirling vortex fades away, leaving the watch looking just like any other, and, satisfied with the result, Lilaya hands it to you,"
+					+ " The swirling vortex fades away, leaving the watch looking just like any other, and, satisfied with the result, Lilaya hands it to you."
 					+ " [lilaya.speech(I've removed the enchantment, so there's no fear of accidentally subjecting anyone else to those effects."
 						+ " I think you should keep hold of this. After all, now that you know what it feels like to be on the receiving end, I'm sure you have a greater respect for this item's power.)]"
 				+ "</p>"
 				+ "<p>"
-					+ "You take the watch from Lilaya, nodding at her words,"
+					+ "You take the watch from Lilaya, nodding at her words."
 					+ " [pc.speech(I'll take good care of it.)]"
 				+ "</p>"
 				+ "<p>"
@@ -1205,7 +1436,7 @@ public class LilayaHomeGeneric {
 					+ " [lilaya.speech(I expect a full report on my desk by this time tomorrow. And not a minute later!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "With that, Lilaya strides out of the room, leaving you alone with Arthur, who proceeds to glance over at you with a rather defeated-looking expression on his face,"
+					+ "With that, Lilaya strides out of the room, leaving you alone with Arthur, who proceeds to glance over at you with a rather defeated-looking expression on his face."
 					+ " [arthur.speech(Well, it <i>does</i> work, at least... Sorry about all that, [pc.name]. I really should get on with this report now...)]"
 				+ "</p>"
 				+ "<p>"
@@ -1319,7 +1550,7 @@ public class LilayaHomeGeneric {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 								" [npc.She] "));
@@ -1345,13 +1576,13 @@ public class LilayaHomeGeneric {
 					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									"is currently preparing some food."
-									+ " You can see that [npc.she]'s putting a lot of effort into making sure that [npc.she]'s doing a good job."
+									+ " You can see that [npc.sheIs] putting a lot of effort into making sure that [npc.sheIs] doing a good job."
 								+ "</p>"));
 						break;
 					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 									" is dutifully making Lilaya a meal."
-									+ " You notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
+									+ " You notice that [npc.sheIs] taking care to prepare it just the way your demonic aunt likes."
 								+ "</p>"));
 						break;
 					}
@@ -1423,7 +1654,7 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p>"
 									+ "[rose.speech("+(Main.game.isDayTime() ? "Good day," : "Good evening,")+")]"
-									+ " she says,"
+									+ " she says."
 									+ " [rose.speech(How may I help you?)]"
 								+ "</p>";
 						
@@ -1655,7 +1886,7 @@ public class LilayaHomeGeneric {
 									+ UtilText.parsePlayerSpeech("If you don't mind me asking, how did you end up as a slave?")
 								+ "</p>"
 								+ "<p>"
-									+ "Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject, "
+									+ "Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. "
 									+ UtilText.parseSpeech("Well, like most other slaves, I sold myself into slavery.", Main.game.getRose())
 								+ "</p>"
 								+ "<p>"
@@ -1690,13 +1921,13 @@ public class LilayaHomeGeneric {
 					public void effects() {
 						askedAboutDuties = false;
 						roseContent = "<p>"
-								+ "You wonder if Rose can tell you anything interesting about this world, "
+								+ "You wonder if Rose can tell you anything interesting about this world. "
 								+ UtilText.parsePlayerSpeech("What can you tell me about this world?")
 								+ "</p>"
 								+ "<p>"
 								+ UtilText.parseSpeech("Well, I don't really know what's different here compared to where you come from, so without spending all day telling you every detail about this place,"
 										+ " I'll just give you some general information, ", Main.game.getRose())
-								+ " Rose replies helpfully, "
+								+ " Rose replies helpfully. "
 								+ UtilText.parseSpeech("Basically, this world is ruled by queen Lilith, who's the most powerful demon to ever have lived."
 										+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
 										+ " Although she personally rules over Dominion, she allows her daughters, the Lilin, to control other parts of her domain."
@@ -1732,10 +1963,10 @@ public class LilayaHomeGeneric {
 								+ UtilText.parsePlayerSpeech("So, what sort of things do you have to do for Lilaya?")
 								+ "</p>"
 								+ "<p>"
-								+ "Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties, "
+								+ "Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. "
 								+ UtilText.parseSpeech("E-Erm, well, ah, y-you know, demons get pretty horny, and Lilaya's no different,", Main.game.getRose())
-								+ " she stammers, before regaining her composure, "
-								+ UtilText.parseSpeech("but other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getRose())
+								+ " she stammers, before regaining her composure. "
+								+ UtilText.parseSpeech("But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!", Main.game.getRose())
 								+ "</p>"
 								+ "<p>"
 								+ "As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform."
@@ -1817,7 +2048,7 @@ public class LilayaHomeGeneric {
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
-						Rose.END_HAND_SEX);
+						null, Rose.END_HAND_SEX);
 
 			} else {
 				return null;

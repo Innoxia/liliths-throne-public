@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -26,7 +28,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -49,8 +50,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyNympho extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyNympho() {
 		this(false);
 	}
@@ -60,6 +59,7 @@ public class HarpyNympho extends NPC {
 				"One of the more notable harpy matriarchs, Lexi is the leader of a flock of harpies."
 						+ " Either due to her obsession with sex, or perhaps because she's not as cruel as a typical harpy, Lexi is far more accepting of males than a typical matriarch."
 						+ " As a result, her flock serves as her personal harem; it's members constantly trying to sate their matriarch's never-ending lust.",
+				22, Month.APRIL, 13,
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
@@ -81,8 +81,8 @@ public class HarpyNympho extends NPC {
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_WHITE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_PINK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_WHITE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 			
 			this.setFemininity(95);
@@ -129,6 +129,11 @@ public class HarpyNympho extends NPC {
 			return "#F967E3";
 		}
 	}
+
+	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -145,7 +150,7 @@ public class HarpyNympho extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	@Override
@@ -157,12 +162,6 @@ public class HarpyNympho extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"After watching you defeat [nymphoHarpyCompanion.name], [nymphoHarpy.name] rushes forwards, determined to teach you a lesson in front of her flock.");
 	}
 	
 	@Override
@@ -193,7 +192,9 @@ public class HarpyNympho extends NPC {
 
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
+		if(user.isPlayer()
+				&& !target.isPlayer()
+				&& (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
 			if(Sex.isDom(Main.game.getPlayer())) {
 				Main.game.getPlayer().removeItem(item);
 				return "<p>"

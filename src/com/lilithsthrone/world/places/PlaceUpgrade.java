@@ -2,19 +2,27 @@ package com.lilithsthrone.world.places;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.FluidGirlCum;
+import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.85
- * @version 0.1.97
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum PlaceUpgrade {
@@ -46,39 +54,29 @@ public enum PlaceUpgrade {
 			0,
 			0,
 			null) {
+		
 		@Override
-		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
-			}
-			
+		public boolean isSlaverUpgrade() {
+			return false;
+		}
+		
+		@Override
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_EMPTY_ROOM) {
-					place.removePlaceUpgrade(upgrade);
+					place.removePlaceUpgrade(c, upgrade);
 				}
 			}
 		}
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
 				return "";
 			} else {
@@ -101,27 +99,67 @@ public enum PlaceUpgrade {
 			0,
 			null) {
 		@Override
-		public void applyInstallationEffects(GenericPlace place) {
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
 			place.setPlaceType(PlaceType.LILAYA_HOME_ARTHUR_ROOM);
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_ARTHUR_ROOM) {
-					place.removePlaceUpgrade(upgrade);
+					place.removePlaceUpgrade(c, upgrade);
 				}
 			}
 		}
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty();
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
 				return "";
 			} else {
 				return "This room needs to be unoccupied in order to purchase this modification.";
+			}
+		}
+	},
+	
+	LILAYA_GUEST_ROOM(true,
+			Colour.GENERIC_ARCANE,
+			"Guest Room",
+			"Rose will prepare this room for one of your guests, making it suitable for housing one person."
+					+ " While not the most economical option, the occupant of this room will no doubt appreciate having their own personal space.",
+			"This room has been converted into a suitable place for housing one of your guests.",
+			"You've paid to have this room converted into a basic guest room."
+					+ " A single-size bed, covered in a plain white duvet, sits against one wall."
+					+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+					+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.",
+			2000,
+			0,
+			100,
+			1,
+			0,
+			0,
+			null) {
+		
+		@Override
+		public boolean isSlaverUpgrade() {
+			return false;
+		}
+		
+		@Override
+		protected boolean isExtraConditionsMet(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
+		@Override
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_GUEST_ROOM) {
+					place.removePlaceUpgrade(c, upgrade);
+				}
 			}
 		}
 	},
@@ -145,7 +183,9 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public String getRoomDescription(GenericPlace place) {
+		public String getRoomDescription(Cell c) {
+			GenericPlace place = c.getPlace();
+			
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You've paid to have this room converted into basic slave's quarters."
 						+ " A comfortable double size bed, covered in a warm, fluffy duvet, sits against one wall."
@@ -167,32 +207,16 @@ public enum PlaceUpgrade {
 		}
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
 		}
 		
 		@Override
-		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
-			}
-			
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_SLAVE_ROOM) {
-					place.removePlaceUpgrade(upgrade);
+					place.removePlaceUpgrade(c, upgrade);
 				}
 			}
 		}
@@ -214,33 +238,202 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
-			return Main.game.getCharactersPresent(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		public String getRoomDescription(Cell c) {
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+			
+			StringBuilder milkyMilknessSB = new StringBuilder();
+			milkyMilknessSB.append(roomDescription);
+
+			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.MILK.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Milk Stored:</b>");
+				if(!room.getMilkStorage().isEmpty()) {
+					for(Entry<FluidMilk, Float> entry : room.getMilkStorage().entrySet()) {
+						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
+										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+									+ "</div>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
+										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" milk</span>"
+									+ "</div>");
+	
+							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
+								if(!entry.getKey().getFluidModifiers().isEmpty()) {
+									int i=0;
+									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
+										if(i>0) {
+											milkyMilknessSB.append(", ");
+										}
+										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
+										i++;
+									}
+									milkyMilknessSB.append(".");
+									
+								} else {
+									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
+								}
+							milkyMilknessSB.append("</div>");
+	
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
+										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
+									+ "</div>");
+							
+							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
+									+ "<div id='MILK_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
+									+ "<div id='MILK_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
+									+ "<div id='MILK_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+							milkyMilknessSB.append("</div>");
+	
+						milkyMilknessSB.append("</div>");
+					}
+				} else {
+					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				}
+			milkyMilknessSB.append("</div>");
+			
+			
+			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.CUM.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Cum Stored:</b>");
+				if(!room.getCumStorage().isEmpty()) {
+					for(Entry<FluidCum, Float> entry : room.getCumStorage().entrySet()) {
+						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
+										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+									+ "</div>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
+										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" cum</span>"
+									+ "</div>");
+	
+							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
+								if(!entry.getKey().getFluidModifiers().isEmpty()) {
+									int i=0;
+									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
+										if(i>0) {
+											milkyMilknessSB.append(", ");
+										}
+										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
+										i++;
+									}
+									milkyMilknessSB.append(".");
+									
+								} else {
+									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
+								}
+							milkyMilknessSB.append("</div>");
+	
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
+										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
+									+ "</div>");
+	
+							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
+									+ "<div id='CUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
+									+ "<div id='CUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
+									+ "<div id='CUM_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+							milkyMilknessSB.append("</div>");
+	
+						milkyMilknessSB.append("</div>");
+					}
+				} else {
+					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				}
+			milkyMilknessSB.append("</div>");
+			
+			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.GIRLCUM.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Girlcum Stored:</b>");
+				if(!room.getGirlcumStorage().isEmpty()) {
+					for(Entry<FluidGirlCum, Float> entry : room.getGirlcumStorage().entrySet()) {
+						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
+										+ "[style.colourExcellent("+(int)(entry.getValue()*1)+"ml)]"
+									+ "</div>");
+						
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
+										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" girlcum</span>"
+									+ "</div>");
+	
+							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
+								if(!entry.getKey().getFluidModifiers().isEmpty()) {
+									int i=0;
+									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
+										if(i>0) {
+											milkyMilknessSB.append(", ");
+										}
+										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
+										i++;
+									}
+									milkyMilknessSB.append(".");
+									
+								} else {
+									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
+								}
+							milkyMilknessSB.append("</div>");
+	
+							milkyMilknessSB.append(
+									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
+										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
+									+ "</div>");
+	
+							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
+									+ "<div id='GIRLCUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
+									+ "<div id='GIRLCUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
+											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
+									+ "<div id='GIRLCUM_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+							milkyMilknessSB.append("</div>");
+	
+						milkyMilknessSB.append("</div>");
+					}
+				} else {
+					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				}
+			milkyMilknessSB.append("</div>");
+			
+			return milkyMilknessSB.toString();
 		}
 		
 		@Override
-		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR
-					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING);
-			}
-			
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_MILKING_ROOM) {
-					place.removePlaceUpgrade(upgrade);
+					place.removePlaceUpgrade(c, upgrade);
 				}
+			}
+			if(Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation())==null) {
+				Main.game.getOccupancyUtil().addMilkingRoom(new MilkingRoom(c.getType(), c.getLocation()));
+			}
+		}
+		
+		@Override
+		protected boolean isExtraConditionsMet(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+
+		@Override
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
+			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return "";
+			} else {
+				return "This room needs to be unoccupied in order to purchase this modification.";
 			}
 		}
 	},
@@ -264,7 +457,9 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public String getRoomDescription(GenericPlace place) {
+		public String getRoomDescription(Cell c) {
+			GenericPlace place = c.getPlace();
+			
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
 							+ " A single double size bed, covered in a warm, fluffy duvet, sits against one of the room's walls."
@@ -286,28 +481,23 @@ public enum PlaceUpgrade {
 		}
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
-			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		protected boolean isExtraConditionsMet(Cell cell) {
+			return (Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()
+					&& !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM))
+					|| cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM);
 		}
 		
 		@Override
-		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
+			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM)) {
+				place.removePlaceUpgrade(c, LILAYA_SLAVE_ROOM);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
-				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
-				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
-			}
-			
-			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
-				if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
-					place.removePlaceUpgrade(upgrade);
+			} else {
+				for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+					if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
+						place.removePlaceUpgrade(c, upgrade);
+					}
 				}
 			}
 		}
@@ -330,12 +520,12 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_UPGRADE_BED);
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You'll need to remove the Double Size Bed before installing this.";
 			}
@@ -360,7 +550,9 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public String getRoomDescription(GenericPlace place) {
+		public String getRoomDescription(Cell c) {
+			GenericPlace place = c.getPlace();
+			
 			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOUBLE)) {
 				return "This room's pair of single-sized beds have been replaced with a solitary double-sized one, complete with a comfortable mattress, fluffy pillows, and a warm duvet."
 						+ " The pair of slaves assigned to be this room's occupants will have to learn to live with the fact that they now sleep in the same bed...";
@@ -371,12 +563,12 @@ public enum PlaceUpgrade {
 		}
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOWNGRADE_BED);
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
 				return "You'll need to remove the Small Steel Bed before installing this.";
 			}
@@ -446,7 +638,7 @@ public enum PlaceUpgrade {
 			"You've installed artisan milking machines in this room."
 					+ " The slaves that have the good fortune to be locked into these machines are sure to appreciate you for it...",
 			"The artisan, arcane-powered milking machines that have been placed in this room fill the air with a very soft, almost melodic, humming noise."
-					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves will happy with them, milk output is sure to suffer...",
+					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves are sure to be happy, milk output is a lot lower than normal...",
 			2500,
 			500,
 			250,
@@ -456,12 +648,12 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS);
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
 				return "You'll need to remove the Industrial Milkers before installing this.";
 			}
@@ -487,12 +679,12 @@ public enum PlaceUpgrade {
 			null) {
 		
 		@Override
-		public boolean isAvailable(Cell cell) {
+		protected boolean isExtraConditionsMet(Cell cell) {
 			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_ARTISAN_MILKERS);
 		}
 
 		@Override
-		public String getAvailabilityDescription(Cell cell) {
+		protected String getExtraConditionalAvailabilityDescription(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 				return "You'll need to remove the Artisan Milkers before installing this.";
 			}
@@ -500,11 +692,52 @@ public enum PlaceUpgrade {
 		}
 	},
 	
+	LILAYA_MILKING_ROOM_MILK_EFFICIENCY(false,
+			Colour.MILK,
+			"Lact-o-Cups",
+			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Lact-o-Cups', which promises to double the machine's maximum hourly milking efficiency.",
+			"You've added the optional 'Lact-o-Cups' to the milking machines in this room, doubling their maximum hourly milking efficiency.",
+			"The standard suction cups on each machine have been replaced with aftermarket 'Lact-o-Cups', which are doubling the maximum amount of milk extracted per hour.",
+			500,
+			100,
+			10,
+			0,
+			0,
+			0,
+			null),
+	
+	LILAYA_MILKING_ROOM_CUM_EFFICIENCY(false,
+			Colour.CUM,
+			"Succ-u-Buses",
+			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Succ-u-Buses', which promises to double the machine's maximum hourly cum-milking efficiency.",
+			"You've added the optional 'Succ-u-Buses' to the milking machines in this room, doubling their maximum hourly cum-milking efficiency.",
+			"The standard cock-milking tubes on each machine have been replaced with aftermarket 'Succ-u-Buses', which are doubling the maximum amount of cum extracted per hour.",
+			500,
+			100,
+			10,
+			0,
+			0,
+			0,
+			null),
+
+	LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY(false,
+			Colour.GIRLCUM,
+			"Vibro-Pumps",
+			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Vibro-Pumps', which promises to double the machine's maximum hourly girlcum-milking efficiency.",
+			"You've added the optional 'Vibro-Pumps' to the milking machines in this room, doubling their maximum hourly girlcum-milking efficiency.",
+			"The standard vaginal pumps on each machine have been replaced with aftermarket 'Vibro-Pumps', which are doubling the maximum amount of girlcum extracted per hour.",
+			500,
+			100,
+			10,
+			0,
+			0,
+			0,
+			null),
 	
 	;
 	
 	
-	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades, getMilkingUpgrades;
+	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, guestRoomUpgrades, slaveQuartersUpgradesSingle, slaveQuartersUpgradesDouble, getMilkingUpgrades;
 	
 	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
@@ -515,13 +748,31 @@ public enum PlaceUpgrade {
 		return coreRoomUpgrades;
 	}
 
-	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgrades() {
+	public static ArrayList<PlaceUpgrade> getGuestRoomUpgrades() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
-			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgrades);
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(guestRoomUpgrades);
 			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 			return listArthurRemoved;
 		}
-		return slaveQuartersUpgrades;
+		return guestRoomUpgrades;
+	}
+
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgradesSingle() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesSingle);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return slaveQuartersUpgradesSingle;
+	}
+	
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgradesDouble() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesDouble);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return slaveQuartersUpgradesDouble;
 	}
 	
 	public static ArrayList<PlaceUpgrade> getMilkingUpgrades() {
@@ -530,37 +781,73 @@ public enum PlaceUpgrade {
 
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE),
+				PlaceUpgrade.LILAYA_GUEST_ROOM,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
+				PlaceUpgrade.LILAYA_MILKING_ROOM,
+				
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+
+		guestRoomUpgrades = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_EMPTY_ROOM);
+				
+				
+		slaveQuartersUpgradesSingle = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
+				
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
+				
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER,
+
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
+				PlaceUpgrade.LILAYA_EMPTY_ROOM,
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		
-		slaveQuartersUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE),
+		slaveQuartersUpgradesDouble = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM),
-				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
+				PlaceUpgrade.LILAYA_EMPTY_ROOM,
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		
 		getMilkingUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS),
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS),
+				PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS,
+
+				PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+				PlaceUpgrade.LILAYA_EMPTY_ROOM);
 	}
 	
+	
 	private boolean isCoreRoomUpgrade;
-	private String name, descriptionForPurchase, descriptionAfterPurchase, roomDescription;
-	private int installCost, removalCost, upkeep, capacity;
+	
+	protected String name;
+	protected String descriptionForPurchase;
+	protected String descriptionAfterPurchase;
+	protected String roomDescription;
+	
+	private int installCost;
+	private int removalCost;
+	private int upkeep;
+	private int capacity;
+	
 	private Colour colour;
-	private float affectionGain, obedienceGain;
+	
+	private float affectionGain;
+	private float obedienceGain;
+	
 	private List<PlaceUpgrade> prerequisites;
 
 	private PlaceUpgrade(boolean isCoreRoomUpgrade,
@@ -601,12 +888,29 @@ public enum PlaceUpgrade {
 		}
 	}
 	
-	public boolean isAvailable(Cell cell) {
+	protected boolean isExtraConditionsMet(Cell cell) {
 		return true;
+	}
+
+	protected String getExtraConditionalAvailabilityDescription(Cell cell) {
+		return "";
+	}
+	
+	public boolean isAvailable(Cell cell) {
+		return (Main.game.getPlayer().isHasSlaverLicense() || (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION) && !this.isSlaverUpgrade()))
+				&& isExtraConditionsMet(cell);
 	}
 	
 	public String getAvailabilityDescription(Cell cell) {
-		return "";
+		if(!(Main.game.getPlayer().isHasSlaverLicense() || (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION) && !this.isSlaverUpgrade()))) {
+			return "You are unable to purchase this upgrade without a slaver license!";
+		}
+		
+		return getExtraConditionalAvailabilityDescription(cell);
+	}
+	
+	public boolean isSlaverUpgrade() {
+		return true;
 	}
 	
 	public boolean isCoreRoomUpgrade() {
@@ -621,7 +925,7 @@ public enum PlaceUpgrade {
 		return name;
 	}
 
-	public String getRoomDescription(GenericPlace place) {
+	public String getRoomDescription(Cell c) {
 		return roomDescription;
 	}
 
@@ -665,9 +969,9 @@ public enum PlaceUpgrade {
 		return place.getPlaceUpgrades().containsAll(prerequisites);
 	}
 	
-	public void applyInstallationEffects(GenericPlace place) {
+	public void applyInstallationEffects(Cell c) {
 	}
 
-	public void applyRemovalEffects(GenericPlace place) {
+	public void applyRemovalEffects(Cell c) {
 	}
 }

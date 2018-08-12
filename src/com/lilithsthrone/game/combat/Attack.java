@@ -118,7 +118,7 @@ public enum Attack {
 			damage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
@@ -152,7 +152,7 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
@@ -186,7 +186,7 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
@@ -382,7 +382,11 @@ public enum Attack {
 	private static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
 		boolean damageDoubledFromElemental = false;
-
+		
+		if(defender!=null && defender.isImmuneToDamageType(damageType)) {
+			return 0;
+		}
+			
 		if(attacker instanceof Elemental) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:
@@ -475,10 +479,12 @@ public enum Attack {
 				// Defender modifiers:
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				
-				if(defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine()) {
+				if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
+						|| attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine()) {
 					damage*=0.5f;
 				}
-				if(defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine()) {
+				if((defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
+						|| attacker.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !defender.isFeminine()) {
 					damage*=0.5f;
 				}
 				

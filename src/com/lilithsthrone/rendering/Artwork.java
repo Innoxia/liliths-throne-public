@@ -39,12 +39,7 @@ public class Artwork {
 		if(dir.exists()) {
 			FilenameFilter textFilter = new FilenameFilter() {
 				public boolean accept(File dir, String name) {
-					String lowercaseName = name.toLowerCase();
-					if (lowercaseName.endsWith(".xml")) {
-						return true;
-					} else {
-						return false;
-					}
+					return name.toLowerCase().endsWith(".xml");
 				}
 			};
 			
@@ -78,63 +73,35 @@ public class Artwork {
 					}
 				}
 			}
+
+			// Add artist template for custom art
+			allArtists.add(new Artist("Custom", Colour.BASE_GREY, "custom", new ArrayList<>()));
 		}
 	}
 	
 	public Artwork(String nameInput, Artist artist) {
 		this.name = nameInput;
 		this.artist = artist;
-		
+
 		index = 0;
-		
+
 		this.clothedImages = new ArrayList<>();
 		this.partialImages = new ArrayList<>();
 		this.nakedImages = new ArrayList<>();
-		
-		int i=1;
-		File f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/clothed"+i+".png");
-		if(!f.exists()) {
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/clothed"+i+".jpg");
-		}
-		
-		while(f.exists()) {
-			clothedImages.add(f.toURI().getPath().toString());
-			i++;
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/clothed"+i+".png");
-			if(!f.exists()) {
-				f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/clothed"+i+".jpg");
-			}
-		}
-		
-		i=1;
-		f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/partial"+i+".png");
-		if(!f.exists()) {
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/partial"+i+".jpg");
-		}
-		while(f.exists()) {
-			partialImages.add(f.toURI().getPath().toString());
-			i++;
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/partial"+i+".png");
-			if(!f.exists()) {
-				f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/partial"+i+".jpg");
-			}
-		}
 
-		i=1;
-		f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/naked"+i+".png");
-		if(!f.exists()) {
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/naked"+i+".jpg");
+		// Find artist directory
+		File folder = new File("res/images/characters/" + name + "/" + artist.getFolderName());
+		if (!folder.isDirectory()) return;
+
+		// Add all images to their respective lists
+		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"))) {
+			if (f.getName().startsWith("clothed"))
+				clothedImages.add(f.getAbsolutePath());
+			else if (f.getName().startsWith("partial"))
+				partialImages.add(f.getAbsolutePath());
+			else if (f.getName().startsWith("naked"))
+				nakedImages.add(f.getAbsolutePath());
 		}
-		while(f.exists()) {
-			nakedImages.add(f.toURI().getPath().toString());
-			
-			i++;
-			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/naked"+i+".png");
-			if(!f.exists()) {
-				f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/naked"+i+".jpg");
-			}
-		}
-		
 	}
 
 	public String getName() {

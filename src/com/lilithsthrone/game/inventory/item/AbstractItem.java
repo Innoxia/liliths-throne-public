@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -83,14 +86,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-			Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
-			for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("effect").item(i));
+			NodeList element = ((Element) parentElement.getElementsByTagName("itemEffects").item(0)).getElementsByTagName("effect");
+			for(int i = 0; i < element.getLength(); i++){
+				Element e = ((Element)element.item(i));
 				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
-				if(itemEffect == null) {
-					System.err.println("Warning: Failed to import ItemEffect");
-				}
-				else {
+				if(itemEffect != null) {
 					effectsToBeAdded.add(itemEffect);
 				}
 			}
@@ -181,11 +181,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p>"
-					+ "<b>Effects:</b></br>");
+					+ "<b>Effects:</b><br/>");
 		
 		for(ItemEffect ie : getEffects()) {
 			for(String s : ie.getEffectsDescription(user, target)) {
-				sb.append(s+"</br>");
+				sb.append(s+"<br/>");
 			}
 		}
 

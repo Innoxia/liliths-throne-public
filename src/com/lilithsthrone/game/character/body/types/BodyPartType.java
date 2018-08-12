@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.types;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.83
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum BodyPartType {
@@ -29,7 +29,9 @@ public enum BodyPartType {
 	CUM("cum"),
 	SKIN("skin"),
 	TAIL("tail"),
+	TENTACLE("tentacle"),
 	TONGUE("tongue"),
+	CLIT("clitoris"),
 	VAGINA("vagina"),
 	GIRL_CUM("girl cum"),
 	WING("wings");

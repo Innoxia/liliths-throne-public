@@ -22,12 +22,12 @@ public class CopyInfoEventListener implements EventListener {
 				+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
 				+ "</div>"
 				+ "<div class='description'>"
-				+ "Click to copy the currently displayed dialogue to your clipboard.</br></br>"
+				+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"
 				+ "This scene was written by <b style='color:"
 				+ Main.game.getCurrentDialogueNode().getAuthorColour().toWebHexString()+";'>"
 				+ Main.game.getCurrentDialogueNode().getAuthor()
 				+ "</b></div>");
 		
-		(new Thread(new TooltipUpdateThread())).start();
+		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 }

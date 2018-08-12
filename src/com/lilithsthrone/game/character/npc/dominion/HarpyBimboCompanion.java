@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -24,7 +26,6 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -42,8 +43,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyBimboCompanion extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public HarpyBimboCompanion() {
 		this(false);
 	}
@@ -52,6 +51,7 @@ public class HarpyBimboCompanion extends NPC {
 		super(new NameTriplet("Lauren"),
 				"Brittany's girlfriend, Lauren, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
+				22, Month.JULY, 6,
 				5, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 
@@ -69,8 +69,8 @@ public class HarpyBimboCompanion extends NPC {
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_BLEACH_BLONDE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 			
 			this.setFemininity(90);
@@ -130,19 +130,13 @@ public class HarpyBimboCompanion extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 	
 	// Combat:
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"[npc.Name] is eager to do [bimboHarpy.name]'s bidding, and under the watchful eyes of the rest of the flock, she moves forwards to attack you.");
 	}
 	
 	@Override

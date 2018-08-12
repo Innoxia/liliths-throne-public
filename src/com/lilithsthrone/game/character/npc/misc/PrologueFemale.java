@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -45,8 +47,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class PrologueFemale extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public PrologueFemale() {
 		this(false);
 	}
@@ -54,6 +54,7 @@ public class PrologueFemale extends NPC {
 	public PrologueFemale(boolean isImported) {
 		super(new NameTriplet("Alexander", "Alex", "Alexandria"),
 				"One of the guests at the museum's opening exhibit. She's got a beautiful face and figure, and, even better, she seems to have taken an instant liking towards you...",
+				26, Month.APRIL, 12,
 				3,
 				Gender.F_V_B_FEMALE,
 				RacialBody.HUMAN,
@@ -124,7 +125,7 @@ public class PrologueFemale extends NPC {
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
+	public void endSex() {
 	}
 
 	@Override
