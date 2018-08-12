@@ -77,6 +77,8 @@
 	
 	stocks scene, and rewrite Alexa's existing dialogue to make more of an indication that this quest is coming
 	
+	using save/load enchantments you can get access to enslavement before getting a slavery license, and can enslave people, but I couldn't find a way to further exploit that
+	
 	Should slaves that like pain and humiliation sadomachism get plus affection when spanked/ inspected and not minus
 		I tried it and I have -5 affection for spank and inspect while molest gives + 10
 	 

@@ -1121,15 +1121,14 @@ public class WeaponType {
 	};
 
 	public static AbstractWeaponType OFFHAND_BOW_AND_ARROW = new AbstractWeaponType(2500,
-			true,
-			"a",
+			false,
+			"an",
 			"it",
 			false,
-			"Bow and arrow",
-			"Bow and arrows",
+			"Arcane Short Bow",
+			"Arcane Short Bows",
 			"Fire Arrow",
-			"This bow and arrow set is infused with the power of the Lilin."
-					+ " The arrow is said the be fletched with feathers dropped by the Lilin, and tipped with a fragment of crystallized cum.",
+			"This bow is infused with a potent arcane enchantment, which, once the string is drawn back, extracts an arcane essence out of the user's aura, before converting it into a bolt of energy to be fired at the target.",
 			InventorySlot.WEAPON_OFFHAND,
 			"bowandarrow",
 			Rarity.EPIC,
@@ -1139,7 +1138,7 @@ public class WeaponType {
 					DamageType.ICE,
 					DamageType.POISON),
 			18,
-			0,
+			1,
 			DamageVariance.LOW,
 			null,
 			null,
@@ -1163,31 +1162,24 @@ public class WeaponType {
 
 		@Override
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return getDescriptions(character, target, isHit,
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse(character, target,
 					UtilText.returnStringAtRandom(
-							"You shoot your "+this.getName()+" at [npc.name], grinning as the ethereal arcane arrow travels through [npc.her] body!",
-							"Lobbing out at [npc.name] with your "+this.getName()+", you grin as you see the ethereal arrow travel straight through [npc.her] body!",
-							"You shoot at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as the ethereal arrow passes right through [npc.her] chest!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] shoots [npc.her] "+this.getName()+" at you, grinning as the ethereal arcane arrow travels through your body!",
-							"Lobbing out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal arrow travel straight through your body!",
-							"[npc.Name] shoots at you with [npc.her] "+this.getName()+", causing you to stagger back as the ethereal arrow passes right through your chest!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] shoots [npc.her] "+this.getName()+" at [npc2.name], grinning as the ethereal arcane arrow travels through [npc2.her] body!",
-							"Lobbing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal arrow travel straight through [npc2.her] body!",
-							"[npc.Name] shoots at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back as the ethereal arrow passes right through [npc2.her] chest!"),
-					UtilText.returnStringAtRandom(
-							"You shoot your "+this.getName()+" at [npc.name], but the arrow sails harmlessly through mid-air as you miss your target!",
-							"Lobbing out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
-							"You shoot at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] shoots [npc.her] "+this.getName()+" at you, but the arrow sails harmlessly through mid-air as [npc.she] misses you!",
-							"Lobbing out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
-							"[npc.Name] shoots at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] shoots [npc.her] "+this.getName()+" at [npc2.name], but the arrow sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
-							"Lobbing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
-							"[npc.Name] shoots at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
+							"Pulling back the arcane bow's string, an essence is drawn out of [npc.namePos] arcane aura, before [npc.she] [npc.verb(let)] loose and fires it at [npc2.name].",
+							"[npc.Name] pulls the bow's string back, grinning as an arcane essence is drawn out of [npc.her] arcane aura, before letting loose and firing the newly-formed bolt straight at [npc2.name].")));
+			
+			if(isHit) {
+				return UtilText.parse(character, target,
+						UtilText.returnStringAtRandom(
+								" The ethereal arrow hits its mark, and passes right through [npc2.namePos] chest, causing [npc2.herHim] to gasp and stagger back from the blow.",
+								" The arcane arrow sails straight through the centre of [npc2.namePos] chest, causing [npc2.herHim] to let out a shocked gasp as [npc2.she] staggers back."));
+			} else {
+				return UtilText.parse(character, target,
+						UtilText.returnStringAtRandom(
+								" The ethereal arrow sails harmlessly off to one side of its target, causing [npc.name] to let out a frustrated sigh.",
+								" The arcane arrow sails harmlessly over [npc2.namePos] shoulder, causing [npc2.herHim] to let out a mocking laugh."));
+			}
 		}
 
 		@Override
