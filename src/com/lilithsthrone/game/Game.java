@@ -1190,6 +1190,16 @@ public class Game implements Serializable, XMLSaving {
 			}
 		}
 		
+		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
+		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
+		for(GameCharacter companion : companions) {
+			// Updating companion NPCs:
+			companion.companionshipCheck();
+		}
+		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+			character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		}
+		
 		// Occupancy:
 		int hoursPassed = (int) (getHour() - startHour);
 		int hourStartTo24 = (int) (startHour%24);
@@ -1400,19 +1410,13 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			// Companions:
-			
-			List<GameCharacter> companionsToRemove = new ArrayList<>();
-			for(GameCharacter companion : npc.getCompanions()) {
-				// Updating companion NPCs
-				if(companion.isCompanionAvailable(npc)) {
-					companion.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
-				} else {
-					companionsToRemove.add(companion);
-				}
+			companions = new ArrayList<>(npc.getCompanions());
+			for(GameCharacter companion : companions) {
+				// Updating companion NPCs:
+				companion.companionshipCheck();
 			}
-			for(GameCharacter character : companionsToRemove) {
-				npc.removeCompanion(character);
-				character.returnToHome();
+			for(GameCharacter character : npc.getCompanions()) {
+				character.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
 			}
 			
 			npc.turnUpdate();
@@ -1455,6 +1459,7 @@ public class Game implements Serializable, XMLSaving {
 				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
 				&& !Main.game.isInSex()
 				&& !Main.game.isInCombat()) {
+			
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
@@ -1471,22 +1476,8 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}	
 			});
+			
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
-		}
-		
-		List<GameCharacter> companionsToRemove = new ArrayList<>();
-		for(GameCharacter npc : Main.game.getPlayer().getCompanions()) {
-			// Updating companion NPCs
-			if(npc.isCompanionAvailable(Main.game.getPlayer())) {
-				npc.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-			} else {
-				companionsToRemove.add(npc);
-				// TODO : Add NPCs leaving you to the report.
-			}
-		}
-		for(GameCharacter character : companionsToRemove) {
-			Main.game.getPlayer().removeCompanion(character);
-			character.returnToHome();
 		}
 		
 		// Miscellaneous things:
@@ -2717,6 +2708,10 @@ public class Game implements Serializable, XMLSaving {
 
 	public long getHour() {
 		return Main.game.getMinutesPassed() / 60l;
+	}
+	
+	public int getHourOfDay() {
+		return (int) (getHour()%24);
 	}
 	
 	public boolean isDayTime() {

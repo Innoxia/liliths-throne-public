@@ -3875,8 +3875,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void companionshipCheck() {
-		if(!this.isCompanionAvailable(Main.game.getNPCById(partyLeader))) {
+		if(Main.game.isStarted() && !this.isCompanionAvailable(Main.game.getNPCById(partyLeader))) {
+			String s = "";
+			if(Main.game.getNPCById(partyLeader).statusEffectDescriptions.get(StatusEffect.COMPANIONS_LEAVING)!=null) {
+				s = Main.game.getNPCById(partyLeader).statusEffectDescriptions.get(StatusEffect.COMPANIONS_LEAVING);
+			}
+			
+			Main.game.getNPCById(partyLeader).getStatusEffectDescriptions().put(StatusEffect.COMPANIONS_LEAVING, s+getCompanionRejectionReason());
 			Main.game.getNPCById(partyLeader).removeCompanion(this);
+			this.returnToHome();
 		}
 	}
 	
@@ -3884,6 +3891,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Override if needed. Returns true if this companion is available to that character. Is called during turn updates to make sure NPCs keep their companionship state updated. 
 	 */
 	public boolean isCompanionAvailable(GameCharacter partyLeader) {
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay())) {
+			return false;
+		}
+		
 		return (this.isSlave() && this.getOwner().equals(partyLeader))
 				|| (Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()))
 				|| (this instanceof Elemental && ((Elemental)this).getSummoner().equals(partyLeader));
@@ -3893,6 +3904,13 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Added during turn update to the report to make sure player knows why NPCs leave them. By default will just make some generic excuse up.
 	 */
 	public String getCompanionRejectionReason() {
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay())) {
+			return UtilText.parse(this,
+					"<p>"
+						+ "[npc.speech(Ah! I need to get to work! Sorry, [pc.name], I'll see you later! Bye!)] [npc.name] suddenly says, before turning and running off..."
+					+ "</p>");
+		}
+		
 		return this.getName()+" leaves your party for unknown reasons.";
 	}
 	

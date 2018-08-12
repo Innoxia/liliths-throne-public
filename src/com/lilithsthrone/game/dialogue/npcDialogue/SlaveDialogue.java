@@ -411,7 +411,12 @@ public class SlaveDialogue {
 					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(slave())) {
-						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+						if(!slave().isCompanionAvailable(Main.game.getPlayer())) {
+							return new Response("Add to party",
+									UtilText.parse(slave(), "[npc.Name] cannot be added to your party!"),
+									null);
+								
+						} else if(Main.game.getPlayer().canHaveMoreCompanions()) {
 							return new Response("Add to party",
 									UtilText.parse(slave(), "Command [npc.name] to start following you around."),
 									SLAVE_START){

@@ -156,9 +156,7 @@ public class OccupancyUtil implements XMLSaving {
 
 			if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
 				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
-					if(Main.game.getDateNow().getDayOfWeek().getValue()>=occupant.getHistory().getStartDay().getValue()
-							&& Main.game.getDateNow().getDayOfWeek().getValue()<=occupant.getHistory().getEndDay().getValue()
-							&& occupant.getHistory().getWorkHours()[hour]) {
+					if(occupant.getHistory().isAtWork(hour)) {
 						occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 						
 					} else {

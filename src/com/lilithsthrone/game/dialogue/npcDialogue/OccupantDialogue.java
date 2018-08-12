@@ -272,9 +272,14 @@ public class OccupantDialogue {
 					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(occupant())) {
-						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+						if(!occupant().isCompanionAvailable(Main.game.getPlayer())) {
 							return new Response("Add to party",
-									UtilText.parse(occupant(), "Command [npc.name] to start following you around."),
+									UtilText.parse(occupant(), "[npc.Name] cannot be added to your party!"),
+									null);
+								
+						} else if(Main.game.getPlayer().canHaveMoreCompanions()) {
+							return new Response("Add to party",
+									UtilText.parse(occupant(), "Ask [npc.name] if [npc.she] would like to accompany you for a while."),
 									OCCUPANT_START){
 								@Override
 								public void effects() {
@@ -287,6 +292,7 @@ public class OccupantDialogue {
 									"You are already at your party limit!",
 									null);
 						}
+						
 					} else {
 						return new Response("Remove from party",
 								"Command [npc.name] to leave your party.",
@@ -941,9 +947,15 @@ public class OccupantDialogue {
 					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(occupant())) {
-						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+						
+						if(!occupant().isCompanionAvailable(Main.game.getPlayer())) {
 							return new Response("Add to party",
-									UtilText.parse(occupant(), "Command [npc.name] to start following you around."),
+									UtilText.parse(occupant(), "[npc.Name] cannot be added to your party!"),
+									null);
+								
+						} else if(Main.game.getPlayer().canHaveMoreCompanions()) {
+							return new Response("Add to party",
+									UtilText.parse(occupant(), "Ask [npc.name] if [npc.she] would like to accompany you for a while."),
 									OCCUPANT_APARTMENT){
 								@Override
 								public void effects() {
@@ -951,11 +963,13 @@ public class OccupantDialogue {
 									Main.game.getPlayer().addCompanion(occupant());
 								}
 							};
+							
 						} else {
 							return new Response("Add to party",
 									"You are already at your party limit!",
 									null);
 						}
+						
 					} else {
 						return new Response("Remove from party",
 								"Command [npc.name] to leave your party.",

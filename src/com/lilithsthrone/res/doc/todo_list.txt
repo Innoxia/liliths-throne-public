@@ -39,8 +39,11 @@
 	Contributors:
 		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)
 		Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)
-		<b>Added:</b> Arcane Bow. Sold by Vicky, and comes in Physical, Fire, Ice, and Poison types. (Rfpnj PR#669)
+		Added: Arcane Bow. Sold by Vicky, and comes in Physical, Fire, Ice, and Poison types. (Rfpnj PR#669)
 		Added fox-morph book to Lilaya's Library. (Rfpnj PR#871)
+		Added a couple more entries to DisplacementType Enum: OPEN and UNBUCKLE. (Rfpnj PR#877)
+		Added support for silly mode (disabled by default), which for now just changes the race name 'wolf-morph' to 'awoo-morph'. (Nnxx PR#887)
+		Added: Leather belt, sold by Nyan. Masculine, hip slot. (kobolds PR#879)
 		
 	DJ4ddi's Artwork image improvements (PR#881):
 		Improved image scaling (removes jagged edges from a lot of in-game images).
@@ -113,13 +116,14 @@
 	
 	
 	
-	
-	
-	make those companions leave your party when it's time for them to get to work
+	footjobs to facesitting
 	
 	If your sex partner dislikes using their own penis and you stroke your own penis, their Lust drops.
 		They hate theirs, you stroke yours, they lose Lust.
 		They love theirs, you stroke yours, they gain Lust.
+	
+	Additionally, if they hate being hurt and humiliated, and you are rough with yourself, they lose Lust.
+	
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
 	
