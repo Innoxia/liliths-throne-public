@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -25,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -2188,11 +2190,21 @@ public enum Subspecies {
 	}
 	
 	public String getSingularMaleName() {
-		return singularMaleName;
+		if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			return "awoo-boy";
+		}
+		else{
+			return singularMaleName;
+		}
 	}
 
 	public String getSingularFemaleName() {
-		return singularFemaleName;
+		if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			return "awoo-girl";
+		}
+		else{
+			return singularFemaleName;
+		}
 	}
 	
 	public String getPluralMaleName() {

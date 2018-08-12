@@ -3021,16 +3021,25 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
 			if(isFeminine()) {
-				if(getSubspecies()==Subspecies.HUMAN)
+				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+					return "awoo-girl";
+				}
+				if(getSubspecies()==Subspecies.HUMAN){
 					return "woman";
-				else
+				}
+				else{
 					return getSubspecies().getSingularFemaleName();
-				
+				}
 			} else {
-				if(getSubspecies()==Subspecies.HUMAN)
+				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+					return "awoo-boy";
+				}
+				if(getSubspecies()==Subspecies.HUMAN){
 					return "man";
-				else
+				}
+				else{
 					return getSubspecies().getSingularMaleName();
+				}
 			}
 			
 		} else {
