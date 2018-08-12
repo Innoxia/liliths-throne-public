@@ -40,6 +40,16 @@
 		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)
 		Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)
 		
+	DJ4ddi's Artwork image improvements (PR #881):
+		Improved image scaling (removes jagged edges from a lot of in-game images).
+		Naked player images are no longer hidden.
+		Image selection controls now work for the player.
+		Newly created NPCs (e.g. after starting a new game) now have their artwork loaded immediately.
+		Unrecognized file name prefixes are now loaded as clothed.
+		The tooltip image is now hidden if it is locked in the info screen.
+		JPG images actually work.
+		<b>Added:</b> A small button with an encircled '+' icon is now placed next to the artist information button (or in the same spot, if there is no artwork). Clicking it opens a dialogue that allows selecting one or more image files which are copied into the character's folder and imported into the game. A log entry indicates success or failure of the import.
+		
 	Other:
 		You can now use non-transformative items on Elementals.
 		Standardised the decision making of all non-unique NPCs in regards to accepting an item from you, and improved some of the descriptions of them using items you give to them, based on their fetishes.
@@ -105,6 +115,7 @@
 	
 	make those companions leave your party when it's time for them to get to work
 	
+	If your sex partner dislikes using their own penis and you stroke your own penis, their Lust drops.
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
 	
