@@ -11,8 +11,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -29,7 +27,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.10
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -85,11 +83,7 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {
-		return Sex.isDom(Main.game.getPlayer())
-				|| (Sex.isSubHasEqualControl()
-					&& (Sex.getActivePartner().isSlave()
-					|| (!(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
-							&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker))));
+		return Sex.isDom(Main.game.getPlayer()) || (Sex.isSubHasEqualControl() && Sex.isConsensual());
 	}
 	
 	public default boolean isPartnerWantingToStopSex(GameCharacter partner) {

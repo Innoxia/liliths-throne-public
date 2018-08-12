@@ -225,10 +225,18 @@ public class Litter implements Serializable, XMLSaving {
 		return Main.game.getNPCById(motherId);
 	}
 
+	public boolean isMotherId(String motherId) {
+		return this.motherId.equals(motherId);
+	}
+
 	public GameCharacter getFather() {
 		return Main.game.getNPCById(fatherId);
 	}
 
+	public boolean isFatherId(String fatherId) {
+		return this.fatherId.equals(fatherId);
+	}
+	
 	public List<String> getOffspring() {
 		return offspring;
 	}

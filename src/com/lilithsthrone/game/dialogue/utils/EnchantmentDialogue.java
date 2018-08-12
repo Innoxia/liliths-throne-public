@@ -284,24 +284,23 @@ public class EnchantmentDialogue {
 				if(effects.isEmpty()) {
 					inventorySB.append("<br/><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
 				} else {
-					i=0;
-					for(ItemEffect ie : effects) {
+					for(int it=0; it<effects.size(); it++) {
+						ItemEffect ie = effects.get(it);
 						for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 							inventorySB.append(
-									"<div class='container-full-width' style='background:"+RenderingEngine.getEntryBackgroundColour(i%2==0)+"; width:98%; margin:0 1%; padding:2px;'>"
+									"<div class='container-full-width' style='background:"+RenderingEngine.getEntryBackgroundColour(it%2==0)+"; width:98%; margin:0 1%; padding:2px;'>"
 										+Util.capitaliseSentence(s)
-										+(ingredient.getEffects().size()>i && ingredient.getEffects().get(i).equals(ie)
+										+(ingredient.getEffects().contains(ie)
 												?"<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
 														+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
 														+ (ingredient instanceof Tattoo
 																?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
 																:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(ingredient, ie), "b", false))
-														+ "<div class='overlay' id='DELETE_EFFECT_"+i+"'></div>"
+														+ "<div class='overlay' id='DELETE_EFFECT_"+it+"'></div>"
 													+ "</div>"
-												:"<div class='normal-button' id='DELETE_EFFECT_"+i+"'"
+												:"<div class='normal-button' id='DELETE_EFFECT_"+it+"'"
 														+ " style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><b>X</b></div>")
 									+"</div>");
-							i++;
 						}
 					}
 				}
@@ -889,7 +888,7 @@ public class EnchantmentDialogue {
 			DOMSource source = new DOMSource(doc);
 			
 			String saveLocation = "data/enchantments/"+name+".xml";
-			StreamResult result = new StreamResult(new File(saveLocation));
+			StreamResult result = new StreamResult(saveLocation);
 			
 			transformer.transform(source, result);
 			

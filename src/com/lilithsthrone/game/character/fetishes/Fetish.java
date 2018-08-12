@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -1061,10 +1062,16 @@ public enum Fetish {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You always did have the hots for your aunt Lily...";
-			else
+			if (owner.isPlayer()) {
+				if(owner.getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+					return "You always did have the hots for your male cousin...";
+				} else {
+					return "You always did have the hots for your aunt Lily, as well as your female cousin...";
+				}
+				
+			} else {
 				return UtilText.parse(owner, "[npc.Name] has a fetish for incestuous sex.");
+			}
 		}
 
 		@Override

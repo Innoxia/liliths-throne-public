@@ -2621,7 +2621,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT"><![CDATA[
 	<p>
-		Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink don on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
+		Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
 	</p>
 	<p>
 		Seemingly eager to do as you ask, [npc.name] runs [npc.her] [npc.foot] up the inside of your thigh, but before [npc.she] presses forwards into your groin, [npc.she] suddenly pulls back. Alarmed at [npc.her] sudden change in direction, you let out a pleading [pc.moan], which is exactly what [npc.name] was hoping for, as [npc.she] lets out yet another playful laugh, [npc.speech(Haha! You want me to continue, huh?)]
@@ -2864,9 +2864,6 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_RUDE"><![CDATA[
-	<p>
-		You slap [npc.name] (push [npc.her] away if pc is male), before loudly telling [npc.herHim] that you're not one to have sex with some sleazy creep in a club's toilet. Several of the people at the sinks turn and laugh, and [npc.name] runs off in shame.
-	</p>
 	<p>
 		[pc.speech(There's no way I'm having sex in a toilet!)] you shout, pulling your [pc.hand] away from [npc.name] and standing your ground.
 	</p>

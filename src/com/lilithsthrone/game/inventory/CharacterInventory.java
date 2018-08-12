@@ -55,7 +55,7 @@ import java.util.Set;
  * Only the very bravest dare venture past line 695.
  * 
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.10
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -131,6 +131,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
+
+		Element dirtySlotsElement = doc.createElement("dirtySlots");
+		characterInventory.appendChild(dirtySlotsElement);
+		for(InventorySlot slot : this.getDirtySlots()) {
+			Element element = doc.createElement("dirtySlot");
+			dirtySlotsElement.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "slot", slot.toString());
+		}
 		
 		if(this.getMainWeapon() != null) {
 			Element mainWeapon = doc.createElement("mainWeapon");
@@ -182,6 +190,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		inventory.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
+
+		
+		NodeList nodes = parentElement.getElementsByTagName("dirtySlots");
+		Element dirtySlotContainerElement = (Element) nodes.item(0);
+		if(dirtySlotContainerElement!=null) {
+			NodeList dirtySlotEntries = dirtySlotContainerElement.getElementsByTagName("dirtySlot");
+			for(int i=0; i<dirtySlotEntries.getLength(); i++){
+				Element e = ((Element)dirtySlotEntries.item(i));
+				InventorySlot slot = InventorySlot.valueOf(e.getAttribute("slot"));
+				inventory.addDirtySlot(slot);
+			}
+		}
 		
 		if(parentElement.getElementsByTagName("mainWeapon").item(0)!=null) {
 			inventory.equipMainWeapon(AbstractWeapon.loadFromXML(
@@ -690,6 +710,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		for (AbstractClothing c : clothingCurrentlyEquipped) {
 			c.setDirty(false);
 		}
+		this.recalculateMapOfDuplicateClothing();
 	}
 	
 	public List<AbstractClothing> getClothingCurrentlyEquipped() {

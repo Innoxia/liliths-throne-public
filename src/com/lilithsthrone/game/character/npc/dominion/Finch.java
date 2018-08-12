@@ -112,19 +112,23 @@ public class Finch extends NPC {
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
-				for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
-					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
-				}
-				if(clothing.getRarity()==Rarity.COMMON) {
-					for(int i = 0; i<Util.random.nextInt(2); i++) {
-						if(Math.random()<0.66f) {
-							this.addClothing(AbstractClothingType.generateRareClothing(clothing), false);
-						} else {
-							this.addClothing(AbstractClothingType.generateClothingWithEnchantment(clothing), false);
+			try {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+					for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
+						this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
+					}
+					if(clothing.getRarity()==Rarity.COMMON) {
+						for(int i = 0; i<Util.random.nextInt(2); i++) {
+							if(Math.random()<0.66f) {
+								this.addClothing(AbstractClothingType.generateRareClothing(clothing), false);
+							} else {
+								this.addClothing(AbstractClothingType.generateClothingWithEnchantment(clothing), false);
+							}
 						}
 					}
 				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
 		

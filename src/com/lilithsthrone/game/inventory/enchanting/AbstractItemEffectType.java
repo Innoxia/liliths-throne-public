@@ -1721,6 +1721,10 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
+				if(Main.game.isPubicHairEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
+				}
+				
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
@@ -1752,6 +1756,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
+				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BLUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -1767,6 +1772,10 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+
+				if(Main.game.isPubicHairEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
+				}
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_VAGINA_SQUIRTER, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
@@ -2882,7 +2891,23 @@ public abstract class AbstractItemEffectType {
 						}
 					case REMOVAL:
 							return new RacialEffectUtil("Removes penis.", 0, "") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
-								
+
+					case TF_MOD_BODY_HAIR:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Removes a huge amount of pubic hair.", smallChangeMajorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Removes a large amount of pubic hair.", smallChangeDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes some pubic hair.", smallChangeMinorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds some pubic hair.", smallChangeMinorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Adds a large amount of pubic hair.", smallChangeBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Adds a huge amount of pubic hair.", smallChangeMajorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
+						}
+						
 					case TF_MOD_PENIS_BARBED:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -3205,7 +3230,22 @@ public abstract class AbstractItemEffectType {
 						}
 					case REMOVAL:
 							return new RacialEffectUtil("Removes vagina.", 0, "") { @Override public String applyEffect() { return target.setVaginaType(VaginaType.NONE); } };
-						
+							
+					case TF_MOD_BODY_HAIR:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Removes a huge amount of pubic hair.", smallChangeMajorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Removes a large amount of pubic hair.", smallChangeDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes some pubic hair.", smallChangeMinorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds some pubic hair.", smallChangeMinorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Adds a large amount of pubic hair.", smallChangeBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Adds a huge amount of pubic hair.", smallChangeMajorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
+						}
 
 					case TF_MOD_PENIS_BARBED:
 						switch(potency) {

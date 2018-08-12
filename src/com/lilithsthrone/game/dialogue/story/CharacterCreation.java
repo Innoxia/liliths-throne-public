@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.AbstractMap.SimpleEntry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
@@ -439,6 +440,8 @@ public class CharacterCreation {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false));
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_SILVER, false));
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_SILVER, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
 				}
 				break;
 				
@@ -1571,8 +1574,8 @@ public class CharacterCreation {
 							Main.game.getPlayer().getVirginityLossMap().replaceAll((k, v) ->
 								(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
 									|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine()))
-									?"your girlfriend"
-									:"your boyfriend");
+									?new SimpleEntry<>("", "your girlfriend")
+									:new SimpleEntry<>("", "your boyfriend"));
 						}
 					};
 				}
@@ -1714,9 +1717,9 @@ public class CharacterCreation {
 						if(!Main.game.getPlayer().hasPenis()) {
 							for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 								SexType st = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot);
-								Main.game.getPlayer().setVirginityLoss(st, "");
+								Main.game.getPlayer().resetVirginityLoss(st);
 								st = new SexType(SexParticipantType.SELF, SexAreaPenetration.PENIS, ot);
-								Main.game.getPlayer().setVirginityLoss(st, "");
+								Main.game.getPlayer().resetVirginityLoss(st);
 							}
 							Main.game.getPlayer().setPenisVirgin(true);
 							
@@ -1724,9 +1727,9 @@ public class CharacterCreation {
 						if(!Main.game.getPlayer().hasVagina()) {
 							for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 								SexType st = new SexType(SexParticipantType.NORMAL, pt, SexAreaOrifice.VAGINA);
-								Main.game.getPlayer().setVirginityLoss(st, "");
+								Main.game.getPlayer().resetVirginityLoss(st);
 								st = new SexType(SexParticipantType.SELF, pt, SexAreaOrifice.VAGINA);
-								Main.game.getPlayer().setVirginityLoss(st, "");
+								Main.game.getPlayer().resetVirginityLoss(st);
 							}
 							Main.game.getPlayer().setVaginaVirgin(true);
 						}

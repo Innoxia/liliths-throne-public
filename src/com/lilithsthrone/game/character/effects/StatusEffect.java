@@ -3200,8 +3200,31 @@ public enum StatusEffect {
 			}
 			return false;
 		}
+	},
 
+	COMPANIONS_LEAVING( // Utility status effect to display text of companions leaving
+			80,
+			"Companions Leaving",
+			"overworked",
+			Colour.BASE_MAGENTA,
+			false,
+			null,
+			null) {
 
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "";
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isPlayer();
+		}
 	},
 
 	PSYCHOACTIVE(

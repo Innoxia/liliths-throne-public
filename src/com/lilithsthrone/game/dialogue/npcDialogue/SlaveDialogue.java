@@ -411,7 +411,12 @@ public class SlaveDialogue {
 					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(slave())) {
-						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+						if(!slave().isCompanionAvailable(Main.game.getPlayer())) {
+							return new Response("Add to party",
+									UtilText.parse(slave(), "[npc.Name] cannot be added to your party!"),
+									null);
+								
+						} else if(Main.game.getPlayer().canHaveMoreCompanions()) {
 							return new Response("Add to party",
 									UtilText.parse(slave(), "Command [npc.name] to start following you around."),
 									SLAVE_START){
@@ -556,7 +561,12 @@ public class SlaveDialogue {
 								Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.TESTICLES, Main.game.getPlayer(), true);
 								Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+								if(slave().getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() || slave().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive()) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+								} else {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+								}
+								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
 							}
 						};
@@ -571,7 +581,11 @@ public class SlaveDialogue {
 							public void effects() {
 								applyReactionReset();
 								slave().NPCFlagValues.add(NPCFlagValue.flagSlaveSpanking);
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+								if(slave().getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+								} else {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+								}
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
 							}
 						};
@@ -588,17 +602,13 @@ public class SlaveDialogue {
 								slave().NPCFlagValues.add(NPCFlagValue.flagSlaveMolest);
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
 								
-								if(slave().isAttractedTo(Main.game.getPlayer())) {
-									if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
-									} else {
-									}
-								} else {
-									if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-									} else {
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
-									}
-								}
+									if(slave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || slave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+										if(slave().isAttractedTo(Main.game.getPlayer())) {
+											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+										} else {
+											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
+										}
+									} 
 							}
 						};
 					} else {
@@ -643,7 +653,7 @@ public class SlaveDialogue {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+									if(Main.game.getActiveNPC().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 									} else {
 										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -25));
@@ -717,7 +727,7 @@ public class SlaveDialogue {
 									@Override
 									public void effects() {
 										applyReactionReset();
-										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+										if(Main.game.getActiveNPC().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 										} else {
 											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -25));

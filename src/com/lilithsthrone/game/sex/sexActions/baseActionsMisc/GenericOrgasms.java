@@ -108,7 +108,7 @@ public class GenericOrgasms {
 				orgasmText = "With [npc1.a_moan+], [npc1.name] [npc1.verb(sink)] down into [npc2.namePos] lap.";
 				break;
 			case COWGIRL_ON_BACK:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(take)] hold of [npc2.name] waist, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(take)] hold of [npc2.namePos] waist, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case COWGIRL_RIDING:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] down at [npc2.name] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to climax.";
@@ -1055,7 +1055,7 @@ public class GenericOrgasms {
 		if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)
 				&& cumTarget==OrgasmCumTarget.INSIDE
 				&& contactingArea.isOrifice()
-				&& ((SexAreaOrifice)contactingArea).isTakesPenisVirginity()) {
+				&& ((SexAreaOrifice)contactingArea).isInternalOrifice()) {
 			genericOrgasmSB.append("<br/>"
 					+ "Even after [npc1.namePos] [npc1.balls+] have pumped their entire load into [npc2.name], [npc1.her] knot remains swollen, locking"
 					+ "#IFnpc2.isPlayer()"
@@ -2373,6 +2373,34 @@ public class GenericOrgasms {
 						case TONGUE:
 							break;
 					}
+				} else {
+					switch((SexAreaOrifice)areaContacted) {
+						case ANUS:
+							break;
+						case ASS:
+							return Util.newArrayListOfValues(
+									CoverableArea.ASS,
+									CoverableArea.ANUS);
+						case BREAST:
+							return Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.MOUTH);
+						case MOUTH:
+							break;
+						case NIPPLE:
+							break;
+						case THIGHS:
+							return Util.newArrayListOfValues(
+									CoverableArea.LEGS);
+						case URETHRA_PENIS:
+							break;
+						case URETHRA_VAGINA:
+							break;
+						case VAGINA:
+							break;
+						default:
+							break;
+					}
 				}
 			}
 			return null; 
@@ -3399,7 +3427,7 @@ public class GenericOrgasms {
 
 				} else if(isAreaFucked(Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+" [npc.speech(Fuck! Yes! Cum all over my [pc.feet]!)]";
+							+" [npc.speech(Fuck! Yes! Cum all over my [npc.feet]!)]";
 					
 				} else {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
@@ -4009,7 +4037,35 @@ public class GenericOrgasms {
 						case TONGUE:
 							break;
 					}
+				} else {
+					switch((SexAreaOrifice)areaContacted) {
+					case ANUS:
+						break;
+					case ASS:
+						return Util.newArrayListOfValues(
+								CoverableArea.ASS,
+								CoverableArea.ANUS);
+					case BREAST:
+						return Util.newArrayListOfValues(
+								CoverableArea.BREASTS,
+								CoverableArea.MOUTH);
+					case MOUTH:
+						break;
+					case NIPPLE:
+						break;
+					case THIGHS:
+						return Util.newArrayListOfValues(
+								CoverableArea.LEGS);
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
+						break;
+					case VAGINA:
+						break;
+					default:
+						break;
 				}
+			}
 			}
 			return null; 
 		}
