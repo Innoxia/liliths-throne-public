@@ -39,8 +39,9 @@
 	Contributors:
 		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)
 		Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)
+		<b>Added:</b> Arcane Bow. Sold by Vicky, and comes in Physical, Fire, Ice, and Poison types. (Rfpnj PR#669)
 		
-	DJ4ddi's Artwork image improvements (PR #881):
+	DJ4ddi's Artwork image improvements (PR#881):
 		Improved image scaling (removes jagged edges from a lot of in-game images).
 		Naked player images are no longer hidden.
 		Image selection controls now work for the player.
@@ -116,12 +117,17 @@
 	make those companions leave your party when it's time for them to get to work
 	
 	If your sex partner dislikes using their own penis and you stroke your own penis, their Lust drops.
+		They hate theirs, you stroke yours, they lose Lust.
+		They love theirs, you stroke yours, they gain Lust.
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
 	
 	Add character import to club
 	
 	Finish bat-morphs
+	
+	
+	
 	
 	
 	Affecting other cat subspecies:
