@@ -433,7 +433,7 @@ public class Properties implements Serializable {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("data/properties.xml"));
+			StreamResult result = new StreamResult("data/properties.xml");
 		
 			transformer.transform(source, result);
 		
