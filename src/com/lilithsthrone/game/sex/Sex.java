@@ -1758,18 +1758,19 @@ public class Sex {
 				lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + activeCharacter.getFetishDesire(f).getLustIncrement());
 			}
 		}
-
-		// Arousal increments for this target's related fetishes:
-		if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && Sex.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
-			for(Fetish f : sexAction.getFetishesForTargetedPartner(activeCharacter)) {
-				if(targetCharacter.hasFetish(f)) {
-					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncrease());
-					if(!Sex.isMasturbation()) {
-						arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+		if(sexAction.getParticipantType()!=SexParticipantType.SELF) {
+			// Arousal increments for this target's related fetishes:
+			if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && Sex.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
+				for(Fetish f : sexAction.getFetishesForTargetedPartner(activeCharacter)) {
+					if(targetCharacter.hasFetish(f)) {
+						arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncrease());
+						if(!Sex.isMasturbation()) {
+							arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+						}
+						targetCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
 					}
-					targetCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
+					lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + targetCharacter.getFetishDesire(f).getLustIncrement());
 				}
-				lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + targetCharacter.getFetishDesire(f).getLustIncrement());
 			}
 		}
 		

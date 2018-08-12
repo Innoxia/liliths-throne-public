@@ -180,7 +180,9 @@ public enum SexPositionType {
 							new Value<>(
 									SexPositionSlot.FACE_SITTING_ON_FACE,
 									new SexActionInteractions(
-											SexActionPresets.fingerToLowerHalf)))))) {
+											Util.mergeMaps(
+												SexActionPresets.fingerToLowerHalf,
+												SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_BACK), Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_FACE),

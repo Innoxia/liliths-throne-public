@@ -64,6 +64,7 @@
 		Masochistic slaves now gain affection from being spanked, and both masochistic and exhibitionist slaves gain affection from being inspected.
 		Improved virginity loss tracking code, and added virginity-taken counts to tattoo count types. Also improved the tattoo count UI a little. (Virginity counts will all start at 0 from this version, as previous versions didn't track who took a character's virginity.)
 		Added hair modification as a secondary element to penis and vagina transformation potions, which increases/decreases pubic hair. (Not displayed if pubic hair is turned off in content options.)
+		Added foot actions to face-sitting sex position.
 	
 	Bugs:
 		Fixed major issue of friendly occupants accidentally being deleted once they'd moved out to their new apartment.
@@ -111,18 +112,12 @@
 		Fixed being able to move friendly occupants back into your guest rooms from their apartments
 		Fixed penis/testicle transformations being applied to your dildo if you were wearing one.
 		Removing a strapon that is engaged in penetration during sex will now correctly stop that penetration.
+		NPCs arousal is no longer affected by self actions that you perform.
 	
 	
 	
 	
 	
-	footjobs to facesitting
-	
-	If your sex partner dislikes using their own penis and you stroke your own penis, their Lust drops.
-		They hate theirs, you stroke yours, they lose Lust.
-		They love theirs, you stroke yours, they gain Lust.
-	
-	Additionally, if they hate being hurt and humiliated, and you are rough with yourself, they lose Lust.
 	
 	
 	Add wanted board to Enforcer HQ, where can import as attackers

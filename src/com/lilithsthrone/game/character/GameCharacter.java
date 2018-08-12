@@ -3891,7 +3891,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Override if needed. Returns true if this companion is available to that character. Is called during turn updates to make sure NPCs keep their companionship state updated. 
 	 */
 	public boolean isCompanionAvailable(GameCharacter partyLeader) {
-		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay())) {
+		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()) && this.getHistory().isAtWork(Main.game.getHourOfDay()) && !this.getHistory().isLowlife()) {
 			return false;
 		}
 		
