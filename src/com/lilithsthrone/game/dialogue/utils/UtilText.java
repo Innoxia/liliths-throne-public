@@ -15,6 +15,8 @@ import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.race.Race;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -5730,8 +5732,14 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
+			if(character.getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+				return "awoo-girl";
+			}
 			return race.getSingularFemaleName();
 		} else {
+			if(character.getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+				return "awoo-boy";
+			}
 			return race.getSingularMaleName();
 		}
 	}
