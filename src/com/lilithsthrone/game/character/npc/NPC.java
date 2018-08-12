@@ -3043,7 +3043,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if((!item.getItemType().isTransformative() || !target.isUnique()) // Cannot TF uniques
 						&& ((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))
 							|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
-							|| (target.getPartyLeader().equals(user) && !item.getItemType().isTransformative())
+							|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && !item.getItemType().isTransformative()))
 							|| (!target.isUnique() && target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative()))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
