@@ -829,6 +829,7 @@ public class OptionsDialogue {
 
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
 			} else if (index <= presets.size()) {
 				Properties preset = presets.get(index - 1);
 				return new Response(preset.getProperty("NAME", "Custom " + index), preset.getProperty("DESCRIPTION", "Reapply your previously saved key bindings."), KEYBINDS) {
@@ -838,8 +839,12 @@ public class OptionsDialogue {
 						Main.saveProperties();
 					}
 				};
+				
 			} else if (index == 14) {
-				return new Response("Save preset", "Store the current key bindings in a file.", KEYBINDS) {
+				return new Response("Save preset",
+						"Store the current key bindings in a file. If you want to delete any saved presets, navigate to the 'res/keybinds' folder and delete the .txt files that you no longer want."
+								+ " (They will stop showing up in this list after a game restart.)",
+						KEYBINDS) {
 					@Override
 					public void effects() {
 						savePreset(presets.size() - 2);
