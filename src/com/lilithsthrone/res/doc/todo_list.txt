@@ -37,7 +37,8 @@
 		All non-unique NPCs that have the 'transformation test subject' fetish will now accept all TF potions that you ask for them to drink.
 		
 	Contributors:
-		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees)
+		Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)
+		Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)
 		
 	Other:
 		You can now use non-transformative items on Elementals.
