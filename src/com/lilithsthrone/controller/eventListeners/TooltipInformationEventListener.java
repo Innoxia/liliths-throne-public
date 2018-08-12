@@ -1,14 +1,13 @@
 package com.lilithsthrone.controller.eventListeners;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.utils.CachedImage;
-import com.lilithsthrone.utils.ImageCache;
+import com.lilithsthrone.rendering.CachedImage;
+import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
@@ -605,12 +604,14 @@ public class TooltipInformationEventListener implements EventListener {
 					
 				} else {
 					CachedImage image = null;
-					if (owner.hasArtwork()) {
-						image = ImageCache.INSTANCE.requestImage(new File(owner.getCurrentArtwork().getCurrentImage()));
-					}
-					boolean displayImage = image != null
-							&& Main.getProperties().hasValue(PropertyValue.thumbnail)
+					boolean displayImage = Main.getProperties().hasValue(PropertyValue.thumbnail)
 							&& Main.getProperties().hasValue(PropertyValue.artwork);
+					if (displayImage) {
+						if (owner.hasArtwork()) {
+							image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());
+						}
+						displayImage = image != null;
+					}
 
 					int[] dimensions = new int[]{419, 508};
 					int imagePadding = 0;
@@ -697,13 +698,12 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType(owner)));
 
 					if (displayImage) {
-						boolean visible = (owner.isPlayer() || owner.getTotalTimesHadSex(Main.game.getPlayer())>0) || owner.getCurrentArtwork().isCurrentImageClothed();
-						
+						boolean revealed = owner.isImageRevealed();
 						tooltipSB.append("</div>"
 								+ "<div style='float: left;'>"
-									+ "<img id='CHARACTER_IMAGE' style='"+(visible?"":"-webkit-filter: brightness(0%);")
+									+ "<img id='CHARACTER_IMAGE' style='"+(revealed?"":"-webkit-filter: brightness(0%);")
 										+" width: auto; height: auto; max-width: 300; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getImageString()+ "'/>"
-										+(visible?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+										+(revealed?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>");
 					}
 				}

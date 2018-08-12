@@ -149,7 +149,7 @@ public class Brax extends NPC {
 	}
 
 	@Override
-	protected String getArtworkFolderName() {
+	public String getArtworkFolderName() {
 		return this.getNameIgnoresPlayerKnowledge();
 	}
 	
