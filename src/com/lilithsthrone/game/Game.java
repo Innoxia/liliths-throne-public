@@ -1194,6 +1194,9 @@ public class Game implements Serializable, XMLSaving {
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
 		for(GameCharacter companion : companions) {
 			// Updating companion NPCs:
+			if(companion.getPartyLeader()==null) {
+				companion.setPartyLeader(Main.game.getPlayer().getId());
+			}
 			companion.companionshipCheck();
 		}
 		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {

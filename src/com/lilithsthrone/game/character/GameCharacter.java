@@ -140,6 +140,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -1053,7 +1054,7 @@ public abstract class GameCharacter implements XMLSaving {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getVirginityLoss(new SexType(participant, pt, ot))!=null && !this.getVirginityLoss(new SexType(participant, pt, ot)).getKey().isEmpty()) {
-						Element element = doc.createElement("virginity");
+						Element element = doc.createElement("penetrationTypeVirginity");
 						characterVirginityTakenBy.appendChild(element);
 	
 						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
@@ -1061,6 +1062,16 @@ public abstract class GameCharacter implements XMLSaving {
 						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
 						CharacterUtils.addAttribute(doc, element, "takenBy", this.getVirginityLoss(new SexType(participant, pt, ot)).getKey());
 						CharacterUtils.addAttribute(doc, element, "takenDescription", this.getVirginityLoss(new SexType(participant, pt, ot)).getValue());
+					}
+					if(this.getVirginityLoss(new SexType(participant, ot, pt))!=null && !this.getVirginityLoss(new SexType(participant, ot, pt)).getKey().isEmpty()) {
+						Element element = doc.createElement("orificeTypeVirginity");
+						characterVirginityTakenBy.appendChild(element);
+	
+						CharacterUtils.addAttribute(doc, element, "participantType", participant.toString());
+						CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+						CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+						CharacterUtils.addAttribute(doc, element, "takenBy", this.getVirginityLoss(new SexType(participant, ot, pt)).getKey());
+						CharacterUtils.addAttribute(doc, element, "takenDescription", this.getVirginityLoss(new SexType(participant, ot, pt)).getValue());
 					}
 				}
 			}
@@ -2112,13 +2123,13 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Virginity losses:
-		element = (Element) (sexStatsElement).getElementsByTagName("virginityTakenBy").item(0);
-		NodeList virginityElements = element.getElementsByTagName("virginity");
-		for(int i=0; i<virginityElements.getLength(); i++){
-			Element e = ((Element)virginityElements.item(i));
-			
-			try {
-				if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.1")) {
+			element = (Element) (sexStatsElement).getElementsByTagName("virginityTakenBy").item(0);
+			NodeList virginityElements = element.getElementsByTagName("virginity");
+			for(int i=0; i<virginityElements.getLength(); i++){
+				Element e = ((Element)virginityElements.item(i));
+				
+				try {
 					character.setVirginityLoss(
 							new SexType(
 								SexParticipantType.valueOf(e.getAttribute("participantType")),
@@ -2126,7 +2137,19 @@ public abstract class GameCharacter implements XMLSaving {
 								SexAreaOrifice.valueOf(e.getAttribute("orificeType"))),
 							"",//Main.game.getUniqueNPCId(GenericAndrogynousNPC.class),
 							e.getAttribute("takenBy"));
-				} else {
+					
+					CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+				}catch(Exception ex){
+				}
+			}
+			
+		} else {
+			element = (Element) (sexStatsElement).getElementsByTagName("virginityTakenBy").item(0);
+			NodeList virginityElements = element.getElementsByTagName("penetrationTypeVirginity");
+			for(int i=0; i<virginityElements.getLength(); i++){
+				Element e = ((Element)virginityElements.item(i));
+				
+				try {
 					character.setVirginityLoss(
 							new SexType(
 								SexParticipantType.valueOf(e.getAttribute("participantType")),
@@ -2134,10 +2157,28 @@ public abstract class GameCharacter implements XMLSaving {
 								SexAreaOrifice.valueOf(e.getAttribute("orificeType"))),
 							e.getAttribute("takenBy"),
 							e.getAttribute("takenDescription"));
+					
+					CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+				}catch(Exception ex){
 				}
+			}
+			element = (Element) (sexStatsElement).getElementsByTagName("virginityTakenBy").item(0);
+			virginityElements = element.getElementsByTagName("orificeTypeVirginity");
+			for(int i=0; i<virginityElements.getLength(); i++){
+				Element e = ((Element)virginityElements.item(i));
 				
-				CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
-			}catch(Exception ex){
+				try {
+					character.setVirginityLoss(
+							new SexType(
+								SexParticipantType.valueOf(e.getAttribute("participantType")),
+								SexAreaOrifice.valueOf(e.getAttribute("orificeType")),
+								SexAreaPenetration.valueOf(e.getAttribute("penetrationType"))),
+							e.getAttribute("takenBy"),
+							e.getAttribute("takenDescription"));
+					
+					CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" (taken by:"+e.getAttribute("takenBy")+")");
+				}catch(Exception ex){
+				}
 			}
 		}
 		
@@ -2282,7 +2323,6 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!character.isUnique() && character.getHistory()!=Occupation.NPC_PROSTITUTE) {
 				character.setHistory(Occupation.NPC_MUGGER);
 			}
-
 		}
 	}
 
@@ -3738,7 +3778,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public Elemental getElemental() {
-		if(elementalID==null || elementalID.isEmpty() || Main.game.getNPCById(elementalID)==null) {
+		if(elementalID==null || elementalID.isEmpty() || Main.game.getNPCById(elementalID)==null || Main.game.getNPCById(elementalID).getId().equals(Main.game.getUniqueNPCId(GenericAndrogynousNPC.class))) {
 			return null;
 		}
 		
@@ -3823,7 +3863,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**<b>Do not call this method directly! Use the owner's addCompanion() and removeCompanion() methods!</b>*/
-	protected void setPartyLeader(String owner) {
+	public void setPartyLeader(String owner) {
 		this.partyLeader = owner;
 	}
 	

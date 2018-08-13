@@ -66,7 +66,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.10.1",
+	public static final String VERSION_NUMBER = "0.2.10.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -272,6 +272,18 @@ public class Main extends Application {
 			+"<ul>Fixed penis/testicle transformations being applied to your dildo if you were wearing one.</ul>"
 			+"<ul>Removing a strapon that is engaged in penetration during sex will now correctly stop that penetration.</ul>"
 			+"<ul>NPCs arousal is no longer affected by self actions that you perform.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.10.2</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed errors in 'Seductive look' action.</ul>"
+			+"<ul>Fixed issue where if you had a companion that was a slave that you imported through the Auction Block, the game would break.</ul>"
+			+"<ul>Fixed not being able to penetrate partners vaginally when you're in the missionary (on your back) position.</ul>"
+			+"<ul>Fixed tattoo defloration counters being reset each time you loaded a game.</ul>"
+			+"<ul>Typo fixes.</ul>"
 		+ "</list>"
 	;
 	

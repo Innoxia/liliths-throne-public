@@ -36,9 +36,19 @@
 	Bugs:
 		Fixed errors in 'Seductive look' action.
 		Fixed issue where if you had a companion that was a slave that you imported through the Auction Block, the game would break.
+		Fixed not being able to penetrate partners vaginally when you're in the missionary (on your back) position.
+		Fixed tattoo defloration counters being reset each time you loaded a game.
+		Typo fixes.
 	
 	
 	
+	
+	I noticed that attempting to "calm down" while in the "resisting" pace does not decrease arousal if the character has the noncon_sub fetish.
+	 Similarly, you cant deny your partner orgasms if they're in the resisting pace with the noncon_sub fetish. There might be something wonky with how arousal gets applied to non consenting characters.
+	
+	Orgasm cum targets make no sense in threesomes
+	
+	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
 	
 	
 	
@@ -50,13 +60,6 @@
 	
 	The Inspect and Spanking actions still say in the text that they reduce affection, even if the slave has the fetish that cause them to increase.
 	
-	
-	seductive look has errors
-	
-	
-	add being able to penetrate partners vaginally when you're in the missionary (on your back) position
-	
-	"Fire Arrow"
 	
 	Affecting other cat subspecies:
 		Tigers are slipping past the filters.  I've got all the cat subspecies disabled, but tigers and tigresses are still spawning.
