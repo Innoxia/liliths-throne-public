@@ -331,7 +331,7 @@ public class Game implements Serializable, XMLSaving {
 				
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
-				importedSlave.loadFromXML(characterElement, doc);
+				importedSlave.loadFromXML(characterElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
 				
@@ -1194,6 +1194,9 @@ public class Game implements Serializable, XMLSaving {
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
 		for(GameCharacter companion : companions) {
 			// Updating companion NPCs:
+			if(companion.getPartyLeader()==null) {
+				companion.setPartyLeader(Main.game.getPlayer().getId());
+			}
 			companion.companionshipCheck();
 		}
 		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {

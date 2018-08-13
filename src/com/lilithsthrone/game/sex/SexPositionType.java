@@ -473,8 +473,7 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToVagina,
-													SexActionPresets.groinToAss,
+													SexActionPresets.groinToGroin,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
 													SexActionPresets.breastsToMouth,
