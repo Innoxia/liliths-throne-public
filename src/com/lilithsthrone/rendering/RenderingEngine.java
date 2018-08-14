@@ -1356,7 +1356,7 @@ public enum RenderingEngine {
 											?"background-color:"+c.getPlace().getPlaceType().getBackgroundColour().toWebHexString()+";"
 											:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
 				
-				if(!discovered) {
+				if(!discovered || c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
 					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
 					
 				} else {

@@ -1183,7 +1183,8 @@ public class MainController implements Initializable {
 						(Main.game.getCharactersPresent(c).contains(character)
 								?character.getName("The")
 								:"[style.colourDisabled("+character.getName("The")+")]")
-						+": "+UtilText.parse(character, "[npc.FullRace(true)]<br/>"));
+						+": "+(character.isRaceConcealed()?"[style.colourDisabled(Unknown race!)]":UtilText.parse(character, "[npc.FullRace(true)]"))
+						+"<br/>");
 			}
 		} else {
 //			charactersPresentDescription.append("[style.italics(There are no characters present in this tile...)]");

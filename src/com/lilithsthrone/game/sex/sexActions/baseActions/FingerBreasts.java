@@ -372,7 +372,7 @@ public class FingerBreasts {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc.name] to give your [npc.breasts+] a good squeeze.";
+			return "Get [npc2.name] to give your [npc.breasts+] a good squeeze.";
 		}
 
 		@Override

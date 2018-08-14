@@ -166,7 +166,8 @@ public enum TailType implements BodyPartTypeInterface {
 		
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case CAT_MORPH:
@@ -178,9 +179,9 @@ public enum TailType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return "bovine";
 			case DEMON_COMMON:
-				return "spaded";
+				return "demonic spaded";
 			case DEMON_HAIR_TIP:
-				return "hair-tipped";
+				return "demonic hair-tipped";
 			case IMP:
 				return "spaded";
 			case DOG_MORPH:
@@ -188,20 +189,21 @@ public enum TailType implements BodyPartTypeInterface {
 			case DOG_MORPH_STUBBY:
 				return "stubby canine";
 			case HARPY:
-				return "plume";
+				return "harpy plume";
 			case HORSE_MORPH:
-				return "horse";
+				return "equine";
 			case HORSE_MORPH_ZEBRA:
-				return UtilText.returnStringAtRandom("zebra");
+				return "zebra";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
+				return "fox";
 			case SQUIRREL_MORPH:
-				return "fluffy";
+				return "squirrel";
 			case FOX_MORPH_MAGIC:
-				return "magical";
+				return "arcane fox";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case NONE:

@@ -176,6 +176,7 @@ public enum FaceType implements BodyPartTypeInterface {
 		return "";
 	}
 
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
@@ -197,17 +198,17 @@ public enum FaceType implements BodyPartTypeInterface {
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case HARPY:
-				return "avian";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case HUMAN:
 				return "human";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
-				return "vulpine";
+				return "fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

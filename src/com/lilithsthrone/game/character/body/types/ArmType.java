@@ -151,46 +151,6 @@ public enum ArmType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "furry";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "feathered";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case LYCAN:
-				return "lupine";
-			case FOX_MORPH:
-				return "vulpine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-		}
-		return "";
-	}
 
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {

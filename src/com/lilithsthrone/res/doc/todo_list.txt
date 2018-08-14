@@ -136,47 +136,94 @@
 	
 	Patch notes:
 	
+	Other:
+		You now have management options available for friendly occupants who have moved out into an apartment.
+		You can now ask friendly occupants to transform, under the 'Manage' tab (if they are a demon or slime). Also moved the transform option to the 'Manage' tab for slaves.
+		Standardised all races' parts names, and removed Latin part names for all but canine, feline, equine, and bovine.
+	
+	Bugs:
+		Typo and parsing fixes.
+		Fixed storm attackers sometimes being able to be talked to after combat victory.
+		Fixed phone's map having white borders on all impassable tiles.
+		NPCs with a concealed race no longer have their race shown in the phone map's tooltips.
+		Fixed all tattoos being called 'tribal'.
+		Rose will now correctly prioritise penetrating your vagina or ass in her sex scene.
+		Fixed NPCs commenting on strap-on reveals twice.
+		Fixed UI issue in transformation dialogues where selecting buttons would change their size, sometimes making the buttons wrap around onto the next line.
 	
 	
+	fixes
 	
-	
-	
+	modding
 	
 	PRs dev
+	
+	
+	
+	
+	Remove IMP types, make Imp based on size
+		Need catch for IMP -> DEMON
+	Size categories, with special TF needed to go from AVERAGE to SMALL
+		TINY 0 -> 2
+		SMALL 2 -> 4.5
+		AVERAGE 4.5 -> 8
+		TALL 8 -> 
+	
+	
+	Fix cat and slime icons
+	
+	Fix tattoo areas
+	
+	the TF menu not showing up for canal slimes
+		Revamp post-combat options to use sex and manage tabs
+	
+	Scarlett refusing TF potions
+	
+	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
+	can no longer pull down briefs to expose male genitals without pulling down the pants (Cargo trousers, jeans, trousers etc) Even though with 0.2.10 you could after simply unzipping.
+	
+	
+	Got a new bug for ya. It seems if you start a rape scene then apply a condom, you will then lubricate a orifice with your precum, even though the condom is equipped which should prevent it from happening.
+
+	Meanwhile if you equip the condom before starting the scene, there will be no lubrication.
+	
+	The lubrication will also happen if you climax into the condom and then put a new one on. (Even if you selected Ass to Mouth, orgasm or come on back options in the doggy style position.) 
+	
+	Speaking of the Ass to Mouth, it does not recognise if you are wearing a condom in the text, but that is a minor issue. But figured to say it as well.
+	
+	One with the new spell system, if the enemy does not have a weapon and you have only advanced the steal spell to Disarm, each time you try and cast the spell it will come back with "there was nothing to steal"
+	
+	Second with the familiars in their elemental modes, you can keep casting the spell if you have enough arcane and it will keep summoning them and they stick around too. Once tested it with a maxed out arcane and had like 5 of them out at the same time.
+	
+	Oh, also found another one. If you reset your spell affinity it will only refund one point per skill advancement and it will cost the full price to put said skill back, thus constantly reducing your point pool unless you do not reset.
+
+	
+	
 	
 	I noticed that attempting to "calm down" while in the "resisting" pace does not decrease arousal if the character has the noncon_sub fetish.
 	 Similarly, you cant deny your partner orgasms if they're in the resisting pace with the noncon_sub fetish. There might be something wonky with how arousal gets applied to non consenting characters.
 	
 	Orgasm cum targets make no sense in threesomes
 	
-	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
-	can no longer pull down briefs to expose male genitals without pulling down the pants (Cargo trousers, jeans, trousers etc) Even though with 0.2.10 you could after simply unzipping.
+	welp i can't look at my elemental anymore
+		it just says "you're already looking at Helanix" (Elemental's name :3) Even tho i ain't
 	
-	Scarlett refusing TF potions
+	Suggestion: Inability to tell anything about your glory hole partner, with the exception of the bimbo speech pattern.
 	
-	"taht's"
+	"As his average-sized testicles tense up, the leopard's slimy cum squirts out deep into Sytharyth's waiting womb.
+	 As your body is made completely out of translucent storm-clouds, you're able to see the cloud of the leopard's salty cum shooting up and dispersing inside of you."
 	
-	"As his average-sized testicles tense up, the leopard's slimy cum squirts out deep into Sytharyth's waiting womb. As your body is made completely out of translucent storm-clouds, you're able to see the cloud of the leopard's salty cum shooting up and dispersing inside of you."
+	this is what happens when you impregnate kalahari (she asks, parse_error).
+		 Also once you bang her her character icon moves into the VIP room permanently so you cannot inspect her from the bar, you can still order drinks, just from her phantom apparently
 	
-	"Get you to give your sizeable boobs a good squeeze."
-	
-	ok so some fucky shit is happening like i import a slave and sometimes it turns into a hermaphrodite in the screen and then disappears, sometimes it doesnt, whne i made a save and completed the slaver quest the disappeared as soon as i rested, when i just straight up went into debug mode to test if it would happen again on a new save, then they stayed. i think it might be tied to spamming sleep, because one time i spammed it and the time wouldnt pass until i left the room and i saw the slaves disappear then, but then i spammed sleep again and it passed normally in the debug save and nobody disappeared, this is some fucking weird ass shit
-	
-	I'm not sure if it actually affects anything, but as soon as I finish a sex scene, no matter what pace the submissive partner was in during it, they switch to "resisting" the moment I hit "stop sex"
-		Yeah, the first doesn't seem to be too bad anymore. I used to lose affection with everyone because of it, but that stopped around 0.2.10
-		
-	Rose penetrates herself on you sometimes
-	
-	Very minor thing but the tiger morph description in the furry preferences is misspelled as "tuger". Guess that's what you get when you combine a thug with a tiger.
+	ok so some fucky shit is happening like i import a slave and sometimes it turns into a hermaphrodite in the screen and then disappears,
+	 sometimes it doesnt, whne i made a save and completed the slaver quest the disappeared as soon as i rested, when i just straight up went into debug mode to test if it would happen again on a new save, then they stayed.
+	  i think it might be tied to spamming sleep, because one time i spammed it and the time wouldnt pass until i left the room and i saw the slaves disappear then, 
+	  but then i spammed sleep again and it passed normally in the debug save and nobody disappeared, this is some fucking weird ass shit
 	
 	But when dirty talking during sex acts the PC and the NPC always return generic lines, instead of the specific dirty talk actions for whatever position you're in
 	
-	Tooltip on map shows angel Ashley
-	
-	All tattoos in cahracter creation are named "Tribal", even if other pattern
-	
 	I can't anally penetrate NPCs, even though they want it and the position allows it. They have to do it themselves.
-	
 	
 	Check Slime_girl.xml for this:
 	java.lang.NullPointerException
@@ -191,16 +238,14 @@
 	
 	Also, dirty talk seems to be looking at the wrong participant for what they should be saying, leading to lines being switched
 	
-	
 	So I had someone move in from the alley, added them to the party, and then had sex with them. Now the characters present button/function does not work at all.
 	
 	I scolded one many times, including it calling her a prostitute when she was a mugger. But I didn't see her changing or getting a real job.
 	
-	"more concerned that ever"
-	
-	>characters that attack during storm can still be 'Talk'ed with(at least in some cases)
 	>A lot of sex text still referes to the wrong participants(you companion cums in a third party but the text refers you, etc.)
+	
 	>Alley characters refering to the one who impregatated them is still broken more of than not(referes to a companion being with you as not being here; first encounter reads like you encountered them pregnant before)
+	
 	>Special clothing shop restock is still broken
 	
 	java.lang.NullPointerException
@@ -209,6 +254,11 @@
 	with the latest version? It doesn't seem to break anything, but the luft and down most square on the city map is bugged in that it is showing multiple inhabitants(the encounter there works as it should tough).
 	
 	Also it seems like prostitute encounters from earlier saves revert to the standard hostile encounter.
+	
+	
+	
+	
+	
 	
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
@@ -226,7 +276,6 @@
 	if you don't let a partner cum in The Watering Hole, they'll say the sex was disappointing even if they have the self-denial fetish
 	I noticed that those with a fetish or like/love for having their orgasms denied seem to say the same things as anyone else
 	
-	Fix cat icons
 	
 	After companion fucked, ending description is of them patting you on the head
 	

@@ -621,7 +621,7 @@ public enum Subspecies {
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
-			"A cat-morph which resembles an anthropomorphised tuger. To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
+			"A cat-morph which resembles an anthropomorphised tiger. To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
 			Util.newArrayListOfValues(
 					WorldType.DOMINION,
 					WorldType.NIGHTLIFE_CLUB)) {

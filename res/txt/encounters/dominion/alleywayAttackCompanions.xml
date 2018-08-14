@@ -509,7 +509,7 @@
 			[npc.Name] casts [npc.her] [npc.eyes] to the floor, shuffling [npc.her] [npc.feet] a little as [npc.she] replies, [npc.speech(Nobody ever asks me stuff like that... I guess I'm ok, I usually get enough money to buy food and stuff. I don't really have any fixed place to sleep, but the alleys nearest to the street are usually safe enough...)]
 		</p>
 		<p>
-			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned that ever for [npc.her] well-being.
+			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned than ever for [npc.her] well-being.
 		</p>
 		<p>
 			[npc.speech(No...)] [npc.name] replies, letting out a disheartening sigh, before trying to force [npc.herself] to smile back at you. [npc.speech(You're the only friend I've got. Sure, I used to know some other people, but they've all moved on now... I don't know how they're doing, or even where they went...)]

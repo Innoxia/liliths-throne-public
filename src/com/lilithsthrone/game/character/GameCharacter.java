@@ -8726,134 +8726,135 @@ public abstract class GameCharacter implements XMLSaving {
 					sb.append("[npc2.Name] grins as [npc2.she] sees that you're wearing a strap-on. "
 							+ "[npc2.speech(Looking to have a little extra fun, huh?)]"
 						+ "</p>");
-				}
-
-				switch(characterBeingRevealed.getPenisSize()) {
-					case NEGATIVE_UTILITY_VALUE:
-					case ZERO_MICROSCOPIC:
-					case ONE_TINY:
-						if(this.isFeminine()) {
-							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.Name] fails to suppress a mocking giggle your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a little giggle as your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a derisive sneer as your tiny [npc.cock] is revealed, "));
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.speech(Your little clitty dick is as cute as ever!)]",
-										"[npc2.speech(That's just so unbelievably pathetic!)]",
-										"[npc2.speech(What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!)]"));
-							} else {
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.Name] fails to suppress a mocking giggle as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], ",
-										"[npc2.Name] lets out a surprised laugh as your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a derisive laugh as [npc2.she] sees your tiny [npc.cock], "));
-								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+					
+				} else {
+					switch(characterBeingRevealed.getPenisSize()) {
+						case NEGATIVE_UTILITY_VALUE:
+						case ZERO_MICROSCOPIC:
+						case ONE_TINY:
+							if(this.isFeminine()) {
+								if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
 									sb.append(UtilText.returnStringAtRandom(
-											"[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]",
-											"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic little clitty dick you've got!)]"));
+											"[npc2.Name] fails to suppress a mocking giggle your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a little giggle as your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a derisive sneer as your tiny [npc.cock] is revealed, "));
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Your little clitty dick is as cute as ever!)]",
+											"[npc2.speech(That's just so unbelievably pathetic!)]",
+											"[npc2.speech(What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!)]"));
 								} else {
 									sb.append(UtilText.returnStringAtRandom(
-											"[npc2.speech(Aww, that's so cute! I love it when [npc.gender]s have little clitty dicks like that!)]",
-											"[npc2.speech(Aww, that's such a cute little clitty dick, for such a cute little [npc.gender]!)]"));
+											"[npc2.Name] fails to suppress a mocking giggle as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], ",
+											"[npc2.Name] lets out a surprised laugh as your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a derisive laugh as [npc2.she] sees your tiny [npc.cock], "));
+									if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+										sb.append(UtilText.returnStringAtRandom(
+												"[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]",
+												"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic little clitty dick you've got!)]"));
+									} else {
+										sb.append(UtilText.returnStringAtRandom(
+												"[npc2.speech(Aww, that's so cute! I love it when [npc.gender]s have little clitty dicks like that!)]",
+												"[npc2.speech(Aww, that's such a cute little clitty dick, for such a cute little [npc.gender]!)]"));
+									}
 								}
-							}
-							
-						} else {
-							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.Name] fails to suppress a booming, mocking laugh your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a grunt as your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a derisive grunt as your tiny [npc.cock] is revealed, "));
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.speech(That thing's more like a clit than a real cock!)]",
-										"[npc2.speech(That's just so unbelievably pathetic!)]",
-										"[npc2.speech(Your cock is as pathetic as ever! Hah!)]"));
+								
 							} else {
-								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.Name] lets out a booming, mocking laugh your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, ",
-										"[npc2.Name] lets out a derisive grunt as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], "));
-								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+								if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
 									sb.append(UtilText.returnStringAtRandom(
-											"[npc2.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc.a_gender]!)]",
-											"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
+											"[npc2.Name] fails to suppress a booming, mocking laugh your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a grunt as your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a derisive grunt as your tiny [npc.cock] is revealed, "));
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(That thing's more like a clit than a real cock!)]",
+											"[npc2.speech(That's just so unbelievably pathetic!)]",
+											"[npc2.speech(Your cock is as pathetic as ever! Hah!)]"));
 								} else {
 									sb.append(UtilText.returnStringAtRandom(
-											"[npc2.speech(Is that pathetic little thing your cock?! Well, I guess you <i>are</i> a [npc.gender]...)]",
-											"[npc2.speech(Such a pathetic little clitty dick, for such a helpless little [npc.gender]!)]"));
+											"[npc2.Name] lets out a booming, mocking laugh your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, ",
+											"[npc2.Name] lets out a derisive grunt as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], "));
+									if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+										sb.append(UtilText.returnStringAtRandom(
+												"[npc2.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc.a_gender]!)]",
+												"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
+									} else {
+										sb.append(UtilText.returnStringAtRandom(
+												"[npc2.speech(Is that pathetic little thing your cock?! Well, I guess you <i>are</i> a [npc.gender]...)]",
+												"[npc2.speech(Such a pathetic little clitty dick, for such a helpless little [npc.gender]!)]"));
+									}
 								}
 							}
-						}
-						break;
-					case TWO_AVERAGE:
-					case THREE_LARGE:
-						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.speech(That's a nice cock you've got!)]",
-									"[npc2.speech(Oh yeah, bring that over here!)]",
-									"[npc2.speech(Come on, put that cock of yours to use!)]"));
-						} else {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] fails to suppress a flustered [npc2.moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
-									"[npc2.Name] lets out a surprised [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a startled [npc2.moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
-							if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+							break;
+						case TWO_AVERAGE:
+						case THREE_LARGE:
+							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
 								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.speech(Hey! I didn't realise you were [npc.a_gender]! Well, whatever...)]",
-										"[npc2.speech(Wait, you're [npc.a_gender]?! Well, whatever...)]"));
+										"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(That's a nice cock you've got!)]",
+										"[npc2.speech(Oh yeah, bring that over here!)]",
+										"[npc2.speech(Come on, put that cock of yours to use!)]"));
 							} else {
 								sb.append(UtilText.returnStringAtRandom(
-										"[npc2.speech(That's a nice cock... For [npc.a_gender], that is...)]",
-										"[npc2.speech(Mmm, nice cock, I guess...)]"));
+										"[npc2.Name] fails to suppress a flustered [npc2.moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+										"[npc2.Name] lets out a surprised [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a startled [npc2.moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(Hey! I didn't realise you were [npc.a_gender]! Well, whatever...)]",
+											"[npc2.speech(Wait, you're [npc.a_gender]?! Well, whatever...)]"));
+								} else {
+									sb.append(UtilText.returnStringAtRandom(
+											"[npc2.speech(That's a nice cock... For [npc.a_gender], that is...)]",
+											"[npc2.speech(Mmm, nice cock, I guess...)]"));
+								}
 							}
-						}
-						break;
-					case FOUR_HUGE:
-					case FIVE_ENORMOUS:
-						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.speech(Your cock's so huge! I'll never get tired of seeing it bounce free like that...)]",
-									"[npc2.speech(Oh yeah, bring that huge cock of yours over to me!)]",
-									"[npc2.speech(Oh yeah, your cock's just so huge, I'll never get tired of it!)]"));
-						} else {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] fails to suppress [npc2.a_moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
-									"[npc2.Name] lets out [npc2.a_moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out [npc2.a_moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.speech(That thing's huge! I mean, I could tell it was from your bulge, but damn...)]",
-									"[npc2.speech(Holy shit! I could see it was big from your bulge, but wow...)]"));
-						}
-						break;
-					case SIX_GIGANTIC:
-					case SEVEN_STALLION:
-						if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.speech(I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...)]",
-									"[npc2.speech(Oh yeah, bring that gigantic cock of yours over to me!)]",
-									"[npc2.speech(Your cock's so huge! I don't think I'll ever get tired of it!)]"));
-						} else {
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.Name] fails to suppress [npc2.a_moan+] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
-									"[npc2.Name] lets out [npc2.a_moan+] as your [npc.cockSize] [npc.cock] is revealed, ",
-									"[npc2.Name] lets out [npc2.a_moan+] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
-							sb.append(UtilText.returnStringAtRandom(
-									"[npc2.speech(What?! Holy shit! Your cock's <i>huge</i>!)]",
-									"[npc2.speech(Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!)]"));
-						}
-						break;
+							break;
+						case FOUR_HUGE:
+						case FIVE_ENORMOUS:
+							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(Your cock's so huge! I'll never get tired of seeing it bounce free like that...)]",
+										"[npc2.speech(Oh yeah, bring that huge cock of yours over to me!)]",
+										"[npc2.speech(Oh yeah, your cock's just so huge, I'll never get tired of it!)]"));
+							} else {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] fails to suppress [npc2.a_moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+										"[npc2.Name] lets out [npc2.a_moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out [npc2.a_moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(That thing's huge! I mean, I could tell it was from your bulge, but damn...)]",
+										"[npc2.speech(Holy shit! I could see it was big from your bulge, but wow...)]"));
+							}
+							break;
+						case SIX_GIGANTIC:
+						case SEVEN_STALLION:
+							if(this.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] lets out a hungry [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a delighted [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out a happy [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...)]",
+										"[npc2.speech(Oh yeah, bring that gigantic cock of yours over to me!)]",
+										"[npc2.speech(Your cock's so huge! I don't think I'll ever get tired of it!)]"));
+							} else {
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.Name] fails to suppress [npc2.a_moan+] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
+										"[npc2.Name] lets out [npc2.a_moan+] as your [npc.cockSize] [npc.cock] is revealed, ",
+										"[npc2.Name] lets out [npc2.a_moan+] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
+								sb.append(UtilText.returnStringAtRandom(
+										"[npc2.speech(What?! Holy shit! Your cock's <i>huge</i>!)]",
+										"[npc2.speech(Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!)]"));
+							}
+							break;
+					}
 				}
 				
 			} else {
@@ -8862,59 +8863,61 @@ public abstract class GameCharacter implements XMLSaving {
 								"[npc2.speech(No! Please! Get away from me!)] [npc2.name] screams as your [npc.penis+] is revealed."));
 			}
 			
+			
 		} else {
 			if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
 				sb.append("[npc.Name] grins as [npc.she] reveals the fact that [npc.sheIs] wearing a strap-on. "
 						+ "[npc.speech(Time for a little extra fun!)]");
-			}
-			if(this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) || !isFeminine()) {
-				switch(pace) {
-					case DOM_GENTLE:
-							sb.append("[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.cock+] is revealed.");
-							break;
-					case DOM_NORMAL:
-						sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
-						break;
-					case DOM_ROUGH:
-						sb.append("[npc.Name] grins as [npc.she] sees you staring at [npc.her] [npc.cock+].");
-						break;
-					case SUB_EAGER:
-						sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
-						break;
-					case SUB_NORMAL:
-						sb.append("[npc.Name] lets out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
-						break;
-					case SUB_RESISTING:
-						sb.append("[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.cock+] is revealed.");
-						break;
-				}
-				
 			} else {
-				switch(pace) {
-					case DOM_GENTLE:
-						sb.append("[npc.Name] lets out a soft giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
-									+ " [npc.speech(Let's have some fun!)]");
-						break;
-					case DOM_NORMAL:
-						sb.append("[npc.Name] lets out a playful giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
-									+ " [npc.speech(That look on your face is priceless! Now let's have some fun!)]");
-						break;
-					case DOM_ROUGH:
-						sb.append("[npc.Name] lets out a laugh as [npc.she] sees you staring at [npc.her] [npc.cock+],"
-									+ " [npc.speech(Hah! I bet you didn't expect this!)]");
-						break;
-					case SUB_EAGER:
-						sb.append("[npc.Name] lets out a playful giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
-									+ " [npc.speech(That look on your face is priceless! Now let's have some fun!)]");
-						break;
-					case SUB_NORMAL:
-						sb.append("[npc.Name] lets out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.cock+],"
-									+ " [npc.speech(Let's have some fun!)]");
-						break;
-					case SUB_RESISTING:
-						sb.append("[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.cock+] is revealed,"
-									+ " [npc.speech(Leave me alone!)]");
-						break;
+				if(this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) || !isFeminine()) {
+					switch(pace) {
+						case DOM_GENTLE:
+								sb.append("[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.cock+] is revealed.");
+								break;
+						case DOM_NORMAL:
+							sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
+							break;
+						case DOM_ROUGH:
+							sb.append("[npc.Name] grins as [npc.she] sees you staring at [npc.her] [npc.cock+].");
+							break;
+						case SUB_EAGER:
+							sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
+							break;
+						case SUB_NORMAL:
+							sb.append("[npc.Name] lets out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.cock+].");
+							break;
+						case SUB_RESISTING:
+							sb.append("[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.cock+] is revealed.");
+							break;
+					}
+				
+				} else {
+					switch(pace) {
+						case DOM_GENTLE:
+							sb.append("[npc.Name] lets out a soft giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
+										+ " [npc.speech(Let's have some fun!)]");
+							break;
+						case DOM_NORMAL:
+							sb.append("[npc.Name] lets out a playful giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
+										+ " [npc.speech(That look on your face is priceless! Now let's have some fun!)]");
+							break;
+						case DOM_ROUGH:
+							sb.append("[npc.Name] lets out a laugh as [npc.she] sees you staring at [npc.her] [npc.cock+],"
+										+ " [npc.speech(Hah! I bet you didn't expect this!)]");
+							break;
+						case SUB_EAGER:
+							sb.append("[npc.Name] lets out a playful giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
+										+ " [npc.speech(That look on your face is priceless! Now let's have some fun!)]");
+							break;
+						case SUB_NORMAL:
+							sb.append("[npc.Name] lets out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.cock+],"
+										+ " [npc.speech(Let's have some fun!)]");
+							break;
+						case SUB_RESISTING:
+							sb.append("[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.cock+] is revealed,"
+										+ " [npc.speech(Leave me alone!)]");
+							break;
+					}
 				}
 			}
 		}

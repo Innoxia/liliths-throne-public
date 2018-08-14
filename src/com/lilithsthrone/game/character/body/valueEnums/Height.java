@@ -8,8 +8,9 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum Height {
-
-
+	
+	// Need to standardise to 1.5 each category
+	
 	/**2' to 3'6"*/
 	NEGATIVE_TWO_MIMIMUM("tiny", 61, 106, Colour.GENERIC_SIZE_ONE),
 	

@@ -581,7 +581,7 @@ public class DicePoker {
 						+ "[pc.speech(Wait!)] you cry out, desperate not to lose your money."
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speech(Huh? What is it?)] [npc.name] asks, narrowing [npc.her] eyes in suspicion as [npc.she] looks up from gathering the money taht's on the table."
+						+ "[npc.speech(Huh? What is it?)] [npc.name] asks, narrowing [npc.her] eyes in suspicion as [npc.she] looks up from gathering the money that's on the table."
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Well... I mean... Is there no way I can get my money back?)] you ask, putting on your most innocent look as you submissively cast your eyes to the floor."

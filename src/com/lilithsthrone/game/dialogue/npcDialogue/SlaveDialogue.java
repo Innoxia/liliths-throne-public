@@ -392,23 +392,6 @@ public class SlaveDialogue {
 						return new Response("Small talk", "You've already spent time talking with [npc.name] today.", null);
 					}
 					
-				} else if (index == 3) {
-					if(!slave().isAbleToSelfTransform()) {
-						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
-						
-					} else {
-						return new Response("Transformations",
-								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
-								BodyChanging.BODY_CHANGING_CORE){
-							@Override
-							public void effects() {
-								applyReactionReset();
-								Main.game.saveDialogueNode();
-								BodyChanging.setTarget(slave());
-							}
-						};
-					}
-					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(slave())) {
 						if(!slave().isCompanionAvailable(Main.game.getPlayer())) {
@@ -971,6 +954,23 @@ public class SlaveDialogue {
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
 						}
 					};
+					
+				case 7:
+					if(!slave().isAbleToSelfTransform()) {
+						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+						
+					} else {
+						return new Response("Transformations",
+								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+								BodyChanging.BODY_CHANGING_CORE){
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.saveDialogueNode();
+								BodyChanging.setTarget(slave());
+							}
+						};
+					}
 					
 				case 0:
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {

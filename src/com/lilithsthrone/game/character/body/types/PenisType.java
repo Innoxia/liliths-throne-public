@@ -162,13 +162,14 @@ public enum PenisType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
 				return "angelic";
 			case AVIAN:
-				return "avian";
+				return "harpy";
 			case BOVINE:
 				return "bovine";
 			case CANINE:
@@ -180,7 +181,7 @@ public enum PenisType implements BodyPartTypeInterface {
 			case EQUINE:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case FELINE:
 				return "feline";
 			case HUMAN:
@@ -192,9 +193,9 @@ public enum PenisType implements BodyPartTypeInterface {
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case LUPINE:
-				return "lupine";
+				return "wolf";
 			case VULPINE:
-				return "vulpine";
+				return "fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

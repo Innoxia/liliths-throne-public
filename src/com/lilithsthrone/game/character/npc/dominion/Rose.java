@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -31,6 +33,10 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -40,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
- * @version 0.1.89
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Rose extends NPC {
@@ -128,6 +134,15 @@ public class Rose extends NPC {
 		return null;
 	}
 
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+		} else {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+		}
+	}
+	
 	@Override
 	public void endSex() {
 		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {

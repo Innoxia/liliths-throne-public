@@ -98,7 +98,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return coveringType.getNamePlural(gc);
 		}
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case CAT_MORPH:
@@ -112,17 +113,17 @@ public enum SkinType implements BodyPartTypeInterface {
 			case DOG_MORPH:
 				return "canine";
 			case HARPY:
-				return "plume";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
-				return "vulpine";
+				return "fox";
 			case SQUIRREL_MORPH:
-				return "fluffy";
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case RAT_MORPH:

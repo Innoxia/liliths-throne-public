@@ -79,7 +79,8 @@ public enum TentacleType implements BodyPartTypeInterface {
 		
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case DEMON_COMMON:
