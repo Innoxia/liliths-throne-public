@@ -88,7 +88,7 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "This version (0.2.10.1) is a hotfix, addressing some issues that cropped up in 0.2.10."
+			+ "This version (0.2.10.2) is a hotfix for the hotfix 0.2.10.1, and addresses a major game-breaking bug that cropped up in 0.2.10.1."
 		+ "</p>"
 			
 		+ "<p>"

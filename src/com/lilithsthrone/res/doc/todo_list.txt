@@ -27,21 +27,122 @@
 	
 	
 	
+	- Alexa's romance quest. (Regal, arrogant attitude)
+		Talk about shop - She says business is tough - all the other shops are well established. Only has 3 slaves for sale. She reluctantly asks for help (mentioning she usually has servants do this thing for her)
+		Need to:
+		    Advertise store (or hire someone to do it through Finch)
+		    Rennovate frontage (or hire)
+		    Put posters up at the entrance (need to bribe/sex guards)
+		After you've finished and returned to Alexa, is is happy, and says come back in a week (once the effects will have taken root).
+		Upon return, Alexa has turned the shop into a luxury high-end slave shop, where customers order custom slaves
+		She has harpy assistants working for her
+			(if sold or freed Scarlett, she's there as a PA. If not, she offers to buy Scarlett back for 5000)
+		She says she owes you, and as payment, she'd give you the pleasure of letting you take her on a date (to a restaurant she specifies)
+		Can go on date to an upmarket restaurant beneath Harpy Nests (turns out Alexa owns it, and it's connected to her nest)
+		Use actions to increase affection. Can only increase by 25 per date.
+		Can then ask out on date once a week.
+		Once affection >=75, you can talk to Alexa about her sex life. She is very flustered and hesitantly admits that she's never had sex. (Believing herself to be too good for anyone)
+		You can take her up to her apartment and have sex with her.
+			 If arousal < 40, she needs you to be gentle, otherwise she ends it.
+			 If arousal < 80, she doesn't want rough, or she ends it.
+			 If arousal > 80, she wants anything.
+		If Scarlett as PA, you can make Scarlett watch, or convince Alexa to let Scarlett take her virginity.
+	
+	
+	- Add Axel's quest (will take place in the Rat Warren).
+		After met Roxy, can talk to Axel about Roxy's rudeness.
+			He says how she's the ex of Vengar, and he's been told to let her run her shop
+		Talk to Axel about Vengar
+			He says how he's being forced to pay protection money, like most of the other shops in Submission
+		Offer to help
+			Quest:
+				Vengar's Gang
+					Rat Warren
+					Entry
+						Say you're there to deliver Axel's monthly payment
+							Taken to Vengar or fight
+						Say you're a prostitute
+					Explore
+						Breeding den
+							Kidnapped humans
+						Card room
+							In day, rats are in here
+						Sleeping quarters
+							At night, rats are in here
+						Vengar's hall
+							Confront
+							Vengar offers you to join
+							Fight or join
+							If lose, taken to breeding den
+								Roxy visits and grows cock to impregnate you
+							If win, Vengar's strangehold is broken
+								Can then enslave him and Roxy
+						
+	- Roxy improvements
+		Add a variation of Roxy's encounter for if you cure yourself.
+		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
+		
+	
+	- Claire's quest (will include a way to have sex with her).
+		Can ask her about teleportation.
+		She is clearly already in deep trouble for having bragged about it, and begs you not to tell anyone in exchange for her demonstrating it to you.
+		Teleport platform is only meant to teleport one person, and the two of you end up being teleported into Enforcer HQ contraband storage (to an old multi-person platform that's in storage)
+		Both are stripped naked (like Lilaya did in intro).
+			Pick up teleport book from shelf
+			Claire says she will arrest you, then realises the situation you're both in
+		Need to sneak out.
+			Areas in warehouse:
+				Something lust related - makes you and Claire super horny
+				Weapons
+				Golden ark - can't open due to huge arcane-infused iron locks
+				Scrolls
+		Enforcer-guarded exit
+			If horny, can sex or tell Claire to sex
+			Fight without Claire
+				If win, escape
+				If lose, locked in stocks
+				
+	
+	- Imps
+		Need size difference sex
+		Encounters
+			Group
+			Solo
+		Fortresses
+			Respawning miniquests to clear
+			
+		
+	- Add in modding framework for sex actions. 
+	
+	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
+	
+	- Add a way to buy Brax from Candi.
+		Simply offer to buy, and she sells him/her to you
+	
+	- Adding mod support for items and weapons.
+	
+	- Add Enforcer alleyway encounter
+		If human, forcibly search
+		Else, question, can lead into search
+		Fights end with locked in stocks
+	
+	- Main Quest content (with Lyssieth's palace).
+	
+	
+	
+	
 	
 	
 	
 	Patch notes:
 	
 	
-	Bugs:
-		Fixed errors in 'Seductive look' action.
-		Fixed issue where if you had a companion that was a slave that you imported through the Auction Block, the game would break.
-		Fixed not being able to penetrate partners vaginally when you're in the missionary (on your back) position.
-		Fixed tattoo defloration counters being reset each time you loaded a game.
-		Typo fixes.
 	
 	
 	
+	
+	
+	PRs dev
 	
 	I noticed that attempting to "calm down" while in the "resisting" pace does not decrease arousal if the character has the noncon_sub fetish.
 	 Similarly, you cant deny your partner orgasms if they're in the resisting pace with the noncon_sub fetish. There might be something wonky with how arousal gets applied to non consenting characters.
@@ -49,7 +150,65 @@
 	Orgasm cum targets make no sense in threesomes
 	
 	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
+	can no longer pull down briefs to expose male genitals without pulling down the pants (Cargo trousers, jeans, trousers etc) Even though with 0.2.10 you could after simply unzipping.
 	
+	Scarlett refusing TF potions
+	
+	"taht's"
+	
+	"As his average-sized testicles tense up, the leopard's slimy cum squirts out deep into Sytharyth's waiting womb. As your body is made completely out of translucent storm-clouds, you're able to see the cloud of the leopard's salty cum shooting up and dispersing inside of you."
+	
+	"Get you to give your sizeable boobs a good squeeze."
+	
+	ok so some fucky shit is happening like i import a slave and sometimes it turns into a hermaphrodite in the screen and then disappears, sometimes it doesnt, whne i made a save and completed the slaver quest the disappeared as soon as i rested, when i just straight up went into debug mode to test if it would happen again on a new save, then they stayed. i think it might be tied to spamming sleep, because one time i spammed it and the time wouldnt pass until i left the room and i saw the slaves disappear then, but then i spammed sleep again and it passed normally in the debug save and nobody disappeared, this is some fucking weird ass shit
+	
+	I'm not sure if it actually affects anything, but as soon as I finish a sex scene, no matter what pace the submissive partner was in during it, they switch to "resisting" the moment I hit "stop sex"
+		Yeah, the first doesn't seem to be too bad anymore. I used to lose affection with everyone because of it, but that stopped around 0.2.10
+		
+	Rose penetrates herself on you sometimes
+	
+	Very minor thing but the tiger morph description in the furry preferences is misspelled as "tuger". Guess that's what you get when you combine a thug with a tiger.
+	
+	But when dirty talking during sex acts the PC and the NPC always return generic lines, instead of the specific dirty talk actions for whatever position you're in
+	
+	Tooltip on map shows angel Ashley
+	
+	All tattoos in cahracter creation are named "Tribal", even if other pattern
+	
+	I can't anally penetrate NPCs, even though they want it and the position allows it. They have to do it themselves.
+	
+	
+	Check Slime_girl.xml for this:
+	java.lang.NullPointerException
+		at com.lilithsthrone.game.character.GameCharacter.getVirginityLossDescription(GameCharacter.java:5278)
+		at com.lilithsthrone.game.character.body.Body.getBreastDescription(Body.java:4703)
+		at com.lilithsthrone.game.character.body.Body.getDescription(Body.java:2841)
+		at com.lilithsthrone.game.character.GameCharacter.getBodyDescription(GameCharacter.java:2768)
+		at com.lilithsthrone.game.character.GameCharacter.getCharacterInformationScreen(GameCharacter.java:2570)
+		at com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue$1$2.effects(CharactersPresentDialogue.java:142)
+		at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:184)
+		at com.lilithsthrone.game.Game.setContent(Game.java:1610)
+	
+	Also, dirty talk seems to be looking at the wrong participant for what they should be saying, leading to lines being switched
+	
+	
+	So I had someone move in from the alley, added them to the party, and then had sex with them. Now the characters present button/function does not work at all.
+	
+	I scolded one many times, including it calling her a prostitute when she was a mugger. But I didn't see her changing or getting a real job.
+	
+	"more concerned that ever"
+	
+	>characters that attack during storm can still be 'Talk'ed with(at least in some cases)
+	>A lot of sex text still referes to the wrong participants(you companion cums in a third party but the text refers you, etc.)
+	>Alley characters refering to the one who impregatated them is still broken more of than not(referes to a companion being with you as not being here; first encounter reads like you encountered them pregnant before)
+	>Special clothing shop restock is still broken
+	
+	java.lang.NullPointerException
+	at com.lilithsthrone.game.Game.getCharactersTreatingCellAsHome(Game.java:2568)
+	etc.
+	with the latest version? It doesn't seem to break anything, but the luft and down most square on the city map is bugged in that it is showing multiple inhabitants(the encounter there works as it should tough).
+	
+	Also it seems like prostitute encounters from earlier saves revert to the standard hostile encounter.
 	
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
@@ -408,29 +567,11 @@ my character is a guy, so this is super confusing lol
 	
 	Add attackers wanting multiple orgasms
 	
-	I will definitely be adding more interactions for Roxy. I definitely want to add a variation of her encounter for if you cure yourself, and she will be playing a part in Axel's quest when I add that. (Which will reveal why Axel tolerates her treating her customers so poorly.) ^^
-		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
-	
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
 		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
 		To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
 	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
 	
-		
-	[ ] Axel/Vengar quest done
-		Talk to Roxy
-		Talk to Axel about Roxy
-			He says how she's the ex of Vengar, and he's been told to let her run her shop
-		Talk to Axel about Vengar
-			He says how he's being forced to pay protection money, like most of the other shops in Submission
-		Offer to help
-			Quest:
-				Vengar's Gang
-					Rat Warren
-					Entry
-						Say you're there to deliver Axel's monthly payment
-						Say you're a prostitute
-						Smash down door
 					
 	[ ] Imp fortresses
 	
