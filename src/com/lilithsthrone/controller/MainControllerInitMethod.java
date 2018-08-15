@@ -48,12 +48,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.occupantManagement.MilkingRoom;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.*;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyboardAction;
@@ -162,12 +157,27 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-						"Add custom artwork","Browse your own images and add them to the character."),false);
+						"Add custom artwork","Browse your own images and add them to the character." +
+								(character.isPlayer() ? "" : " File names starting with 'naked' are only visible after having sex with the character.")), false);
 			}
 
 			if (character.hasArtwork()) {
 				try {
 					Artwork artwork = character.getCurrentArtwork();
+
+					id = "ARTWORK_REMOVE";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							character.deleteCurrentImage();
+							if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Delete artwork","Remove this image from the character."),false);
+					}
 
 					id = "ARTWORK_INFO";
 					if (MainController.document.getElementById(id) != null) {
