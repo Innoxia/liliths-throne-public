@@ -1,13 +1,19 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum EyeType implements BodyPartTypeInterface {
@@ -24,10 +30,18 @@ public enum EyeType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
 	LYCAN(BodyCoveringType.EYE_LYCAN, Race.WOLF_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	
+	FOX_MORPH(BodyCoveringType.EYE_FOX_MORPH, Race.FOX_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
 	CAT_MORPH(BodyCoveringType.EYE_FELINE, Race.CAT_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
 	SQUIRREL_MORPH(BodyCoveringType.EYE_SQUIRREL, Race.SQUIRREL_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+
+	RAT_MORPH(BodyCoveringType.EYE_RAT, Race.RAT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+
+	RABBIT_MORPH(BodyCoveringType.EYE_RABBIT, Race.RABBIT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	
+	BAT_MORPH(BodyCoveringType.EYE_BAT, Race.BAT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
 	ALLIGATOR_MORPH(BodyCoveringType.EYE_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
@@ -100,6 +114,14 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("fox-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("rabbit-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
 		}
 		return "";
 	}
@@ -132,12 +154,20 @@ public enum EyeType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case FOX_MORPH:
+				return "vulpine";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case BAT_MORPH:
+				return "bat";
 		}
 		return "";
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return coveringType;
 	}
 
@@ -156,5 +186,21 @@ public enum EyeType implements BodyPartTypeInterface {
 
 	public EyeShape getPupilShape() {
 		return pupilShape;
+	}
+	
+	private static Map<Race, List<EyeType>> typesMap = new HashMap<>();
+	public static List<EyeType> getEyeTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<EyeType> types = new ArrayList<>();
+		for(EyeType type : EyeType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

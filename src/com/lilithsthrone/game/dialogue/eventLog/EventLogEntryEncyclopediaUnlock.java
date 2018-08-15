@@ -31,7 +31,7 @@ public class EventLogEntryEncyclopediaUnlock extends EventLogEntry {
 	public String getMainDialogueDescription() {
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia</b>"
-				+ "</br>"
+				+ "<br/>"
 				+ description
 			+ "</p>";
 	}

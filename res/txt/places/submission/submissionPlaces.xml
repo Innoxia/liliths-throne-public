@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="FIND_ITEM"><![CDATA[
+	<p>
+		As you walk through the gloomy tunnels of Submission, keeping an eye out for any sign of danger, you suddenly spot what appears to be an unopened cardboard box, dropped to one side of a rubbish pile.
+		 Stepping over towards it, you don't see any sign of a trap or ambush, so, curious as to what could be inside, you tear off the sealing tape and open the lid.
+	</p>
+	<p>
+		Just as you'd hoped, the package doesn't appear to have been opened before, and with no sign of its intended recipient in sight, you decide that there'd be no harm in taking the contents.
+		 Inside, you find...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEWER_ENTRANCE"><![CDATA[
+	<p>
+		A large stone building, spanning the entire width of the tunnel, has been erected here.
+		 Signs reading 'Dominion Enforcer Post' are displayed above each of the entrances, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways.
+	</p>
+	<p>
+		The Enforcers here don't seem to pay you much attention, allowing you to come and go as you please.
+		 As usual, you see the short, busty form of Claire hurrying around as she delivers and fetches all sorts of miscellaneous paperwork.
+		 If you wanted to, you could approach her and ask for some more information about Submission.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_SUBMISSION_SOCIETY"><![CDATA[
+	<p>
+		Wanting to know a little more about this underground world, you approach the short cat-girl messenger and call out a greeting,
+		 [pc.speech(Hi, Claire!)]
+	</p>
+	<p>
+		[claire.speech(Oh, hello again, [pc.name]!)]
+		 Claire cheerfully calls out.
+		 [claire.speech(What can I do for you this time?)]
+	</p>
+	<p>
+		[pc.speech(I was wondering if you could tell me a little more about Submission, and the  people who live down here.)]
+	</p>
+	<p>
+		[claire.speech(Of course!)]
+		 Claire happily replies.
+		 [claire.speech(You know, not many people really ask about that sort of thing, but I so happen to be an expert on Submission history and customs!)]
+	</p>
+	<p>
+		You can't help but smile as the small cat-girl proudly pushes her huge breasts out and places her hands on her absurdly wide hips.
+		 Looking straight into your eyes, she continues,
+		 [claire.speech(There are five main types of residents down here; rat-morphs, alligator-morphs, slimes, imps, and bat-morphs. That's not to say those are the only races down here, however. You can find all the same races as you would up in Dominion, but it's those five who make up the vast majority of the population.)]
+		 Claire wags her finger at you as she moves on.
+		 [claire.speech(Out of all of those, it's only the imps who are invariably troublesome. You get good and bad in all the other groups of Submission society, but all imps only care about two things; causing mischief, and having sex.)]
+	</p>
+	<p>
+		You can see that even the mention of imps is getting Claire annoyed, and you can only imagine how much trouble they must cause for the enforcers down here.
+		 Before you can say anything to steer the conversation in a different direction, Claire moves on.
+		 [claire.speech(Anyway. The imps stick to the tunnels, which are also filled with muggers, hungry slimes, and all sorts of unsavoury folk. You should always stick to the well-populated walkways, where the majority of rat and alligator-morphs make their home. The alligators prefer to use the water ways to travel throughout Submission, while the rat-morphs, just like all the other races, stick to the walkways.)]
+	</p>
+	<p>
+		[pc.speech(And the bat-morphs?)]
+		 you ask.
+	</p>
+	<p>
+		[claire.speech(Ah, yes, it's very rare for us to have to deal with any bat-morphs, as almost all of them stay down in the Bat Caverns. Thanks to their echolocation, they're not bothered by the dark, and have tunnelled out roosts up in the high ceilings of the caves down there,)]
+		 Claire replies, proudly smiling as she reels off all of this information.
+		 [claire.speech(About half of Submission's slime population lives down there as well. Apparently, they love the taste of the bioluminescent plants that thrive in some areas, and a lot of slimes have eaten so much that their bodies have ended up glowing as well!)]
+	</p>
+	<p>
+		[pc.speech(I see. Thanks for all the information, Claire,)]
+		 you say, smiling at the short-statured cat-girl.
+	</p>
+	<p>
+		[claire.speech(You're welcome! Let me know if there's anything else, ok?)]
+		 she replies, before hurrying off to continue with her work.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_LYSSIETH"><![CDATA[
+	<p>
+		As you start to walk over towards the small cat-girl messenger, she sees you approaching and puts her paperwork to one side.
+		 [claire.speech(Hello, [pc.name]! Is there something I can do for you?)]
+	</p>
+	<p>
+		[pc.speech(I just wanted to ask you what you know about Lyssieth,)]
+		 you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
+	</p>
+	<p>
+		[claire.speech(Well, as you might already know, Lyssieth is the Lilin who's in charge of all of Submission. We enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce.)]
+		 Claire shifts about a little as she finishes talking, which causes her huge breasts to start swaying from side to side in a pendulous manner.
+		 [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll be careful of them,)]
+		 you reply, before continuing,
+		 [pc.speech(but you mentioned Lyssieth setting special rules. What kind of rules are they?)]
+	</p>
+	<p>
+		Claire starts fidgeting even more as you ask that question, but, despite her discomfort, she answers you.
+		 [claire.speech(Well, don't go around telling anyone about this, but we've been told to ignore the anti-human laws that have been set in Dominion. You know, things like stopping and searching humans at random, and detaining them without reason for as long as we like.)]
+	</p>
+	<p>
+		[pc.speech(I see,)]
+		 you respond.
+		 [pc.speech(So Lyssieth's only special rule is not to discriminate against humans?)]
+	</p>
+	<p>
+		[claire.speech(Yes, but there aren't many humans living down here, so not many people know about this. Oh, and please don't go spreading this information. Everybody knows how much Lilith hates humans, and if she were to hear about this, I'm sure it'd be us, not Lyssieth, who gets punished.)]
+		 Claire mutters, before turning to carry on with her work.
+		 [claire.speech(If there's anything else, just come and find me again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_TELEPORTATION"><![CDATA[
+	<p>
+		You walk up behind the small, busty cat-girl and call out,
+		 [pc.speech(Hi, Claire!)]
+	</p>
+	<p>
+		The diminutive messenger spins around, causing her huge breasts to swing from side-to-side.
+		 As she sees that it's you, she happily replies,
+		 [claire.speech(Hello, [pc.name]! Can I help you?)]
+	</p>
+	<p>
+		[pc.speech(I was wondering if you could tell me any more about your 'level three clearance'. You said that it allows you to teleport? I've never seen anything like that up in Dominion.)]
+	</p>
+	<p>
+		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately large breasts out towards you in order to show off the bright gold badge that's pinned to her chest.
+		 [claire.speech(That's right! I'm allowed to use our teleportation stations to travel between the Enforcer Posts in order to quickly deliver messages! Usually, only high-ranking or demonic enforcers are given a clearance level of three or higher, you know?)]
+	</p>
+	<p>
+		[pc.speech(That's pretty impressive. You must have worked hard for that,)]
+		 you reply, hoping to encourage the little cat-girl to reveal some more information about teleportation.
+	</p>
+	<p>
+		[claire.speech(That I did! I worked super hard to become the very best messenger in Submission, and it finally all paid off! You know, these teleportation stations aren't really supposed to be public knowledge, but I can't expect people to believe that I'm running from Post to Post, now, can I?)]
+		 Claire laughs, before placing her hands on her huge hips.
+		 [claire.speech(So, while I'm allowed to let people know that I can teleport around down here in Submission, my supervisor said never to let people know about the network we have up in Domi-)]
+	</p>
+	<p>
+		Claire's cheeks suddenly turn bright red, and she squeaks,
+		 [claire.speech(T-That is, n-never to tell anyone about how the enforcers work up in Dominion. N-Now if you'll excuse me!)]
+	</p>
+	<p>
+		As Claire hurries off to continue with her work, you're left wondering why these teleportation stations are meant to be kept a secret...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CLAIRE_INFO_REPORT_BACK"><![CDATA[
+	<p>
+		With the thought of the one-thousand flame reward on your mind, you walk up behind the short, busty cat-girl, and call out, [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		Claire immediately spins around, and, upon seeing that it's you, she grins and places her hands on her huge hips.
+		 [claire.speech(Hi, [pc.name]! What can I do for you?)]
+	</p>
+	<p>
+		[pc.speech(Well, I've got some information on the slimes that are transforming people out in Submission's tunnels.)]
+	</p>
+	<p>
+		[claire.speech(I knew you'd ignore my warnings and go into there!)]
+		 Claire replies as she angrily wags her finger at you.
+		 [claire.speech(But if you managed to get some useful information out of it, then please do tell! That one-thousand flame reward is still available.)]
+	</p>
+	<p>
+		[pc.speech(Well, when I encountered one of those slimes, they mentioned that they were transforming people due to following orders from a 'Slime Queen'. They even mentioned something about a quota of having to transform five people a day.)] You explain, recollecting what the slime said when you first encountered them.
+	</p>
+	<p>
+		[claire.speech(Hmm... A Slime Queen...)]
+		 Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other enforcers are all giving her a wide berth.
+		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last inch of the tunnels, and haven't found any trace of her.)]
+	</p>
+	<p>
+		[pc.speech(Perhaps she isn't in the tunnels?)]
+		 you offer.
+	</p>
+	<p>
+		[claire.speech(Well, that's no good for us then.)]
+		 Claire sighs, stopping in front of you and placing her hands on her hips once more.
+		 [claire.speech(We're only authorised to patrol the tunnels and walkways. The only place where a Slime Queen could be hiding - if one even exists, that is - would be down in the Bat Caverns. We simply don't have the manpower to patrol down there, so who knows what could be hiding away down there in the dark...)]
+	</p>
+	<p>
+		[pc.speech(So you want me to go down there and find evidence of the Slime Queen?)]
+		 you ask, guessing where this conversation is headed.
+	</p>
+	<p>
+		[claire.speech(W-What? No! It's far too dangerous!)] Claire quickly replies, flustered by your response. [claire.speech(There are bat-morphs which can swoop down on you at any moment, aggressive slimes who'd just love to attack you, and the whole place is completely pitch-black! Well, there are patches of bioluminescent fungi, but it's still really dark and scary down there!)]
+	</p>
+	<p>
+		[pc.speech(Well, if I were to go down there and find a Slime Queen, that'd help you out, right?)] You ask, ignoring Claire's warnings.
+	</p>
+	<p>
+		[claire.speech(W-Well, yes. I don't like to tell anyone, as I don't want to encourage people to seek out danger, but we do have a twenty-thousand flame reward for anyone who's able to put an end to this slime transformation problem.)] Claire says, wringing her hands with worry. [claire.speech(So if you're able to find and convince this Queen to stop, you'll have earned that reward. But please don't go looking for danger down there! I need to get back on with work now, but promise me you'll be careful before I go!)]
+	</p>
+	<p>
+		[pc.speech(Don't worry so much,)] you reply. [pc.speech(I'm always careful.)]
+	</p>
+	<p>
+		With a sigh of relief, Claire turns and rushes off to fetch your one-thousand flame reward, and, after returning to hand it over to you, she returns to her work. You wonder if it'd be worth risking a visit to the Bat Caverns. After all, if you were able to find and subdue this 'Slime Queen', you'd earn twenty-thousand flames...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK"><![CDATA[
+	<p>
+		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi, Claire!)]
+	</p>
+	<p>
+		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi, [pc.name]! You've been staying safe, right?)]
+	</p>
+	<p>
+		[pc.speech(Well, sort of,)] you reply. [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+	</p>
+	<p>
+		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
+	</p>
+	<p>
+		[pc.speech(Well, dangerous or not, I did as you asked,)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+	</p>
+	<p>
+		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
+	</p>
+	<p>
+		[pc.speech(She's living in a tower, built on an island in the middle of an underground lake,)] you reply. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+	</p>
+	<p>
+		[claire.speech(You've been such a huge help.)] Claire sighs. [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+	</p>
+	<p>
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks. [claire.speech(Thank you so much, [pc.name]!)]
+	</p>
+	<p>
+		[pc.speech(You're welcome.)] you reply, smiling at the little cat-girl.
+	</p>
+	<p>
+		[claire.speech(Well, back to work for me! Stay out of trouble!)] Claire happily says, before turning around and getting back to her paperwork. You step away from the busy cat-girl, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE"><![CDATA[
+	<p>
+		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi, Claire!)]
+	</p>
+	<p>
+		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi [pc.name]! You've been staying safe, right?)]
+	</p>
+	<p>
+		[pc.speech(Well, sort of,)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+	</p>
+	<p>
+		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
+	</p>
+	<p>
+		[pc.speech(Well, dangerous or not, I did as you asked,)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+	</p>
+	<p>
+		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
+	</p>
+	<p>
+		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns,)] you lie, not wanting the enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+	</p>
+	<p>
+		[claire.speech(You've been such a huge help.)] Claire sighs. [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+	</p>
+	<p>
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks. [claire.speech(Thank you so much, [pc.name]!)]
+	</p>
+	<p>
+		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
+	</p>
+	<p>
+		[claire.speech(Well, back to work for me! Stay out of trouble!)] Claire happily says, before turning around and getting back to her paperwork. You step away from the busy cat-girl, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALKWAYS"><![CDATA[
+	<p>
+		The main tunnels of Submission are surprisingly spacious, clean and full of life.
+		 A deep channel of opaque, greenish water flows at a steady pace down the centre of each passage, and to either side, well-maintained wooden walkways have been built up against the grey stone walls.
+		 Numerous bridges cross the watery divide at regular intervals, and every hundred metres or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
+	</p>
+	<p>
+		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
+		 Looking up trough the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
+		 The dizzying network of pipes and valves that run along the upper-half of the walls makes you feel sorry for whoever has to map and maintain them.
+	</p>
+	<p>
+		Houses and shops of all kinds have been tunnelled out and built into the walls, and, while not as busy as Dominion, there are enough people ambling by to fill the tunnels with a continuous background drone of chatter and laughter.
+		 There seems to be a heavy presence of Enforcers down here, and you can't go more than five minutes without seeing a patrol marching by.
+	</p>
+	<p>
+		Despite Submission being their home, you only see the occasional imp in this area;
+		 evidence that they're so much of a nuisance that the vast majority of them are banished to the dark tunnels that branch off on either side of this main passage.
+		 The vast majority of people that you pass are slimes, alligator-morphs, and rat-morphs, but there are also plenty of regular morphs eking out a living down here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Did that wave just wink at you? No, it must have been your imagination...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Looking over the edge of the walkway, you see an alligator-girl slowly lowering herself down into the water beneath you. Catching your eye, she winks and disappears beneath the surface...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Looking over the edge of the walkway, you see an alligator-boy slowly lowering himself down into the water beneath you. Catching your eye, he winks and disappears beneath the surface...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		In his haste, a passing rat-boy almost bumps into you. He scowls and lets out a muffled curse before quickly scurrying away...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		In her haste, a passing rat-girl almost bumps into you. She scowls and lets out a muffled curse before quickly scurrying away...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TUNNEL"><![CDATA[
+	<p>
+		Unlike the main passages of Submission, the shaded alcoves and wide pipe openings make these dark, claustrophobic tunnels the perfect place for an ambush.
+		 Filmy perspiration drips from the walls, and you flinch every time a drop touches you.
+	</p>
+	<p>
+		Kicking up rubbish and random debris as you quickly move through the dilapidated area, each of your steps sounds as loud as a thunder-clap to your ears.
+		 You can't help but shake the feeling that someone's lying in wait around each corner, waiting for their chance to lunge out of the shadows and attack...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAT_CAVERNS"><![CDATA[
+	<p>
+		The tunnel before you comes to an abrupt halt, but instead of a brick wall or iron grate to block your way, the passageway instead opens out into a pitch-black void.
+		 Cautiously stepping forwards, you see that a sign has been placed just before the end of the walkway, and you read:
+	</p>
+	<p style='text-align:center;'><i>
+		<b>Bat Caverns</b><br/>
+		In order to avoid exciting the resident bat-morphs, travellers are advised to extinguish all personal light sources.
+		 The luminescent lichen will provide you with enough illumination.
+	</i></p>
+	<p>
+		Moving forwards past the sign, you peer down into the darkness.
+		 The light from the passage behind you manages to illuminate the first dozen steep stone steps that are carved into the rock below, letting you know that there's a way down into these caverns even for people who are incapable of flight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAT_CAVERNS_ENTRY"><![CDATA[
+	<p>
+		Deciding that you'd like to travel down into the bat caverns, you step towards the edge of the precipice before you.
+		 Looking down at the steep, stone staircase that disappears into the inky blackness of the caverns' depths, you move forwards and take the first step.
+	</p>
+	<p>
+		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
+		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichins and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
+		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about fifteen metres or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
+	</p>
+	<p>
+		Determined to continue on your downwards journey, you proceed to the bottom of the staircase, and find yourself stepping forwards into pitch-black cavern.
+		 Thankfully, the same bioluminescent carpet that coats the stairs seems to grow all throughout this area as well, and as you begin your exploration, your footsteps illuminate the way ahead.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="RAT_WARREN"><![CDATA[
+	<p>
+		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception.
+		 Built into the wall nearest to where you're standing, a large stone archway has been constructed.
+		 A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side.
+	</p>
+	<p>
+		Stepping forwards to take a closer look, you see that the name 'Rengar' has been crudely carved into the wood.
+		 Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING_DEN"><![CDATA[
+	<p>
+		Over the past several minutes, you've noticed that the walkways that you're travelling down have steadily been getting busier and busier.
+		 Up in the wide streets of Dominion, this volume of traffic wouldn't be a problem, but down here, there's not much room on the narrow pathways in which to manoeuvre, and you soon find yourself having to physically push your way through the bustling crowds.
+	</p>
+	<p>
+		Just as you're thinking about turning back in order to find another way past this area, the tunnel that you're travelling through starts to widen out, and, mercifully, so do the walkways.
+		 Afforded a little space at last, you're able to quickly weave through the crowds, and soon find yourself in a particularly large and spacious area of Submission, being at least double the height and four-times the width of all the other tunnels you've travelled through.
+	</p>
+	<p>
+		As you step forwards onto the wide, well-maintained walkways, you quickly discover the reason behind the abnormal amount of people that are in this area.
+		 All around you, brightly coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods.
+		 This area is obviously Submission's main marketplace, and although the wares for sale aren't of any interest to you, they're enough to attract crowds of shoppers from all over Submission.
+	</p>
+	<p>
+		A huge, two-story building, reaching up to the tunnel's ceiling, has been built into the wall on one side of this area.
+		 A sign above the entrance declares it to be the 'Gambling Den'.
+		 While the market stalls aren't worth your time, this building looks as though it contains something of interest.
+		 Walking up to the open doorway, you see a little sign fixed onto the wall, which bears the words 'Open 24/7'.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_CAVERN"><![CDATA[
+	<p>
+		You find yourself walking down a stone pathway, which has been cut out of the rock floor of a colossal underground cavern.
+		 The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
+	</p>
+	<p>
+		This chasm serves as a protective moat for a massive, Gothic-styled palace that has been half-built, half-carved into the far stone wall.
+		 A huge wooden drawbridge links the stone path that you're walking on to the palace's front gate.
+	</p>
+	<p>
+		While you appear to be the only person making use of the path, you're not alone in this area.
+		 Up ahead, standing guard beside the drawbridge, are the figures of at least twenty demons.
+		 Each one appears to be wearing a bright red uniform and holding some sort of weapon, but from this distance, it's hard to see them clearly.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_GATE"><![CDATA[
+	<p>
+		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been built into the dark stone wall.
+		 In front of you, separating the palace's front gates from the path that you're on, is a wide, seemingly bottomless ravine.
+		 A heavy wooden drawbridge crosses the pitch-black depths of the chasm, and is the only sign of entry to the palace.
+	</p>
+	<p>
+		Preventing you, or anyone else who may happen to travel down here, from proceeding across the drawbridge, is a group of twenty-or-so demons.
+		 The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears.
+		 Apart from this, the most remarkable feature about them is their current state of dress.
+		 They're all wearing bright red uniforms, white pith helmets, and black trousers or skirts.
+		 Each one of them is brandishing what appears to be an arcane-powered musket, which, in combination with their uniforms, makes them look like Victorian-era soldiers.
+	</p>
+	<p>
+		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage.
+		 [genericFemale.speech(State your business, [pc.race].)]
+	</p>
+	<p>
+		[pc.speech(Well, I was hoping to speak with Lyssieth. She does live here, right?)]
+		 you ask.
+	</p>
+	<p>
+		[genericFemale.speech(Her Highness isn't receiving visitors at the moment. You'd better turn around and leave. Now.)]
+	</p>
+	<p>
+		You see the demons around you gripping their muskets, and you realise that you stand no chance at gaining entry through force.
+		 You'd better turn around and leave...
+	</p>
+	<p>
+		<i>(This is still a work in progress. There will be a way to earn an audience with Lyssieth, starting from here, soon!)</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_GATE_UNIFORMS"><![CDATA[
+	<p>
+		Curious about these demons' uniforms and weapons, you ask the succubus,
+		 [pc.speech(Why are you all wearing these uniforms? And where did you get those muskets from? I haven't seen anyone else with such firearms...)]
+	</p>
+	<p>
+		The succubus flinches a little as you ask your question, but manages to keep her cool as she answers,
+		 [genericFemale.speech(These are the uniforms and weapons that her Highness personally gave to each one of us.
+		 It is not for us, or <i>you</i> for that matter, to question her wishes.
+		 We obey her orders, and her current command is to let nobody pass this point.
+		 Don't make me tell you again.
+		 Leave. Now.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE"><![CDATA[
+	<p>
+		TODO How did you get here? :3
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS"><![CDATA[
+	<p>
+		As you turn a corner in the tunnel that you're travelling down, you find yourself stepping out into a huge, underground cave.
+		 Several holes in the high roof, which you see are covered in iron bars, let a generous amount of light into the cavern.
+	</p>
+	<p>
+		In the very centre of the cavern's huge floor, a considerable amount of earth and rock has been dug out and piled up to form a large mound.
+		 On the top of this hill, a crude fence, made out of all sorts of old planks and bits of rubbish, has been erected.
+		 Within this circular enclosure, a three-story wooden tower has bee constructed - looking every bit as crude as its protective fence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_ALPHA"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies a black and red flag, which depicts the face of a snarling imp.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_GROUP"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies three flags; one red, one pink, and one blue.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_SEDUCERS"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies a bright pink and white flag, which depicts a pair of huge breasts.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_BRAWLERS"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies a black and white flag, which depicts a clenched fist.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_SLIMES"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies a light pink flag, which doesn't bear any sort of marking or insignia.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_BALANCED"><![CDATA[
+	<p>
+		From the very top of this makeshift fortress flies a red flag, which doesn't bear any sort of marking or insignia.
+		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

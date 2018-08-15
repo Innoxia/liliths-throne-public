@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>150</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[insertable dildo]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[insertable dildos]]></namePlural>
+		<description><![CDATA[A dildo-shaped sex toy, designed to be discreetly inserted into the vagina.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>VAGINA</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>insertable_vibrator.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>REQUIRES_VAGINA</tag>
+			<tag>PLUGS_VAGINA</tag>
+		</itemTags>
+	</coreAtributes>
+
+	
+  <displacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You slide the dildo out from your [pc.pussy+].]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You slide [npc.name]'s dildo out from [npc.her] [npc.pussy+].]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You firmly grab [npc.name]'s dildo and yank it out of [npc.herHis] [npc.pussy+].]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] pulls out [npc.her] dildo.]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] slides the dildo out from your [pc.pussy+].]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] firmly grabs your dildo and yanks it out of your [pc.pussy+].]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] slides [npc2.name]'s dildo out form [npc2.her] [npc2.pussy+].]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc.Name] firmly grabs [npc2.name]'s dildo and yanks it out of [npc2.her] [npc2.pussy+].]]>
+    </NPCOtherNPCRough>
+  </displacementText>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You slide the dildo into your [pc.pussy+].]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You push the dildo into [npc.name]'s [npc.pussy+].]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You hold [npc.name] still as you roughly force the dildo into [npc.her] [npc.pussy+].]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] slides the dildo into [npc.herHis] [npc.pussy+].]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] pushes the dildo into your [pc.pussy+].]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the dildo into your [pc.pussy+]]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] slides the dildo into [npc2.Name]'s [npc2.pussy+].]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the dildo into [npc2.herHis] [npc2.pussy+].]]>
+    </NPCOtherNPCRough>
+  </replacementText>
+	
+</clothing>

@@ -5,17 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -33,8 +34,16 @@ public enum VaginaType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH),
 
 	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_FOX_MORPH, Race.FOX_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RAT_MORPH, Race.RAT_MORPH),
+
+	RABBIT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RABBIT_MORPH, Race.RABBIT_MORPH),
+
+	BAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_BAT_MORPH, Race.BAT_MORPH),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
 	
@@ -74,49 +83,79 @@ public enum VaginaType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
+		if(this==NONE) {
+			return "";
+		}
 		if(gc.isVaginaVirgin()) {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat");
-			}
+			return UtilText.returnStringAtRandom(
+					"cherry",
+					"cherry",
+					"cunt",
+					"cunt",
+					"kitty",
+					"pussy",
+					"pussy",
+					"pussy",
+					"pussy",
+					"sex",
+					"slit",
+					"twat",
+					"twat",
+					(this==HORSE_MORPH?"horse-pussy":""));
 			
 		} else {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat");
-			}
+			return UtilText.returnStringAtRandom(
+					"cunt",
+					"cunt",
+					"kitty",
+					"pussy",
+					"pussy",
+					"pussy",
+					"pussy",
+					"sex",
+					"slit",
+					"twat",
+					"twat",
+					(this==HORSE_MORPH?"horse-pussy":""));
 		}
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
+		if(this==NONE) {
+			return "";
+		}
 		if(gc.isVaginaVirgin()) {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats");
-			}
+			return UtilText.returnStringAtRandom(
+					"cherries",
+					"cherries",
+					"cunts",
+					"cunts",
+					"kitties",
+					"pussies",
+					"pussies",
+					"pussies",
+					"pussies",
+					"sexes",
+					"slits",
+					"twats",
+					"twats",
+					(this==HORSE_MORPH?"horse-pussies":""));
 			
 		} else {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats");
-			}
+			return UtilText.returnStringAtRandom(
+					"cunts",
+					"cunts",
+					"kitties",
+					"pussies",
+					"pussies",
+					"pussies",
+					"pussies",
+					"sexes",
+					"slits",
+					"twats",
+					"twats",
+					(this==HORSE_MORPH?"horse-pussies":""));
 		}
 	}
 
@@ -136,6 +175,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine");
 					case WOLF_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "wolf-like", "lupine");
+					case FOX_MORPH:
+						return UtilText.returnStringAtRandom("hot", "animalistic", "fox-like", "vulpine");
 					case CAT_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case COW_MORPH:
@@ -154,11 +195,17 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "bird-like", "avian");
 					case SQUIRREL_MORPH:
 						return UtilText.returnStringAtRandom("hot", "squirrel-like", "rodent");
+					case BAT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "bat-like");
+					case RAT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "rat-like", "rodent");
+					case RABBIT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "rabbit-like", "bunny");
 				}
 				return "";
 			case 1:
 				if(Main.game.isInSex()) {
-					if(!Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA).isEmpty()) {
+					if(Sex.hasLubricationTypeFromAnyone(gc, SexAreaOrifice.VAGINA)) {
 						return "wet";
 					} else {
 						return gc.getVaginaWetness().getDescriptor();
@@ -175,39 +222,47 @@ public enum VaginaType implements BodyPartTypeInterface {
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic");
+				return "angelic";
 			case HARPY:
-				return UtilText.returnStringAtRandom("avian");
+				return "avian";
 			case COW_MORPH:
-				return UtilText.returnStringAtRandom("bovine");
+				return "bovine";
 			case DOG_MORPH:
-				return UtilText.returnStringAtRandom("canine");
+				return "canine";
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic");
+				return "demonic";
 			case IMP:
-				return UtilText.returnStringAtRandom("impish");
+				return "impish";
 			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("equine");
+				return "equine";
 			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("rangiferine");
+				return "rangiferine";
 			case CAT_MORPH:
-				return UtilText.returnStringAtRandom("feline");
+				return "feline";
 			case HUMAN:
-				return UtilText.returnStringAtRandom("human");
+				return "human";
 			case NONE:
-				return UtilText.returnStringAtRandom("none");
+				return "none";
 			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("squirrel");
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case WOLF_MORPH:
-				return UtilText.returnStringAtRandom("lupine");
+				return "lupine";
+			case FOX_MORPH:
+				return "vulpine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
 		}
 		return "";
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

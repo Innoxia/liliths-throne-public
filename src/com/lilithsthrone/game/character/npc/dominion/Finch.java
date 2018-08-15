@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -13,29 +13,32 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.1.89
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Finch extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Finch() {
 		this(false);
@@ -46,11 +49,19 @@ public class Finch extends NPC {
 				"Finch is the manager of Slaver Alley's 'Slave Administration' building."
 						+ " Although he acts friendly enough, you can't help but wonder if his disarming disposition is just for show."
 						+ " After all, would the manager of Dominion's 'Slave Administration' really have got to that position just by being nice?",
+				27, Month.SEPTEMBER, 29,
 				10,
 				Gender.M_P_MALE,
 				RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL, new CharacterInventory(10),
 				WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -95,16 +106,30 @@ public class Finch extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i = 0; i<6; i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
+		// Always at least 4 slave collars:
+		for(int i = 0; i<4; i++) {
+			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, false), false);
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getClothingSet() == ClothingSet.BDSM) {
-				for(int i = 0; i<2; i++) {
-					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
+					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
+				}
+				if(clothing.getRarity()==Rarity.COMMON) {
+					for(int i = 0; i<Util.random.nextInt(2); i++) {
+						if(Math.random()<0.66f) {
+							this.addClothing(AbstractClothingType.generateRareClothing(clothing), false);
+						} else {
+							this.addClothing(AbstractClothingType.generateClothingWithEnchantment(clothing), false);
+						}
+					}
 				}
 			}
+		}
+		
+		for(AbstractClothing clothing : this.getAllClothingInInventory()) {
+			clothing.setEnchantmentKnown(true);
 		}
 	}
 	
@@ -136,23 +161,7 @@ public class Finch extends NPC {
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-	}
-
-	// Combat:
-	@Override
-	public String getCombatDescription() {
-		return null;// You never fight
-	}
-
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null; // You never fight
-	}
-
-	@Override
-	public Attack attackType() {
-		return null; // You never fight
+	public void endSex() {
 	}
 
 }

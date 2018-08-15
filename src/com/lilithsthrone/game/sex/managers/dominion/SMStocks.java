@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -27,19 +27,19 @@ public class SMStocks extends SexManagerDefault {
 		
 		if(!vaginalAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.VAGINA);
+				orificesBannedMap.get(character).add(SexAreaOrifice.VAGINA);
 			}
 		}
 		
 		if(!analAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.ANUS);
+				orificesBannedMap.get(character).add(SexAreaOrifice.ANUS);
 			}
 		}
 		
 		if(!oralAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.MOUTH);
+				orificesBannedMap.get(character).add(SexAreaOrifice.MOUTH);
 			}
 		}
 	}
@@ -52,5 +52,10 @@ public class SMStocks extends SexManagerDefault {
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
 		return getDominants().containsKey(character);
+	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
 	}
 }

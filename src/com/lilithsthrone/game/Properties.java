@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -37,37 +39,47 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public String lastSaveLocation = "";
+	public String lastQuickSaveName = "";
+	public String nameColour = "";
+	public String name = "";
+	public String race = "";
+	public String quest = "";
+	public String versionNumber = "";
+	public String preferredArtist = "jam";
+
+	public int fontSize = 18;
+	public int level = 1;
+	public int money = 0;
+	public int arcaneEssences = 0;
+	public int humanEncountersLevel = 1;
+	public int multiBreasts = 1;
+	public int forcedTFPercentage = 40;
+	public int forcedFetishPercentage = 0;
+
+	public int pregnancyBreastGrowthVariance = 2;
+	public int pregnancyBreastGrowth = 1;
+	public int pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
+	public int pregnancyLactationIncreaseVariance = 100;
+	public int pregnancyLactationIncrease = 250;
+	public int pregnancyLactationLimit = 1000;
 	
-	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
-	
-	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
-	
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false, calendarDisplay = true, twentyFourHourTime = true,
-			
-			furryTailPenetrationContent = false,
-			nonConContent = false,
-			incestContent = false,
-//			forcedTransformationContent = false,
-			inflationContent = true,
-			facialHairContent = false,
-			pubicHairContent = false,
-			bodyHairContent = false,
-			metabolismContent = false,
-			bladderContent = false,
-			
-			newWeaponDiscovered = false,
-			newClothingDiscovered = false,
-			newItemDiscovered = false,
-			newRaceDiscovered = false;
+	public Set<PropertyValue> values;
 	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
@@ -79,10 +91,13 @@ public class Properties implements Serializable {
 	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
-	public Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
-	public Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
+	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
+	private Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
 	
+	// Transformation Settings
 	public FurryPreference forcedTFPreference;
+	public ForcedTFTendency forcedTFTendency;
+	public ForcedFetishTendency forcedFetishTendency;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -123,6 +138,8 @@ public class Properties implements Serializable {
 		}
 		
 		forcedTFPreference = FurryPreference.NORMAL;
+		forcedTFTendency = ForcedTFTendency.NEUTRAL;
+		forcedFetishTendency = ForcedFetishTendency.NEUTRAL;
 		
 		subspeciesFeminineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
 		subspeciesMasculineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
@@ -143,6 +160,14 @@ public class Properties implements Serializable {
 		clothingDiscovered = new HashSet<>();
 		racesDiscovered = new HashSet<>();
 		racesAdvancedKnowledge = new HashSet<>();
+		
+		values = new HashSet<>();
+		
+		for(PropertyValue value : PropertyValue.values()) {
+			if(value.getDefaultValue()) {
+				values.add(value);
+			}
+		}
 	}
 	
 	public void savePropertiesAsXML(){
@@ -170,33 +195,33 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, previousSave, "lastQuickSaveName", lastQuickSaveName);
 			
 			
+
+			Element valuesElement = doc.createElement("propertyValues");
+			properties.appendChild(valuesElement);
+			for(PropertyValue value : values) {
+				CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+			}
+			
 			// Game settings:
 			Element settings = doc.createElement("settings");
 			properties.appendChild(settings);
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
-			createXMLElementWithValue(doc, settings, "lightTheme", String.valueOf(lightTheme));
-			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
-			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
-			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
-			createXMLElementWithValue(doc, settings, "inflationContent", String.valueOf(inflationContent));
-			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
-			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
-			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
-			createXMLElementWithValue(doc, settings, "metabolismContent", String.valueOf(metabolismContent));
-			createXMLElementWithValue(doc, settings, "bladderContent", String.valueOf(bladderContent));
-			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
-			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
-			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
-			createXMLElementWithValue(doc, settings, "twentyFourHourTime", String.valueOf(twentyFourHourTime));
+			
+			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
+			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 
-			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
-			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
-			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
-			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowth", String.valueOf(pregnancyBreastGrowth));
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthLimit", String.valueOf(pregnancyBreastGrowthLimit));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+			
+			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			
@@ -307,8 +332,10 @@ public class Properties implements Serializable {
 				element.setAttributeNode(value);
 			}
 			
-			// Forced TF preference:
+			// Forced TF settings:
 			createXMLElementWithValue(doc, settings, "forcedTFPreference", String.valueOf(forcedTFPreference));
+			createXMLElementWithValue(doc, settings, "forcedTFTendency", String.valueOf(forcedTFTendency));
+			createXMLElementWithValue(doc, settings, "forcedFetishTendency", String.valueOf(forcedFetishTendency));
 			
 			// Race preferences:
 			Element racePreferences = doc.createElement("subspeciesPreferences");
@@ -453,44 +480,83 @@ public class Properties implements Serializable {
 					lastQuickSaveName = ((Element)element.getElementsByTagName("lastQuickSaveName").item(0)).getAttribute("value");
 				}
 				
+				nodes = doc.getElementsByTagName("propertyValues");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					values.clear();
+					if(Main.isVersionOlderThan(versionNumber, "0.2.7")) {
+						values.add(PropertyValue.analContent);
+						values.add(PropertyValue.futanariTesticles);
+						values.add(PropertyValue.cumRegenerationContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.2.7.6")) {
+						values.add(PropertyValue.ageContent);
+					}
+					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
+						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
+						
+						try {
+							values.add(PropertyValue.valueOf(e.getAttribute("value")));
+						} catch(Exception ex) {
+						}
+					}
+				} else {
+					// Old values support:
+					nodes = doc.getElementsByTagName("settings");
+					element = (Element) nodes.item(0);
+					
+					this.setValue(PropertyValue.lightTheme, Boolean.valueOf((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.furryTailPenetrationContent, Boolean.valueOf((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.nonConContent, Boolean.valueOf((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.incestContent, Boolean.valueOf((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value"))));
+					
+					if(element.getElementsByTagName("inflationContent").item(0)!=null) {
+						this.setValue(PropertyValue.inflationContent, Boolean.valueOf((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value"))));
+					}
+					this.setValue(PropertyValue.facialHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.pubicHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.bodyHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value"))));
+					if(element.getElementsByTagName("feminineBeardsContent").item(0)!=null) {
+						this.setValue(PropertyValue.feminineBeardsContent, Boolean.valueOf((((Element)element.getElementsByTagName("feminineBeardsContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("lactationContent").item(0)!=null) {
+						this.setValue(PropertyValue.lactationContent, Boolean.valueOf((((Element)element.getElementsByTagName("lactationContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("cumRegenerationContent").item(0)!=null) {
+						this.setValue(PropertyValue.cumRegenerationContent, Boolean.valueOf((((Element)element.getElementsByTagName("cumRegenerationContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("urethralContent").item(0)!=null) {
+						this.setValue(PropertyValue.urethralContent, Boolean.valueOf((((Element)element.getElementsByTagName("urethralContent").item(0)).getAttribute("value"))));
+					}
+					
+					this.setValue(PropertyValue.newWeaponDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newClothingDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newItemDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newRaceDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value")));
+					
+					this.setValue(PropertyValue.overwriteWarning, Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.fadeInText, Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value")));
+					
+					if(element.getElementsByTagName("calendarDisplay").item(0)!=null) {
+						this.setValue(PropertyValue.calendarDisplay, Boolean.valueOf(((Element)element.getElementsByTagName("calendarDisplay").item(0)).getAttribute("value")));
+					}
+					
+					if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
+						this.setValue(PropertyValue.twentyFourHourTime, Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value")));
+					}
+				}
+				
 				// Settings:
 				nodes = doc.getElementsByTagName("settings");
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
-				lightTheme = ((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value")).equals("true"));
 				
-				furryTailPenetrationContent = ((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")).equals("true"));
-				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
-				incestContent = ((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")).equals("true"));
-				if(element.getElementsByTagName("inflationContent").item(0)!=null) {
-					inflationContent = ((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value")).equals("true"));
+				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
+					preferredArtist =((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
 				}
-//				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
-				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
-				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
-				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
-
-				metabolismContent = ((((Element)element.getElementsByTagName("metabolismContent").item(0)).getAttribute("value")).equals("true"));
-				bladderContent = ((((Element)element.getElementsByTagName("bladderContent").item(0)).getAttribute("value")).equals("true"));
 				
-				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));
-				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));
-				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
-				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
-
 				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
 					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));
-				}
-				
-				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
-				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
-				
-				if(element.getElementsByTagName("calendarDisplay").item(0)!=null) {
-					calendarDisplay = Boolean.valueOf(((Element)element.getElementsByTagName("calendarDisplay").item(0)).getAttribute("value"));
-				}
-				
-				if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
-					twentyFourHourTime = Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value"));
 				}
 				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
@@ -512,10 +578,29 @@ public class Properties implements Serializable {
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
+				if(element.getElementsByTagName("forcedFetishPercentage").item(0)!=null) {
+					forcedFetishPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedFetishPercentage").item(0)).getAttribute("value"));
+				}
 
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
 					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedTFTendency").item(0)!=null) {
+					forcedTFTendency = ForcedTFTendency.valueOf(((Element)element.getElementsByTagName("forcedTFTendency").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedFetishTendency").item(0)!=null) {
+					forcedFetishTendency = ForcedFetishTendency.valueOf(((Element)element.getElementsByTagName("forcedFetishTendency").item(0)).getAttribute("value"));
+				}
+				
+				try {
+					pregnancyBreastGrowthVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthVariance").item(0)).getAttribute("value"));
+					pregnancyBreastGrowth = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowth").item(0)).getAttribute("value"));
+					pregnancyBreastGrowthLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthLimit").item(0)).getAttribute("value"));
+					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
+					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
+					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+				}catch(Exception ex) {
 				}
 				
 				// Keys:
@@ -613,8 +698,8 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("subspecies").isEmpty()) {
 							try {
-								subspeciesFemininePreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
-								subspeciesFeminineFurryPreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
+								this.setFeminineSubspeciesPreference(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
+								this.setFeminineFurryPreference(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
 							} catch(Exception ex) {
 							}
 						}
@@ -626,8 +711,8 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("subspecies").isEmpty()) {
 							try {
-								subspeciesMasculinePreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
-								subspeciesMasculineFurryPreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
+								this.setMasculineSubspeciesPreference(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
+								this.setMasculineFurryPreference(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
 								
 							} catch(Exception ex) {
 							}
@@ -704,11 +789,27 @@ public class Properties implements Serializable {
 			}
 	}
 	
+
+	public boolean hasValue(PropertyValue value) {
+		return values.contains(value);
+	}
+	
+	public void setValue(PropertyValue value, boolean flagged) {
+		if(flagged) {
+			values.add(value);
+		} else {
+			values.remove(value);
+		}
+	}
+	
 	// Add discoveries:
 	
 	public boolean addItemDiscovered(AbstractItemType itemType) {
-		newItemDiscovered = itemsDiscovered.add(itemType);
-		return newItemDiscovered;
+		if(itemsDiscovered.add(itemType)) {
+			setValue(PropertyValue.newItemDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isItemDiscovered(AbstractItemType itemType) {
@@ -716,8 +817,11 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
-		newClothingDiscovered = clothingDiscovered.add(clothingType);
-		return newClothingDiscovered;
+		if(clothingDiscovered.add(clothingType)) {
+			setValue(PropertyValue.newClothingDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
@@ -725,8 +829,11 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
-		newWeaponDiscovered = weaponsDiscovered.add(weaponType);
-		return newWeaponDiscovered;
+		if(weaponsDiscovered.add(weaponType)) {
+			setValue(PropertyValue.newWeaponDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
@@ -734,11 +841,12 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addRaceDiscovered(Race race) {
-		newRaceDiscovered = racesDiscovered.add(race);
-		if(newRaceDiscovered) {
+		if(racesDiscovered.add(race)) {
 			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName(), race.getColour()), true);
+			setValue(PropertyValue.newRaceDiscovered, true);
+			return true;
 		}
-		return newRaceDiscovered;
+		return false;
 	}
 	
 	public boolean isRaceDiscovered(Race race) {
@@ -757,38 +865,39 @@ public class Properties implements Serializable {
 		return racesAdvancedKnowledge.contains(race);
 	}
 	
-	// Getters/Setters for discoveries
-	
-	public boolean isNewWeaponDiscovered() {
-		return newWeaponDiscovered;
-	}
-
-	public void setNewWeaponDiscovered(boolean newWeaponDiscovered) {
-		this.newWeaponDiscovered = newWeaponDiscovered;
-	}
-
-	public boolean isNewClothingDiscovered() {
-		return newClothingDiscovered;
-	}
-
-	public void setNewClothingDiscovered(boolean newClothingDiscovered) {
-		this.newClothingDiscovered = newClothingDiscovered;
-	}
-
-	public boolean isNewItemDiscovered() {
-		return newItemDiscovered;
-	}
-
-	public void setNewItemDiscovered(boolean newItemDiscovered) {
-		this.newItemDiscovered = newItemDiscovered;
-	}
-
-	public boolean isNewRaceDiscovered() {
-		return newRaceDiscovered;
-	}
-
-	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
-		this.newRaceDiscovered = newRaceDiscovered;
+	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {
+		if(subspecies.getRace().isAffectedByFurryPreference()) {
+			subspeciesFeminineFurryPreferencesMap.put(subspecies, furryPreference);
+		}
 	}
 	
+	public void setMasculineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {
+		if(subspecies.getRace().isAffectedByFurryPreference()) {
+			subspeciesMasculineFurryPreferencesMap.put(subspecies, furryPreference);
+		}
+	}
+	
+	public void setFeminineSubspeciesPreference(Subspecies subspecies, SubspeciesPreference subspeciesPreference) {
+		subspeciesFemininePreferencesMap.put(subspecies, subspeciesPreference);
+	}
+	
+	public void setMasculineSubspeciesPreference(Subspecies subspecies, SubspeciesPreference subspeciesPreference) {
+		subspeciesMasculinePreferencesMap.put(subspecies, subspeciesPreference);
+	}
+
+	public Map<Subspecies, FurryPreference> getSubspeciesFeminineFurryPreferencesMap() {
+		return subspeciesFeminineFurryPreferencesMap;
+	}
+
+	public Map<Subspecies, FurryPreference> getSubspeciesMasculineFurryPreferencesMap() {
+		return subspeciesMasculineFurryPreferencesMap;
+	}
+
+	public Map<Subspecies, SubspeciesPreference> getSubspeciesFemininePreferencesMap() {
+		return subspeciesFemininePreferencesMap;
+	}
+
+	public Map<Subspecies, SubspeciesPreference> getSubspeciesMasculinePreferencesMap() {
+		return subspeciesMasculinePreferencesMap;
+	}
 }

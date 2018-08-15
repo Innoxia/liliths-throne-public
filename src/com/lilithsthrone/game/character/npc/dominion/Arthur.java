@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -13,26 +13,28 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Arthur extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Arthur() {
 		this(false);
@@ -40,12 +42,24 @@ public class Arthur extends NPC {
 	
 	public Arthur(boolean isImported) {
 		super(new NameTriplet("Arthur"),
-				"Arthur is ",
+				"With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
+						+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
+						+ "<br/>"
+						+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
+						+ " Despite this, however, he's unable to harness the arcane himself.",
+				41, Month.DECEMBER, 9,
 				10,
 				Gender.M_P_MALE,
 				RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10),
 				WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
@@ -80,6 +94,15 @@ public class Arthur extends NPC {
 	}
 
 	@Override
+	public String getDescription() {
+		return "With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
+				+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
+				+ "<br/>"
+				+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
+				+ " Despite this, however, he's unable to harness the arcane himself.";
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return true;
 	}
@@ -95,27 +118,11 @@ public class Arthur extends NPC {
 
 	@Override
 	public boolean isTrader() {
-		return true;
+		return true; // TODO Wait, what?
 	}
 
 	@Override
-	public void endSex(boolean applyEffects) {
-	}
-
-	// Combat:
-	@Override
-	public String getCombatDescription() {
-		return null;// You never fight
-	}
-
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null; // You never fight
-	}
-
-	@Override
-	public Attack attackType() {
-		return null; // You never fight
+	public void endSex() {
 	}
 
 }

@@ -3,10 +3,13 @@ package com.lilithsthrone.game.character.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -127,22 +130,35 @@ public enum LustLevel {
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Sex.isDom(character)) {
-			pace = getSexPaceDominant();
+			if((character.hasFetish(Fetish.FETISH_SUBMISSIVE) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_DOMINANT))
+					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
+				pace = SexPace.DOM_GENTLE;
+				
+			} else if(character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE) {
+				pace = SexPace.DOM_NORMAL;
+				
+			} else if(character.hasFetish(Fetish.FETISH_SADIST)) {
+				pace = SexPace.DOM_ROUGH;
+				
+			} else {
+				pace = getSexPaceDominant();
+			}
+			
 		} else {
 			pace = getSexPaceSubmissive();
-			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) || ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
 				pace = SexPace.SUB_RESISTING;
 			}
 		}
 		
-		if(pace==SexPace.SUB_RESISTING && !Main.getProperties().nonConContent) {
+		if(pace==SexPace.SUB_RESISTING && !Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 			pace = SexPace.SUB_NORMAL;
 		}
 		
 		if(pace==SexPace.DOM_ROUGH
-				&& (!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
-				|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
-					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE)) {
+				&& ((!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
+						|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
+							|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE))) {
 			pace = SexPace.DOM_NORMAL;
 		}
 		

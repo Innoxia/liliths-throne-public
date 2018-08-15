@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -22,23 +26,24 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.75
- * @version 0.2.0
+ * @version 0.2.6
  * @author Innoxia
  */
 public class EnchantingUtils {
-
+	
+	public static final int FLAME_COST_MODIFER = 500;
+	
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractItem craftedItem = null;
 		
 		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
-
+		
 		craftedItem.setItemEffects(effectsToBeAdded);
 		
-		craftedItem.setName(getPotionName(ingredient, effectsToBeAdded));
+		craftedItem.setName(EnchantmentDialogue.getOutputName());
 		craftedItem.setColour(ingredient.getEnchantmentEffect().getColour());
 		craftedItem.setSVGString(getSVGString(ingredient, effectsToBeAdded));
 		
@@ -46,7 +51,6 @@ public class EnchantingUtils {
 	}
 	
 	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractClothing craftedClothing = null;
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
@@ -59,9 +63,22 @@ public class EnchantingUtils {
 				((AbstractClothing)ingredient).getTertiaryColour(),
 				effectsToBeAdded);
 		
+		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
+		craftedClothing.setPatternColour(((AbstractClothing)ingredient).getPatternColour());
+		craftedClothing.setPatternSecondaryColour(((AbstractClothing)ingredient).getPatternSecondaryColour());
+		craftedClothing.setPatternTertiaryColour(((AbstractClothing)ingredient).getPatternTertiaryColour());
+		
+		craftedClothing.setName(EnchantmentDialogue.getOutputName());
+		
 		craftedClothing.setEnchantmentKnown(true);
 		
 		return craftedClothing;
+	}
+	
+	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
+		((Tattoo)ingredient).setEffects(effectsToBeAdded);
+		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
 	}
 	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -70,6 +87,9 @@ public class EnchantingUtils {
 			return Util.capitaliseSentence(ingredient.getName());
 		}
 		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
+			return Util.capitaliseSentence(ingredient.getName());
+		}
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
 			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
@@ -90,55 +110,16 @@ public class EnchantingUtils {
 		String potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
 		
 		if(ingredient!=null) {
-			switch(ingredient.getEnchantmentEffect()) {
-				case ATTRIBUTE_CORRUPTION:
-					potionDescriptor = "viscous ";
-					break;
-				case ATTRIBUTE_ARCANE:
-					potionDescriptor = "soothing ";
-					break;
-				case ATTRIBUTE_PHYSIQUE:
-					potionDescriptor = "vivid ";
-					break;
-				case ATTRIBUTE_SEXUAL:
-					potionDescriptor = "aphrodisiac ";
-					break;
-				case RACE_CAT_MORPH:
-					potionDescriptor = "feline ";
-					break;
-				case RACE_DOG_MORPH:
-					potionDescriptor = "canine ";
-					break;
-				case RACE_HORSE_MORPH:
-					potionDescriptor = "equine ";
-					break;
-				case RACE_WOLF_MORPH:
-					potionDescriptor = "lupine ";
-					break;
-				case RACE_HARPY:
-					potionDescriptor = "avian ";
-					break;
-				case RACE_HUMAN:
-					potionDescriptor = "human ";
-					break;
-				case RACE_DEMON:
-					potionDescriptor = "demonic ";
-					break;
-				case RACE_COW_MORPH:
-					potionDescriptor = "bovine ";
-					break;
-				case RACE_SQUIRREL_MORPH:
-					potionDescriptor = "squirrel ";
-					break;
-				case RACE_ALLIGATOR_MORPH:
-					potionDescriptor = "alligator ";
-					break;
-				default:
-					break;
+			try {
+				potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
+			} catch(Exception ex) {
+				// :3
+				// Cat-face comments aren't helpful damn it!
+				System.err.println("EnchantingUtils: getPotionName() error 1."); 
 			}
 		}
 		
-		String finalPotionName = potionDescriptor + potionName;
+		String finalPotionName = ((potionDescriptor==null || potionDescriptor.isEmpty())?"":Util.capitaliseSentence(potionDescriptor)+" ") + potionName;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {
@@ -166,39 +147,68 @@ public class EnchantingUtils {
 		return Util.capitaliseSentence(finalPotionName);
 	}
 	
-	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	
+	
+	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
+	private static Set<TFModifier> freeSecondaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MOD_REGENERATION, TFModifier.TF_MOD_CUM_EXPULSION);
+	
+	private static boolean isEffectFreeForWaterSchool(ItemEffect effect) {
+		return freePrimaryModifiers.contains(effect.getPrimaryModifier())
+				|| freeSecondaryModifiers.contains(effect.getSecondaryModifier());
+	}
+	
+	private static int applyDiscountsForPerksAndFetishes(AbstractCoreItem ingredient, int cost) {
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
+			cost/=2;
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
+			cost/=2;
+		}
+		return cost;
+	}
+	
+	public static int getModifierEffectCost(AbstractCoreItem ingredient, ItemEffect effect) {
+		if(!(ingredient instanceof Tattoo)
+				&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+				&& isEffectFreeForWaterSchool(effect)) {
+			return 0;
+		}
 		
-		int cost = 0;
+		return applyDiscountsForPerksAndFetishes(ingredient, effect.getCost());
+	}
+	
+	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		Map<ItemEffect, Integer> effectCount = new HashMap<>();
 		for(ItemEffect ie : effects) {
-			effectCount.putIfAbsent(ie, 0);
-			effectCount.put(ie, effectCount.get(ie)+1);
+			effectCount.merge(ie, 1, Integer::sum);
 		}
 		for(ItemEffect ie : ingredient.getEffects()) {
 			if(effects.contains(ie)) {
-				effectCount.put(ie, effectCount.get(ie)-1);
+				effectCount.merge(ie, -1, Integer::sum);
 			} else {
-				effectCount.putIfAbsent(ie, 0);
-				effectCount.put(ie, effectCount.get(ie)+1);
+				effectCount.merge(ie, 1, Integer::sum);
 			}
 		}
+		
+		if (!(ingredient instanceof Tattoo) && Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)) {
+			effectCount.keySet().removeIf(EnchantingUtils::isEffectFreeForWaterSchool);
+		}
+		
+		int cost = 0;
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
 			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
 		}
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
-			cost/=2;
-		}
-		if(Main.game.getPlayer().hasTrait(Perk.CLOTHING_ENCHANTER, true) && ingredient instanceof AbstractClothing) {
-			cost/=2;
-		}
-		
-		return cost;
+		return applyDiscountsForPerksAndFetishes(ingredient, cost);
 	}
 	
 	public static String getSVGString(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
 		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
+			return ingredient.getSVGString();
+		}
+		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
 			return ingredient.getSVGString();
 		}
 		

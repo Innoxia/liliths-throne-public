@@ -7,7 +7,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 
 /**
  * @since 0.1.66
- * @version 0.1.7
+ * @version 0.2.5
  * @author Innoxia
  */
 public class InventoryClothingComparator implements Comparator<AbstractClothing>, Serializable {
@@ -15,24 +15,27 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 
 	@Override
 	public int compare(AbstractClothing first, AbstractClothing second) {
-		if(!first.isEnchantmentKnown() && !second.isEnchantmentKnown())
+		if(!first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
 			return 0;
-		else if(first.isEnchantmentKnown() && !second.isEnchantmentKnown())
+		} else if(first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
 			return -1;
-		else if(!first.isEnchantmentKnown() && second.isEnchantmentKnown())
+		} else if(!first.isEnchantmentKnown() && second.isEnchantmentKnown()) {
 			return 1;
+		}
 		
 		int result = first.getRarity().compareTo(second.getRarity());
 		
 		if (result != 0) {
 			return result;
-		} else {
-			result = first.getClothingType().getSlot().compareTo(second.getClothingType().getSlot());
 			
-			if(result!=0)
+		} else {
+			result = first.getClothingType().toString().compareTo(second.getClothingType().toString());
+			
+			if(result!=0) {
 				return result;
-			else
+			} else {
 				return first.getColour().getName().compareTo(second.getColour().getName());
+			}
 		}
 	}
 }

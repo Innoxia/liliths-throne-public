@@ -7,3 +7,8 @@ target/
 *.old
 *.class
 *.log
+res/mods/
+*.iml
+
+# Ignore all generic character images
+res/images/characters/generic/

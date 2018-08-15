@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum EncounterType {
@@ -11,6 +11,9 @@ public enum EncounterType {
 	
 	SLAVE_USES_YOU,
 	
+	DOMINION_STREET_FIND_HAPPINESS, // Kinariu
+	DOMINION_STREET_RENTAL_MOMMY,
+	
 	DOMINION_FIND_ITEM,
 	DOMINION_FIND_CLOTHING,
 	DOMINION_FIND_WEAPON,
@@ -18,10 +21,16 @@ public enum EncounterType {
 	DOMINION_ALLEY_ATTACK,
 	DOMINION_STORM_ATTACK,
 	
+	
 	HARPY_NEST_ATTACK,
 	HARPY_NEST_ATTACK_STORM,
 	HARPY_NEST_FIND_ITEM,
 	
 	SUBMISSION_TUNNEL_ATTACK,
-	SUBMISSION_FIND_ITEM;
+	SUBMISSION_FIND_ITEM,
+
+	BAT_CAVERN_BAT_ATTACK,
+	BAT_CAVERN_SLIME_ATTACK,
+	BAT_CAVERN_FIND_ITEM
+	;
 }

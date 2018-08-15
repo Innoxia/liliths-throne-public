@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -83,10 +86,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-			Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
-			for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("effect").item(i));
-				effectsToBeAdded.add(ItemEffect.loadFromXML(e, doc));
+			NodeList element = ((Element) parentElement.getElementsByTagName("itemEffects").item(0)).getElementsByTagName("effect");
+			for(int i = 0; i < element.getLength(); i++){
+				Element e = ((Element)element.item(i));
+				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
+				if(itemEffect != null) {
+					effectsToBeAdded.add(itemEffect);
+				}
 			}
 			item.setItemEffects(effectsToBeAdded);
 			
@@ -132,7 +138,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	@Override
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return itemType.getEnchantmentEffect();
 	}
 	
@@ -148,6 +154,14 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	
 	// Getters & setters:
 	
+	public String getName(boolean withDeterminer, boolean withRarityColour) {
+		return (withDeterminer
+				? (!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
+					? itemType.getDeterminer() + " "
+					: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
+				: " ")
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+	}
 	
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence((itemType.getDeterminer()==""?"":itemType.getDeterminer()+" ") + (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
@@ -167,17 +181,17 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p>"
-					+ "<b>Effects:</b></br>");
+					+ "<b>Effects:</b><br/>");
 		
 		for(ItemEffect ie : getEffects()) {
 			for(String s : ie.getEffectsDescription(user, target)) {
-				sb.append(s+"</br>");
+				sb.append(s+"<br/>");
 			}
 		}
 
 		sb.append("</p>"
 				+ "<p>"
-					+ "It has a value of " + UtilText.formatAsMoney(getValue()) + "."
+					+ (this.getItemType().isPlural()?"They have":"It has")+" a value of " + UtilText.formatAsMoney(getValue()) + "."
 				+ "</p>");
 		
 		return sb.toString();

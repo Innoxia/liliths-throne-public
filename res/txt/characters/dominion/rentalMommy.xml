@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENCOUNTER"><![CDATA[
+	<p>
+		As you walk down one of Dominion's wide, marble-paved boulevards, you find yourself having to move to one side of the street in order to avoid a particularly slow-moving crowd of shoppers.
+		 Your evasive route takes you right past the frontage of a particularly well-kept house, and as you pass, your attention is drawn to a wooden bench positioned to one side of the door, and the voluptuous figure of [npc.a_fullRace(true)] who's currently sitting on it.
+	</p>
+	<p>
+		It isn't just her [npc.breastRows] of [npc.breastSize] [npc.breasts] that's drawn your attention, but rather the words 'Rental Mommy [style.moneyUncoloured(50, span)]' that have been printed onto her white t-shirt. As you're reading her advertisement, this 'Rental Mommy' looks up and catches your eye, before giving you a loving smile and patting the bench next to her. [npc.speech(Heya sweetie! So, how about it? Fifty flames, and I'll be your Mommy for a little while!)]
+	</p>
+	<p>
+		You come to a halt next to the [npc.race], and wonder if you should take her up on her offer or not. As you're thinking of what to say, she uncrosses her legs, and your eyes are drawn to the sudden movement as she pats her thick thighs. Continuing to beam at you, the rental Mommy tries to entice you into accepting her offer. [npc.speech(Do you want your Mommy to give you a lap pillow? Only fifty flames!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENCOUNTER_REPEAT"><![CDATA[
+	<p>
+		As you walk down one of Dominion's wide, marble-paved boulevards, you find yourself passing by Mommy's house again. Glancing over towards it, you see the [npc.race] sitting on her usual wooden bench. Almost instantly, she looks up and catches your eye, before beckoning you over.
+	</p>
+	<p>
+		Walking up to the rental mommy, you smile at her as she uncrosses her legs and pats her thick thighs. [npc.speech(Heya sweetie! Do you want Mommy to give you a nice lap pillow? As the shirt says, it's only fifty flames!)]
+	</p>
+	<p>
+		You wonder if you should take Mommy up on her offer, or decline and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DECLINE"><![CDATA[
+	<p>
+		[pc.speech(I'm on some important business right now,)] you say, before stepping back and preparing to move off. 
+	</p>
+	<p>
+		[npc.speech(I understand, sweetie! If ever you need some comfort from Mommy, you know where to find me!)] Mommy cheerfully calls out, before sitting back and crossing her legs once more.
+	</p>
+	<p>
+		You make a brief, non-committal response, before quickly moving off and continuing on your way down the boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMYS_EXTRAS"><![CDATA[
+	<p>
+		[pc.speech(That sounds kind of nice...)]
+		 you find yourself answering.
+	</p>
+	<p>
+		[npc.speech(Well, fifty flames, and you can find out just how nice it is!)] Mommy cheerfully replies, before patting her plump thighs once more.
+	</p>
+	<p>
+		Unable to resist the [npc.race]'s offer, you quickly hand over the requested sum, before sitting down on the bench next to her. Before you can make any further move, Mommy leans over and wraps her arms around you, before pulling you into a tight, loving hug. Her [npc.breastSize] [npc.breasts] pleasantly press against you as Mommy suddenly leans in to kiss you on the cheek. [npc.speech(Good [pc.girl]! Now, let Mommy take good care of you!)]
+	</p>
+	<p>
+		With that, Mommy gently, but firmly, pulls you down towards her, until your head is resting on her lap. You lift your legs up and rest them on the bench as Mommy lets you use her lap as a pillow, and, letting out a deeply satisfied sigh, you close your eyes as she starts gently stroking your head.
+	</p>
+	<p>
+		For the next fifteen minutes, you allow yourself to completely relax, enjoying this break of pace as the busty [npc.race] softly hums and strokes your head. Eventually, Mommy gently sighs, breaking the silence as she speaks down to you. [npc.speech(Good [pc.girl]... You're Mommy's favourite, you know? And because you're my favourite, I've got a special offer for you. Mommy's been lonely lately, you see, and she'd really like to have some fun...)]
+	</p>
+	<p>
+		You can hear the excitement in Mommy's voice as she leans down to whisper in your ear, [npc.speech(For a thousand flames, you can come back into my house, and I'll show you how Mommy treats her good [pc.girl]. Or, if you think you've got what it takes, you can pay two thousand flames and take charge. Mommy sure would like to find out what you're capable of...)]
+	</p>
+	<p>
+		With that, Mommy straightens back up, continuing to stroke your head as she sighs, [npc.speech(Just let me know if you're interested.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMYS_EXTRAS_OFFER_BREASTFEEDING"><![CDATA[
+	<p>
+		As you're wondering if you should take Mommy up on her offer or not, she suddenly seems to remember something, and happily continues, [npc.speech(Oh! If you wanted Mommy to feed you, I can do that too! It's five hundred flames if you want to do it inside, or a thousand if you want me to feed you out here. And just so we're clear, I'm talking about feeding you with these right here.)]
+	</p>
+	<p>
+		You roll your head back to look up at Mommy, who playfully squeezes her [npc.breastSize] [npc.breasts] as she smiles down at you. You wonder if you should take Mommy up on any of her offers, or decline and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_HOUSE_ENTRY_BREASTFEEDING"><![CDATA[
+	<p>
+		[pc.speech(Mommy, could I have some milk?)] you ask, producing five hundred flames before handing them over to the [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_HOUSE_ENTRY_SEX_SUB"><![CDATA[
+	<p>
+		[pc.speech(Mommy, could I help you to have some fun?)] you ask, producing one thousand flames before handing them over to the [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_HOUSE_ENTRY_SEX_DOM"><![CDATA[
+	<p>
+		[pc.speech(Mommy, I'd like to show you a good time,)] you say, producing two thousand flames before handing them over to the [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_HOUSE_ENTRY"><![CDATA[
+	<p>
+		[npc.speech(Of course, sweetie!)] Mommy happily replies, before gently sitting you up and taking hold of your [pc.hand]. [npc.speech(Come with me!)]
+	</p>
+	<p>
+		With that, Mommy stands up, and, still holding on to your [pc.hand], leads you over to the front door of her house, before quickly unlocking it and pulling you inside. You find yourself being led into a large, marble-floored entrance hall, which is furnished with several small cabinets and potted plants. You aren't given much time to look around, however, as Mommy quickly pulls you over towards the nearest door, before leading you into her lounge.
+	</p>
+	<p>
+		The lush, cream-coloured carpet is almost the exact same hue as that of the floral wallpaper, which, in combination with the white leather sofas and large skylight, gives this room a very bright and airy feel. You don't get much time to examine this room either, however, as the moment that you're led inside, Mommy turns around and wraps her arms around you. Stepping forwards, she platns a big, wet kiss on your lips, before leaning back and smiling lovingly at you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_SEX_SUB"><![CDATA[
+	<p>
+		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, let Mommy take good care of you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_SEX_DOM"><![CDATA[
+	<p>
+		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, show me how you want to treat your Mommy...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMYS_EXTRAS_DECLINED"><![CDATA[
+	<p>
+		Not liking the sound of Mommy's offers, you slowly sit back up on the bench.
+		 [pc.speech(Sorry, but I've got some business that I need to take care of. Maybe another time.)]
+	</p>
+	<p>
+		[npc.speech(I understand, sweetie! If ever you need some extra comfort from Mommy, you know where to find me!)] Mommy cheerfully calls out, before sitting back and crossing her legs once more.
+	</p>
+	<p>
+		You make a brief, non-committal response, before quickly moving off and continuing on your way down the boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMYS_EXTRAS_BREASTFEEDING"><![CDATA[
+	<p>
+		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, come over here and take a seat!)]
+	</p>
+	<p>
+		You obediently follow Mommy as she steps back and leads you over to the nearest sofa. Pulling you down onto the cushions next to her, Mommy turns and beams at you, before lifting up her t-shirt. [npc.speech(Mommy's nice and full and today, so you make sure to drink as much milk as you want!)]
+	</p>
+	<p>
+		You eagerly watch as Mommy pulls the t-shirt up and over her head, before reaching back to unfasten and remove her black maternity bra. With her [npc.breastSize], [npc.breastShape] [npc.breasts] finally revealed, you find yourself hungrily staring at her [npc.nippleSize], puffy [npc.nipples], surrounded by [npc.areolaSize] areolae.
+	</p>
+	<p>
+		[npc.speech(Come on then, don't keep Mommy waiting!)] Mommy gently teases, before leaning forwards to take hold of your head in her hands. You allow the [npc.race] to guide your face down to her breasts, before pressing one of her [npc.nipples+] against your [pc.lips+].
+	</p>
+	<p>
+		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head. 
+	</p>
+	<p>
+		After a little while, the milk from Mommy's teat starts to dry up, and with a little wet sucking noise, she pries you away from her breast. Before you can complain, she quickly shifts her torso to one side, and presents her other breast to your still-hungry mouth. Instantly, you wrap your [pc.lips] around the [npc.nipple+], and let out a muffled [pc.moan] of delight as a fresh stream of [npc.milk] starts flowing into your mouth.
+	</p>
+	<p>
+		After some time, you've drunk all of Mommy's milk, and she slowly moves your head away from her breasts. [npc.speech(Good [pc.girl]! Mommy's all out of milk now!)]
+	</p>
+	<p>
+		You smile at Mommy as she clips her bra back into place, before pulling her t-shirt back down over her head. Taking hold of your hand, she then leads you back outside, before planting a wet kiss on your cheek and giving your [pc.ass] a little slap. [npc.speech(Run along now, and please do visit if you get hungry again!)]
+	</p>
+	<p>
+		[pc.speech(I will!)] you call out to Mommy, before continuing on your way down Dominion's boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMYS_EXTRAS_BREASTFEEDING_PUBLIC"><![CDATA[
+	<p>
+		[pc.speech(Mommy, could I have some milk out here?)] you ask, before handing over one thousand flames.
+	</p>
+	<p>
+		[npc.speech(Of course, sweetie!)] Mommy happily replies, while continuing to stroke your head. [npc.speech(Mommy's nice and full and today, so you make sure to drink as much milk as you want!)]
+	</p>
+	<p>
+		You eagerly watch as Mommy pulls her t-shirt up to just beneath her chin, exposing her [npc.breastSize], [npc.breastShape] [npc.breasts], and the black maternity bra which is supporting them. Reaching up to unfasten one of the bra's specially-designed cups, she reveals her [npc.nippleSize], puffy [npc.nipples], which are surrounded by [npc.areolaSize] areolae.
+	</p>
+	<p>
+		[npc.speech(Come on then, don't keep Mommy waiting!)] Mommy gently teases, before leaning forwards to take hold of your head in her hands. You allow the [npc.race] to guide your face up to her breasts, before pressing one of her [npc.nipples+] against your [pc.lips+].
+	</p>
+	<p>
+		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head. 
+	</p>
+	<p>
+		After a little while, the milk from Mommy's teat starts to dry up, and with a little wet sucking noise, she pries you away from her breast. Before you can complain, she quickly shifts her torso to one side, and presents her other breast to your still-hungry mouth. Instantly, you wrap your [pc.lips] around the [npc.nipple+], and let out a muffled [pc.moan] of delight as a fresh stream of [npc.milk] starts flowing into your mouth.
+	</p>
+	<p>
+		After some time, you've drunk all of Mommy's milk, and she slowly moves your head away from her breasts. [npc.speech(Good [pc.girl]! Mommy's all out of milk now!)]
+	</p>
+	<p>
+		You smile at Mommy as she clips her bra's cups back into place, before pulling her t-shirt back down over her breasts. As you sit up on the bench, Mommy leans over to plant a wet kiss on your cheek, before giving your head a little pat. [npc.speech(Run along now, and please do visit if you get hungry again!)]
+	</p>
+	<p>
+		[pc.speech(I will!)] you call out to Mommy, before standing up and continuing on your way down Dominion's boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_ORGASMED"><![CDATA[
+	<p>
+		Mommy collapses down onto the nearest sofa, panting. [npc.speech(Mmm... That was great...)]
+	</p>
+	<p>
+		You smile down at Mommy as she catches her breath, and reply, [pc.speech(I'm glad you had fun, Mommy!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOMMY_NO_ORGASM"><![CDATA[
+	<p>
+		Mommy collapses down onto the nearest sofa, letting out a frustrated little huff. [npc.speech(Hmm... You didn't even let Mommy get to her climax...)]
+	</p>
+	<p>
+		You look down at Mommy as she catches her breath, and reply, [pc.speech(Sorry, Mommy.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_MOMMY_AS_DOM_END"><![CDATA[
+	<p>
+		[npc.speech(Now, tidy up Mommy's lounge, like a good [pc.girl].)] Mommy sighs, still catching her breath.
+	</p>
+	<p>
+		You do as Mommy says, tidying up the lounge so that it's in the same state as when you entered. Once you're done, Mommy takes hold of your hand, before leading you back outside, planting a wet kiss on your cheek, and giving your [pc.ass] a little slap. [npc.speech(Run along now, and please do visit Mommy again!)]
+	</p>
+	<p>
+		[pc.speech(I will!)] you call out to Mommy, before continuing on your way down Dominion's boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_MOMMY_AS_SUB_END"><![CDATA[
+	<p>
+		[npc.speech(Now, you sit still while Mommy tidies up her lounge, like a good [pc.girl],)] Mommy says, smiling lovingly at you.
+	</p>
+	<p>
+		You do as Mommy says, sitting down on one of her sofas as she tidies up the lounge. Once she's done, Mommy takes hold of your hand, before leading you back outside, planting a wet kiss on your cheek, and giving your [pc.ass] a little slap. [npc.speech(Run along now, and please do visit Mommy again!)]
+	</p>
+	<p>
+		[pc.speech(I will!)] you call out to Mommy, before continuing on your way down Dominion's boulevard.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -8,15 +8,16 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -26,13 +27,16 @@ import com.lilithsthrone.utils.Util.ListValue;
 public class PlayerSelfNoPen {
 	
 	public static final SexAction PLAYER_STROKE_VAGINA_SUB = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -66,7 +70,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -74,13 +78,16 @@ public class PlayerSelfNoPen {
 	
 	
 	public static final SexAction PLAYER_STROKE_PENIS = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -115,7 +122,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Main.game.getPlayer(), PenetrationType.FINGER, Main.game.getPlayer(), PenetrationType.PENIS);
+				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaPenetration.PENIS);
 			}
 		}
 		
@@ -124,13 +131,16 @@ public class PlayerSelfNoPen {
 	
 	
 	public static final SexAction PLAYER_STROKE_MOUND = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -173,7 +183,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_MASTURBATION);
 			} else {
 				return null;
 			}

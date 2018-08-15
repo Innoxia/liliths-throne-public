@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SexActionRalphDiscount;
+import com.lilithsthrone.game.sex.sexActions.universal.RalphOral;
 
 /**
  * @since 0.1.6?
@@ -25,10 +25,10 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
-		if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES)) {
-			return SexActionRalphDiscount.PARTNER_PENETRATES;
-		} else if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES_ANUS)) {
-			return SexActionRalphDiscount.PARTNER_PENETRATES_ANUS;
+		if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
+			return RalphOral.PARTNER_PENETRATES;
+		} else if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
+			return RalphOral.PARTNER_PENETRATES_ANUS;
 		}
 		
 		return super.getPartnerSexAction(sexActionPlayer);
@@ -36,6 +36,16 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
+		return false;
+	}
+
+	@Override
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+		return false;
+	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
 		return false;
 	}
 	

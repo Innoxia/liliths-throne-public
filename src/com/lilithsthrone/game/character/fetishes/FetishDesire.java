@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.99
- * @version 0.2.0
+ * @version 0.2.9
  * @author Innoxia
  */
 public enum FetishDesire {
@@ -49,6 +49,9 @@ public enum FetishDesire {
 		
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! FetishDesire icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			String base = Util.inputStreamToString(is);
 
 			SVGImage = base;
@@ -70,6 +73,14 @@ public enum FetishDesire {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean isNegative() {
+		return this==ZERO_HATE || this==ONE_DISLIKE;
+	}
+	
+	public boolean isPositive() {
+		return this==THREE_LIKE || this==FOUR_LOVE;
 	}
 	
 	public static int getCostToChange() {

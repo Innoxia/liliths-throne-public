@@ -8,14 +8,15 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -25,13 +26,16 @@ import com.lilithsthrone.utils.Util.ListValue;
 public class PartnerSelfNoPen {
 	
 	public static final SexAction PARTNER_STROKE_VAGINA = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -68,7 +72,7 @@ public class PartnerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER, OrificeType.VAGINA);
+				Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -77,13 +81,16 @@ public class PartnerSelfNoPen {
 	
 	
 	public static final SexAction PARTNER_STROKE_PENIS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -120,7 +127,7 @@ public class PartnerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Sex.getActivePartner(), PenetrationType.FINGER, Sex.getActivePartner(), PenetrationType.PENIS);
+				Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaPenetration.PENIS);
 			}
 		}
 		
@@ -129,13 +136,16 @@ public class PartnerSelfNoPen {
 	
 	
 	public static final SexAction PARTNER_STROKE_MOUND = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -160,7 +170,7 @@ public class PartnerSelfNoPen {
 						"Reaching down between [npc.her] [npc.legs], [npc.name] runs [npc.her] fingertips over [npc.her] doll-like mound, [npc.moaning+] as [npc.she] teases the sensitive area.",
 						"[npc.Name] teases [npc.her] fingers over the sensitive doll-like mound between [npc.her] legs, [npc.moaning+] as [npc.she] stimulates [npc.herself].",
 						"With probing fingers, [npc.name] reaches down and starts to pinch and rub at [npc.her] delicate genderless crotch.",
-						"Despite lacking genitalia, [npc.name]'s crotch remains a highly sensitive erogenous zone, and [npc.she] eagerly starts rubbing and pressing down on it with greedy fingers.");
+						"Despite lacking genitalia, [npc.namePos] crotch remains a highly sensitive erogenous zone, and [npc.she] eagerly starts rubbing and pressing down on it with greedy fingers.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -181,7 +191,7 @@ public class PartnerSelfNoPen {
 			if(character.isPlayer()) {
 				return null;
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_MASTURBATION);
 			}
 		}
 	};

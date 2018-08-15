@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.83
@@ -15,56 +14,56 @@ public enum FluidFlavour {
 	
 	CUM("cum", BaseColour.WHITE,
 			Util.newArrayListOfValues(
-					new ListValue<>("salty"))),
+					"salty")),
 	
 	MILK("milk", BaseColour.WHITE,
 			Util.newArrayListOfValues(
-					new ListValue<>("creamy"))),
+					"creamy")),
 	
 	GIRL_CUM("girl-cum", BaseColour.WHITE,
 			Util.newArrayListOfValues(
-					new ListValue<>("sweet"))),
+					"sweet")),
 
 	SLIME("slime", BaseColour.GREEN_LIGHT,
 			Util.newArrayListOfValues(
-					new ListValue<>("sweet"))),
+					"sweet")),
 	
 	
 	BEER("beer", BaseColour.TAN,
 			Util.newArrayListOfValues(
-					new ListValue<>("yeasty"),
-					new ListValue<>("beer-flavoured"))),
+					"yeasty",
+					"beer-flavoured")),
 	
 	VANILLA("vanilla", BaseColour.YELLOW_LIGHT,
 			Util.newArrayListOfValues(
-					new ListValue<>("sweet"),
-					new ListValue<>("vanilla-flavoured"))),
+					"sweet",
+					"vanilla-flavoured")),
 	
 	STRAWBERRY("strawberries", BaseColour.ROSE,
 			Util.newArrayListOfValues(
-					new ListValue<>("sweet"),
-					new ListValue<>("strawberry-flavoured"))),
+					"sweet",
+					"strawberry-flavoured")),
 	
 	CHOCOLATE("chocolate", BaseColour.BROWN,
 			Util.newArrayListOfValues(
-					new ListValue<>("chocolatey"),
-					new ListValue<>("chocolate-flavoured"))),
+					"chocolatey",
+					"chocolate-flavoured")),
 	
 	PINEAPPLE("pineapple", BaseColour.YELLOW_LIGHT,
 			Util.newArrayListOfValues(
-					new ListValue<>("tart"),
-					new ListValue<>("sour"),
-					new ListValue<>("tangy"),
-					new ListValue<>("pineapple-flavoured"))),
+					"tart",
+					"sour",
+					"tangy",
+					"pineapple-flavoured")),
 	
 	HONEY("honey", BaseColour.YELLOW,
 			Util.newArrayListOfValues(
-					new ListValue<>("sweet"),
-					new ListValue<>("honey-flavoured"))),
+					"sweet",
+					"honey-flavoured")),
 	
 	MINT("mint", BaseColour.GREEN_LIME,
 			Util.newArrayListOfValues(
-					new ListValue<>("minty")));
+					"minty"));
 	
 	private String name;
 	private BaseColour colour;
@@ -77,7 +76,7 @@ public enum FluidFlavour {
 	}
 	
 	/**
-	 * To go into: "You can't get the rich strawberry taste out of your mouth."</br>
+	 * To go into: "You can't get the rich strawberry taste out of your mouth."<br/>
 	 * Or: "Strawberry-flavoured"
 	 */
 	public String getName() {

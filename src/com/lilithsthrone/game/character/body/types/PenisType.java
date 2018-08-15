@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -14,45 +16,55 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
 	NONE(null, TesticleType.NONE, null),
 
+	DILDO(BodyCoveringType.DILDO, TesticleType.DILDO, Race.NONE),
+	
 	HUMAN(BodyCoveringType.PENIS, TesticleType.HUMAN, Race.HUMAN),
 
 	ANGEL(BodyCoveringType.PENIS, TesticleType.ANGEL, Race.ANGEL),
 
-	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenisModifier.TAPERED, PenisModifier.VEINY, PenisModifier.SHEATHED),
+	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenetrationModifier.TAPERED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
 
-	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
+	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenetrationModifier.RIBBED, PenetrationModifier.TENTACLED, PenetrationModifier.PREHENSILE),
 
-	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
+	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenetrationModifier.RIBBED, PenetrationModifier.TENTACLED, PenetrationModifier.PREHENSILE),
 	
-	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
+	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
 	
-	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
-
-	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
-
-	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenisModifier.BLUNT),
-
-	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
-
-	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenisModifier.FLARED, PenisModifier.SHEATHED),
-
-	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenisModifier.SHEATHED),
+	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
 	
-	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenisModifier.SHEATHED);
+	VULPINE(BodyCoveringType.PENIS, TesticleType.FOX_MORPH, Race.FOX_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
+
+	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenetrationModifier.BARBED, PenetrationModifier.SHEATHED),
+
+	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenetrationModifier.BLUNT),
+
+	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenetrationModifier.FLARED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
+
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.FLARED, PenetrationModifier.SHEATHED),
+
+	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenetrationModifier.SHEATHED),
+	
+	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenetrationModifier.SHEATHED),
+	
+	RAT_MORPH(BodyCoveringType.PENIS, TesticleType.RAT_MORPH, Race.RAT_MORPH, PenetrationModifier.SHEATHED),
+	
+	RABBIT_MORPH(BodyCoveringType.PENIS, TesticleType.RABBIT_MORPH, Race.RABBIT_MORPH, PenetrationModifier.SHEATHED),
+	
+	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenetrationModifier.SHEATHED);
 
 	
 	private BodyCoveringType skinType;
 	private TesticleType testicleType;
 	private Race race;
-	private List<PenisModifier> defaultPenisModifiers;
+	private List<PenetrationModifier> defaultPenisModifiers;
 
-	private PenisType(BodyCoveringType skinType, TesticleType testicleType, Race race, PenisModifier... defaultPenisModifiers) {
+	private PenisType(BodyCoveringType skinType, TesticleType testicleType, Race race, PenetrationModifier... defaultPenisModifiers) {
 		this.skinType = skinType;
 		this.race = race;
 		this.testicleType=testicleType;
@@ -73,12 +85,20 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("cock", "dick", "shaft");
+		if(this==PenisType.DILDO) {
+			return UtilText.returnStringAtRandom("dildo", "cock");
+		} else {
+			return UtilText.returnStringAtRandom("cock", "cock", "cock", "dick", "dick", "shaft");
+		}
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("cocks", "dick", "shafts");
+		if(this==PenisType.DILDO) {
+			return UtilText.returnStringAtRandom("dildoes", "cocks");
+		} else {
+			return UtilText.returnStringAtRandom("cocks", "cocks", "cocks", "dicks", "dicks", "shafts");
+		}
 	}
 
 	@Override
@@ -115,18 +135,28 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("rodent", "squirrel-", "squirrel-like");
 					case LUPINE:
 						return UtilText.returnStringAtRandom("lupine", "wolf-", "wolf-like", "bestial");
+					case VULPINE:
+						return UtilText.returnStringAtRandom("vulpine", "fox-", "fox-like", "bestial");
+					case BAT_MORPH:
+						return UtilText.returnStringAtRandom("bat-", "bat-like");
+					case RAT_MORPH:
+						return UtilText.returnStringAtRandom("rodent", "rat-", "rat-like");
+					case RABBIT_MORPH:
+						return UtilText.returnStringAtRandom("rabbit-", "rabbit-like");
+					case DILDO:
+						return UtilText.returnStringAtRandom("rubber", "rubbery", "silicone", "artificial");
 				}
 				break;
 			case 1:
 				return UtilText.returnStringAtRandom(
-						gc.getPenisSize().getDescriptor(),
+						gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
 						gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
-				if(Main.game.isInSex()) {
+				if(Main.game.isInSex() && this!=PenisType.DILDO) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
 					return UtilText.returnStringAtRandom(
-							gc.getPenisSize().getDescriptor(),
+							gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
 							gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
@@ -163,12 +193,22 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "alligator";
 			case LUPINE:
 				return "lupine";
+			case VULPINE:
+				return "vulpine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case DILDO:
+				return "artificial";
 		}
 		return "";
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	
@@ -179,64 +219,107 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	
 	public String getPenisHeadName(GameCharacter gc) {
-		switch(this){
-			case EQUINE:
-				return UtilText.returnStringAtRandom("head");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("head", "tip");
-		}
+		return UtilText.returnStringAtRandom("head", "tip");
 	}
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
-		switch(this){
-			case BOVINE:
-				return UtilText.returnStringAtRandom("wide", "flared", "flat");
-			case CANINE:
-				return UtilText.returnStringAtRandom("tapered", "pointed");
-			case EQUINE:
-				return UtilText.returnStringAtRandom("wide", "flared", "flat");
-			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("blunt");
-			case FELINE:
-				return UtilText.returnStringAtRandom("");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("");
+		for(PenetrationModifier mod : PenetrationModifier.values()) {
+			if(gc.getPenisModifiers().contains(PenetrationModifier.BLUNT)) {
+				switch(mod) {
+					case BLUNT:
+						return UtilText.returnStringAtRandom("blunt");
+					case FLARED:
+						return UtilText.returnStringAtRandom("wide", "flared", "flat");
+					case TAPERED:
+						return UtilText.returnStringAtRandom("tapered", "pointed");
+					case KNOTTED:
+					case PREHENSILE:
+					case RIBBED:
+					case SHEATHED:
+					case BARBED:
+					case TENTACLED:
+					case VEINY:
+						break;
+				}
+			}
 		}
+		return "";
 	}
 	
 	public String getCumName(GameCharacter gc) {
+		String prefix = "";
 		switch(this){
 			case BOVINE:
-				return UtilText.returnStringAtRandom("bull-cum", "bull-cream", "cow-jism", "bull-jizz", "cow-seed");
+				prefix = UtilText.returnStringAtRandom("bull-", "cow-", "bovine-");
+				break;
 			case CANINE:
-				if(gc.getRace()==Race.WOLF_MORPH) {
-					return UtilText.returnStringAtRandom("wolf-cum", "wolf-cream", "wolf-jism", "wolf-jizz", "wolf-seed");
-				} else {
-					return UtilText.returnStringAtRandom("dog-cum", "dog-cream", "dog-jism", "dog-jizz", "dog-seed");
-				}
+				prefix = UtilText.returnStringAtRandom("dog-", "canine-");
+				break;
 			case EQUINE:
-				return UtilText.returnStringAtRandom("horse-cum", "horse-cream", "horse-jism", "horse-jizz", "horse-seed");
+				prefix = UtilText.returnStringAtRandom("horse-", "equine-");
+				break;
 			case FELINE:
-				return UtilText.returnStringAtRandom("cat-cum", "cat-cream", "cat-jism", "cat-jizz", "cat-seed");
+				prefix = UtilText.returnStringAtRandom("cat-", "feline-");
+				break;
 			case NONE:
 				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "load", "seed", "spooge");
+			case ALLIGATOR_MORPH:
+				prefix = UtilText.returnStringAtRandom("alligator-");
+				break;
+			case ANGEL:
+				prefix = UtilText.returnStringAtRandom("angel-");
+				break;
+			case AVIAN:
+				prefix = UtilText.returnStringAtRandom("harpy-", "avian-");
+				break;
+			case BAT_MORPH:
+				prefix = UtilText.returnStringAtRandom("bat-");
+				break;
+			case DEMON_COMMON:
+				prefix = UtilText.returnStringAtRandom("demon-");
+				break;
+			case HUMAN:
+				break;
+			case IMP:
+				prefix = UtilText.returnStringAtRandom("imp-");
+				break;
+			case LUPINE:
+				prefix = UtilText.returnStringAtRandom("wolf-", "lupine-");
+				break;
+			case VULPINE:
+				prefix = UtilText.returnStringAtRandom("fox-", "vulpine-");
+				break;
+			case RAT_MORPH:
+				prefix = UtilText.returnStringAtRandom("rat-", "rodent-");
+				break;
+			case RABBIT_MORPH:
+				prefix = UtilText.returnStringAtRandom("rabbit-");
+				break;
+			case REINDEER_MORPH:
+				prefix = UtilText.returnStringAtRandom("reindeer-");
+				break;
+			case SQUIRREL:
+				prefix = UtilText.returnStringAtRandom("squirrel-", "rodent-");
+				break;
+			case DILDO:
+				prefix = UtilText.returnStringAtRandom("stored", "preserved");
+				break;
+		}
+		if(Math.random()>0.5f && !prefix.isEmpty()) {
+			return prefix + UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "seed", "spooge");
+		} else {
+			return UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "load", "seed", "spooge");
 		}
 	}
 	
 	public String getCumDescriptor() {
 		switch(this){
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "sticky", "hot", "salty");
+			case DEMON_COMMON: case IMP:
+				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "thick", "hot");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
 			default:
-				return UtilText.returnStringAtRandom("potent", "sticky", "hot", "salty");
+				return UtilText.returnStringAtRandom("potent", "thick", "hot");
 		}
 	}
 
@@ -245,7 +328,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		return testicleType;
 	}
 
-	public List<PenisModifier> getDefaultPenisModifiers() {
+	public List<PenetrationModifier> getDefaultPenisModifiers() {
 		return defaultPenisModifiers;
 	}
 

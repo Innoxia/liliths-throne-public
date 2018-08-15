@@ -1,13 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -18,12 +17,15 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -33,6 +35,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -43,8 +47,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class SupplierLeader extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public SupplierLeader() {
 		this(false);
 	}
@@ -52,6 +54,7 @@ public class SupplierLeader extends NPC {
 	public SupplierLeader(boolean isImported) {
 		super(new NameTriplet("Wolfgang", "Wolfgang", "Winifred"),
 				".",
+				30, Month.DECEMBER, 4,
 				8,
 				Gender.M_P_MALE,
 				RacialBody.DOG_MORPH,
@@ -60,6 +63,13 @@ public class SupplierLeader extends NPC {
 				WorldType.SUPPLIER_DEN,
 				PlaceType.SUPPLIER_DEPOT_OFFICE,
 				true);
+
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 		
 		if(!isImported) {
 			this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
@@ -107,13 +117,11 @@ public class SupplierLeader extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
-	
+
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-		}
+	public void endSex() {
+		setPendingClothingDressing(true);
 	}
-	
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -130,10 +138,6 @@ public class SupplierLeader extends NPC {
 	}
 
 	// Combat:
-	@Override
-	public String getCombatDescription() { //TODO
-		return ".";
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
@@ -141,7 +145,7 @@ public class SupplierLeader extends NPC {
 			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
 						SupplierDepot.applySuppliersBeatenEffects();
 					}
 				}
@@ -149,11 +153,6 @@ public class SupplierLeader extends NPC {
 		} else {
 			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_LOSS);
 		}
-	}
-
-	@Override
-	public Attack attackType() {//TODO special
-		return Attack.MAIN;
 	}
 	
 	@Override

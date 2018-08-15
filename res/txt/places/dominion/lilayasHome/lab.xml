@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	<htmlContent tag="DETECT_PREGNANCY_TYPE_SLIME"><![CDATA[
+	<p>
+		[lilaya.speech(Don't worry, I'm here for you,)]
+		 she says, pulling you into a loving hug for a moment before stepping back,
+		 [lilaya.speech(and anyway, giving birth to slimes is super easy and stress-free.
+		  We should do this in the birthing room, follow me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASSIST_BIRTHING_FIRST_TIME"><![CDATA[
+	<p>
+		Taking your hands in hers, she leads you out of the lab and down the hallway.
+		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
+		 Stepping inside, you find yourself in a specially-purposed birthing room.
+		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
+		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
+		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+	</p>
+	<p>
+		As Lilaya leads you over to the bed, she explains the situation, 
+		 [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen.
+		 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
+		 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+	</p>
+	<p>
+		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, 
+		 [lilaya.speech(Don't worry, you don't need to stay conscious during this.
+		 Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed!
+		 They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there.
+		 Oh, and also, they're probably going to want to leave straight away.
+		 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+	</p>
+	<p>
+		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
+		#THEN
+			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
+		#ELSE
+			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+		#ENDIF
+		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
+	</p>
+	<p>
+		[lilaya.speech(Ok, all set?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASSIST_BIRTHING_SLIME"><![CDATA[
+	<p>
+		Taking your hands in hers, she leads you out of the lab and down the hallway.
+		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
+		 Stepping inside, you find yourself in a specially purposed birthing room.
+		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
+		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
+		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+	</p>
+	<p>
+		As Lilaya closes the door behind you, she explains the situation, 
+		 [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen.
+		 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
+		 Slimes, such as yourself, don't give birth like other creatures.
+		 Those little cores inside of you don't need a vagina to exit through; instead, they'll simply split off from your body, taking some of your slime with them. 
+		 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+	</p>
+	<p>
+		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, 
+		 [lilaya.speech(Don't worry, you don't need to stay conscious during this, and I'll make sure to keep feeding you fluids to replenish any slime that your children take with them.
+		 I'll do the same with the newly birthed slimes, so they'll quickly get all of the fluid they need to mature to adulthood.
+		 Oh, and also, they're probably going to want to leave straight away.
+		 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+	</p>
+	<p>
+		Lilaya gets you to lie down on the bed, and, smiling, she asks,
+		 [lilaya.speech(You ready?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASSIST_BIRTHING"><![CDATA[
+	<p>
+		Taking your hands in hers, she leads you out of the lab and down the hallway.
+		 You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you.
+		 Stepping inside, you once again find yourself standing in the specially purposed birthing room.
+		 Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring.
+		 A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment.
+		 A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+	</p>
+	<p>
+		As Lilaya leads you over to the bed, she reminds you of what's about to happen, 
+		[lilaya.speech(Ok, so I know you've done this before, but I'll quickly go over what's going to happen.
+				 In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here.
+				 Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
+	</p>
+	<p>
+		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, 
+		[lilaya.speech(Don't worry, remember, you don't need to stay conscious during this.
+				 Now, just remember that after I've delivered your children, they're going to grow pretty quickly!
+				 They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there.
+				 Oh, and also, they're probably going to want to leave straight away.
+				 All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
+	</p>
+	<p>
+		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
+		#THEN
+			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
+		#ELSE
+			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+		#ENDIF
+		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
+	</p>
+	<p>
+		[lilaya.speech(Ok, all set?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
+	<p>
+		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic aunt and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
+	</p>
+	<p>
+		[lilaya.speech(Mmm, what about them?)] she answers, raising one eyebrow as she peers at you over the top of her glasses.
+	</p>
+	<p>
+		[pc.speech(Well, I've got a friend, you see, and they're in a pretty rough situation. I was wondering if they'd be able to stay here for a while, until they've got back on their feet.)]
+	</p>
+	<p>
+		Lilaya lets out a sigh, and, placing her hands on her hips, asks, [lilaya.speech(Who's going to be the one paying for their food and cleaning bills? I trust your judgement, so I don't mind your friends using the spare rooms, but I'm certainly not going to be the one to foot the bill.)]
+	</p>
+	<p>
+		[pc.speech(I'll pay for their rent and expenses,)] you reply. [pc.speech(I'll be able to afford that, don't worry.)]
+	</p>
+	<p>
+		[lilaya.speech(Mmm, well, ok then. After all, the more people living here, the more opportunities I'll have to run some background tests on arcane aura fluctuations. You see, I'm very interested in finding out if your demon-strength aura has any sort of long-term impact on those around you. I doubt that it will, but as far as I'm aware, nobody's done research into this before!)] your aunt replies, giving you her explicit permission to invite your new friend to come and live here with you.
+	</p>
+	<p>
+		[pc.speech(Thanks, Lilaya! You have no idea how much you're helping them out by doing this,)] you say, smiling fondly at your aunt as she pushes her glasses back up to the bridge of her nose.
+	</p>
+	<p>
+		[lilaya.speech(Y-Yes, well, y-you're welcome,)] Lilaya stutters a little, blushing in response to your heartfelt thanks. [lilaya.speech(Just go to whichever room you'd like to use, then call for Rose to prepare it as a guest bedroom. A-And it's not like I'm doing this just for you or your friend, I-I'm just interested in researching the arcane!)]
+	</p>
+	<p>
+		[pc.speech(Ok, thanks again,)] you reply, not wanting to say too much more out of fear of embarrassing your aunt. Giving her a loving smile, you turn around and head for the lab's exit, determined to return to your friend and invite them to come and live here as soon as possible.
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsGood(You can now invite characters to come and live with you! To do so, you'll need to upgrade one of the empty rooms into a 'Guest Room', before asking the character to move in with you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

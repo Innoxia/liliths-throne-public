@@ -6,7 +6,7 @@ All content in this game forms part of a fictional universe that is not related 
 All of the characters that appear in the game are fictional entities who have given their consent to appear and act in this story.
 If you find yourself concerned for the characters in the game then please be reassured that they are all consenting adults who are speaking lines from a script.
 None of the characters portrayed within this game were, or are, being harmed in any way during the construction or execution of the game.
-Every character in the game is at least 18 years of age (or is magically the legal age required to appear in erotic media in whatever country you are in).
+Regardless of how old they may be described as appearing, every character in the game is at least 18 years of age (or is magically the legal age required to appear in erotic media in whatever country you are in).
 No character in this game is blood-related to any other; once again, they are simply speaking lines from a script.
 
 By choosing to play this game, or view this source code, you are agreeing to be exposed to graphic sexual and adult content that is presented as part of the game's fictional universe.

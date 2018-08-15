@@ -3,61 +3,71 @@ package com.lilithsthrone.game.character.effects;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.BladderLevel;
-import com.lilithsthrone.game.character.attributes.HungerLevel;
-import com.lilithsthrone.game.character.attributes.ThirstLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -72,8 +82,7 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f)),
 			null) {
 		
 		@Override
@@ -87,11 +96,6 @@ public enum StatusEffect {
 				return "You are incredibly weak. You struggle to do much damage with your wimpy little [pc.arms], and your fragile body is particularly vulnerable to physical damage.";
 			else
 				return UtilText.parse(target, "[npc.Name] is incredibly weak. [npc.She] struggles to do much damage with [npc.her] wimpy little [npc.arms], and [npc.her] fragile body is particularly vulnerable to physical damage.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -125,11 +129,6 @@ public enum StatusEffect {
 				return "You have an average level of physical fitness for your body size.";
 			else
 				return UtilText.parse(target, "[npc.Name] has an average level of physical fitness for [npc.her] body size.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -167,11 +166,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return PhysiqueLevel.getPhysiqueLevelFromValue(target.getAttributeValue(Attribute.MAJOR_PHYSIQUE)) == PhysiqueLevel.TWO_STRONG;
 		}
@@ -189,7 +183,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f)),
 			null) {
 		
 		@Override
@@ -203,11 +198,6 @@ public enum StatusEffect {
 				return "You are considerably stronger and fitter than your body size would suggest, and are able to inflict a significant amount of physical damage as a result.";
 			else
 				return UtilText.parse(target, "[npc.Name] is stronger and fitter than [npc.her] body size would suggest, and is able to inflict a significant amount of physical damage as a result.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -228,7 +218,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f)),
 			null) {
 		
 		@Override
@@ -242,11 +233,6 @@ public enum StatusEffect {
 				return "You have an exceptional level of fitness, and there are few who could ever hope to rival your raw physical power.";
 			else
 				return UtilText.parse(target, "[npc.Name] has an exceptional level of fitness, and there are few who could ever hope to rival [npc.her] raw physical power.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -266,7 +252,7 @@ public enum StatusEffect {
 			Colour.PHYSIQUE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f)),
 			null) {
@@ -281,12 +267,7 @@ public enum StatusEffect {
 			if (owner.isPlayer())
 				return "Your body is the stuff of legend; mere mortals look upon you in fear and awe!";
 			else
-				return UtilText.parse(owner, "[npc.Name]'s body is the stuff of legend.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+				return UtilText.parse(owner, "[npc.NamePos] body is the stuff of legend.");
 		}
 
 		@Override
@@ -316,11 +297,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && !Main.game.isInNewWorld();
 		}
@@ -340,7 +316,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
+					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -354,11 +330,6 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(owner, "[npc.Name] is unable to harness the arcane in any significant manner. This is a typical level of arcane affinity in all the common races of this world.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -379,7 +350,7 @@ public enum StatusEffect {
 			true,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
+					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -393,11 +364,6 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(target, "[npc.Name] has a small amount of ability with the arcane; equal to that of a common race who's undergone extensive training.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -417,8 +383,8 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 5f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 5f)),
 			null) {
 		
 		@Override
@@ -429,15 +395,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is little weaker than it was when first entering this world, being equivalent to that of a demon.";
+				return "Your natural arcane ability is little weaker than it was when first entering this world.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a demon, and [npc.her] spells are not only easier to cast, but also do more damage.");
+				return UtilText.parse(target, "[npc.Name] is proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -457,11 +418,12 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
 			null) {
 		
 		@Override
@@ -472,15 +434,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is equivalent to that of a Lilin's. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
+				return "You are highly proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a Lilin's. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
+				return UtilText.parse(target, "[npc.Name] is highly proficient with the arcane. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -500,11 +457,12 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 30f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 30f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 25f)),
 			null) {
 		
 		@Override
@@ -515,16 +473,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is equivalent to that of an elder Lilin. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
+				return "You are extremely proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of an elder Lilin's."
+				return UtilText.parse(target, "[npc.Name] is extremely proficient with the arcane."
 						+ " [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a considerable amount of elemental damage affinity.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -544,11 +497,11 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 100f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 75f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 75f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
 			null) {
 		
@@ -560,15 +513,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "Your arcane ability is equal to that of Lilith herself. Casting spells comes as naturally to you as does breathing.";
+				return "Your ability to harness the arcane is rivalled only by Lilith herself. Casting spells comes as naturally to you as does breathing.";
 			} else {
-				return "Liltih's arcane ability is uniquely powerful, able to !SPOILERS!";
+				return UtilText.parse(owner, "[npc.NamePos] arcane ability is rivalled only by Lilith herself. Casting spells comes as naturally to [npc.herHim] as does breathing.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -602,13 +550,8 @@ public enum StatusEffect {
 			if (owner.isPlayer()) {
 				return "You are completely uncorrupted, and aside from performing the most conservative of sexual acts with the person you love, you're not really interested in sex at all.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.she]'s not really interested in sex at all.");
+				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.sheIs] not really interested in sex at all.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -648,11 +591,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.ONE_VANILLA;
 		}
@@ -688,11 +626,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.TWO_HORNY;
 		}
@@ -723,9 +656,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+				if (owner.getVaginaType() != VaginaType.NONE) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body, and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+				} else if (owner.getPenisType() != PenisType.NONE) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -735,21 +668,16 @@ public enum StatusEffect {
 			} else {
 				if (owner.getVaginaType() != VaginaType.NONE) {
 					return UtilText.parse(owner,
-							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body, making it far easier for [npc.herHim] to get pregnant.");
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body, making it far easier for [npc.herHim] to get pregnant.");
 				} else if (owner.getPenisType() != PenisType.NONE) {
 					return UtilText.parse(owner,
-							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body, making it far easier for [npc.herHim] to impregnate others.");
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body, making it far easier for [npc.herHim] to impregnate others.");
 				} else {
 					return UtilText.parse(owner,
-							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " but because [npc.she] doesn't have any sexual organs, there's not much that's happened.");
 				}
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -783,10 +711,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+				if (owner.getVaginaType() != VaginaType.NONE) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+				} else if (owner.getPenisType() != PenisType.NONE) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -797,23 +725,18 @@ public enum StatusEffect {
 			} else {
 				if (owner.getVaginaType() != VaginaType.NONE) {
 					return UtilText.parse(owner,
-							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " making it far easier for [npc.herHim] to get pregnant.");
 				} else if (owner.getPenisType() != PenisType.NONE) {
 					return UtilText.parse(owner,
-							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " making it far easier for [npc.herHim] to impregnate others.");
 				} else {
 					return UtilText.parse(owner,
-							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " but because [npc.she] doesn't have any sexual organs, there's not much that's happened.");
 				}
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -836,7 +759,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Obeys Lilin</b>"))) {
+			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Obeys Lilin</b>")) {
 
 		@Override
 		public String getName(GameCharacter target) {
@@ -852,11 +775,6 @@ public enum StatusEffect {
 						+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 			}
 
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -894,11 +812,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.ZERO_NONE;
 		}
@@ -928,11 +841,6 @@ public enum StatusEffect {
 				return "You're starting to get pretty turned on.";
 			else
 				return UtilText.parse(target, "[npc.Name] is starting to get turned on.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -968,11 +876,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.TWO_EXCITED;
 		}
@@ -1005,11 +908,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.THREE_HEATED;
 		}
@@ -1027,7 +925,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Mutual orgasm</b>"))) {
+					"<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Mutual orgasm</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1040,11 +938,6 @@ public enum StatusEffect {
 				return "The only thing you want right now is to reach your climax.";
 			else
 				return UtilText.parse(target, "[npc.Name] is only concerned with reaching [npc.her] climax.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1065,7 +958,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Mutual orgasm</b>"))) {
+					"<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Mutual orgasm</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1078,11 +971,6 @@ public enum StatusEffect {
 				return "You feel your climax building. You know that it's only going to be a matter of seconds before you orgasm!";
 			else
 				return UtilText.parse(owner, "[npc.Name] is about to reach [npc.her] climax!");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1125,11 +1013,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.ZERO_COLD;
 		}
@@ -1164,11 +1047,6 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return LustLevel.ONE_HORNY.getStatusEffectDescription(Sex.isConsensual(), target);
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1209,11 +1087,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.TWO_AMOROUS;
 		}
@@ -1248,11 +1121,6 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return LustLevel.THREE_LUSTFUL.getStatusEffectDescription(Sex.isConsensual(), target);
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1293,11 +1161,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FOUR_IMPASSIONED;
 		}
@@ -1335,11 +1198,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FIVE_BURNING;
 		}
@@ -1350,708 +1208,9 @@ public enum StatusEffect {
 		}
 	},
 	
-	// Bladder:
-	BLADDER_PERK_0(
-			100,
-			"drained",
-			"attBladder0",
-			Colour.BLADDER_STAGE_ZERO,
-			false,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.ZERO_JUST_PEED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You've just taken a leak, you don't feel the need to go at all.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] just took a leak.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.ZERO_JUST_PEED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	BLADDER_PERK_1(
-			100,
-			"needless",
-			"attBladder1",
-			Colour.BLADDER_STAGE_ONE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.ONE_RECENTLY_PEED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You peed recently, no need to go.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] recently took a leak.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.ONE_RECENTLY_PEED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	BLADDER_PERK_2(
-			100,
-			"adjusted",
-			"attBladder2",
-			Colour.BLADDER_STAGE_TWO,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.TWO_PEED_A_WHILE_AGO.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You peed a while ago, but you don't feel the need to go jus yet.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] peed some time ago.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.TWO_PEED_A_WHILE_AGO;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	BLADDER_PERK_3(
-			100,
-			"predisposed",
-			"attBladder3",
-			Colour.BLADDER_STAGE_THREE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.THREE_MAY_WANT_TO_GO.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You peed a while ago, you're starting to feel the need to go again.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] could go to the toilet.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.THREE_MAY_WANT_TO_GO;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	BLADDER_PERK_4(
-			100,
-			"urged",
-			"attBladder4",
-			Colour.BLADDER_STAGE_FOUR,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.FOUR_NEED_TO_GO.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You need to go, better go find a toilet, or you may just have an accident.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] is looking for a toilet.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.FOUR_NEED_TO_GO;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	BLADDER_PERK_5(
-			100,
-			"bursting",
-			"attBladder5",
-			Colour.BLADDER_STAGE_FIVE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(BladderLevel.FIVE_BARELY_HOLD_IT.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You barely can hold your bladder! Maybe you should just do it here?";
-			} else {
-				return "[npc.Name] really needs to go pee, [npc.she] just decided to remove [npc.her] clothing and do it here.";
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.FIVE_BARELY_HOLD_IT;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-
-	// HUNGER:
-	HUNGER_PERK_0(
-			100,
-			"quenched",
-			"attHunger3",
-			Colour.HUNGER_STAGE_ZERO,
-			false,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.ZERO_SATIATED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You currently are not hungry at all.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] isn't hungry at all.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.ZERO_SATIATED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	HUNGER_PERK_1(
-			100,
-			"fed",
-			"attHunger3",
-			Colour.HUNGER_STAGE_ONE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.ONE_FED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You recently ate something, you are not yet hungry.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] recently ate something, [npc.she] doesn't need to eat.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.ONE_FED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	HUNGER_PERK_2(
-			100,
-			"nourished",
-			"attHunger3",
-			Colour.HUNGER_STAGE_TWO,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.TWO_NOURISHED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "It's been some time ago that you ate something, but you are not hungry yet.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] wouldn't refuse some food, but [npc.she] isn't hungry yet.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.TWO_NOURISHED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	HUNGER_PERK_3(
-			100,
-			"hungering",
-			"attHunger3",
-			Colour.HUNGER_STAGE_THREE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.THREE_HUNGRY.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You feel the hunger rising. You could use some food.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] could use some food.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.THREE_HUNGRY;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	HUNGER_PERK_4(
-			100,
-			"hungry",
-			"attHunger4",
-			Colour.HUNGER_STAGE_FOUR,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.FOUR_STARVING.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You are famined, you'd really could use some food!";
-			} else {
-				return UtilText.parse(target, "[npc.Name] is really hungry, [npc.she] is dying for some food!");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.FOUR_STARVING;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	HUNGER_PERK_5(
-			100,
-			"famined",
-			"attHunger5",
-			Colour.HUNGER_STAGE_FIVE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(HungerLevel.FIVE_FAMINED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You're seriously famined, you're feeling weak and are dying for some food, anything will do!";
-			} else {
-				return "[npc.Name] is famined! [npc.She]'s dying for some food, anything will do!";
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.FIVE_FAMINED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-
-	// THIRST:
-	THIRST_PERK_0(
-			100,
-			"quenched",
-			"attThirst3",
-			Colour.THIRST_STAGE_ZERO,
-			false,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.ZERO_QUENCHED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You currently are not thirsty at all.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] isn't thirsty at all.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.ZERO_QUENCHED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	THIRST_PERK_1(
-			100,
-			"slaked",
-			"attThirst3",
-			Colour.THIRST_STAGE_ONE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.ONE_SLAKED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You recently drank something, you are not yet thirsty.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] recently drank something, [npc.she] doesn't need to drink.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.ONE_SLAKED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	THIRST_PERK_2(
-			100,
-			"freshened",
-			"attThirst3",
-			Colour.THIRST_STAGE_TWO,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.TWO_FRESHENED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "It's been some time ago that you drank something, but you are not thirsty yet.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] wouldn't refuse a drink, but [npc.she] isn't thirsty yet.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.TWO_FRESHENED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	THIRST_PERK_3(
-			100,
-			"thirsting",
-			"attThirst3",
-			Colour.THIRST_STAGE_THREE,
-			true,
-			null,
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.THREE_THIRSTING.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You feel the thirst rising. You could use a drink.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] could use a drink.");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.THREE_THIRSTING;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	THIRST_PERK_4(
-			100,
-			"thirsty",
-			"attThirst4",
-			Colour.THIRST_STAGE_FOUR,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.FOUR_THIRSTY.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You are parch dry, you'd really could use a drink!";
-			} else {
-				return UtilText.parse(target, "[npc.Name] is really thirsty, [npc.she] is dying for a drink!");
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.FOUR_THIRSTY;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-	THIRST_PERK_5(
-			100,
-			"dehydrated",
-			"attThirst5",
-			Colour.THIRST_STAGE_FIVE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
-			null) {
-
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(ThirstLevel.FIVE_DEHYDRATED.getName());
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You're seriously dehydrated, you're feeling weak and are dying for a drink, anything will do!";
-			} else {
-				return "[npc.Name] is almost bone-dry! [npc.She]'s dying for a drink, anything will do!";
-			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.FIVE_DEHYDRATED;
-		}
-
-		@Override
-		public boolean renderInEffectsPanel() {
-			return true;
-		}
-	},
-
+	
+	
+	
 	// STANDARD EFFECTS:
 	
 	WEATHER_PROLOGUE(100,
@@ -2060,12 +1219,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2084,12 +1238,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2114,6 +1263,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						Main.game.getNextStormTimeAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+			}
+		}
 	},
 	
 	WEATHER_CLOUD(100,
@@ -2122,12 +1285,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2147,6 +1305,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						Main.game.getNextStormTimeAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+			}
+		}
 	},
 	
 	WEATHER_RAIN(100,
@@ -2155,12 +1327,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2180,6 +1347,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						Main.game.getNextStormTimeAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+			}
+		}
 	},
 	
 	WEATHER_SNOW(100,
@@ -2188,7 +1369,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
+			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2224,7 +1405,7 @@ public enum StatusEffect {
 						+ "<p>"
 							+ "Just as it seems as though the entire capital is about to grind to a halt, the faint jingle of bells heralds the arrival of the city's saviours."
 							+ " Travelling a great distance from their frozen tundra homeland, a host of reindeer-morphs descends upon Dominion."
-							+ " Their large, cloven hooves allow them to traverse the snow-bound streets with incredible ease, and they quickly split up into numerous snow-shovelling groups,"
+							+ " Their large, cloven hoofs allow them to traverse the snow-bound streets with incredible ease, and they quickly split up into numerous snow-shovelling groups,"
 								+ " before setting off into different areas of the city."
 							+ " Under the guidance of particularly large, muscular individuals, the reindeer-morphs quickly set about clearing a path through the snow."
 						+ "</p>"
@@ -2255,6 +1436,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightSnow();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						Main.game.getNextStormTimeAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+			}
+		}
 	},
 	
 	WEATHER_STORM_GATHERING(100,
@@ -2263,12 +1458,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2288,6 +1478,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						Main.game.getNextStormTimeAsTimeString());
+				
+			} else {
+				return Util.newArrayListOfValues(
+						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+			}
+		}
 	},
 	
 	WEATHER_STORM(100,
@@ -2295,10 +1499,10 @@ public enum StatusEffect {
 			"weatherDayStorm",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
-					+ Colour.GENERIC_ARCANE.toWebHexString()
-					+ ";'>Enhanced libido</b>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			Util.newArrayListOfValues(
+					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+					"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2329,7 +1533,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if((target.isPlayer() || !target.getRace().isVulnerableToLilithsLustStorm()) && !target.getLocationPlace().isStormImmune()) {
+			if((target.isPlayer() || !target.getRace().isVulnerableToArcaneStorm()) && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 				
 			} else {
@@ -2353,17 +1557,10 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -75f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
-					+ Colour.GENERIC_ARCANE.toWebHexString()
-					+ ";'>Enhanced libido</b>"),
-					new ListValue<String>("<b style='color: "
-							+ Colour.GENERIC_ARCANE.toWebHexString()
-							+ ";'>Overwhelming Lust</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues(
+					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2372,7 +1569,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
+			if(target.getRace().isVulnerableToArcaneStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 			} else {
 				return false;
@@ -2392,11 +1589,11 @@ public enum StatusEffect {
 			"Arcane storm (protected)",
 			"weatherDayStorm",
 			Colour.GENERIC_GOOD,
-			false,
+			true,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
+			Util.newArrayListOfValues("<b style='color: "
 					+ Colour.GENERIC_ARCANE.toWebHexString()
-					+ ";'>Enhanced libido</b>"))) {
+					+ ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2444,22 +1641,16 @@ public enum StatusEffect {
 		}
 	},
 	
-	
 	// RACES:
 	// HUMAN:
 	PURE_HUMAN_PROLOGUE(
-			90,
+			1000,
 			"human",
 			"raceHuman",
 			Colour.CLOTHING_WHITE,
 			true,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2478,18 +1669,13 @@ public enum StatusEffect {
 	},
 	
 	PURE_HUMAN(
-			90,
+			1000,
 			"human",
 			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2511,18 +1697,13 @@ public enum StatusEffect {
 	},
 
 	// ANGEL:
-	ANGEL(90,
+	ANGEL(1000,
 			"angel",
 			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2543,7 +1724,7 @@ public enum StatusEffect {
 	},
 
 	// DEMON:
-	DEMON(90,
+	DEMON(1000,
 			"demon",
 			null,
 			Colour.GENERIC_ARCANE,
@@ -2554,12 +1735,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
+			Util.newArrayListOfValues("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2584,7 +1760,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	IMP(90,
+	IMP(1000,
 			"imp",
 			null,
 			Colour.GENERIC_ARCANE,
@@ -2595,17 +1771,12 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "You find that your impish form has a deep, insatiable craving for sex...";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name]'s impish body has a deep, insatiable craving for sex...");
+						"[npc.NamePos] impish body has a deep, insatiable craving for sex...");
 			}
 		}
 
@@ -2623,18 +1794,13 @@ public enum StatusEffect {
 	},
 
 	// CANINE:
-	DOG_MORPH(90,
+	DOG_MORPH(1000,
 			"dog-morph",
 			null,
 			Colour.RACE_DOG_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2658,18 +1824,13 @@ public enum StatusEffect {
 		}
 	},
 	
-	WOLF_MORPH(90,
+	WOLF_MORPH(1000,
 			"wolf-morph",
 			null,
 			Colour.RACE_WOLF_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2692,20 +1853,318 @@ public enum StatusEffect {
 			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
+	
+	FOX_MORPH(1000,
+			"fox-morph",
+			null,
+			Colour.RACE_FOX_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You're more nimble than your appearance would suggest, and your senses reveal opportune moments to attack.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is more nimble than [npc.his] appearance would suggest, and [npc.his] senses reveal opportune moments to attack.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER
+					&& target.getTailType() != TailType.FOX_MORPH_MAGIC;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	FOX_ASCENDANT_1(1000,
+			"1-tailed youko",
+			"raceFoxTail1",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 6f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you one magical tail, gained from a secret trial.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] one magical tail, gained from a secret trial.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 1
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_2(1000,
+			"2-tailed youko",
+			"raceFoxTail2",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 7f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 20f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you two magical tails, gained from a few trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] two magical tails, gained from a few trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 2
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_3(1000,
+			"3-tailed youko",
+			"raceFoxTail3",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 8f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 35f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 30f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you three magical tails, gained from a few trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] three magical tails, gained from a few trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 3
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_4(1000,
+			"4-tailed youko",
+			"raceFoxTail4",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 9f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 40f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 40f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you four magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] four magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 4
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_5(1000,
+			"5-tailed youko",
+			"raceFoxTail5",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you five magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] five magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 5
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_6(1000,
+			"6-tailed youko",
+			"raceFoxTail6",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 11f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 60f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you six magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] six magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 6
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+
+	FOX_ASCENDANT_7(1000,
+			"7-tailed youko",
+			"raceFoxTail7",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 12f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 55f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 70f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you seven magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] seven magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 7
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_8(1000,
+			"8-tailed youko",
+			"raceFoxTail8",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 13f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 60f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 80f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you eight magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] eight magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 8
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_FINAL(1000,
+			"ascendant youko",
+			"raceFoxTail9",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your vast number of tails a signal of your unending dedication to a particular Lilin, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] vast number of tails a signal of [npc.his] unending dedication to a particular Lilin, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() >= 9
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
 
 	// FELINE:
-	CAT_MORPH(90,
+	CAT_MORPH(1000,
 			"cat-morph",
 			null,
 			Colour.RACE_CAT_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2730,7 +2189,7 @@ public enum StatusEffect {
 	},
 
 	// RODENT:
-	SQUIRREL_MORPH(90,
+	SQUIRREL_MORPH(1000,
 			"Squirrel-morph",
 			null,
 			Colour.RACE_SQUIRREL_MORPH,
@@ -2739,16 +2198,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your body is incredibly agile, and you possess lightning reflexes.";
 			else
-				return UtilText.parse(target, "[npc.Name]'s body is incredibly agile, and [npc.she] possesses lightning reflexes.");
+				return UtilText.parse(target, "[npc.NamePos] body is incredibly agile, and [npc.she] possesses lightning reflexes.");
 		}
 
 		@Override
@@ -2763,20 +2217,110 @@ public enum StatusEffect {
 			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
+	
+	RAT_MORPH(1000,
+			"Rat-morph",
+			null,
+			Colour.RACE_RAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 15f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Your body is adapted for both resisting and dealing poison damage.";
+			} else {
+				return UtilText.parse(target, "[npc.NamePos] body is adapted for both resisting and dealing poison damage.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.RAT_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	RABBIT_MORPH(1000,
+			"Rabbit-morph",
+			null,
+			Colour.RACE_RABBIT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
+					new Value<Attribute, Float>(Attribute.VIRILITY, 25f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Your body is adapted for producing as many offspring as possible.";
+			} else {
+				return UtilText.parse(target, "[npc.NamePos] body is adapted for producing as many offspring as possible.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.RABBIT_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	BAT_MORPH(1000, //TODO
+			"Bat-morph",
+			null,
+			Colour.RACE_BAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are a bat-morph! (Placeholder until I add unique 'echolocation' ability.)";
+			} else {
+				return UtilText.parse(target, "[npc.Name] is a bat-morph! (Placeholder until I add unique 'echolocation' ability.)");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.BAT_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
 
 	// EQUINE:
-	HORSE_MORPH(90,
+	HORSE_MORPH(1000,
 			"horse-morph",
 			null,
 			Colour.RACE_HORSE_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2800,7 +2344,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	REINDEER_MORPH(90,
+	REINDEER_MORPH(1000,
 			"reindeer-morph",
 			null,
 			Colour.RACE_REINDEER_MORPH,
@@ -2811,16 +2355,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "Your reindeer-like body grants you significant resistance to the cold, as well as an increase in strength and fitness.";
 			} else {
-				return UtilText.parse(target, "[npc.Name]'s reindeer-like body grants [npc.herHim] significant resistance to the cold, as well as an increase in strength and fitness.");
+				return UtilText.parse(target, "[npc.NamePos] reindeer-like body grants [npc.herHim] significant resistance to the cold, as well as an increase in strength and fitness.");
 			}
 		}
 
@@ -2838,18 +2377,13 @@ public enum StatusEffect {
 	},
 
 	// BOVINE:
-	COW_MORPH(90,
+	COW_MORPH(1000,
 			"cow-morph",
 			null,
 			Colour.RACE_COW_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2874,7 +2408,7 @@ public enum StatusEffect {
 	},
 
 	// REPTILE:
-	ALLIGATOR_MORPH(90,
+	ALLIGATOR_MORPH(1000,
 			"Alligator-morph",
 			null,
 			Colour.RACE_ALLIGATOR_MORPH,
@@ -2885,16 +2419,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your body is incredibly tough, and you possess lightning reflexes.";
 			else
-				return UtilText.parse(target, "[npc.Name]'s body is incredibly tough, and [npc.she] possesses lightning reflexes.");
+				return UtilText.parse(target, "[npc.NamePos] body is incredibly tough, and [npc.she] possesses lightning reflexes.");
 		}
 
 		@Override
@@ -2911,24 +2440,21 @@ public enum StatusEffect {
 	},
 
 	// SLIME:
-	SLIME(90,
+	SLIME(1000,
 			"slime",
 			null,
 			Colour.CLOTHING_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
+			Util.newArrayListOfValues(
+					"<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
+					"<b style='color: "+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really do much physical damage either."
+			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really inflict any damage without a weapon."
 					+ " They can morph their bodies to seem extremely attractive to their opponents.";
 		}
 
@@ -2944,18 +2470,13 @@ public enum StatusEffect {
 	},
 
 	// AVIAN:
-	HARPY(90,
+	HARPY(1000,
 			"harpy",
 			null,
 			Colour.CLOTHING_PINK_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return target.homeostasis();
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2974,6 +2495,137 @@ public enum StatusEffect {
 			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
+
+	// Elementals:
+	ELEMENTAL_EARTH(1000,
+			"earth elemental",
+			null,
+			Colour.SPELL_SCHOOL_EARTH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Earth.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_EARTH;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_EARTH.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_WATER(1000,
+			"water elemental",
+			null,
+			Colour.SPELL_SCHOOL_WATER,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Water.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_WATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_WATER.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_AIR(1000,
+			"air elemental",
+			null,
+			Colour.SPELL_SCHOOL_AIR,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Air.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_AIR;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_AIR.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_FIRE(1000,
+			"fire elemental",
+			null,
+			Colour.SPELL_SCHOOL_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Fire.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_FIRE;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_FIRE.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_ARCANE(1000,
+			"arcane elemental",
+			null,
+			Colour.SPELL_SCHOOL_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Arcane.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_ARCANE;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_ARCANE.getSVGString();
+		}
+	},
 	
 	
 	// SEXUAL ORIENTATIONS:
@@ -2986,13 +2638,7 @@ public enum StatusEffect {
 			true,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>(
-							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+					"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3021,13 +2667,7 @@ public enum StatusEffect {
 			true,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>(
-							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+					"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3056,11 +2696,6 @@ public enum StatusEffect {
 			true,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3095,11 +2730,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "Some of your clothes are too feminine for your masculine figure."
 					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
@@ -3128,11 +2758,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3167,15 +2792,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						c.setDirty(false);
-					}
-				}
-			}
-			
 			return "";
 		}
 
@@ -3185,14 +2801,16 @@ public enum StatusEffect {
 				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
 						+ " You find yourself incredibly embarrassed to be walking around in such filthy clothing.";
 			else
-				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids.";
+				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.";
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(!isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if (c.isDirty()) {
+					if (c.isDirty()
+							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -3212,15 +2830,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						c.setDirty(false);
-					}
-				}
-			}
-			
 			return "";
 		}
 
@@ -3230,8 +2839,8 @@ public enum StatusEffect {
 				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
 						+ " You find yourself incredibly turned on to be walking around in such filthy clothing.";
 			} else {
-				return UtilText.parse(target, "Some of [npc.name]'s clothes have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on to be walking around in such filthy clothing.");
+				return UtilText.parse(target, "Some of [npc.namePos] clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.sheIs] feeling incredibly turned on to be walking around in such filthy clothing.");
 			}
 		}
 
@@ -3239,7 +2848,8 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if (c.isDirty()) {
+					if (c.isDirty()
+							&& Collections.disjoint(c.getClothingType().getItemTags(), Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.PLUGS_NIPPLES))) {
 						return true;
 					}
 				}
@@ -3259,13 +2869,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					target.cleanAllDirtySlots();
-				}
-			}
-			
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
@@ -3274,10 +2877,10 @@ public enum StatusEffect {
 					if(!clothing.isDirty()) {
 						clothing.setDirty(true);
 						if(sb.length()>0) {
-							sb.append("</br>");
+							sb.append("<br/>");
 						}
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-								+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+								+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 					}
 					
 				} else {
@@ -3287,10 +2890,10 @@ public enum StatusEffect {
 							if(!clothing.isDirty()) {
 								clothing.setDirty(true);
 								if(sb.length()>0) {
-									sb.append("</br>");
+									sb.append("<br/>");
 								}
 								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-										+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+										+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 							}
 						}
 					}
@@ -3313,8 +2916,8 @@ public enum StatusEffect {
 				return "Some parts of your body have been covered in cum, milk or other sexual fluids."
 						+ " You find yourself incredibly embarrassed to be walking around in such a filthy state.";
 			} else {
-				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on to be walking around in such a filthy state.");
+				return UtilText.parse(target, "Some parts of [npc.namePos] body have been covered in cum, milk or other sexual fluids."
+						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such a filthy state.");
 			}
 		}
 
@@ -3344,8 +2947,8 @@ public enum StatusEffect {
 				return "Some parts of your body have been covered in cum, milk or other sexual fluids."
 						+ " You find yourself feeling incredibly turned on by walking around in such a filthy state.";
 			} else {
-				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on by walking around in such a filthy state.");
+				return UtilText.parse(target, "Some parts of [npc.namePos] body have been covered in cum, milk or other sexual fluids."
+						+ " [npc.sheIs] feeling incredibly turned on by walking around in such a filthy state.");
 			}
 		}
 
@@ -3461,11 +3064,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -3478,10 +3076,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	WELL_RESTED_BOOSTED(
@@ -3497,11 +3092,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -3514,10 +3104,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	OVERWORKED(
@@ -3529,12 +3116,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f),
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
-			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(-0.1)] <b style='color: " + Colour.AFFECTION.toWebHexString() + ";'>Affection per hour while at work</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+			Util.newArrayListOfValues("[style.boldBad(-0.1)] <b style='color: " + Colour.AFFECTION.toWebHexString() + ";'>Affection per hour while at work</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3565,7 +3147,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
-			Util.newArrayListOfValues(new ListValue<String>("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>"))) {
+			Util.newArrayListOfValues("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -3688,10 +3270,7 @@ public enum StatusEffect {
 			return true;
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	DRUNK_1(
@@ -3704,8 +3283,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 
 		@Override
@@ -3717,11 +3295,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 		
@@ -3732,7 +3310,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>0 && target.getAlcoholLevel()<0.2f;
+			return target.getAlcoholLevel()==AlcoholLevel.ONE_TIPSY;
 		}
 	},
 	
@@ -3746,8 +3324,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 2f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
 			null) {
 
 		@Override
@@ -3759,11 +3336,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3774,7 +3351,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.2f && target.getAlcoholLevel()<0.4f;
+			return target.getAlcoholLevel()==AlcoholLevel.TWO_MERRY;
 		}
 	},
 	
@@ -3787,8 +3364,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
 			null) {
 
 		@Override
@@ -3800,11 +3376,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3815,7 +3391,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.4f && target.getAlcoholLevel()<0.6f;
+			return target.getAlcoholLevel()==AlcoholLevel.THREE_DRUNK;
 		}
 	},
 	
@@ -3829,8 +3405,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 4f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
 			null) {
 
 		@Override
@@ -3842,11 +3417,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3857,7 +3432,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.6f && target.getAlcoholLevel()<0.8f;
+			return target.getAlcoholLevel()==AlcoholLevel.FOUR_HAMMERED;
 		}
 	},
 	
@@ -3871,8 +3446,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 7f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 
 		@Override
@@ -3884,11 +3458,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...<br/>"
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3899,7 +3473,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getAlcoholLevel()>=0.8f;
+			return target.getAlcoholLevel()==AlcoholLevel.FIVE_WASTED;
 		}
 	},
 	
@@ -3917,20 +3491,20 @@ public enum StatusEffect {
 			extraEffects.clear();
 			
 			for(Addiction addiction : target.getAddictions()) {
+				long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				long timeLeft = oneDayLater - now;
+				long hoursLeft = timeLeft / 60;
+				long minutesLeft = timeLeft % 60;
 				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-						+ (Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied()<24*60
-								?" [style.colourGood("+(23-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60))+")]"
+						+ (timeLeft > 0
+								?" [style.colourGood("+hoursLeft+":"+String.format("%02d", minutesLeft)+")]"
 								:" [style.boldArcane(Withdrawal!)]"));
 			}
 			
 			return extraEffects;
 		}
 		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -3973,11 +3547,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -3989,11 +3558,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=24*60 && timeDifference<2*24*60) {
-						sb.append("</br>"
+					long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+					long twoDaysLater = oneDayLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if(oneDayLater <= now && now < twoDaysLater) {
+						long timeLeft = twoDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(2*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -4012,8 +3587,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=24*60 && timeDifference<2*24*60) {
+				long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+				long twoDaysLater = oneDayLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (oneDayLater <= now && now < twoDaysLater) {
 					return true;
 				}
 			}
@@ -4034,11 +3612,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -4050,11 +3623,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
-						sb.append("</br>"
+					long twoDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 2);
+					long threeDaysLater = twoDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (twoDaysLater <= now && now < threeDaysLater) {
+						long timeLeft = threeDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(3*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -4073,8 +3652,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
+				long twoDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 2);
+				long threeDaysLater = twoDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (twoDaysLater <= now && now < threeDaysLater) {
 					return true;
 				}
 			}
@@ -4095,11 +3677,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -4111,11 +3688,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
-						sb.append("</br>"
+					long threeDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 3);
+					long fourDaysLater = threeDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (threeDaysLater <= now && now < fourDaysLater) {
+						long timeLeft = fourDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(4*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -4134,8 +3717,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
+				long threeDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 3);
+				long fourDaysLater = threeDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (threeDaysLater <= now && now < fourDaysLater) {
 					return true;
 				}
 			}
@@ -4156,11 +3742,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -4172,11 +3753,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
-						sb.append("</br>"
+					long fourDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 4);
+					long fiveDaysLater = fourDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (fourDaysLater <= now && now < fiveDaysLater) {
+						long timeLeft = fiveDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(5*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -4195,8 +3782,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
+				long fourDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 4);
+				long fiveDaysLater = fourDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (fourDaysLater <= now && now < fiveDaysLater) {
 					return true;
 				}
 			}
@@ -4217,11 +3807,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -4233,9 +3818,11 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=5*24*60) {
-						sb.append("</br>"
+					long fiveDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 5);
+					long now = Main.game.getMinutesPassed();
+					
+					if (fiveDaysLater <= now) {
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>.");
 					}
 				}
@@ -4255,8 +3842,10 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=5*24*60) {
+				long fiveDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 5);
+				long now = Main.game.getMinutesPassed();
+				
+				if (fiveDaysLater <= now) {
 					return true;
 				}
 			}
@@ -4274,20 +3863,15 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "After recently having unprotected sex, there's a risk that you'll get pregnant!"
 					+ " Due to the fact that the arcane accelerates people's pregnancies, you'll know if you're pregnant within a matter of hours.";
-			else
+			} else {
 				return UtilText.parse(target,
 						"After recently having unprotected sex, there's a risk that "+target.getName("the")+" will get pregnant!"
-							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.she]'s pregnant within a matter of hours.");
-				
+							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.sheIs] pregnant within a matter of hours.");
+			}
 		}
 
 		@Override
@@ -4302,21 +3886,22 @@ public enum StatusEffect {
 				if(target.hasStatusEffect(StatusEffect.CUM_INFLATION_1)
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_2)
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_3)) {
-					inflationText = "<p>"
-								+ "[style.italicsSex(The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.)]"
+					if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+						inflationText = "<p>"
+								+ "[style.italicsSex(The swelling of your pregnant bump forces your body to convert most of the cum that's inflating your belly into more slime.)]"
 							+ "</p>";
+						
+					} else {
+						inflationText = "<p>"
+									+ "[style.italicsSex(The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.)]"
+								+ "</p>";
+					}
 				}
 				
 				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
 				
-				// The setCummedInArea() method resets cum values based on pregnancy, so it's enough to simply call it with its current value.
-				for(OrificeType orifice : OrificeType.values()) {
-					target.setCummedInArea(orifice, target.getCummedInAreaMap().get(orifice));
-				}
-				
-				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)) {
+					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
 						sb.append("<p>"
 								+ "For the last few hours, your belly has been gradually swelling."
 								+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
@@ -4325,9 +3910,9 @@ public enum StatusEffect {
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.thought(I-I'm pregnant?"
-									+ "</br>"
+									+ "<br/>"
 									+ "..."
-									+ "</br>"
+									+ "<br/>"
 									+ "Oh my God! Yes! <b>I'm pregnant!</b>)]"
 							+ "</p>"
 							+ "<p>"
@@ -4336,14 +3921,20 @@ public enum StatusEffect {
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.thought(This is the best feeling ever!"
-										+ "</br>"
+										+ "<br/>"
 										+ "If only aunt Lily were here, I bet she'd be so proud!"
-										+ "</br>"
+										+ "<br/>"
 										+ "Wait! Of course! <b>Lilaya!</b> She'll want to see this too!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "After a little while of stroking and rubbing your wonderfully-swollen abdomen, you start to calm down a little."
-								+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?"Taking a closer look at your swollen, slimy stomach, you suddenly realise that you can see "
+											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+										+ " You can't help but let out a delighted squeal of happiness as you see your "
+											+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")+" growing inside of you, and spend the next few minutes stroking and rubbing your wonderfully-swollen abdomen in a state of absolute bliss."
+										+ " Eventually, however, you decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
+									:"After a little while of stroking and rubbing your wonderfully-swollen abdomen, you start to calm down a little."
+										+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.")
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
 								+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
@@ -4358,9 +3949,9 @@ public enum StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "[pc.thought(I-I'm pregnant?"
-										+ "</br>"
+										+ "<br/>"
 										+ "..."
-										+ "</br>"
+										+ "<br/>"
 										+ "Oh my God! <b>I'm pregnant!</b>)]"
 								+ "</p>"
 								+ "<p>"
@@ -4369,14 +3960,20 @@ public enum StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "[pc.thought(What do I do? What do I do? What do I do?"
-											+ "</br>"
+											+ "<br/>"
 											+ "If only aunt Lily were here!"
-											+ "</br>"
+											+ "<br/>"
 											+ "Wait! Of course! <b>Lilaya!</b> She'll know what to do!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You start to calm down a little as the initial shock starts to wear off."
-									+ " If anyone knows what to do, it'll be Lilaya."
+									+ (target.getBodyMaterial()==BodyMaterial.SLIME
+										?"As you take one last look at your swollen, slimy stomach, you suddenly realise that you can see "
+												+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+											+ " You can't help but let out a shocked cry as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
+												+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of panic."
+											+ " Eventually, however, you start to calm down a little, and decide that you should probably go and see Lilaya as soon as possible."
+										:"You start to calm down a little as the initial shock starts to wear off."
+											+ " If anyone knows what to do, it'll be Lilaya.")
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
@@ -4389,30 +3986,39 @@ public enum StatusEffect {
 							+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
 							+ " You're pregnant again."
 							+ " You start stroking your abdomen, making soft little gasps as the familiar feeling of being knocked up returns to you."
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?"</p>"
+								+ "<p>"
+									+ "Looking a little closer at your swollen, slimy stomach, you see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+									+ " You can't help but let out a happy little sigh as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
+									+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of motherly bliss."
+								:"")
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 									?"[pc.thought(Haha! Yes! I got pregnant again! This is the best feeling ever...)]"
 									:"[pc.thought(Mmm... Looks like I got pregnant again...)]")
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 								?"Knowing what you're in for, you let out a delighted laugh before carrying on your way."
-								:"Knowing what you're in for, you let out a little contented sigh and start carrying on your way.")
+								:"Knowing what you're in for, you let out a contented sigh and start carrying on your way.")
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're pregnant!</b>"
 						+ "</p>");
 				}
 				
-			} else{
+			} else {
 				target.endPregnancy(false);
 				sb.append("<p>"
 							+ "Enough time has passed now for you to be sure that you're in the clear."
-							+ " There's no sign of any bump in your belly, and you realise that despite having unprotected sex, you managed to avoid getting pregnant."
+							+ " There's no sign of any bump in your belly,"+(target.getBodyMaterial()==BodyMaterial.SLIME?" or of any slime cores growing inside of you,":"")
+								+" and you realise that despite having unprotected sex, you managed to avoid getting pregnant."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 								?"[pc.thought(Damn it...)]"
 								:"[pc.thought(Well, that's a relief...)]")
 						+ "</p>"
@@ -4427,10 +4033,13 @@ public enum StatusEffect {
 				return "";
 			}
 		}
-
+		
 		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		public String applyPostRemovalStatusEffect(GameCharacter target) {
+			if(!target.isPregnant()) {
+				target.performImpregnationCheck();
+			}
+			return "";
 		}
 		
 		@Override
@@ -4448,24 +4057,40 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "From one of your recent sexual encounters, you've been impregnated!"
-						+ " Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
+							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.");
+			} else {
 				return UtilText.parse(target,
-							"From one of [npc.name]'s recent sexual encounters, [npc.she]'s been impregnated!");
+							"From one of [npc.namePos] recent sexual encounters, [npc.sheIs] been impregnated!"
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
+									:""));
+			}
 		}
 
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
 			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
+			
+			boolean breastGrowth = false;
+			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyBreastGrowth - Main.getProperties().pregnancyBreastGrowthVariance + Util.random.nextInt(Main.getProperties().pregnancyBreastGrowthVariance*2 + 1));
+				
+				if(target.getBreastRawSizeValue() + valueIncrease > Main.getProperties().pregnancyBreastGrowthLimit) {
+					breastGrowth = true;
+					target.setBreastSize(Main.getProperties().pregnancyBreastGrowthLimit);
+				} else {
+					breastGrowth = true;
+					target.incrementBreastSize(valueIncrease);
+				}
+			}
 
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
@@ -4473,24 +4098,46 @@ public enum StatusEffect {
 							+ " You can't resist rubbing your hands over the bump in your abdomen, and you wonder just how big it's going to get."
 							+ " As this is your first time getting pregnant, you're not quite sure what to expect, but you're reassured as you remember that Lilaya's always there to help."
 						+ "</p>"
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?"<p>"
+									+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
+								+ "</p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>";
+						+ "</p>"
+						+(breastGrowth
+								? "<p><i>"
+										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+									+ "</i></p>"
+								:"");
 			} else {
 				return "<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the familiar realisation that your belly has swollen massively."
 							+ " You can't resist rubbing your hands over the bump in your abdomen, smiling fondly at the comforting feeling."
-							+ " Having been through all this before, you know that you've still got a way to go before you're ready to give birth, and, giving your belly one final stroke, you continue on your way."
+							+ " Having been through all this before, you know that you've still got a way to go before you're ready to give birth."
 						+ "</p>"
-							+ "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>";
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?"<p>"
+								+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
+									+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
+							+ "</p>"
+							:"")
+						+ "<p style='text-align:center;'>"
+							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
+						+ "</p>"
+						+(breastGrowth
+								? "<p><i>"
+										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+									+ "</i></p>"
+								:"");
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -4503,23 +4150,25 @@ public enum StatusEffect {
 			"pregnancy2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "Your stomach has swollen considerably, making it clearly obvious to anyone who glances your way that you're expecting to give birth soon."
-						+ " Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
+							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.");
+			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.she]'s expecting to give birth soon.");
+							"[npc.NamePos] stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.sheIs] expecting to give birth soon."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
+									:""));
+			}
 		}
 
 		@Override
@@ -4527,43 +4176,74 @@ public enum StatusEffect {
 
 			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
 
+			boolean lactationIncrease = false;
+			if(Main.getProperties().pregnancyLactationIncrease>0 && target.getBreastRawMilkStorageValue()<Main.getProperties().pregnancyLactationLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyLactationIncrease - Main.getProperties().pregnancyLactationIncreaseVariance + Util.random.nextInt(Main.getProperties().pregnancyLactationIncreaseVariance*2 + 1));
+				
+				if(target.getBreastRawMilkStorageValue() + valueIncrease > Main.getProperties().pregnancyLactationLimit) {
+					lactationIncrease = true;
+					target.setBreastMilkStorage(Main.getProperties().pregnancyLactationLimit);
+				} else {
+					lactationIncrease = true;
+					target.incrementBreastMilkStorage(valueIncrease);
+				}
+			}
+			
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY
-								?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-									+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-								:" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
-									+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.")
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")
+										+" grown to be just as large as your own, and you know that you're now ready to give birth."
+								:(target.getVaginaType()==VaginaType.HARPY
+									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
+										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
+									:" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
+										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerThought("I really should go and see Lilaya...")
 						+ "</p>"
+						+(lactationIncrease
+								? "<p><i>"
+										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml))]!"
+									+ "</i></p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
 						+ "</p>";
 			} else {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY
-							?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-								+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-							:" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
-								+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.")
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")+" grown to be just as large as your own, and you know that you're now ready to give birth."
+								:(target.getVaginaType()==VaginaType.HARPY
+									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
+										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
+									:" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
+										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerThought("I really should go and see Lilaya... Or maybe I'll stay like this for a little while!")
 						+ "</p>"
+						+(lactationIncrease
+								? "<p><i>"
+										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml))]!"
+									+ "<i></p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're now ready to give birth!</b>"
 						+ "</p>";
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -4576,36 +4256,30 @@ public enum StatusEffect {
 			"pregnancy3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "Your belly has inflated to a colossal size, and you find yourself having to support your back as you walk."
-						+ " It might be a good idea to visit Lilaya so that she can help you to give birth.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")
+									+", just as big as your own..."
+							:" It might be a good idea to visit Lilaya so that she can help you to give birth.");
+			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s belly has inflated to a colossal size, and [npc.she]'s finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks.");
+							"[npc.NamePos] belly has inflated to a colossal size, and [npc.sheIs] finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+", just as big as [npc.her] own..."
+									:""));
+			}
 		}
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target instanceof NPC) {
-				((NPC)target).setReactedToPregnancy(false);
-			} else {
-				if(target.isPlayer()) {
-					for(NPC npc : Main.game.getAllNPCs()) {
-						npc.setReactedToPlayerPregnancy(false);
-					}
-				}
-			}
+			target.resetAllPregnancyReactions();
 			
 			return "";
 		}
@@ -4636,19 +4310,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "After consuming a Vixen's Virility pill, your body's fertility and virility have been temporarily boosted.";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -4668,19 +4334,49 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "After consuming a Promiscuity Pill, your body's fertility and virility has been temporarily reduced."
 					+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex you had before taking the pill!";
 		}
 
+		
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
+	CUM_PRODUCTION(
+			80,
+			"Cum Production",
+			"cumProduction",
+			Colour.GENERIC_SEX,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementPenisStoredCum(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
+			
+			return UtilText.parse(target, "[npc.NamePos] balls are currently producing more [npc.cum], at a rate of "+cumRegenRate+"ml/minute."
+					+ " They have stored "+Util.getRoundedFloat(target.getPenisRawStoredCumValue(), 2)+"ml, out of a maximum of "+Util.getRoundedFloat(target.getPenisRawCumStorageValue(), 2)+"ml.");
+		}
+
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)
+					&& target.getPenisRawCumStorageValue()>0
+					&& target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue()
+					&& target.hasPenisIgnoreDildo()
+					&& (target.isPlayer() || target.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -4689,6 +4385,154 @@ public enum StatusEffect {
 		}
 	},
 
+	CUM_FULL(
+			80,
+			"Full Balls",
+			"cumFull",
+			Colour.GENERIC_SEX,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			float cumRegenRate = Util.getRoundedFloat(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue(), 4);
+			
+			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawCumStorageValue()+"ml),"
+					+ " and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
+					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+cumRegenRate+"ml/minute.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)
+					&& target.getPenisRawCumStorageValue()>0
+					&& target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue()
+					&& target.hasPenisIgnoreDildo()
+					&& (target.isPlayer() || target.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()));
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+
+	MILK_PRODUCTION(
+			80,
+			"Milk Production",
+			"milkProduction",
+			Colour.GENERIC_SEX,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementBreastStoredMilk(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
+			
+			if(target.isPlayer()) {
+				return "Your breasts are currently producing more [pc.milk], at a rate of "+milkRegenRate+"ml/minute."
+						+ " They have stored "+Util.getRoundedFloat(target.getBreastRawStoredMilkValue(), 2)+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.NamePos] breasts are currently producing more [npc.milk], at a rate of "+milkRegenRate+"ml/minute."
+						+ " They have stored "+Util.getRoundedFloat(target.getBreastRawStoredMilkValue(), 2)+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()!=target.getBreastRawMilkStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+
+	MILK_FULL(
+			80,
+			"Full Breasts",
+			"milkFull",
+			Colour.GENERIC_SEX,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+//			if(minutesPassed>0 && Math.random() > Math.pow(0.999f, minutesPassed)) {
+//				String milkLoss = target.incrementBreastStoredMilk(-target.getBreastRawMilkStorageValue()/4);
+//				AbstractClothing nippleClothing = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+//				AbstractClothing nippleTopClothing = target.getHighestZLayerCoverableArea(CoverableArea.NIPPLES);
+//				if(nippleClothing!=null) {
+//					nippleClothing.setDirty(true);
+//				}
+//				if(target.isPlayer()) {
+//					return "<p>"
+//								+ "For the past several minutes, an increasingly desperate desire to squeeze down on your full, milk-swollen breasts has been building up within you."
+//								+ " Feeling as though you just can't bear it any longer, you give in, and, reaching up to your "
+//								+ (nippleClothing==null
+//									?"exposed [pc.breasts], you greedily start massaging and pinching at your engorged [pc.nipples]."
+//										+ " Instantly, a spurt of [pc.milk+] shoots out all over your [pc.fingers], and you let out a deep, satisfied sigh as an immense feeling of relief washes over you..."
+//									:"covered [pc.breasts], you greedily start massaging and pinching at your "+nippleTopClothing.getName()+", pushing "
+//										+(nippleClothing.equals(nippleTopClothing)
+//												?(nippleTopClothing.getClothingType().isPlural()
+//														?"them"
+//														:"it")
+//												:"your "+nippleClothing.getName())
+//										+" down roughly against your engorged [pc.nipples] in your desperation to get some relief."
+//										+ " Instantly, a spurt of [pc.milk+] shoots out into your clothing, and you let out a deep, satisfied sigh as an immense feeling of relief washes over you...")
+//							+ "</p>"
+//							+ ""//TODO bra dirtied
+//							+milkLoss;
+//				}
+//			}
+			
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			float milkRegenRate = Util.getRoundedFloat(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue(), 4);
+			
+			if(target.isPlayer()) {
+				return "Your [pc.breasts] are completely filled with [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and your engorged [pc.nipples] are just begging for some attention."
+						+ " Once milked, they will produce more [pc.milk] at a rate of "+milkRegenRate+"ml/minute.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.NamePos] [npc.breasts] are completely filled with [npc.milk] ("+target.getBreastRawMilkStorageValue()+"ml), and [npc.her] engorged [npc.nipples] are just begging for some attention..."
+								+ " Once milked, they will produce more [npc.milk] at a rate of "+milkRegenRate+"ml/minute.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getBreastRawMilkStorageValue()>0
+					&& target.getBreastRawStoredMilkValue()==target.getBreastRawMilkStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
 	RECOVERING_ORIFICE(
 			80,
 			"Recovering Vagina",
@@ -4919,22 +4763,22 @@ public enum StatusEffect {
 			
 			// Vagina:
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				descriptionSB.append("</br><b>Vagina:</b> From "+Capacity.getCapacityFromValue(target.getVaginaStretchedCapacity()).getDescriptor()+" to "+target.getVaginaCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Vagina:</b> From "+Capacity.getCapacityFromValue(target.getVaginaStretchedCapacity()).getDescriptor()+" to "+target.getVaginaCapacity().getDescriptor()+".");
 				
 			// Ass:
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				descriptionSB.append("</br><b>Anus:</b> From "+Capacity.getCapacityFromValue(target.getAssStretchedCapacity()).getDescriptor()+" to "+target.getAssCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Anus:</b> From "+Capacity.getCapacityFromValue(target.getAssStretchedCapacity()).getDescriptor()+" to "+target.getAssCapacity().getDescriptor()+".");
 				
 			// Nipples:
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				descriptionSB.append("</br><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
 				
 			// Urethra:
 			}
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				descriptionSB.append("</br><b>Urethra:</b> From "+Capacity.getCapacityFromValue(target.getPenisStretchedCapacity()).getDescriptor()+" to "+target.getPenisCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Urethra:</b> From "+Capacity.getCapacityFromValue(target.getPenisStretchedCapacity()).getDescriptor()+" to "+target.getPenisCapacity().getDescriptor()+".");
 			}
 			
 			return descriptionSB.toString();
@@ -4956,12 +4800,12 @@ public enum StatusEffect {
 			80,
 			"Pussy Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
+					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4986,10 +4830,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4997,7 +4838,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied pussy, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -5006,25 +4847,38 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.VAGINA);
 			}
 			
-			target.incrementCummedInArea(OrificeType.VAGINA, -cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.VAGINA, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target);
 			
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used pussy.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.pussy] has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -5035,7 +4889,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getCummedInAreaMap().get(OrificeType.VAGINA)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.VAGINA)>0;
 		}
 		
 		@Override
@@ -5045,20 +4899,20 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.VAGINA);
+			return getCreampieSVGString(owner, SexAreaOrifice.VAGINA);
 		}
 	},
 	
-	CREAMPIE_ANUS(
+	CREAMPIE_VAGINA_URETHRA(
 			80,
-			"Anal Creampie",
+			"Vaginal Urethra Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
+					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -5083,10 +4937,193 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
+			
+			StringBuilder sb = new StringBuilder();
+			
+			if(target.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null){
+				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
+					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+					sb.append("<p>"
+								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+							+ "</p>");
+				}
+			}
+			
+			if(!target.getDirtySlots().contains(InventorySlot.VAGINA)) {
+				target.addDirtySlot(InventorySlot.VAGINA);
+			}
+			
+			target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, cumLost);
+			
+			return sb.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
+			
+			if(target.isPlayer()) {
+				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)";
+			} else {
+				return UtilText.parse(target, 
+						"[npc.NamePos] pussy's urethra has recently been filled with cum.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)");
+			}
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)>0;
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getCreampieSVGString(owner, SexAreaOrifice.URETHRA_VAGINA);
+		}
+	},
+	
+	CREAMPIE_PENIS_URETHRA(
+			80,
+			"Penis Urethra Creampie",
+			"creampie",
+			Colour.CUM,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newArrayListOfValues(
+					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+		
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(isCumEffectPositive(target)) {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				
+			} else {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+			}
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
+			
+			attributeModifiersList.addAll(this.getExtraEffects(target));
+			
+			return attributeModifiersList;
+		}
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
+			
+			StringBuilder sb = new StringBuilder();
+			
+			if(target.getLowestZLayerCoverableArea(CoverableArea.PENIS)!=null){
+				if(!target.getLowestZLayerCoverableArea(CoverableArea.PENIS).isDirty()) {
+					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+					sb.append("<p>"
+								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
+							+ "</p>");
+				}
+			}
+			
+			if(!target.getDirtySlots().contains(InventorySlot.PENIS)) {
+				target.addDirtySlot(InventorySlot.PENIS);
+			}
+			
+			target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_PENIS, cumLost);
+			
+			return sb.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
+			
+			if(target.isPlayer()) {
+				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)";
+			} else {
+				return UtilText.parse(target, 
+						"[npc.NamePos] cock's urethra has recently been filled with cum.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
+						+ "(-"+cumLost+"ml/minute)");
+			}
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)>0;
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getCreampieSVGString(owner, SexAreaOrifice.URETHRA_PENIS);
+		}
+	},
+	
+	CREAMPIE_ANUS(
+			80,
+			"Anal Creampie",
+			"creampie",
+			Colour.CUM,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newArrayListOfValues(
+					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+		
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(isCumEffectPositive(target)) {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				
+			} else {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+			}
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
+			
+			attributeModifiersList.addAll(this.getExtraEffects(target));
+			
+			return attributeModifiersList;
+		}
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -5094,7 +5131,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.ANUS).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.ANUS).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied asshole, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
+								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -5103,24 +5140,38 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.ANUS);
 			}
 			
-			target.incrementCummedInArea(OrificeType.ANUS, -cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.ANUS, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used asshole.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target);
+
+			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used asshole.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your recently-used asshole.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.asshole] has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -5131,7 +5182,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getCummedInAreaMap().get(OrificeType.ANUS)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.ANUS)>0;
 		}
 		
 		@Override
@@ -5141,7 +5192,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.ANUS);
+			return getCreampieSVGString(owner, SexAreaOrifice.ANUS);
 		}
 	},
 	
@@ -5149,12 +5200,12 @@ public enum StatusEffect {
 			80,
 			"Nipple Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
+					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -5179,10 +5230,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -5190,7 +5238,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied nipples, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
+								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -5199,24 +5247,38 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.NIPPLE);
 			}
 			
-			target.incrementCummedInArea(OrificeType.NIPPLE, -cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.NIPPLE, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used nipples.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target);
+			
+			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.NamePos] [npc.nipples] have recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -5227,7 +5289,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getCummedInAreaMap().get(OrificeType.NIPPLE)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)>0;
 		}
 		
 		@Override
@@ -5237,7 +5299,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.NIPPLE);
+			return getCreampieSVGString(owner, SexAreaOrifice.NIPPLE);
 		}
 	},
 	
@@ -5245,12 +5307,18 @@ public enum StatusEffect {
 			80,
 			"Cummy Meal",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 0.3f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
+					?"Cummy Meal"
+					:"Yummy Meal";
+		}
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -5277,31 +5345,23 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = OrificeType.MOUTH.getCumLossPerMinute() * minutesPassed;
+			int cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
-//			if(!target.getDirtySlots().contains(InventorySlot.MOUTH)) {
-//				target.addDirtySlot(InventorySlot.MOUTH);
-//			}
-			
-			
-			target.incrementCummedInArea(OrificeType.MOUTH, -cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.MOUTH, cumLost);
 			
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You've recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.MOUTH)+"ml)]</br>"
-						+ "(-2ml/minute)";
-			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.MOUTH)+"ml)]</br>"
+			return UtilText.parse(target, 
+					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
+					?"[npc.NamePos] recently swallowed a load of cum.<br/>"
+						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
+						+ "(-2ml/minute)"
+					:"[npc.NamePos] recently swallowed some sexual fluids.<br/>"
+						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
 						+ "(-2ml/minute)");
-			}
 		}
 		
 		@Override
@@ -5311,7 +5371,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getCummedInAreaMap().get(OrificeType.MOUTH)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.MOUTH)>0;
 		}
 		
 		@Override
@@ -5321,7 +5381,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.MOUTH);
+			return getCreampieSVGString(owner, SexAreaOrifice.MOUTH);
 		}
 	},
 	
@@ -5332,14 +5392,8 @@ public enum StatusEffect {
 			"cumInflation1",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5348,7 +5402,7 @@ public enum StatusEffect {
 						+ " Your extra weight makes it a little more difficult to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a considerable amount of cum, [npc.name]'s belly is now a little swollen.");
+							"After being filled with a considerable amount of cum, [npc.namePos] belly is now a little swollen.");
 			}
 		}
 
@@ -5359,10 +5413,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5377,14 +5431,8 @@ public enum StatusEffect {
 			"cumInflation2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5393,7 +5441,7 @@ public enum StatusEffect {
 						+ " The considerable amount of extra weight in your stomach makes it more difficult to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a huge amount of cum, [npc.name]'s belly is now noticeably inflated."
+							"After being filled with a huge amount of cum, [npc.namePos] belly is now noticeably inflated."
 							+ " The considerable amount of extra weight in [npc.her] stomach is hindering [npc.her] ability to move.");
 			}
 		}
@@ -5405,10 +5453,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5423,14 +5471,8 @@ public enum StatusEffect {
 			"cumInflation3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
-					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5439,7 +5481,7 @@ public enum StatusEffect {
 						+ " The huge amount of extra weight in your stomach is making it extremely difficult for you to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a colossal amount of cum, [npc.name]'s belly is now massively over-inflated."
+							"After being filled with a colossal amount of cum, [npc.namePos] belly is now massively over-inflated."
 									+ " The huge amount of extra weight in [npc.her] stomach is making it extremely difficult for [npc.herHim] to move around.");
 			}
 		}
@@ -5451,9 +5493,9 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5473,18 +5515,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a considerable amount of cum, your [pc.breasts] are now a little swollen."
 						+ " Your extra weight makes it a little more difficult to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a considerable amount of cum, [npc.name]'s [npc.breasts] are now a little swollen.");
+							"After being filled with a considerable amount of cum, [npc.namePos] [npc.breasts] are now a little swollen.");
 			}
 		}
 
@@ -5495,10 +5532,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5517,18 +5554,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a huge amount of cum, your [pc.breasts] are now noticeably inflated."
 						+ " The considerable amount of extra weight in your top-half is making it more difficult to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a huge amount of cum, [npc.name]'s [npc.breasts] are now noticeably inflated."
+							"After being filled with a huge amount of cum, [npc.namePos] [npc.breasts] are now noticeably inflated."
 							+ " The considerable amount of extra weight in [npc.her] top-half is hindering [npc.her] ability to move.");
 			}
 		}
@@ -5540,10 +5572,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5562,18 +5594,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a colossal amount of cum, your [pc.breasts] are now massively over-inflated."
 						+ " The huge amount of extra weight in your top-half is making it extremely difficult for you to move around.";
 			} else {
 				return UtilText.parse(target,
-							"After being filled with a colossal amount of cum, [npc.name]'s [npc.breasts] are now massively over-inflated."
+							"After being filled with a colossal amount of cum, [npc.namePos] [npc.breasts] are now massively over-inflated."
 									+ " The huge amount of extra weight in [npc.her] top-half is making it extremely difficult for [npc.herHim] to move around.");
 			}
 		}
@@ -5585,9 +5612,9 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5609,18 +5636,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return "You've recently had a sexual encounter in which you didn't manage to orgasm."
+				return "You've recently had a sexual encounter in which you didn't manage to cum."
 						+ " As a result, you're feeling extremely horny and frustrated...";
 			} else {
-				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to orgasm."
-						+ " As a result, [npc.she]'s feeling extremely horny and frustrated...");
+				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
+						+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
 			}
 		}
 		
@@ -5629,10 +5651,7 @@ public enum StatusEffect {
 			return "";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5650,11 +5669,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
 		}
@@ -5666,7 +5680,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
+			return !target.isPlayer() && target.isSlave() && (target.getOwner()!=null && target.getOwner().isPlayer()) && ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
 		}
 	},
 	
@@ -5681,17 +5695,12 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "Due to a recent orgasm, your arcane aura has been temporarily strengthened."
 						+ " While in this state, you will no longer receive an arcane essence if you orgasm!";
 			} else {
-				return UtilText.parse(target, "Due to a recent orgasm, [npc.name]'s arcane aura has been temporarily strengthened."
+				return UtilText.parse(target, "Due to a recent orgasm, [npc.namePos] arcane aura has been temporarily strengthened."
 						+ " While [npc.she] remains in this state, you will not receive an arcane essence if [npc.she] orgasms in your presence!");
 			}
 		}
@@ -5701,10 +5710,7 @@ public enum StatusEffect {
 			return "";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5722,14 +5728,9 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] private parts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't cover [npc.her] private parts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
 			}
 			return "Your clothing doesn't cover your private parts, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
@@ -5755,14 +5756,9 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] breasts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't cover [npc.her] breasts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
 			}
 			return "Your clothing doesn't cover your breasts, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
@@ -5788,14 +5784,9 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+				return UtilText.parse(target, "[npc.NamePos] breasts and private parts are naked for the world to see, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
 			}
 			return "Your breasts and private parts are naked for the world to see, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
@@ -5821,14 +5812,9 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] private parts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed groin.");
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't cover [npc.her] private parts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed groin.");
 			}
 			return "Your clothing doesn't cover your private parts, and you feel incredibly sexy every time you catch someone staring at your exposed groin.";
 		}
@@ -5853,14 +5839,9 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] breasts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed chest.");
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't cover [npc.her] breasts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed chest.");
 			}
 			return "Your clothing doesn't cover your breasts, and you feel incredibly sexy every time you catch someone staring at your exposed chest.";
 		}
@@ -5885,16 +5866,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all [npc.her] goods on display.");
+				return UtilText.parse(target, "[npc.NamePos] breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all of [npc.her] goods on display.");
 			}
-			return "Your breasts and private parts are naked for the world to see, and you feel incredibly sexy as you walk around with all your goods on display.";
+			return "Your breasts and private parts are naked for the world to see, and you feel incredibly sexy as you walk around with all of your goods on display.";
 		}
 
 		@Override
@@ -5916,11 +5892,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f), new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5956,11 +5927,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You're more than willing to use your ass, mouth, breasts, and even the promise of your pussy in order to please your partners, but you'll never let anyone actually penetrate your feminine sex and take your precious virginity!";
@@ -5991,11 +5957,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6031,11 +5992,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6074,18 +6030,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
-					return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+					return "By wearing the entire Maid's outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
 					
 				} else {
-					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					return UtilText.parse(target, "By wearing the entire Maid's outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
 					
 				}
 			} else {
@@ -6114,18 +6065,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
-					return "By wearing the entire Maid's Outfit, you are reminded of your true profession; that of an exceptionally talented maid!";
+					return "By wearing the entire Maid's outfit, you are reminded of your true profession; that of an exceptionally talented maid!";
 					
 				} else {
-					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					return UtilText.parse(target, "By wearing the entire Maid's outfit, [npc.name] is reminded of [npc.her] true profession; that of an exceptionally talented maid!");
 					
 				}
 			} else {
@@ -6136,6 +6082,73 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ClothingSet.MAID.isCharacterWearingCompleteSet(target) && target.hasTrait(Perk.JOB_MAID, true);
+		}
+	},
+	
+	SET_BUTLER(
+			70,
+			"Butler",
+			"set_butler",
+			Colour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Butler's outfit, you are filled with the energy you need in order to carry out your duties as a butler.";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Butler's outfit, [npc.name] is filled with the energy [npc.she] needs in order to carry out [npc.her] duties as a butler.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.BUTLER.isCharacterWearingCompleteSet(target) && !target.hasTrait(Perk.JOB_BUTLER, true);
+		}
+	},
+	
+	SET_BUTLER_BOOSTED(
+			70,
+			"Professional Butler",
+			"set_butlerBoosted",
+			Colour.CLOTHING_WHITE,
+			Colour.BASE_GOLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Butler's outfit, you are reminded of your true profession; that of an exceptionally talented butler!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Butler's outfit, [npc.name] is reminded of [npc.her] true profession; that of an exceptionally talented butler!");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.BUTLER.isCharacterWearingCompleteSet(target) && target.hasTrait(Perk.JOB_BUTLER, true);
 		}
 	},
 	
@@ -6152,18 +6165,13 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
 					return "By wearing the complete set of witch's clothes, you feel your arcane power growing stronger.";
 					
 				} else {
-					return UtilText.parse(target, "By wearing the complete set of witch's clothes, [npc.name]'s arcane power has grown stronger.");
+					return UtilText.parse(target, "By wearing the complete set of witch's clothes, [npc.namePos] arcane power has grown stronger.");
 					
 				}
 			} else {
@@ -6189,11 +6197,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6226,11 +6229,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6259,11 +6257,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6288,15 +6281,10 @@ public enum StatusEffect {
 			70,
 			"double rainbow",
 			"set_rainbow",
-			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_MULTICOLOURED,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6317,11 +6305,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6355,11 +6338,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6380,6 +6358,70 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_SNOWFLAKE(
+			70,
+			"Snowflake",
+			"set_snowflake",
+			Colour.BASE_BLUE_LIGHT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning snowflake jewels, you're confident that no ice will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing snowflake jewels, [npc.name] is well-protected against any ice attacks.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SNOWFLAKE.isCharacterWearingCompleteSet(target);
+		}
+	},
+		
+	SET_SUN(
+			70,
+			"Sun",
+			"set_sun",
+			Colour.BASE_ORANGE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning jewels that sparkle like the sun, you're confident that no fire will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the sun, [npc.name] is well-protected against any fire attacks.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SUN.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_GEISHA(
 			70,
 			"Geisha",
@@ -6389,11 +6431,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6428,11 +6465,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6465,11 +6497,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6511,10 +6538,7 @@ public enum StatusEffect {
 			return "-";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean renderInEffectsPanel() {
@@ -6528,13 +6552,8 @@ public enum StatusEffect {
 			"potionEffects",
 			Colour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 0.2f)),
+			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6568,9 +6587,30 @@ public enum StatusEffect {
 			return "";
 		}
 
+		
+	},
+	
+	HAPPINESS(
+			70,
+			"happiness",
+			"happinessFox",
+			Colour.CLOTHING_SILVER,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 5f)),
+			Util.newArrayListOfValues(
+					"[style.italicsGood(Happiness!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "The silver-furred fox, <i>Happiness</i>, is following you around wherever you go."
+					+ " Whenever you feel tired or down, the cute little animal brushes up against your [pc.legs] and sits still to have its ears scratched, which instantly fills you with happiness.";
+		}
+
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+			return target.isPlayer() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness);
 		}
 	},
 	
@@ -6586,12 +6626,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ANGEL, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6602,10 +6637,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how angels will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_CAT_MORPH(
@@ -6618,12 +6650,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_CAT_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6634,10 +6661,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cat-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_COW_MORPH(
@@ -6650,12 +6674,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_COW_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6666,10 +6685,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cow-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_DEMON(
@@ -6682,12 +6698,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6698,10 +6709,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how demons will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 
 	COMBAT_BONUS_IMP(
@@ -6714,12 +6722,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_IMP, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6730,10 +6733,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how imps will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_DOG_MORPH(
@@ -6746,12 +6746,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DOG_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6762,10 +6757,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how dog-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HARPY(
@@ -6778,12 +6770,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HARPY, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6794,10 +6781,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how harpies will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HORSE_MORPH(
@@ -6810,12 +6794,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HORSE_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6826,10 +6805,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how horse-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_REINDEER_MORPH(
@@ -6842,12 +6818,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_REINDEER_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6858,10 +6829,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how reindeer-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HUMAN(
@@ -6874,12 +6842,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6890,10 +6853,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how humans will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_SQUIRREL_MORPH(
@@ -6906,12 +6866,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_SQUIRREL_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6922,10 +6877,79 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how squirrel-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		
+	},
+	
+	COMBAT_BONUS_RAT_MORPH(
+			80,
+			"rat-morph intuition",
+			"combatBonusRatMorph",
+			Colour.RACE_RAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_RAT_MORPH, 25f)),
+			null) {		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how rat-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rat-morphs will behave.");
+			}
 		}
+		
+	},
+	
+	COMBAT_BONUS_RABBIT_MORPH(
+			80,
+			"rabbit-morph intuition",
+			"combatBonusRabbitMorph",
+			Colour.RACE_RAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_RABBIT_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_RABBIT_MORPH, 25f)),
+			null) {		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how rabbit-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rabbit-morphs will behave.");
+			}
+		}
+		
+	},
+	
+	COMBAT_BONUS_BAT_MORPH(
+			80,
+			"bat-morph intuition",
+			"combatBonusBatMorph",
+			Colour.RACE_BAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_BAT_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_BAT_MORPH, 25f)),
+			null) {		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how bat-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how bat-morphs will behave.");
+			}
+		}
+		
 	},
 	
 	COMBAT_BONUS_ALLIGATOR_MORPH(
@@ -6938,12 +6962,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ALLIGATOR_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6954,10 +6973,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how alligator-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_WOLF_MORPH(
@@ -6970,12 +6986,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_WOLF_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6986,9 +6997,28 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how wolf-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+	},
+	
+	COMBAT_BONUS_FOX_MORPH(
+			80,
+			"fox-morph intuition",
+			"combatBonusFoxMorph",
+			Colour.RACE_FOX_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FOX_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FOX_MORPH, 25f)),
+			null) {		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how fox-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how fox-morphs will behave.");
+			}
 		}
 	},
 	
@@ -7002,12 +7032,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_SLIME, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -7018,10 +7043,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how slimes will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	
@@ -7039,19 +7061,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
-			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(Main.game.getPlayer())+" perk to reveal such information.";
+			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(target)+" perk to reveal such information.";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7067,15 +7081,10 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("Incoming <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
+					"Incoming <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
 							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
-							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>"),
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all resistances</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
+							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>",
+					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all resistances</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7083,18 +7092,13 @@ public enum StatusEffect {
 				return "You are absolutely desperate for sex, but thanks to the strength of your arcane aura, you are able to resist giving up right here on the spot!";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.she]'s able to resist giving up right here on the spot!");
+						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.sheIs] able to resist giving up right here on the spot!");
 			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
-		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
 		}
 	},
 
@@ -7115,23 +7119,15 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your head is spinning and you're struggling to stay upright.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright..");
+						target.getName("The") + "'s head is spinning and [npc.sheIs] struggling to stay upright..");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7149,23 +7145,15 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your head is spinning and you're struggling to stay upright. You're finding it incredibly difficult to land a hit on your opponent or dodge one of their attacks.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright. [npc.She]'s finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
+						target.getName("The") + "'s head is spinning and [npc.sheIs] struggling to stay upright. [npc.sheIs] finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7182,23 +7170,15 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "You've been temporarily crippled, and you're struggling to do as much damage with your attacks as you're usually able to.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s been temporarily crippled, and [npc.she]'s struggling to do as much damage with [npc.her] attacks as [npc.she]'s usually able to.");
+						target.getName("The") + "'s been temporarily crippled, and [npc.sheIs] struggling to do as much damage with [npc.her] attacks as [npc.sheIs] usually able to.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7216,11 +7196,6 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "You're feeling particularly vulnerable, and aren't able to defend yourself to the best of your ability.";
@@ -7228,10 +7203,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "[npc.Name] is feeling particularly vulnerable, and [npc.she] isn't able to defend [npc.herself] to the best of [npc.her] ability.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7266,12 +7238,13 @@ public enum StatusEffect {
 				return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		@Override
 		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public boolean isStun() {
 			return true;
 		}
 	},
@@ -7321,27 +7294,57 @@ public enum StatusEffect {
 			}
 		},
 
-	BURN_WEAK(
+	MELEE_FIRE(10,
+			"Fire Strikes",
+			"melee_fire",
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			null,
+			Util.newArrayListOfValues("<b>+2</b> [style.boldFire(Fire Damage)] on each melee attack</b>")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Thanks to your affinity with the school of Fire, you are able to effortlessly enchant your melee strikes to deal extra fire damage.";
+			} else {
+				return UtilText.parse(target,
+						"Thanks to [npc.her] affinity with the school of Fire, [npc.name] is able to effortlessly enchant [npc.her] melee strikes to deal extra fire damage.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE);
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	LINGERING_FLAMES(
 			10,
-			"burn",
-			"negativeCombatEffect",
+			"Lingering Flames",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			Util.newArrayListOfValues("<b>5</b> [style.boldFire(Fire Damage)] per turn</b>")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (5 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
-			if (damage < 1)
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f)));
+			if (damage < 1) {
 				damage = 1;
+			}
 			target.incrementHealth(-damage);
 
 			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "You take <b>" + damage + "</b> [style.boldFire(Fire Damage)]!";
 				
 			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "[npc.Name] takes <b>" + damage + "</b> [style.boldFire(Fire Damage)]!";
 			}
 		}
 
@@ -7351,57 +7354,289 @@ public enum StatusEffect {
 				return "Invisible arcane flames lick at your feet, and while they don't cause you any real pain, you still end up hopping around in discomfort.";
 			} else {
 				return UtilText.parse(target,
-						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
+						"Invisible arcane flames lick at [npc.namePos] feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
 			}
 		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
 		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.FIREBALL_1.getSVGString();
+		}
+
 		@Override
 		public boolean isCombatEffect() {
 			return true;
 		}
 	},
 	
-	BURN_STRONG(
-			10,
-			"ignited",
-			"negativeCombatEffect",
+	FLASH(10,
+			"Blinded",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (10 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
-			if (damage < 1)
-				damage = 1;
-			target.incrementHealth(-damage);
-
 			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "You are [style.boldTerrible(stunned)] from the blinding flash!";
 				
 			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "[npc.Name] is [style.boldTerrible(stunned)] from the blinding flash!";
 			}
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Invisible arcane flames lick at your feet, and while they don't cause you any real pain, you still end up hopping around in discomfort.";
+				return "The blinding flash of light has left you temporarily stunned, and you're unable to make any sort of move as you struggle to regain control of your senses.";
 			} else {
 				return UtilText.parse(target,
-						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
+						"The blinding flash of light has left [npc.name] temporarily stunned, and [npc.sheIs] unable to make any sort of move as [npc.she] struggles to regain control of [npc.her] senses.");
 			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.FLASH.getSVGString();
 		}
 
 		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isStun() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES(10,
+			"Cloak of Flames",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.CLOAK_OF_FLAMES.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES_1(10,
+			"Cloak of Flames (Incendiary)",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances. You are also dealing extra fire damage each time you attack.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances. [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES_2(10,
+			"Cloak of Flames (Inferno)",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
+						+ " You are also dealing extra fire damage each time you attack.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
+						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES_3(10,
+			"Cloak of Flames (Ring of Fire)",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues(
+					"Attacks deal <b>5</b> [style.boldFire(Fire Damage)]",
+					"Attackers take <b>5</b> [style.colourFire(Fire Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
+						+ " You are also dealing extra fire damage each time you attack, as well as to any enemies that strike you in melee!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
+						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks, as well as to any enemies that strike [npc.herHim] in melee!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_FIRE_WILDFIRE(10,
+			"Wildfire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 20f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Fire elemental in your party is imbuing you with the knowledge of how to get the most out of fire attacks!";
+			} else {
+				return UtilText.parse(target,
+						"The Fire elemental in [npc.namePos] party is imbuing [npc.herHim] with the knowledge of how to get the most out of fire attacks!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_1.getSVGString();
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.FIRE) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_FIRE_BURNING_DESIRE(10,
+			"Burning Desire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Fire elemental in the enemy party is filling you with a burning desire for sex!";
+			} else {
+				return UtilText.parse(target,
+						"The Fire elemental in the enemy party is filling [npc.name] with a burning desire for sex!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_2)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.FIRE) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 		
@@ -7411,41 +7646,455 @@ public enum StatusEffect {
 		}
 	},
 	
-	CHILL(
+	ELEMENTAL_FIRE_SERVANT_OF_FIRE(10,
+			"Servant of Fire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					"-50% [style.colourHealth(maximum energy)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Fire, your Fire elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Fire, [npc1.namePos] Fire elemental, [npc2.name], is now siphoning off as much of [npc1.namePos] energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
+		}
+	},
+	
+	ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"+100% [style.colourExcellent(Non-Seduction Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.FIRE;
+		}
+	},
+	
+	ELEMENTAL_FIRE_BINDING_OF_FIRE(10,
+			"Binding of Fire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Fire to your will, your Fire elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Fire to [npc1.her] will, [npc1.namePos] Fire elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
+		}
+	},
+	
+	FREEZING_FOG(
 			10,
-			"chill",
-			"negativeCombatEffect",
+			"Freezing Fog",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -20f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A freezing fog, left behind by the impact of the spell 'Ice Shard', is lingering around you. The arcane cold seeps into your body, slowing your movements and dulling your mind.";
+			} else {
+				return UtilText.parse(target,
+						"A freezing fog, left behind by the impact of the spell 'Ice Shard', is lingering around [npc.name]. The arcane cold is seeping into [npc.her] body, slowing [npc.her] movements and dulling [npc.her] mind.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ICE_SHARD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	FROZEN(10,
+			"Frozen",
+			null,
 			Colour.DAMAGE_TYPE_COLD,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>2</b> <b style='color: "
-					+ Colour.DAMAGE_TYPE_MANA.toWebHexString()
-					+ ";'>Aura damage</b>"))) {
+			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementMana(-2f);
-
 			if (target.isPlayer()) {
-				return "You take <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
+				return "You are [style.boldTerrible(stunned)] from freezing fog's detonation!";
 				
 			} else {
-				return "[npc.Name] takes <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
+				return "[npc.Name] is [style.boldTerrible(stunned)] from freezing fog's detonation!";
 			}
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "A fine mist of icy shards is lingering around you. The arcane cold seeps into your body, slowing your movements and dulling your mind.";
+				return "The freezing fog lingering around you has exploded, covering you in a thin sheet of ice and leaving you temporarily stunned!";
+				
+			} else {
+				return UtilText.parse(target, "The freezing fog lingering around [npc.name] has exploded, covering [npc.herHim] in a thin sheet of ice and leaving [npc.herHim] temporarily stunned!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ICE_SHARD_3.getSVGString();
+		}
+
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isStun() {
+			return true;
+		}
+	},
+	
+	RAIN_CLOUD(
+			10,
+			"Rain Cloud",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, arcane-infused rain cloud is hovering above your head. The cold rain is sapping your ability to effectively cast spells.";
 			} else {
 				return UtilText.parse(target,
-						"A fine mist of icy shards is lingering around [npc.name]. The arcane cold is seeping into [npc.her] body, slowing [npc.her] movements and dulling [npc.her] mind.");
+						"A small, arcane-infused rain cloud is hovering above [npc.namePos] head. The cold rain is sapping [npc.her] ability to effectively cast spells.");
 			}
 		}
 
 		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.RAIN_CLOUD.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DEEP_CHILL(
+			10,
+			"Rain Cloud (Deep Chill)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, arcane-infused rain cloud is hovering above your head. The freezing rain is both sapping your ability to effectively cast spells, and reducing your resistance to the cold.";
+			} else {
+				return UtilText.parse(target,
+						"A small, arcane-infused rain cloud is hovering above [npc.namePos] head. The freezing rain is both sapping [npc.her] ability to effectively cast spells, and reducing [npc.her] resistance to the cold.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DOWNPOUR(
+			10,
+			"Rain Cloud (Downpour)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "An arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"An arcane-infused rain cloud is hovering above [npc.namePos] head."
+								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST(
+			10,
+			"Rain Cloud (Downpour)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "An arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"An arcane-infused rain cloud is hovering above [npc.namePos] head."
+								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	RAIN_CLOUD_CLOUDBURST(
+			10,
+			"Rain Cloud (Cloudburst)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A huge, arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, torrential rain is draining your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"A huge, arcane-infused rain cloud is hovering above [npc.namePos] head."
+								+ " The freezing, torrential rain is draining [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_WATER_CRASHING_WAVES(10,
+			"Crashing Waves",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 20f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Water elemental in your party is imbuing you with the knowledge of how to get the most out of ice attacks!";
+			} else {
+				return UtilText.parse(target,
+						"The Water elemental in [npc.namePos] party is imbuing [npc.herHim] with the knowledge of how to get the most out of ice attacks!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_1.getSVGString();
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.WATER) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_WATER_CALM_WATERS(10,
+			"Calm Waters",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Water elemental in your party is helping to calm your desire for sex.";
+			} else {
+				return UtilText.parse(target,
+						"The Water elemental in [npc.namePos] party is helping to calm [npc.her] desire for sex.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.WATER) {
+					return true;
+				}
+			}
+			
 			return false;
 		}
 		
@@ -7455,48 +8104,298 @@ public enum StatusEffect {
 		}
 	},
 	
-	POISON_WEAK(
+	ELEMENTAL_WATER_SERVANT_OF_WATER(10,
+			"Servant of Water",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					"-50% [style.colourHealth(maximum energy)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Water, your Water elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Water, [npc1.namePos] Water elemental, [npc2.name], is now siphoning off as much of [npc1.namePos] energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
+		}
+	},
+	
+	ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"+100% [style.colourExcellent(Non-Seduction Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.WATER;
+		}
+	},
+	
+	ELEMENTAL_WATER_BINDING_OF_WATER(10,
+			"Binding of Water",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Water to your will, your Water elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Water to [npc1.her] will, [npc1.namePos] Water elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
+		}
+	},
+	
+	
+
+	POISON_VAPOURS(
 			10,
-			"poison",
-			"negativeCombatEffect",
+			"Poison Vapours",
+			null,
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>2%</b> <b style='color: "
-					+ Colour.DAMAGE_TYPE_POISON.toWebHexString()
-					+ ";'>Poison damage per turn</b>"))) {
+			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+		
 		@Override
-		/**
-		 * 2% health damage per tick. Minimum of 1 damage.
-		 */
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			float damage = (target.getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.02f) * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_POISON))) / 100f);
-			if (damage < 1)
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
 				damage = 1;
-			target.incrementHealth(-(int) damage);
-			
+			}
+			target.incrementHealth(-damage);
+
 			if (target.isPlayer()) {
-				return "You take <b>" + (int)damage + "</b> <b style='color:" + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + DamageType.POISON.getName() + "</b> damage!";
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
 				
 			} else {
-				return "[npc.Name] takes <b>" + (int)damage + "</b> <b style='color:" + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>"+ DamageType.POISON.getName() + "</b> damage!";
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
 			}
-			
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "A choking haze of toxic arcane poison is lingering around you, and every time you breathe in, you can taste the sickly miasma in the back of your throat.";
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
 			} else {
 				return UtilText.parse(target,
-						"A choking haze of toxic arcane poison is lingering around [npc.name], and every time [npc.she] breathes in, the sickly miasma hits the back of [npc.her] throat, causing [npc.herHim] to cough and splutter.");
+						"The cloud of poison vapours continues to linger around [npc.namePos] body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
 			}
 		}
 
 		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		public String getSVGString(GameCharacter owner) {
+			return Spell.POISON_VAPOURS.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_CHOKING_HAZE(
+			10,
+			"Poison Vapours (Choking Haze)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.namePos] body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_ARCANE_SICKNESS(
+			10,
+			"Poison Vapours (Arcane Sickness)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			Util.newArrayListOfValues(
+					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
+					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			int lustDamage = 10;
+			target.incrementMana(-lustDamage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.namePos] body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_WEAKENING_CLOUD(
+			10,
+			"Poison Vapours (Weakening Cloud)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
+			Util.newArrayListOfValues(
+					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
+					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			int lustDamage = 10;
+			target.incrementMana(-lustDamage);
+			
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.namePos] body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_3.getSVGString();
 		}
 		
 		@Override
@@ -7505,31 +8404,329 @@ public enum StatusEffect {
 		}
 	},
 	
-	// Shields:
-	ARCANE_SHIELD(
+	VACUUM(
 			10,
-			"arcane shield",
-			"positiveCombatEffect",
+			"Vacuum",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.VACUUM.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_SECONDARY_VOIDS(
+			10,
+			"Vacuum (Secondary Voids)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_SUCTION(
+			10,
+			"Vacuum (Suction)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			Util.newArrayListOfValues(
+					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+				List<AbstractClothing> suitableClothing = new ArrayList<>();
+				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if(target.isAbleToUnequip(c, false, target)
+							&& !c.getClothingType().getSlot().isJewellery()) {
+						suitableClothing.add(c);
+					}
+				}
+				if(!suitableClothing.isEmpty()) {
+					AbstractClothing clothingBlownOff = suitableClothing.get(Util.random.nextInt(suitableClothing.size()));
+					target.unequipClothingOntoFloor(clothingBlownOff, true, target);
+					if(target.isPlayer()) {
+						return "Your "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					} else {
+						return "[npc.NamePos] "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					}
+				}
+			}
+			return "";
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, powerful void is shifting to remain close to [npc.namePos] body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_TOTAL_VOID(
+			10,
+			"Vacuum (Total Void)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			Util.newArrayListOfValues(
+					"<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+				List<AbstractClothing> suitableClothing = new ArrayList<>();
+				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if(target.isAbleToUnequip(c, false, target)
+							&& !c.getClothingType().getSlot().isJewellery()) {
+						suitableClothing.add(c);
+					}
+				}
+				if(!suitableClothing.isEmpty()) {
+					AbstractClothing clothingBlownOff = suitableClothing.get(Util.random.nextInt(suitableClothing.size()));
+					target.unequipClothingOntoFloor(clothingBlownOff, true, target);
+					if(target.isPlayer()) {
+						return "Your "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					} else {
+						return "[npc.NamePos] "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					}
+				}
+			}
+			return "";
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, incredibly-powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, incredibly-powerful void is shifting to remain close to [npc.namePos] body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	PROTECTIVE_GUSTS(
+			10,
+			"Protective Gusts",
+			null,
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
 			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
+		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane energy has surrounded you, granting you a considerable boost to your physical resistance." + " The energy is also helping to focus your mind, granting a boost to your hit and dodge chances.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane energy has surrounded " + target.getName("the")
-						+ ", granting [npc.herHim] a considerable boost to [npc.her] physical resistance." + " The energy is also helping to focus [npc.her] mind, granting a boost to [npc.her] hit and dodge chances.");
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!");
+			}
 		}
 
 		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.PROTECTIVE_GUSTS.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	PROTECTIVE_GUSTS_GUIDING_WIND(
+			10,
+			"Protective Gusts (Guiding Wind)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.PROTECTIVE_GUSTS_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	PROTECTIVE_GUSTS_FOCUSED_BLAST(
+			10,
+			"Protective Gusts (Focused Blast)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, powerful void is shifting to remain close to [npc.namePos] body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.PROTECTIVE_GUSTS_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+
+	
+	ELEMENTAL_AIR_WHIRLWIND(10,
+			"Whirlwind",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 5f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Air elemental in the enemy party is surrounding you with buffeting winds!";
+			} else {
+				return UtilText.parse(target,
+						"The Air elemental in the enemy party is surrounding [npc.name] with buffeting winds!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_1.getSVGString();
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.AIR) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 		
@@ -7538,30 +8735,1242 @@ public enum StatusEffect {
 			return true;
 		}
 	},
-	FIRE_SHIELD(
-			10,
-			"fire shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_FIRE,
+	
+	ELEMENTAL_AIR_VITALISING_SCENTS(10,
+			"Vitalising Scents",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
 			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
+		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane fire has surrounded you, granting you a considerable boost to your fire resistance." + " The arcane flames also help to mitigate any physical attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane fire has surrounded " + target.getName("the") + ", granting [npc.herHim] a considerable boost to [npc.her] fire resistance."
-						+ " The arcane flames also help to mitigate any physical attacks directed [npc.her] way.");
+			if (target.isPlayer()) {
+				return "The Air elemental in your party is surrounding you with vitalising scents, giving you the energy to dodge attacks, while landing powerful strikes of your own!";
+			} else {
+				return UtilText.parse(target,
+						"The Air elemental in [npc.namePos] party is surrounding [npc.herHim] with vitalising scents, giving [npc.herHim] the energy to dodge attacks, while landing powerful strikes of [npc.her] own!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.AIR) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_AIR_SERVANT_OF_AIR(10,
+			"Servant of Air",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					"-50% [style.colourHealth(maximum energy)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Air, your Air elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Air, [npc1.namePos] Air elemental, [npc2.name], is now siphoning off as much of [npc1.namePos] energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
+		}
+	},
+	
+	ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"+100% [style.colourExcellent(Non-Seduction Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.AIR;
+		}
+	},
+	
+	ELEMENTAL_AIR_BINDING_OF_AIR(10,
+			"Binding of Air",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Air to your will, your Air elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Air to [npc1.her] will, [npc1.namePos] Air elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
+		}
+	},
+	
+	SLAM_GROUND_SHAKE(
+			10,
+			"Ground Shake",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The ground beneath your [npc.feet] is shaking and swaying, causing you to miss the occasional attack.";
+			} else {
+				return UtilText.parse(target,
+						"The ground beneath [npc.namePos] [npc.feet] is shaking and swaying, causing [npc.herHim] to miss the occasional attack.");
+			}
 		}
 
 		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.SLAM_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	SLAM_AFTER_SHOCK(
+			10,
+			"Ground Shake (After Shock)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The ground beneath your [npc.feet] is shaking and swaying, causing you to miss the occasional attack. You can sense that there's an Aftershock coming, but there's little you can do to avoid it...";
+			} else {
+				return UtilText.parse(target,
+						"The ground beneath [npc.namePos] [npc.feet] is shaking and swaying, causing [npc.herHim] to miss the occasional attack. [npc.She] can sense that there's an Aftershock coming, but there's little [npc.she] can do to avoid it...");
+			}
+		}
+		
+		@Override
+		protected String extraRemovalEffects(GameCharacter target){
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.SLAM_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER(
+			10,
+			"Telekinetic Shower",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a barrage of rocks and other small objects.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a barrage of rocks and other small objects.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEKENETIC_SHOWER.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER_PRECISION_STRIKES(
+			10,
+			"Telekinetic Shower (Precision Strikes)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a highly-accurate barrage of rocks and other small objects.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEKENETIC_SHOWER_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER_UNSEEN_FORCE(
+			10,
+			"Telekinetic Shower (Unseen Force)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newArrayListOfValues("<b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(20 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEKENETIC_SHOWER_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL(
+			10,
+			"Stone Shell",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence.";
+			} else {
+				return UtilText.parse(target,
+						"A solid barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.STONE_SHELL.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	STONE_SHELL_SHIFTING_SANDS(
+			10,
+			"Stone Shell (Shifting Sands)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL_HARDENED_CARAPACE(
+			10,
+			"Stone Shell (Hardened Carapace)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid, hardened barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid, hardened barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL_EXPLOSIVE_FINISH(
+			10,
+			"Stone Shell (Explosive Finish)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			Util.newArrayListOfValues("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid, hardened barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid, hardened barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+		
+		@Override
+		protected String extraRemovalEffects(GameCharacter target){
+			StringBuilder sb = new StringBuilder();
+			
+			if(Combat.getEnemies().contains(target)) {
+				int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+				if (damage < 1) {
+					damage = 1;
+				}
+				Main.game.getPlayer().incrementHealth(-damage);
+				sb.append("You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!");
+				for(NPC combatant : Combat.getAllies()) {
+					damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementHealth(-damage);
+					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+				}
+			} else {
+				boolean first=true;
+				for(NPC combatant : Combat.getEnemies()) {
+					int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementHealth(-damage);
+					sb.append(UtilText.parse(combatant, (first?"":"<br/>")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					first=false;
+				}
+			}
+			
+			return sb.toString();
+			
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_EARTH_ROLLING_STONE(10,
+			"Rolling Stone",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Earth elemental in your party is empowering your attacks with waves of force!";
+			} else {
+				return UtilText.parse(target,
+						"The Earth elemental in [npc.namePos] party is empowering [npc.her] attacks with waves of force!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_1.getSVGString();
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.EARTH) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_EARTH_HARDENING(10,
+			"Hardening",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Earth elemental in your party is using telekinetic powers to surround you with protective fragments of rock!";
+			} else {
+				return UtilText.parse(target,
+						"The Earth elemental in [npc.namePos] party is using telekinetic powers to surround [npc.herHim] with protective fragments of rock!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.EARTH) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_EARTH_SERVANT_OF_EARTH(10,
+			"Servant of Earth",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					"-50% [style.colourHealth(maximum energy)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Earth, your Earth elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Earth, [npc1.namePos] Earth elemental, [npc2.name], is now siphoning off as much of [npc1.namePos] energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
+		}
+	},
+	
+	ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"+100% [style.colourExcellent(Non-Seduction Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.EARTH;
+		}
+	},
+	
+	ELEMENTAL_EARTH_BINDING_OF_EARTH(10,
+			"Binding of Earth",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Earth to your will, your Earth elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Earth to [npc1.her] will, [npc1.namePos] Earth elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
+		}
+	},
+	
+
+	ARCANE_AROUSAL_LUSTFUL_DISTRACTION(
+			10,
+			"Lustful Distraction",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Arousing images and thoughts keep on pushing their way to the front of your mind, causing you to lose focus on what it is you're trying to hit.";
+			} else {
+				return UtilText.parse(target,
+						"Arousing images and thoughts keep on pushing their way to the front of [npc.namePos] mind, causing [npc.herHim] to lose focus on what it is [npc.sheIs] trying to hit.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_AROUSAL_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ARCANE_AROUSAL_DIRTY_PROMISES(
+			10,
+			"Lustful Distraction (Dirty Promises)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Arousing images keep on pushing their way into your mind, causing you to lose focus on what it is you're trying to hit."
+						+ " You hear the occasional phantasmal whisper in your [pc.ear], promising that you'll have a good time if you simply submit...";
+			} else {
+				return UtilText.parse(target,
+						"Arousing images keep on pushing their way into [npc.namePos] mind, causing [npc.herHim] to lose focus on what it is [npc.sheIs] trying to hit."
+								+ " [npc.She] hears the occasional phantasmal whisper in [npc.her] [npc.ear], promising that [npc.she]'ll have a good time if [npc.she] simply submits.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_AROUSAL_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION(
+			10,
+			"Telepathic Communication",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and [pc.moans+] directly into a person's mind!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and [npc.moans+] directly into a person's mind!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEPATHIC_COMMUNICATION.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH(
+			10,
+			"Projected Touch",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and [pc.moans+] directly into a person's mind!"
+						+ " In addition to this, you can deliver phantasmal kisses and gropes to your target.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and [npc.moans+] directly into a person's mind!"
+								+ " In addition to this, [npc.she] can deliver phantasmal kisses and gropes to [npc.her] target.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPATHIC_COMMUNICATION_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION(
+			10,
+			"Power of Suggestion",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			Util.newArrayListOfValues(
+					"[style.boldLust(Seduce)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and suggestive phrases directly into a person's mind!"
+						+ " In addition to this, you can deliver phantasmal kisses and gropes to your target.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and suggestive phrases directly into a person's mind!"
+								+ " In addition to this, [npc.she] can deliver phantasmal kisses and gropes to [npc.her] target.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPATHIC_COMMUNICATION_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED(
+			10,
+			"Power of Suggestion",
+			"telepathic_communication_power_of_suggestion_targeted",
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The telepathic moans and suggestions that have been projected into your mind are causing you to lower your guard!";
+			} else {
+				return UtilText.parse(target,
+						"The telepathic moans and suggestions that have been projected into [npc.namePos] mind are causing [npc.herHim] to lower [npc.her] guard!");
+			}
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	
+	ARCANE_CLOUD(
+			10,
+			"Arcane Cloud",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small arcane cloud is hovering above your head. While subjected to its presence, you feel the arousing effects of the arcane seeping into your mind.";
+			} else {
+				return UtilText.parse(target,
+						"A small arcane cloud is hovering above [npc.namePos] head. While subjected to its presence, the arousing effects of the arcane seep into [npc.her] mind.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ARCANE_CLOUD.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	ARCANE_CLOUD_ARCANE_LIGHTNING(
+			10,
+			"Arcane Cloud (Arcane Lightning)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementLust(damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, lust-inducing arcane cloud is hovering above your head. Every now and then, a bolt of arcane lightning flashes down towards you, filling your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A small, lust-inducing arcane cloud is hovering above [npc.namePos] head. Every now and then, a bolt of arcane lightning flashes down towards [npc.herHim], filling [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	ARCANE_CLOUD_ARCANE_THUNDER(
+			10,
+			"Arcane Cloud (Arcane Thunder)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues("<b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementLust(damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, lust-inducing arcane cloud is hovering above your head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A small, lust-inducing arcane cloud is hovering above [npc.namePos] head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ARCANE_CLOUD_LOCALISED_STORM(
+			10,
+			"Arcane Cloud (Localised Storm)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues("[style.boldTerrible(All party members)] take <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			StringBuilder sb = new StringBuilder();
+			if(Combat.getEnemies().contains(target)) {
+				for(NPC combatant : Combat.getEnemies()) {
+					int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementLust(damage);
+					sb.append(UtilText.parse(combatant, (Combat.getEnemies().size()>1?"<br/>":"")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+				}
+				
+			} else {
+				int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+				if (damage < 1) {
+					damage = 1;
+				}
+				Main.game.getPlayer().incrementLust(damage);
+				sb.append((Combat.getAllies().size()>=1?"<br/>":"")+"You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+				
+				for(NPC combatant : Combat.getAllies()) {
+					damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementLust(damage);
+					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+				}
+			}
+			
+			return sb.toString();
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A localised arcane storm is hovering above your head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A localised arcane storm is hovering above [npc.namePos] head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	
+	
+	
+	
+
+
+	ELEMENTAL_ARCANE_LEWD_ENCOURAGEMENTS(10,
+			"Lewd Encouragements",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Arcane elemental in your party is projecting lewd words of encouragement into your mind!";
+			} else {
+				return UtilText.parse(target,
+						"The Arcane elemental in [npc.namePos] party is projecting lewd words of encouragement into [npc.her] mind!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.ARCANE) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+
+	ELEMENTAL_ARCANE_CARESSING_TOUCH(10,
+			"Caressing Touch",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Arcane elemental in the enemy party is projecting phantasmal tentacles to caress and grope your body!";
+			} else {
+				return UtilText.parse(target,
+						"The Arcane elemental in the enemy party is projecting phantasmal tentacles to caress and grope [npc.namePos] body!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_2)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.ARCANE) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 		
@@ -7570,32 +9979,131 @@ public enum StatusEffect {
 			return true;
 		}
 	},
-	ICE_SHIELD(
-			10,
-			"ice shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_COLD,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
+	
+	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE(10,
+			"Servant of Arcane",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					"-50% [style.colourHealth(maximum energy)]")) {
+		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane ice has surrounded you, granting you a considerable boost to your cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane ice has surrounded " + target.getName("the") + ", granting [npc.herHim] a considerable boost to [npc.her] cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed [npc.her] way.");
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Arcane, your Arcane elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Arcane, [npc1.namePos] Arcane elemental, [npc2.name], is now siphoning off as much of [npc1.namePos] energy as [npc2.she] wants!");
+			}
 		}
-
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3A.getSVGString();
+		}
+		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"+100% [style.colourExcellent(Non-Seduction Damage)]")) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	ELEMENTAL_ARCANE_BINDING_OF_ARCANE(10,
+			"Binding of Arcane",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Arcane to your will, your Arcane elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Arcane to [npc1.her] will, [npc1.namePos] Arcane elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	
+	
+
+	ARCANE_DUALITY_POSITIVE(
+			10,
+			"Arcane Duality (Defence)",
+			"cleanse_positive",
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A protective barrier of arcane energy has surrounded you, shielding you from all types of incoming damage.";
+			} else {
+				return UtilText.parse(target,
+						"A protective barrier of arcane energy has surrounded [npc.name], shielding [npc.herHim] from all types of incoming damage.");
+			}
 		}
 		
 		@Override
@@ -7603,31 +10111,118 @@ public enum StatusEffect {
 			return true;
 		}
 	},
-	POISON_SHIELD(
+	
+	ARCANE_DUALITY_NEGATIVE(
 			10,
-			"poison shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_POISON,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
+			"Arcane Duality (Weakness)",
+			"cleanse_negative",
+			Colour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -10f)),
 			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
+		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of toxic miasma has surrounded you, granting you a considerable boost to your poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of toxic miasma has surrounded " + target.getName("the")
-						+ ", granting [npc.herHim] a considerable boost to [npc.her] poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed [npc.her] way.");
+			if (target.isPlayer()) {
+				return "A weakening barrier of arcane energy has surrounded you, making you more vulnerable to all types of incoming damage.";
+			} else {
+				return UtilText.parse(target,
+						"A weakening barrier of arcane energy has surrounded [npc.name], making [npc.herHim] more vulnerable to all types of incoming damage.");
+			}
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPORT(
+			10,
+			"Teleport",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 100f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have teleported behind your enemies, making it extremely unlikely that they'll be able to land a hit on you!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]!");
+			}
 		}
 
 		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEPORT.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPORT_ARCANE_ARRIVAL(
+			10,
+			"Teleport (Arcane Arrival)",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 100f)),
+			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			GameCharacter randomEnemy = Main.game.getPlayer();
+			
+			if(Combat.getEnemies().contains(target)) {
+				if(!Combat.getAllies().isEmpty() && Math.random() > (1f/(1+Combat.getAllies().size()))) {
+					randomEnemy = Combat.getAllies().get(Util.random.nextInt(Combat.getAllies().size()));
+				}
+			} else {
+				randomEnemy = Combat.getEnemies().get(Util.random.nextInt(Combat.getEnemies().size()));
+			}
+			
+			
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(randomEnemy.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			randomEnemy.incrementLust(damage);
+
+			if (randomEnemy.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return UtilText.parse(randomEnemy, "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have teleported behind your enemies, making it extremely unlikely that they'll be able to land a hit on you! A burst of lust-inducing arcane energy accompanies your arrival!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]! A burst of lust-inducing arcane energy accompanies [npc.her] arrival!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPORT_1.getSVGString();
 		}
 		
 		@Override
@@ -7662,16 +10257,11 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer())
 				return "Because you're wearing a condom, sex doesn't feel quite as good...";
 			else
-				return "Because [npc.she]'s wearing a condom, sex doesn't feel quite as good for [npc.name]...";
+				return "Because [npc.sheIs] wearing a condom, sex doesn't feel quite as good for [npc.name]...";
 		}
 		
 		@Override
@@ -7700,16 +10290,27 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "";
+				
+			} else if(Main.game.isInSex()) {
+				GameCharacter targetedCharacter = Sex.getTargetedPartner(target);
+				SexType preference = Sex.isInForeplay()?((NPC)target).getForeplayPreference(targetedCharacter):((NPC)target).getMainSexPreference(targetedCharacter);
+				return UtilText.parse(target, targetedCharacter, "Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+						+ "<br/>"
+						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+						+ (preference!=null
+								?"[npc.Name] wants to use [npc.her] "+preference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+preference.getTargetedSexArea().getName(Sex.getTargetedPartner(target))+"."
+								:"")
+						+ "</i>");
+				
 			} else {
-				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.name]'s non-neutral preferences towards sexual actions.");
+				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+						+ "<br/>"
+						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+								+ "You can detect what areas [npc.name] wants to use when in sex..."
+						+ "</i>");
 			}
 		}
 		
@@ -7760,11 +10361,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "Anyone with a strong arcane aura, such as yours, doesn't suffer from any sort of refractory period after orgasming...";
@@ -7795,21 +10391,23 @@ public enum StatusEffect {
 			
 			int orgasms = Sex.getNumberOfOrgasms(owner);
 			
-			if(orgasms == 0) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterZero()+"</div>");
-			} else if(orgasms == 1) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterOne()+"</div>");
-			} else if(orgasms == 2) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo()+"</div>");
-			} else if(orgasms == 3) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterThree()+"</div>");
-			} else if(orgasms == 4) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFour()+"</div>");
-			} else if(orgasms == 5) {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFive()+"</div>");
-			} else {
-				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus()+"</div>");
-			}
+			SVGImageSB.append("<div style='width:40%;height:40%;position:absolute; top:0; right:4px;'>");
+				if(orgasms == 0) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterZero());
+				} else if(orgasms == 1) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterOne());
+				} else if(orgasms == 2) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo());
+				} else if(orgasms == 3) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterThree());
+				} else if(orgasms == 4) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterFour());
+				} else if(orgasms == 5) {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterFive());
+				} else {
+					SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus());
+				}
+			SVGImageSB.append("</div>");
 			
 			return SVGImageSB.toString();
 		}
@@ -7830,9 +10428,9 @@ public enum StatusEffect {
 		}
 	},
 	
-	ANUS_STATUS(
-			96,
-			"Ass status",
+	PENIS_STATUS(
+			95,
+			"Penis status",
 			null,
 			Colour.GENERIC_SEX,
 			false,
@@ -7841,113 +10439,179 @@ public enum StatusEffect {
 		
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.ANUS);
+			return getPenetrationArousalPerTurn(target, SexAreaPenetration.PENIS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ANUS);
+			return 0;
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.ANUS);
+			return getPenetrationModifiersAsStringList(target, SexAreaPenetration.PENIS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.ANUS;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaPenetration type = SexAreaPenetration.PENIS;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target ,type);
-			
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.asshole]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.asshole]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.asshole]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.asshole]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.asshole]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a handjob</b>!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>frotting</b> with [npc2.name]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a tail-job</b>!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a tentacle-job</b>!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a blowjob</b>!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-frotting</b> with [npc2.name]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] giving [npc2.name] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a foot-job</b>!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.asshole]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.asshole]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.asshole]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.asshole]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.asshole]!")));
-						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.asshole]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.asshole]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.asshole]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.asshole]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.asshole]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!"
-									:"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on you!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+			}
+
+			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.penis]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex()
+					&& Sex.getOngoingActionsMap(target)!=null
+					&& !Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS).isEmpty()
+					&& !Collections.disjoint(
+							Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS).get(Sex.getCharacterContactingSexArea(target, SexAreaPenetration.PENIS).get(0)),
+							Util.newArrayListOfValues(SexAreaPenetration.values()));
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaPenetration.PENIS, SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis());
+		}
+	},
+	
+	ANUS_STATUS(
+			96,
+			"Anus status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.ANUS);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.ANUS);
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.ANUS);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.ANUS;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>foot-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+						}
+						
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
+						}
+					}
+				}
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.ANUS, target.isPlayer()?"Your [pc.asshole]":UtilText.parse(target, "[npc.Name]'s [npc.asshole]"), descriptionSB);
+			descriptionSB.append("</p>");
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			return descriptionSB.toString();
 		}
 
 		@Override
@@ -7962,7 +10626,118 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
+			return getOrificeSVGString(owner, SexAreaOrifice.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
+		}
+	},
+
+	ASS_STATUS(
+			96,
+			"Ass status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.ASS);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.ASS);
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.ASS);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.ASS;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.ass]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc2.name]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-hotdogging</b> [npc2.name]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-hotdogging</b> [npc2.name]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.ass] with [npc.her] [npc.feet]!"));
+								break;
+						}
+						
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
+						}
+					}
+				}
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaOrifice.ASS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss());
 		}
 	},
 	
@@ -7977,112 +10752,94 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.MOUTH);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.MOUTH);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.MOUTH);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.MOUTH);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.MOUTH);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.MOUTH);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.MOUTH;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaOrifice type = SexAreaOrifice.MOUTH;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.fingers]!"
-									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.name]'s [npc.fingers]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.fingers]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.fingers]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.fingers]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.fingers]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.tail]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] tentacle!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.clit]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.namePos] [npc.feet]!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.cock]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.cock]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.cock]!")));
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!"));
+								break;
+							case ASS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.namePos] [npc.ass]!"));
+								break;
+							case BREAST:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.breasts]!"));
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"));
+								break;
+							case NIPPLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.nipples]!"));
+								break;
+							case THIGHS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.legs]!"));
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!"));
+								break;
+							case URETHRA_VAGINA:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"));
+								break;
+							case VAGINA:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"));
+								break;
 						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.tail]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.tail]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.tail]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> yourself! (Somehow... How are you seeing this?)"
-									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.herself]! (Somehow... How are you seeing this?)"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.MOUTH, target.isPlayer()?"Your mouth":UtilText.parse(target, "[npc.Name]'s mouth"), descriptionSB);
+			descriptionSB.append("</p>");
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			return descriptionSB.toString();
 		}
 
 		@Override
@@ -8097,7 +10854,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.MOUTH, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
+			return getOrificeSVGString(owner, SexAreaOrifice.MOUTH, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
 		}
 	},
 	
@@ -8121,112 +10878,92 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.BREAST);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.BREAST);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.BREAST);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.BREAST);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.BREAST);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.BREAST);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.BREAST;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaOrifice type = SexAreaOrifice.BREAST;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own [pc.breasts]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your [pc.breasts]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s [npc.breasts]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own [npc.breasts]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.name]'s [npc2.breasts]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.breasts]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.namePos] [npc.clit]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.breasts] with [npc.her] [npc.feet]!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.breasts]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.breasts]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.breasts]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.breasts]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.breasts]!")));
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
 						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.breasts]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.breasts]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.breasts]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.breasts]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.breasts]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.breasts]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.breasts]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.breasts]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.breasts]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.breasts]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.BREAST, target.isPlayer()?"Your [pc.breasts]":UtilText.parse(target, "[npc.Name]'s [npc.breasts]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
 		}
 
 		@Override
@@ -8241,7 +10978,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.BREAST, owner.hasBreasts()?SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts():SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
+			return getOrificeSVGString(owner, SexAreaOrifice.BREAST, owner.hasBreasts()?SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts():SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
 		}
 	},
 	
@@ -8256,117 +10993,93 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.NIPPLE);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.NIPPLE);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.NIPPLE);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.NIPPLE);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.NIPPLE;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaOrifice type = SexAreaOrifice.NIPPLE;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.nipples]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.nipples]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.nipples]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.nipples]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.nipples]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.nipples]!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.nipples]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.nipples]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.nipples]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.nipples]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.nipples]!")));
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
 						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.nipples]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.nipples]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.nipples]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.nipples]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.nipples]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.nipples]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.nipples]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.nipples]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.nipples]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.nipples]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.NIPPLE, target.isPlayer()?"Your [pc.nipples]":UtilText.parse(target, "[npc.Name]'s [npc.nipples]"), descriptionSB);
+			descriptionSB.append("</p>");
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			
+			return descriptionSB.toString();
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isBreastFuckableNipplePenetration();
+			return Main.game.isInSex() && target.isBreastFuckableNipplePenetration() && Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}
 		
 		@Override
@@ -8376,7 +11089,227 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.NIPPLE, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
+			return getOrificeSVGString(owner, SexAreaOrifice.NIPPLE, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
+		}
+	},
+	
+	URETHRA_PENIS_STATUS(
+			97,
+			"Penis Urethra status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.URETHRA_PENIS);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.URETHRA_PENIS);
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.URETHRA_PENIS);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.URETHRA_PENIS;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+						}
+						
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
+						}
+					}
+				}
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+			
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex() && target.isUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaOrifice.URETHRA_PENIS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis());
+		}
+	},
+	
+	URETHRA_VAGINA_STATUS(
+			97,
+			"Vaginal Urethra status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.URETHRA_VAGINA);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.URETHRA_VAGINA);
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.URETHRA_VAGINA);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.URETHRA_VAGINA;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+						}
+						
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
+						}
+					}
+				}
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+			
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex() && target.isVaginaUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaOrifice.URETHRA_VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina());
 		}
 	},
 	
@@ -8391,112 +11324,87 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.VAGINA);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.VAGINA);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.VAGINA);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.VAGINA);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.VAGINA);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.VAGINA);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.VAGINA;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaOrifice type = SexAreaOrifice.VAGINA;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.pussy]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.pussy]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.pussy]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.pussy]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.pussy]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.pussy]!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.pussy]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.pussy]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.pussy]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.pussy]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.pussy]!")));
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
 						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.pussy]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.pussy]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.pussy]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.pussy]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.pussy]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!"
-									:"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on you!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.VAGINA, target.isPlayer()?"Your [pc.pussy]":UtilText.parse(target, "[npc.Name]'s [npc.pussy]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
 		}
 
 		@Override
@@ -8516,7 +11424,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
+			return getOrificeSVGString(owner, SexAreaOrifice.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
 		}
 	},
 	
@@ -8531,112 +11439,87 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.THIGHS);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.THIGHS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.THIGHS);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.THIGHS);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.THIGHS);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.THIGHS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.THIGHS;
-			
-			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+			SexAreaOrifice type = SexAreaOrifice.THIGHS;
 
-			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
-			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(target, type)){
-					case FINGER:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own [pc.thighs]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your [pc.thighs]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s [npc.thighs]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own [npc.thighs]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.name]'s [npc2.thighs]!")));
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.legs]!"));
+								break;
+							case PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case TAIL:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case TENTACLE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case TONGUE:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case FOOT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.feet]</b> between [npc2.namePos] thighs!"));
+								break;
 						}
-						break;
 						
-					case PENIS:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.thighs]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.thighs]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.thighs]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.thighs]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.thighs]!")));
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ANUS:
+								break;
+							case ASS:
+								break;
+							case BREAST:
+								break;
+							case MOUTH:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!"));
+								break;
+							case NIPPLE:
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case URETHRA_VAGINA:
+								break;
+							case VAGINA:
+								break;
 						}
-						break;
-						
-					case TAIL:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.thighs]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.thighs]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.thighs]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.thighs]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.thighs]!")));
-						}
-						break;
-						
-					case TONGUE:
-						if(target.isPlayer()) {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.thighs]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.thighs]!");
-						} else {
-							descriptionSB.append(penetrator.isPlayer()
-									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.thighs]!"
-									:(target.equals(penetrator)
-											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.thighs]!"
-											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
-													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.thighs]!")));
-						}
-						break;
-					default:
-						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-						break;
+					}
 				}
-			} else {
+			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] thighs"), descriptionSB);
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.THIGHS, target.isPlayer()?"Your [pc.thighs]":UtilText.parse(target, "[npc.Name]'s [npc.thighs]"), descriptionSB);
+			descriptionSB.append("</p>");
 			
-			if(target.isPlayer()) {
-				if(penetrator!=null && !penetrator.isPlayer()) {
-					return UtilText.parse(penetrator, descriptionSB.toString());
-				} else {
-					return descriptionSB.toString();
-				}
-			} else {
-				return UtilText.parse(target, descriptionSB.toString());
-			}
+			return descriptionSB.toString();
 		}
 
 		@Override
@@ -8651,7 +11534,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
+			return getOrificeSVGString(owner, SexAreaOrifice.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
 		}
 	};
 
@@ -8712,9 +11595,12 @@ public enum StatusEffect {
 			this.extraEffects = extraEffects;
 		}
 		
-		if(pathName!=null) {
+		if(pathName!=null && !pathName.isEmpty()) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
 				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
 			} catch (IOException e) {
@@ -8740,16 +11626,18 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	public abstract String applyEffect(GameCharacter target, int minutesPassed);
+	public String applyEffect(GameCharacter target, int minutesPassed) {
+		return "";
+	}
 
 	/**
 	 * @param target
-	 * @return True if this status effect should be applied to the target. False
-	 *         if conditions are not met <b>or</b> this status effect is only
-	 *         for timed purposes (i.e. the only time it should be applied is
-	 *         with a time condition.).
+	 * @return True if this status effect should be applied to the target.
+	 *  False if conditions are not met <b>or</b> this status effect is only for timed purposes (i.e. the only time it should be applied is with a time condition.).
 	 */
-	public abstract boolean isConditionsMet(GameCharacter target);
+	public boolean isConditionsMet(GameCharacter target) {
+		return false;
+	}
 	
 	public boolean renderInEffectsPanel() {
 		return true;
@@ -8785,6 +11673,10 @@ public enum StatusEffect {
 			for (Entry<Attribute, Float> e : getAttributeModifiers(target).entrySet())
 				target.incrementBonusAttribute(e.getKey(), -e.getValue());
 	}
+	
+	public String applyPostRemovalStatusEffect(GameCharacter target) {
+		return "";
+	}
 
 	public int getRenderingPriority() {
 		return renderingPriority;
@@ -8805,6 +11697,10 @@ public enum StatusEffect {
 	public boolean isBeneficial() {
 		return beneficial;
 	}
+	
+	public boolean isStun() {
+		return false;
+	}
 
 	public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 		return attributeModifiers;
@@ -8824,10 +11720,55 @@ public enum StatusEffect {
 	
 	// Helper methods for sex effects:
 	
-	public static float getOrificeArousalPerTurnSelf(GameCharacter target, OrificeType orifice) {
+	public static float getPenetrationArousalPerTurn(GameCharacter target, SexAreaPenetration penetration) {
 		float arousal = 0;
 		
-		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
+		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
+			arousal+=penetration.getBaseArousalWhenPenetrating();
+			
+			if(!Sex.hasLubricationTypeFromAnyone(target, penetration)) {
+				arousal += penetration.getArousalChangePenetratingDry();
+			}
+		}
+		
+		return arousal;
+	}
+	
+	public List<String> getPenetrationModifiersAsStringList(GameCharacter target, SexAreaPenetration penetration) {
+		modifiersList.clear();
+		
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
+
+		if(!Sex.getContactingSexAreas(target, penetration).isEmpty()
+				&& !Collections.disjoint(Sex.getContactingSexAreas(target, penetration).get(Sex.getCharacterContactingSexArea(target, penetration).get(0)), Util.newArrayListOfValues(SexAreaPenetration.values()))) {
+			
+			modifiersList.add("+"+penetration.getBaseArousalWhenPenetrating()
+				+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+			
+			if(!Sex.hasLubricationTypeFromAnyone(target, penetration)) {
+				modifiersList.add(penetration.getArousalChangePenetratingDry()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+			}
+			
+			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, penetration).keySet()) {
+				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
+				
+				if(!Sex.getContactingSexAreas(target, penetration).isEmpty()) {
+					modifiersList.add(
+							"+0 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+				}
+			}
+			
+		} else {
+			modifiersList.add("[style.colourDisabled(No bonuses)]");
+		}
+		return modifiersList;
+	}
+	
+	public static float getOrificeArousalPerTurnSelf(GameCharacter target, SexAreaOrifice orifice) {
+		float arousal = 0;
+		
+		if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
 			arousal+=orifice.getBaseArousalWhenPenetrated();
 			
 			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
@@ -8836,7 +11777,7 @@ public enum StatusEffect {
 			if(Sex.getAreasTooLoose(target).contains(orifice)) {
 				arousal += orifice.getArousalChangePenetratedTooLoose();
 			}
-			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+			if(!Sex.hasLubricationTypeFromAnyone(target, orifice)) {
 				arousal += orifice.getArousalChangePenetratedDry();
 			}
 		}
@@ -8844,11 +11785,17 @@ public enum StatusEffect {
 		return arousal;
 	}
 	
-	public float getOrificeArousalPerTurnPartner(GameCharacter self, GameCharacter target, OrificeType orifice) {
+	public float getOrificeArousalPerTurnPartner(GameCharacter self, GameCharacter target, SexAreaOrifice orifice) {
 		float arousal = 0;
 		
-		if(Sex.getPenetrationTypeInOrifice(self, orifice)!=null && Sex.getPenetratingCharacterUsingOrifice(self, orifice).equals(target)) {
-			arousal+=Sex.getPenetrationTypeInOrifice(self, orifice).getBaseArousalWhenPenetrating();
+		if(Sex.getContactingSexAreas(self, orifice).containsKey(target)) {
+			for(SexAreaInterface sArea : Sex.getContactingSexAreas(self, orifice).get(target)) {
+				if(sArea.isPenetration()) {
+					arousal+=((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating();
+				} else if(sArea.isOrifice()) {
+					arousal+=((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated();
+				}
+			}
 			
 			if(Sex.getAreasCurrentlyStretching(self).contains(orifice)) {
 				arousal += orifice.getArousalChangePenetratingStretching();
@@ -8856,7 +11803,7 @@ public enum StatusEffect {
 			if(Sex.getAreasTooLoose(self).contains(orifice)) {
 				arousal += orifice.getArousalChangePenetratingTooLoose();
 			}
-			if(Sex.getWetOrificeTypes(self).get(orifice).isEmpty()) {
+			if(!Sex.hasLubricationTypeFromAnyone(self, orifice)) {
 				arousal += orifice.getArousalChangePenetratingDry();
 			}
 		}
@@ -8864,108 +11811,210 @@ public enum StatusEffect {
 		return arousal;
 	}
 	
-	public List<String> getOrificeModifiersAsStringList(GameCharacter target, OrificeType orifice) {
+	public List<String> getOrificeModifiersAsStringList(GameCharacter target, SexAreaOrifice orifice) {
 		modifiersList.clear();
 		
-		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
-		GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, orifice);
-		String penetratorName = "";
-		if(penetrator!=null) {
-			penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
-		}
-		
-		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.namePos]");
+
+		if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
-					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-			modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating()
-					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+				+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 			
 			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")+orifice.getArousalChangePenetratedStretching()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-				modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
 			}
 			if(Sex.getAreasTooLoose(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")+orifice.getArousalChangePenetratedTooLoose()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-				modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
-						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
 			}
-			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+			if(!Sex.hasLubricationTypeFromAnyone(target, orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")+orifice.getArousalChangePenetratedDry()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-				modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
 			}
+			
+			for(GameCharacter penetrator : Sex.getContactingSexAreas(target, orifice).keySet()) {
+				String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.namePos]");
+				
+				if(!Sex.getContactingSexAreas(target, orifice).isEmpty()) {
+					modifiersList.add("+"+getOrificeArousalPerTurnPartner(target, penetrator, orifice)
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					
+					if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+						modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
+								+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
+					}
+					if(Sex.getAreasTooLoose(target).contains(orifice)) {
+						modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
+								+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+					}
+					if(!Sex.hasLubricationTypeFromAnyone(target, orifice)) {
+						modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
+								+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+					}
+				}
+			}
+			
+		} else {
+			modifiersList.add("[style.colourDisabled(No bonuses)]");
 		}
-		
 		return modifiersList;
 	}
 	
-	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, OrificeType orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
+	public void appendPenetrationAdditionGenericDescriptions(GameCharacter owner, SexAreaPenetration penetration, String penetrationName, StringBuilder stringBuilderToAppendTo) {
 		
-		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-			
-		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+		if(!Sex.hasLubricationTypeFromAnyone(owner, penetration)) {
+			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
 			
 		} else {
-			stringBuilderToAppendTo.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-		}
-		
-		
-		if(Sex.getWetOrificeTypes(owner).get(orificeType).isEmpty()) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-			
-		} else {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
+			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
-			for(LubricationType lt : Sex.getWetOrificeTypes(owner).get(orificeType)) {
-				if(i!=0) {
-					if(i == Sex.getWetOrificeTypes(owner).get(orificeType).size()-1) {
-						stringBuilderToAppendTo.append(", and ");
+			List<String> lubricants = new ArrayList<>();
+			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(penetration).get(lubricantProvidor)) {
+					if(i==0) {
+						lubricants.add(lubricantProvidor==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
+								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
 					} else {
-						stringBuilderToAppendTo.append(", ");
+						lubricants.add(lubricantProvidor==null
+								?lt.getName(lubricantProvidor)
+								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
 					}
+					i++;
 				}
-				
-				if(i==0)
-					stringBuilderToAppendTo.append(Util.capitaliseSentence(lt.getName()));
-				else
-					stringBuilderToAppendTo.append(lt.getName());
-				
-				if(i == Sex.getWetOrificeTypes(owner).get(orificeType).size()-1) {
-					stringBuilderToAppendTo.append(".");
-				}
-				
-				i++;
 			}
+			stringBuilderToAppendTo.append(Util.stringsToStringList(lubricants, false)+".");
 		}
 		stringBuilderToAppendTo.append("</p>");
 	}
 	
-	public String getOrificeSVGString(GameCharacter owner, OrificeType orifice, String baseSVG) {
+	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
+		
+		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
+			if(Sex.getFirstContactingSexAreaPenetration(owner, orificeType)==null) {
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			} else {
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			}
+			
+		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+			
+		} else if(Sex.getAreasStretched(owner).contains(orificeType)) {
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			
+		} else {
+			stringBuilderToAppendTo.append("<br/><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+		}
+		
+		
+		if(!Sex.hasLubricationTypeFromAnyone(owner, orificeType)) {
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+			
+		} else {
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
+			int i=0;
+			List<String> lubricants = new ArrayList<>();
+			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType).get(lubricantProvidor)) {
+					if(i==0) {
+						lubricants.add(lubricantProvidor==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
+								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
+					} else {
+						lubricants.add(lubricantProvidor==null
+								?lt.getName(lubricantProvidor)
+								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
+					}
+					i++;
+				}
+			}
+			stringBuilderToAppendTo.append(Util.stringsToStringList(lubricants, false)+".");
+		}
+		stringBuilderToAppendTo.append("</p>");
+	}
+	
+	public String getPenetrationSVGString(GameCharacter owner, SexAreaInterface penetration, String baseSVG) {
 		SVGImageSB = new StringBuilder();
 		
-		SVGImageSB.append(baseSVG);
+		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
 		
-		if(Sex.getPenetrationTypeInOrifice(owner, orifice) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(owner, orifice)){
+		if(!Sex.getContactingSexAreas(owner, penetration).isEmpty()) {
+			SexAreaPenetration firstPenetration = null;
+			outerloop:
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(owner, penetration).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						firstPenetration = (SexAreaPenetration) sArea;
+						break outerloop;
+					}
+				}
+			}
+			if(firstPenetration!=null) {
+				switch(firstPenetration){
+					case FINGER:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+						break;
+					case PENIS:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+						break;
+					case TAIL:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+						break;
+					case TONGUE:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		if(!Sex.hasLubricationTypeFromAnyone(owner, penetration)) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
+		} else {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
+		}
+		
+		return SVGImageSB.toString();
+	}
+	
+	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG) {
+		SVGImageSB = new StringBuilder();
+		
+		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
+		
+		if(!Sex.getContactingSexAreas(owner, orifice).isEmpty()) {
+			SexAreaPenetration firstPenetration = SexAreaPenetration.FINGER;
+			outerloop:
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(owner, orifice).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						firstPenetration = (SexAreaPenetration) sArea;
+						break outerloop;
+					}
+				}
+			}
+			switch(firstPenetration){
 				case FINGER:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
 					break;
 				case PENIS:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 					break;
 				case TAIL:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
 					break;
 				case TONGUE:
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
 					break;
-				default:
+				case CLIT:
+					break;
+				case FOOT:
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
+					break;
+				case TENTACLE:
 					break;
 			}
 		}
@@ -8978,7 +12027,7 @@ public enum StatusEffect {
 			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
 		}
 		
-		if(Sex.getWetOrificeTypes(owner).get(orifice).isEmpty()) {
+		if(!Sex.hasLubricationTypeFromAnyone(owner, orifice)) {
 			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
 		} else {
 			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
@@ -8987,43 +12036,54 @@ public enum StatusEffect {
 		return SVGImageSB.toString();
 	}
 	
-	public String getCreampieSVGString(GameCharacter owner, OrificeType orifice) {
+	public String getCreampieSVGString(GameCharacter owner, SexAreaOrifice orifice) {
 		SVGImageSB = new StringBuilder();
 		
+		boolean justCum = owner.isOnlyCumInArea(orifice);
+		
 		if(isCumEffectPositive(owner)) {
-			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCreampieMasochist()+"</div>");
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
+									+ (justCum
+											?SVGImages.SVG_IMAGE_PROVIDER.getCreampieMasochist()
+											:SVGImages.SVG_IMAGE_PROVIDER.getFluidIngestedMasochist())
+								+"</div>");
 		} else {
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCreampie());
+			SVGImageSB.append((justCum
+					?SVGImages.SVG_IMAGE_PROVIDER.getCreampie()
+					:SVGImages.SVG_IMAGE_PROVIDER.getFluidIngested()));
 		}
 		
 		switch(orifice) {
 			case ANUS:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
 				break;
 			case ASS:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
 				break;
 			case BREAST:
 				if(owner.hasBreasts()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
 				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat()+"</div>");
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat()+"</div>");
 				}
 				break;
 			case MOUTH:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div>");
 				break;
 			case NIPPLE:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple()+"</div>");
 				break;
 			case THIGHS:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs()+"</div>");
 				break;
-			case URETHRA:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>"); //TODO
+			case URETHRA_PENIS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis()+"</div>");
+				break;
+			case URETHRA_VAGINA:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina()+"</div>");
 				break;
 			case VAGINA:
-				SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
 				break;
 		}
 		

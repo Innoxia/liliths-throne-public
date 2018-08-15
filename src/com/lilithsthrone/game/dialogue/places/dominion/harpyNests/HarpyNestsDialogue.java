@@ -17,7 +17,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.3
  * @author Innoxia
  */
 public class HarpyNestsDialogue {
@@ -160,7 +160,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
 					}
 				};
 
@@ -193,7 +193,7 @@ public class HarpyNestsDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
-								Main.game.getPlayer().incrementMoney(1500);
+								Main.game.getPlayer().incrementMoney(5000);
 							}
 						};
 						
@@ -232,7 +232,7 @@ public class HarpyNestsDialogue {
 						+ "[pc.speech(Hi, I'm here to find a harpy matriarch called Alexa, you wouldn't happen to know where she is, would you?)]"
 					+ "</p>"
 					+"<p>"
-						+"A look of surprise crosses the wolf-girl's face as you mention that name, "
+						+"A look of surprise crosses the wolf-girl's face as you mention that name. "
 						+ "[style.speechFeminine(Well, I don't know where exactly in the Nests any particular harpies are, but if it's the matriarch you're after with that name, then watch out; she's trouble."
 						+ " She's got a reputation for being extremely quick to take offence at anything, even for a harpy, so choose your words wisely when you find her.)]"
 					+ "</p>"
@@ -280,7 +280,7 @@ public class HarpyNestsDialogue {
 						+ "[pc.speech(Hi, I'm just up here to have a look around the Harpy Nests, don't mind me.)]"
 					+ "</p>"
 					+"<p>"
-						+"The cat-boy raises one eyebrow and leans back in his chair, "
+						+"The cat-boy raises one eyebrow and leans back in his chair. "
 						+ "[style.speechMasculine(Oh you are, are you? And do you know <i>anything</i> about harpies?)]"
 					+ "</p>"
 					+ "<p>"
@@ -345,7 +345,7 @@ public class HarpyNestsDialogue {
 						+ " He's currently giving orders to a pair of cat-girls, and you hang around for a moment, waiting for him to finish his business."
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say,"
+						+ "[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say."
 						+ " [style.speechMasculineStrong(These harpies are getting out of control..."
 						+ " Oh, and Alice, before you go, if I hear just <i>one more</i> rumour about you shirking your duties to go visit your boyfriend, I'll fuck you myself! Now get out of my sight!)]"
 					+ "</p>"
@@ -354,11 +354,11 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Seeing your opportunity to find out more about what's going on in the Harpy Nests, you walk up to the muscular horse-boy."
-						+ " Noticing your approach, he lets out a grunt,"
+						+ " Noticing your approach, he lets out a grunt."
 						+ " [style.speechMasculineStrong(What is it now? If one of those harpy bitches out there did something, I don't have the time to help you. You should have known the risks before going out there!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Actually, <i>I</i> was wondering if I could help <i>you</i>,)] you say,"
+						+ "[pc.speech(Actually, <i>I</i> was wondering if I could help <i>you</i>,)] you say."
 						+ " [pc.speech(I couldn't help but overhear how much trouble you're having with these harpies. Perhaps I could sort them out for you?)]"
 					+ "</p>"
 					+ "<p>"
@@ -395,10 +395,10 @@ public class HarpyNestsDialogue {
 						+ " Alexa would probably even get involved, which is the last thing we need."
 						+ " I hate asking for help like this, but if by some miracle you're able to subdue those three,)]"
 						+ " he points to the papers in your hand again,"
-						+ " [style.speechMasculineStrong(I could offer a fifteen-hundred flame reward.)]"
+						+ " [style.speechMasculineStrong(I could offer a five thousand flame reward.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Consider it done,)] you say, before moving to leave the office, [pc.speech(I'll be back to claim that reward!)]"
+						+ "[pc.speech(Consider it done,)] you say, before moving to leave the office. [pc.speech(I'll be back to claim that reward!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You hear the horse-boy grunt as he sinks down into his chair, and, closing the door behind you, you walk back out into the Enforcer Post."
@@ -433,7 +433,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ ""
-						+ "[style.speechMasculineStrong(Hah! Hungry for more Alic- Oh! It's you!)] the horse-boy calls out, tucking in his shirt as he sits down in his chair,"
+						+ "[style.speechMasculineStrong(Hah! Hungry for more, Alic- Oh! It's you!)] the horse-boy calls out, tucking in his shirt as he sits down in his chair."
 						+ " [style.speechMasculineStrong(I heard what you've been up to out there!)]"
 					+ "</p>"
 					+ "<p>"
@@ -443,9 +443,10 @@ public class HarpyNestsDialogue {
 					+ "<p>"
 						+ "[style.speechMasculineStrong(Hah! Well, I don't know how you managed to pull it off, but we've received messages from each one of those matriarchs saying that they'll stop causing a problem!)]"
 					+ "</p>"
+					+ "<p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
-						+ " Setting it down in front of him, he grins up at you,"
-						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's fifteen-hundred flames!)]"
+						+ " Setting it down in front of him, he grins up at you."
+						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Stepping forwards, you take the offered bag of money, before thanking the enforcer sergeant."
@@ -457,7 +458,7 @@ public class HarpyNestsDialogue {
 						+ "Having received your reward, you say farewell to the happy horse-boy, and, walking out of his office, head back into the Enforcer Post."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>1,500</b>"
+						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>5,000</b>"
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>The Harpy Nests are now safe to travel through!</b>"
@@ -496,7 +497,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Although these walkways don't lead directly through any nests, you're still able to observe them as you pass."
-						+ " Each nest takes the form of a series of platforms, built on top of, and into, the rooves and upper floors of Dominion's residences."
+						+ " Each nest takes the form of a series of platforms, built on top of, and into, the roofs and upper floors of Dominion's residences."
 						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
 							+ " evidence that the matriarch of that particular nest is extremely important."
 					+ "</p>");
@@ -573,19 +574,15 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
-									if (dn == null) {
-										Main.game.setContent(new Response("", "", WALKWAY));
-									} else {
-										Main.game.setContent(new Response("", "", dn));
-									}
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
 								}
 							};
 							
@@ -595,7 +592,133 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
+				}
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld WALKWAY_BRIDGE = new DialogueNodeOld("Walkway Bridge", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {// if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "You find yourself walking over a narrow wooden bridge; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion."
+						+ " Being able to fly, the harpies that live up here have no use for them, and there aren't many people willing to risk a harpy's wrath just for the sake of taking a stroll through the nests."
+						+ " As a result, these links between the sprawling network of harpy nests are completely deserted."
+					+ "</p>"
+					+ "<p>"
+						+ "Although these walkways don't lead directly through any nests, you're still able to observe them as you pass."
+						+ " Each nest takes the form of a series of platforms, built on top of, and into, the roofs and upper floors of Dominion's residences."
+						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
+							+ " evidence that the matriarch of that particular nest is extremely important."
+					+ "</p>");
+			
+			switch(Main.game.getCurrentWeather()) {
+				case MAGIC_STORM:
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Due to the ongoing arcane storm, each flock has taken shelter in the building below their nest."
+								+ " The only movement to be seen in the deserted nests takes the form of canvas coverings, erected to protect the harpies from the elements, billowing in the wind."
+								+ " Peering over the side of the railing, you see that the streets below are similarly abandoned, with only the occasional demon to be seen wandering through the area."
+							+ "</p>"
+							+ "<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"Although you've pacified the harpy nests, these walkways are dangerous at the moment, due to the ongoing arcane storm."
+										+ " The harpies should all be taking shelter, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly duck out of sight."
+										+ " It's probably only a matter of time before they make their move..."
+									:"Although the harpies should all be taking shelter, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly duck out of sight."
+										+ " It's probably only a matter of time before they make their move...")
+							+ "</p>");
+					break;
+				case RAIN:
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Due to the ongoing rain, each flock has taken shelter in the building below their nest, or beneath the canvas coverings that have been erected to protect the harpies from the elements."
+								+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+								+ " Peering over the side of the railing, you see that the people walking down the streets below are similarly huddling beneath any shelter they can find, desperate to get out of the rain."
+							+ "</p>"
+							+ "<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
+									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
+										+ " It's probably only a matter of time before one of them decides to openly confront you...")
+							+ "</p>");
+					break;
+				default:
+					if(Main.game.isDayTime()) {
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "The members of each flock are sprawled out over their nest's platforms."
+									+ " Most are simply lounging about beneath canvas coverings, but there are plenty to be seen sunbathing or talking in little groups."
+									+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+									+ " Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them."
+								+ "</p>");
+					} else {
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "The members of each flock are sprawled out over their nest's platforms."
+									+ " Even at night, there are still plenty of harpies to be seen lounging about or talking in little groups, their brightly-coloured feathers illuminated by a series of bright lights that cover the rooftops."
+									+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+									+ " Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them."
+								+ "</p>");
+					}
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
+									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
+										+ " It's probably only a matter of time before one of them decides to openly confront you...")
+							+ "</p>");
+					break;
+			
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+					return new ResponseEffectsOnly(
+							"Look for trouble",
+							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
+							
+				} else {
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};

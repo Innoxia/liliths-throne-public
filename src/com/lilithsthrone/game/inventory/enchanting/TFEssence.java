@@ -16,89 +16,6 @@ import com.lilithsthrone.utils.Util;
  */
 public enum TFEssence {
 	
-//	CAT_MORPH("Cat-morph",
-//			"An essence gained from a cat-morph.",
-//			"feline",
-//			"essenceCatMorph",
-//			Colour.RACE_CAT_MORPH,
-//			Rarity.COMMON),
-//	
-//	DOG_MORPH("Dog-morph",
-//			"An essence gained from a dog-morph.",
-//			"canine",
-//			"essenceDogMorph",
-//			Colour.RACE_DOG_MORPH,
-//			Rarity.COMMON),
-//	
-//	HORSE_MORPH("Horse-morph",
-//			"An essence gained from a horse-morph.",
-//			"equine",
-//			"essenceHorseMorph",
-//			Colour.RACE_HORSE_MORPH,
-//			Rarity.COMMON),
-//	
-//	SQUIRREL_MORPH("Squirrel-morph",
-//			"An essence gained from a squirrel-morph.",
-//			"squirrel",
-//			"essenceSquirrelMorph",
-//			Colour.RACE_SQUIRREL_MORPH,
-//			Rarity.COMMON),
-//	
-//	WOLF_MORPH("Wolf-morph",
-//			"An essence gained from a wolf-morph.",
-//			"lupine",
-//			"essenceWolfMorph",
-//			Colour.RACE_WOLF_MORPH,
-//			Rarity.COMMON),
-//
-//	COW_MORPH("Cow-morph",
-//			"An essence gained from a cow-morph.",
-//			"bovine",
-//			"essenceCowMorph",
-//			Colour.RACE_COW_MORPH,
-//			Rarity.COMMON),
-//
-//	HARPY("Harpy",
-//			"An essence gained from a harpy.",
-//			"avian",
-//			"essenceHarpy",
-//			Colour.RACE_HARPY,
-//			Rarity.UNCOMMON),
-//
-//	ALLIGATOR_MORPH("Gator-morph",
-//			"An essence gained from an alligator-morph.",
-//			"reptilian",
-//			"essenceGatorMorph",
-//			Colour.RACE_ALLIGATOR_MORPH,
-//			Rarity.COMMON),
-//	SLIME("Slime",
-//			"An essence gained from a slime.",
-//			"slime",
-//			"essenceSlime",
-//			Colour.RACE_SLIME,
-//			Rarity.COMMON),
-
-//	DEMON("Demon",
-//			"An essence gained from a demon.",
-//			"demonic",
-//			"essenceDemon",
-//			Colour.RACE_DEMON,
-//			Rarity.EPIC),
-	
-//	ANGEL("Angel",
-//			"An essence gained from an angel.",
-//			"angelic",
-//			"essenceAngel",
-//			Colour.RACE_ANGEL,
-//			Rarity.RARE),
-	
-//	HUMAN("Human",
-//			"An essence gained from a human.",
-//			"human",
-//			"essenceHuman",
-//			Colour.RACE_HUMAN,
-//			Rarity.COMMON),
-	
 	ARCANE("Arcane",
 			"An exceedingly rare pure arcane essence.",
 			"arcane",
@@ -123,6 +40,9 @@ public enum TFEssence {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFEssence icon file does not exist (Trying to read from '"+SVGString+"')!");
+			}
 			String base = Util.inputStreamToString(is);
 			
 			String s = base;
@@ -177,31 +97,6 @@ public enum TFEssence {
 	}
 	
 	public static AbstractItemType essenceToItem(TFEssence essence) {
-
-//		switch(essence) {
-//			case ARCANE:
-//				return ItemType.BOTTLED_ESSENCE_ARCANE;
-//			case CAT_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_CAT_MORPH;
-//			case COW_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_COW_MORPH;
-//			case DEMON:
-//				return ItemType.BOTTLED_ESSENCE_DEMON;
-//			case DOG_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_DOG_MORPH;
-//			case ALLIGATOR_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH;
-//			case HARPY:
-//				return ItemType.BOTTLED_ESSENCE_HARPY;
-//			case HORSE_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_HORSE_MORPH;
-//			case HUMAN:
-//				return ItemType.BOTTLED_ESSENCE_HUMAN;
-//			case SQUIRREL_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH;
-//			case WOLF_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_WOLF_MORPH;
-//		}
 		return ItemType.BOTTLED_ESSENCE_ARCANE;
 	}
 }

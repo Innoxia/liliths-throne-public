@@ -27,7 +27,7 @@ public class EventLogEntryBookAddedToLibrary extends EventLogEntry {
 	public String getMainDialogueDescription() {
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library</b>"
-				+ "</br>"
+				+ "<br/>"
 				+ description
 			+ "</p>";
 	}

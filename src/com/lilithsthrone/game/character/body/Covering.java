@@ -4,14 +4,13 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Covering  {
@@ -24,7 +23,7 @@ public class Covering  {
 	protected boolean primaryGlowing, secondaryGlowing;
 
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to a random value, and boolean glowing to false.
 	 * @param type The BodyCoveringType to set this skin to.
 	 */
@@ -37,7 +36,7 @@ public class Covering  {
 	}
 	
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
 	 * @param type
 	 * @param primaryColour
@@ -107,11 +106,12 @@ public class Covering  {
 	public String getColourDescriptor(GameCharacter gc, boolean coloured, boolean capitalised) {
 		String primaryColourName = capitalised?Util.capitaliseSentence(primaryColour.getName()):primaryColour.getName();
 		String secondaryColourName = capitalised?Util.capitaliseSentence(secondaryColour.getName()):secondaryColour.getName();
-		if(gc.getRace()==Race.SLIME) {
-			if(this.getType()!=BodyCoveringType.SLIME) {
-				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
-			}
-		}
+//		if(gc.getRace()==Race.SLIME) {
+//			if(this.getType()!=BodyCoveringType.SLIME) {
+//				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
+//			}
+//		}
+		// Hopefully nobody ever discovers this appalling mess... BlobSweats
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:
@@ -159,6 +159,11 @@ public class Covering  {
 				case EYE_PUPILS_HETEROCHROMATIC:
 					return "heterochromatic "+(primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span> and "
 						+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"</span>";
+				case EYE_SCLERA:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>";
+				case EYE_SCLERA_HETEROCHROMATIC:
+					return "heterochromatic "+(primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span> and "
+						+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"</span>";
 			}
 			return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>";
 		
@@ -196,6 +201,10 @@ public class Covering  {
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
 				case EYE_PUPILS_HETEROCHROMATIC:
 					return "heterochromatic "+(primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+" and "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName;
+				case EYE_SCLERA:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
+				case EYE_SCLERA_HETEROCHROMATIC:
+					return "heterochromatic "+(primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+" and "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName;
 			}
 			return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
 		}
@@ -226,11 +235,12 @@ public class Covering  {
 		//text-shadow: 0px 0px 4px #FF0000;
 		String descriptor = modifier.getName();
 		String name = type.getName(gc);
-		if(gc.getRace()==Race.SLIME) {
-			if(this.getType()!=BodyCoveringType.SLIME) {
-				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);
-			}
-		}
+		
+//		if(gc.getRace()==Race.SLIME) {
+//			if(this.getType()!=BodyCoveringType.SLIME) {
+//				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);
+//			}
+//		}
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:
@@ -239,7 +249,7 @@ public class Covering  {
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" highlights</span>";
 				case OMBRE:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
-							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually fades into "
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually "+(type.isDefaultPlural()?"fade":"fades")+" into "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"</span>";
 				case MOTTLED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
@@ -289,6 +299,11 @@ public class Covering  {
 				case EYE_PUPILS_HETEROCHROMATIC:
 					return "heterochromatic "+(primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span> and "
 						+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"</span> pupils";
+				case EYE_SCLERA:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span> sclerae";
+				case EYE_SCLERA_HETEROCHROMATIC:
+					return "heterochromatic "+(primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span> and "
+						+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"</span> sclerae";
 			
 			}
 			
@@ -299,7 +314,7 @@ public class Covering  {
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" highlights";
 				case OMBRE:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
-							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually fades into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName();
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", which gradually "+(type.isDefaultPlural()?"fade":"fades")+" into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName();
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" mottling";
@@ -335,7 +350,11 @@ public class Covering  {
 				case EYE_PUPILS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" pupils";
 				case EYE_PUPILS_HETEROCHROMATIC:
-					return "heterochromatic "+(primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" and "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" pupils";
+					return "heterochromatic "+(primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" and "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" sclerae";
+				case EYE_SCLERA:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" pupils";
+				case EYE_SCLERA_HETEROCHROMATIC:
+					return "heterochromatic "+(primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" and "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" sclerae";
 			}
 		}
 		return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName();

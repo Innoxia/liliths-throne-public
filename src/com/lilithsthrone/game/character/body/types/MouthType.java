@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum MouthType implements BodyPartTypeInterface {
@@ -28,11 +29,19 @@ public enum MouthType implements BodyPartTypeInterface {
 	
 	WOLF_MORPH(BodyCoveringType.MOUTH, Race.WOLF_MORPH),
 	
+	FOX_MORPH(BodyCoveringType.MOUTH, Race.FOX_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.MOUTH, Race.CAT_MORPH),
 	
 	COW_MORPH(BodyCoveringType.MOUTH, Race.COW_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
+	
+	RAT_MORPH(BodyCoveringType.MOUTH, Race.RAT_MORPH),
+	
+	RABBIT_MORPH(BodyCoveringType.MOUTH, Race.RABBIT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.MOUTH, Race.BAT_MORPH),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.MOUTH, Race.ALLIGATOR_MORPH),
 	
@@ -82,7 +91,7 @@ public enum MouthType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 
