@@ -63,6 +63,7 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
@@ -168,9 +169,12 @@ public class MainControllerInitMethod {
 					id = "ARTWORK_REMOVE";
 					if (MainController.document.getElementById(id) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							character.deleteCurrentImage();
-							if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							if (FileUtils.deleteFile(character.getCurrentArtwork().getCurrentImage().toPath())) {
+								character.loadImages(true);
+
+								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
 						}, false);
 
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);

@@ -50,10 +50,7 @@ import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.*;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.*;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -2259,22 +2256,6 @@ public abstract class GameCharacter implements XMLSaving {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
-					"See error.log for details"), false);
-		}
-	}
-
-	/**
-	 * Deletes the currently selected artwork image and forces a reload of the artwork list.
-	 */
-	public void deleteCurrentImage() {
-		try {
-			File f = getCurrentArtwork().getCurrentImage();
-			Files.delete(f.toPath());
-			loadImages(true);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Image deleted)]", f.getName()), false);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image deletion failed)]",
 					"See error.log for details"), false);
 		}
 	}

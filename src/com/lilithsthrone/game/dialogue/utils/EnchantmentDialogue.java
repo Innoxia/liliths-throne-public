@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.utils.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -959,19 +960,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static void deleteEnchant(String name) {
-		File file = new File("data/enchantments/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
-		}
+		FileUtils.deleteFile("data/enchantments/"+name+".xml");
 	}
 
 	public static AbstractCoreItem getIngredient() {
