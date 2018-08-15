@@ -66,10 +66,10 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.10",
+	public static final String VERSION_NUMBER = "0.2.10.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -88,7 +88,7 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I don't expect to need to make a hotfix, but if one is required, it will be out by Sunday."
+			+ "This version (0.2.10.1) is a hotfix, addressing some issues that cropped up in 0.2.10."
 		+ "</p>"
 			
 		+ "<p>"
@@ -185,6 +185,105 @@ public class Main extends Application {
 			+"<ul>Fixed issue where sex scenes with you watching your companion + NPC could go on forever if your companion was resisting.</ul>"
 			+"<ul>Cumming on feet/hands will now correctly dirty any clothing in the foot/hand slot.</ul>"
 			+"<ul>Fixed autosave code so that the game now correctly autosaves when entering a new area, except if the entrance dialogue is unique. (e.g. The first entry to the Harpy Nests, where the Enforcer questions you, won't autosave, but subsequent visits will.)</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.10.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Enabled friendly occupants to be added as party members, both from their room, and new apartment (if you get them to move out).</ul>"
+			+"<ul>All non-unique NPCs that have the 'transformation test subject' fetish will now accept all TF potions that you ask for them to drink.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed bug where having a hash character in the save file path would cause saves to not work. (HomeofTrees PR#884)</ul>"
+			+"<ul>Added keybind presets, and the ability to save custom keybind presets. Added response cursor navigation keys to keybinds. (DJ4ddi PR#882)</ul>"
+			+"<ul>Added: Arcane Bow. Sold by Vicky, and comes in Physical, Fire, Ice, and Poison types. (Rfpnj PR#669)</ul>"
+			+"<ul>Added fox-morph book to Lilaya's Library. (Rfpnj PR#871)</ul>"
+			+"<ul>Added a couple more entries to DisplacementType Enum: OPEN and UNBUCKLE. (Rfpnj PR#877)</ul>"
+			+"<ul>Added support for silly mode (disabled by default), which for now just changes the race name 'wolf-morph' to 'awoo-morph'. (Nnxx PR#887)</ul>"
+			+"<ul>Added: Leather belt, sold by Nyan. Masculine, hip slot. (kobolds PR#879)</ul>"
+			
+			+"<li>DJ4ddi's Artwork image improvements (PR#881):</li>"
+			+"<ul>Improved image scaling (removes jagged edges from a lot of in-game images).</ul>"
+			+"<ul>Naked player images are no longer hidden.</ul>"
+			+"<ul>Image selection controls now work for the player.</ul>"
+			+"<ul>Newly created NPCs (e.g. after starting a new game) now have their artwork loaded immediately.</ul>"
+			+"<ul>Unrecognized file name prefixes are now loaded as clothed.</ul>"
+			+"<ul>The tooltip image is now hidden if it is locked in the info screen.</ul>"
+			+"<ul>JPG images actually work.</ul>"
+			+"<ul><b>Added:</b> A small button with an encircled '+' icon is now placed next to the artist information button (or in the same spot, if there is no artwork). Clicking it opens a dialogue that allows selecting one or more image files which are copied into the character's folder and imported into the game. A log entry indicates success or failure of the import.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>You can now use non-transformative items on Elementals.</ul>"
+			+"<ul>Standardised the decision making of all non-unique NPCs in regards to accepting an item from you, and improved some of the descriptions of them using items you give to them, based on their fetishes.</ul>"
+			+"<ul>Slaves and friendly occupants are now always no longer affected by level scaling, instead of only being reset to their real level once added to your party.</ul>"
+			+"<ul>Changed the 'Important status effects' interrupt screen's continue button placement from action 6 to action 0. (So it's easier to continue by just pressing space instead of 6.)</ul>"
+			+"<ul>Added NPC icons to the phone's map, and information in the tooltip to show who is present in that tile. (With a greyed-out name if that tile is the character's home tile, but they are currently elsewhere.)</ul>"
+			+"<ul>Masochistic slaves now gain affection from being spanked, and both masochistic and exhibitionist slaves gain affection from being inspected.</ul>"
+			+"<ul>Improved virginity loss tracking code, and added virginity-taken counts to tattoo count types. Also improved the tattoo count UI a little. (Virginity counts will all start at 0 from this version, as previous versions didn't track who took a character's virginity.)</ul>"
+			+"<ul>Added hair modification as a secondary element to penis and vagina transformation potions, which increases/decreases pubic hair. (Not displayed if pubic hair is turned off in content options.)</ul>"
+			+"<ul>Added foot actions to face-sitting sex position.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major issue of friendly occupants accidentally being deleted once they'd moved out to their new apartment.</ul>"
+			+"<ul>Fixed 'Butler' job not being available at character creation.</ul>"
+			+"<ul>Fixed issue where some sex scenes would not correctly re-equip all clothing after sex.</ul>"
+			+"<ul>Added a new ClothingSlot 'ANUS', and applied it to all clothing and butt plugs, so they can't be inserted/removed through clothing anymore.</ul>"
+			+"<ul>Fixed issue where the game would softlock when anyone orgasmed while performing paizuri or thigh sex.</ul>"
+			+"<ul>You can no longer use the 'Talk' option after combat with arcane storm attackers.</ul>"
+			+"<ul>Orgasming while hotdogging or performing paizuri or thigh-sex will now correctly cover your partner's ass/breasts+face/legs with cum.</ul>"
+			+"<ul>Facials will now correctly cover the mouth, neck, and eye clothing slots in cum, or, if covered, the clothing in those slots.</ul>"
+			+"<ul>Doggy style 'Cum over back' orgasm should now correctly cover the targets back & clothing in cum.</ul>"
+			+"<ul>Androgynous characters now have access to glasses in character creation.</ul>"
+			+"<ul>Dirty inventory slots will now correctly be saved/loaded.</ul>"
+			+"<ul>Fixed UI bug in enchantment screen, where, depending on the order in which you removed enchantments, the remove button would stop showing the removal price.</ul>"
+			+"<ul>Footjobs are no longer disabled in kneeling oral position when there's an ongoing blowjob.</ul>"
+			+"<ul>Fixed some issues in body part descriptors that were throwing errors in sex.</ul>"
+			+"<ul>Fixed conditional parsing errors in new alleyway attacker dialogue.</ul>"
+			+"<ul>Fixed bug where in the nightclub, if you bought a drink that gets you drunk, your speech would be slurred before being described as drinking it.</ul>"
+			+"<ul>Fixed issue where enslaving a friendly occupant would break a lot of menus and slavery management options.</ul>"
+			+"<ul>Fixed issue where friendly occupants added to your house in v0.2.9.5 would not have their name known.</ul>"
+			+"<ul>Fixed exploit where you could get any NPC to use any transformation item if you first placed it in their inventory.</ul>"
+			+"<ul>Fixed some grammatical mistakes in sex actions.</ul>"
+			+"<ul>Fixed 'Slap ass' action in 'stocks' and 'milking stall' sex scenes returning a huge amount of errors.</ul>"
+			+"<ul>Added support for clothing/tattoo mods to use a correctly-spelled version of the 'coreAtributes' element.</ul>"
+			+"<ul>Fixed alleyway attackers being referred to by their name before they've told you it.</ul>"
+			+"<ul>Fixed issue where setting all or all-but-one gender preferences to off would cause background errors to be thrown, which most notably disabled the 'New Game' action.</ul>"
+			+"<ul>You can no longer install guest rooms before finishing the quest 'Bed & Board'. (The one where you get permission from Lilaya to install guest rooms.)</ul>"
+			+"<ul>Fixed nightclub dialogue where, as the sub, you refuse to have sex in the toilet.</ul>"
+			+"<ul>Fixed incorrect foot descriptions being used in the request to cum on feet.</ul>"
+			+"<ul>Fixed peaceful canal introduction dialogue not being found.</ul>"
+			+"<ul>You can no longer send slaves which you do not own to Kate, or assign their perk points.</ul>"
+			+"<ul>Fixed bug that could sometimes cause NPCs to use your ass after accepting your request to use theirs.</ul>"
+			+"<ul>Fixed not being able to interact with your friend's apartment if they were out at work.</ul>"
+			+"<ul>Fixed NPCs in group sex scenes always losing affection towards only you, instead of each of the people they're having sex with.</ul>"
+			+"<ul>Wrapped some code in try-catch blocks to try and handle the issue where Nyan and Finch sometimes don't restock correctly.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed issue where you'd lose all knowledge of NPCs' areas upon loading your game.</ul>"
+			+"<ul>Fixed alleyway attackers incorrectly saying that you were the one to get them pregnant.</ul>"
+			+"<ul>Fixed NPCs referring to the wrong person while dirty talking in group sex scenes.</ul>"
+			+"<ul>Fixed issue where cleaning clothes in your inventory (through your room's 'wash' action) would cause a background error, making the cleaned clothes impossible to select.</ul>"
+			+"<ul>Loading a game will no longer trigger autosave once loading is complete.</ul>"
+			+"<ul>Dominant/submissive clubbers can no longer spawn in hating or disliking dominant/submissive fetishes, respectively.</ul>"
+			+"<ul>Fixed bug where friendly occupants could move into a guest room already occupied by someone else.</ul>"
+			+"<ul>Fixed bug where if one of the friendly occupants had moved out to an apartment, the 'Manage People' action in rooms would no longer work.</ul>"
+			+"<ul>Fixed being able to move friendly occupants back into your guest rooms from their apartments</ul>"
+			+"<ul>Fixed penis/testicle transformations being applied to your dildo if you were wearing one.</ul>"
+			+"<ul>Removing a strapon that is engaged in penetration during sex will now correctly stop that penetration.</ul>"
+			+"<ul>NPCs arousal is no longer affected by self actions that you perform.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.10.2</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed errors in 'Seductive look' action.</ul>"
+			+"<ul>Fixed issue where if you had a companion that was a slave that you imported through the Auction Block, the game would break.</ul>"
+			+"<ul>Fixed not being able to penetrate partners vaginally when you're in the missionary (on your back) position.</ul>"
+			+"<ul>Fixed tattoo defloration counters being reset each time you loaded a game.</ul>"
+			+"<ul>Typo fixes.</ul>"
 		+ "</list>"
 	;
 	

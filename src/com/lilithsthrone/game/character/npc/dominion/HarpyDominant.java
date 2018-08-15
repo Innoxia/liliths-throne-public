@@ -184,10 +184,9 @@ public class HarpyDominant extends NPC {
 	}
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
 		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
 			if(Sex.isDom(Main.game.getPlayer())) {
-				Main.game.getPlayer().removeItem(item);
 				return "<p>"
 							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 							+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
@@ -198,7 +197,7 @@ public class HarpyDominant extends NPC {
 							+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
 							+ " [npc.speechNoEffects(~Aah!~ I feel... all hot inside...)]"
 						+ "</p>"
-						+ Main.game.getPlayer().useItem(item, target, false);
+						+ itemOwner.useItem(item, target, false);
 			} else {
 				return "<p>"
 							+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
@@ -207,7 +206,7 @@ public class HarpyDominant extends NPC {
 			}
 		}
 		
-		return super.getItemUseEffects(item, user, target);
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 
 }

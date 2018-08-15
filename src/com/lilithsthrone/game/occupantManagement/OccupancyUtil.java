@@ -131,6 +131,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
 			if(occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+				System.out.println(occupant.getName());
 				if(Math.random()<0.1) {
 					List<Occupation> occupations = new ArrayList<>();
 					for(Occupation occ : Occupation.values()) {
@@ -140,6 +141,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 					occupant.setHistory(Util.randomItemFrom(occupations));
 					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
+					System.out.println(occupant.getHistory().getName());
 				}
 			}
 		}
@@ -154,9 +156,7 @@ public class OccupancyUtil implements XMLSaving {
 
 			if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
 				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
-					if(Main.game.getDateNow().getDayOfWeek().getValue()>=occupant.getHistory().getStartDay().getValue()
-							&& Main.game.getDateNow().getDayOfWeek().getValue()<=occupant.getHistory().getEndDay().getValue()
-							&& occupant.getHistory().getWorkHours()[hour]) {
+					if(occupant.getHistory().isAtWork(hour)) {
 						occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 						
 					} else {
@@ -1144,7 +1144,7 @@ public class OccupancyUtil implements XMLSaving {
 		for(int i=0; i< grid.length; i++) {
 			for(int j=0; j< grid[0].length; j++) {
 				Cell c = grid[i][j];
-				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersPresent(c).isEmpty()) {
+				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersTreatingCellAsHome(c).isEmpty()) {
 					return c;
 				}
 			}

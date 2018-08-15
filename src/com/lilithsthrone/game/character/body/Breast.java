@@ -688,7 +688,7 @@ public class Breast implements BodyPartInterface, Serializable {
 										lactationChange+"ml of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
-							?"<br/><i>[npc.Name] now has no more [pc.milk] stored in [npc.her] breasts!</i>"
+							?"<br/><i>[npc.Name] now has no more [npc.milk] stored in [npc.her] breasts!</i>"
 							:"")
 						+ "</p>");
 			}

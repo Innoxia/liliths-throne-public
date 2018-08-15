@@ -16,12 +16,11 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.2
- * @version 0.2.9
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Artwork {
 	
-	private String name;
 	private Artist artist;
 	
 	private int index;

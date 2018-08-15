@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAtributes>
+    <value>150</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[leather belt]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[leather belts]]></namePlural>
+    <description><![CDATA[A simple leather belt that gets better with age.]]></description>
+    
+    <physicalResistance>1</physicalResistance>
+    <femininity>MASCULINE</femininity>
+    <slot>HIPS</slot>
+    <rarity>COMMON</rarity>
+    
+    <imageName>leather_belt.svg</imageName>
+    
+    <clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+    <effects/>
+
+    <blockedPartsList>
+      <blockedParts>
+        
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        
+        <clothingAccessRequired/>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+        
+      </blockedParts>
+    </blockedPartsList>
+    
+    <incompatibleSlots/>
+    
+    <primaryColours values="LEATHER"/>
+    <primaryColoursDye values="ALL"/>
+    <secondaryColours values="ALL_METAL"/>
+    <secondaryColoursDye values="ALL_METAL"/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+    
+    <itemTags>
+      <tag>SOLD_BY_NYAN</tag>
+    </itemTags>
+    
+  </coreAtributes>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You unbuckle the belt from your hips.]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You unbuckle the belt from [npc.Name]'s hips.]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You jerk the belt off of [npc.Name]'s waist and rip it free.]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] unbuckles the belt from [npc.herHis] hips].]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] unbuckles the belt from your hips.]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] jerks the belt off your waist and rips it free.]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] unbuckles the belt around [npc2.name]'s waist.]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc.Name] yanks the belt off [npc2.name]'s waist.]]>
+    </NPCOtherNPCRough>
+  </displacementText>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You slip the belt around your waist and buckle it.]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You wrap the belt around [npc.Name]'s waist and buckle it.]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You snatch [npc.name]'s hips and wrap the belt around their waist.]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] wraps the belt around their waist and buckles it.]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] wraps the belt around your waist and buckles it.]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] snatches your hips and wraps the belt around you tightly.]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] wraps the belt around [npc2.Name]'s waist and buckles it.]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc1.Name] grabs [npc2.name]'s hips and wraps the belt around their waist.]]>
+    </NPCOtherNPCRough>
+  </replacementText>
+  
+  
+</clothing>

@@ -1,7 +1,6 @@
 package com.lilithsthrone.rendering;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,13 +8,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @since 0.2.5.5
- * @version 0.2.9
+ * @version 0.2.10
  * @author Addi
  */
 public enum ImageCache {
 	INSTANCE;
 
 	protected Map<File, CachedImage> cache = Collections.synchronizedMap(new LinkedHashMap<File, CachedImage>(16, 0.75f, true) {
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected boolean removeEldestEntry(Map.Entry<File, CachedImage> eldest) {
 			// Always allow as many as there can be in one room (player, two companions, five slaves)
