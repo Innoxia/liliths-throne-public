@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
@@ -436,7 +435,7 @@ public class OptionsDialogue {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
 						@Override
 						public void effects() {
-							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
+							Game.exportCharacter(Main.game.getPlayer());
 							Main.game.flashMessage(Colour.GENERIC_GOOD, "Character exported!");
 						}
 					};

@@ -5195,7 +5195,7 @@ public class MainControllerInitMethod {
 		
 		// Slave import:
 		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_IMPORT) {
-			for (File f : Main.getSlavesForImport()) {
+			for (File f : Main.getCharactersForImport()) {
 				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
 				
 				if (((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )) != null) {

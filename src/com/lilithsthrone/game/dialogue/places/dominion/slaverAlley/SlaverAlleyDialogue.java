@@ -760,9 +760,9 @@ public class SlaverAlleyDialogue {
 					+ "<p>"
 						+ "<table align='center'>");
 			
-			Main.getSlavesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			Main.getCharactersForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
-			for(File f : Main.getSlavesForImport()){
+			for(File f : Main.getCharactersForImport()){
 				saveLoadSB.append(getImportRow(f.getName()));
 			}
 			
