@@ -53,15 +53,15 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-988.36216)"
+     transform="translate(0,-988)"
      style="display:inline">
     <ellipse
        style="fill:none;fill-opacity:1;stroke:#ff8080;stroke-width:7.3204999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4178"
-       cx="32.001404"
-       cy="1020.2966"
-       rx="27.944206"
-       ry="27.734478" />
+       cx="32"
+       cy="1020"
+       rx="28"
+       ry="28" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ff8080;stroke-width:8.78022575;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 32.001799,1036.2137 0.10499,-18.0848"
