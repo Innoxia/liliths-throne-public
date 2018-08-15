@@ -504,12 +504,12 @@ public class CharacterModificationUtils {
 		if(index!=0) {
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
 					|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine())) {
-				Main.game.getPlayer().setVirginityLoss(type, "your girlfriend");
+				Main.game.getPlayer().setVirginityLoss(type, "", "your girlfriend");
 			} else {
-				Main.game.getPlayer().setVirginityLoss(type, "your boyfriend");
+				Main.game.getPlayer().setVirginityLoss(type, "", "your boyfriend");
 			}
 		} else {
-			Main.game.getPlayer().setVirginityLoss(type, null);
+			Main.game.getPlayer().resetVirginityLoss(type);
 		}
 		
 		if(type.getPerformingSexArea()==SexAreaPenetration.PENIS) {
@@ -4003,7 +4003,7 @@ public class CharacterModificationUtils {
 					+ "</div>"
 					+ (Main.game.isInNewWorld()
 						?"<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
-								+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
+								+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled && tattooInSlot!=null?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
 							+ "</div>"
 						:"")
 				+ "</div>"
@@ -4216,20 +4216,10 @@ public class CharacterModificationUtils {
 					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
 						contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
 						for(TattooCounterType counterType : TattooCounterType.values()) {
-							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
+							contentSB.append("<div style='width:48%; margin:1%; padding:0; display:inline-block;'>"
 												+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
 														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
 													+Util.capitaliseSentence(counterType.getName())+"</div>"
-											+ "</div>");
-						}
-					contentSB.append("</div>");
-					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-						contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
-						for(TattooCountType countType : TattooCountType.values()) {
-							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
-												+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
-														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
-													+Util.capitaliseSentence(countType.getName())+"</div>"
 											+ "</div>");
 						}
 					contentSB.append("</div>");
@@ -4254,6 +4244,18 @@ public class CharacterModificationUtils {
 									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
 								+ "</div>");
 					}
+					
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+						contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
+						for(TattooCountType countType : TattooCountType.values()) {
+							contentSB.append("<div style='width:98%; margin:1%; padding:0; display:inline-block;'>"
+												+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
+														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+													+Util.capitaliseSentence(countType.getName())+"</div>"
+											+ "</div>");
+						}
+					contentSB.append("</div>");
+					
 					contentSB.append("<div class='container-full-width'>"
 							+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
 							+ "</div>");

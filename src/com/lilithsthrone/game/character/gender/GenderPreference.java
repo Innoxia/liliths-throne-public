@@ -33,7 +33,8 @@ public enum GenderPreference {
 		
 		for(Gender g : Gender.values()) {
 			if((!requiresVagina || g.getGenderName().isHasVagina())
-					&& (!requiresPenis || g.getGenderName().isHasPenis())) {
+					&& (!requiresPenis || g.getGenderName().isHasPenis())
+					&& Main.getProperties().genderPreferencesMap.get(g)>0) {
 				genderMap.put(g, Main.getProperties().genderPreferencesMap.get(g));
 			}
 		}

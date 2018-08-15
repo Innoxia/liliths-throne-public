@@ -1120,6 +1120,104 @@ public class WeaponType {
 		}
 	};
 
+	public static AbstractWeaponType OFFHAND_BOW_AND_ARROW = new AbstractWeaponType(2500,
+			false,
+			"an",
+			"it",
+			false,
+			"Arcane Short Bow",
+			"Arcane Short Bows",
+			"Fire Bow",
+			"This short bow is infused with a potent arcane enchantment, which, once the string is drawn back, extracts an arcane essence out of the user's aura, before converting it into a bolt of energy to be fired at the target.",
+			InventorySlot.WEAPON_MAIN,
+			"bowandarrow",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			18,
+			1,
+			DamageVariance.LOW,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your "+this.getName()+".";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your "+this.getName()+" away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse(character, target,
+					UtilText.returnStringAtRandom(
+							"Pulling back the arcane bow's string, an essence is drawn out of [npc.namePos] arcane aura, before [npc.she] [npc.verb(let)] loose and fires it at [npc2.name].",
+							"[npc.Name] pulls the bow's string back, grinning as an arcane essence is drawn out of [npc.her] arcane aura, before letting loose and firing the newly-formed bolt straight at [npc2.name].")));
+			
+			if(isHit) {
+				return UtilText.parse(character, target,
+						UtilText.returnStringAtRandom(
+								" The ethereal arrow hits its mark, and passes right through [npc2.namePos] chest, causing [npc2.herHim] to gasp and stagger back from the blow.",
+								" The arcane arrow sails straight through the centre of [npc2.namePos] chest, causing [npc2.herHim] to let out a shocked gasp as [npc2.she] staggers back."));
+			} else {
+				return UtilText.parse(character, target,
+						UtilText.returnStringAtRandom(
+								" The ethereal arrow sails harmlessly off to one side of its target, causing [npc.name] to let out a frustrated sigh.",
+								" The arcane arrow sails harmlessly over [npc2.namePos] shoulder, causing [npc2.herHim] to let out a mocking laugh."));
+			}
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Shoot at [npc.name] with your "+this.getName()+"!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case LUST:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+			}
+			return null;
+		}
+	};
+	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>(), allweapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();

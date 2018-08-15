@@ -191,7 +191,7 @@ public class HarpyNympho extends NPC {
 
 
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
 		if(user.isPlayer()
 				&& !target.isPlayer()
 				&& (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
@@ -207,7 +207,7 @@ public class HarpyNympho extends NPC {
 							+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
 							+ " [npc.speechNoEffects(~Aah!~ I feel... all hot inside...)]"
 						+ "</p>"
-						+ Main.game.getPlayer().useItem(item, target, false);
+						+ itemOwner.useItem(item, target, false);
 			} else {
 				return "<p>"
 							+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and sighs,"
@@ -216,6 +216,6 @@ public class HarpyNympho extends NPC {
 			}
 		}
 		
-		return super.getItemUseEffects(item, user, target);
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 }

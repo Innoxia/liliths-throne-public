@@ -143,18 +143,21 @@ public class Lilaya extends NPC {
 	}
 
 	@Override
-	protected String getArtworkFolderName() {
+	public String getArtworkFolderName() {
 		switch(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()) {
-			case SKIN_LIGHT:
-				return "LilayaLight";
+			case SKIN_PORCELAIN:
+			case SKIN_PALE:
+				return "LilayaPale";
+			case SKIN_TANNED:
 			case SKIN_OLIVE:
 				return "LilayaOlive";
+			case SKIN_CHOCOLATE:
 			case SKIN_DARK:
 				return "LilayaDark";
 			case SKIN_EBONY:
 				return "LilayaEbony";
 			default:
-				return "LilayaPale";
+				return "LilayaLight";
 		}
 	}
 

@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -95,12 +96,12 @@ public class Penis implements BodyPartInterface, Serializable {
 		List<String> list = new ArrayList<>();
         
 		for(PenetrationModifier pm : penisModifiers) {
-			if(!(Main.game.isInSex() && pm == PenetrationModifier.SHEATHED)) {
+			if(!Main.game.isInSex() && pm!=PenetrationModifier.SHEATHED) {
 				list.add(pm.getName());
 			}
 		}
 		list.add(type.getDescriptor(owner));
-		if(Main.game.isInSex()) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
 			list.add("hard");
 			if(this.getType()!=PenisType.DILDO) {
 				list.add("throbbing");
@@ -557,7 +558,7 @@ public class Penis implements BodyPartInterface, Serializable {
 			return "";
 		}
 		
-		if(!owner.hasPenis()) {
+		if(!owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -637,7 +638,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	 * Sets the size. Value is bound to >=0 && <=PenisSize.SEVEN_STALLION.getMaximumValue()
 	 */
 	public String setPenisSize(GameCharacter owner, int size) {
-		if(!owner.hasPenis()) {
+		if(!owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -708,7 +709,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	}
 
 	public String setPierced(GameCharacter owner, boolean pierced) {
-		if(this.pierced == pierced || !owner.hasPenis()) {
+		if(this.pierced == pierced || !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -766,7 +767,7 @@ public class Penis implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(!owner.hasPenis()) {
+		if(!owner.hasPenisIgnoreDildo()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have a penis, so nothing happens...)]</p>";
 			} else {

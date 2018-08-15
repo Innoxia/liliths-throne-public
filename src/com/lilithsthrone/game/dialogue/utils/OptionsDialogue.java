@@ -1,13 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -15,12 +7,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderNames;
-import com.lilithsthrone.game.character.gender.GenderPreference;
-import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.gender.*;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -30,10 +17,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.settings.ForcedFetishTendency;
-import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
@@ -42,6 +26,14 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 /**
  * @since 0.1.0
@@ -724,9 +716,9 @@ public class OptionsDialogue {
 					+ "<tr style='height:8px;'></tr>"
 
 					+ getKeybindTableRow(KeyboardAction.MOVE_NORTH)
-					+ getKeybindTableRow(KeyboardAction.MOVE_EAST)
-					+ getKeybindTableRow(KeyboardAction.MOVE_SOUTH)
 					+ getKeybindTableRow(KeyboardAction.MOVE_WEST)
+					+ getKeybindTableRow(KeyboardAction.MOVE_SOUTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_EAST)
 					+ "<tr style='height:8px;'></tr>"
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_1)
@@ -751,6 +743,12 @@ public class OptionsDialogue {
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_TAB)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_TAB)
+					+ "<tr style='height:8px;'></tr>"
+
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_NORTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_WEST)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_SOUTH)
+					+ getKeybindTableRow(KeyboardAction.MOVE_RESPONSE_CURSOR_EAST)
 					+ "</table>"
 					+ "</p>";
 		}
@@ -759,28 +757,102 @@ public class OptionsDialogue {
 		public String getContent(){
 			return "";
 		}
+
+		ArrayList<Properties> presets;
+
+		private void loadPresets() {
+			presets = new ArrayList<>();
+
+			// Load all text files in the folder as properties
+			File presetFolder = new File("res/keybinds");
+			if (presetFolder.exists() && presetFolder.isDirectory()) {
+				for (File f : presetFolder.listFiles((dir, name) -> name.endsWith(".txt"))) {
+					try (FileInputStream input = new FileInputStream(f)) {
+						Properties preset = new Properties();
+						preset.load(input);
+						presets.add(preset);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				presetFolder.mkdirs();
+			}
+		}
+
+		private void loadPreset(Properties preset) {
+			// Clear existing mappings
+			Main.getProperties().hotkeyMapPrimary.clear();
+			Main.getProperties().hotkeyMapSecondary.clear();
+
+			// Create a key mapping for every action contained in the given property
+			for (KeyboardAction ka : KeyboardAction.values()) {
+				if (preset.containsKey(ka.name())) {
+					String[] keys = preset.getProperty(ka.name()).split(" or ");
+					Main.getProperties().hotkeyMapPrimary.put(ka, KeyCodeWithModifiers.fromString(keys[0]));
+					if (keys.length == 2) Main.getProperties().hotkeyMapSecondary.put(ka, KeyCodeWithModifiers.fromString(keys[1]));
+				}
+			}
+		}
+
+		private void savePreset(int index) {
+			// Create new properties containing current key mappings
+			Properties preset = new Properties();
+			preset.setProperty("NAME", "Custom " + index);
+			preset.setProperty("DESCRIPTION", "Reapply your previously saved key bindings.");
+
+			for (Map.Entry<KeyboardAction, KeyCodeWithModifiers> e : Main.getProperties().hotkeyMapPrimary.entrySet())
+				if (e.getValue() != null)
+					preset.setProperty(e.getKey().name(), e.getValue().toString());
+
+			for (Map.Entry<KeyboardAction, KeyCodeWithModifiers> e : Main.getProperties().hotkeyMapSecondary.entrySet()) {
+				if (e.getValue() != null) {
+					// Write or append to existing entry
+					String primary = preset.getProperty(e.getKey().name());
+					primary = primary == null ? e.getValue().toString() : primary + " or " + e.getValue().toString();
+					preset.setProperty(e.getKey().name(), primary);
+				}
+			}
+
+			// Write properties to file
+			try (FileOutputStream output = new FileOutputStream("res/keybinds/custom" + index + ".txt")) {
+				preset.store(output, "");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Default keys", "Resets all keybinds to their default values.", KEYBINDS){
+			// Load the presets if uninitialized
+			if (presets == null) loadPresets();
+
+			if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			} else if (index <= presets.size()) {
+				Properties preset = presets.get(index - 1);
+				return new Response(preset.getProperty("NAME", "Custom " + index), preset.getProperty("DESCRIPTION", "Reapply your previously saved key bindings."), KEYBINDS) {
 					@Override
 					public void effects() {
-						for (KeyboardAction ka : KeyboardAction.values()) {
-							Main.getProperties().hotkeyMapPrimary.put(ka, ka.getPrimaryDefault());
-							Main.getProperties().hotkeyMapSecondary.put(ka, ka.getSecondaryDefault());
-						}
+						loadPreset(preset);
 						Main.saveProperties();
-						
 					}
 				};
 				
-			} else if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			}else {
-				return null;
+			} else if (index == 14) {
+				return new Response("Save preset",
+						"Store the current key bindings in a file. If you want to delete any saved presets, navigate to the 'res/keybinds' folder and delete the .txt files that you no longer want."
+								+ " (They will stop showing up in this list after a game restart.)",
+						KEYBINDS) {
+					@Override
+					public void effects() {
+						savePreset(presets.size() - 2);
+						loadPresets();
+					}
+				};
 			}
+			return null;
 		}
 
 		@Override
@@ -1513,6 +1585,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+				"SILLY",
+				Colour.GENERIC_GOOD,
+				"Silly mode",
+				"This enables funny flavour text throughout the game.",
+					Main.getProperties().hasValue(PropertyValue.sillyMode)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"VOLUNTARY_NTR",
 							Colour.GENERIC_MINOR_BAD,
 							"Voluntary NTR",
@@ -1896,7 +1975,9 @@ public class OptionsDialogue {
 						+ "Artists whose character art can be found in the game:<br/>");
 			
 			for(Artist artist : Artwork.allArtists) {
-				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
+				if (!artist.getName().equals("Custom")) {
+					UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
+				}
 			}	
 
 			UtilText.nodeContentSB.append("<br/>"

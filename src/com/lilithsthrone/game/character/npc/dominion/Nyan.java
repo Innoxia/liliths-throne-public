@@ -261,45 +261,50 @@ public class Nyan extends NPC {
 		specials.clear();
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
-				if(clothing.getRarity() == Rarity.COMMON) {
-					if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
-						if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
-							commonFemaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
+			try {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+					if(clothing.getRarity() == Rarity.COMMON) {
+						if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+								commonFemaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+								commonFemaleUnderwear.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else {
+								commonFemaleAccessories.add(AbstractClothingType.generateClothing(clothing, false));
+							}
 							
-						} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
-							commonFemaleUnderwear.add(AbstractClothingType.generateClothing(clothing, false));
+						} else if(clothing.getFemininityRestriction()==Femininity.MASCULINE) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+								commonMaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+								commonMaleLingerie.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else {
+								commonMaleAccessories.add(AbstractClothingType.generateClothing(clothing, false));
+							}
 							
 						} else {
-							commonFemaleAccessories.add(AbstractClothingType.generateClothing(clothing, false));
-						}
-						
-					} else if(clothing.getFemininityRestriction()==Femininity.MASCULINE) {
-						if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
-							commonMaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
-							
-						} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
-							commonMaleLingerie.add(AbstractClothingType.generateClothing(clothing, false));
-							
-						} else {
-							commonMaleAccessories.add(AbstractClothingType.generateClothing(clothing, false));
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+								commonAndrogynousClothing.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+								commonAndrogynousLingerie.add(AbstractClothingType.generateClothing(clothing, false));
+								
+							} else {
+								commonAndrogynousAccessories.add(AbstractClothingType.generateClothing(clothing, false));
+							}
 						}
 						
 					} else {
-						if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
-							commonAndrogynousClothing.add(AbstractClothingType.generateClothing(clothing, false));
-							
-						} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
-							commonAndrogynousLingerie.add(AbstractClothingType.generateClothing(clothing, false));
-							
-						} else {
-							commonAndrogynousAccessories.add(AbstractClothingType.generateClothing(clothing, false));
-						}
+						specials.add(AbstractClothingType.generateClothing(clothing, false));
 					}
-					
-				} else {
-					specials.add(AbstractClothingType.generateClothing(clothing, false));
-				}
+				} 
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
 		

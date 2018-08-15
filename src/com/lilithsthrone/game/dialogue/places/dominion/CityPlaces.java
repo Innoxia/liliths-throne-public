@@ -2,7 +2,9 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.Weather;
@@ -44,7 +46,10 @@ public class CityPlaces {
 		StringBuilder cultistSB = new StringBuilder();
 		StringBuilder reindeerSB = new StringBuilder();
 		
-		for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
+		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+		
+		for(NPC npc : characters) {
 
 			if(npc instanceof RentalMommy) {
 				mommySB.append(
@@ -103,8 +108,11 @@ public class CityPlaces {
 		List<Response> occupantResponses = new ArrayList<>();
 		List<Response> cultistResponses = new ArrayList<>();
 		List<Response> reindeerResponses = new ArrayList<>();
+
+		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
+		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
 		
-		for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+		for(NPC npc : characters) {
 			
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {

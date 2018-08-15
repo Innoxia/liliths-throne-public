@@ -16,6 +16,7 @@ public enum PropertyValue {
 	calendarDisplay(true),
 	twentyFourHourTime(true),
 	tattooRemovalConfirmations(true),
+	sillyMode(false),
 
 	ageContent(true),
 	furryTailPenetrationContent(false),

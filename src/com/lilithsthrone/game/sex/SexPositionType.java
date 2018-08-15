@@ -180,7 +180,9 @@ public enum SexPositionType {
 							new Value<>(
 									SexPositionSlot.FACE_SITTING_ON_FACE,
 									new SexActionInteractions(
-											SexActionPresets.fingerToLowerHalf)))))) {
+											Util.mergeMaps(
+												SexActionPresets.fingerToLowerHalf,
+												SexActionPresets.penisToFeet))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_BACK), Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_FACE),
@@ -453,6 +455,10 @@ public enum SexPositionType {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
 					"[npc2.NameIsFull] kneeling on the floor in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
 		}
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			return false;
+		}
 	},
 	
 	MISSIONARY("Missionary",
@@ -467,8 +473,7 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToVagina,
-													SexActionPresets.groinToAss,
+													SexActionPresets.groinToGroin,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
 													SexActionPresets.breastsToMouth,

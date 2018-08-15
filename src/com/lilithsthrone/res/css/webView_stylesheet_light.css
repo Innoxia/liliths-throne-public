@@ -2328,6 +2328,21 @@ border-radius:5px;
     -webkit-animation-iteration-count: infinite;
 }
 
+.npc-icon{
+	position:absolute;
+	height:33%;
+	width:33%;
+	top:2px;
+	left:2px;
+}
+.npc-home-icon{
+	position:absolute;
+	height:33%;
+	width:33%;
+	bottom:2px;
+	left:2px;
+}
+
 @-webkit-keyframes flashYellow {
     0%   {opacity:0;}
     50%  {opacity:0.9;}
