@@ -808,6 +808,24 @@ public class PhoneDialogue {
 						Colour.GENERIC_SEX, !knowsVagina?"Unknown":(character.getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(character.getVaginaPlasticity().getDescriptor())),
 						true)
 				
+				+ (Main.game.isMetabolismEnabled() || Main.game.isBladderEnabled() ? (
+						"<span style='height:16px;width:100%;float:left;'></span>"
+								+ "<h6 style='color:"+Colour.BLADDER.toWebHexString()+"; text-align:center;'>Metabolism Attributes</h6>"
+//								+ statHeader()
+						+ (Main.game.isMetabolismEnabled() ? (
+								statRow(Colour.TRANSFORMATION_GENERIC, "Huger",
+										Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.HUNGER)),
+										Colour.GENERIC_SEX, Main.game.getPlayer().getHungerLevel().getCName(), true)
+								+ statRow(Colour.TRANSFORMATION_GENERIC, "Thirst",
+										Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.THIRST)),
+										Colour.GENERIC_SEX, Main.game.getPlayer().getThirstLevel().getCName(), true)) : "")
+						+ (Main.game.isBladderEnabled() ? (
+								statRow(Colour.TRANSFORMATION_GENERIC, "Bladder",
+										Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
+										Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true)) : ""))
+						+ "</div>"
+						: "")
+
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Anus Attributes</h6>"
 //				+ statHeader()

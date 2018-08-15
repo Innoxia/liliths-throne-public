@@ -4751,7 +4751,9 @@ public class MainControllerInitMethod {
 					new Value<>("HAIR_ASS", PropertyValue.assHairContent),
 					new Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
 					new Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
-					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent));
+					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
+					new Value<>("METABOLISM", PropertyValue.metabolismContent),
+					new Value<>("BLADDER", PropertyValue.bladderContent));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				id = entry.getKey()+"_ON";
