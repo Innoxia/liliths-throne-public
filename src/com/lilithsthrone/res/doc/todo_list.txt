@@ -140,6 +140,7 @@
 		You now have management options available for friendly occupants who have moved out into an apartment.
 		You can now ask friendly occupants to transform, under the 'Manage' tab (if they are a demon or slime). Also moved the transform option to the 'Manage' tab for slaves.
 		Standardised all races' parts names, and removed Latin part names for all but canine, feline, equine, and bovine.
+		Changed race discovery tracking to subspecies tracking.
 	
 	Bugs:
 		Typo and parsing fixes.
@@ -150,6 +151,9 @@
 		Rose will now correctly prioritise penetrating your vagina or ass in her sex scene.
 		Fixed NPCs commenting on strap-on reveals twice.
 		Fixed UI issue in transformation dialogues where selecting buttons would change their size, sometimes making the buttons wrap around onto the next line.
+		Fixed Imp Essences not being able to be used by demons.
+	
+	
 	
 	
 	fixes
@@ -159,16 +163,11 @@
 	PRs dev
 	
 	
+	Message Jam about characters
 	
+	Fix Subspecies SLIME entries
 	
-	Remove IMP types, make Imp based on size
-		Need catch for IMP -> DEMON
-	Size categories, with special TF needed to go from AVERAGE to SMALL
-		TINY 0 -> 2
-		SMALL 2 -> 4.5
-		AVERAGE 4.5 -> 8
-		TALL 8 -> 
-	
+	Add feathered demon wings
 	
 	Fix cat and slime icons
 	
@@ -178,6 +177,10 @@
 		Revamp post-combat options to use sex and manage tabs
 	
 	Scarlett refusing TF potions
+	
+	This slave, a trap, has options in the "Send to Kate" menu for editing their vagina, even though they don't have one
+		It is removed once I exit the menu and re-enter it.
+		It seems to have been editing my character instead, even though I used the "Send to Kate" button in the "Manage People" button.
 	
 	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
 	can no longer pull down briefs to expose male genitals without pulling down the pants (Cargo trousers, jeans, trousers etc) Even though with 0.2.10 you could after simply unzipping.

@@ -12,15 +12,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
 	NONE(null, null, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
-
-	IMP(BodyCoveringType.IMP, Race.IMP, true),
 
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true);
 
@@ -32,6 +30,16 @@ public enum WingType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.race = race;
 		this.allowsFlight = allowsFlight;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static WingType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	public boolean allowsFlight() {
@@ -64,8 +72,6 @@ public enum WingType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("angelic", "huge", "feathered");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic", "bat-like");
-			case IMP:
-				return UtilText.returnStringAtRandom("impish", "bat-like");
 			case NONE:
 				return "";
 		}
@@ -76,11 +82,9 @@ public enum WingType implements BodyPartTypeInterface {
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
-				return "angelic";
+				return "angelic feathered";
 			case DEMON_COMMON:
 				return "demonic bat-like";
-			case IMP:
-				return "bat-like";
 			case NONE:
 				return "none";
 		}

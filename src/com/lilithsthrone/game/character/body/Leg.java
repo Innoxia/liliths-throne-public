@@ -121,46 +121,39 @@ public class Leg implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" They quickly shift into a pair of smooth, slender legs, and you let out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
-								+ " As they finish transforming, you almost lose your balance and fall over as the bones in your feet start to shift and rearrange themselves."
-								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
-								+ "You now have [style.boldDemon(demonic legs and feet)], which are covered in [pc.legFullDescription]."
-							+ "</p>");
+							" They quickly shift into a pair of smooth, slender legs, and [npc.she] [npc.verb(let)] out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
+							+ " As they finish transforming, [npc.she] almost [npc.verb(lose)] [npc.her] balance as the bones in [npc.her] feet start to shift and rearrange themselves."
+							+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(demonic legs and feet)], which are covered in [npc.legFullDescription]."
+						+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" They quickly shift into a pair of smooth, slender legs, and [npc.she] lets out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
-								+ " As they finish transforming, [npc.she] almost loses [npc.her] balance as the bones in [npc.her] feet start to shift and rearrange themselves."
-								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
-								+ "[npc.Name] now has [style.boldDemon(demonic legs and feet)], which are covered in [npc.legFullDescription]."
-							+ "</p>");
+							" They quickly shift into a pair of smooth, slender legs, and [npc.she] [npc.verb(let)] out a gasp as a layer of flawless, impish skin rapidly grows to cover them."
+							+ " As they finish transforming, [npc.she] almost [npc.verb(lose)] [npc.her] balance as the bones in [npc.her] feet start to shift and rearrange themselves."
+							+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(impish legs and feet)], which are covered in [npc.legFullDescription]."
+						+ "</p>");
 				}
 				break;
 			case DEMON_HOOFED:
-				UtilText.transformationContentSB.append(
+				if (!owner.isShortStature()) {
+					UtilText.transformationContentSB.append(
+								" They quickly shift into a pair of smooth, slender legs, and [npc.name] [npc.verb(let)] out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
+								+ " As [npc.her] new skin spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place,"
+									+ " quickly transforming to turn [npc.her] feet into hard, demonic hoofs."
+								+ " As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new skin smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
+								+ "[npc.NameIsFull] left with [style.boldDemon(demonic legs and hoofed feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
 							" They quickly shift into a pair of smooth, slender legs, and [npc.name] [npc.verb(let)] out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
 							+ " As [npc.her] new skin spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place,"
 								+ " quickly transforming to turn [npc.her] feet into hard, demonic hoofs."
 							+ " As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new skin smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
-							+ "[npc.NameIsFull] left with [style.boldDemon(demonic legs and hoofed feet)], which are covered in [pc.legFullDescription]."
+							+ "[npc.NameIsFull] left with [style.boldImp(impish legs and hoofed feet)], which are covered in [npc.legFullDescription]."
 						+ "</p>");
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" They quickly shift into a pair of smooth, slender legs, and you let out a gasp as a layer of flawless, impish skin rapidly grows to cover them."
-								+ " As they finish transforming, you almost lose your balance and fall over as the bones in your feet start to shift and rearrange themselves."
-								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
-								+ "You now have [style.boldImp(impish legs and feet)], which are covered in [pc.legFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" They quickly shift into a pair of smooth, slender legs, and [npc.she] lets out a gasp as a layer of flawless, impish skin rapidly grows to cover them."
-								+ " As they finish transforming, [npc.she] almost loses [npc.her] balance as the bones in [npc.her] feet start to shift and rearrange themselves."
-								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.<br/>"
-								+ "[npc.Name] now has [style.boldImp(impish legs and feet)], which are covered in [npc.legFullDescription]."
-							+ "</p>");
 				}
 				break;
 			case DOG_MORPH:

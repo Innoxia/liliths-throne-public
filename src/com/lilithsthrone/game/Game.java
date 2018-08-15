@@ -1638,7 +1638,7 @@ public class Game implements Serializable, XMLSaving {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									}
 									if(!character.isRaceConcealed()) {
-										Main.getProperties().addRaceDiscovered(character.getRace());
+										Main.getProperties().addRaceDiscovered(character.getSubspecies());
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
@@ -1829,7 +1829,7 @@ public class Game implements Serializable, XMLSaving {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
 						if(!character.isRaceConcealed()) {
-							Main.getProperties().addRaceDiscovered(character.getRace());
+							Main.getProperties().addRaceDiscovered(character.getSubspecies());
 						}
 						((NPC) character).setLastTimeEncountered(minutesPassed);
 					}

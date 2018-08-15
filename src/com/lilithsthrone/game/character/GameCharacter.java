@@ -3391,18 +3391,30 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getValueAsSlave() {
 		int value = 10000;
-		switch(this.getRace()) {
-			case NONE:
-				break;
+		switch(this.getSubspecies()) {
 			case ANGEL:
 				value = 80000;
 				break;
-			case CAT_MORPH: case DOG_MORPH:
+			case CAT_MORPH:
+			case CAT_MORPH_CARACAL:
+			case CAT_MORPH_CHEETAH:
+			case CAT_MORPH_LEOPARD:
+			case CAT_MORPH_LEOPARD_SNOW:
+			case CAT_MORPH_LION:
+			case CAT_MORPH_LYNX:
+			case CAT_MORPH_TIGER:
+				value = 12000;
+				break;
+			case DOG_MORPH:
+			case DOG_MORPH_BORDER_COLLIE:
+			case DOG_MORPH_DOBERMANN:
 				value = 8000;
 				break;
-			case COW_MORPH: case HORSE_MORPH:
+			case COW_MORPH:
 				value = 15000;
 				break;
+			case HORSE_MORPH:
+			case HORSE_MORPH_ZEBRA:
 			case REINDEER_MORPH:
 				value = 18000;
 				break;
@@ -3415,9 +3427,12 @@ public abstract class GameCharacter implements XMLSaving {
 				value = 60000;
 				break;
 			case IMP:
+			case IMP_ALPHA:
 				value = 1000;
 				break;
 			case HARPY:
+			case HARPY_BALD_EAGLE:
+			case HARPY_RAVEN:
 				value = 12000;
 				break;
 			case HUMAN:
@@ -3429,11 +3444,18 @@ public abstract class GameCharacter implements XMLSaving {
 			case ALLIGATOR_MORPH:
 				value = 10000;
 				break;
-			case WOLF_MORPH: case FOX_MORPH:
+			case WOLF_MORPH:
 				value = 10000;
 				break;
-			case SLIME:
-				value = 10000;
+			case FOX_MORPH:
+			case FOX_MORPH_FENNEC:
+				value = 8000;
+				break;
+			case FOX_ASCENDANT:
+				value = 15000 * this.getTailCount();
+				break;
+			case FOX_ASCENDANT_FENNEC:
+				value = 15000 * this.getTailCount();
 				break;
 			case BAT_MORPH:
 				value = 10000;
@@ -3442,7 +3464,39 @@ public abstract class GameCharacter implements XMLSaving {
 				value = 6000;
 				break;
 			case RABBIT_MORPH:
+			case RABBIT_MORPH_LOP:
 				value = 12000;
+				break;
+			case SLIME:
+			case SLIME_ALLIGATOR:
+			case SLIME_ANGEL:
+			case SLIME_BAT:
+			case SLIME_CAT:
+			case SLIME_CAT_CARACAL:
+			case SLIME_CAT_CHEETAH:
+			case SLIME_CAT_LEOPARD:
+			case SLIME_CAT_LEOPARD_SNOW:
+			case SLIME_CAT_LION:
+			case SLIME_CAT_LYNX:
+			case SLIME_CAT_TIGER:
+			case SLIME_COW:
+			case SLIME_DEMON:
+			case SLIME_DOG:
+			case SLIME_DOG_BORDER_COLLIE:
+			case SLIME_DOG_DOBERMANN:
+			case SLIME_FOX:
+			case SLIME_FOX_FENNEC:
+			case SLIME_HARPY:
+			case SLIME_HARPY_BALD_EAGLE:
+			case SLIME_HARPY_RAVEN:
+			case SLIME_HORSE:
+			case SLIME_IMP:
+			case SLIME_RABBIT:
+			case SLIME_RAT:
+			case SLIME_REINDEER:
+			case SLIME_SQUIRREL:
+			case SLIME_WOLF:
+				value = 10000;
 				break;
 		}
 		
@@ -14585,6 +14639,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getHeight();
 	}
 
+	public boolean isShortStature() {
+		return this.getHeightValue()<Height.getShortStatureCutOff();
+	}
+	
 	public int getMinimumHeight() {
 		return this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue();
 	}
@@ -16900,7 +16958,6 @@ public abstract class GameCharacter implements XMLSaving {
 				case EYE_HARPY:
 				case EYE_HORSE_MORPH:
 				case EYE_HUMAN:
-				case EYE_IMP:
 				case EYE_LYCAN:
 				case EYE_RABBIT:
 				case EYE_RAT:
@@ -16917,7 +16974,6 @@ public abstract class GameCharacter implements XMLSaving {
 				case HAIR_HARPY:
 				case HAIR_HORSE_HAIR:
 				case HAIR_HUMAN:
-				case HAIR_IMP:
 				case HAIR_LYCAN_FUR:
 				case HAIR_REINDEER_FUR:
 				case HAIR_SCALES_ALLIGATOR:

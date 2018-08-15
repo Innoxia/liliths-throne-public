@@ -1181,7 +1181,7 @@ public class CharacterUtils {
 		}
 		
 		// Penis:
-		if(character.hasPenis() || character.getRace()==Race.DEMON || character.getRace()==Race.IMP) {
+		if(character.hasPenis() || character.getRace()==Race.DEMON) {
 			character.setPenisVirgin(true);
 			if(Math.random()>0.15f
 					|| character.getHistory()==Occupation.NPC_PROSTITUTE

@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -28,8 +28,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, OrificeModifier.MUSCLE_CONTROL),
 
 	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
-
-	IMP(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_IMP, Race.IMP, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
 
 	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH),
 
@@ -69,6 +67,16 @@ public enum VaginaType implements BodyPartTypeInterface {
 		
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static VaginaType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -169,8 +177,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("perfect");
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("irresistible", "demonic");
-					case IMP:
-						return UtilText.returnStringAtRandom("irresistible", "impish");
 					case DOG_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine");
 					case WOLF_MORPH:
@@ -232,8 +238,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return "canine";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:

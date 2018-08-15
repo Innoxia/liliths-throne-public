@@ -477,166 +477,212 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		} else if(rnd<=0.1) {
 			return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL));
 			
-		} else if(rnd <= 0.6) {
-			switch(getRace()) {
-				case NONE:
-					break;
+		} else {
+			AbstractItemType raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
+			AbstractItemType raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
+			AbstractItemType book = ItemType.BOOK_HUMAN;
+			
+			switch(getSubspecies()) {
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY));
+				case CAT_MORPH_CARACAL:
+				case CAT_MORPH_CHEETAH:
+				case CAT_MORPH_LEOPARD:
+				case CAT_MORPH_LEOPARD_SNOW:
+				case CAT_MORPH_LION:
+				case CAT_MORPH_LYNX:
+				case CAT_MORPH_TIGER:
+					book = ItemType.BOOK_CAT_MORPH;
+					raceIngredient = ItemType.INT_INGREDIENT_FELINE_FANCY;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					break;
+					
 				case COW_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK));
+					book = ItemType.BOOK_COW_MORPH;
+					raceIngredient = ItemType.STR_INGREDIENT_BUBBLE_MILK;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_COW_MORPH;
+					break;
+					
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH));
+				case DOG_MORPH_BORDER_COLLIE:
+				case DOG_MORPH_DOBERMANN:
+					book = ItemType.BOOK_DOG_MORPH;
+					raceIngredient = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					break;
+					
 				case FOX_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_GRAPE_JUICE));
+				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_FENNEC:
+				case FOX_MORPH_FENNEC:
+					book = ItemType.BOOK_FOX_MORPH;
+					raceIngredient = ItemType.INT_INGREDIENT_GRAPE_JUICE;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_FOX_MORPH;
+					break;
+					
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER));
+				case HORSE_MORPH_ZEBRA:
+					book = ItemType.BOOK_HORSE_MORPH;
+					raceIngredient = ItemType.STR_INGREDIENT_EQUINE_CIDER;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					break;
+					
 				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_EGG_NOG));
+					book = ItemType.BOOK_REINDEER_MORPH;
+					raceIngredient = ItemType.FIT_INGREDIENT_EGG_NOG;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
+					break;
+					
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY));
+					book = ItemType.BOOK_WOLF_MORPH;
+					raceIngredient = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					break;
+					
 				case HUMAN:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER));
-				case SLIME:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+					book = ItemType.BOOK_HUMAN;
+					raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
+					break;
+					
 				case ANGEL:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					book = ItemType.DYE_BRUSH; //TODO
+					raceIngredient = ItemType.DYE_BRUSH;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
+					break;
+					
 				case DEMON:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT));
+					book = ItemType.BOOK_DEMON;
+					raceIngredient = ItemType.COR_INGREDIENT_LILITHS_GIFT;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_DEMON;
+					break;
+					
 				case IMP:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_IMPISH_BREW));
+				case IMP_ALPHA:
+					book = ItemType.BOOK_IMP;
+					raceIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
+					raceTFIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
+					break;
+					
 				case HARPY:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME));
+				case HARPY_BALD_EAGLE:
+				case HARPY_RAVEN:
+					book = ItemType.BOOK_HARPY;
+					raceIngredient = ItemType.SEX_INGREDIENT_HARPY_PERFUME;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_HARPY;
+					break;
+					
 				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER));
+					book = ItemType.BOOK_ALLIGATOR_MORPH;
+					raceIngredient = ItemType.STR_INGREDIENT_SWAMP_WATER;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
+					break;
+					
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA));
+					book = ItemType.BOOK_SQUIRREL_MORPH;
+					raceIngredient = ItemType.FIT_INGREDIENT_SQUIRREL_JAVA;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					break;
+					
 				case BAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH));
+					book = ItemType.BOOK_BAT_MORPH;
+					raceIngredient = ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_BAT_MORPH;
+					break;
+					
 				case RAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM));
+					book = ItemType.BOOK_RAT_MORPH;
+					raceIngredient = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_RAT_MORPH;
+					break;
+					
 				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE));
+				case RABBIT_MORPH_LOP:
+					book = ItemType.BOOK_RABBIT_MORPH;
+					raceIngredient = ItemType.SEX_INGREDIENT_BUNNY_JUICE;
+					raceTFIngredient = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
+					break;
+					
 				case ELEMENTAL_AIR:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
+					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
+					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
+					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
+					break;
+					
 				case ELEMENTAL_ARCANE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
+					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					break;
+					
 				case ELEMENTAL_EARTH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
+					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					break;
+					
 				case ELEMENTAL_FIRE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
+					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					break;
+					
 				case ELEMENTAL_WATER:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
+					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
+					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
+					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
+					break;
+					
+				case SLIME:
+				case SLIME_ALLIGATOR:
+				case SLIME_ANGEL:
+				case SLIME_BAT:
+				case SLIME_CAT:
+				case SLIME_CAT_CARACAL:
+				case SLIME_CAT_CHEETAH:
+				case SLIME_CAT_LEOPARD:
+				case SLIME_CAT_LEOPARD_SNOW:
+				case SLIME_CAT_LION:
+				case SLIME_CAT_LYNX:
+				case SLIME_CAT_TIGER:
+				case SLIME_COW:
+				case SLIME_DEMON:
+				case SLIME_DOG:
+				case SLIME_DOG_BORDER_COLLIE:
+				case SLIME_DOG_DOBERMANN:
+				case SLIME_FOX:
+				case SLIME_FOX_FENNEC:
+				case SLIME_HARPY:
+				case SLIME_HARPY_BALD_EAGLE:
+				case SLIME_HARPY_RAVEN:
+				case SLIME_HORSE:
+				case SLIME_IMP:
+				case SLIME_RABBIT:
+				case SLIME_RAT:
+				case SLIME_REINDEER:
+				case SLIME_SQUIRREL:
+				case SLIME_WOLF:
+					book = ItemType.BOOK_SLIME;
+					raceIngredient = ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
+					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+						raceTFIngredient = ItemType.RACE_INGREDIENT_SLIME;
+					} else {
+						raceTFIngredient =  ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
+					}
+					break;
+					
 			}
 			
-		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
-			switch(getRace()) {
-				case NONE:
-					break;
-				case CAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH));
-				case COW_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH));
-				case DOG_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH));
-				case FOX_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_FOX_MORPH));
-				case HORSE_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH));
-				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_REINDEER_MORPH));
-				case WOLF_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH));
-				case HUMAN:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HUMAN));
-				case SLIME:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_SLIME));
-				case ANGEL:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
-				case DEMON:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_DEMON));
-				case IMP:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_IMP));
-				case HARPY:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HARPY));
-				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_ALLIGATOR_MORPH));
-				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH));
-				case BAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_BAT_MORPH));
-				case RAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_RAT_MORPH));
-				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH));
-				case ELEMENTAL_AIR: //TODO books
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
-				case ELEMENTAL_ARCANE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
-				case ELEMENTAL_EARTH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
-				case ELEMENTAL_FIRE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
-				case ELEMENTAL_WATER:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
-			}
-		
-		} else {
-			switch(getRace()) {
-				case NONE:
-					break;
-				case CAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH));
-				case COW_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH));
-				case DOG_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH));
-				case FOX_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_FOX_MORPH));
-				case HORSE_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH));
-				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_REINDEER_MORPH));
-				case WOLF_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH));
-				case HUMAN:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
-				case SLIME:
-					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
-					} else {
-						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
-					}
-				case ANGEL:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
-				case DEMON: case IMP:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON));
-				case HARPY:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY));
-				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH));
-				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH));
-				case BAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_BAT_MORPH));
-				case RAT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH));
-				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH));
-				case ELEMENTAL_AIR:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
-				case ELEMENTAL_ARCANE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
-				case ELEMENTAL_EARTH:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
-				case ELEMENTAL_FIRE:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
-				case ELEMENTAL_WATER:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
+			if(rnd<0.6) {
+				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceTFIngredient));
+			
+			} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getSubspecies())) {
+				return Util.newArrayListOfValues(AbstractItemType.generateItem(book));
+				
+			} else {
+				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceIngredient));
+				
 			}
 		}
-		
-		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
@@ -890,26 +936,39 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularMaleName();
 			}
 		
-			switch(getPreferredBody().getRace()) {
-				case NONE:
-					break;
+			switch(getPreferredBody().getSubspecies()) {
 				case CAT_MORPH:
+				case CAT_MORPH_CARACAL:
+				case CAT_MORPH_CHEETAH:
+				case CAT_MORPH_LEOPARD:
+				case CAT_MORPH_LEOPARD_SNOW:
+				case CAT_MORPH_LION:
+				case CAT_MORPH_LYNX:
+				case CAT_MORPH_TIGER:
 					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
 					reaction = "Time to turn you into a cute little "+raceName+"!";
 					break;
 				case DOG_MORPH:
+				case DOG_MORPH_BORDER_COLLIE:
+				case DOG_MORPH_DOBERMANN:
 					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					reaction = "Time to turn you into an excitable little "+raceName+"!";
 					break;
 				case FOX_MORPH:
+				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_FENNEC:
+				case FOX_MORPH_FENNEC:
 					itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
 					reaction = "Time to turn you into a cute little "+raceName+"!";
 					break;
 				case HARPY:
+				case HARPY_BALD_EAGLE:
+				case HARPY_RAVEN:
 					itemType = ItemType.RACE_INGREDIENT_HARPY;
 					reaction = "Time to turn you into a hot little "+raceName+"!";
 					break;
 				case HORSE_MORPH:
+				case HORSE_MORPH_ZEBRA:
 					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
 					if (getPreferredBody().getGender().isFeminine()) {
 						reaction = "Time to turn you into my little mare!";
@@ -947,11 +1006,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					itemType = ItemType.RACE_INGREDIENT_BAT_MORPH;
 					break;
 				case RABBIT_MORPH:
+				case RABBIT_MORPH_LOP:
 					itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
 				case ANGEL:
 				case DEMON:
 				case IMP:
+				case IMP_ALPHA:
 				case HUMAN:
 				case SLIME:
 				case ELEMENTAL_AIR:
@@ -959,6 +1020,34 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ELEMENTAL_EARTH:
 				case ELEMENTAL_FIRE:
 				case ELEMENTAL_WATER:
+				case SLIME_ALLIGATOR:
+				case SLIME_ANGEL:
+				case SLIME_BAT:
+				case SLIME_CAT:
+				case SLIME_CAT_CARACAL:
+				case SLIME_CAT_CHEETAH:
+				case SLIME_CAT_LEOPARD:
+				case SLIME_CAT_LEOPARD_SNOW:
+				case SLIME_CAT_LION:
+				case SLIME_CAT_LYNX:
+				case SLIME_CAT_TIGER:
+				case SLIME_COW:
+				case SLIME_DEMON:
+				case SLIME_DOG:
+				case SLIME_DOG_BORDER_COLLIE:
+				case SLIME_DOG_DOBERMANN:
+				case SLIME_FOX:
+				case SLIME_FOX_FENNEC:
+				case SLIME_HARPY:
+				case SLIME_HARPY_BALD_EAGLE:
+				case SLIME_HARPY_RAVEN:
+				case SLIME_HORSE:
+				case SLIME_IMP:
+				case SLIME_RABBIT:
+				case SLIME_RAT:
+				case SLIME_REINDEER:
+				case SLIME_SQUIRREL:
+				case SLIME_WOLF:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 			}

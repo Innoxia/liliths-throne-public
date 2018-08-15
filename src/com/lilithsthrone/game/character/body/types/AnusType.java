@@ -23,8 +23,6 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
-	IMP(BodyCoveringType.ANUS, Race.IMP, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
-	
 	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
 	
 	DOG_MORPH(BodyCoveringType.ANUS, Race.DOG_MORPH),
@@ -60,6 +58,16 @@ public enum AnusType implements BodyPartTypeInterface {
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static AnusType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 	
 	@Override

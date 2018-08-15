@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
@@ -31,8 +31,6 @@ public enum PenisType implements BodyPartTypeInterface {
 	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenetrationModifier.TAPERED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
 
 	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenetrationModifier.RIBBED, PenetrationModifier.TENTACLED, PenetrationModifier.PREHENSILE),
-
-	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenetrationModifier.RIBBED, PenetrationModifier.TENTACLED, PenetrationModifier.PREHENSILE),
 	
 	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
 	
@@ -71,6 +69,16 @@ public enum PenisType implements BodyPartTypeInterface {
 		
 		this.defaultPenisModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultPenisModifiers, defaultPenisModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static PenisType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -117,8 +125,6 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("canine", "dog-", "dog-like", "bestial");
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("demonic", "demon-");
-					case IMP:
-						return UtilText.returnStringAtRandom("impish", "imp-");
 					case EQUINE:
 						return UtilText.returnStringAtRandom("equine", "horse-", "horse-like", "bestial");
 					case REINDEER_MORPH:
@@ -176,8 +182,6 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "canine";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case EQUINE:
 				return "equine";
 			case REINDEER_MORPH:
@@ -281,9 +285,6 @@ public enum PenisType implements BodyPartTypeInterface {
 				break;
 			case HUMAN:
 				break;
-			case IMP:
-				prefix = UtilText.returnStringAtRandom("imp-");
-				break;
 			case LUPINE:
 				prefix = UtilText.returnStringAtRandom("wolf-", "lupine-");
 				break;
@@ -315,7 +316,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getCumDescriptor() {
 		switch(this){
-			case DEMON_COMMON: case IMP:
+			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "thick", "hot");
 			case NONE:
 				return UtilText.returnStringAtRandom("");

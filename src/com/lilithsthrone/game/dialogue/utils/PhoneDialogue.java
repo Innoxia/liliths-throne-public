@@ -1,19 +1,18 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -21,13 +20,13 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -59,7 +58,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -1783,7 +1782,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	private static List<Race> racesDiscovered = new ArrayList<>();
+	private static List<Subspecies> racesDiscovered = new ArrayList<>();
 	private static String title, content;
 	
 	public static void resetContentForRaces() {
@@ -1792,14 +1791,14 @@ public class PhoneDialogue {
 		
 		racesDiscovered.clear();
 		
-		for (Race r : Race.values()) {
-			if(Main.getProperties().isRaceDiscovered(r)) {
-				racesDiscovered.add(r);
-				contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+		for (Subspecies subspecies : Subspecies.values()) {
+			if(Main.getProperties().isRaceDiscovered(subspecies)) {
+				racesDiscovered.add(subspecies);
+				contentSB.append("<p style='text-align:center;'><b style='color:"+subspecies.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(subspecies.getName()) + "</b></p>");
 			}
 		}
 		
-		racesDiscovered.sort(Comparator.comparing(Race::getName));
+		racesDiscovered.sort((a, b) -> a.getRace().getName().compareTo(b.getRace().getName()));
 		
 		content = contentSB.toString();
 	}
@@ -1829,72 +1828,69 @@ public class PhoneDialogue {
 						RACES){
 					@Override
 					public void effects() {
-						Race race = racesDiscovered.get(index - 1);
-						RacialBody racialBody = RacialBody.valueOfRace(race);
+						Subspecies subspecies = racesDiscovered.get(index - 1);
+						Race race = subspecies.getRace();
 						
-						title = Util.capitaliseSentence(race.getName());
+						Body femaleBody = CharacterUtils.generateBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
+						Body maleBody = CharacterUtils.generateBody(Gender.M_P_MALE, subspecies, RaceStage.GREATER);
+						
+						title = Util.capitaliseSentence(subspecies.getName());
 						raceSB.setLength(0);
-						raceSB.append("<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
-								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b><br/>"
+						
+						raceSB.append(
+							"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
+								+ "<p style='width:100%; text-align:center;'><b style='color:"+subspecies.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName())+"</b><br/>"
 										+ "Average stats</p>"
 								+ "<table align='center'>"
 									+ "<tr>"
 										+ "<td>Height (cm)</td>"
-										+ "<td>"+racialBody.getFemaleHeight()+"</td>"
-										+ "<td>"+racialBody.getMaleHeight()+"</td>"
+										+ "<td>"+femaleBody.getHeightValue()+"</td>"
+										+ "<td>"+maleBody.getHeightValue()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Femininity</td>"
-										+ "<td>"+racialBody.getFemaleFemininity()+"</td>"
-										+ "<td>"+racialBody.getMaleFemininity()+"</td>"
+										+ "<td>"+femaleBody.getFemininity()+"</td>"
+										+ "<td>"+maleBody.getFemininity()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Breast size</td>"
-										+ "<td>"+(racialBody.getBreastSize()==0
+										+ "<td>"+(femaleBody.getBreast().getRawSizeValue()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getBreastSize()).getCupSizeName()+"-cup")+"</td>"
-										+ "<td>"+(racialBody.getNoBreastSize()==0
+													:femaleBody.getBreast().getSize()+"-cup")+"</td>"
+										+ "<td>"+(maleBody.getBreast().getRawSizeValue()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getNoBreastSize()).getCupSizeName()+"-cup")+"</td>"
+													:maleBody.getBreast().getSize()+"-cup")+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Penis size (inches)</td>"
 										+ "<td>-</td>"
-										+ "<td>"+racialBody.getPenisSize()+"</td>"
+										+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Vagina capacity</td>"
-										+ "<td>"+Util.capitaliseSentence(Capacity.getCapacityFromValue(racialBody.getVaginaCapacity()).getDescriptor())+"</td>"
+										+ "<td>"+Util.capitaliseSentence(femaleBody.getVagina().getOrificeVagina().getCapacity().getDescriptor())+"</td>"
 										+ "<td>-</td>"
-									+ "</tr>");
+									+ "</tr>"
+								+ "</table>"
+							+ "</div>");
 						
-						
-						raceSB.append("</table>"
-								+ "</div>"
-								+ "<details style='width:calc(60% - 16px); float:left;'>"
-								+ "<summary>Subspecies</summary>");
-						
-						for(Subspecies sub : Subspecies.values()) {
-							if(sub.getRace()==race) {
-								raceSB.append(
-										"<p>"
-											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName())+"</b>"
-											+ "<br/>"
-											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</span>"
-											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</span>)"
-											+ "<br/>"
-											+ sub.getDescription()
-										+ "</p>");
-							}
-						}
+						raceSB.append(
+								"<p>"
+									+ "<b style='color:"+subspecies.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName())+"</b>"
+									+ " (Subspecies of <span style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</span>)"
+									+ "<br/>"
+									+ "(<span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularMaleName())+"</span>"
+									+ "/<span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularFemaleName())+"</span>)"
+									+ "<br/>"
+									+ subspecies.getDescription()
+								+ "</p>");
 						
 						
 						raceSB.append(
-								"</details>"
-								+ "<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
-									+race.getBasicDescription()
-									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
-										?race.getAdvancedDescription()
+								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
+									+subspecies.getBasicDescription()
+									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)
+										?subspecies.getAdvancedDescription()
 										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 											+ "Further information can be discovered in books!"
 										+ "</p>"));

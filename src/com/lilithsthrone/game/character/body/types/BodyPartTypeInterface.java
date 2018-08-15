@@ -72,8 +72,6 @@ public interface BodyPartTypeInterface {
 				return "feline";
 			case DEMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:

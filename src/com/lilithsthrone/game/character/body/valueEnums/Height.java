@@ -63,6 +63,13 @@ public enum Height {
 	public int getMedianValue() {
 		return minimumValue + (maximumValue - minimumValue) / 2;
 	}
+	
+	/**
+	 * If height is less than this value, then that height is short stature.
+	 */
+	public static int getShortStatureCutOff() {
+		return ZERO_TINY.getMinimumValue();
+	}
 
 	public static Height getHeightFromInt(int centimeters) {
 		for(Height cs : Height.values()) {

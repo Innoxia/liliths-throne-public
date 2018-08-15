@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -46,6 +47,10 @@ public enum Subspecies {
 			"woman",
 			"men",
 			"women",
+			
+			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_ADVANCED"),
+			
 			Race.HUMAN,
 			Colour.RACE_HUMAN,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -62,6 +67,10 @@ public enum Subspecies {
 			"angel",
 			"angel",
 			"angel",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ANGEL_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ANGEL_ADVANCED"),
+			
 			Race.ANGEL,
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -76,6 +85,10 @@ public enum Subspecies {
 			"succubus",
 			"incubi",
 			"succubi",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_ADVANCED"),
+			
 			Race.DEMON,
 			Colour.RACE_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -124,11 +137,19 @@ public enum Subspecies {
 			"imp",
 			"imps",
 			"imps",
-			Race.IMP,
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
+			
+			Race.DEMON,
 			Colour.RACE_IMP,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical imp.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+		@Override
+		public void applySpeciesChanges(Body body) { //TODO randomise
+			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMedianValue());
+		}
 		@Override
 		public boolean isShortStature() {
 			return true;
@@ -142,7 +163,11 @@ public enum Subspecies {
 			"alpha-imp",
 			"alpha-imps",
 			"alpha-imps",
-			Race.IMP,
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
+			
+			Race.DEMON,
 			Colour.RACE_IMP,
 			SubspeciesPreference.ONE_LOW,
 			"A more powerful form of imp, standing at over 3'6\" tall.",
@@ -152,7 +177,7 @@ public enum Subspecies {
 			return IMP;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public void applySpeciesChanges(Body body) { //TODO randomise
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getMedianValue());
 		}
 		@Override
@@ -169,6 +194,10 @@ public enum Subspecies {
 			"cow-girl",
 			"cow-boys",
 			"cow-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "COW_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "COW_MORPH_ADVANCED"),
+			
 			Race.COW_MORPH,
 			Colour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -185,6 +214,10 @@ public enum Subspecies {
 			"dog-girl",
 			"dog-boys",
 			"dog-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_ADVANCED"),
+			
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -207,6 +240,10 @@ public enum Subspecies {
 			"border-collie-girl",
 			"border-collie-boys",
 			"border-collie-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_ADVANCED"),
+			
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -238,6 +275,10 @@ public enum Subspecies {
 			"dobermann",
 			"dobermanns",
 			"dobermanns",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_ADVANCED"),
+			
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -277,6 +318,10 @@ public enum Subspecies {
 			"wolf-girl",
 			"wolf-boys",
 			"wolf-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "WOLF_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "WOLF_MORPH_ADVANCED"),
+			
 			Race.WOLF_MORPH,
 			Colour.RACE_WOLF_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -299,6 +344,10 @@ public enum Subspecies {
 			"fox-girl",
 			"fox-boys",
 			"fox-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
 			Race.FOX_MORPH,
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -322,6 +371,10 @@ public enum Subspecies {
 			"fennec-girl",
 			"fennec-boys",
 			"fennec-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
 			Race.FOX_MORPH,
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -356,6 +409,10 @@ public enum Subspecies {
 			"youko-girl",
 			"youko-boys",
 			"youko-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
 			Race.FOX_MORPH,
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -380,6 +437,10 @@ public enum Subspecies {
 			"fennec-youko-girl",
 			"fennec-youko-boys",
 			"fennec-youko-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
 			Race.FOX_MORPH,
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -452,6 +513,10 @@ public enum Subspecies {
 			"cat-girl",
 			"cat-boys",
 			"cat-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -474,6 +539,10 @@ public enum Subspecies {
 			"lynx",
 			"lynxes",
 			"lynxes",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LYNX,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -506,6 +575,10 @@ public enum Subspecies {
 			"snow leopardess",
 			"snow leopards",
 			"snow leopardesses",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LEOPARD_SNOW,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -545,6 +618,10 @@ public enum Subspecies {
 			"leopardess",
 			"leopard",
 			"leopardesses",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LEOPARD,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -580,6 +657,10 @@ public enum Subspecies {
 			"lioness",
 			"lions",
 			"lionesses",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_LION,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -618,6 +699,10 @@ public enum Subspecies {
 			"tigress",
 			"tigers",
 			"tigresses",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -656,6 +741,10 @@ public enum Subspecies {
 			"cheetah",
 			"cheetahs",
 			"cheetahs",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_CHEETAH,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -700,6 +789,10 @@ public enum Subspecies {
 			"caracal",
 			"caracals",
 			"caracals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
+			
 			Race.CAT_MORPH,
 			Colour.RACE_CAT_MORPH_CARACAL,
 			SubspeciesPreference.TWO_AVERAGE,
@@ -721,6 +814,10 @@ public enum Subspecies {
 			"horse-girl",
 			"horse-boys",
 			"horse-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_ADVANCED"),
+
 			Race.HORSE_MORPH,
 			Colour.RACE_HORSE_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -736,6 +833,10 @@ public enum Subspecies {
 			"zebra-girl",
 			"zebra-boys",
 			"zebra-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_ADVANCED"),
+			
 			Race.HORSE_MORPH,
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
@@ -763,6 +864,10 @@ public enum Subspecies {
 			"reindeer-girl",
 			"reindeer-boys",
 			"reindeer-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "REINDEER_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "REINDEER_MORPH_ADVANCED"),
+			
 			Race.REINDEER_MORPH,
 			Colour.RACE_REINDEER_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -782,6 +887,10 @@ public enum Subspecies {
 			"alligator-girl",
 			"alligator-boys",
 			"alligator-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ALLIGATOR_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ALLIGATOR_MORPH_ADVANCED"),
+			
 			Race.ALLIGATOR_MORPH,
 			Colour.RACE_ALLIGATOR_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -832,6 +941,10 @@ public enum Subspecies {
 			"slime-girl",
 			"slime-boys",
 			"slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -851,6 +964,10 @@ public enum Subspecies {
 			"angel-slime-girl",
 			"angel-slime-boys",
 			"angel-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -871,6 +988,10 @@ public enum Subspecies {
 			"succubus-slime",
 			"incubus-slimes",
 			"succubus-slimes",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -891,6 +1012,10 @@ public enum Subspecies {
 			"imp-slime-girl",
 			"imp-slime-boys",
 			"imp-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -900,7 +1025,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.IMP, Subspecies.IMP, RaceStage.GREATER);
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 		@Override
@@ -915,6 +1040,10 @@ public enum Subspecies {
 			"cow-slime-girl",
 			"cow-slime-boys",
 			"cow-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -935,6 +1064,10 @@ public enum Subspecies {
 			"dog-slime-girl",
 			"dog-slime-boys",
 			"dog-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -955,6 +1088,10 @@ public enum Subspecies {
 			"dobermann-slime-girl",
 			"dobermann-slime-boys",
 			"dobermann-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -975,6 +1112,10 @@ public enum Subspecies {
 			"border-collie-slime-girl",
 			"border-collie-slime-boys",
 			"border-collie-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -995,6 +1136,10 @@ public enum Subspecies {
 			"fox-slime-girl",
 			"fox-slime-boys",
 			"fox-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1015,6 +1160,10 @@ public enum Subspecies {
 			"fennec-slime-girl",
 			"fennec-slime-boys",
 			"fennec-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1035,6 +1184,10 @@ public enum Subspecies {
 			"wolf-slime-girl",
 			"wolf-slime-boys",
 			"wolf-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1055,6 +1208,10 @@ public enum Subspecies {
 			"cat-slime-girl",
 			"cat-slime-boys",
 			"cat-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1075,6 +1232,10 @@ public enum Subspecies {
 			"horse-slime-girl",
 			"horse-slime-boys",
 			"horse-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1095,6 +1256,10 @@ public enum Subspecies {
 			"reindeer-slime-girl",
 			"reindeer-slime-boys",
 			"reindeer-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1115,6 +1280,10 @@ public enum Subspecies {
 			"alligator-slime-girl",
 			"alligator-slime-boys",
 			"alligator-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1135,6 +1304,10 @@ public enum Subspecies {
 			"squirrel-slime-girl",
 			"squirrel-slime-boys",
 			"squirrel-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1155,6 +1328,10 @@ public enum Subspecies {
 			"rat-slime-girl",
 			"rat-slime-boys",
 			"rat-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1175,6 +1352,10 @@ public enum Subspecies {
 			"rabbit-slime-girl",
 			"rabbit-slime-boys",
 			"rabbit-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1195,6 +1376,10 @@ public enum Subspecies {
 			"bat-slime-girl",
 			"bat-slime-boys",
 			"bat-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1215,6 +1400,10 @@ public enum Subspecies {
 			"harpy-slime-girl",
 			"harpy-slime-boys",
 			"harpy-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1235,6 +1424,10 @@ public enum Subspecies {
 			"harpy-raven-slime-girl",
 			"harpy-raven-slime-boys",
 			"harpy-raven-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1255,6 +1448,10 @@ public enum Subspecies {
 			"bald-eagle-slime-girl",
 			"bald-eagle-slime-boys",
 			"bald-eagle-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1276,6 +1473,10 @@ public enum Subspecies {
 			"lynx-slime-girl",
 			"lynx-slime-boys",
 			"lynx-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1294,6 +1495,10 @@ public enum Subspecies {
 			"snow leopard-slime-girl",
 			"snow leopard-slime-boys",
 			"snow leopard-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1312,6 +1517,10 @@ public enum Subspecies {
 			"leopard-slime-girl",
 			"leopard-slime-boys",
 			"leopard-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1330,6 +1539,10 @@ public enum Subspecies {
 			"lion-slime-girl",
 			"lion-slime-boys",
 			"lion-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1348,6 +1561,10 @@ public enum Subspecies {
 			"tiger-slime-girl",
 			"tiger-slime-boys",
 			"tiger-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1366,6 +1583,10 @@ public enum Subspecies {
 			"cheetah-slime-girl",
 			"cheetah-slime-boys",
 			"cheetah-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1384,6 +1605,10 @@ public enum Subspecies {
 			"caracal-slime-girl",
 			"caracal-slime-boys",
 			"caracal-slime-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+			
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1419,6 +1644,10 @@ public enum Subspecies {
 			"squirrel-girl",
 			"squirrel-boys",
 			"squirrel-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "SQUIRREL_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "SQUIRREL_MORPH_ADVANCED"),
+			
 			Race.SQUIRREL_MORPH,
 			Colour.RACE_SQUIRREL_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1437,6 +1666,10 @@ public enum Subspecies {
 			"rat-girl",
 			"rat-boys",
 			"rat-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_ADVANCED"),
+			
 			Race.RAT_MORPH,
 			Colour.RACE_RAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1452,6 +1685,10 @@ public enum Subspecies {
 			"rabbit-girl",
 			"rabbit-boys",
 			"rabbit-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_ADVANCED"),
+			
 			Race.RABBIT_MORPH,
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1467,6 +1704,10 @@ public enum Subspecies {
 			"lop-rabbit-girl",
 			"lop-rabbit-boys",
 			"lop-rabbit-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_ADVANCED"),
+			
 			Race.RABBIT_MORPH,
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1489,6 +1730,10 @@ public enum Subspecies {
 			"bat-girl",
 			"bat-boys",
 			"bat-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_ADVANCED"),
+			
 			Race.BAT_MORPH,
 			Colour.RACE_BAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1506,6 +1751,10 @@ public enum Subspecies {
 			"harpy",
 			"harpies",
 			"harpies",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_ADVANCED"),
+			
 			Race.HARPY,
 			Colour.RACE_HARPY,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1521,6 +1770,10 @@ public enum Subspecies {
 			"raven-harpy",
 			"raven-harpies",
 			"raven-harpies",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_ADVANCED"),
+			
 			Race.HARPY,
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
@@ -1542,6 +1795,10 @@ public enum Subspecies {
 			"bald-eagle-harpy",
 			"bald-eagle-harpies",
 			"bald-eagle-harpies",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_ADVANCED"),
+			
 			Race.HARPY,
 			Colour.BASE_WHITE,
 			SubspeciesPreference.ONE_LOW,
@@ -1566,6 +1823,10 @@ public enum Subspecies {
 			"earth elemental",
 			"earth elementals",
 			"earth elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
+			
 			Race.ELEMENTAL_EARTH,
 			Colour.SPELL_SCHOOL_EARTH,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1584,6 +1845,10 @@ public enum Subspecies {
 			"water elemental",
 			"water elementals",
 			"water elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
+			
 			Race.ELEMENTAL_WATER,
 			Colour.SPELL_SCHOOL_WATER,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1602,6 +1867,10 @@ public enum Subspecies {
 			"air elemental",
 			"air elementals",
 			"air elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
+			
 			Race.ELEMENTAL_AIR,
 			Colour.SPELL_SCHOOL_AIR,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1620,6 +1889,10 @@ public enum Subspecies {
 			"fire elemental",
 			"fire elementals",
 			"fire elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
+			
 			Race.ELEMENTAL_FIRE,
 			Colour.SPELL_SCHOOL_FIRE,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1638,6 +1911,10 @@ public enum Subspecies {
 			"arcane elemental",
 			"arcane elementals",
 			"arcane elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
+			
 			Race.ELEMENTAL_ARCANE,
 			Colour.SPELL_SCHOOL_ARCANE,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1654,7 +1931,16 @@ public enum Subspecies {
 	//		"A hermetic kind of "+Race.HARPY.getName());
 
 	
-	private String name, namePlural, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName;
+	private String name;
+	private String namePlural;
+	private String singularMaleName;
+	private String singularFemaleName;
+	private String pluralMaleName;
+	private String pluralFemaleName;
+	
+	private String basicDescription;
+	private String advancedDescription;
+	
 	private Race race;
 	private Colour colour;
 	private SubspeciesPreference subspeciesPreferenceDefault;
@@ -1689,6 +1975,10 @@ public enum Subspecies {
 			String singularFemaleName,
 			String pluralMaleName,
 			String pluralFemaleName,
+
+			String basicDescription,
+			String advancedDescription,
+			
 			Race race,
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
@@ -1703,6 +1993,9 @@ public enum Subspecies {
 		
 		this.pluralMaleName = pluralMaleName;
 		this.pluralFemaleName = pluralFemaleName;
+
+		this.basicDescription = basicDescription;
+		this.advancedDescription = advancedDescription;
 		
 		this.race = race;
 		this.colour = colour;
@@ -1791,8 +2084,6 @@ public enum Subspecies {
 				return Subspecies.HORSE_MORPH;
 			case HUMAN:
 				return Subspecies.HUMAN;
-			case IMP:
-				return Subspecies.IMP;
 			case RABBIT_MORPH:
 				return Subspecies.RABBIT_MORPH;
 			case RAT_MORPH:
@@ -1893,18 +2184,27 @@ public enum Subspecies {
 				subspecies = Subspecies.COW_MORPH;
 				break;
 			case DEMON:
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
 				subspecies = Subspecies.DEMON;
-				break;
-			case IMP:
-				subspecies = Subspecies.IMP;
-				if(body.getHeightValue()>Height.NEGATIVE_ONE_TINY.getMinimumValue()) {
+				if(body.getHeightValue()<Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue()) {
+					subspecies = Subspecies.IMP;
+				} else if(body.getHeightValue()<Height.NEGATIVE_ONE_TINY.getMaximumValue()) {
 					subspecies = Subspecies.IMP_ALPHA;
 				}
+				break;
+			case ELEMENTAL_AIR:
+				subspecies = Subspecies.ELEMENTAL_AIR;
+				break;
+			case ELEMENTAL_ARCANE:
+				subspecies = Subspecies.ELEMENTAL_ARCANE;
+				break;
+			case ELEMENTAL_EARTH:
+				subspecies = Subspecies.ELEMENTAL_EARTH;
+				break;
+			case ELEMENTAL_FIRE:
+				subspecies = Subspecies.ELEMENTAL_FIRE;
+				break;
+			case ELEMENTAL_WATER:
+				subspecies = Subspecies.ELEMENTAL_WATER;
 				break;
 			case DOG_MORPH:
 				subspecies = Subspecies.DOG_MORPH;
@@ -2031,6 +2331,11 @@ public enum Subspecies {
 						subspecies = Subspecies.SLIME_COW;
 						break;
 					case DEMON:
+						subspecies = Subspecies.SLIME_DEMON;
+						if(body.getHeightValue()<Height.NEGATIVE_ONE_TINY.getMaximumValue()) {
+							subspecies = Subspecies.SLIME_IMP;
+						}
+						break;
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
@@ -2068,9 +2373,6 @@ public enum Subspecies {
 						break;
 					case HUMAN:
 						subspecies = Subspecies.SLIME;
-						break;
-					case IMP:
-						subspecies = Subspecies.SLIME_IMP;
 						break;
 					case REINDEER_MORPH:
 						subspecies = Subspecies.SLIME_REINDEER;
@@ -2228,6 +2530,14 @@ public enum Subspecies {
 	
 	public String getOffspringFemaleNameSingular() {
 		return singularFemaleName;
+	}
+
+	public String getBasicDescription() {
+		return basicDescription;
+	}
+
+	public String getAdvancedDescription() {
+		return advancedDescription;
 	}
 	
 	public Race getRace() {

@@ -8,7 +8,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Skin implements BodyPartInterface, Serializable {
@@ -95,37 +95,20 @@ public class Skin implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with demonic skin."
-								+ " It's far smoother than regular human skin, and you notice that the colour tones all over your body have become perfectly balanced in order to help show off your figure."
-								+ "<br/>"
-								+ "You now have [style.boldDemon(demonic)], [pc.skinFullDescription]."
-							+ "</p>");
+							" After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with demonic skin."
+							+ " It's far smoother than regular human skin, and the colour tones all over [npc.her] body have become perfectly balanced in order to help show off [npc.her] figure."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(demonic)], [npc.skinFullDescription]."
+						+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with demonic skin."
-								+ " It's far smoother than regular human skin, and the colour tones all over [npc.her] body have become perfectly balanced in order to help show off [npc.her] figure."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldDemon(demonic)], [npc.skinFullDescription]."
-							+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with impish skin."
-								+ " It's far smoother than regular human skin, and you notice that the colour tones all over your body have become perfectly balanced in order to help show off your figure."
-								+ "<br/>"
-								+ "You now have [style.boldImp(impish)], [pc.skinFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with impish skin."
-								+ " It's far smoother than regular human skin, and the colour tones all over [npc.her] body have become perfectly balanced in order to help show off [npc.her] figure."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldImp(impish)], [npc.skinFullDescription]."
-							+ "</p>");
+							" After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with impish skin."
+							+ " It's far smoother than regular human skin, and the colour tones all over [npc.her] body have become perfectly balanced in order to help show off [npc.her] figure."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(impish)], [npc.skinFullDescription]."
+						+ "</p>");
 				}
 				break;
 			case DOG_MORPH:

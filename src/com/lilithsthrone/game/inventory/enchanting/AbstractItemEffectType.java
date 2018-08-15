@@ -58,6 +58,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -111,21 +112,21 @@ public abstract class AbstractItemEffectType {
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
-	protected static String getBookEffect(Race race, AbstractItemType book) {
-		Main.getProperties().addRaceDiscovered(race);
-		if(Main.getProperties().addAdvancedRaceKnowledge(race) && book!=null) {
+	protected static String getBookEffect(Subspecies subspecies, AbstractItemType book) {
+		Main.getProperties().addRaceDiscovered(subspecies);
+		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && book!=null) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
 		}
 		
-		if(Main.game.getPlayer().addRaceDiscoveredFromBook(race)) {
-			return race.getBasicDescription()
-					+race.getAdvancedDescription()
-					+Main.game.getPlayer().incrementAttribute(race.getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(race.getResistanceMultiplier(), 5f);
+		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
+			return subspecies.getBasicDescription()
+					+subspecies.getAdvancedDescription()
+					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getDamageMultiplier(), 5f)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getResistanceMultiplier(), 5f);
 			
 		} else {
-			return race.getBasicDescription()
-					+race.getAdvancedDescription()
+			return subspecies.getBasicDescription()
+					+subspecies.getAdvancedDescription()
 					+"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
