@@ -42,9 +42,10 @@ public enum PropertyValue {
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),
-	newRaceDiscovered(false);
+	newRaceDiscovered(false),
 	
-	
+	metabolismContent(false),
+	bladderContent(false);
 	private boolean defaultValue;
 
 	private PropertyValue(boolean defaultValue) {

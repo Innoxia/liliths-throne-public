@@ -428,7 +428,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			FluidType fluid = f.getKey();
 			return "<b style='color:"+fluid.getRace().getColour().toWebHexString()+";'>" + (f.getValue() > 1 ? "a lot of " : "the ") + fluid.name() + "</b>";
 		}
-		return "<b style='color:" + Colour.CUMMED + ";'>a mixture of fluids</b>";
+		return "<b style='color:" + Colour.CUM + ";'>a mixture of fluids</b>";
 	}
 
 	public String addFluid(GameCharacter owner, FluidType fluid, boolean autoSwallow) {

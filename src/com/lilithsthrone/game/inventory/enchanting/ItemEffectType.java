@@ -1898,6 +1898,21 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType DIURESIS = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldBad(+5)] [style.boldPhysique(diureticum)] to 'potion effects'"),
+			Colour.ATTRIBUTE_BLADDER) {
+
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p style='text-align:center;'>"
+					+(target.isPlayer()
+						?"You're starting to feel the need to pee rising..."
+						:UtilText.parse(target, "[npc.Name] nervously looks around, guess she needs to pee..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.BLADDER, 1)
+					+"</p>";
+		}
+	};
 	
 	// Specials:
 	

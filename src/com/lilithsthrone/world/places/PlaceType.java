@@ -21,7 +21,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.Toilet;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
@@ -584,7 +583,6 @@ public enum PlaceType {
 
 	LILAYA_HOME_STAIR_DOWN("Staircase", "dominion/lilayasHome/stairsDown", BaseColour.RED, Colour.MAP_BACKGROUND, LilayaHomeGeneric.STAIRCASE_DOWN, null, false, true, false, "in Lilaya's Home"),
 	
-	
 
 	// Zaranix:
 	// Ground floor:
@@ -834,6 +832,7 @@ public enum PlaceType {
 	// Exits & entrances:
 	SHOPPING_ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.ENTRY, null, false, true, true, "in the Shopping Arcade"),
 	
+	SHOPPING_ARCADE_TOILET("A toilet", "dominion/toiletIcon", BaseColour.YELLOW, Colour.MAP_BACKGROUND, Toilet.HALL, null, false, true, false, "in the toilet"),
 	
 	// Supplier Depot:
 	

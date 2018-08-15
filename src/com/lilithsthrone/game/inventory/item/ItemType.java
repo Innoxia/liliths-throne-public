@@ -3998,7 +3998,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DIURESIS))), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DIURESIS)), null) {
 
 		private static final long serialVersionUID = 1L;
 

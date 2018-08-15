@@ -112,6 +112,8 @@ public enum Attribute {
 			},
 
 	BLADDER(0,
+			0,
+			100,
 			"bladder",
 			"Bladder",
 			"bladderIcon",
@@ -131,6 +133,8 @@ public enum Attribute {
 			},
 
 	THIRST(0,
+			0,
+			100,
 			"thirst",
 			"thirst",
 			"thirstIcon",
@@ -149,6 +153,8 @@ public enum Attribute {
 			},
 
 	HUNGER(0,
+			0,
+			100,
 			"hunger",
 			"hunger",
 			"hungerIcon",
@@ -167,6 +173,8 @@ public enum Attribute {
 			},
 
 	BLADDER_PRESSURE(0,
+			0,
+			100,
 			"bladder",
 			"Bladder",
 			"bladderIcon",

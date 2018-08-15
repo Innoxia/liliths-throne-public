@@ -145,6 +145,10 @@ public enum Colour {
 	ATTRIBUTE_AROUSAL(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")),
 	ATTRIBUTE_LUST(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")),
 
+	ATTRIBUTE_BLADDER(false, Util.newColour(0xfcffe2), Util.newColour(0xfcffe2), "yellow"),
+	ATTRIBUTE_THIRST(false, Util.newColour(0x7ea0f4), Util.newColour(0x7ea0f4), "light blue"),
+	ATTRIBUTE_HUNGER(false, Util.newColour(0x71b060), Util.newColour(0x71b060), "light green"),
+	
 	//TODO
 	PHYSIQUE_STAGE_ZERO(false, BaseColour.MAGENTA, "magenta"),
 	PHYSIQUE_STAGE_ONE(false, BaseColour.MAGENTA, "magenta"),

@@ -1805,6 +1805,20 @@ public class OptionsDialogue {
 							"This enables cum inflation mechanics.",
 							Main.getProperties().hasValue(PropertyValue.inflationContent)));
 				
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"METABOLISM",
+					Colour.BASE_BROWN,
+					"Metabolism",
+					"This enables hunger and thirst that increase in time.",
+					Main.getProperties().hasValue(PropertyValue.metabolismContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"BLADDER",
+					Colour.BLADDER,
+					"Bladder",
+					"Drinking fluids in time causes the production of urine.",
+					Main.getProperties().hasValue(PropertyValue.bladderContent)));
+
 
 			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PREGNANCY_BREAST_GROWTH",
