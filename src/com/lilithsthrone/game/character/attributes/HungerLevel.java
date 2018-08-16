@@ -134,7 +134,7 @@ public enum HungerLevel {
 				    }
 			    case FOUR_STARVING:
 				    if (character.isPlayer()) {
-					    return "You are famined, you'd really could use some food!";
+					    return "You are famined, you really could use some food!";
 				    } else {
 					    return UtilText.parse(character, "[npc.Name] is really hungry, [npc.she] is dying for something to eat!");
 				    }

@@ -140,9 +140,9 @@ public enum BladderLevel {
 				    }
 			    case FIVE_BARELY_HOLD_IT:
 				    if (character.isPlayer()) {
-						    return "You're cannot hold it any longer! You'll just have to do it here, or you'll have an accident!";
+						    return "You cannot hold it any longer! You'll just have to do it here, or you'll have an accident!";
 					    } else {
-					    return UtilText.parse(character, "[npc.Name] cannot hold it any longer! [npc.She]'ll just have to do it here, or therewill be an accident!");
+					    return UtilText.parse(character, "[npc.Name] cannot hold it any longer! [npc.She]'ll just have to do it here, or there will be an accident!");
 				    }
 		    }
 		return "";
