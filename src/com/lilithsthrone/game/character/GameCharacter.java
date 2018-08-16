@@ -13477,7 +13477,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if (hunger + digest > 100) {
 				// damage.
 				incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
-				ret += "You collapse from hunger. ";
+				ret += "You are starving. ";
 				digest = -4f; // next collapse after some time
 			}
 			incrementBonusAttribute(Attribute.HUNGER, digest);
@@ -13487,7 +13487,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if (thirst + swallow > 100) {
 				// damage.
 				incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
-				ret += "You collapse from thirst. ";
+				ret += "You're dying for a drink. ";
 				swallow = -4f; // next collapse after some time
 			}
 			incrementBonusAttribute(Attribute.THIRST, swallow);
