@@ -813,7 +813,7 @@ public class PhoneDialogue {
 								+ "<h6 style='color:"+Colour.BLADDER.toWebHexString()+"; text-align:center;'>Metabolism Attributes</h6>"
 //								+ statHeader()
 						+ (Main.game.isMetabolismEnabled() ? (
-								statRow(Colour.TRANSFORMATION_GENERIC, "Huger",
+								statRow(Colour.TRANSFORMATION_GENERIC, "Hunger",
 										Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.HUNGER)),
 										Colour.GENERIC_SEX, Main.game.getPlayer().getHungerLevel().getCName(), true)
 								+ statRow(Colour.TRANSFORMATION_GENERIC, "Thirst",

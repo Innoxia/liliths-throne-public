@@ -4772,6 +4772,10 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		String homeoState = homeostasis();
+		if (homeoState != "") {
+			statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + homeoState);
+		}
 		
 		// Tattoo effects:
 		for(Tattoo tattoo : tattoos.values()) {
