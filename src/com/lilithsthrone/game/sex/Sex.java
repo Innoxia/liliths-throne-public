@@ -2082,23 +2082,29 @@ public class Sex {
 			for(GameCharacter character : Sex.getAllParticipants()) {
 				for(Entry<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> entry : ongoingActionsMap.get(character).entrySet()) {
 					for(GameCharacter characterTarget : Sex.getAllParticipants()) {
-						if(entry.getValue().containsKey(characterTarget)) {
-							for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
-								if(entry.getKey().isPenetration()) {
-									applyPenetrationEffects(character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
-								}
-								List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
-								List<Fetish> targetFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, false);
-								
-								// Half lust and xp from ongoing:
-								for(Fetish f : selfFetishes) {
-									character.incrementLust(character.getFetishDesire(f).getLustIncrement()/2);
-									character.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
-								}
-								for(Fetish f : targetFetishes) {
-									characterTarget.incrementLust(characterTarget.getFetishDesire(f).getLustIncrement()/2);
-									characterTarget.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
-								}
+						if(!entry.getValue().containsKey(characterTarget))
+							continue;
+
+						for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
+
+							if(entry.getKey().isPenetration()) {
+								character.testCondomRips();
+								applyPenetrationEffects(character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
+							} else {
+								characterTarget.testCondomRips();
+							}
+
+							List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
+							List<Fetish> targetFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, false);
+
+							// Half lust and xp from ongoing:
+							for(Fetish f : selfFetishes) {
+								character.incrementLust(character.getFetishDesire(f).getLustIncrement()/2);
+								character.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
+							}
+							for(Fetish f : targetFetishes) {
+								characterTarget.incrementLust(characterTarget.getFetishDesire(f).getLustIncrement()/2);
+								characterTarget.incrementFetishExperience(f, f.getExperienceGainFromSexAction()/2);
 							}
 						}
 					}

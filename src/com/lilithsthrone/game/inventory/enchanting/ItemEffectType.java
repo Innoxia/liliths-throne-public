@@ -90,6 +90,16 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType BROKEN_CONDOM = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"No longer provides any protection."),
+			Colour.GENERIC_SEX) {
+
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p>The condom rips.</p>";
+		}
+	};
+
 	public static AbstractItemEffectType FILLED_MOO_MILKER_DRINK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Provides a milky drink."),
 			Colour.GENERIC_SEX) {

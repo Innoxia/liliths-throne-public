@@ -56,7 +56,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private boolean plural;
 	private boolean isMod;
 	private int baseValue;
-	private int physicalResistance;
+	private float physicalResistance;
 	private int femininityMinimum;
 	private int femininityMaximum;
 	private Femininity femininityRestriction;
@@ -106,7 +106,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			String name,
 			String namePlural,
 			String description,
-			int physicalResistance,
+			float physicalResistance,
 			Femininity femininityRestriction,
 			InventorySlot slot,
 			Rarity rarity,
@@ -154,7 +154,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			String name,
 			String namePlural,
 			String description,
-			int physicalResistance,
+			float physicalResistance,
 			Femininity femininityRestriction,
 			InventorySlot slot,
 			Rarity rarity,
@@ -704,7 +704,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		int result = super.hashCode();
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
-		result = 31 * result + getPhysicalResistance();
+		result = 31 * result + Math.round(getPhysicalResistance());
 		result = 31 * result + getFemininityMaximum();
 		result = 31 * result + getFemininityMinimum();
 		if(getFemininityRestriction()!=null)
@@ -1811,7 +1811,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return effects;
 	}
 
-	public int getPhysicalResistance() {
+	public float getPhysicalResistance() {
 		return physicalResistance;
 	}
 

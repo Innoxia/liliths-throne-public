@@ -180,6 +180,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -11404,6 +11405,18 @@ public abstract class GameCharacter implements XMLSaving {
 //		if(Main.game.isInSex() && this == Sex.getPartner())
 //			System.out.println("condom inner: "+(this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null));
 		return this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null && this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getClothingType().equals(ClothingType.PENIS_CONDOM);
+	}
+
+	public void testCondomRips() {
+		InventorySlot shaft = ClothingType.PENIS_CONDOM.getSlot();
+		if (shaft != null) {
+			AbstractClothing condom = this.getClothingInSlot(shaft);
+			AbstractClothingType condomType = condom.getClothingType();
+
+			if (condomType.equals(ClothingType.PENIS_CONDOM) && Math.random() > condomType.getPhysicalResistance()) {
+				condom.addEffect(new ItemEffect(ItemEffectType.BROKEN_CONDOM));
+			}
+		}
 	}
 	
 	public boolean isExhibitionist() {

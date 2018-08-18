@@ -14,6 +14,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -914,6 +917,11 @@ public interface SexActionInterface {
 	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	
 	public default boolean ignoreCondom(GameCharacter condomWearer) {
+
+		for (ItemEffect eff: condomWearer.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getEffects()) {
+			if (eff.getItemEffectType().equals(ItemEffectType.BROKEN_CONDOM))
+				return true;
+		}
 		return false;
 	}
 	

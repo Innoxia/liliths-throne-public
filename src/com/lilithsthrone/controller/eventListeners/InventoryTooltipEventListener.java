@@ -867,7 +867,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
-		int res = absClothing.getClothingType().getPhysicalResistance();
+		float res = absClothing.getClothingType().getPhysicalResistance();
 		tooltipSB.append(
 				(res>0
 					?"[style.boldGood(+"+absClothing.getClothingType().getPhysicalResistance()+")]"
