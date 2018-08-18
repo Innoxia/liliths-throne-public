@@ -5186,7 +5186,7 @@ public class MainControllerInitMethod {
 				
 				if (((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )) != null) {
 					((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )).addEventListener("click", e -> {
-						Main.importCharacter(f);
+						Main.importCharacter(f, fileIdentifier);
 						
 					}, false);
 				}

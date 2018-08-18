@@ -215,7 +215,7 @@ public class Game implements Serializable, XMLSaving {
 			int saveNumber = 0;
 			String saveLocation;
 			do {
-				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+")";
+				saveLocation = "data/characters/"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+")";
 				++saveNumber;
 			} while (new File(saveLocation + ".xml").exists());
 
@@ -256,6 +256,10 @@ public class Game implements Serializable, XMLSaving {
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
 				importedSlave.loadFromXML(characterElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY);
+				if (FileUtils.copyDirectory("data/characters/" + name,
+						"res/images/characters/" + importedSlave.getArtworkFolderName())) {
+					importedSlave.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
+				}
 				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
 				

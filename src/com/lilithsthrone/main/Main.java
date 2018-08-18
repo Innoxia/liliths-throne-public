@@ -830,11 +830,13 @@ public class Main extends Application {
 		return FileUtils.listFiles("data/characters", "*.xml");
 	}
 	
-	public static void importCharacter(File file) {
-		if (file != null) {
+	public static void importCharacter(File xml, String folder) {
+		if (xml != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(),
+				FileUtils.copyDirectory("data/characters/" + folder,
+                        "res/images/characters/" + game.getPlayer().getArtworkFolderName());
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(xml, Main.game.getPlayer(),
 						CharacterImportSetting.NO_PREGNANCY,
 						CharacterImportSetting.NO_COMPANIONS,
 						CharacterImportSetting.NO_ELEMENTAL,
