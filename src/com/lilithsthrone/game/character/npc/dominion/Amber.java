@@ -225,7 +225,7 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public void setStartingClothingAndMarkings() {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
 		
 		this.unequipAllClothingIntoVoid(true);
 		

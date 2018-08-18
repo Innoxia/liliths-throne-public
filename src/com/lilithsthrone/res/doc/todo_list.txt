@@ -177,9 +177,8 @@
 	Pix
 	Slimes
 	
-	Check master this.setPlayerKnowsName(false);
 	
-	setStartingClothingAndMarkings -> equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing)
+	Check master this.setPlayerKnowsName(false);
 	
 	Irbynx combat & PR
 	
@@ -190,6 +189,8 @@
 	oh a side note if you ever get back, even with futa testicles enabled demons seem to spawn with them set to internal
 	
 	Hair style for harpies
+	
+	make horns not count towards race
 	
 	Fix Subspecies SLIME entries
 		Fix cat and slime icons

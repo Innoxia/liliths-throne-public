@@ -107,7 +107,7 @@ public class Pazu extends NPC {
 	}
 
 	@Override
-	public void setStartingClothingAndMarkings() {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
 		// TODO
 	}
 

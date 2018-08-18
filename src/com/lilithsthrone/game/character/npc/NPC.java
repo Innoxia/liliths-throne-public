@@ -147,7 +147,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(!isImported) {
 			setStartingBody(true);
-			setStartingClothingAndMarkings();
+			equipClothing(true, true, true);
 		}
 		
 		loadImages();
@@ -241,7 +241,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * <b>-</b> Piercings.<br/>
 	 * <b>-</b> Clothing (remember underwear and accessories).<br/>
 	 */
-	public abstract void setStartingClothingAndMarkings();
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+	}
 	
 	protected void resetBodyAfterVersion_2_10_5() {
 		// Need to save and restore breast size/lactation from pregnancy changes.
@@ -250,7 +252,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		float milkStored = this.getBreastRawStoredMilkValue();
 		
 		setStartingBody(true);
-		setStartingClothingAndMarkings();
+		equipClothing(true, true, true);
 		
 		this.setBreastSize(size.getMeasurement());
 		this.setBreastMilkStorage((int) milkStorage);
@@ -353,10 +355,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public abstract void changeFurryLevel();
 	
 	public abstract DialogueNodeOld getEncounterDialogue();
-	
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, onlyAddCoreClothing);
-	}
 	
 	public boolean isClothingStealable() {
 		return false;

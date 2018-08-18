@@ -1319,7 +1319,7 @@ public class Game implements Serializable, XMLSaving {
 						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 							npc.replaceAllClothing();
 						}
-						npc.equipClothing(true, true);
+						npc.equipClothing(true, true, false);
 						npc.setPendingClothingDressing(false);
 						
 					} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
@@ -1330,7 +1330,7 @@ public class Game implements Serializable, XMLSaving {
 						npc.calculateStatusEffects(0);
 						// If still exposed after this, get new clothes:
 						if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
-							npc.equipClothing(true, true);
+							npc.equipClothing(true, true, false);
 						}
 						npc.setPendingClothingDressing(false);
 					}

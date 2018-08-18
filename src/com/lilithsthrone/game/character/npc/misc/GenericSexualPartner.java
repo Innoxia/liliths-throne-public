@@ -263,7 +263,7 @@ public class GenericSexualPartner extends NPC {
 	}
 
 	@Override
-	public void setStartingClothingAndMarkings() {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
 		// Not needed
 	}
 	

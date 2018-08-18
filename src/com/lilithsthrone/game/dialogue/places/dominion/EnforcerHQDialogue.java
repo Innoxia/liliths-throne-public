@@ -944,7 +944,7 @@ public class EnforcerHQDialogue {
 						
 						Main.game.getBrax().setVaginaVirgin(true);
 
-						Main.game.getBrax().equipClothing(true, true);
+						Main.game.getBrax().equipClothing(true, false, false);
 					}
 				};
 				
@@ -1131,7 +1131,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 						Main.game.getBrax().setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
 						
-						Main.game.getBrax().equipClothing(true, true);
+						Main.game.getBrax().equipClothing(true, false, false);
 					}
 				};
 				

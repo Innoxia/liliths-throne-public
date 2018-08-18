@@ -384,7 +384,7 @@ public class ScarlettsShop {
 					collar.setSealed(false);
 					Main.game.getScarlett().unequipClothingIntoVoid(collar, true, Main.game.getAlexa());
 					
-					((Scarlett) Main.game.getScarlett()).setStartingClothingAndMarkings();
+					((Scarlett) Main.game.getScarlett()).equipClothing(true, false, false);
 					
 					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());

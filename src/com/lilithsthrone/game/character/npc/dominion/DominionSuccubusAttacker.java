@@ -95,7 +95,7 @@ public class DominionSuccubusAttacker extends NPC {
 			
 			// CLOTHING:
 			
-			this.equipClothing(true, false);
+			this.equipClothing(true, true, true);
 			
 			CharacterUtils.applyMakeup(this, true);
 			
@@ -124,7 +124,7 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	@Override
-	public void setStartingClothingAndMarkings() {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
 		// Not needed
 	}
 	
@@ -143,11 +143,6 @@ public class DominionSuccubusAttacker extends NPC {
 		return UtilText.parse(this,
 				"Although all demons have an extremely powerful libido, some suffer from it far more than others."
 				+ " While most are able to control their sexual desires, others, such as this [npc.race], struggle to think of anything but how to secure their next sexual conquest.");
-	}
-	
-	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, onlyAddCoreClothing);
 	}
 	
 	@Override
