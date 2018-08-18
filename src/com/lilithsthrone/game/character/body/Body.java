@@ -5938,16 +5938,16 @@ public class Body implements Serializable, XMLSaving {
 			for(Litter litter : owner.getLittersBirthed()) {
 				
 				if(litter.getFather() == null) {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-							+", [npc.she] was impregnated, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+", [npc.she] was impregnated, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 					
 				} else if(litter.getFather().isPlayer()) {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-							+", you impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+", you impregnated [npc.herHim], and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 					
 				} else {
-					descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())+", "+litter.getFather().getName()
-							+" impregnated [npc.herHim], and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getFather().getName()
+							+" impregnated [npc.herHim], and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
 				}
 				
 				descriptionSB.append(litter.getBirthedDescriptionList());
@@ -5987,8 +5987,8 @@ public class Body implements Serializable, XMLSaving {
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
-						descriptionSB.append("<br/>On "+Util.getStringOfLocalDateTime(litter.getConceptionDate())
-								+", [npc.she] impregnated you, and then on "+Util.getStringOfLocalDateTime(litter.getBirthDate())+", you gave birth to "+litter.getBirthedDescriptionList()+".");
+						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+								+", [npc.she] impregnated you, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", you gave birth to "+litter.getBirthedDescriptionList()+".");
 					}
 				}
 				

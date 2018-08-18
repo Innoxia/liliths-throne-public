@@ -22,7 +22,8 @@ import java.util.Locale;
 public enum Units {
     FORMATTER;
 
-    DateTimeFormatter date;
+    DateTimeFormatter shortDate;
+    DateTimeFormatter longDate;
     DateTimeFormatter time;
     NumberFormat number;
 
@@ -36,9 +37,13 @@ public enum Units {
      * Resets the date formatter depending on the system locale (if automatic) or the imperial number flag (if manual).
      */
     public void updateDateFormat() {
-        date = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+        shortDate = (Main.getProperties().hasValue(PropertyValue.autoLocale)
                 ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
+                .withZone(ZoneId.systemDefault());
+        longDate = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+                ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM dd, yyyy" : "dd. MMMM yyyy"))
                 .withZone(ZoneId.systemDefault());
     }
 
@@ -89,19 +94,44 @@ public enum Units {
     }
 
     /**
-     * Formats a point in time with the current date and time formatter, separated with " - ".
-     * @param timePoint The point in time to convert
-     * @return A string containing the localized date and time
+     * Specifies the length of dates, where SHORT will use the default numeric style and LONG will use the text style.
+     */
+    public enum DateType {
+        SHORT,
+        LONG
+    }
+
+    /**
+     * Formats a short date and time. See {@link Units#dateTime(TemporalAccessor, DateType)} for details.
      */
     public static String dateTime(TemporalAccessor timePoint) {
-        return date(timePoint) + " - " + time(timePoint);
+        return dateTime(timePoint, DateType.SHORT);
+    }
+
+    /**
+     * Formats a point in time with the current date and time formatter, separated with ", ".
+     * @param timePoint The point in time to convert
+     * @param type The style of the date, see {@link DateType} for details
+     * @return A string containing the localized date and time
+     */
+    public static String dateTime(TemporalAccessor timePoint, DateType type) {
+        return date(timePoint) + ", " + time(timePoint);
+    }
+
+    /**
+     * Formats a short date. See {@link Units#date(TemporalAccessor, DateType)} for details.
+     */
+    public static String date(TemporalAccessor timePoint) {
+        return date(timePoint, DateType.SHORT);
     }
 
     /**
      * Similar to {@link Units#dateTime(TemporalAccessor)}, except that this function only outputs the date.
      */
-    public static String date(TemporalAccessor timePoint) {
-        return FORMATTER.date.format(timePoint);
+    public static String date(TemporalAccessor timePoint, DateType type) {
+        if (type == DateType.SHORT)
+            return FORMATTER.shortDate.format(timePoint);
+        return FORMATTER.longDate.format(timePoint);
     }
 
     /**

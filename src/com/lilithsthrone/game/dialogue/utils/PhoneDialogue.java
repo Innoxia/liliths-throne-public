@@ -1205,7 +1205,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1214,7 +1214,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
@@ -1291,7 +1291,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1301,7 +1301,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
+								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
 								+ "<br/>"
 								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");

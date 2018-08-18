@@ -318,9 +318,7 @@ public class CharacterModificationUtils {
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ "You were born on the "
-								+Util.intToDate(Main.game.getPlayer().getBirthday().getDayOfMonth())
-								+" "+Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
+								+Units.date(Main.game.getPlayer().getBirthday(), Units.DateType.LONG)+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
 						+ "</p>");
 
 			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");

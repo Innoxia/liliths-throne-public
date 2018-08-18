@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 
+import com.lilithsthrone.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -166,7 +167,7 @@ public class NPCOffspring extends NPC {
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
-						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
+						+ " [npc.She] was conceived on "+ Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
 						+(daysToBirth==0
 							?"later that same day"
 							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")

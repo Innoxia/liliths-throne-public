@@ -922,10 +922,7 @@ public enum RenderingEngine {
 					+"<div class='item-inline' style='float:left;'><div class='overlay' id='DATE_DISPLAY_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()+"</div></div>"
 							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:50%;'>"
 								+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-									? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-										+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-										+ " "
-										+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
+									? Units.date(Main.game.getDateNow(), Units.DateType.LONG)
 									:"Day "+Main.game.getDayNumber())
 							+ "</p>"
 							+ "<p style='float:right; margin-right:8px;'>");

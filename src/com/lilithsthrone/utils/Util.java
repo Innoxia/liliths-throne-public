@@ -373,18 +373,6 @@ public class Util {
 
 		return null;
 	}
-
-	public static String getDayOfMonthSuffix(int n) {
-		if (n >= 11 && n <= 13) {
-	    	return "th";
-	    }
-	    switch (n % 10) {
-	    	case 1:  return "st";
-	    	case 2:  return "nd";
-	    	case 3:  return "rd";
-	    	default: return "th";
-	    }
-	}
 	
 	private static String[] numbersLessThanTwenty = {
 			"zero",
@@ -442,22 +430,6 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
-
-	public static String intToDate(int integer) {
-		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
-			return integer+"st";
-		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
-			return integer+"nd";
-		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
-			return integer+"rd";
-		} else {
-			return integer+"th";
-		}
-	}
-	
-	public static String getStringOfLocalDateTime(LocalDateTime date) {
-		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())+", "+date.getYear();
-	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
