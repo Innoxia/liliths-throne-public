@@ -960,7 +960,9 @@ public class EnchantmentDialogue {
 	}
 
 	public static void deleteEnchant(String name) {
-		FileUtils.deleteFile("data/enchantments/"+name+".xml");
+		if (FileUtils.deleteFile("data/enchantments/"+name+".xml")) {
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+		}
 	}
 
 	public static AbstractCoreItem getIngredient() {
