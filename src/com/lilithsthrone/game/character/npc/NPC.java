@@ -87,7 +87,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.10
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {

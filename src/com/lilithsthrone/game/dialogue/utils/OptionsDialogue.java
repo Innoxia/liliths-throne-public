@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.10
  * @author Innoxia
  */
 public class OptionsDialogue {

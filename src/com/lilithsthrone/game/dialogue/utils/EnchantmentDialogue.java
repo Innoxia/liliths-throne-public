@@ -56,7 +56,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.2.6
+ * @version 0.2.10
  * @author Innoxia
  */
 public class EnchantmentDialogue {

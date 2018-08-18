@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * This file was created by Adrian on 15.08.2018 for liliths-throne-public.
+ * @since 0.2.10
+ * @version 0.2.10
+ * @author Addi
  */
 public class FileUtils {
 
