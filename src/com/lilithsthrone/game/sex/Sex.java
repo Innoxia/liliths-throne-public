@@ -44,7 +44,9 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
@@ -1944,6 +1946,15 @@ public class Sex {
 		
 		// Handle player orgasms:
 		if(sexAction.getActionType()==SexActionType.ORGASM && Sex.getCharacterPerformingAction().isPlayer()) {
+			if (!spectators.isEmpty()) {
+				for (GameCharacter spec: spectators) {
+					if (spec.hasItemType(ItemType.RECORDER) && !spec.hasItemType(ItemType.RECORDING)) {
+						AbstractItem photo = AbstractItemType.generateRecording(consensual, subHasEqualControl, initialSexManager, spectators, postSexDialogue, "On the photo you see yourself depicted in a lewd pose.");
+						spec.addItem(photo, false);
+					}
+				}
+			}
+
 			// Condom removal:
 			if(Main.game.getPlayer().isWearingCondom()){
 				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);

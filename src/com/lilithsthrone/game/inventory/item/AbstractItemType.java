@@ -11,6 +11,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -19,6 +20,7 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -167,6 +169,13 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
+	public static AbstractItem generateRecording(boolean consensual, boolean subHasEqualControl, SexManagerInterface sexManager,
+			List<GameCharacter> spectators, DialogueNodeOld postSexDialogue, String sexStartDescription) {
+		return new AbstractRecording(ItemType.RECORDING, consensual, subHasEqualControl, sexManager, spectators, postSexDialogue, sexStartDescription) {
+			private static final long serialVersionUID = 1L;
+		};
+	}
+
 	public String getId() {
 		return ItemType.itemToIdMap.get(this);
 	}

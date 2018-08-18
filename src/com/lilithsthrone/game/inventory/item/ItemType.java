@@ -274,7 +274,7 @@ public class ItemType {
 	// }
 	// },
 	
-	private static String getGenericUseDescription(GameCharacter user, GameCharacter target, String playerUseSelf, String playerUsePartner, String partnerUseSelf, String partnerUsePlayer) {
+	protected static String getGenericUseDescription(GameCharacter user, GameCharacter target, String playerUseSelf, String playerUsePartner, String partnerUseSelf, String partnerUsePlayer) {
 		if (user!=null && user.isPlayer()) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -3254,6 +3254,76 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsedFromInventory() {
+			return false;
+		}
+	};
+	public static AbstractItemType RECORDING = new AbstractItemType(1000,
+			"a",
+			false,
+			"recording",
+			"recording",
+			"A recording, it shows you in a humiliating position.",
+			"recording",
+			Colour.ATTRIBUTE_CORRUPTION,
+			null,
+			null,
+			Rarity.RARE,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ATTRIBUTE_CORRUPTION)),
+			Util.newArrayListOfValues(
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
+
+		@Override
+		public String getUseName() {
+			return "view";
+		}
+
+		private static final long serialVersionUID = 1L;
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return false;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType RECORDER = new AbstractItemType(2000,
+			"a",
+			false,
+			"recorder",
+			"recorder",
+			"A recorder, it allows capturing a scene.",
+			"recorder",
+			Colour.ATTRIBUTE_CORRUPTION,
+			null,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ATTRIBUTE_CORRUPTION)),
+			Util.newArrayListOfValues(
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
+
+		@Override
+		public String getUseName() {
+			return "record";
+		}
+
+		private static final long serialVersionUID = 1L;
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
 			return false;
 		}
 	};
