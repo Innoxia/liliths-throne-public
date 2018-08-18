@@ -62,11 +62,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -2245,26 +2242,19 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param imageFiles The list of files to import
 	 */
 	public void importImages(List<File> imageFiles) {
-		try {
-			// Copy files to the character's custom image folder
-			Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
-			Files.createDirectories(destination);
-			for (File source : imageFiles) {
-				// Copy to temporary file and use atomic move to guarantee that the file is available
-				Path tmp = destination.resolve(source.getName() + ".tmp");
-				Files.copy(source.toPath(), tmp);
-				Files.move(tmp, destination.resolve(source.getName()), StandardCopyOption.ATOMIC_MOVE);
+		// Copy files to the character's custom image folder
+		Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
+		for (File source : imageFiles) {
+			if (!FileUtils.copyFile(source.toPath(), destination.resolve(source.getName()), false)) {
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
+						"See error.log for details"), false);
 			}
-
-			// Reload the character's images
-			loadImages(true);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Images imported)]",
-					imageFiles.size() + (imageFiles.size() > 1 ? " images were" : " image was") + " added"), false);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourBad(Image import failed)]",
-					"See error.log for details"), false);
 		}
+
+		// Reload the character's images
+		loadImages(LoadOption.FORCE_RELOAD);
+		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Images imported)]",
+				imageFiles.size() + (imageFiles.size() > 1 ? " images were" : " image was") + " added"), false);
 	}
 	
 	public abstract boolean isUnique();

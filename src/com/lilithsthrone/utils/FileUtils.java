@@ -35,6 +35,8 @@ public class FileUtils {
      */
     public static List<File> listFiles(String path, String pattern) {
         List<File> filesList = new ArrayList<>();
+
+        // Iterate over all files in the directory matching the pattern
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(path), pattern)) {
             for (Path entry : stream) {
                 filesList.add(entry.toFile());
@@ -43,20 +45,49 @@ public class FileUtils {
             e.printStackTrace();
         }
 
+        // Sort the files from newest to oldest
         filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
         return filesList;
     }
 
     /**
+     * Utility method to construct the paths from strings. See {@link FileUtils#copyFile(Path, Path, boolean)} for details.
+     * @param source A string containing the path to the source file
+     * @param destination A string containing the path to the destination file
+     */
+    public static boolean copyFile(String source, String destination) {
+        return copyFile(Paths.get(source), Paths.get(destination), false);
+    }
+
+    /**
      * Copies a single file from the source to the target. Returns success and flashes a message if the operation fails.
      * @param source The path of the source file
-     * @param target The path of the destination file
+     * @param destination The path of the destination file
+     * @param atomic Indicates if the operation should execute in a single step, which guarantees thread safety and
+     *               completeness, but is more likely to cause an error
      * @return True if the operation succeeded, false otherwise
      */
-    public static boolean copyFile(Path source, Path target) {
+    public static boolean copyFile(Path source, Path destination, boolean atomic) {
         try {
-            Files.createDirectories(target);
-            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+            // Skip existing directories
+            if (Files.isDirectory(destination) && Files.exists(destination)) {
+                return true;
+            }
+
+            // Create parent directories if necessary
+            if (!Files.exists(destination.getParent())) {
+                Files.createDirectories(destination.getParent());
+            }
+
+            if (atomic) {
+                // Copy to temporary file then move atomically
+                Path tmp = destination.getParent().resolve(destination.getFileName() + ".tmp");
+                Files.copy(source, tmp, LinkOption.NOFOLLOW_LINKS);
+                Files.move(tmp, destination, StandardCopyOption.ATOMIC_MOVE);
+            } else {
+                // Copy directly
+                Files.copy(source, destination, LinkOption.NOFOLLOW_LINKS, StandardCopyOption.REPLACE_EXISTING);
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();
