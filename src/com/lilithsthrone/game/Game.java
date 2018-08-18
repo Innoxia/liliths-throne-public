@@ -18,7 +18,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.misc.*;
 import com.lilithsthrone.game.character.npc.submission.*;
-import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -36,9 +35,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
+import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
@@ -108,7 +107,6 @@ public class Game implements Serializable, XMLSaving {
 	private boolean renderMap;
 	private boolean inCombat;
 	private boolean inSex;
-	private boolean imperialMeasurements;
 	private boolean requestAutosave;
 	
 	private Weather currentWeather;

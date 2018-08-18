@@ -2870,23 +2870,21 @@ public abstract class AbstractItemEffectType {
 						}
 					case REMOVAL:
 							return new RacialEffectUtil("Removes penis.") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
-								
-							return new RacialEffectUtil("Removes penis.", 0, "") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
 
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Removes a huge amount of pubic hair.", smallChangeMajorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
+								return new RacialEffectUtil("Removes a huge amount of pubic hair. (" + smallChangeMajorDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Removes a large amount of pubic hair.", smallChangeDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
+								return new RacialEffectUtil("Removes a large amount of pubic hair. (" + smallChangeDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes some pubic hair.", smallChangeMinorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
+								return new RacialEffectUtil("Removes some pubic hair. (" + smallChangeMinorDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds some pubic hair.", smallChangeMinorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
+								return new RacialEffectUtil("Adds some pubic hair. (" + smallChangeMinorBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Adds a large amount of pubic hair.", smallChangeBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
+								return new RacialEffectUtil("Adds a large amount of pubic hair. (" + smallChangeBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Adds a huge amount of pubic hair.", smallChangeMajorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
+								return new RacialEffectUtil("Adds a huge amount of pubic hair. (" + smallChangeMajorBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
 						}
 						
 					case TF_MOD_PENIS_BARBED:
@@ -2906,9 +2904,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_PENIS_BLUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes blunted head from penis.", 0, "") { @Override public String applyEffect() { return target.removePenisModifier(PenetrationModifier.BLUNT); } };
+								return new RacialEffectUtil("Removes blunted head from penis.") { @Override public String applyEffect() { return target.removePenisModifier(PenetrationModifier.BLUNT); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Makes penis head blunt.", 0, "") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.BLUNT); } };
+								return new RacialEffectUtil("Makes penis head blunt.") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.BLUNT); } };
 						}
 					case TF_MOD_PENIS_KNOTTED:
 						switch(potency) {
@@ -3208,22 +3206,22 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in labia size. (+" + smallChangeMajorBoost + " size)") { @Override public String applyEffect() { return target.incrementVaginaLabiaSize(smallChangeMajorBoost); } };
 						}
 					case REMOVAL:
-							return new RacialEffectUtil("Removes vagina.", 0, "") { @Override public String applyEffect() { return target.setVaginaType(VaginaType.NONE); } };
+							return new RacialEffectUtil("Removes vagina.") { @Override public String applyEffect() { return target.setVaginaType(VaginaType.NONE); } };
 							
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Removes a huge amount of pubic hair.", smallChangeMajorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
+								return new RacialEffectUtil("Removes a huge amount of pubic hair. (" + smallChangeMajorDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Removes a large amount of pubic hair.", smallChangeDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
+								return new RacialEffectUtil("Removes a large amount of pubic hair. (" + smallChangeDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes some pubic hair.", smallChangeMinorDrain, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
+								return new RacialEffectUtil("Removes some pubic hair. (" + smallChangeMinorDrain + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds some pubic hair.", smallChangeMinorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
+								return new RacialEffectUtil("Adds some pubic hair. (" + smallChangeMinorBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Adds a large amount of pubic hair.", smallChangeBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
+								return new RacialEffectUtil("Adds a large amount of pubic hair. (" + smallChangeBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Adds a huge amount of pubic hair.", smallChangeMajorBoost, " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
+								return new RacialEffectUtil("Adds a huge amount of pubic hair. (" + smallChangeMajorBoost + " hairiness") { @Override public String applyEffect() { return target.incrementPubicHair(smallChangeMajorBoost); } };
 						}
 
 					case TF_MOD_PENIS_BARBED:
@@ -3243,9 +3241,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_PENIS_BLUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes blunted tip from clitoris.", 0, "") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.BLUNT); } };
+								return new RacialEffectUtil("Removes blunted tip from clitoris.") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.BLUNT); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Makes tip of clitoris blunt.", 0, "") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.BLUNT); } };
+								return new RacialEffectUtil("Makes tip of clitoris blunt.") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.BLUNT); } };
 						}
 					case TF_MOD_PENIS_KNOTTED:
 						switch(potency) {

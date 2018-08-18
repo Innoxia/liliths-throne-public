@@ -376,7 +376,7 @@ public enum Units {
         if (value >= 1995) return "thousands of " + units;
 
         long usedValue = value < 10 ? Math.round(value) : Math.round(value / 5) * 5;
-        return text((int) usedValue) + " " + (Math.abs(value) > 1 ? units : unit);
+        return Util.intToString((int) usedValue) + " " + (Math.abs(value) > 1 ? units : unit);
     }
 
     /**
@@ -389,31 +389,4 @@ public enum Units {
         if (places < 0) throw new IllegalArgumentException("Amount of fractional places cannot be less than 0.");
         return BigDecimal.valueOf(value).setScale(places, BigDecimal.ROUND_HALF_UP).floatValue();
     }
-
-    /**
-     * Converts a given number to text.
-     * @param number The value to convert, must be between 0 and 2000
-     * @return A string containing the full text number
-     */
-    public static String text(int number) {
-        if (number >= 2000 || number <= 0) throw new IllegalArgumentException("ROUGH_TEXT can only handle values between 0 and 2000.");
-
-        String output;
-        if (number % 100 < 20) {
-            output = ones[number % 100];
-            number /= 100;
-        } else {
-            output = ones[number % 10];
-            number /= 10;
-            output = tens[number % 10] + output;
-            number /= 10;
-        }
-
-        if (number == 0) return output.trim();
-        return (ones[number] + " hundred" + output).trim();
-    }
-
-    private static final String[] tens = {""," ten"," twenty"," thirty"," forty"," fifty"," sixty"," seventy"," eighty"," ninety"};
-    private static final String[] ones = {"", " one", " two", " three", " four", " five", " six", " seven", " eight", " nine",
-            " ten", " eleven", " twelve", " thirteen", " fourteen", " fifteen", " sixteen", " seventeen", " eighteen", " nineteen"};
 }
