@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * This file was created by Adrian on 15.08.2018 for liliths-throne-public.
@@ -68,23 +69,27 @@ public class FileUtils {
      * Copies a directory recursively from the source to the target. Returns success and flashes a message if the
      * operation fails.
      * @param sourcePath The path of the source directory
-     * @param targetPath The path of the destination directory
+     * @param destinationPath The path of the destination directory
      * @return True if the operation succeeded, false otherwise
      */
-    public static boolean copyDirectory(String sourcePath, String targetPath) {
-        try {
-            Path destinationFolder = Paths.get(targetPath);
-            Path sourceFolder = Paths.get(sourcePath);
-            Files.walk(sourceFolder).forEach(source -> {
-                Path destination = destinationFolder.resolve(sourceFolder.relativize(source));
-                copyFile(source, destination);
-            });
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid folder!");
-            return false;
+    public static boolean copyDirectory(String sourcePath, String destinationPath) {
+        Path sourceFolder = Paths.get(sourcePath);
+        if (Files.exists(sourceFolder)) {
+            Path destinationFolder = Paths.get(destinationPath);
+
+            // Traverse the file tree and copy each file
+            try (Stream<Path> fileStream = Files.walk(sourceFolder)) {
+                fileStream.forEach(source -> {
+                    Path destination = destinationFolder.resolve(sourceFolder.relativize(source));
+                    copyFile(source, destination, false);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+                Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid folder!");
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -96,14 +101,13 @@ public class FileUtils {
     }
 
     /**
-     * Deletes the file with the given path. Returns success and flashes a message if the operation fails, which also
-     * happens if the file does not exist.
+     * Deletes the file with the given path. Returns success and flashes a message if the operation fails.
      * @param p The path of the file
      * @return True if the operation succeeded, false otherwise
      */
     public static boolean deleteFile(Path p) {
         try {
-            Files.delete(p);
+            Files.deleteIfExists(p);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,24 +118,25 @@ public class FileUtils {
 
     /**
      * Deletes the directory with the given path recursively. Returns success and flashes a message if the operation
-     * fails. This is not the case when the directory does not exist.
+     * fails.
      * @param path A string containing the folder path
      * @return True if the operation succeeded, false otherwise
      */
     public static boolean deleteDirectory(String path) {
-        try {
-            Path target = Paths.get(path);
-            if (Files.exists(target)) {
-                Files.walk(target)
-                        .sorted(Comparator.reverseOrder())
+        Path target = Paths.get(path);
+        if (Files.exists(target)) {
+            // Traverse the file tree in reverse order and delete each file
+            try (Stream<Path> fileStream = Files.walk(target)) {
+                fileStream.sorted(Comparator.reverseOrder())
+//                        .peek(System.out::println)
                         .forEach(FileUtils::deleteFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid folder!");
+                return false;
             }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid folder!");
-            return false;
         }
+        return true;
     }
 
 }
