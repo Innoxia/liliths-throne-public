@@ -53,9 +53,9 @@ public class GamblingDenPatron extends NPC {
 	}
 	
 	public GamblingDenPatron(Gender gender, DicePokerTable table, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
+				3, gender, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, false);
 		
 		this.table = table;
@@ -167,7 +167,7 @@ public class GamblingDenPatron extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(true);
@@ -187,7 +187,7 @@ public class GamblingDenPatron extends NPC {
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
 			CharacterUtils.generateItemsInInventory(this);
 	
@@ -227,6 +227,16 @@ public class GamblingDenPatron extends NPC {
 			this.setTable(DicePokerTable.valueOf(npcSpecificElement.getAttribute("value")));
 		} catch(Exception ex) {
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	public DicePokerTable getTable() {

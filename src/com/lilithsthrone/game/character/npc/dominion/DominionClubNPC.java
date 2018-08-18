@@ -41,9 +41,9 @@ public class DominionClubNPC extends NPC {
 	}
 	
 	public DominionClubNPC(Gender gender, Subspecies subspecies, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
@@ -102,7 +102,7 @@ public class DominionClubNPC extends NPC {
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 	
 			CharacterUtils.equipClothing(this, true, false);
@@ -121,6 +121,16 @@ public class DominionClubNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	@Override

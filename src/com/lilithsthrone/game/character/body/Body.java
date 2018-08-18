@@ -5768,55 +5768,55 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.getPubicHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy].");
 						break;
 					case ONE_STUBBLE:
-						descriptionSB.append(" [npc.SheHasFull] a small amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a small amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case TWO_MANICURED:
-						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case THREE_TRIMMED:
-						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a rough patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case FOUR_NATURAL:
-						descriptionSB.append(" [npc.SheHasFull] a natural amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a natural amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case FIVE_UNKEMPT:
-						descriptionSB.append(" [npc.SheHasFull] an unkempt mass of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] an unkempt mass of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case SIX_BUSHY:
-						descriptionSB.append(" [npc.SheHasFull] a thick, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a thick, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case SEVEN_WILD:
-						descriptionSB.append(" [npc.SheHasFull] a wild, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a wild, rough mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 				}
 			} else {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy].");
 						break;
 					case ONE_STUBBLE:
-						descriptionSB.append(" [npc.SheHasFull] a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case TWO_MANICURED:
-						descriptionSB.append(" [npc.SheHasFull] a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case THREE_TRIMMED:
-						descriptionSB.append(" [npc.SheHasFull] a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case FOUR_NATURAL:
-						descriptionSB.append(" [npc.SheHasFull] a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case FIVE_UNKEMPT:
-						descriptionSB.append(" [npc.SheHasFull] an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case SIX_BUSHY:
-						descriptionSB.append(" [npc.SheHasFull] a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 					case SEVEN_WILD:
-						descriptionSB.append(" [npc.SheHasFull] a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy]");
+						descriptionSB.append(" [npc.SheHasFull] a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
 						break;
 				}
 			}

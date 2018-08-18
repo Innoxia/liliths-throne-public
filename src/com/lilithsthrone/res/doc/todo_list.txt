@@ -141,6 +141,8 @@
 		You can now ask friendly occupants to transform, under the 'Manage' tab (if they are a demon or slime). Also moved the transform option to the 'Manage' tab for slaves.
 		Standardised all races' parts names, and removed Latin part names for all but canine, feline, equine, and bovine.
 		Changed race discovery tracking to subspecies tracking.
+		Debug mode now reveals all NPCs' concealed parts and clothing.
+		Slightly refined Angel's, Bunny's, and Loppy's appearance, and changed Bunny and Loppy from being twin sisters to Loppy being slightly older.
 	
 	Bugs:
 		Typo and parsing fixes.
@@ -152,8 +154,11 @@
 		Fixed NPCs commenting on strap-on reveals twice.
 		Fixed UI issue in transformation dialogues where selecting buttons would change their size, sometimes making the buttons wrap around onto the next line.
 		Fixed Imp Essences not being able to be used by demons.
+		Fixed friendly occupants sometimes getting the job 'reindeer overseer'.
 	
 	
+	
+	Add Jam art
 	
 	
 	fixes
@@ -163,20 +168,50 @@
 	PRs dev
 	
 	
-	Message Jam about characters
+	Patreon thank you messages!
+	
+	
+	Check on new game:
+	Loppy
+	Jules/K/K
+	Pix
+	Slimes
+	
+	Check master this.setPlayerKnowsName(false);
+	
+	setStartingClothingAndMarkings -> equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing)
+	
+	Irbynx combat & PR
+	
+	Anal missionary
+	
+	Another error in nightlife, when PC go with Kalahari to the VIP area and have sex with her, she does not return to the bar so... " Error: parserTarget. GetCharacter () not found! "  when try to talk her at bar again
+	
+	oh a side note if you ever get back, even with futa testicles enabled demons seem to spawn with them set to internal
+	
+	Hair style for harpies
 	
 	Fix Subspecies SLIME entries
+		Fix cat and slime icons
+	
+	Check subspecies discovery works
 	
 	Add feathered demon wings
 	
-	Fix cat and slime icons
+	Things that are also bugged - can't look at the map in the house, virginity loss messages always site you as the taker on selfie screen, and there was something else, I forgot
 	
-	Fix tattoo areas
+	Fix tattoo areas in UI
 	
 	the TF menu not showing up for canal slimes
-		Revamp post-combat options to use sex and manage tabs
 	
 	Scarlett refusing TF potions
+	
+	Pregnancy dates are messed up
+	
+	>go to club, submissively look for a girl
+	>keep getting submissive girls
+	>keep getting girls dressed like retards
+	>keep getting girls with dumb fetish combinations(e.g. straight pussy slut with preggo fetish that hates cocks) that make them virtually unsexable
 	
 	This slave, a trap, has options in the "Send to Kate" menu for editing their vagina, even though they don't have one
 		It is removed once I exit the menu and re-enter it.

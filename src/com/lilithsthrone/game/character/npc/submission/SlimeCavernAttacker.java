@@ -55,9 +55,9 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	public SlimeCavernAttacker(Gender gender, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.HUMAN, RaceStage.HUMAN,
+				3, gender, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
@@ -152,7 +152,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
@@ -173,7 +173,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
@@ -197,6 +197,16 @@ public class SlimeCavernAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	@Override

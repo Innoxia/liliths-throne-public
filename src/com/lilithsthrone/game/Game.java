@@ -3030,9 +3030,12 @@ public class Game implements Serializable, XMLSaving {
 		}
 		if(!NPCMap.containsKey(id)) {
 			System.err.println("!WARNING! getNPC("+id+") is returning null! Returning GenericAndrogynousNPC instead!");
+
+			if(Main.DEBUG) {
+				new NullPointerException().printStackTrace();
+			}
 			
 			return Main.game.getGenericAndrogynousNPC();
-//			new NullPointerException().printStackTrace();
 		}
 		return NPCMap.get(id);
 	}

@@ -258,6 +258,8 @@ public abstract class GameCharacter implements XMLSaving {
 	// Body:
 	protected Body body;
 	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
+	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
+	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	
 	
 	// Inventory:
@@ -298,7 +300,8 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// Family:
-	protected String motherId, fatherId;
+	protected String motherId;
+	protected String fatherId;
 	protected LocalDateTime conceptionDate;
 
 	
@@ -335,8 +338,6 @@ public abstract class GameCharacter implements XMLSaving {
 	private int totalOrgasmCount;
 	private int daysOrgasmCount;
 	private int daysOrgasmCountRecord;
-	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
-	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	
 	
 	// Stats:
@@ -376,7 +377,7 @@ public abstract class GameCharacter implements XMLSaving {
 			int level,
 			LocalDateTime birthday,
 			Gender startingGender,
-			RacialBody startingRace,
+			Subspecies startingSubspecies,
 			RaceStage stage,
 			CharacterInventory inventory,
 			WorldType worldLocation,
@@ -389,6 +390,8 @@ public abstract class GameCharacter implements XMLSaving {
 		raceConcealed = false;
 		this.description = description;
 		this.level = level;
+		
+		RacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
 		
 		if(birthday==null) {
 			if(Main.game != null) {
@@ -1547,7 +1550,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// ************** Inventory **************//
 		
-		character.resetInventory();
+		character.resetInventory(true);
 		
 		nodes = parentElement.getElementsByTagName("characterInventory");
 		element = (Element) nodes.item(0);
@@ -2641,7 +2644,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if the target knows what this character's area looks like.
 	 */
 	public boolean isAreaKnownByCharacter(CoverableArea area, GameCharacter target) {
-		if(target.equals(this)) {
+		if(target.equals(this) || Main.game.isDebugMode()) {
 			return true;
 		}
 		return areasKnownByCharactersMap.get(area).contains(target.getId());
@@ -12138,19 +12141,24 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * First unequips all clothing into void, so that clothing effects are preserved.
 	 */
-	public void resetInventory(){
-		unequipAllClothingIntoVoid();
+	public void resetInventory(boolean includeWeapons){
+		unequipAllClothingIntoVoid(includeWeapons);
 		
 		this.inventory = new CharacterInventory(0);
 	}
 	
-	public void unequipAllClothingIntoVoid() {
+	public void unequipAllClothingIntoVoid(boolean includeWeapons) {
 		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
 		for(AbstractClothing clothing : clothingEquipped) {
 			clothing.setSealed(false);
 		}
 		for(AbstractClothing clothing : clothingEquipped) {
 			this.unequipClothingIntoVoid(clothing, true, this);
+		}
+		
+		if(includeWeapons) {
+			this.unequipMainWeaponIntoVoid();
+			this.unequipOffhandWeaponIntoVoid();
 		}
 	}
 	
@@ -12518,10 +12526,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String unequipMainWeapon(boolean dropToFloor) {
 		if (getMainWeapon() != null) {
 			// If weapon is unequipped, revert its attribute bonuses:
-			if (getMainWeapon().getAttributeModifiers() != null)
-				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet())
+			if (getMainWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet()) {
 					incrementBonusAttribute(e.getKey(), -e.getValue());
-
+				}
+			}
+			
 			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon());
 			String s;
 			if (mustDropToFloor || dropToFloor) {
@@ -12535,8 +12545,24 @@ public abstract class GameCharacter implements XMLSaving {
 			updateInventoryListeners();
 			
 			return s;
-		} else
+			
+		} else {
 			return "";
+		}
+	}
+	
+	public void unequipMainWeaponIntoVoid() {
+		if (getMainWeapon() != null) {
+			// If weapon is unequipped, revert its attribute bonuses:
+			if (getMainWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet()) {
+					incrementBonusAttribute(e.getKey(), -e.getValue());
+				}
+			}
+			
+			inventory.unequipMainWeapon();
+			updateInventoryListeners();
+		}
 	}
 	
 	public AbstractWeapon getOffhandWeapon() {
@@ -12620,6 +12646,20 @@ public abstract class GameCharacter implements XMLSaving {
 			return "";
 	}
 	
+	public void unequipOffhandWeaponIntoVoid() {
+		if (getOffhandWeapon() != null) {
+			// If weapon is unequipped, revert its attribute bonuses:
+			if (getOffhandWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet()) {
+					incrementBonusAttribute(e.getKey(), -e.getValue());
+				}
+			}
+			
+			inventory.unequipOffhandWeapon();
+			updateInventoryListeners();
+		}
+	}
+	
 	
 	// -------------------- Clothing -------------------- //
 	
@@ -12678,7 +12718,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public Map<InventorySlot, List<AbstractClothing>> getInventorySlotsConcealed() {
-		Map<InventorySlot, List<AbstractClothing>> concealedMap = inventory.getInventorySlotsConcealed();
+		
+		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>(inventory.getInventorySlotsConcealed());
+		
+		if(Main.game.isDebugMode()) {
+//			for(List<AbstractClothing> cList : concealedMap.values()) {
+//				cList.clear();
+//			}
+			return new HashMap<>();
+		}
 		
 		if(Main.game.isInSex()) {
 			for(InventorySlot slot : Sex.getSexManager().getSlotsConcealed(this)) {
@@ -15083,6 +15131,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAssSize(int assSize) {
 		return body.getAss().setAssSize(this, assSize);
 	}
+	public String setAssSize(AssSize assSize) {
+		return body.getAss().setAssSize(this, assSize.getValue());
+	}
 	public String incrementAssSize(int assSize) {
 		return body.getAss().setAssSize(this, getAssSize().getValue() + assSize);
 	}
@@ -15092,6 +15143,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setHipSize(int hipSize) {
 		return body.getAss().setHipSize(this, hipSize);
+	}
+	public String setHipSize(HipSize hipSize) {
+		return body.getAss().setHipSize(this, hipSize.getValue());
 	}
 	public String incrementHipSize(int hipSize) {
 		return body.getAss().setHipSize(this, getHipSize().getValue() + hipSize);
@@ -15127,6 +15181,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAssWetness(int wetness) {
 		return body.getAss().getAnus().getOrificeAnus().setWetness(this, wetness);
 	}
+	public String setAssWetness(Wetness wetness) {
+		return body.getAss().getAnus().getOrificeAnus().setWetness(this, wetness.getValue());
+	}
 	public String incrementAssWetness(int increment) {
 		return body.getAss().getAnus().getOrificeAnus().setWetness(this, getAssWetness().getValue() + increment);
 	}
@@ -15148,6 +15205,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setAssCapacity(float capacity, boolean setStretchedValueToNewValue) {
 		return body.getAss().getAnus().getOrificeAnus().setCapacity(this, capacity, setStretchedValueToNewValue);
+	}
+	public String setAssCapacity(Capacity capacity, boolean setStretchedValueToNewValue) {
+		return body.getAss().getAnus().getOrificeAnus().setCapacity(this, capacity.getMedianValue(), setStretchedValueToNewValue);
 	}
 	public String incrementAssCapacity(float increment, boolean setStretchedValueToNewValue) {
 		return setAssCapacity(getAssRawCapacityValue() + increment, setStretchedValueToNewValue);
@@ -15548,6 +15608,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setNippleSize(int nippleSize) {
 		return body.getBreast().getNipples().setNippleSize(this, nippleSize);
 	}
+	public String setNippleSize(NippleSize nippleSize) {
+		return body.getBreast().getNipples().setNippleSize(this, nippleSize.getValue());
+	}
 	public String incrementNippleSize(int increment) {
 		return body.getBreast().getNipples().setNippleSize(this, getNippleSize().getValue() + increment);
 	}
@@ -15557,6 +15620,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setAreolaeSize(int areolaeSize) {
 		return body.getBreast().getNipples().setAreolaeSize(this, areolaeSize);
+	}
+	public String setAreolaeSize(AreolaeSize areolaeSize) {
+		return body.getBreast().getNipples().setAreolaeSize(this, areolaeSize.getValue());
 	}
 	public String incrementAreolaeSize(int increment) {
 		return body.getBreast().getNipples().setAreolaeSize(this, getAreolaeSize().getValue() + increment);
@@ -15898,6 +15964,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getLipSizeValue() {
 		return body.getFace().getMouth().getLipSizeValue();
 	}
+	public String setLipSize(LipSize lipSize) {
+		return body.getFace().getMouth().setLipSize(this, lipSize.getValue());
+	}
 	public String setLipSize(int lipSize) {
 		return body.getFace().getMouth().setLipSize(this, lipSize);
 	}
@@ -16025,6 +16094,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public void incrementFaceStretchedCapacity(float increment){
 		body.getFace().getMouth().getOrificeMouth().setStretchedCapacity(getFaceStretchedCapacity() + increment);
 	}
+	public String setFaceCapacity(Capacity capacity, boolean setStretchedValueToNewValue) {
+		return body.getFace().getMouth().getOrificeMouth().setCapacity(this, capacity.getMedianValue(), setStretchedValueToNewValue);
+	}
 	public String setFaceCapacity(float capacity, boolean setStretchedValueToNewValue) {
 		return body.getFace().getMouth().getOrificeMouth().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
@@ -16037,6 +16109,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setFaceElasticity(int elasticity) {
 		return body.getFace().getMouth().getOrificeMouth().setElasticity(this, elasticity);
+	}
+	public String setFaceElasticity(OrificeElasticity elasticity) {
+		return body.getFace().getMouth().getOrificeMouth().setElasticity(this, elasticity.getValue());
 	}
 	public String incrementFaceElasticity(int increment) {
 		return setFaceElasticity(getFaceElasticity().getValue() + increment);
@@ -16123,6 +16198,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHairLength(int length) {
 		return body.getHair().setLength(this, length);
 	}
+	public String setHairLength(HairLength length) {
+		return body.getHair().setLength(this, length.getMedianValue());
+	}
 	public String incrementHairLength(int increment) {
 		return setHairLength(getHairRawLengthValue() + increment);
 	}
@@ -16137,7 +16215,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
 		if(!getCovering(getHairType().getBodyCoveringType(this)).equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
-			
+
 			body.updateCoverings(false, false, updateBodyHair, false);
 			
 			if (isPlayer()) {
@@ -16155,6 +16233,8 @@ public abstract class GameCharacter implements XMLSaving {
 						+ postTransformationCalculation());
 			}
 		}
+
+		body.updateCoverings(false, false, updateBodyHair, false);
 		
 		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
@@ -16462,6 +16542,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setPenisGirth(int size) {
 		return getCurrentPenis().setPenisGirth(this, size);
 	}
+	public String setPenisGirth(PenisGirth size) {
+		return getCurrentPenis().setPenisGirth(this, size.getValue());
+	}
 	public String incrementPenisGirth(int increment) {
 		return setPenisGirth(getPenisRawGirthValue() + increment);
 	}
@@ -16474,6 +16557,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setPenisSize(int size) {
 		return getCurrentPenis().setPenisSize(this, size);
+	}
+	public String setPenisSize(PenisSize size) {
+		return getCurrentPenis().setPenisSize(this, size.getMedianValue());
 	}
 	public String incrementPenisSize(int increment) {
 		return setPenisSize(getPenisRawSizeValue() + increment);
@@ -16792,6 +16878,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setTesticleSize(int size) {
 		return getCurrentPenis().getTesticle().setTesticleSize(this, size);
+	}
+	public String setTesticleSize(TesticleSize size) {
+		return getCurrentPenis().getTesticle().setTesticleSize(this, size.getValue());
 	}
 	public String incrementTesticleSize(int increment) {
 		return setTesticleSize(getTesticleSize().getValue() + increment);
@@ -17177,6 +17266,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setVaginaLabiaSize(int labiaSize) {
 		return body.getVagina().setLabiaSize(this, labiaSize);
 	}
+	public String setVaginaLabiaSize(LabiaSize labiaSize) {
+		return body.getVagina().setLabiaSize(this, labiaSize.getValue());
+	}
 	public String incrementVaginaLabiaSize(int increment) {
 		return setVaginaLabiaSize(getVaginaRawLabiaSizeValue() + increment);
 	}
@@ -17211,6 +17303,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setVaginaWetness(int wetness) {
 		return body.getVagina().getOrificeVagina().setWetness(this, wetness);
 	}
+	public String setVaginaWetness(Wetness wetness) {
+		return body.getVagina().getOrificeVagina().setWetness(this, wetness.getValue());
+	}
 	public String incrementVaginaWetness(int increment) {
 		return body.getVagina().getOrificeVagina().setWetness(this, getVaginaWetness().getValue() + increment);
 	}
@@ -17232,6 +17327,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setVaginaCapacity(float capacity, boolean setStretchedValueToNewValue) {
 		return body.getVagina().getOrificeVagina().setCapacity(this, capacity, setStretchedValueToNewValue);
+	}
+	public String setVaginaCapacity(Capacity capacity, boolean setStretchedValueToNewValue) {
+		return body.getVagina().getOrificeVagina().setCapacity(this, capacity.getMedianValue(), setStretchedValueToNewValue);
 	}
 	public String incrementVaginaCapacity(float increment, boolean setStretchedValueToNewValue) {
 		return setVaginaCapacity(getVaginaRawCapacityValue() + increment, setStretchedValueToNewValue);
@@ -17294,6 +17392,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setVaginaClitorisSize(int clitSize) {
 		return body.getVagina().getClitoris().setClitorisSize(this, clitSize);
+	}
+	public String setVaginaClitorisSize(ClitorisSize clitSize) {
+		return body.getVagina().getClitoris().setClitorisSize(this, clitSize.getMedianValue());
 	}
 	public String incrementVaginaClitorisSize(int increment) {
 		return setVaginaClitorisSize(getVaginaRawClitorisSizeValue() + increment);

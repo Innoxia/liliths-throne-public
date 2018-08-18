@@ -47,7 +47,6 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
@@ -87,7 +86,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -111,11 +110,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected Value<String, AbstractItem> heldTransformativePotion = null;
 	
-	protected NPC(NameTriplet nameTriplet, String description, int age, Month birthMonth, int birthDay, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
+	protected NPC(boolean isImported,
+			NameTriplet nameTriplet,
+			String description,
+			int age,
+			Month birthMonth,
+			int birthDay,
+			int level,
+			Gender startingGender,
+			Subspecies startingSubspecies,
+			RaceStage stage,
+			CharacterInventory inventory,
+			WorldType worldLocation,
+			PlaceType startingPlace,
+			boolean addedToContacts) {
 		super(nameTriplet, description, level,
 				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
-				startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
+				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		this.addedToContacts = addedToContacts;
 		
@@ -134,7 +145,116 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(!isImported) {
+			setStartingBody(true);
+			setStartingClothingAndMarkings();
+		}
+		
 		loadImages();
+	}
+	
+
+	/**
+	 * Helper method that should be overridden and included in constructor. Sets custom body parts.<br/>
+	 * <b><u>What to include</u></b><br/>
+	 * <b><u>Persona</u></b><br/>
+	 * <b>-</b> Starting attributes.<br/>
+	 * <b>-</b> Personality.<br/>
+	 * <b>-</b> Sexual orientation.<br/>
+	 * <b>-</b> Occupation.<br/>
+	 * <b>-</b> Fetishes.<br/>
+	 * <br/><br/>
+	 * 
+	 * <b><u>Body</u></b><br/>
+	 * <b>Core parts:</b><br/>
+	 * <b>-</b> Any part type changes.<br/>
+	 * <b>-</b> Height.<br/>
+	 * <b>-</b> Femininity.<br/>
+	 * <b>-</b> Muscle & body size.<br/>
+	 * <br/>
+	 * <b>Coverings:</b><br/>
+	 * <b>-</b> Body coverings for eyes, skin & fur.<br/>
+	 * <b>-</b> Hair coverings, length & style.<br/>
+	 * <b>-</b> Body hair coverings & length. (Underarm, ass, pubic, facial.)<br/>
+	 * <b>-</b> Makeup. (Nail polish, blusher, lipstick, eye liner, eye shadow.)<br/>
+	 * <br/>
+	 * <b>Face:</b><br/>
+	 * <b>-</b> Oral virginity.<br/>
+	 * <b>-</b> Lip size.<br/>
+	 * <b>-</b> Eye count.<br/>
+	 * <b>-</b> Throat capacity & modifiers.<br/>
+	 * <b>-</b> Tongue length.<br/>
+	 * <b>-</b> Tongue modifiers.<br/>
+	 * <br/>
+	 * <b>Chest:</b><br/>
+	 * <b>-</b> Virginity.<br/>
+	 * <b>-</b> Breast size.<br/>
+	 * <b>-</b> Breast shape.<br/>
+	 * <b>-</b> Nipple shape.<br/>
+	 * <b>-</b> Nipple size.<br/>
+	 * <b>-</b> Areolae shape.<br/>
+	 * <b>-</b> Areolae size.<br/>
+	 * <b>-</b> Nipple settings (capacity, wetness, plasticity, elasticity, modifiers).<br/>
+	 * <b>-</b> Milk production.<br/>
+	 * <b>-</b> Milk modifiers & flavour.<br/>
+	 * <br/>
+	 * <b>Arms:</b><br/>
+	 * <b>-</b> Arm count.<br/>
+	 * <br/>
+	 * <b>Ass:</b><br/>
+	 * <b>-</b> Virginity.<br/>
+	 * <b>-</b> Ass size.<br/>
+	 * <b>-</b> Hip size.<br/>
+	 * <b>-</b> Anus bleaching.<br/>
+	 * <b>-</b> Anus settings (capacity, wetness, plasticity, elasticity, modifiers).<br/>
+	 * <br/>
+	 * <b>Penis:</b><br/>
+	 * <b>-</b> Virginity.<br/>
+	 * <b>-</b> Penis size.<br/>
+	 * <b>-</b> Testicle size.<br/>
+	 * <b>-</b> Testicle count.<br/>
+	 * <b>-</b> Cum production.<br/>
+	 * <b>-</b> Cum modifiers & flavour.<br/>
+	 * <b>-</b> Penis modifiers.<br/>
+	 * <b>-</b> Penis urethra settings (capacity, wetness, plasticity, elasticity, modifiers).<br/>
+	 * <br/>
+	 * <b>Vagina:</b><br/>
+	 * <b>-</b> Virginity.<br/>
+	 * <b>-</b> Clit size.<br/>
+	 * <b>-</b> Labia size.<br/>
+	 * <b>-</b> Squirter.<br/>
+	 * <b>-</b> Girlcum modifiers & flavour.<br/>
+	 * <b>-</b> Vagina settings (capacity, wetness, plasticity, elasticity, modifiers).<br/>
+	 * <b>-</b> Vagina urethra settings (capacity, wetness, plasticity, elasticity, modifiers).<br/>
+	 * <br/>
+	 * <b>Feet:</b><br/>
+	 * <b>-</b> Foot structure.<br/>
+	 */
+	public abstract void setStartingBody(boolean setPersona);
+	
+	/**
+	 * Helper method that should be overridden and included in constructor. Should set starting clothing and piercings.<br/>
+	 * <b><u>What to include</u></b><br/>
+	 * <b>-</b> Weapons.<br/>
+	 * <b>-</b> Tattoos.<br/>
+	 * <b>-</b> Scars.<br/>
+	 * <b>-</b> Piercings.<br/>
+	 * <b>-</b> Clothing (remember underwear and accessories).<br/>
+	 */
+	public abstract void setStartingClothingAndMarkings();
+	
+	protected void resetBodyAfterVersion_2_10_5() {
+		// Need to save and restore breast size/lactation from pregnancy changes.
+		CupSize size = this.getBreastSize();
+		float milkStorage = this.getBreastRawMilkStorageValue();
+		float milkStored = this.getBreastRawStoredMilkValue();
+		
+		setStartingBody(true);
+		setStartingClothingAndMarkings();
+		
+		this.setBreastSize(size.getMeasurement());
+		this.setBreastMilkStorage((int) milkStorage);
+		this.setBreastStoredMilk(milkStored);
 	}
 	
 	@Override

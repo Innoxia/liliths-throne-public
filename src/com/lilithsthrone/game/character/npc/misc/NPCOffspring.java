@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionOffspringDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestOffspringDialogue;
@@ -40,17 +41,17 @@ public class NPCOffspring extends NPC {
 	}
 	
 	public NPCOffspring(boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(null, "",
+		super(false, null, "",
 				18, Main.game.getDateNow().minusMonths(1).getMonth(), 1+Util.random.nextInt(25),
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setMother(mother);
@@ -68,7 +69,7 @@ public class NPCOffspring extends NPC {
 		
 		setBody(gender, mother, father);
 		
-		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
+		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
 
@@ -86,7 +87,7 @@ public class NPCOffspring extends NPC {
 		
 		// INVENTORY:
 		
-		resetInventory();
+		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		CharacterUtils.equipClothing(this, true, false);
@@ -113,6 +114,16 @@ public class NPCOffspring extends NPC {
 		} else {
 			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	@Override

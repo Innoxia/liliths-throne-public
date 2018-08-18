@@ -20,7 +20,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -55,9 +55,9 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	public DominionSuccubusAttacker(boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
+				5, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -71,7 +71,7 @@ public class DominionSuccubusAttacker extends NPC {
 			CharacterUtils.addFetishes(this);
 			
 			if(!GenderPreference.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER);
+				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}
 			
@@ -89,7 +89,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setPlayerKnowsName(false);
 			
 			// Set random inventory & weapons:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(50);
 			CharacterUtils.generateItemsInInventory(this);
 			
@@ -116,6 +116,16 @@ public class DominionSuccubusAttacker extends NPC {
 		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public enum InventorySlot {
 	TORSO_OVER(50, "over-torso", false, false, "upper back"),
 
 	/** Clothing slot "torso". Used for shirts.<br/>
-	 *  Tattoo slot "upper face".*/
+	 *  Tattoo slot "lower back".*/
 	TORSO_UNDER(40, "torso", true, false, "lower back"),
 
 	/** Clothing slot "chest". Used for bras.<br/>

@@ -326,7 +326,7 @@ public class CharacterCreation {
 	}
 	
 	public static void getDressed(GameCharacter character, boolean spawnClothingOnFloor) {
-		character.resetInventory();
+		character.resetInventory(false);
 		Main.game.getPlayerCell().resetInventory();
 		
 		equipPiercings();

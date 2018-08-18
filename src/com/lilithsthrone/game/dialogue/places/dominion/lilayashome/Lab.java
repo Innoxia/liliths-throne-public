@@ -585,7 +585,7 @@ public class Lab {
 							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
 							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getLilaya().resetInventory();
+							Main.game.getLilaya().resetInventory(false);
 							
 							Main.game.getLilaya().equipClothingFromNowhere(
 									AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
@@ -925,7 +925,7 @@ public class Lab {
 					@Override public void effects() {
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
-						Main.game.getLilaya().resetInventory();
+						Main.game.getLilaya().resetInventory(false);
 						
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 						

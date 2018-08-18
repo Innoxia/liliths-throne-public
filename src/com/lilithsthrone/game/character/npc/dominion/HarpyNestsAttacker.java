@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestsAttackerDialogue;
@@ -46,9 +46,9 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				4, gender, RacialBody.HARPY, RaceStage.LESSER,
+				4, gender, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {
@@ -63,15 +63,15 @@ public class HarpyNestsAttacker extends NPC {
 			// RACE & NAME:
 			if(this.hasPenis()) {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_P_B_SHEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_B_SHEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_TRAP, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			} else {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_V_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			}
 	
@@ -87,7 +87,7 @@ public class HarpyNestsAttacker extends NPC {
 			CharacterUtils.randomiseBody(this);
 			
 			// INVENTORY:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 			
@@ -105,6 +105,16 @@ public class HarpyNestsAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void setStartingClothingAndMarkings() {
+		// Not needed
 	}
 	
 	@Override

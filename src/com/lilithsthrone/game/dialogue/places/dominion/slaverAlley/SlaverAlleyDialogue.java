@@ -76,7 +76,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES, true);
-			slave.resetInventory();
+			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getFinch());
 			Main.game.getFinch().addSlave(slave);
 			slave.setPlayerKnowsName(true);
@@ -99,7 +99,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
-			slave.resetInventory();
+			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
 			Main.game.getFinch().addSlave(slave);
 			slave.setPlayerKnowsName(true);
@@ -120,7 +120,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
-			slave.resetInventory();
+			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
 			if(i==0) {
 				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getFinch());
@@ -153,7 +153,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
-			slave.resetInventory();
+			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
 			Main.game.getFinch().addSlave(slave);
 			slave.setPlayerKnowsName(true);
@@ -177,7 +177,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
-			slave.resetInventory();
+			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
 			if(Math.random()<0.5f) {
 				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getFinch());
