@@ -430,7 +430,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		artworkList = new ArrayList<>();
 		if (isUnique())
-			loadImages();
+			loadImages(LoadOption.NO_CACHE);
 		
 		PerkManager.initialisePerks(this);
 	}
@@ -2148,7 +2148,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// ************** Artwork **************//
 
 		// Initialize artworks (name and femininity must be set at this point)
-		character.loadImages();
+		character.loadImages(LoadOption.NO_CACHE);
 
 		if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
 			// Retrieve overrides for artist and image index
@@ -2194,29 +2194,32 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
-	 * Equivalent to {@link GameCharacter#loadImages(boolean)} without forcing a reload if the folder didn't change.
+	 * Parameter options for loading images.
+	 * {@link LoadOption#FORCE_RELOAD} indicates that the image directory should be reloaded, even if the name didn't change.
+	 * {@link LoadOption#NO_CACHE} indicates that no caching should occur after loading.
 	 */
-	public void loadImages() {
-		loadImages(false);
+	public enum LoadOption {
+		FORCE_RELOAD,
+		NO_CACHE,
 	}
 
 	/**
-	 * Load or reload all artworks associated with the character. If the parameter is set to true, a reload will always
-	 * happen. Otherwise, nothing will be done if the folder name didn't change.
-	 * @param forceReload Always reload, even if the folder name didn't change
+	 * Load or reload all artworks associated with the character. If the parameters contain {@link LoadOption#FORCE_RELOAD},
+	 * a reload will always happen. Otherwise, nothing will be done if the folder name didn't change. The current image
+	 * will be cached unless artworks are disabled globally or the option {@link LoadOption#NO_CACHE} is set.
+	 * @param options Parameters to influence loading behavior
 	 */
-	public void loadImages(boolean forceReload) {
+	public void loadImages(LoadOption... options) {
 		String folder = getArtworkFolderName();
-		
-//		System.out.println(folder);
-		
-		if (folder.equals(artworkFolderName) && !forceReload) {
+		List<LoadOption> optionList = Arrays.asList(options);
+
+		if (folder.equals(artworkFolderName) && !optionList.contains(LoadOption.FORCE_RELOAD)) {
 			// Nothing changed, abort loading
 			return;
 		} else {
 			artworkList.clear();
 			artworkFolderName = folder;
-			if (forceReload) artworkIndex = -1;
+			if (optionList.contains(LoadOption.FORCE_RELOAD)) artworkIndex = -1;
 		}
 
 		if(!folder.isEmpty()) {
@@ -2230,6 +2233,10 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+
+		if (!optionList.contains(LoadOption.NO_CACHE) && Main.getProperties().hasValue(PropertyValue.artwork) && hasArtwork()) {
+			ImageCache.INSTANCE.requestCache(getCurrentArtwork().getCurrentImage());
 		}
 	}
 

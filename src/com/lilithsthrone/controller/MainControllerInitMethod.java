@@ -170,7 +170,7 @@ public class MainControllerInitMethod {
 					if (MainController.document.getElementById(id) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if (FileUtils.deleteFile(character.getCurrentArtwork().getCurrentImage().toPath())) {
-								character.loadImages(true);
+								character.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
 
 								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
