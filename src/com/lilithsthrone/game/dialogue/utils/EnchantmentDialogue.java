@@ -451,12 +451,18 @@ public class EnchantmentDialogue {
 
 			// Save/load
 			} else if (index == 2) {
-				return new Response("Save/Load", "Save/Load enchantment recipes", ENCHANTMENT_SAVE_LOAD) {
+				return new ResponseEffectsOnly("Save/Load", "Save/Load enchantment recipes") {
 					@Override
 					public void effects() {
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
-						EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-						initSaveLoadMenu();
+						String itemName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent();
+						if (itemName.equals(FileUtils.validate(itemName))) {
+							EnchantmentDialogue.setOutputName(itemName);
+							initSaveLoadMenu();
+							Main.game.setContent(new Response("", "", ENCHANTMENT_SAVE_LOAD));
+						} else {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
+						}
 					}
 				};
 			
@@ -796,16 +802,8 @@ public class EnchantmentDialogue {
 	}
 
 	public static void saveEnchant(String name, boolean allowOverwrite) {
-		if (name.length()==0) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too short!");
-			return;
-		}
-		if (name.length() > 32) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
-			return;
-		}
-		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
+		if (!name.equals(FileUtils.validate(name))) {
+			Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 			return;
 		}
 		
@@ -915,6 +913,7 @@ public class EnchantmentDialogue {
 					doc.getDocumentElement().normalize();
 					
 					String importedName = ((Element) doc.getElementsByTagName("name").item(0)).getTextContent();
+					importedName = FileUtils.validate(importedName);
 					
 					Element enchantment = (Element) doc.getElementsByTagName("enchantment").item(0);
 					Element itemEffects = (Element) enchantment.getElementsByTagName("itemEffects").item(0);

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.lilithsthrone.utils.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -99,7 +100,7 @@ public class GenericPlace implements Serializable, XMLSaving {
 		}
 		
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
-		place.setName(parentElement.getAttribute("name"));
+		place.setName(FileUtils.validate(parentElement.getAttribute("name")));
 		
 		try {
 			if(parentElement.getElementsByTagName("placeUpgrades").getLength()>0 && ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {

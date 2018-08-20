@@ -172,4 +172,19 @@ public class FileUtils {
         return true;
     }
 
+    /**
+     * Strips characters that are illegal in file names or potentially harmful from a string and limits its length to
+     * between 2 and 32 characters.
+     * @param name The string to validate
+     * @return A string without special characters with length 2 to 32
+     */
+    public static String validate(String name) {
+        String output = name.trim().replaceAll("[/.\\\\:*?\"<>|\\[\\]#\\p{Cntrl}]", "");
+        if (output.length() < 2)
+            output = "Unknown";
+        else if (output.length() > 32)
+            output = output.substring(0, 32);
+        return output;
+    }
+
 }

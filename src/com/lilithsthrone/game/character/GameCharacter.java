@@ -1043,12 +1043,12 @@ public abstract class GameCharacter implements XMLSaving {
 		String nameElementValue = nameElement.getAttribute("value");
 		if (!nameElementValue.isEmpty()) {
 			character.setName(new NameTriplet(nameElementValue));
-			CharacterUtils.appendToImportLog(log, "<br/>Set name: " + nameElementValue);
+			CharacterUtils.appendToImportLog(log, "<br/>Set name: " + FileUtils.validate(nameElementValue));
 		} else {
 			character.setName(new NameTriplet(
-					nameElement.getAttribute("nameMasculine"),
-					nameElement.getAttribute("nameAndrogynous"),
-					nameElement.getAttribute("nameFeminine")));
+					FileUtils.validate(nameElement.getAttribute("nameMasculine")),
+					FileUtils.validate(nameElement.getAttribute("nameAndrogynous")),
+					FileUtils.validate(nameElement.getAttribute("nameFeminine"))));
 		}
 		
 		// Surname:
@@ -2444,7 +2444,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getArtworkFolderName() {
 		// Get folder by class name if unique, character name without punctuation and control characters otherwise
 		return this.isUnique() ? this.getClass().getSimpleName()
-				: "generic/" + this.getNameIgnoresPlayerKnowledge().replaceAll("[\\p{Punct}\\p{Cntrl}]", "");
+				: "generic/" + this.getNameIgnoresPlayerKnowledge();
 	}
 
 	public boolean hasArtwork() {

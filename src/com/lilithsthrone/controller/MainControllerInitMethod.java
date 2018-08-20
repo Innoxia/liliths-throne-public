@@ -1092,22 +1092,23 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 
-						boolean unsuitableName = false;
+						String name = "";
 						if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
 							 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
 							}
 							
-							if (!unsuitableName) {
+							if (name.equals(FileUtils.validate(name))) {
 								Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										OccupantManagementDialogue.cellToInspect.getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
+							} else {
+								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 						}
 							
@@ -1335,28 +1336,27 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (name.equals(FileUtils.validate(name))) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										NPC slave = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
-										slave.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+										slave.setName(new NameTriplet(name));
 										slave.loadImages();
 									}
 								});
+							} else {
+								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1368,22 +1368,25 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (name.equals(FileUtils.validate(name))) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(name);
 									}
 								});
+							} else {
+								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1395,24 +1398,27 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (name.equals(FileUtils.validate(name))) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										for(String id: Main.game.getPlayer().getSlavesOwned()) {
-											Main.game.getNPCById(id).setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+											Main.game.getNPCById(id).setPlayerPetName(name);
 										}
 									}
 								});
+							} else {
+								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1966,26 +1972,25 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 	
-						boolean unsuitableName = false;
+						String name;
 					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+							} else {
+								name = "";
 							}
 							
-							if (!unsuitableName) {
+							if (name.equals(FileUtils.validate(name))) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
+							} else {
+								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
