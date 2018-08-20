@@ -2442,8 +2442,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String getArtworkFolderName() {
-		// Get folder by class name if unique, character name otherwise
-		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+		// Get folder by class name if unique, character name without punctuation and control characters otherwise
+		return this.isUnique() ? this.getClass().getSimpleName()
+				: "generic/" + this.getNameIgnoresPlayerKnowledge().replaceAll("[\\p{Punct}\\p{Cntrl}]", "");
 	}
 
 	public boolean hasArtwork() {
