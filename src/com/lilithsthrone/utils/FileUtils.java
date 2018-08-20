@@ -72,7 +72,7 @@ public class FileUtils {
     public static boolean copyFile(Path source, Path destination, boolean atomic) {
         try {
             // Skip existing directories
-            if (Files.isDirectory(destination) && Files.exists(destination)) {
+            if (Files.isDirectory(destination)) {
                 return true;
             }
 
