@@ -598,7 +598,7 @@ public class Game implements Serializable, XMLSaving {
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 
 				// Convert size from centimetres to inches
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.9.1")) { // FIXME change version after merging
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.10.2")) { // FIXME change version after merging
 					Main.game.player.setHeight(Units.round(Main.game.player.getHeightValue() / 2.54, 1));
 				}
 
@@ -648,7 +648,7 @@ public class Game implements Serializable, XMLSaving {
 							}
 
 							// Convert size from centimetres to inches
-							if(Main.isVersionOlderThan(loadingVersion, "0.2.9.1")) { // FIXME change version after merging
+							if(Main.isVersionOlderThan(loadingVersion, "0.2.10.2")) { // FIXME change version after merging
 								npc.setHeight(Units.round(npc.getHeightValue() / 2.54, 1));
 							}
 							

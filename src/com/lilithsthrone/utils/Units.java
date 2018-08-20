@@ -16,7 +16,7 @@ import java.util.Locale;
  * Collection of utility functions for date, time and number format conversion.
  *
  * @since 0.2.9
- * @version 0.2.9
+ * @version 0.2.10
  * @author Addi
  */
 public enum Units {
@@ -115,7 +115,7 @@ public enum Units {
      * @return A string containing the localized date and time
      */
     public static String dateTime(TemporalAccessor timePoint, DateType type) {
-        return date(timePoint) + ", " + time(timePoint);
+        return date(timePoint, type) + ", " + time(timePoint);
     }
 
     /**
@@ -215,7 +215,7 @@ public enum Units {
                 }
 
                 if (inch != 0) {
-                    output += number(output.isEmpty() ? inch : Math.abs(inch)) + "&quot;";
+                    output += number(output.isEmpty() ? roundTo(inch, 0.5) : Math.abs(inch)) + "&quot;";
                 } else if (feet == 0) {
                     output = "0&quot;";
                 }
@@ -239,7 +239,7 @@ public enum Units {
         double cm = inches * 2.54;
 
         double m = cm / 100;
-        return withUnit(cm, "cm", "centimetre", m, "m", "metre", type);
+        return withUnit(Math.round(cm), "cm", "centimetre", m, "m", "metre", type);
     }
 
     /**
@@ -280,7 +280,7 @@ public enum Units {
         double oz = ml / 28.4131;
 
         double gal = oz / 160;
-        return withUnit(oz, "oz", "ounce", gal, "gal", "gallon", type);
+        return withUnit(round(oz, 1), "oz", "ounce", gal, "gal", "gallon", type);
     }
 
     /**
@@ -296,7 +296,7 @@ public enum Units {
      */
     public static String fluidAsMetric(double ml, UnitType type) {
         double l = ml / 1000;
-        return withUnit(ml, "mL", "millilitre", l, "L", "litre", type);
+        return withUnit(Math.round(ml), "mL", "millilitre", l, "L", "litre", type);
     }
 
     /**
@@ -337,7 +337,7 @@ public enum Units {
         double oz = grams / 28.34952;
 
         double lb = oz / 16;
-        return withUnit(oz, "oz", "ounce", lb, "lb", "pound", type);
+        return withUnit(round(oz, 1), "oz", "ounce", lb, "lb", "pound", type);
     }
 
     /**
@@ -353,7 +353,7 @@ public enum Units {
      */
     public static String weightAsMetric(double grams, UnitType type) {
         double kg = grams / 1000;
-        return withUnit(grams, "g", "gram", kg, "kg", "kilogram", type);
+        return withUnit(Math.round(grams), "g", "gram", kg, "kg", "kilogram", type);
     }
 
     /**
@@ -405,7 +405,7 @@ public enum Units {
         if (value < 1) return "less than one " + unit;
         if (value >= 1995) return "thousands of " + units;
 
-        long usedValue = value < 10 ? Math.round(value) : Math.round(value / 5) * 5;
+        long usedValue = value < 10 ? Math.round(value) : roundTo(value, 5);
         return Util.intToString((int) usedValue) + " " + (Math.abs(value) > 1 ? units : unit);
     }
 
@@ -418,5 +418,25 @@ public enum Units {
     public static float round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException("Amount of fractional places cannot be less than 0.");
         return BigDecimal.valueOf(value).setScale(places, BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+    /**
+     * Rounds a given number to the nearest multiple of the second parameter. Note that {@link Units#round(double, int)} is
+     * more precise and should be preferred.
+     * @param value Number to round
+     * @param toNearest Number to round to
+     * @return A rounded float
+     */
+    public static float roundTo(double value, double toNearest) {
+        return (float) (Math.round(value / toNearest) * toNearest);
+    }
+
+    /**
+     * Convenience overload of {@link Units#roundTo(double, double)} for integers.
+     * @param toNearest Integer number to round to
+     * @return A rounded integer
+     */
+    public static long roundTo(double value, long toNearest) {
+        return Math.round(value / toNearest) * toNearest;
     }
 }
