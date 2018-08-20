@@ -172,6 +172,11 @@ public class MainControllerInitMethod {
 							if (FileUtils.deleteFile(character.getCurrentArtwork().getCurrentImage().toPath())) {
 								character.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
 
+								// Clean up empty artwork folders
+								if (!character.hasArtwork()) {
+									FileUtils.deleteDirectory("res/images/characters/" + character.getArtworkFolderName());
+								}
+
 								if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
