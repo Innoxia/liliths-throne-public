@@ -3301,7 +3301,7 @@ public class ItemType {
 			"recorder",
 			"recorder",
 			"A recorder, it allows capturing a scene.",
-			"recorder",
+			"videocamera",
 			Colour.ATTRIBUTE_CORRUPTION,
 			null,
 			null,
