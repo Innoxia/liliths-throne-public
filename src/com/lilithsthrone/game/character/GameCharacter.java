@@ -11411,10 +11411,12 @@ public abstract class GameCharacter implements XMLSaving {
 		InventorySlot shaft = ClothingType.PENIS_CONDOM.getSlot();
 		if (shaft != null) {
 			AbstractClothing condom = this.getClothingInSlot(shaft);
-			AbstractClothingType condomType = condom.getClothingType();
+			if (condom != null) {
+				AbstractClothingType condomType = condom.getClothingType();
 
-			if (condomType.equals(ClothingType.PENIS_CONDOM) && Math.random() > condomType.getPhysicalResistance()) {
-				condom.addEffect(new ItemEffect(ItemEffectType.BROKEN_CONDOM));
+				if (condomType.equals(ClothingType.PENIS_CONDOM) && Math.random() > condomType.getPhysicalResistance()) {
+					condom.addEffect(new ItemEffect(ItemEffectType.BROKEN_CONDOM));
+				}
 			}
 		}
 	}
