@@ -802,10 +802,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static void saveEnchant(String name, boolean allowOverwrite) {
-		if (!name.equals(FileUtils.validate(name))) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
-			return;
-		}
+		if (!FileUtils.isValid(name)) return;
 		
 		File dir = new File("data/");
 		dir.mkdir();

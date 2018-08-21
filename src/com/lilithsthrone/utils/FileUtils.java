@@ -187,4 +187,15 @@ public class FileUtils {
         return output;
     }
 
+    /**
+     * Convenience method that compares a name to its validated form and flashes a message if they are not equal.
+     * @param name The string to check
+     * @return True if name is valid, false otherwise
+     */
+    public static boolean isValid(String name) {
+        boolean valid = name.equals(validate(name));
+        if (!valid) Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
+        return valid;
+    }
+
 }

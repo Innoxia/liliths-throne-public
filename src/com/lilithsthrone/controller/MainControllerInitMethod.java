@@ -1100,15 +1100,13 @@ public class MainControllerInitMethod {
 								name = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
 							}
 							
-							if (name.equals(FileUtils.validate(name))) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										OccupantManagementDialogue.cellToInspect.getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
-							} else {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 						}
 							
@@ -1346,7 +1344,7 @@ public class MainControllerInitMethod {
 								name = "";
 							}
 							
-							if (name.equals(FileUtils.validate(name))) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
@@ -1355,8 +1353,6 @@ public class MainControllerInitMethod {
 										slave.loadImages();
 									}
 								});
-							} else {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1378,15 +1374,13 @@ public class MainControllerInitMethod {
 								name = "";
 							}
 							
-							if (name.equals(FileUtils.validate(name))) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(name);
 									}
 								});
-							} else {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1408,7 +1402,7 @@ public class MainControllerInitMethod {
 								name = "";
 							}
 							
-							if (name.equals(FileUtils.validate(name))) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
@@ -1417,8 +1411,6 @@ public class MainControllerInitMethod {
 										}
 									}
 								});
-							} else {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
@@ -1982,15 +1974,13 @@ public class MainControllerInitMethod {
 								name = "";
 							}
 							
-							if (name.equals(FileUtils.validate(name))) {
+							if (FileUtils.isValid(name)) {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
 										Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
-							} else {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid name!");
 							}
 							
 						}
