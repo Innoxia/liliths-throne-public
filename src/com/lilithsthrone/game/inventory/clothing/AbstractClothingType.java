@@ -1812,11 +1812,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public int getPhysicalResistance() {
-		return physicalResistance & 0xff;
+		return physicalResistance & ~0xff00;
 	}
 
 	public int getResistancePercentage() {
-		return physicalResistance >> 8;
+		return (physicalResistance >> 8) & 0xff;
 	}
 
 	public void setPhysicalResistance(int physicalResistance) {
