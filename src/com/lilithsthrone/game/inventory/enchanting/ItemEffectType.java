@@ -90,13 +90,13 @@ public class ItemEffectType {
 		}
 	};
 	
-	public static AbstractItemEffectType BROKEN_CONDOM = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"No longer provides any protection."),
-			Colour.GENERIC_SEX) {
+	public static AbstractItemEffectType GENERIC_BROKEN = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"This object is broken."),
+			Colour.AFFECTION_NEGATIVE_TWO) {
 
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p>The condom rips.</p>";
+			return "<p>It is broken.</p>";
 		}
 	};
 

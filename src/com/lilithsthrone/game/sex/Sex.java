@@ -1816,7 +1816,7 @@ public class Sex {
 				if (cumProvidor.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE)
 					continue;
 
-				if (cumProvidor.isWearingCondom() && !sexAction.ignoreCondom(cumProvidor)) {
+				if (cumProvidor.isWearingCondom() && !sexAction.testCondomRipped(cumProvidor)) {
 					continue;
 				}
 
@@ -2061,10 +2061,7 @@ public class Sex {
 						for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
 
 							if(entry.getKey().isPenetration()) {
-								character.testCondomRips();
 								applyPenetrationEffects(character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
-							} else {
-								characterTarget.testCondomRips();
 							}
 
 							List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
