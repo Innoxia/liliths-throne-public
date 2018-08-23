@@ -11636,8 +11636,12 @@ public enum StatusEffect {
 		} else {
 			SVGString = "";
 		}
+	}
 
-		modifiersList = attributeModifiersToStringList(attributeModifiers);
+	public static void updateAttributeModifiers() {
+		for (StatusEffect s : StatusEffect.values()) {
+			s.modifiersList = s.attributeModifiersToStringList(s.attributeModifiers);
+		}
 	}
 	
 	protected List<String> attributeModifiersToStringList(Map<Attribute, Float> attributeMap) {

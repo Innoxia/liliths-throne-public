@@ -1,7 +1,9 @@
 package com.lilithsthrone.utils;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.main.Main;
+import javafx.application.Platform;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -65,6 +67,7 @@ public enum Units {
         number = NumberFormat.getNumberInstance(Main.getProperties().hasValue(PropertyValue.autoLocale) ? Locale.getDefault() : Locale.ENGLISH);
         number.setRoundingMode(RoundingMode.HALF_UP);
         number.setMaximumFractionDigits(2);
+        Platform.runLater(StatusEffect::updateAttributeModifiers);
     }
 
     /**
