@@ -8432,7 +8432,7 @@ public class ClothingType {
 			"condom",
 			"condoms",
 			"A sheath-shaped rubbery barrier device, designed to fit over a penis and prevent any semen from entering the body of a sexual partner.",
-			99 << 8, // use high bits as percentile chance that a condom rips during ejaculation
+			1,
 			null,
 			InventorySlot.PENIS,
 			Rarity.COMMON,

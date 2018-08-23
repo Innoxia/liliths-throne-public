@@ -929,10 +929,8 @@ public interface SexActionInterface {
 		AbstractClothingType condomType = condom.getClothingType();
 		Testicle testis = condomWearer.getBody().getPenis().getTesticle();
 
-		int pctChance = condomType.getPhysicalResistance();
-
 		// if the amount of cum is a lot, increase chance of breaking.
-		pctChance -= testis.getRawCumStorageValue() * testis.getRawCumExpulsionValue() / 1000;
+		int pctChance = 99 - testis.getRawCumStorageValue() * testis.getRawCumExpulsionValue() / 1000;
 
 		if (condomType.equals(ClothingType.PENIS_CONDOM) && Util.random.nextInt(1001) > pctChance) {
 			condom.addEffect(new ItemEffect(ItemEffectType.GENERIC_BROKEN));
