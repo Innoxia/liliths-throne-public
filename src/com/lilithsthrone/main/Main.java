@@ -72,7 +72,7 @@ public class Main extends Application {
 	public final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
-
+	
 	private static Properties properties;
 	
 	public static String patchNotes =
