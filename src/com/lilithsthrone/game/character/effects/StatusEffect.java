@@ -11645,7 +11645,7 @@ public enum StatusEffect {
 		
 		if (attributeMap != null) {
 			for (Entry<Attribute, Float> e : attributeMap.entrySet()) {
-				attributeModifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b>" + " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
+				attributeModifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + Units.number(e.getValue(), 1, 1) + "</b>" + " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
 			}
 		}
 		

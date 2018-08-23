@@ -382,21 +382,18 @@ public class UtilText {
 	}
 	
 	public static String formatAsEssencesUncoloured(int amount, String tag, boolean withOverlay) {
-		String essenceString = formatter.format(amount);
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGStringUncoloured() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+essenceString+"</"+tag+">";
+				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 	
 	
 	public static String formatAsEssences(int amount, String tag, boolean withOverlay) {
-		String essenceString = formatter.format(amount);
-		
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGString() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+essenceString+"</"+tag+">";
+				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 	
 	public static String formatAsMoney(int money, String tag) {
@@ -415,17 +412,8 @@ public class UtilText {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
 	}
 	
-	private static NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-	private static DecimalFormat formatter;
-	static{
-		formatter = (DecimalFormat)nf;
-		formatter.applyPattern("#,###,###");
-	}
-	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
 		String tagColour;
-		String moneyString = formatter.format(money);
-		
 		if(amountColour==null ) {
 			tagColour = Colour.TEXT.getShades(8)[3];
 		} else {
@@ -433,7 +421,7 @@ public class UtilText {
 		}
 		
 		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(money) + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {

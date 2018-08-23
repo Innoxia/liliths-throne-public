@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
+import com.lilithsthrone.utils.Units;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
@@ -545,14 +546,16 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append("<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
 						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b><br/>"
-						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute)) + "</span>" + "</div>"
+						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>")
+							+ Units.number(owner.getBaseAttributeValue(attribute), 1, 1)
+						+ "</span>" + "</div>"
 						
 						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Bonus</b><br/>"
 						+ ((owner.getBonusAttributeValue(attribute)) > 0 ? "<span style='color: " + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
 								: ((owner.getBonusAttributeValue(attribute)) == 0 ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" : "<span style='color: " + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
-						+ String.format("%.2f", owner.getBonusAttributeValue(attribute))+ "</span>" + "</div>"
+						+ Units.number(owner.getBonusAttributeValue(attribute), 1, 1)+ "</span>" + "</div>"
 						
-						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + String.format("%.2f", owner.getAttributeValue(attribute))
+						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + Units.number(owner.getAttributeValue(attribute), 1, 1)
 						+ "</span>" + "</div>");
 				
 				tooltipSB.append("<div class='description-half'>" + attribute.getDescription(owner) + "</div>");
@@ -718,7 +721,8 @@ public class TooltipInformationEventListener implements EventListener {
 
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b><br/>"
-						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute))
+						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>")
+							+ Units.number(owner.getBaseAttributeValue(attribute), 1, 1)
 						+ "</span>"
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
@@ -734,12 +738,12 @@ public class TooltipInformationEventListener implements EventListener {
 										: "<span style='color: "
 												+ Colour.GENERIC_BAD.getShades()[1]
 												+ ";'>"))
-						+ String.format("%.2f", owner.getBonusAttributeValue(attribute))
+						+ Units.number(owner.getBonusAttributeValue(attribute), 1, 1)
 						+ "</span>"
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + String.format("%.2f", owner.getAttributeValue(attribute)) + "</span>"
+						+ attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + Units.number(owner.getAttributeValue(attribute), 1, 1) + "</span>"
 						+ "</div>"
 
 						+ "<div class='description'>" + attribute.getDescription(owner) + "</div>"));

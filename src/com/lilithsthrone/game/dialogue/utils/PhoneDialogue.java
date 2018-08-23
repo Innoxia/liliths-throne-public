@@ -491,12 +491,12 @@ public class PhoneDialogue {
 					+ "<p style='text-align:center;padding:margin:0;'>"
 						+ "All derived stats start to have diminishing returns past the half-way point!<br/>"
 						+ "<b>For example:</b><br/>"
-						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(25, 100)+"% damage</i><br/>"
-						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(50, 100)+"% damage</i><br/>"
+						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(25, 100))+"% damage</i><br/>"
+						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(50, 100))+"% damage</i><br/>"
 						+ "<i>Past this point, there are diminishing returns.</i><br/>"
-						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(60, 100)+"% damage</i><br/>"
-						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(80, 100)+"% damage</i><br/>"
-						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(100, 100)+"% damage</i><br/>"
+						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(60, 100))+"% damage</i><br/>"
+						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(80, 100))+"% damage</i><br/>"
+						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(100, 100))+"% damage</i><br/>"
 					+ "</p>"
 				+ "</details>"
 					
@@ -512,13 +512,13 @@ public class PhoneDialogue {
 					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.FERTILITY,
 							"Pregnancy Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())+"%</b>")
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit()))+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
 							"Impregnation Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())+"%</b>")
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit()))+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
 							"Spell Cost:<br/>"
-							+ "<b>-"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit())+"%</b>")
+							+ "<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b>")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
@@ -530,85 +530,85 @@ public class PhoneDialogue {
 					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE,
 							"Critical Hit Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
 							"Critical Hit Damage:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
 							"Dodge Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
 							"Miss Chance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit()))+"%</b>",
 							true)
 					
 
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
 							"Unarmed Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
 							"Spell Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
 							"Melee Weapon Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
 							"Ranged Weapon Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit())))+"%</b>",
 							true)
 					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
 							"Physical Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL,
 							"Physical Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit()))+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_FIRE,
 							"Fire Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE,
 							"Fire Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit()))+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ICE,
 							"Ice Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_ICE,
 							"Ice Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit()))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_POISON,
 							"Poison Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_POISON,
 							"Poison Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit()))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LUST,
 							"Lust Damage:<br/>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit()))+"%</b>",
+							+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit())))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
 							"Lust Resistance:<br/>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit()))+"%</b>",
 							true)
 
 				+"</div>"
@@ -620,11 +620,11 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
 									Util.capitaliseSentence(race.getName())+" Damage:<br/>"
-									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
+									+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit())))+"%</b>",
 									true)
 							+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
 									Util.capitaliseSentence(race.getName())+" Resistance:<br/>"
-									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
+									+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit()))+"%</b>",
 									true));
 				}
 			}
@@ -1383,7 +1383,7 @@ public class PhoneDialogue {
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";text-align:center;'>"
-						+ "<b style='color:"+colour.toWebHexString()+";'>"+owner.getAttributeValue(att)+"</b>"
+						+ "<b style='color:"+colour.toWebHexString()+";'>"+Units.number(owner.getAttributeValue(att), 1, 1)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
 						+ "<div class='container-full-width' style='width:" + width + "%; padding:0;"
@@ -1401,7 +1401,7 @@ public class PhoneDialogue {
 										: (owner.getBaseAttributeValue(att) < 0
 												? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 												: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-												+owner.getBaseAttributeValue(att)
+												+Units.number(owner.getBaseAttributeValue(att), 1, 1)
 												+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
@@ -1411,7 +1411,7 @@ public class PhoneDialogue {
 											: (owner.getBonusAttributeValue(att) < 0
 													? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 													: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-													+owner.getBonusAttributeValue(att)
+													+Units.number(owner.getBonusAttributeValue(att), 1, 1)
 													+"</b>"
 					+ "</div>"
 					+ (effect.length()>0
