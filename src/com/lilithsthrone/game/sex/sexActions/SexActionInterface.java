@@ -18,6 +18,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -921,18 +922,45 @@ public interface SexActionInterface {
 	
 	public default boolean testCondomRipped(GameCharacter condomWearer) {
 		AbstractClothing condom = condomWearer.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot());
-		for (ItemEffect eff: condom.getEffects())
-			if (eff.getItemEffectType().equals(ItemEffectType.GENERIC_BROKEN))
+		int max = 100;
+		for (ItemEffect eff: condom.getEffects()) {
+			AbstractItemEffectType effType = eff.getItemEffectType();
+			if (effType.equals(ItemEffectType.GENERIC_BROKEN)) {
 				return true;
+			} else if (effType.equals(ItemEffectType.GENERIC_DURABILITY)) {
+				switch(eff.getPotency()) {
+				case BOOST:
+					max *= 2;
+					break;
+				case DRAIN:
+					max *= 0.5;
+					break;
+				case MAJOR_BOOST:
+					max *= 4;
+					break;
+				case MAJOR_DRAIN:
+					max *= 0.25;
+					break;
+				case MINOR_BOOST:
+					max *= 1.25;
+					break;
+				case MINOR_DRAIN:
+					max *= 0.8;
+					break;
+				default:
+					break;
+				}
+			}
+		}
 
 		// if not yet broken, test whether it currently breaks
 		AbstractClothingType condomType = condom.getClothingType();
 		Testicle testis = condomWearer.getBody().getPenis().getTesticle();
 
 		// if the amount of cum is a lot, increase chance of breaking.
-		int pctChance = 99 - testis.getRawCumStorageValue() * testis.getRawCumExpulsionValue() / 1000;
+		int chance = max - 1 - testis.getRawCumStorageValue() * testis.getRawCumExpulsionValue() / (max * 10);
 
-		if (condomType.equals(ClothingType.PENIS_CONDOM) && Util.random.nextInt(1001) > pctChance) {
+		if (condomType.equals(ClothingType.PENIS_CONDOM) && Util.random.nextInt(max + 1) > chance) {
 			condom.addEffect(new ItemEffect(ItemEffectType.GENERIC_BROKEN));
 			return true;
 		}

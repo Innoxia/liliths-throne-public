@@ -90,9 +90,46 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType GENERIC_DURABILITY = new AbstractItemEffectType(null,
+			Colour.GENERIC_ATTRIBUTE) {
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(
+					TFPotency.BOOST,
+					TFPotency.MINOR_BOOST,
+					TFPotency.MAJOR_BOOST,
+					TFPotency.MAJOR_DRAIN,
+					TFPotency.MINOR_DRAIN,
+					TFPotency.DRAIN);
+		}
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			switch (potency) {
+			case BOOST:
+				return Util.newArrayListOfValues("It is [style.boldGood(strong)].");
+			case DRAIN:
+				return Util.newArrayListOfValues("It is [style.boldBad(fragile)].");
+			case MAJOR_BOOST:
+				return Util.newArrayListOfValues("It is [style.boldExcellent(extremely strong)].");
+			case MAJOR_DRAIN:
+				return Util.newArrayListOfValues("It is [style.boldTerrible(very fragile)].");
+			case MINOR_BOOST:
+				return Util.newArrayListOfValues("It is [style.boldMinorGood(reliable)].");
+			case MINOR_DRAIN:
+				return Util.newArrayListOfValues("It is [style.boldMinorBad(a little weak)].");
+			default:
+				return null;
+			}
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return genericAttributeEffect(ResourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit, user, target);
+		}
+	};
+
 	public static AbstractItemEffectType GENERIC_BROKEN = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"This object is broken."),
-			Colour.AFFECTION_NEGATIVE_TWO) {
+			Colour.GENERIC_BAD) {
 
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
