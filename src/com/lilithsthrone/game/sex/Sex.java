@@ -1816,7 +1816,7 @@ public class Sex {
 				if (cumProvidor.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE)
 					continue;
 
-				if (cumProvidor.isWearingCondom() && !sexAction.testCondomRipped(cumProvidor)) {
+				if (cumProvidor.isWearingCondom() && !sexAction.testCondomRipped(cumProvidor, cumTarget)) {
 					continue;
 				}
 

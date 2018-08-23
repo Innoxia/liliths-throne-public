@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -920,7 +921,7 @@ public interface SexActionInterface {
 
 	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	
-	public default boolean testCondomRipped(GameCharacter condomWearer) {
+	public default boolean testCondomRipped(GameCharacter condomWearer, GameCharacter cumTarget) {
 		AbstractClothing condom = condomWearer.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot());
 		int max = 100;
 		for (ItemEffect eff: condom.getEffects()) {
@@ -950,6 +951,13 @@ public interface SexActionInterface {
 				default:
 					break;
 				}
+			}
+		}
+		for (FluidModifier base: cumTarget.getBody().getVagina().getGirlcum().getFluidModifiers()) {
+			if (base == FluidModifier.MINERAL_OIL) {
+				max *= 0.25;
+			} else if (base == FluidModifier.SLIMY) {
+				max *= 2;
 			}
 		}
 

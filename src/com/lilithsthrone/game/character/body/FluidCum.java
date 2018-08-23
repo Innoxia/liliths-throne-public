@@ -337,6 +337,19 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a prolongued heat flow up into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.cum] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A prolongued heat flows up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(mineral oil)]!"
+							+ "</p>");
+				}
 		}
 		
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -457,6 +470,19 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 							"<p>"
 								+ "A soft coolness rises up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.NamePos] [npc.cum] is [style.boldShrink(no longer viscous)]!"
+							+ "</p>");
+				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a short relief flow up into your [pc.balls], causing you to let out a gentle sigh.<br/>"
+								+ "Your [pc.cum] is [style.boldShrink(no longer mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A short relief flows up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.cum] is [style.boldShrink(no longer mineral oil)]!"
 							+ "</p>");
 				}
 		}
