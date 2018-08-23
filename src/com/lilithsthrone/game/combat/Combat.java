@@ -54,6 +54,7 @@ public enum Combat {
 	private static boolean escaped = false;
 	private static StringBuilder combatStringBuilder = new StringBuilder();
 	private static StringBuilder attackStringBuilder = new StringBuilder();
+	private static StringBuilder predictionStringBuilder = new StringBuilder();
 	private static StringBuilder postCombatStringBuilder = new StringBuilder();
 	private static String combatContent;
 
@@ -102,6 +103,7 @@ public enum Combat {
 		combatContent = "";
 		turn = 0;
 		combatStringBuilder.setLength(0);
+		predictionStringBuilder.setLength(0);
 		postCombatStringBuilder.setLength(0);
 		
 		previousAction = Attack.NONE;
@@ -177,7 +179,37 @@ public enum Combat {
 			}
 		}
 
-		combatContent = combatStringBuilder.toString();
+		Main.game.getPlayer().resetMoveCooldowns();
+		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP());
+		for(NPC npc : allCombatants)
+		{
+			npc.resetMoveCooldowns();
+			npc.setRemainingAP(npc.getMaxAP());
+			// Sets up NPC ally/enemy lists that include player
+			List<GameCharacter> npcAllies;
+			List<GameCharacter> npcEnemies;
+			if(allies.contains(npc))
+			{
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
+				npcAllies = new ArrayList<>(allies);
+				npcAllies.add(Main.game.getPlayer());
+				npcEnemies = new ArrayList<>(enemies);
+			}
+			else
+			{
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
+				npcEnemies = new ArrayList<>(allies);
+				npcEnemies.add(Main.game.getPlayer());
+				npcAllies = new ArrayList<>(enemies);
+			}
+			// Selects the moves
+			npc.selectMoves(npcEnemies, npcAllies);
+			predictionStringBuilder.append(UtilText.parse(npc, npc.getMovesPredictionString(npcEnemies, npcAllies)));
+
+		}
+
+		combatContent = getPredictionString();
+		combatContent += combatStringBuilder.toString();
 		combatStringBuilder.setLength(0);
 		
 		Main.game.setInCombat(true);
@@ -609,12 +641,12 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return combatContent;
+			return getAPString()+combatContent;
 		}
 		
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(isEnemyPartyDefeated() || isAlliedPartyDefeated() || Main.game.getPlayer().isStunned() || escaped || isCombatantDefeated(Main.game.getPlayer())) {
+			/*if(isEnemyPartyDefeated() || isAlliedPartyDefeated() || Main.game.getPlayer().isStunned() || escaped || isCombatantDefeated(Main.game.getPlayer())) {
 				return null;
 				
 			} else {
@@ -626,7 +658,8 @@ public enum Combat {
 					return "Spells";
 				}
 				return null;
-			}
+			}*/
+			return null;
 		}
 		
 		@Override
@@ -700,9 +733,59 @@ public enum Combat {
 				}
 				
 			}
-			
-			
-			if(responseTab==1) { // Special attacks:
+
+			List<GameCharacter> pcEnemies = new ArrayList<>(allies);
+			List<GameCharacter> pcAllies = new ArrayList<>(allies);
+			pcAllies.add(Main.game.getPlayer());
+			int moveIndex = index==0?14:(index<15?index-1:index);
+
+			if(Main.game.getPlayer().getEquippedMoves().size()>moveIndex) {
+				CombatMove move = Main.game.getPlayer().getEquippedMoves().get(moveIndex);
+				String rejectionReason = move.isUseable(Main.game.getPlayer(), getTargetedCombatant(Main.game.getPlayer()), pcEnemies, pcAllies);
+				if(rejectionReason != null) {
+					return new Response(Util.capitaliseSentence(move.getName()),
+										rejectionReason,
+							null);
+				}
+				return new Response(Util.capitaliseSentence(move.getName()),
+					move.getDescription(),
+					ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().selectMove(move, getTargetedCombatant(Main.game.getPlayer()));
+					}
+					@Override
+					public Colour getHighlightColour() {
+						return Main.game.getPlayer().getEquippedMoves().get(moveIndex).getType().getColour();
+					}
+				};
+
+			} else if(index == 0) {
+				return new Response("End Turn",
+						Main.game.getPlayer().getRemainingAP()>0?"Ends your current turn":"Ends your current turn. You still have unspent AP!",
+						ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), Main.game.getPlayer().getName(), Main.game.getPlayer().performMoves(pcEnemies, pcAllies)));
+						endCombatTurn();
+					}
+					@Override
+					public Colour getHighlightColour() {
+						if(Main.game.getPlayer().getRemainingAP() > 0)
+						{
+							return Colour.GENERIC_BAD;
+						}
+						else
+						{
+							return Colour.GENERIC_GOOD;
+						}
+					}
+				};
+			} else {
+				return null;
+			}
+			// Legacy combat action selections
+			/*if(responseTab==1) { // Special attacks:
 				if (Main.game.getPlayer().getSpecialAttacks().size() >= index && index!=0) {
 					int cooldown = Combat.getCooldown(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
 					if(cooldown==0) {
@@ -945,7 +1028,7 @@ public enum Combat {
 				
 			} else {
 				return null;
-			}
+			}*/
 		}
 
 		@Override
@@ -1514,8 +1597,34 @@ public enum Combat {
 								+"[npc.Name] is unable to make a move!"
 							+ "</p>")));
 		} else {
+
+			// Sets up NPC ally/enemy lists that include player
+			List<GameCharacter> npcAllies;
+			List<GameCharacter> npcEnemies;
+			if(allies.contains(npc))
+			{
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName()+"</span> is planning:</br></br>");
+				npcAllies = new ArrayList<>(allies);
+				npcAllies.add(Main.game.getPlayer());
+				npcEnemies = new ArrayList<>(enemies);
+			}
+			else
+			{
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName()+"</span> is planning:</br></br>");
+				npcEnemies = new ArrayList<>(allies);
+				npcEnemies.add(Main.game.getPlayer());
+				npcAllies = new ArrayList<>(enemies);
+			}
+			// Performs the actions
+			combatStringBuilder.append(getCharactersTurnDiv(npc, npc.getName(), npc.performMoves(npcEnemies, npcAllies)));
+
+			// Figures out the new ones
+			npc.selectMoves(npcEnemies, npcAllies);
+			predictionStringBuilder.append(UtilText.parse(npc, npc.getMovesPredictionString(npcEnemies, npcAllies)));
+
+			// Legacy code below
 			// Calculate what attack to use based on NPC preference:
-			Attack opponentAttack = npc.attackType();
+			/*Attack opponentAttack = npc.attackType();
 			
 			if(opponentAttack==null) {
 				opponentAttack = Attack.MAIN;
@@ -1562,7 +1671,7 @@ public enum Combat {
 				default:
 					break;
 				
-			}
+			}*/
 			
 //			if(isEnemyPartyDefeated()) {
 //				opponentActionText = "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Defeated!</span>";
@@ -1585,24 +1694,31 @@ public enum Combat {
 		
 		List<NPC> combatants = new ArrayList<>(allCombatants); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
 		for(NPC character : combatants) {
+		    character.resetShields();
 			attackNPC(character);
+			character.setRemainingAP(character.getMaxAP());
 		}
 		
 		// Player end turn effects:
 //		removeBeneficialEffects(Main.game.getPlayer());
-		for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {
+		/*for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {
 			Combat.incrementCooldown(Main.game.getPlayer(), sa, -1);
-		}
+		}*/
+        Main.game.getPlayer().resetShields();
+		Main.game.getPlayer().lowerMoveCooldowns();
+		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP());
 
 		// NPC end turn effects:
 		for(NPC character : allCombatants) {
+			character.lowerMoveCooldowns();
 //			removeBeneficialEffects(character);
-			for(SpecialAttack sa : Combat.getCooldowns(character).keySet()) {
+			/*for(SpecialAttack sa : Combat.getCooldowns(character).keySet()) {
 				Combat.incrementCooldown(character, sa, -1);
-			}
+			}*/
 		}
-		
-		combatContent = combatStringBuilder.toString();
+
+		combatContent = getPredictionString();
+		combatContent += combatStringBuilder.toString();
 		combatStringBuilder.setLength(0);
 		
 		if(isCombatantDefeated(targetedCombatant)) {
@@ -1615,6 +1731,27 @@ public enum Combat {
 		}
 		
 		turn++;
+	}
+
+	private static String getPredictionString()
+	{
+		String returnable = "<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+Colour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>"+
+				"<div class='container-quarter-width'style='width: calc(80% - 16px);'>"+predictionStringBuilder.toString()+"</div></div>";
+		predictionStringBuilder.setLength(0);
+		return returnable;
+	}
+
+	private static String getAPString()
+	{
+		Colour APColour = Colour.GENERIC_MINOR_BAD;
+		if(Main.game.getPlayer().getRemainingAP() > 0)
+		{
+			APColour = Colour.GENERIC_MINOR_GOOD;
+		}
+		String returnable = "<div class='container-quarter-width'style='width: calc(20% - 16px); style='text-align:center; box-sizing: border-box; border:6px solid "+APColour.getShades()[0]+"; border-radius:5px;'>"+
+				"<div class='container-quarter-width'style='width: calc(20% - 16px);'>" +
+				"<b style='color: " + APColour.toWebHexString() + "'> AP: "+String.valueOf(Main.game.getPlayer().getRemainingAP())+"</b></div></div>";
+		return returnable;
 	}
 	
 	private static String applyEffects(GameCharacter character) {

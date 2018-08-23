@@ -160,6 +160,18 @@ public class PhoneDialogue {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
 				
+			} else if (index == 11) {
+				if(Main.game.isSavedDialogueNeutral()) {
+					return new Response("Combat Moves", "Adjust the moves you perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(Main.game.getPlayer());
+						}
+					};
+				} else {
+					return new Response("Combat Moves", "You are too busy to change your combat moves.", null);
+				}
+
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override

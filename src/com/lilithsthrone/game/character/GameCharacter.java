@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
+import com.lilithsthrone.game.combat.*;
 import com.lilithsthrone.rendering.*;
 import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
@@ -156,12 +157,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -223,6 +218,8 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
+	public static final int MAX_COMBAT_MOVES = 8;
+	public static final int DEFAULT_COMBAT_AP = 3;
 	
 	
 	// Core variables:
@@ -326,6 +323,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// Combat:
+	protected List<CombatMove> equippedMoves;
+	protected List<CombatMove> knownMoves;
+	protected List<CombatMove> selectedMoves;
+	protected List<GameCharacter> selectedMoveTargets;
+	protected Map<DamageType, Integer> shields;
+	protected Map<String, Integer> moveCooldowns;
+	protected int remainingAP;
+	protected int maxAP;
 	protected Set<SpecialAttack> specialAttacks;
 	protected List<Spell> spells;
 	protected Set<SpellUpgrade> spellUpgrades;
@@ -475,7 +480,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		scars = new HashMap<>();
 		tattoos = new HashMap<>();
-		
+
+		shields = new EnumMap<>(DamageType.class);
 		attributes = new EnumMap<>(Attribute.class);
 		bonusAttributes = new EnumMap<>(Attribute.class);
 		traits = new ArrayList<>();
@@ -490,6 +496,11 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		potionAttributes = new EnumMap<>(Attribute.class);
 
+		moveCooldowns = new HashMap<>();
+		knownMoves = new ArrayList<>();
+		equippedMoves = new ArrayList<>();
+		selectedMoves = new ArrayList<>();
+		selectedMoveTargets = new ArrayList<>();
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
 		spells = new ArrayList<>();
 		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
@@ -558,6 +569,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
+		maxAP = DEFAULT_COMBAT_AP;
 		setLust(getRestingLust());
 		
 		//Companion initialization
@@ -572,6 +584,12 @@ public abstract class GameCharacter implements XMLSaving {
 			loadImages();
 		
 		PerkManager.initialisePerks(this);
+
+		// Default moves
+		knownMoves.add(CombatMove.getMove("strike"));
+		equipMove("strike");
+		knownMoves.add(CombatMove.getMove("block"));
+		equipMove("block");
 	}
 	
 
@@ -10877,6 +10895,226 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// Combat:
+
+	public void selectMove(CombatMove move, GameCharacter target)
+	{
+		if(move.getAPcost() <= remainingAP)
+		{
+			remainingAP -= move.getAPcost();
+			selectedMoves.add(move);
+			selectedMoveTargets.add(target);
+			this.setCooldown(move.getIdentifier(), move.getCooldown());
+		}
+	}
+
+	public String getMovesPredictionString(List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		String prediction = "";
+		int index = 0;
+		for(CombatMove move : selectedMoves)
+		{
+			prediction += move.getPrediction(this, selectedMoveTargets.get(index), enemies, allies);
+			prediction += "</br>";
+			index++;
+		}
+		return prediction;
+	}
+
+	/**
+	 * Performs the moves that the character has selected then clears the list.
+	 * @return String that describes the moves performed.
+	 */
+	public String performMoves(List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		String result = "";
+		int index = 0;
+		for(CombatMove move : selectedMoves)
+		{
+			result += "<b style='color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b> ";
+			result += move.perform(this, selectedMoveTargets.get(index), enemies, allies);
+			result += "<br/>";
+			index++;
+		}
+		selectedMoves.clear();
+		selectedMoveTargets.clear();
+		remainingAP = maxAP;
+		return result;
+	}
+
+	/**
+	 * Selects moves for the character using weights of these moves.
+	 */
+	public void selectMoves(List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		while(remainingAP > 0)
+		{
+			// Assembling move list
+			List<CombatMove> potentialMoves = new ArrayList<>();
+			for(CombatMove move : equippedMoves)
+			{
+				if(move.isUseable(this, null, enemies, allies) == null)
+				{
+					potentialMoves.add(move);
+				}
+			}
+
+			// Determining move based on weight
+			CombatMove selectedMove = null;
+			float highestWeight = 0.0f;
+			for(CombatMove move : potentialMoves)
+			{
+				float currentWeight = move.getWeight(this, enemies, allies);
+				if(highestWeight < currentWeight)
+				{
+					selectedMove = move;
+					highestWeight = currentWeight;
+				}
+			}
+			if(selectedMove == null)
+			{
+				break;
+			}
+			else
+			{
+				selectMove(selectedMove, selectedMove.getPreferredTarget(this, enemies, allies));
+			}
+
+		}
+	}
+
+	public int getRemainingAP()
+	{
+		return remainingAP;
+	}
+
+	public int getMaxAP()
+	{
+		return maxAP;
+	}
+
+	public void setRemainingAP(int value)
+	{
+		remainingAP = value;
+	}
+
+	public void setMaxAP(int value)
+	{
+		maxAP = value;
+	}
+
+	public List<CombatMove> getEquippedMoves()
+	{
+		return equippedMoves;
+	}
+
+	public List<CombatMove> getAvailableMoves()
+	{
+		List<CombatMove> availableMoves = new ArrayList<>(knownMoves);
+		for(CombatMove move : CombatMove.allCombatMoves)
+		{
+			if(move.isAvailableFromSpecialCase(this))
+			{
+				availableMoves.add(move);
+			}
+		}
+		return availableMoves;
+	}
+
+	public boolean isMoveAvailable(String identifier)
+	{
+		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this))
+		{
+			return true;
+		}
+		for(CombatMove move : knownMoves)
+		{
+			if(move.getIdentifier().equals(identifier))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void unequipMove(String identifier)
+	{
+		CombatMove moveToRemove = null;
+		for(CombatMove move : equippedMoves)
+		{
+			if(move.getIdentifier().equals(identifier))
+			{
+				moveToRemove = move;
+				break;
+			}
+		}
+		if(moveToRemove != null)
+		{
+			equippedMoves.remove(moveToRemove);
+		}
+	}
+
+	public void equipMove(String identifier)
+	{
+		this.unequipMove(identifier);
+		CombatMove moveToAdd = CombatMove.getMove(identifier);
+		if(moveToAdd != null)
+		{
+			equippedMoves.add(moveToAdd);
+		}
+	}
+
+	public void resetMoveCooldowns()
+	{
+		this.moveCooldowns = new HashMap<>();
+	}
+
+	public int getShields(DamageType type)
+	{
+		if(shields.containsKey(type))
+		{
+			return shields.get(type);
+		}
+		return 0;
+	}
+
+	public void setShields(DamageType type, int amount)
+	{
+		if(amount < 0)
+		{
+			amount = 0;
+		}
+		shields.put(type, amount);
+	}
+
+	public void resetShields()
+	{
+		shields.clear();
+	}
+
+	public void setCooldown(String identifier, int value)
+	{
+		this.moveCooldowns.put(identifier, value);
+	}
+
+	public int getMoveCooldown(String identifier)
+	{
+		if(this.moveCooldowns.get(identifier) != null)
+		{
+			return this.moveCooldowns.get(identifier);
+		}
+		return 0;
+	}
+
+	public void lowerMoveCooldowns()
+	{
+		for(String action : moveCooldowns.keySet())
+		{
+			if(moveCooldowns.get(action) > 0)
+			{
+				this.moveCooldowns.put(action, moveCooldowns.get(action)-1);
+			}
+		}
+	}
 
 	public boolean isImmuneToDamageType(DamageType type) {
 		return false;
