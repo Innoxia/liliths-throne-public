@@ -43,7 +43,7 @@ public enum Units {
                 .withZone(ZoneId.systemDefault());
         longDate = (Main.getProperties().hasValue(PropertyValue.autoLocale)
                 ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM dd, yyyy" : "dd. MMMM yyyy"))
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM d, yyyy" : "d. MMMM yyyy"))
                 .withZone(ZoneId.systemDefault());
     }
 
@@ -86,7 +86,7 @@ public enum Units {
     }
 
     /**
-     * See {@link Units#number(double)}.
+     * Convenience overload of {@link Units#number(double)} for integers.
      * @param amount The integer number to format
      */
     public static String number(long amount) {
@@ -143,7 +143,8 @@ public enum Units {
 
     /**
      * Specifies the length of units, where NONE means that they will be omitted, SHORT means the abbreviation, LONG
-     * means the full text unit and LONG_SINGULAR means full text singular units (concatenated with "-" instead of " ".
+     * means the full text unit, LONG_SINGULAR means full text singular units (concatenated with "-" instead of " " and
+     * ROUGH_TEXT means more aggressively rounded full text numbers and long units.
      */
     public enum UnitType {
         NONE,
@@ -182,6 +183,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 4'8"
      * {@link UnitType#LONG}: 56 inches
      * {@link UnitType#LONG_SINGULAR}: 56-inch
+     * {@link UnitType#ROUGH_TEXT}: five feet
      * @param inches Amount of inches to format
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the imperial, formatted size, including unit
@@ -230,6 +232,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 1.42 m
      * {@link UnitType#LONG}: 1.42 metres
      * {@link UnitType#LONG_SINGULAR}: 1.42-metre
+     * {@link UnitType#ROUGH_TEXT}: one metre
      * @param inches Amount of inches to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted, converted size, including unit
@@ -271,6 +274,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 1.98 gal
      * {@link UnitType#LONG}: 1.98 gallons
      * {@link UnitType#LONG_SINGULAR}: 1.98-gallon
+     * {@link UnitType#ROUGH_TEXT}: two gallons
      * @param ml Amount of millilitres to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the imperial, formatted, converted volume, including unit
@@ -290,6 +294,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 9 L
      * {@link UnitType#LONG}: 9 litres
      * {@link UnitType#LONG_SINGULAR}: 9-litre
+     * {@link UnitType#ROUGH_TEXT}: nine litres
      * @param ml Amount of millilitres to format
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted volume, including unit
@@ -328,6 +333,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 19.84 lb
      * {@link UnitType#LONG}: 19.84 pounds
      * {@link UnitType#LONG_SINGULAR}: 19.84-pound
+     * {@link UnitType#ROUGH_TEXT}: twenty pounds
      * @param grams Amount of grams to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the imperial, formatted, converted weight, including unit
@@ -347,6 +353,7 @@ public enum Units {
      * {@link UnitType#SHORT}: 9 kg
      * {@link UnitType#LONG}: 9 kilograms
      * {@link UnitType#LONG_SINGULAR}: 9-kilogram
+     * {@link UnitType#ROUGH_TEXT}: nine kilograms
      * @param grams Amount of grams to format
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted weight, including unit
@@ -406,7 +413,7 @@ public enum Units {
         if (value >= 1995) return "thousands of " + units;
 
         long usedValue = value < 10 ? Math.round(value) : roundTo(value, 5);
-        return Util.intToString((int) usedValue) + " " + (Math.abs(value) > 1 ? units : unit);
+        return Util.intToString((int) usedValue) + " " + (Math.abs(usedValue) > 1 ? units : unit);
     }
 
     /**
