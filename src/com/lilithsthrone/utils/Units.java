@@ -94,6 +94,30 @@ public enum Units {
     }
 
     /**
+     * Formats a number using the specified amount of minimum and maximum fractional places. Otherwise equal to
+     * {@link Units#number(double)}.
+     * @param minPrecision Minimum fractional digits
+     * @param maxPrecision Maximum fractional digits
+     */
+    public static String number(double amount, int minPrecision, int maxPrecision) {
+        // Store previous settings
+        NumberFormat formatter = FORMATTER.number;
+        int previousMinPlaces = formatter.getMinimumFractionDigits();
+        int previousMaxPlaces = formatter.getMaximumFractionDigits();
+
+        // Apply new settings and generate output
+        formatter.setMinimumFractionDigits(minPrecision);
+        formatter.setMaximumFractionDigits(maxPrecision);
+        String output = formatter.format(amount);
+
+        // Restore previous settings
+        formatter.setMinimumFractionDigits(previousMinPlaces);
+        formatter.setMaximumFractionDigits(previousMaxPlaces);
+
+        return output;
+    }
+
+    /**
      * Specifies the length of dates, where SHORT will use the default numeric style and LONG will use the text style.
      */
     public enum DateType {
