@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.world.WorldType;
@@ -28,9 +28,9 @@ public class GenericMaleNPC extends NPC {
 	}
 	
 	public GenericMaleNPC(boolean isImported) {
-		super(new NameTriplet("unknown male"), "Unknown.",
+		super(isImported, new NameTriplet("unknown male"), "Unknown.",
 				25, Month.JUNE, 15,
-				1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
+				1, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}
 	
@@ -39,6 +39,16 @@ public class GenericMaleNPC extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setName(new NameTriplet("unknown male"));
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	@Override

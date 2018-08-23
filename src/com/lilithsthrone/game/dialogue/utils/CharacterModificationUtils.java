@@ -3927,17 +3927,17 @@ public class CharacterModificationUtils {
 	public static String getKatesDivTattoos() {
 		contentSB.setLength(0);
 		
-		contentSB.append("<div class='container-full-width'>"
-				+ "<h5 style='width:100%; text-align:center;'>Main Areas</h5>");
+		contentSB.append("<div class='container-full-width'>");
+//				+ "<h5 style='width:100%; text-align:center;'>Main Areas</h5>");
 		
 		for(InventorySlot invSlot : RenderingEngine.mainInventorySlots) {
 			contentSB.append(getTattooDiv(invSlot));
 		}
 		
-		contentSB.append("</div>");
-		
-		contentSB.append("<div class='container-full-width'>"
-				+ "<h5 style='width:100%; text-align:center;'>Secondary Areas</h5>");
+//		contentSB.append("</div>");
+//		
+//		contentSB.append("<div class='container-full-width'>"
+//				+ "<h5 style='width:100%; text-align:center;'>Extra Areas</h5>");
 		
 		for(InventorySlot invSlot : RenderingEngine.secondaryInventorySlots) {
 			contentSB.append(getTattooDiv(invSlot));

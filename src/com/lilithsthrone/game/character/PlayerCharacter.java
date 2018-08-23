@@ -27,9 +27,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -45,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -58,7 +57,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
 
-	private Set<Race> racesDiscoveredFromBook;
+	private Set<Subspecies> racesDiscoveredFromBook;
 	
 	protected List<String> friendlyOccupants;
 	
@@ -67,8 +66,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<String> charactersEncountered;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, "", level, birthday, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
+		super(nameTriplet, "", level, birthday, gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -124,9 +123,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element innerElement = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(innerElement);
-		for(Race race : racesDiscoveredFromBook) {
-			if(race != null) {
-				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", race.toString());
+		for(Subspecies subspecies : racesDiscoveredFromBook) {
+			if(subspecies != null) {
+				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", subspecies.toString());
 			}
 		}
 		
@@ -166,7 +165,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 
@@ -205,7 +204,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					NodeList races = racesDiscoveredElement.getElementsByTagName("race");
 					for(int i=0; i < races.getLength(); i++){
 						Element e = (Element) races.item(i);
-						character.addRaceDiscoveredFromBook(Race.valueOf(e.getAttribute("value")));
+						try {
+							character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
+						} catch(Exception ex) {
+						}
 					}
 				}
 			} catch(Exception ex) {
@@ -624,11 +626,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return buybackStack;
 	}
 
-	public boolean addRaceDiscoveredFromBook(Race race) {
-		return racesDiscoveredFromBook.add(race);
+	public boolean addRaceDiscoveredFromBook(Subspecies subspecies) {
+		return racesDiscoveredFromBook.add(subspecies);
 	}
 	
-	public Set<Race> getRacesDiscoveredFromBook() {
+	public Set<Subspecies> getRacesDiscoveredFromBook() {
 		return racesDiscoveredFromBook;
 	}
 

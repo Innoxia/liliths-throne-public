@@ -6,12 +6,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface, Serializable {
@@ -164,88 +163,61 @@ public class Tail implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" A demonic, spaded tail sprouts from just above your ass, rapidly growing in size until it's slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where it goes, allowing you to use it like a third limb."
+								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
 									+ "<br/>"
-									+ "You now have a [style.boldDemon(demonic tail)]"
-								:" [pc.TailCount] demonic, spaded tails sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where they go, allowing you to use them like extra limbs."
+									+ "[npc.Name] now has a [style.boldDemon(demonic tail)]"
+								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "<br/>"
-									+ "You now have [pc.tailCount] [style.boldDemon(demonic tails)]")
+									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)]")
 							);
 				} else {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
+								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
 									+ "<br/>"
-									+ "[npc.Name] now has a [style.boldDemon(demonic tail)]"
-								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
+									+ "[npc.Name] now has an [style.boldImp(impish tail)]"
+								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "<br/>"
-									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)]")
+									+ "[npc.Name] now has [npc.tailCount] [style.boldImp(impish tails)]")
 							);
 				}
 				break;
 			case DEMON_HAIR_TIP:
 				owner.getBodyCoveringTypesDiscovered().add(BodyCoveringType.HAIR_DEMON);
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" A demonic, spaded tail sprouts from just above your ass, rapidly growing in size until it's slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where it goes, allowing you to use it like a third limb."
+								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
 									+ "<br/>"
-									+ "You now have a [style.boldDemon(demonic tail)], covered in [pc.tailFullDescription(true)] and tipped with "
-										+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)+".</p>"
-								:" [pc.TailCount] demonic, spaded tails sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where they go, allowing you to use them like extra limbs."
-									+ "<br/>"
-									+ "You now have [pc.tailCount] [style.boldDemon(demonic tails)], covered in [pc.tailFullDescription(true)] and tipped with "
-										+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)+".</p>")
-							);
-				} else {
-					UtilText.transformationContentSB.append(
-							(owner.getTailCount()==1
-								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
-									+ "<br/>"
-									+ "[npc.Name] now has a [style.boldDemon(demonic tail)], covered in [npc.tailFullDescription(true)] and tipped with "
+									+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic tail)], covered in [npc.tailFullDescription(true)] and tipped with "
 										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>"
-								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
+								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "<br/>"
-									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)], covered in [npc.tailFullDescription(true)] and tipped with "
+									+ "[npc.Name] now [npc.has] [npc.tailCount] [style.boldDemon(demonic tails)], covered in [npc.tailFullDescription(true)] and tipped with "
 										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>")
 							);
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							(owner.getTailCount()==1
-								?" An impish, spaded tail sprouts from just above your ass, rapidly growing in size until it's slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where it goes, allowing you to use it like a third limb."
-									+ "<br/>"
-									+ "You now have an [style.boldImp(impish tail)]"
-								:" [pc.TailCount] impish, spaded tails sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
-									+ " You quickly realise that you have complete control over where they go, allowing you to use them like extra limbs."
-									+ "<br/>"
-									+ "You now have [pc.tailCount] [style.boldImp(impish tails)]")
-							);
 				} else {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" An impish, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
+								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly  [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
 									+ "<br/>"
-									+ "[npc.Name] now has a [style.boldImp(impish tail)]"
-								:" [npc.TailCount] impish, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
+									+ "[npc.Name] now [npc.has] an [style.boldImp(impish tail)], covered in [npc.tailFullDescription(true)] and tipped with "
+										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>"
+								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] [npc.legs]."
+									+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "<br/>"
-									+ "[npc.Name] now has [npc.tailCount] [style.boldImp(impish tails)]")
+									+ "[npc.Name] now [npc.has] [npc.tailCount] [style.boldImp(impish tails)], covered in [npc.tailFullDescription(true)] and tipped with "
+										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>")
 							);
 				}
 				break;

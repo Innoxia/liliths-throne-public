@@ -160,7 +160,7 @@ public class NightlifeDistrict {
 							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>hammered</i>. Giving [npc.herHim] any more alcohol would be a bad idea.");
 							break;
 						case FIVE_WASTED:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>wasted</i>. [npc.She] looks like [npc.sheIs] going to pass out.");
+							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>wasted</i>."+(isPartnerSub()?" [npc.She] looks like [npc.sheIs] going to pass out.":""));
 							break;
 					}
 			}
@@ -199,7 +199,7 @@ public class NightlifeDistrict {
 	}
 	
 	private static boolean isPartnerPassingOut() {
-		return hasPartner() && getPartner().getAlcoholLevelValue()>=AlcoholLevel.FIVE_WASTED.getMaximumValue()-0.05f;
+		return hasPartner() && isPartnerSub() && getPartner().getAlcoholLevelValue()>=AlcoholLevel.FIVE_WASTED.getMaximumValue()-0.05f;
 	}
 	
 	private static String getEndingStatus(int minutesPassedForNextScene) {
@@ -697,7 +697,7 @@ public class NightlifeDistrict {
 						return new Response("Repeat search (dom)", "You need to have already searched the club!", null);
 					} else {
 						return new Response("Repeat search (dom)",
-								"Repeat your last search for someone to approach and start talking to. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName()+")",
+								"Repeat your last search for someone to approach and start talking to. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName(null)+")",
 								WATERING_HOLE_SEARCH_GENERATE) {
 							@Override
 							public void effects() {
@@ -737,7 +737,7 @@ public class NightlifeDistrict {
 						return new Response("Repeat search (sub)", "You need to have already searched the club!", null);
 					} else {
 						return new Response("Repeat search (sub)",
-								"Repeat your last search for someone to catch the eye of. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName()+")",
+								"Repeat your last search for someone to catch the eye of. ("+Util.capitaliseSentence(clubberGender.getName())+" "+clubberSubspecies.getName(null)+")",
 								WATERING_HOLE_SEARCH_GENERATE_DOM) {
 							@Override
 							public void effects() {
@@ -971,8 +971,8 @@ public class NightlifeDistrict {
 			int count = 1;
 			for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getSpeciesPopulatingArea()) {
 				if(count==index) {
-					return new Response(Util.capitaliseSentence(subspecies.getName()),
-							"Look for "+UtilText.generateSingularDeterminer(subspecies.getName())+" "+subspecies.getName()+" in amongst the crowds of revellers.",
+					return new Response(Util.capitaliseSentence(subspecies.getName(null)),
+							"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
 							(isSearchingForASub
 									?WATERING_HOLE_SEARCH_GENERATE
 									:WATERING_HOLE_SEARCH_GENERATE_DOM)) {

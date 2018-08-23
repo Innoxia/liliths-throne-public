@@ -58,6 +58,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -111,21 +112,21 @@ public abstract class AbstractItemEffectType {
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
-	protected static String getBookEffect(Race race, AbstractItemType book) {
-		Main.getProperties().addRaceDiscovered(race);
-		if(Main.getProperties().addAdvancedRaceKnowledge(race) && book!=null) {
+	protected static String getBookEffect(Subspecies subspecies, AbstractItemType book) {
+		Main.getProperties().addRaceDiscovered(subspecies);
+		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && book!=null) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
 		}
 		
-		if(Main.game.getPlayer().addRaceDiscoveredFromBook(race)) {
-			return race.getBasicDescription()
-					+race.getAdvancedDescription()
-					+Main.game.getPlayer().incrementAttribute(race.getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(race.getResistanceMultiplier(), 5f);
+		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
+			return subspecies.getBasicDescription(null)
+					+subspecies.getAdvancedDescription(null)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getDamageMultiplier(), 5f)
+					+Main.game.getPlayer().incrementAttribute(subspecies.getRace().getResistanceMultiplier(), 5f);
 			
 		} else {
-			return race.getBasicDescription()
-					+race.getAdvancedDescription()
+			return subspecies.getBasicDescription(null)
+					+subspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
@@ -2778,7 +2779,7 @@ public abstract class AbstractItemEffectType {
 						switch(potency) {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra pair of horns.", singleDrain, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
-							case MINOR_BOOST: default:
+							case MINOR_BOOST: default://TODO
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
 									List<HornType> hornTypesSuitableForTransformation = HornType.getHornTypesSuitableForTransformation(RacialBody.valueOfRace(race).getHornType());
 									if(target.getHornType()==HornType.NONE && !hornTypesSuitableForTransformation.isEmpty()) {
@@ -2823,7 +2824,8 @@ public abstract class AbstractItemEffectType {
 						return getHornTypeRacialEffectUtil(race, target, 4);
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
 				}
 				
 			case TF_LEGS:
@@ -3144,8 +3146,9 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes an extra tail.", singleDrain, " tail") { @Override public String applyEffect() { return target.incrementTailCount(singleDrain); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra tail.", singleBoost, " tail") { @Override public String applyEffect() {
-									if(target.getTailType()==TailType.NONE && RacialBody.valueOfRace(race).getTailType()!=TailType.NONE) {
-										return target.setTailType(RacialBody.valueOfRace(race).getTailType());
+									List<TailType> tailTypesSuitableForTransformation = TailType.getTailTypesSuitableForTransformation(RacialBody.valueOfRace(race).getTailType());
+									if(target.getTailType()==TailType.NONE && !tailTypesSuitableForTransformation.isEmpty()) {
+										return target.setTailType(tailTypesSuitableForTransformation.get(0));
 									} else {
 										return target.incrementTailCount(singleBoost);
 									} } };
@@ -3174,11 +3177,8 @@ public abstract class AbstractItemEffectType {
 							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(4)); } };
 							
 					default:
-						if(RacialBody.valueOfRace(race).getTailType() == TailType.NONE) {
-							return new RacialEffectUtil("Removes tail.", 0, "") { @Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getTailType()); } };
-						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" tail transformation.", 0, "") { @Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getTailType()); } };
-						}
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getRandomTailType(false)); } };
 				}
 				
 			case TF_VAGINA:
@@ -3537,11 +3537,8 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in wing size.", smallChangeMajorBoost, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
 						}
 					default:
-						if(RacialBody.valueOfRace(race).getWingType() == WingType.NONE) {
-							return new RacialEffectUtil("Removes wings.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
-						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
-						}
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getRandomWingType(false)); } };
 				}
 				
 			case TF_CUM:

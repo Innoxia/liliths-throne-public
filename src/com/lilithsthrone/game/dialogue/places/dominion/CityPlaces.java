@@ -663,8 +663,8 @@ public class CityPlaces {
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
 									possibleSubspecies.add(Subspecies.WOLF_MORPH);
 									
-									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
-									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
+									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName(null);
+									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName(null);
 									
 									Main.game.getTextEndStringBuilder().append("<p>"
 											+UtilText.returnStringAtRandom(

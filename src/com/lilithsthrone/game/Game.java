@@ -1203,8 +1203,10 @@ public class Game implements Serializable, XMLSaving {
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
+					&& !npc.isSlave()
 					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
@@ -1247,7 +1249,7 @@ public class Game implements Serializable, XMLSaving {
 						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 							npc.replaceAllClothing();
 						}
-						npc.equipClothing(true, true);
+						npc.equipClothing(true, true, false);
 						npc.setPendingClothingDressing(false);
 						
 					} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
@@ -1258,7 +1260,7 @@ public class Game implements Serializable, XMLSaving {
 						npc.calculateStatusEffects(0);
 						// If still exposed after this, get new clothes:
 						if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
-							npc.equipClothing(true, true);
+							npc.equipClothing(true, true, false);
 						}
 						npc.setPendingClothingDressing(false);
 					}
@@ -1566,7 +1568,7 @@ public class Game implements Serializable, XMLSaving {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									}
 									if(!character.isRaceConcealed()) {
-										Main.getProperties().addRaceDiscovered(character.getRace());
+										Main.getProperties().addRaceDiscovered(character.getSubspecies());
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
@@ -1757,7 +1759,7 @@ public class Game implements Serializable, XMLSaving {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
 						if(!character.isRaceConcealed()) {
-							Main.getProperties().addRaceDiscovered(character.getRace());
+							Main.getProperties().addRaceDiscovered(character.getSubspecies());
 						}
 						((NPC) character).setLastTimeEncountered(minutesPassed);
 					}
@@ -2948,6 +2950,8 @@ public class Game implements Serializable, XMLSaving {
 		return NPCMap.containsKey(id);
 	}
 	
+	List<String> nullCharacterIds = new ArrayList<>();
+	
 	public GameCharacter getNPCById(String id) {
 		if(id==null || id.isEmpty()) {
 			return null;
@@ -2957,10 +2961,16 @@ public class Game implements Serializable, XMLSaving {
 			return Main.game.getPlayer();
 		}
 		if(!NPCMap.containsKey(id)) {
-			System.err.println("!WARNING! getNPC("+id+") is returning null! Returning GenericAndrogynousNPC instead!");
+			if(!nullCharacterIds.contains(id)) {
+				System.err.println("!WARNING! getNPC("+id+") is returning null! GenericAndrogynousNPC will be returned for all instances of this!");
+				nullCharacterIds.add(id);
+			}
+			
+			if(Main.DEBUG) {
+				new NullPointerException().printStackTrace();
+			}
 			
 			return Main.game.getGenericAndrogynousNPC();
-//			new NullPointerException().printStackTrace();
 		}
 		return NPCMap.get(id);
 	}
@@ -3216,6 +3226,10 @@ public class Game implements Serializable, XMLSaving {
 	
 	public boolean isPlayerTileFull() {
 		return getActiveWorld().getCell(getPlayer().getLocation()).getInventory().isInventoryFull();
+	}
+	
+	public boolean isSillyModeEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.sillyMode);
 	}
 	
 	public boolean isNonConEnabled() {

@@ -1244,15 +1244,15 @@ public class PenisBreasts {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pushing [npc2.name] away,"
-										+ " [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.her] cleavage and [npc.verb(tell)] [npc2.herHim] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+].",
+										+ " [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.her] cleavage and [npc.verb(tell)] [npc2.herHim] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+].",
 
 								"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.herHim] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+]."));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and [npc.verb(tell)] [npc2.name] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+].",
+								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and [npc.verb(tell)] [npc2.name] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+].",
 
-								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+]."));
+								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.name] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+]."));
 						break;
 				}
 			} else if(Sex.getCharacterTargetedForSexAction(this).hasBreasts()) {

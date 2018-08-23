@@ -108,29 +108,16 @@ public class Eye implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" By the time you hesitantly open them again, they've changed into demonic eyes, with smaller-than-average pupils and large irises."
-								+ "<br/>"
-								+ "You now have [style.boldDemon(demonic eyes)]");
+							" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into demonic eyes, with vertical pupils and large irises."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(demonic eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
-								" By the time [npc.she] hesitantly opens them again, they've changed into demonic eyes, with smaller-than-average pupils and large irises."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldDemon(demonic eyes)]");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" By the time you hesitantly open them again, they've changed into impish eyes, with smaller-than-average pupils and large irises."
-								+ "<br/>"
-								+ "You now have [style.boldImp(impish eyes)]");
-				} else {
-					UtilText.transformationContentSB.append(
-								" By the time [npc.she] hesitantly opens them again, they've changed into impish eyes, with smaller-than-average pupils and large irises."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldImp(impish eyes)]");
+							" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into impish eyes, with vertical pupils and large irises."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(impish eyes)]");
 				}
 				break;
 			case COW_MORPH:

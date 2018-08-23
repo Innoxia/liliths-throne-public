@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -108,7 +109,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.CAT_MORPH, ItemType.BOOK_CAT_MORPH);
+			return getBookEffect(Subspecies.CAT_MORPH, ItemType.BOOK_CAT_MORPH);
 		}
 	};
 	
@@ -130,7 +131,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.COW_MORPH, ItemType.BOOK_COW_MORPH);
+			return getBookEffect(Subspecies.COW_MORPH, ItemType.BOOK_COW_MORPH);
 		}
 	};
 	
@@ -142,7 +143,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.DEMON, ItemType.BOOK_DEMON);
+			return getBookEffect(Subspecies.DEMON, ItemType.BOOK_DEMON);
 		}
 	};
 
@@ -154,7 +155,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.IMP, ItemType.BOOK_IMP);
+			return getBookEffect(Subspecies.IMP, ItemType.BOOK_IMP);
 		}
 	};
 	
@@ -166,7 +167,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.DOG_MORPH, ItemType.BOOK_DOG_MORPH);
+			return getBookEffect(Subspecies.DOG_MORPH, ItemType.BOOK_DOG_MORPH);
 		}
 	};
 	
@@ -178,7 +179,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.FOX_MORPH, ItemType.BOOK_FOX_MORPH);
+			return getBookEffect(Subspecies.FOX_MORPH, ItemType.BOOK_FOX_MORPH);
 		}
 	};
 	
@@ -190,7 +191,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.ALLIGATOR_MORPH, ItemType.BOOK_ALLIGATOR_MORPH);
+			return getBookEffect(Subspecies.ALLIGATOR_MORPH, ItemType.BOOK_ALLIGATOR_MORPH);
 		}
 	};
 	
@@ -202,7 +203,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.HARPY, ItemType.BOOK_HARPY);
+			return getBookEffect(Subspecies.HARPY, ItemType.BOOK_HARPY);
 		}
 	};
 	
@@ -214,7 +215,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.HORSE_MORPH, ItemType.BOOK_HORSE_MORPH);
+			return getBookEffect(Subspecies.HORSE_MORPH, ItemType.BOOK_HORSE_MORPH);
 		}
 	};
 	
@@ -226,7 +227,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.REINDEER_MORPH, ItemType.BOOK_REINDEER_MORPH);
+			return getBookEffect(Subspecies.REINDEER_MORPH, ItemType.BOOK_REINDEER_MORPH);
 		}
 	};
 	
@@ -238,7 +239,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.HUMAN, ItemType.BOOK_HUMAN);
+			return getBookEffect(Subspecies.HUMAN, ItemType.BOOK_HUMAN);
 		}
 	};
 	
@@ -250,7 +251,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.SQUIRREL_MORPH, ItemType.BOOK_SQUIRREL_MORPH);
+			return getBookEffect(Subspecies.SQUIRREL_MORPH, ItemType.BOOK_SQUIRREL_MORPH);
 		}
 	};
 	
@@ -262,7 +263,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.RAT_MORPH, ItemType.BOOK_RAT_MORPH);
+			return getBookEffect(Subspecies.RAT_MORPH, ItemType.BOOK_RAT_MORPH);
 		}
 	};
 	
@@ -274,7 +275,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.RABBIT_MORPH, ItemType.BOOK_RABBIT_MORPH);
+			return getBookEffect(Subspecies.RABBIT_MORPH, ItemType.BOOK_RABBIT_MORPH);
 		}
 	};
 	
@@ -286,7 +287,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.BAT_MORPH, ItemType.BOOK_BAT_MORPH);
+			return getBookEffect(Subspecies.BAT_MORPH, ItemType.BOOK_BAT_MORPH);
 		}
 	};
 	
@@ -298,7 +299,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
+			return getBookEffect(Subspecies.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
 		}
 	};
 
@@ -310,7 +311,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getBookEffect(Race.SLIME, ItemType.BOOK_SLIME);
+			return getBookEffect(Subspecies.SLIME, ItemType.BOOK_SLIME);
 		}
 	};
 	
@@ -556,7 +557,7 @@ public class ItemEffectType {
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(target.getPregnantLitter().getFather()!=null
-										?target.getPregnantLitter().getFather().getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName())+")"
+										?target.getPregnantLitter().getFather().getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(target))+")"
 										:"Unknown!")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
@@ -3316,6 +3317,44 @@ public class ItemEffectType {
 				return "";
 			}
 			return applyClothingTF(primaryModifier, secondaryModifier, potency, limit, user, target, timer);
+		}
+	};
+	
+
+	public static AbstractItemEffectType WEAPON = new AbstractItemEffectType(null,
+			Colour.RARITY_RARE) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getWeaponPrimaryList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return TFModifier.getWeaponAttributeList();
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return TFPotency.getAllPotencies();
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<String> effectsList = new ArrayList<>();
+			
+			effectsList.add(
+					(potency.getClothingBonusValue()<0
+							?"[style.boldBad("+potency.getClothingBonusValue()+")] "
+							:"[style.boldGood(+"+potency.getClothingBonusValue()+")] ")
+					+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
+				
+			return effectsList;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "";
 		}
 	};
 	

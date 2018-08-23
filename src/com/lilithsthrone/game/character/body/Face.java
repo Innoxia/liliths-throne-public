@@ -165,29 +165,16 @@ public class Face implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with a demonic, human-looking face, covered in [pc.faceSkin+].<br/>"
-								+ "You now have a [style.boldDemon(demonic face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldDemon(demonic tongue)]."
-							+ "</p>");
+				if (!owner.isShortStature()) {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+							" Thankfully, the alarming transformation only lasts a matter of moments, leaving [npc.herHim] with a demonic, human-looking face, covered in [npc.faceSkin+].<br/>"
+							+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] [npc.has] a [style.boldDemon(demonic tongue)]."
+						+ "</p>"));
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with a demonic, human-looking face, covered in [npc.faceSkin+].<br/>"
-								+ "[npc.Name] now has a [style.boldDemon(demonic face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldDemon(demonic tongue)]."
-							+ "</p>"));
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with an impish, human-looking face, covered in [pc.faceSkin+].<br/>"
-								+ "You now have an [style.boldImp(impish face)], covered in [pc.faceFullDescription], and within your mouth, you have an [style.boldImp(impish tongue)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with an impish, human-looking face, covered in [npc.faceSkin+].<br/>"
-								+ "[npc.Name] now has an [style.boldImp(impish face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has an [style.boldImp(impish tongue)]."
-							+ "</p>"));
+							" Thankfully, the alarming transformation only lasts a matter of moments, leaving [npc.herHim] with an impish, human-looking face, covered in [npc.faceSkin+].<br/>"
+							+ "[npc.Name] now [npc.has] an [style.boldImp(impish face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] [npc.has] an [style.boldImp(impish tongue)]."
+						+ "</p>"));
 				}
 				break;
 			case DOG_MORPH:

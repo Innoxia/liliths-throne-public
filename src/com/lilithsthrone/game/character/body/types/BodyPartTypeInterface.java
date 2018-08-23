@@ -57,6 +57,62 @@ public interface BodyPartTypeInterface {
 	public default BodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getBodyCoveringType(gc.getBody());
 	}
-
+	
 	public Race getRace();
+	
+	public default String getTransformName() {
+		if(getRace()==null) {
+			return "";
+		}
+		
+		switch(getRace()){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "squirrel";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case HARPY:
+				return "harpy";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "reindeer";
+			case HUMAN:
+				return "human";
+			case WOLF_MORPH:
+				return "wolf";
+			case FOX_MORPH:
+				return "fox";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case ELEMENTAL_AIR:
+				return "elemental air";
+			case ELEMENTAL_ARCANE:
+				return "elemental arcane";
+			case ELEMENTAL_EARTH:
+				return "elemental earth";
+			case ELEMENTAL_FIRE:
+				return "elemental fire";
+			case ELEMENTAL_WATER:
+				return "elemental water";
+			case NONE:
+				break;
+			case SLIME:
+				return "slime";
+		}
+		return "";
+	}
 }

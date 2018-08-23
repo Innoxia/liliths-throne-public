@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionOffspringDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestOffspringDialogue;
@@ -30,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.95
+ * @version 0.2.11
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -40,17 +41,17 @@ public class NPCOffspring extends NPC {
 	}
 	
 	public NPCOffspring(boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(null, "",
-				18, Main.game.getDateNow().minusMonths(1).getMonth(), 1+Util.random.nextInt(25),
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(false, null, "",
+				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setMother(mother);
@@ -68,7 +69,7 @@ public class NPCOffspring extends NPC {
 		
 		setBody(gender, mother, father);
 		
-		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
+		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
 
@@ -86,7 +87,7 @@ public class NPCOffspring extends NPC {
 		
 		// INVENTORY:
 		
-		resetInventory();
+		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		CharacterUtils.equipClothing(this, true, false);
@@ -113,6 +114,23 @@ public class NPCOffspring extends NPC {
 		} else {
 			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		}
+
+		if(this.getConceptionDate().isAfter(this.getBirthday())) {
+			this.setBirthday(this.getConceptionDate().plusMonths(2));
+			
+		} else if(Math.abs((int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday()))>300) {
+			this.setConceptionDate(this.getBirthday().minusMonths(2));
+		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	@Override
@@ -141,7 +159,7 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public String getDescription() {
-		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getBirthday(), this.getConceptionDate());
+		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday());
 		
 		if(this.getMother()==null || this.getFather()==null) {
 			return "";

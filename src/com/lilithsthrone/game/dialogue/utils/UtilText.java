@@ -15,7 +15,6 @@ import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.race.Race;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,7 +57,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia, Pimvgd
  */
 public class UtilText {
@@ -1476,7 +1475,7 @@ public class UtilText {
 									?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
 									:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+"</span>"
 							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
-							+ " <span style='color:"+character.getSubspecies().getColour().toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies()) + "</span>";
+							+ " <span style='color:"+character.getSubspecies().getColour(character).toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies()) + "</span>";
 				}
 				return (parseCapitalise
 						?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
@@ -1501,7 +1500,7 @@ public class UtilText {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
 					String name = character.isRaceConcealed()?"unknown race":getSubspeciesName(character.getSubspecies());
-					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour()).toWebHexString()+";'>"
+					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
@@ -5321,6 +5320,9 @@ public class UtilText {
 		for(Quest quest : Quest.values()) {
 			engine.put("QUEST_"+quest.toString(), quest);
 		}
+		for(Femininity femininity : Femininity.values()) {
+			engine.put("FEMININITY_"+femininity.toString(), femininity);
+		}
 		engine.put("sex", Main.sexEngine); //TODO static methods don't work...
 		
 //		StringBuilder sb = new StringBuilder();
@@ -5732,15 +5734,15 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			if(character.getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 				return "awoo-girl";
 			}
-			return race.getSingularFemaleName();
+			return race.getSingularFemaleName(character);
 		} else {
-			if(character.getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 				return "awoo-boy";
 			}
-			return race.getSingularMaleName();
+			return race.getSingularMaleName(character);
 		}
 	}
 	
@@ -5748,9 +5750,9 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			return race.getPluralFemaleName();
+			return race.getPluralFemaleName(character);
 		} else {
-			return race.getPluralMaleName();
+			return race.getPluralMaleName(character);
 		}
 	}
 	

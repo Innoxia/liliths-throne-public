@@ -8,22 +8,43 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -48,7 +69,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlimeGuardIce extends NPC {
@@ -58,22 +79,32 @@ public class SlimeGuardIce extends NPC {
 	}
 	
 	public SlimeGuardIce(boolean isImported) {
-		super(new NameTriplet("Crystal"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.",
+		super(isImported, new NameTriplet("Crystal"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.",
 				19, Month.JANUARY, 29,
-				8, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
+				8, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS, true);
 
-		if(!isImported) {
-			
-			// RACE & NAME:
-			this.setBodyMaterial(BodyMaterial.SLIME);
-			
-			setSexualOrientation(SexualOrientation.AMBIPHILIC);
+	}
 
-			this.setPlayerKnowsName(true);
-			
-			// PERSONALITY & BACKGROUND:
+	@Override
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
 
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 35);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 80);
+	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
@@ -81,60 +112,109 @@ public class SlimeGuardIce extends NPC {
 					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
 					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.LOW)));
 			
-			// ADDING FETISHES:
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
+			this.setHistory(Occupation.NPC_SLIME_QUEEN_GUARD);
+	
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			this.addFetish(Fetish.FETISH_INCEST);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
-			
-			// BODY RANDOMISATION:
-			
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_BLUE), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_BLUE_LIGHT), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_BLUE_LIGHT), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
-			
-			// INVENTORY:
-			
-			resetInventory();
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
-			
-			equipClothing(true, false);
-			
-			
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 35);
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
-	}
-	
-	@Override
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
-		this.clearNonEquippedInventory();
-		equipClothing(true, false);
-	}
-	
-	@Override
-	public boolean isUnique() {
-		return true;
-	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-			setPendingClothingDressing(true);
-		}
-	}
+		
+		
+		// Body:
 
+		// Core:
+		this.setHeight(169);
+		this.setFemininity(80);
+		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
+		
+		// Coverings:
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_BLUE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_BLUE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_BLUE_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, Colour.SLIME_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
+
+		this.setHairCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		this.setHairStyle(HairStyle.PIXIE);
+
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.ZERO_NONE);
+		this.setPubicHair(BodyHair.ZERO_NONE);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+		
+		// Face:
+		this.setFaceVirgin(true);
+		this.setLipSize(LipSize.ONE_AVERAGE);
+		this.setFaceElasticity(OrificeElasticity.SEVEN_ELASTIC);
+		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		this.setNippleVirgin(true);
+		this.setBreastSize(CupSize.C.getMeasurement());
+		this.setBreastShape(BreastShape.NARROW);
+		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setAreolaeSize(AreolaeSize.TWO_BIG);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(true);
+		this.setAssBleached(false);
+		this.setAssSize(AssSize.TWO_SMALL);
+		this.setHipSize(HipSize.TWO_NARROW);
+		this.setAssCapacity(Capacity.FIVE_ROOMY, true);
+		this.setAssWetness(Wetness.SEVEN_DROOLING);
+		this.setAssElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		// No penis
+		
+		// Vagina:
+		this.setVaginaVirgin(false);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.ONE_SMALL);
+		this.setVaginaSquirter(true);
+		this.setVaginaCapacity(Capacity.FIVE_ROOMY, true);
+		this.setVaginaWetness(Wetness.FIVE_SLOPPY);
+		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
+		
+		// Feet:
+		// Foot shape
+	}
+	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		this.unequipAllClothingIntoVoid();
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+
+		this.unequipAllClothingIntoVoid(true);
+		
+		this.setMoney(0);
+		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+		CharacterUtils.generateItemsInInventory(this);
+		
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_KNIGHTLY_SWORD, DamageType.ICE));
+		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BUCKLER, DamageType.ICE));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 				ClothingType.FINGER_RING,
@@ -159,12 +239,18 @@ public class SlimeGuardIce extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SNOWFLAKE_NECKLACE, Colour.CLOTHING_SILVER, false),
 				true,
 				this);
-		
-		if(this.getMainWeapon()==null) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_KNIGHTLY_SWORD, DamageType.ICE));
-		}
-		if(this.getOffhandWeapon()==null) {
-			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BUCKLER, DamageType.ICE));
+
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	@Override
+	public void endSex() {
+		if(!isSlave()) {
+			setPendingClothingDressing(true);
 		}
 	}
 	

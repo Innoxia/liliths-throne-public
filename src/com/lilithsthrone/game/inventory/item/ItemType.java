@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -2461,7 +2462,7 @@ public class ItemType {
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.IMP || target.isPlayer();
+			return target.getRace()==Race.DEMON || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
@@ -4724,19 +4725,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_EARTH, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, null);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_WATER, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, null);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_AIR, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, null);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_FIRE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, null);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_ARCANE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, null);
 							
 						}
 					}

@@ -10,33 +10,43 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -59,7 +69,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Nyan extends NPC {
@@ -80,60 +90,12 @@ public class Nyan extends NPC {
 	}
 	
 	public Nyan(boolean isImported) {
-		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
+		super(isImported, new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				21, Month.APRIL, 12,
-				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
+				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.LOW)));
 		
-		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
-			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-			this.setHairStyle(HairStyle.LOOSE);
-			
-			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-	
-			this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
-			this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
-			
-			this.setFootStructure(FootStructure.PLANTIGRADE);
-	
-			this.setBreastSize(CupSize.B.getMeasurement());
-			this.setBreastShape(BreastShape.POINTY);
-			this.setNippleSize(NippleSize.ONE_SMALL.getValue());
-			this.setAreolaeSize(AreolaeSize.TWO_BIG.getValue());
-			
-			this.setAssSize(AssSize.THREE_NORMAL.getValue());
-			this.setHipSize(HipSize.THREE_GIRLY.getValue());
-			
-			this.setVaginaLabiaSize(LabiaSize.ONE_SMALL.getValue());
-			
-			this.setMoney(10);
-			
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ONE_DISLIKE);
-			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
-		}
 		
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
@@ -182,35 +144,10 @@ public class Nyan extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
-		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 
-		this.setFootStructure(FootStructure.PLANTIGRADE);
-		
-		this.setBreastShape(BreastShape.POINTY);
-		this.setNippleSize(NippleSize.ONE_SMALL.getValue());
-		this.setAreolaeSize(AreolaeSize.TWO_BIG.getValue());
-		
-		this.setAssSize(AssSize.THREE_NORMAL.getValue());
-		this.setHipSize(HipSize.THREE_GIRLY.getValue());
-		
-		this.setVaginaLabiaSize(LabiaSize.ONE_SMALL.getValue());
-		
-		this.unequipAllClothingIntoVoid();
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
-		this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ONE_DISLIKE);
-		this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
 		
 		for(Entry<String, List<AbstractClothing>> entry : this.getAllClothingListsMap().entrySet()) {
 			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
@@ -228,6 +165,123 @@ public class Nyan extends NPC {
 				
 			}
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 25);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
+	
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.LOW)));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_CLOTHING_STORE_OWNER);
+	
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ONE_DISLIKE);
+			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
+		}
+		
+		// Body:
+
+		// Core:
+		this.setHeight(165);
+		this.setFemininity(85);
+		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
+		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+
+		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		this.setHairStyle(HairStyle.LOOSE);
+
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.ZERO_NONE);
+		this.setPubicHair(BodyHair.THREE_TRIMMED);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_CLEAR));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_CLEAR));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED_LIGHT));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
+		
+		// Face:
+		this.setFaceVirgin(true);
+		this.setLipSize(LipSize.TWO_FULL);
+		this.setFaceCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		this.setNippleVirgin(true);
+		this.setBreastSize(CupSize.B.getMeasurement());
+		this.setBreastShape(BreastShape.POINTY);
+		this.setNippleSize(NippleSize.ONE_SMALL.getValue());
+		this.setAreolaeSize(AreolaeSize.TWO_BIG.getValue());
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(true);
+		this.setAssBleached(false);
+		this.setAssSize(AssSize.THREE_NORMAL);
+		this.setHipSize(HipSize.THREE_GIRLY);
+		this.setAssCapacity(Capacity.TWO_TIGHT, true);
+		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
+		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		// No penis
+		
+		// Vagina:
+		this.setVaginaVirgin(false);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.ONE_SMALL);
+		this.setVaginaSquirter(false);
+		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		
+		// Feet:
+//		this.setFootStructure(FootStructure.PLANTIGRADE);
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+
+		this.unequipAllClothingIntoVoid(true);
+		
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+
 	}
 
 	@Override

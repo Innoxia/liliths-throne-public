@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.world.WorldType;
@@ -28,9 +28,9 @@ public class GenericAndrogynousNPC extends NPC {
 	}
 	
 	public GenericAndrogynousNPC(boolean isImported) {
-		super(new NameTriplet("Someone"), "Generic androgynous.",
+		super(isImported, new NameTriplet("Someone"), "Generic androgynous.",
 				25, Month.JUNE, 15,
-				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
+				1, Gender.N_P_V_HERMAPHRODITE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setFemininity(50);
@@ -41,6 +41,16 @@ public class GenericAndrogynousNPC extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setName(new NameTriplet("Someone"));
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	@Override

@@ -7,18 +7,38 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -28,11 +48,12 @@ import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -60,7 +81,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Kate extends NPC {
@@ -70,136 +91,59 @@ public class Kate extends NPC {
 	}
 	
 	public Kate(boolean isImported) {
-		super(new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
+		super(isImported, new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
 				+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
 				37, Month.SEPTEMBER, 9,
-				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
+				10, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 		
 		if(!isImported) {
-			try {
-				Tattoo tat = new Tattoo(
-						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
-						Colour.CLOTHING_PINK,
-						Colour.CLOTHING_PINK_LIGHT,
-						Colour.CLOTHING_PURPLE,
-						true,
-						new TattooWriting(
-								"Breed me!",
-								Colour.CLOTHING_PINK_LIGHT,
-								true,
-								TattooWritingStyle.ITALICISED),
-						null);
-				
-				for(int i=0; i<10; i++) {
-					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
-				}
-				
-				this.addTattoo(InventorySlot.GROIN, tat);
-				
-				this.addTattoo(InventorySlot.TORSO_OVER,
-						new Tattoo(
-							TattooType.BUTTERFLIES,
-							Colour.CLOTHING_PURPLE,
-							Colour.CLOTHING_PINK,
-							Colour.CLOTHING_PINK_LIGHT,
-							false,
-							null,
-							null));
-				
-				this.addTattoo(InventorySlot.TORSO_UNDER,
-						new Tattoo(
-							TattooType.TRIBAL,
-							Colour.CLOTHING_BLACK,
-							null,
-							null,
-							false,
-							new TattooWriting(
-									"Don't pull out!",
-									Colour.CLOTHING_BLACK,
-									false),
-							null));
-				
-			} catch(Exception ex) {
-			}
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-	
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
-			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-			this.setHairStyle(HairStyle.SIDECUT);
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
-			
-			this.setHornType(HornType.CURLED);
-			this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
-
-			this.setLegType(LegType.DEMON_COMMON);
-			
-			this.setBreastSize(CupSize.F.getMeasurement());
-			
-			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			
-			this.setAssVirgin(false);
-			this.setNippleVirgin(false);
-			this.setVaginaVirgin(false);
-			this.setFaceVirgin(false);
-			this.setPenisVirgin(false);
-			
-			this.setPiercedEar(true);
-			
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_PREGNANCY);
-	
-			this.setMoney(10);
-
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-			
 			dailyReset();
 		}
 	}
 	
+	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		
-		this.setWingSize(WingSize.ONE_SMALL.getValue());
-		
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
-		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-		this.setHairStyle(HairStyle.SIDECUT);
 
-		this.setHornType(HornType.CURLED);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
+	}
 
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 30);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 50);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 90);
+	
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_BEAUTICIAN);
+			
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+		}
+		
+		// Body:
 		this.setLegType(LegType.DEMON_COMMON);
-		
-		this.deleteAllEquippedClothing();
+		this.setHornType(HornType.CURLED);
+		this.setWingType(WingType.DEMON_COMMON);
+		this.setWingSize(WingSize.ONE_SMALL.getValue());
+		this.setTailType(TailType.DEMON_COMMON);
 
-		this.setPiercedEar(true);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		
 		if(this.getTattooInSlot(InventorySlot.GROIN)==null) {
 			try {
 				Tattoo tat = new Tattoo(
@@ -248,9 +192,107 @@ public class Kate extends NPC {
 			}
 		}
 
-		dailyReset();
-	}
+		// Core:
+		this.setHeight(180);
+		this.setFemininity(85);
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
+		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		this.setHairStyle(HairStyle.SIDECUT);
+
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.ZERO_NONE);
+		this.setPubicHair(BodyHair.ZERO_NONE);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PINK));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PINK));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_RED));
+		
+		// Face:
+		this.setFaceVirgin(false);
+		this.setLipSize(LipSize.TWO_FULL);
+		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		this.setNippleVirgin(false);
+		this.setBreastSize(CupSize.F.getMeasurement());
+		this.setBreastShape(BreastShape.ROUND);
+		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setAreolaeSize(AreolaeSize.TWO_BIG);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(false);
+		this.setAssBleached(true);
+		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setHipSize(HipSize.THREE_GIRLY);
+		this.setAssCapacity(Capacity.TWO_TIGHT, true);
+		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		this.setAssPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		// (For when she grows one)
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisSize(10);
+//		this.setInternalTesticles(true); Use player preferences
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		this.setPenisCumStorage(150);
+		this.fillCumToMaxStorage();
+		
+		// Vagina:
+		this.setVaginaVirgin(false);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
+		this.setVaginaSquirter(true);
+		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		this.setVaginaWetness(Wetness.SIX_SOPPING_WET);
+		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		
+		// Feet:
+		// Foot shape
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+
+		this.unequipAllClothingIntoVoid(true);
+
+		this.setMoney(10);
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+
+		this.setPiercedEar(true);
+		this.setPiercedNavel(true);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_GOLD, false), true, this);
+
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;

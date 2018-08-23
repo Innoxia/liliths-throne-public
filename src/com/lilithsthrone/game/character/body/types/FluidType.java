@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum FluidType implements BodyPartTypeInterface {
@@ -45,15 +45,6 @@ public enum FluidType implements BodyPartTypeInterface {
 					FluidModifier.STICKY,
 					FluidModifier.SLIMY),
 			Race.DEMON),
-
-	CUM_IMP(FluidTypeBase.CUM,
-			BodyCoveringType.CUM,
-			FluidFlavour.CUM,
-			Util.newArrayListOfValues("impish"),
-			Util.newArrayListOfValues(
-					FluidModifier.STICKY,
-					FluidModifier.SLIMY),
-			Race.IMP),
 
 	CUM_DOG_MORPH(FluidTypeBase.CUM,
 			BodyCoveringType.CUM,
@@ -202,14 +193,6 @@ public enum FluidType implements BodyPartTypeInterface {
 					FluidModifier.SLIMY),
 			Race.DEMON),
 
-	GIRL_CUM_IMP(FluidTypeBase.GIRLCUM,
-			BodyCoveringType.GIRL_CUM,
-			FluidFlavour.GIRL_CUM,
-			Util.newArrayListOfValues("impish"),
-			Util.newArrayListOfValues(
-					FluidModifier.SLIMY),
-			Race.IMP),
-
 	GIRL_CUM_DOG_MORPH(FluidTypeBase.GIRLCUM,
 			BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
@@ -344,13 +327,6 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(),
 			Race.DEMON),
 
-	MILK_IMP(FluidTypeBase.MILK,
-			BodyCoveringType.MILK,
-			FluidFlavour.MILK,
-			Util.newArrayListOfValues("impish"),
-			Util.newArrayListOfValues(),
-			Race.IMP),
-
 	MILK_DOG_MORPH(FluidTypeBase.MILK,
 			BodyCoveringType.MILK,
 			FluidFlavour.MILK,
@@ -450,6 +426,22 @@ public enum FluidType implements BodyPartTypeInterface {
 		this.descriptors = descriptors;
 		this.fluidModifiers = fluidModifiers;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static FluidType getTypeFromString(String value) {
+		if(value.equals("CUM_IMP")) {
+			value = "CUM_DEMON";
+			
+		} else if(value.equals("GIRL_CUM_IMP")) {
+			value = "GIRL_CUM_DEMON";
+			
+		} else if(value.equals("MILK_IMP")) {
+			value = "MIKL_DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 	
 	@Override

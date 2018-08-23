@@ -1,16 +1,27 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
+import java.util.ArrayList;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -19,166 +30,560 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.2.1
- * @version 0.2.2
+ * @since 0.1.?
+ * @version 0.2.11
  * @author Innoxia
  */
 public class TunnelAttackDialogue {
+
+	private static NPC getMugger() {
+		return Main.game.getActiveNPC();
+	}
+	
+	private static boolean isWantsToFight() {
+		return getMugger().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
+	}
+	
+	private static boolean isAffectionHighEnoughToInviteHome() {
+		return getMugger().getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
+	}
+	
+	private static void applyPregnancyReactions() {
+		if(getMugger().isVisiblyPregnant()){
+			getMugger().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().setCharacterReactedToPregnancy(getMugger(), true);
+		}
+	}
+	
+	private static String getStatus() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<p style='text-align:center;'><i>");
+		AffectionLevel al = getMugger().getAffectionLevel(Main.game.getPlayer());
+		switch(al) {
+			case NEGATIVE_FIVE_LOATHE:
+			case NEGATIVE_FOUR_HATE:
+			case NEGATIVE_THREE_STRONG_DISLIKE:
+			case NEGATIVE_TWO_DISLIKE:
+			case NEGATIVE_ONE_ANNOYED:
+			case ZERO_NEUTRAL:
+				break;
+			case POSITIVE_ONE_FRIENDLY:
+				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
+				} else {
+					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
+				}
+				break;
+			case POSITIVE_TWO_LIKE:
+				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
+				} else {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
+				}
+				break;
+			case POSITIVE_THREE_CARING:
+				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
+				} else {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
+				}
+				break;
+			case POSITIVE_FOUR_LOVE:
+				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
+				} else {
+					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
+				}
+				break;
+			case POSITIVE_FIVE_WORSHIP:
+				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
+				} else {
+					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+				}
+				break;
+		}
+		sb.append("</i></p>");
+		
+		return UtilText.parse(getMugger(), sb.toString());
+	}
 	
 	public static final DialogueNodeOld TUNNEL_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			boolean pregnancyReaction = false;
+			
+			if(getMugger().getLastTimeEncountered() != -1) {
+				
+				if(isWantsToFight()) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_INTRO", getMugger()));
+					
+					if(getMugger().isVisiblyPregnant()) {
+						pregnancyReaction = true;
+						
+						if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_PREGNANCY_REVEAL", getMugger()));
+						
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_STILL_PREGNANT", getMugger()));
+						}
+					}
+
+					if(Main.game.getPlayer().isVisiblyPregnant()) {
+						pregnancyReaction = true;
+						
+						if(!Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger())) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_PLAYER_PREGNANCY", getMugger()));
+						
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getMugger()));
+						}
+					}
+					
+					if(!pregnancyReaction) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT", getMugger()));
+					}
+					
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_REPEAT_END", getMugger()));
+					
+				
+				} else { // The mugger doesn't want to attack the player:
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_INTRO", getMugger()));
+					
+					if(getMugger().isVisiblyPregnant()) {
+						pregnancyReaction = true;
+						
+						if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_PREGNANCY_REVEAL", getMugger()));
+						
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_STILL_PREGNANT", getMugger()));
+						}
+					}
+
+					if(Main.game.getPlayer().isVisiblyPregnant()) {
+						pregnancyReaction = true;
+						
+						if(!Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger())) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_PLAYER_PREGNANCY", getMugger()));
+						
+						} else {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY", getMugger()));
+						}
+					}
+					
+					if(!pregnancyReaction) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL", getMugger()));
+					}
+					
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_END", getMugger()));
+
+					UtilText.nodeContentSB.append(getStatus());
+				}
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_INTRO", getMugger()));
+				
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK", getMugger()));
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(isWantsToFight()) {
+				if (index == 1) {
+					return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", getMugger()) {
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+						}
+					};
+					
+				} else if (index == 2) {
+					if(Main.game.getPlayer().getMoney()<250) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+								"You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
+					} else {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+								"Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PAY_OFF", getMugger()));
+								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-250));
+							}
+						};
+					}
+					
+				} else if (index == 3) {
+					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+						return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
+								null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								null,
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+							}
+						};
+						
+					} else {
+						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
+					}
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				if (index == 1) {
+					return new Response("Talk", "Talk to [npc.name] for a while in order to get to know [npc.herHim] a little better.", TUNNEL_PEACEFUL_TALK) {
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+							
+							if(isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
+						}
+					};
+					
+				} else if (index == 2) {
+					if(Main.game.getPlayer().getMoney()<250) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+								"You don't have enough money to offer [npc.name] any.", null);
+					} else {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+								"Offer [npc.name] some money to help [npc.herHim] buy food and clothing.", TUNNEL_PEACEFUL_OFFER_MONEY) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-250));
+								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 15));
+
+								if(isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+								}
+							}
+						};
+					}
+					
+				} else if (index == 3) {
+					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
+								null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								null,
+								AFTER_SEX_PEACEFUL,
+								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+							}
+						};
+						
+					} else {
+						return new Response("Sex (dom)", "You can tell that [npc.name] isn't interested in having sex with you...", null);
+					}
+					
+				} else if (index == 4) {
+					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
+								null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								null,
+								AFTER_SEX_PEACEFUL,
+								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+							}
+						};
+						
+					} else {
+						return new Response("Sex (sub)", "You can tell that [npc.name] isn't interested in having sex with you...", null);
+					}
+					
+				} if (index == 5) {
+					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) || !isAffectionHighEnoughToInviteHome()) {
+						return new Response("Offer room",
+								"You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...<br/>"
+								+ "[style.italics(Requires [npc.name] to have at least "+AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()+" affection towards you.)]",
+								null);
+						
+					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+						return new Response("Offer room",
+								"You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion...",
+								null);
+						
+					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
+						return new Response("Offer room",
+								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
+								null);
+						
+					}else {
+						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", TUNNEL_PEACEFUL_OFFER_ROOM) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 25));
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
+								getMugger().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
+							}
+						};
+					}
+					
+				} else if (index==10) {
+					return new Response("Attack",
+							"Betray [npc.namePos] trust and attack [npc.herHim]!<br/>"
+									+ "[style.italicsBad(This will devastate [npc.name], causing [npc.herHim] to leave Dominion in despair. (Removing [npc.herHim] from the game.))]",
+							TUNNEL_PEACEFUL_ATTACK) {
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), -200));
+							getMugger().addFlag(NPCFlagValue.genericNPCBetrayedByPlayer);
+							Main.game.getPlayer().incrementKarma(-50); // Why would you make friends with them and then attack them? ;_;
+						}
+						@Override
+						public boolean isCombatHighlight() {
+							return true;
+						}
+					};
+					
+				} else if (index == 0) {
+					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogueNoEncounter());
+					
+				} else {
+					return null;
+				}
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld TUNNEL_PEACEFUL_TALK = new DialogueNodeOld("Talk", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_TALK", getMugger()));
+
+			UtilText.nodeContentSB.append(getStatus());
+			
+			if(isAffectionHighEnoughToInviteHome()) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_CAN_INVITE_HOME", getMugger()));
+				} else {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getMugger()));
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld TUNNEL_PEACEFUL_OFFER_MONEY = new DialogueNodeOld("Offer money", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_OFFER_MONEY", getMugger()));
+
+			UtilText.nodeContentSB.append(getStatus());
+			
+			if(isAffectionHighEnoughToInviteHome()) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_CAN_INVITE_HOME", getMugger()));
+				} else {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getMugger()));
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld TUNNEL_PEACEFUL_OFFER_ROOM = new DialogueNodeOld("Offer room", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_OFFER_ROOM", getMugger());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Show to room", "Take [npc.name] to [npc.her] new room.", TUNNEL_PEACEFUL_OFFER_ROOM_BACK_HOME) {
+					@Override
+					public void effects() {
+						Cell c = OccupancyUtil.getFreeRoomForOccupant();
+						getMugger().setLocation(c.getType(), c.getLocation(), true);
+						Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
+						Main.game.getPlayer().addFriendlyOccupant(getMugger());
+						Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 50));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld TUNNEL_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNodeOld("New Room", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_OFFER_ROOM_BACK_HOME", getMugger());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Leave", "Give [npc.name] some time to get settled in [npc.her] new room. You can come back at any time to talk with [npc.herHim].", LilayaHomeGeneric.CORRIDOR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(Main.game.getPlayer().getWorldLocation(), PlaceType.LILAYA_HOME_CORRIDOR, false);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld TUNNEL_PEACEFUL_ATTACK = new DialogueNodeOld("Attack", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_PEACEFUL_ATTACK", getMugger());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new ResponseCombat("Fight", "Start fighting [npc.name]!", getMugger());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SEX_PEACEFUL = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			if(Sex.getNumberOfOrgasms(getMugger())>0) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_PEACEFUL", getMugger());
+			} else {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getMugger());
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getLabel(){
 			return "Assaulted!";
 		}
-		
+
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
-				if(Main.game.getActiveNPC().isVisiblyPregnant()){
-					// Pregnant encounters:
-					if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-						return "<p>"
-									+ "Assaulted again by the [npc.fullRace(true)]!"
-								+ "</p>"
-								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)
-										
-										?"<p style='text-align:center;'>" 
-											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and, although [npc.she] seems pleased, [npc.she] still wants to fight you!</b>"
-										+ "</p>"
-											
-										:"<p style='text-align:center;'>" 
-											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and now [npc.she] wants revenge!</b>"
-										+ "</p>");
-					
-					} else {
-						return "<p>"
-								+ "Assaulted again by the [npc.fullRace(true)]!"
-								+ " [npc.sheIs] still pregnant."
-							+ "</p>"
-							+ "<p>"
-								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
-											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
-					}
-					
-				} else {
-					// Standard repeat encounter:
-					return "<p>"
-								+ "Assaulted again by the [npc.fullRace(true)]!"
-							+ "</p>"
-							+ "<p>"
-								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
-											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
-				}
-				
-			} else {
-				return "<p>"
-						+ "Assaulted by [npc.a_fullRace(true)]!"
-					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-						?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-								+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-						:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body,"
-								+ " and will most likely only rob you if you were to lose this fight.")
-					+ "</p>";
-			}
+			// Storm attackers are different from alley attackers. They are not saved as persistent NPCs, so don't worry about giving any repeat-encounter descriptions.
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK", getMugger());
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC()) {
-					@Override
-					public void effects() {
-						if(Main.game.getActiveNPC().isVisiblyPregnant()){
-							Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getActiveNPC(), true);
-						}
-					}
-				};
+				return new ResponseCombat("Fight", "Defend yourself against the unwanted advances of [npc.name]!", getMugger());
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().getMoney()<250) {
-					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
-				} else {
-					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
-						@Override
-						public void effects() {
-							if(Main.game.getActiveNPC().isVisiblyPregnant()){
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getActiveNPC(), true);
-							}
-							
-							Main.game.getPlayer().incrementMoney(-250);
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race]."
-										+ " [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Sure, just hand it over and we'll both be on our way!)]"
-										+ " [npc.name] replies, [npc.her] desire to rob you of your money obviously the motivating factor behind [npc.her] assault."
-									+ "</p>"
-									+ "<p>"
-										+ "Stepping forwards, [npc.she] snatches the flames out of your [pc.hand], letting out a mocking laugh as [npc.she] commands,"
-										+ " [npc.speech(Hah! Now get out of my sight!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Reluctant to do anything other than what the [npc.race] suggests, you hurry on your way, thankful that you had enough money to avoid a fight."
-									+ "</p>");
-						}
-					};
-				}
+				return new Response("Offer money",
+						"Due to the ongoing arcane storm, [npc.name] isn't interested in your money, and only wants to have sex! You'll have to either fight [npc.herHim] or give [npc.herHim] what [npc.she] wants!",
+						null);
 				
 			} else if (index == 3) {
-				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-					return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
-							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
-							null, null, null,
-							true, true,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. "
-								+ " [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Oh really?)]"
-								+ " [npc.name] replies, stepping forwards in an intimidating manner."
-								+ " You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief."
-							+ "</p>"
-							+ "<p>"
-								+ "Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace."
-								+ " Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,"
-								+ " [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Whimpering in the affirmative, you surrender yourself to [npc.namePos] dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory..."
-							+ "</p>") {
-						@Override
-						public void effects() {
-							if(Main.game.getActiveNPC().isVisiblyPregnant()){
-								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-							}
-						}
-					};
+				return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
+						null, null, null,
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						null,
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
 					
-				} else {
-					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
-				}
-				
 			} else {
 				return null;
 			}
@@ -195,66 +600,51 @@ public class TunnelAttackDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "[npc.Name] collapses to the floor, completely defeated."
-							+ " [npc.She] looks up at you, and you see that [npc.sheIs] still got that same hungry look in [npc.her] eyes, despite [npc.her] defeat."
-							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
-						+ "</p>"
-						+ "<p>"
-							+ "You wonder if you should indulge [npc.her] request."
-							+ " After all, [npc.she] <i>was</i> going to do the same to you, and [npc.she] quite clearly wants it."
-							+ " Then again, maybe it's best to just leave."
-						+ "</p>");
+			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
+					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getMugger());
 				
 			} else {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "[npc.Name] collapses to the floor, completely defeated."
-							+ " [npc.She] looks up at you, and you see that there's a desperate look of regret in [npc.her] [npc.eyes]."
-							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
-						+ "</p>"
-						+ "<p>"
-							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
-							+ " Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body..."
-						+ "</p>");
+				if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_BETRAYED", getMugger());
+				} else {
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_NO_ATTRACTION", getMugger());
+				}
 			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
+			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
+					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way...", null){
+					return new Response("Continue", "Leave [npc.name] be and continue on your way...", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+						public void effects() {
+							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+								Main.game.banishNPC(getMugger());
+							}
 						}
 					};
 					
 				} else if (index == 2) {
-					return new ResponseSex("Have some fun",
+					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null, AFTER_SEX_VICTORY);
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
 					
 				} else if (index == 3) {
-					return new ResponseSex("Have some gentle fun",
+					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -263,15 +653,17 @@ public class TunnelAttackDialogue {
 									return null;
 								}
 							},
-							null, AFTER_SEX_VICTORY);
+							null,
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
-					return new ResponseSex("Have some rough fun",
+					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -280,59 +672,65 @@ public class TunnelAttackDialogue {
 									return null;
 								}
 							},
-							null, AFTER_SEX_VICTORY);
+							null,
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...<br/>"
-								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
+							"You're not really sure what to do now... Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
-								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
-								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "For a moment, a look of confusion crosses over [npc.namePos] face, but, as [npc.she] sees that you're genuinely troubled by what you've just done, an evil grin crosses [npc.her] face."
-								+ " [npc.She] stands up, and, grabbing you by the [pc.arm], roughly pulls you into [npc.her] as [npc.she] growls,"
-								+ " [npc.speech(How about you start by apologising properly?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.NamePos] strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
-								+ " [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.Name] roughly yanks you forwards, and with a menacing growl, [npc.she] forces [npc.her] tongue into your mouth."
-								+ " You let out a muffled yelp as your opponent takes charge, but as you feel [npc.her] [npc.hands] reaching down to start roughly groping your ass,"
-									+ " you realise that you couldn't be happier with how things have turned out..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
 					
 				} else if (index == 6) {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
 						public void effects() {
-							Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+							Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
 					
-				} else if (index == 10) {
+				} else if (index == 7 && getMugger().getLocationPlace().getPlaceType().getEncounterType()!=Encounter.DOMINION_STREET) {
+					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
+						
+					} else {
+						return new Response("Talk", "Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.", AFTER_COMBAT_VICTORY_TALK){
+							@Override
+							public void effects() {
+								getMugger().setPlayerKnowsName(true);
+								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+							}
+						};
+					}
+					
+				} else if (index == 8 && getMugger().isAbleToSelfTransform()) {
+					return new Response("Transform [npc.herHim]",
+							"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(getMugger());
+						}
+					};
+					
+				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-							AFTER_COMBAT_VICTORY){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
-						}
+							Main.game.getDefaultDialogueNoEncounter()){
 						@Override
 						public void effects() {
-							Main.game.banishNPC(Main.game.getActiveNPC());
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_BANISH_NPC", getMugger()));
+							Main.game.banishNPC(getMugger());
 						}
 					};
 					
@@ -342,34 +740,40 @@ public class TunnelAttackDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way...", null){
+					return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+						public void effects() {
+							if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+								Main.game.banishNPC(getMugger());
+							}
 						}
 					};
 					
 				} else if (index == 2) {
+					if(!Main.game.isNonConEnabled()) {
+						return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
+					}
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY, "<p>"
-								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
-								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
-							+ "</p>");
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
 					
 				} else if (index == 3) {
+					if(!Main.game.isNonConEnabled()) {
+						return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
+					}
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -379,18 +783,19 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, "<p>"
-								+ "Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
-								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
-							+ "</p>");
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
+					if(!Main.game.isNonConEnabled()) {
+						return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
+					}
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -400,10 +805,7 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, "<p>"
-								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
-								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
-							+ "</p>");
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -414,22 +816,44 @@ public class TunnelAttackDialogue {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
 						public void effects() {
-							Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+							Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
 					
-				} else if (index == 10) {
+				} else if (index == 7) {
+					if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
+						
+					} else {
+						return new Response("Talk", "Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.", AFTER_COMBAT_VICTORY_TALK){
+							@Override
+							public void effects() {
+								getMugger().setPlayerKnowsName(true);
+								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+							}
+						};
+					}
+					
+				} else if (index == 8 && getMugger().isAbleToSelfTransform()) {
+					return new Response("Transform [npc.herHim]",
+							"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(getMugger());
+						}
+					};
+					
+				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-							AFTER_COMBAT_VICTORY){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
-						}
+							Main.game.getDefaultDialogueNoEncounter()){
 						@Override
 						public void effects() {
-							Main.game.banishNPC(Main.game.getActiveNPC());
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_BANISH_NPC", getMugger()));
+							Main.game.banishNPC(getMugger());
 						}
 					};
 					
@@ -439,11 +863,32 @@ public class TunnelAttackDialogue {
 			}
 		}
 	};
-
+	
+	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_TALK = new DialogueNodeOld("Talk", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_TALK", getMugger());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue",
+						"Let [npc.name] go.",
+						Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
 		private static final long serialVersionUID = 1L;
 		
-		Util.Value<String, AbstractItem> potion = null;
+		Value<String, AbstractItem> potion = null;
 		
 		@Override
 		public String getDescription() {
@@ -452,88 +897,51 @@ public class TunnelAttackDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
-				potion = Main.game.getActiveNPC().generateTransformativePotion();
+
+			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_BETRAYED", getMugger());
+			}
+			
+			if(getMugger().hasTransformationFetish() && getMugger().isWillingToRape(Main.game.getPlayer()) ) {
+				potion = getMugger().getTransfomativePotion(true);
+				
+//				System.out.println("Potion Check 1"); 
+//				System.out.println(potion); 
+//				System.out.println(potion.getValue().getName()); 
 				
 				if(potion == null) {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
-							+ "</p>"
-							+ "<p>"
-								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(You're my perfect little "
-											+Main.game.getActiveNPC().getPreferredBodyDescription("b")
-											+ " now! Don't forget, bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
-							+ "</p>");
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_TF_FINISHED", getMugger());
 					
 				} else {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
-							+ "</p>"
-							+ "<p>"
-								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning."
-								+ " [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect "+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
-								+ " As the sickly sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
-							+ "</p>");
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_TF", getMugger());
 				}
 			}
 				
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
-							+ "</p>"
-							+ "<p>"
-								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Don't try anything, bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
-							+ "</p>");
+			if(getMugger().isAttractedTo(Main.game.getPlayer()) && getMugger().isWillingToRape(Main.game.getPlayer())) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_NO_TF_ATTRACTED", getMugger());
 				
 			} else {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
-						+ "</p>"
-						+ "<p>"
-							+ "Pulling you to your feet, [npc.name] pushes you against a nearby wall, before demanding that you hand over your money."
-							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(Don't even <i>think</i> about reporting this to the enforcers!)] [npc.she] growls down at you, before turning around and running off."
-						+ "</p>");
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_NO_TF_NOT_ATTRACTED", getMugger());
 			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
+			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				}
+				return null;
+			}
+			
+			if(getMugger().hasTransformationFetish()
+					&& potion != null
+					&& getMugger().isWillingToRape(Main.game.getPlayer())) {
+				
+//				System.out.println("Potion Check 2"); 
+//				System.out.println(potion); 
+//				System.out.println(potion.getValue()); 
+				
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
@@ -545,170 +953,60 @@ public class TunnelAttackDialogue {
 					}
 					
 				} else if (index == 2) {
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					
+					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
+						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
+						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
+					}
+					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
-							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+							applicableFetishes,
+							applicableCorrutionLevel,
 							null,
 							null,
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
+							Util.Value<String, AbstractItem> potion = getMugger().getTransfomativePotion();
+							
+//							System.out.println("Potion Check 3"); 
+//							System.out.println(potion.getValue().getName()); 
+//							System.out.println(potion); 
+							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
 										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
 									+ "</p>"
 									+ "<p>"
-										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
+										+getMugger().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
 									+"</p>");
 						}
 					};
 					
-				} else {
-					return null;
 				}
-			} else {
-				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
-					if (index == 1) {
-						return new ResponseSex("Sex",
-								"[npc.Name] forces [npc.herself] on you...",
-								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								AFTER_SEX_DEFEAT, "<p>"
-									+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
-									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
-								+ "</p>");
-						
-					} else if (index == 2) {
-						return new ResponseSex("Eager Sex",
-								"[npc.Name] forces [npc.herself] on you...",
-								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-									@Override
-									public SexPace getStartingSexPaceModifier(GameCharacter character) {
-										if(character.isPlayer()) {
-											return SexPace.SUB_EAGER;
-										}
-										return null;
-									}
-								},
-								null,
-								AFTER_SEX_DEFEAT, "<p>"
-									+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
-								+ "</p>");
-						
-					} else if (index == 3 && Main.game.isNonConEnabled()) {
-						return new ResponseSex("Resist Sex",
-								"[npc.Name] forces [npc.herself] on you...",
-								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-									@Override
-									public SexPace getStartingSexPaceModifier(GameCharacter character) {
-										if(character.isPlayer()) {
-											return SexPace.SUB_RESISTING;
-										}
-										return null;
-									}
-								},
-								null,
-								AFTER_SEX_DEFEAT, "<p>"
-									+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
-									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
-								+ "</p>");
-						
-					} else {
-						return null;
-					}
-					
-				} else {
-					if (index == 1) {
-						return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
-							@Override
-							public DialogueNodeOld getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
-							}
-						};
-						
-					} else {
-						return null;
-					}
-				}
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "Despite [npc.namePos] best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor."
-							+ " Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you,"
-							+ " [npc.speech(You <i>"+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"</i>! Do you know how much that cost me?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "After shouting down into your face, [npc.name] stands up, pulling you roughly to your [pc.feet] as [npc.she] does so, before pressing [npc.herself] against you and forcing you into a wet kiss."
-							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
-							+ " [npc.speech(I'll turn you into my perfect little "
-							+Main.game.getActiveNPC().getPreferredBodyDescription("b")
-							+" next time! For now, I'm going to get some fun out of you just as you are!)]"
-						+ "</p>");
-			
-			} else {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "Despite [npc.namePos] best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor."
-							+ " Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you,"
-							+ " [npc.speech(You <i>"+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"</i>! Do you know how much that cost me?!)]"
-						+ "</p>"
-						+"<p>"
-							+ "After shouting down into your face, [npc.name] stands up, pulling you roughly to your [pc.feet] as [npc.she] does so, before pushing you against a nearby wall and demanding that you hand over your money."
-							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] shoves you down to the floor once more."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "With that, [npc.she] turns around and runs off, leaving you to recover from your ordeal and continue on your way..."
-						+ "</p>");
-			}
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+				
+			} else if(getMugger().isAttractedTo(Main.game.getPlayer()) && getMugger().isWillingToRape(Main.game.getPlayer())) {
+				
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -719,17 +1017,15 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -740,14 +1036,9 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
-								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
-				} else {
-					return null;
 				}
 				
 			} else {
@@ -758,6 +1049,87 @@ public class TunnelAttackDialogue {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
+					
+				}
+			}
+			
+			return null;
+			
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_TRANSFORMATION_REFUSED_ATTRACTED", getMugger());
+			
+			} else {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_TRANSFORMATION_REFUSED_NOT_ATTRACTED", getMugger());
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				if (index == 1) {
+					return new ResponseSex("Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							null,
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+					
+				} else if (index == 2) {
+					return new ResponseSex("Eager Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_EAGER;
+									}
+									return null;
+								}
+							},
+							null,
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+					
+				} else if (index == 3 && Main.game.isNonConEnabled()) {
+					return new ResponseSex("Resist Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_RESISTING;
+									}
+									return null;
+								}
+							},
+							null,
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -771,54 +1143,34 @@ public class TunnelAttackDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pressing [npc.herself] against you and forcing you into a wet kiss."
-							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
-							+ " [npc.speech(I'll turn you into my perfect little "
-							+ Main.game.getActiveNPC().getPreferredBodyDescription("b")
-							+ "! Now for the real fun!)]"
-						+ "</p>");
+			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_TRANSFORMATION_ATTRACTED", getMugger());
 			
 			} else {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pushing you against a nearby wall and demanding that you hand over your money."
-							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
-								+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "With that, [npc.she] turns around and runs off, leaving you panting and sweating as you attempt to recover from the transformations that were just forced upon you..."
-						+ "</p>");
+				return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_TRANSFORMATION_NOT_ATTRACTED", getMugger());
 			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+			if(getMugger().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -829,17 +1181,15 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -850,11 +1200,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
-								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
-								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
-							+ "</p>");
+							AFTER_SEX_DEFEAT,
+							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else {
 					return null;
@@ -862,12 +1209,7 @@ public class TunnelAttackDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
-						}
-					};
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -886,26 +1228,19 @@ public class TunnelAttackDialogue {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-							+ " [npc.She] starts frantically gathering [npc.her] belongings, obviously quite keen to make [npc.her] exit before you decide to do anything else..."
-						+ "</p>");
+			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
+					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY", getMugger());
+				} else {
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getMugger());
+				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
-								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-							+ "</p>");
+				if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY_RAPE_BETRAYED", getMugger());
 				} else {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
-								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-							+ "</p>");
+					return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_VICTORY_RAPE", getMugger());
 				}
 			}
 		}
@@ -913,10 +1248,12 @@ public class TunnelAttackDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
-					public DialogueNodeOld getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+					public void effects() {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getMugger());
+						}
 					}
 				};
 				
@@ -924,11 +1261,11 @@ public class TunnelAttackDialogue {
 				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.namePos] clothing and items..."){
 					@Override
 					public void effects() {
-						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+						Main.mainController.openInventory(getMugger(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
-			} else if (index == 10) {
+			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -939,7 +1276,7 @@ public class TunnelAttackDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.banishNPC(Main.game.getActiveNPC());
+						Main.game.banishNPC(getMugger());
 					}
 				};
 				
@@ -964,17 +1301,7 @@ public class TunnelAttackDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
-						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head."
-						+ " [npc.speech(We should do this again some time!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With that, [npc.she] walks off, leaving you panting on the floor."
-						+ " It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way."
-					+ "</p>");
+			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_SEX_DEFEAT", getMugger());
 		}
 
 		@Override

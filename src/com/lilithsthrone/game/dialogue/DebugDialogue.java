@@ -429,7 +429,8 @@ public class DebugDialogue {
 				
 			} else if(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND) {
 				for(AbstractWeaponType weaponType : weaponsTotal) {
-					if(weaponType.getSlot()==activeSlot) {
+					if((weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_MAIN)
+							|| (!weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_OFFHAND)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
 												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
 														weaponType.getAvailableDamageTypes().get(0),
@@ -470,7 +471,13 @@ public class DebugDialogue {
 			inventorySB.append("<div class='container-half-width'>");
 			for(InventorySlot slot : InventorySlot.values()) {
 				inventorySB.append("<div class='normal-button' id='"+slot+"_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"
-						+ (slot == InventorySlot.WEAPON_MAIN || slot == InventorySlot.WEAPON_OFFHAND ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"+Util.capitaliseSentence(slot.getName())+"</div>");
+						+ (slot == InventorySlot.WEAPON_MAIN || slot == InventorySlot.WEAPON_OFFHAND ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"
+						+(slot == InventorySlot.WEAPON_MAIN
+							?"Melee"
+							:(slot == InventorySlot.WEAPON_OFFHAND
+									?"Ranged"
+									:Util.capitaliseSentence(slot.getName())))
+						+"</div>");
 			}
 			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
 			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");

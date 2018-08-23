@@ -26,7 +26,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Vagina implements BodyPartInterface, Serializable {
@@ -379,78 +379,27 @@ public class Vagina implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-								+ " A strange, bubbling sensation starts running down deep into your cunt, and you let out a lewd moan as you feel rows of little wriggling tentacles grow out to line your inner vaginal walls."
-								+ " Gasping for breath, you feel a new set of muscles forming within your pussy, and with an experimental squeeze, you discover that you have an incredible amount of control over your pussy's new additions."
-								+ " With one last shiver of pleasure, your pussy reshapes its exterior into the most perfect-looking vagina you've ever seen."
-							+ "</p>"
-							+ "<p>"
-								+ "Just as you think that the transformation has come to an end, your pussy's new tentacles and muscles involuntarily clench down,"
-									+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
-								+ " Images of fat demonic cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their tainted seed deep into your demonic womb."
-								+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-								+ "<br/>"
-								+ "You now have a [style.boldDemon(demonic vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
-										+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
-								+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt, and [npc.she] lets out a lewd moan as [npc.she] feels rows of little wriggling tentacles grow out to line [npc.her] inner vaginal walls."
-								+ " Gasping for breath, [npc.she] feels a new set of muscles forming within [npc.her] pussy, and with an experimental squeeze,"
-									+ " [npc.she] discovers that [npc.she] has an incredible amount of control over [npc.her] pussy's new additions."
-								+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
-							+ "</p>"
-							+ "<p>"
-								+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy's new tentacles and muscles involuntarily clench down,"
-									+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
-								+ " Images of fat demonic cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
-									+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their tainted seed deep into [npc.her] demonic womb."
-								+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
-									+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-								+ "<br/>"
-								+ "[npc.Name] now has a [style.boldDemon(demonic vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
-							+ "</p>"));
-				}
-				break;
-			case IMP:
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-								+ " A strange, bubbling sensation starts running down deep into your cunt, and you let out a lewd moan as you feel rows of little wriggling tentacles grow out to line your inner vaginal walls."
-								+ " Gasping for breath, you feel a new set of muscles forming within your pussy, and with an experimental squeeze, you discover that you have an incredible amount of control over your pussy's new additions."
-								+ " With one last shiver of pleasure, your pussy reshapes its exterior into the most perfect-looking vagina you've ever seen."
-							+ "</p>"
-							+ "<p>"
-								+ "Just as you think that the transformation has come to an end, your pussy's new tentacles and muscles involuntarily clench down,"
-									+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
-								+ " Images of fat impish cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their tainted seed deep into your impish womb."
-								+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-								+ "<br/>"
-								+ "You now have an [style.boldImp(impish vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
-										+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
-								+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt, and [npc.she] lets out a lewd moan as [npc.she] feels rows of little wriggling tentacles grow out to line [npc.her] inner vaginal walls."
-								+ " Gasping for breath, [npc.she] feels a new set of muscles forming within [npc.her] pussy, and with an experimental squeeze,"
-									+ " [npc.she] discovers that [npc.she] has an incredible amount of control over [npc.her] pussy's new additions."
-								+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
-							+ "</p>"
-							+ "<p>"
-								+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy's new tentacles and muscles involuntarily clench down,"
-									+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
-								+ " Images of fat impish cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
-									+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their tainted seed deep into [npc.her] impish womb."
-								+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
-									+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-								+ "<br/>"
-								+ "[npc.Name] now has an [style.boldImp(impish vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
-							+ "</p>"));
-				}
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+						" [npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] [npc.verb(feel)] [npc.her] slit shifting and contracting with a mind of its own,"
+								+ " [npc.she] desperately [npc.verb(clamp)] [npc.her] [npc.legs] shut."
+						+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"
+							+ " and [npc.she] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] rows of little wriggling tentacles grow out to line [npc.her] inner vaginal walls."
+						+ " Gasping for breath, [npc.she] [npc.verb(feel)] a new set of muscles forming within [npc.her] pussy, and with an experimental squeeze,"
+							+ " [npc.she] [npc.verb(discover)] that [npc.she] has an incredible amount of control over [npc.her] pussy's new additions."
+						+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
+					+ "</p>"
+					+ "<p>"
+						+ "Just as [npc.she] [npc.verb(start)] think that the transformation has come to an end, [npc.her] pussy's new tentacles and muscles involuntarily clench down,"
+							+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+						+ " Images of fat demonic cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
+							+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their tainted seed deep into [npc.her] demonic womb."
+						+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+							+ " [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation."
+						+ "<br/>"
+						+ (!owner.isShortStature()
+								?"[npc.Name] now [npc.has] a [style.boldDemon(demonic vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+								:"[npc.Name] now [npc.has] an [style.boldImp(impish vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls.")
+					+ "</p>"));
 				break;
 			case DOG_MORPH:
 				if(owner.isPlayer()) {

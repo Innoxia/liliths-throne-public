@@ -12,17 +12,16 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum AnusType implements BodyPartTypeInterface {
+	
 	HUMAN(BodyCoveringType.ANUS, Race.HUMAN),
 	
 	ANGEL(BodyCoveringType.ANUS, Race.ANGEL, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
 	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
-	
-	IMP(BodyCoveringType.ANUS, Race.IMP, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
 	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
 	
@@ -59,6 +58,16 @@ public enum AnusType implements BodyPartTypeInterface {
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static AnusType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 	
 	@Override

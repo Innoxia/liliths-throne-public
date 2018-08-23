@@ -518,6 +518,23 @@ public class OccupantDialogue {
 							}
 						};
 						
+					case 7:
+						if(!occupant().isAbleToSelfTransform()) {
+							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							
+						} else {
+							return new Response("Transformations",
+									"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+									BodyChanging.BODY_CHANGING_CORE){
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.saveDialogueNode();
+									BodyChanging.setTarget(occupant());
+								}
+							};
+						}
+						
 					case 0:
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
 							@Override
@@ -863,13 +880,12 @@ public class OccupantDialogue {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(occupant().isAtHome()) {
-				if(index == 0) {
-					return "Talk";
-					
-				} else if(index == 1) {
-					return UtilText.parse("[style.colourSex(Sex)]");
-				}
+			if(index == 0) {
+				return "Talk";
+			} else if(index == 1) {
+				return UtilText.parse("[style.colourSex(Sex)]");
+			} else if(index == 2) {
+				return UtilText.parse("[style.colourCompanion(Manage)]");
 			}
 			
 			return null;
@@ -1126,6 +1142,89 @@ public class OccupantDialogue {
 				}
 				
 				
+			} else if(responseTab == 2) {
+				switch(index) {
+					case 1:
+						return new Response("Inspect",
+								"Inspect [npc.name].",
+								OccupantManagementDialogue.getSlaveryManagementInspectSlaveDialogue(occupant())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(occupant());
+							}
+						};
+					case 2:
+						return new Response("Job", "You cannot manage the job of a free-willed occupant. This option is only available for slaves.", null);
+						
+					case 3:
+						return new Response("Permissions", "You cannot manage the permissions of a free-willed occupant. This option is only available for slaves.", null);
+						
+					case 4:
+						return new ResponseEffectsOnly("Inventory",
+								UtilText.parse(occupant(), "As [npc.name] is indebted to you for having saved [npc.herHim] from a life of crime, [npc.she] will happily let you choose what [npc.she] wears.")) {
+									@Override
+									public void effects() {
+										applyReactionReset();
+										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(occupant());
+										Main.mainController.openInventory(occupant(), InventoryInteraction.FULL_MANAGEMENT);
+									}
+								};
+					case 5:
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
+							return new Response("Send to Kate",
+									"[npc.Name] trusts you enough to have you decide upon any appearance changes at Kate's beauty salon, 'Succubi's secrets'.",
+									OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+										@Override
+										public void effects() {
+											applyReactionReset();
+											Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(occupant());
+											BodyChanging.setTarget(occupant());
+										}
+									};
+						} else {
+							return new Response("Send to Kate", "You haven't met Kate yet!", null);
+						}
+						
+					case 6:
+						return new Response("Perks", "Assign [npc.namePos] perk points.", OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(occupant());
+							}
+						};
+						
+					case 7:
+						if(!occupant().isAbleToSelfTransform()) {
+							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							
+						} else {
+							return new Response("Transformations",
+									"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+									BodyChanging.BODY_CHANGING_CORE){
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.saveDialogueNode();
+									BodyChanging.setTarget(occupant());
+								}
+							};
+						}
+						
+					case 0:
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							}
+						};
+								
+					default:
+						return null;
+				}
+			
 			} else {
 				return null;
 			}

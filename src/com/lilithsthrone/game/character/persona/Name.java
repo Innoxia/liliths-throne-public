@@ -258,7 +258,6 @@ public enum Name {
 			case CAT_MORPH:
 			case COW_MORPH:
 			case DEMON:
-			case IMP:
 			case FOX_MORPH:
 			case DOG_MORPH:
 			case ALLIGATOR_MORPH:
@@ -322,7 +321,6 @@ public enum Name {
 			break;
 			
 			case DEMON:
-			case IMP:
 			case ELEMENTAL_AIR:
 			case ELEMENTAL_ARCANE:
 			case ELEMENTAL_EARTH:

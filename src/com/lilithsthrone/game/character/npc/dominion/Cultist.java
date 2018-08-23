@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
@@ -35,9 +35,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -63,12 +63,12 @@ public class Cultist extends NPC {
 	}
 	
 	public Cultist(boolean isImported) {
-		super(null,
+		super(isImported, null,
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
 				Gender.F_P_V_B_FUTANARI,
-				RacialBody.DEMON,
+				Subspecies.DEMON,
 				RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.DOMINION,
@@ -101,7 +101,6 @@ public class Cultist extends NPC {
 			this.setAssVirgin(false);
 			this.setFaceVirgin(false);
 			this.setNippleVirgin(false);
-			this.setInternalTesticles(true);
 			this.setPenisVirgin(false);
 			
 			setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
@@ -112,7 +111,7 @@ public class Cultist extends NPC {
 					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
 			
 			// Set random inventory & weapons:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(100);
 			
 			// CLOTHING:
@@ -189,6 +188,16 @@ public class Cultist extends NPC {
 		if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ZERO_HATE) {
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	@Override
