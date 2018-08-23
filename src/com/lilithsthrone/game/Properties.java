@@ -842,7 +842,7 @@ public class Properties implements Serializable {
 	
 	public boolean addRaceDiscovered(Subspecies subspecies) {
 		if(subspeciesDiscovered.add(subspecies)) {
-			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(), subspecies.getColour()), true);
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null), subspecies.getColour(null)), true);
 			setValue(PropertyValue.newRaceDiscovered, true);
 			return true;
 		}
@@ -856,7 +856,7 @@ public class Properties implements Serializable {
 	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
 		boolean added = subspeciesAdvancedKnowledge.add(subspecies);
 		if(added) {
-			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName()+" (Advanced)", subspecies.getColour()), true);
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null)+" (Advanced)", subspecies.getColour(null)), true);
 		}
 		return added;
 	}

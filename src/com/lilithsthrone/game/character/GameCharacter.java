@@ -394,11 +394,14 @@ public abstract class GameCharacter implements XMLSaving {
 		RacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
 		
 		if(birthday==null) {
-			if(Main.game != null) {
-				this.birthday = Main.game.getDateNow().minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0)).minusDays(1);
-			} else {
-				this.birthday = LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), 00, 00).minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0));
-			}
+			
+			setBirthday(Main.game.getDateNow());
+			
+//			if(Main.game != null) {
+//				this.birthday = Main.game.getDateNow().minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0)).minusDays(1);
+//			} else {
+//				this.birthday = LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), 00, 00).minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0));
+//			}
 		} else {
 			this.setBirthday(birthday);
 		}
@@ -544,7 +547,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		// Set the character's starting body based on their gender and race:
-		setBody(startingGender, startingRace, stage);
+		setBody(startingGender, startingSubspecies, stage);
 		genderIdentity = startingGender;
 		
 		if(nameTriplet==null) {
@@ -889,9 +892,9 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "monthOfConception", this.getConceptionDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
 		
 		
 		
@@ -1899,14 +1902,14 @@ public abstract class GameCharacter implements XMLSaving {
 			character.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
 
 			try {
-				int day = Integer.valueOf(((Element)element.getElementsByTagName("dayOfConception").item(0)).getAttribute("value"));
-				Month month = Month.valueOf(((Element)element.getElementsByTagName("monthOfConception").item(0)).getAttribute("value"));
-				int year = Integer.valueOf(((Element)element.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
+				int day = Integer.valueOf(((Element)familyElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value"));
+				Month month = Month.valueOf(((Element)familyElement.getElementsByTagName("monthOfConception").item(0)).getAttribute("value"));
+				int year = Integer.valueOf(((Element)familyElement.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
 				
 				character.setConceptionDate(LocalDateTime.of(year, month, day, 12, 0));
+				
 			} catch(Exception ex) {
 			}
-			
 		}
 		
 		
@@ -2813,14 +2816,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if(gender.isFeminine()) {
 			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
-					removeSlimeSubspecies(entry.getKey(), subspeciesMap);
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
 		} else {
 			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
-					removeSlimeSubspecies(entry.getKey(), subspeciesMap);
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
@@ -2838,181 +2839,14 @@ public abstract class GameCharacter implements XMLSaving {
 			Subspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			
 			if(gender.isFeminine()) {
-				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
-					case HUMAN:
-						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-						break;
-					case MINIMUM:
-						setBodyFromPreferences(1, gender, species);
-						break;
-					case REDUCED:
-						setBodyFromPreferences(2, gender, species);
-						break;
-					case NORMAL:
-						setBodyFromPreferences(3, gender, species);
-						break;
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-				}
-			} else {
-				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
-					case HUMAN:
-						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-						break;
-					case MINIMUM:
-						setBodyFromPreferences(1, gender, species);
-						break;
-					case REDUCED:
-						setBodyFromPreferences(2, gender, species);
-						break;
-					case NORMAL:
-						setBodyFromPreferences(3, gender, species);
-						break;
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-				}
-			}
-		}
-	}
-	
-	private static void removeSlimeSubspecies(Subspecies subspecies, Map<Subspecies, Integer> subspeciesMap) {
-		switch(subspecies) {
-			case ALLIGATOR_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_ALLIGATOR);
-				break;
-			case ANGEL:
-				subspeciesMap.remove(Subspecies.SLIME_ANGEL);
-				break;
-			case BAT_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_BAT);
-				break;
-			case CAT_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_CAT);
-				break;
-			case COW_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_COW);
-				break;
-			case DEMON:
-				subspeciesMap.remove(Subspecies.SLIME_DEMON);
-				break;
-			case DOG_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_DOG);
-				break;
-			case DOG_MORPH_BORDER_COLLIE:
-				subspeciesMap.remove(Subspecies.SLIME_DOG_BORDER_COLLIE);
-				break;
-			case DOG_MORPH_DOBERMANN:
-				subspeciesMap.remove(Subspecies.SLIME_DOG_DOBERMANN);
-				break;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
-				break;
-			case HARPY:
-				subspeciesMap.remove(Subspecies.SLIME_HARPY);
-				break;
-			case HARPY_RAVEN:
-				subspeciesMap.remove(Subspecies.SLIME_HARPY_RAVEN);
-				break;
-			case HARPY_BALD_EAGLE:
-				subspeciesMap.remove(Subspecies.SLIME_HARPY_BALD_EAGLE);
-				break;
-			case HORSE_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_HORSE);
-				break;
-			case HORSE_MORPH_ZEBRA:
-				break;
-			case HUMAN:
-				break;
-			case IMP:
-				subspeciesMap.remove(Subspecies.SLIME_IMP);
-				break;
-			case IMP_ALPHA:
-				break;
-			case RABBIT_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_RABBIT);
-				break;
-			case RABBIT_MORPH_LOP:
-				break;
-			case RAT_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_RAT);
-				break;
-			case REINDEER_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_REINDEER);
-				break;
-			case SQUIRREL_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_SQUIRREL);
-				break;
-			case WOLF_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_WOLF);
-				break;
-			case FOX_MORPH:
-				subspeciesMap.remove(Subspecies.SLIME_FOX);
-				break;
-			case FOX_MORPH_FENNEC:
-				subspeciesMap.remove(Subspecies.SLIME_FOX_FENNEC);
-				break;
-			case FOX_ASCENDANT:
-				break;
-			case FOX_ASCENDANT_FENNEC:
-				break;
-			case CAT_MORPH_CARACAL:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_CARACAL);
-				break;
-			case CAT_MORPH_CHEETAH:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_CHEETAH);
-				break;
-			case CAT_MORPH_LEOPARD:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_LEOPARD);
-				break;
-			case CAT_MORPH_LEOPARD_SNOW:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_LEOPARD_SNOW);
-				break;
-			case CAT_MORPH_LION:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_LION);
-				break;
-			case CAT_MORPH_LYNX:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_LYNX);
-				break;
-			case CAT_MORPH_TIGER:
-				subspeciesMap.remove(Subspecies.SLIME_CAT_TIGER);
-				break;
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+				setBody(gender, species, stage);
 				
-			case SLIME:
-				break;
-			case SLIME_ALLIGATOR:
-			case SLIME_ANGEL:
-			case SLIME_BAT:
-			case SLIME_CAT:
-			case SLIME_COW:
-			case SLIME_DEMON:
-			case SLIME_DOG:
-			case SLIME_DOG_BORDER_COLLIE:
-			case SLIME_DOG_DOBERMANN:
-			case SLIME_HARPY:
-			case SLIME_HARPY_RAVEN:
-			case SLIME_HARPY_BALD_EAGLE:
-			case SLIME_HORSE:
-			case SLIME_IMP:
-			case SLIME_RABBIT:
-			case SLIME_RAT:
-			case SLIME_REINDEER:
-			case SLIME_SQUIRREL:
-			case SLIME_WOLF:
-			case SLIME_FOX:
-			case SLIME_FOX_FENNEC:
-			case SLIME_CAT_CARACAL:
-			case SLIME_CAT_CHEETAH:
-			case SLIME_CAT_LEOPARD:
-			case SLIME_CAT_LEOPARD_SNOW:
-			case SLIME_CAT_LION:
-			case SLIME_CAT_LYNX:
-			case SLIME_CAT_TIGER:
-				break;
+			} else {
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
+				setBody(gender, species, stage);
+			}
+
 		}
 	}
 	
@@ -3028,21 +2862,6 @@ public abstract class GameCharacter implements XMLSaving {
 				map.put(subspecies, weight*Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue());
 			}
 		}
-	}
-	
-	protected void setBodyFromPreferences(int i, Gender gender, Subspecies species) {
-		int choice = Util.random.nextInt(i)+1;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		
-		if (choice == 1) {
-			raceStage = RaceStage.PARTIAL;
-		} else if (choice == 2) {
-			raceStage = RaceStage.LESSER;
-		} else {
-			raceStage = RaceStage.GREATER;
-		}
-		
-		setBody(gender, species, raceStage);
 	}
 
 	public Gender getGenderIdentity() {
@@ -3064,24 +2883,24 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
 			if(isFeminine()) {
-				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+				if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 					return "awoo-girl";
 				}
 				if(getSubspecies()==Subspecies.HUMAN){
 					return "woman";
 				}
 				else{
-					return getSubspecies().getSingularFemaleName();
+					return getSubspecies().getSingularFemaleName(this);
 				}
 			} else {
-				if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+				if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 					return "awoo-boy";
 				}
 				if(getSubspecies()==Subspecies.HUMAN){
 					return "man";
 				}
 				else{
-					return getSubspecies().getSingularMaleName();
+					return getSubspecies().getSingularMaleName(this);
 				}
 			}
 			
@@ -3167,7 +2986,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getAge() {
-		return Math.max(18, (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow()));
+		int age = (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
+		
+		if(birthday.getYear()>=Main.game.getStartingDate().getYear()) {
+			return 18 + age;
+		}
+		
+		return Math.max(18, age);
 	}
 	
 	public Month getBirthMonth() {
@@ -3181,6 +3006,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public Occupation getHistory() {
 		if(!this.isPlayer() && this.isSlave()) {
 			return Occupation.NPC_SLAVE;
+		} else if(this instanceof Elemental) {
+			return Occupation.ELEMENTAL;
 		}
 		return history;
 	}
@@ -3471,34 +3298,6 @@ public abstract class GameCharacter implements XMLSaving {
 				value = 12000;
 				break;
 			case SLIME:
-			case SLIME_ALLIGATOR:
-			case SLIME_ANGEL:
-			case SLIME_BAT:
-			case SLIME_CAT:
-			case SLIME_CAT_CARACAL:
-			case SLIME_CAT_CHEETAH:
-			case SLIME_CAT_LEOPARD:
-			case SLIME_CAT_LEOPARD_SNOW:
-			case SLIME_CAT_LION:
-			case SLIME_CAT_LYNX:
-			case SLIME_CAT_TIGER:
-			case SLIME_COW:
-			case SLIME_DEMON:
-			case SLIME_DOG:
-			case SLIME_DOG_BORDER_COLLIE:
-			case SLIME_DOG_DOBERMANN:
-			case SLIME_FOX:
-			case SLIME_FOX_FENNEC:
-			case SLIME_HARPY:
-			case SLIME_HARPY_BALD_EAGLE:
-			case SLIME_HARPY_RAVEN:
-			case SLIME_HORSE:
-			case SLIME_IMP:
-			case SLIME_RABBIT:
-			case SLIME_RAT:
-			case SLIME_REINDEER:
-			case SLIME_SQUIRREL:
-			case SLIME_WOLF:
 				value = 10000;
 				break;
 		}
@@ -3698,7 +3497,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToBeEnslaved() {
-		return getEnslavementDialogue(enslavementClothing)!=null;
+		return getEnslavementDialogue(enslavementClothing)!=null;// && this.getSubspecies()!=Subspecies.DEMON; TODO
 	}
 	
 	public List<String> getSlavesOwned() {
@@ -5332,11 +5131,12 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	public String getVirginityLossDescription(SexType sexType) {
-		if(Main.game.getPlayer().getVirginityLoss(sexType).getKey().isEmpty()) { // Support for versions prior to 0.2.10
+		if(this.getVirginityLoss(sexType).getKey()!=null
+				&& this.getVirginityLoss(sexType).getKey().isEmpty()) { // Support for versions prior to 0.2.10
 			return virginityLossMap.get(sexType).getValue();
 			
 		} else {
-			return UtilText.parse(Main.game.getNPCById(Main.game.getPlayer().getVirginityLoss(sexType).getKey()),
+			return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()),
 					"[npc.name] "+virginityLossMap.get(sexType).getValue());
 		}
 	}
@@ -5382,7 +5182,7 @@ public abstract class GameCharacter implements XMLSaving {
 			GameCharacter target = Sex.getTargetedPartner(this);
 			
 			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-				if(Sex.getCharactersUsingSexAreaOnCharacter(this, orifice).contains(target)) {
+				if(Sex.getCharacterContactingSexArea(this, orifice).contains(target)) {
 					switch(orifice) {
 						case ANUS:
 							s = getDirtyTalkAssPenetrated(target, isPlayerDom);
@@ -5421,7 +5221,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		
 			for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-				if(Sex.getCharactersUsingSexAreaOnCharacter(this, penetration).contains(target)) {
+				if(Sex.getCharacterContactingSexArea(this, penetration).contains(target)) {
 					switch(penetration) {
 						case FINGER:
 							s = getDirtyTalkFingerPenetrating(target, isPlayerDom);
@@ -8496,7 +8296,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		SexPace pace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
-			pace = Sex.getSexPace(this);
+			pace = Sex.getSexPace(charactersReacting.get(0));
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -8539,7 +8339,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 			SexPace pace = SexPace.DOM_NORMAL;
 			if(Main.game.isInSex()) {
-				pace = Sex.getSexPace(this);
+				pace = Sex.getSexPace(charactersReacting.get(0));
 			}
 			
 			StringBuilder sb = new StringBuilder();
@@ -8771,7 +8571,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		SexPace pace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
-			pace = Sex.getSexPace(this);
+			pace = Sex.getSexPace(charactersReacting.get(0));
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -8987,7 +8787,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		SexPace pace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
-			pace = Sex.getSexPace(this);
+			pace = Sex.getSexPace(charactersReacting.get(0));
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -9109,7 +8909,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		SexPace pace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
-			pace = Sex.getSexPace(this);
+			pace = Sex.getSexPace(charactersReacting.get(0));
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -11480,6 +11280,9 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Pregnancy:
 	
+	/**
+	 * @return Whether the supplied character has reacted to this GameCharacter's pregnancy.
+	 */
 	public boolean isCharacterReactedToPregnancy(GameCharacter character) {
 		return pregnancyReactions.contains(character.getId());
 	}
@@ -12496,20 +12299,16 @@ public abstract class GameCharacter implements XMLSaving {
 			throw new NullPointerException("null weapon was passed.");
 		}
 		
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		
 		if (getMainWeapon() != null) {
-			s += addWeapon(getMainWeapon(), false);
-
-			// Revert old melee weapon's attribute bonuses:
-			if (getMainWeapon().getAttributeModifiers() != null) {
-				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet()) {
-					incrementBonusAttribute(e.getKey(), -e.getValue());
-				}
-			}
+			s.append(unequipMainWeapon(false));
+		}
+		if (weapon.getWeaponType().isTwoHanded() && getOffhandWeapon() != null) {
+			s.append(unequipOffhandWeapon(false));
 		}
 
-		s += weapon.onEquip(this);
+		s.append(weapon.onEquip(this));
 		// Apply its attribute bonuses:
 		if (weapon.getAttributeModifiers() != null) {
 			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
@@ -12520,7 +12319,7 @@ public abstract class GameCharacter implements XMLSaving {
 		inventory.equipMainWeapon(weapon);
 		updateInventoryListeners();
 		
-		return s;
+		return s.toString();
 	}
 	
 	public String unequipMainWeapon(boolean dropToFloor) {
@@ -12594,20 +12393,16 @@ public abstract class GameCharacter implements XMLSaving {
 			throw new NullPointerException("null weapon was passed.");
 		}
 		
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		
 		if (getOffhandWeapon() != null) {
-			s += addWeapon(getOffhandWeapon(), false);
-
-			// Revert old weapon's attribute bonuses:
-			if (getOffhandWeapon().getAttributeModifiers() != null) {
-				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet()) {
-					incrementBonusAttribute(e.getKey(), -e.getValue());
-				}
-			}
+			s.append(unequipOffhandWeapon(false));
+		}
+		if (getMainWeapon() != null && getMainWeapon().getWeaponType().isTwoHanded()) {
+			s.append(unequipMainWeapon(false));
 		}
 		
-		s += weapon.onEquip(this);
+		s.append(weapon.onEquip(this));
 		// Apply its attribute bonuses:
 		if (weapon.getAttributeModifiers() != null) {
 			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
@@ -12618,7 +12413,7 @@ public abstract class GameCharacter implements XMLSaving {
 		inventory.equipOffhandWeapon(weapon);
 		updateInventoryListeners();
 		
-		return s;
+		return s.toString();
 	}
 	
 	public String unequipOffhandWeapon(boolean dropToFloor) {

@@ -126,8 +126,8 @@ public class SlimeGuardIce extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(183);
-		this.setFemininity(20);
+		this.setHeight(169);
+		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		

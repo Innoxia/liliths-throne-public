@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
@@ -105,6 +106,7 @@ public enum Encounter {
 	DOMINION_STREET(Util.newHashMapOfValues(
 			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
 			new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
+			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
 			new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f))) {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
@@ -142,6 +144,42 @@ public enum Encounter {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
+			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getNonCompanionCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+				List<NPC> slaves = new ArrayList<>();
+				List<NPC> hornySlaves = new ArrayList<>();
+				
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					NPC slave = (NPC) Main.game.getNPCById(id);
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
+							&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
+							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)
+							&& slave.isAttractedTo(Main.game.getPlayer())) {
+						if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+							slaves.add(slave);
+						}
+						if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+							hornySlaves.add(slave);
+						}
+					}
+				}
+				slaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY || slave.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative());
+				hornySlaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY || slave.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative());
+				
+				if(!hornySlaves.isEmpty()) {
+					Collections.shuffle(hornySlaves);
+					Main.game.setActiveNPC(hornySlaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU_STREETS;
+					
+				} else if(!slaves.isEmpty()) {
+					Collections.shuffle(slaves);
+					Main.game.setActiveNPC(slaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU_STREETS;
+				}
+				
+				return null;
+				
 			} else {
 				return null;
 			}
@@ -149,7 +187,8 @@ public enum Encounter {
 	},
 	
 	DOMINION_BOULEVARD(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f))) {
+			new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
+			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f))) {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
@@ -170,6 +209,43 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
 				}
+				
+			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getNonCompanionCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+				List<NPC> slaves = new ArrayList<>();
+				List<NPC> hornySlaves = new ArrayList<>();
+				
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					NPC slave = (NPC) Main.game.getNPCById(id);
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
+							&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
+							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)
+							&& slave.isAttractedTo(Main.game.getPlayer())) {
+						if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+							slaves.add(slave);
+						}
+						if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+							hornySlaves.add(slave);
+						}
+					}
+				}
+				slaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY || slave.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative());
+				hornySlaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY || slave.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative());
+				
+				if(!hornySlaves.isEmpty()) {
+					Collections.shuffle(hornySlaves);
+					Main.game.setActiveNPC(hornySlaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU_STREETS;
+					
+				} else if(!slaves.isEmpty()) {
+					Collections.shuffle(slaves);
+					Main.game.setActiveNPC(slaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU_STREETS;
+				}
+				
+				return null;
+				
 			}
 			
 			return null;

@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -83,25 +84,10 @@ public class RentalMommy extends NPC {
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			Subspecies species = Subspecies.COW_MORPH;
-				
-			switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
-				case HUMAN:
-					setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN);
-					break;
-				case MINIMUM:
-					setBodyFromPreferences(1, Gender.F_V_B_FEMALE, species);
-					break;
-				case REDUCED:
-					setBodyFromPreferences(2, Gender.F_V_B_FEMALE, species);
-					break;
-				case NORMAL:
-					setBodyFromPreferences(3, Gender.F_V_B_FEMALE, species);
-					break;
-				case MAXIMUM:
-					setBody(Gender.F_V_B_FEMALE, species, RaceStage.GREATER);
-					break;
-			}
+			Subspecies subspecies = Subspecies.COW_MORPH;
+			
+			RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
+			setBody(Gender.F_V_B_FEMALE, subspecies, stage);
 
 			this.setPlayerKnowsName(true);
 

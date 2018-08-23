@@ -273,4 +273,15 @@ public enum TailType implements BodyPartTypeInterface {
 		typesMap.put(r, types);
 		return types;
 	}
+	
+
+	public static List<TailType> getTailTypesSuitableForTransformation(List<TailType> options) {
+		if (!options.contains(TailType.NONE)) {
+			return options;
+		}
+		
+		List<TailType> duplicatedOptions = new ArrayList<>(options);
+		duplicatedOptions.remove(TailType.NONE);
+		return duplicatedOptions;
+	}
 }

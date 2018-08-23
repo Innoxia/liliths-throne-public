@@ -3268,19 +3268,14 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("<p>");
 			// Wing:
 			switch (wing.getType()) {
-				case DEMON_COMMON:
-					if (owner.isPlayer()) {
-						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
-					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings, which are covered in [npc.wingFullDescription(true)].");
-					}
-					break;
 				case ANGEL:
-					if (owner.isPlayer()) {
-						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] angelic wings, which are covered in [pc.wingFullDescription(true)].");
-					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] angelic wings, which are covered in [npc.wingFullDescription(true)].");
-					}
+					sb.append("Growing from [npc.her] shoulder-blades, [npc.sheHasFull] a pair of [npc.wingSize] angelic wings, which are covered in [npc.wingFullDescription(true)].");
+					break;
+				case DEMON_COMMON:
+					sb.append("Growing from [npc.her] shoulder-blades, [npc.sheHasFull] a pair of [npc.wingSize] bat-like wings, which are covered in [npc.wingFullDescription(true)].");
+					break;
+				case DEMON_FEATHERED:
+					sb.append("Growing from [npc.her] shoulder-blades, [npc.sheHasFull] a pair of [npc.wingSize], demonic, feathered wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 				case NONE:
 					break;
@@ -3718,7 +3713,7 @@ public class Body implements Serializable, XMLSaving {
 		addRaceWeight(raceWeightMap, eye.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, ear.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
+//		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
 		

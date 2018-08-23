@@ -17,6 +17,8 @@ import com.lilithsthrone.main.Main;
 public enum Occupation {
 	
 	// Unique:
+	
+	ELEMENTAL(Perk.JOB_MISC, "elemental", "-", OccupationTag.HAS_PREREQUISITES),
 
 	REINDEER_OVERSEER(Perk.JOB_MISC, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
 	

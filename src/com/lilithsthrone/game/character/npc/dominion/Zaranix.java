@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -120,6 +121,7 @@ public class Zaranix extends NPC {
 		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);
+		this.setWingType(WingType.NONE);
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.STRAIGHT);
 

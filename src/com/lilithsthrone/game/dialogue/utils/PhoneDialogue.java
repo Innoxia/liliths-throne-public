@@ -1048,7 +1048,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringFemaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1064,7 +1064,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringMaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1176,7 +1176,9 @@ public class PhoneDialogue {
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
-								+ (pp.getFather().getGender().isFeminine()?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName()))
+								+ (pp.getFather().getGender().isFeminine()
+										?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName(pp.getFather()))
+										:Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName(pp.getFather())))
 								+ "</b><b>) Probability: "));
 					
 					if (pp.getProbability() <= 0) {
@@ -1250,7 +1252,9 @@ public class PhoneDialogue {
 									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 									:"")
 							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName()))
+							+ (pp.getMother().getGender().isFeminine()
+									?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother()))
+									:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother())))
 							+ "</b><b>)</b>"));
 				
 				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
@@ -1627,7 +1631,7 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>"
-									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+Util.capitaliseSentence(weapon.getSlot().getName())+")"
+									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+(weapon.isMelee()?"Melee":"Ranged")+")"
 							+ "</div>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>");
 					
@@ -1794,7 +1798,7 @@ public class PhoneDialogue {
 		for (Subspecies subspecies : Subspecies.values()) {
 			if(Main.getProperties().isRaceDiscovered(subspecies)) {
 				racesDiscovered.add(subspecies);
-				contentSB.append("<p style='text-align:center;'><b style='color:"+subspecies.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(subspecies.getName()) + "</b></p>");
+				contentSB.append("<p style='text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>" + Util.capitaliseSentence(subspecies.getName(null)) + "</b></p>");
 			}
 		}
 		
@@ -1823,8 +1827,8 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
 			} else if (index <= racesDiscovered.size()) {
-				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName()),
-						"Take a detailed look at what " + racesDiscovered.get(index - 1).getName() + "s are like.",
+				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName(null)),
+						"Take a detailed look at what " + racesDiscovered.get(index - 1).getNamePlural(null) + " are like.",
 						RACES){
 					@Override
 					public void effects() {
@@ -1834,12 +1838,12 @@ public class PhoneDialogue {
 						Body femaleBody = CharacterUtils.generateBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
 						Body maleBody = CharacterUtils.generateBody(Gender.M_P_MALE, subspecies, RaceStage.GREATER);
 						
-						title = Util.capitaliseSentence(subspecies.getName());
+						title = Util.capitaliseSentence(subspecies.getName(null));
 						raceSB.setLength(0);
 						
 						raceSB.append(
 							"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
-								+ "<p style='width:100%; text-align:center;'><b style='color:"+subspecies.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName())+"</b><br/>"
+								+ "<p style='width:100%; text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b><br/>"
 										+ "Average stats</p>"
 								+ "<table align='center'>"
 									+ "<tr>"
@@ -1876,21 +1880,24 @@ public class PhoneDialogue {
 						
 						raceSB.append(
 								"<p>"
-									+ "<b style='color:"+subspecies.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName())+"</b>"
-									+ " (Subspecies of <span style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</span>)"
+									+ "<b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b>"
+									+ (Subspecies.getMainSubspeciesOfRace(race)==subspecies
+											?""
+											:" (Subspecies of <span style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</span>)")
 									+ "<br/>"
-									+ "(<span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularMaleName())+"</span>"
-									+ "/<span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularFemaleName())+"</span>)"
+									+ "Masculine: <span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularMaleName(null))+"</span>"
 									+ "<br/>"
-									+ subspecies.getDescription()
+									+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularFemaleName(null))+"</span>"
+									+ "<br/><br/>"
+									+ "<i>"+subspecies.getDescription(null)+"</i>"
 								+ "</p>");
 						
 						
 						raceSB.append(
 								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
-									+subspecies.getBasicDescription()
+									+subspecies.getBasicDescription(null)
 									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)
-										?subspecies.getAdvancedDescription()
+										?subspecies.getAdvancedDescription(null)
 										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 											+ "Further information can be discovered in books!"
 										+ "</p>"));

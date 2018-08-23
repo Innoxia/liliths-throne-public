@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -139,6 +140,7 @@ public class Kate extends NPC {
 		// Body:
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setHornType(HornType.CURLED);
+		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setTailType(TailType.DEMON_COMMON);
 
@@ -251,7 +253,7 @@ public class Kate extends NPC {
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
 		this.setPenisSize(10);
-		this.setInternalTesticles(true);
+//		this.setInternalTesticles(true); Use player preferences
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(150);
 		this.fillCumToMaxStorage();

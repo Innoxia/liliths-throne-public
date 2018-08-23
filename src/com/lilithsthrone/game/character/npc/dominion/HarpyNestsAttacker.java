@@ -16,7 +16,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestsAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -28,7 +29,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.89
+ * @version 0.2.11
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
@@ -145,7 +146,11 @@ public class HarpyNestsAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return HarpyNestsAttackerDialogue.HARPY_ATTACKS;
+		if(Main.game.getPlayer().getCompanions().isEmpty()) {
+			return HarpyAttackerDialogue.HARPY_ATTACKS;
+		} else {
+			return HarpyAttackerDialogueCompanions.HARPY_ATTACKS;
+		}
 	}
 
 	// Combat:
@@ -153,9 +158,9 @@ public class HarpyNestsAttacker extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", HarpyAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", HarpyAttackerDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 }

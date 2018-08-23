@@ -1712,7 +1712,7 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
-											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of your own items...",
+											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of your own items...", // ...
 											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of [npc.namePos] items!",
 											"",
 											"Thrusting out [npc.her] [npc.hand] and clenching [npc.her] fist, [npc.name] channels [npc.her] arcane power into stealing one of your items!",
@@ -1754,10 +1754,6 @@ public enum Spell {
 							clothingToSteal = nonSealedClothing.get(Util.random.nextInt(nonSealedClothing.size()));
 						}
 						
-					} else if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
-						mainWeaponSteal = target.getMainWeapon()!=null;
-						offhandWeaponSteal = target.getOffhandWeapon()!=null;
-						
 					} else if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_1)) {
 						List<AbstractClothing> nonSealedOuterClothing = new ArrayList<>();
 						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -1769,9 +1765,16 @@ public enum Spell {
 							clothingToSteal = nonSealedOuterClothing.get(Util.random.nextInt(nonSealedOuterClothing.size()));
 						}
 						
-					} else {
-						stealItem = target.getInventorySlotsTaken()>0;
 					}
+					
+					if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
+						mainWeaponSteal = target.getMainWeapon()!=null;
+						offhandWeaponSteal = target.getOffhandWeapon()!=null;
+						
+					}
+					
+					stealItem = target.getInventorySlotsTaken()>0;
+					
 				
 					double rnd = Math.random();
 					

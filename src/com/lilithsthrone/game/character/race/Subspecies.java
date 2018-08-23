@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
@@ -34,7 +32,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.2.7
+ * @version 0.2.11
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -110,24 +108,6 @@ public enum Subspecies {
 		public Subspecies getOffspringSubspecies() {
 			return IMP;
 		}
-		
-		@Override
-		public String getOffspringMaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringMaleNameSingular() {
-			return "imp";
-		}
-		@Override
-		public String getOffspringFemaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringFemaleNameSingular() {
-			return "imp";
-		}
-		
 	},
 	
 	IMP("statusEffects/raceImp",
@@ -956,669 +936,741 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
-	},
-	SLIME_ANGEL("statusEffects/raceSlime",
-			"angel-slime",
-			"angel-slimes",
-			"angel-slime-boy",
-			"angel-slime-girl",
-			"angel-slime-boys",
-			"angel-slime-girls",
+		
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return super.getName(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getName(character);
+			}
+			return coreSubspecies.getName(character)+"-"+super.getName(character);
+		}
+		
+		@Override
+		public String getNamePlural(GameCharacter character) {
+			if(character==null) {
+				return super.getNamePlural(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getNamePlural(character);
+			}
+			return coreSubspecies.getName(character)+"-"+super.getNamePlural(character);
+		}
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of an angel.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ANGEL, Subspecies.ANGEL, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
+		public String getSingularMaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getSingularMaleName(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularMaleName(character);
+			}
+			return coreSubspecies.getSingularMaleName(character)+"-"+super.getName(character);
 		}
-	},
-	SLIME_DEMON("statusEffects/raceSlime",
-			"demon-slime",
-			"demon-slimes",
-			"incubus-slime",
-			"succubus-slime",
-			"incubus-slimes",
-			"succubus-slimes",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a demon.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.DEMON, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
+		public String getSingularFemaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getSingularFemaleName(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularFemaleName(character);
+			}
+			return coreSubspecies.getSingularFemaleName(character)+"-"+super.getName(character);
 		}
-	},
-	SLIME_IMP("statusEffects/raceSlime",
-			"imp-slime",
-			"imp-slimes",
-			"imp-slime-boy",
-			"imp-slime-girl",
-			"imp-slime-boys",
-			"imp-slime-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of an imp.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
+		public String getPluralMaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getPluralMaleName(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralMaleName(character);
+			}
+			return coreSubspecies.getSingularMaleName(character)+"-"+super.getNamePlural(character);
 		}
-		@Override
-		public boolean isShortStature() {
-			return true;
-		}
-	},
-	SLIME_COW("statusEffects/raceSlime",
-			"cow-slime",
-			"cow-slimes",
-			"cow-slime-boy",
-			"cow-slime-girl",
-			"cow-slime-boys",
-			"cow-slime-girls",
 
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a cow-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.COW_MORPH, Subspecies.COW_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
+		public String getPluralFemaleName(GameCharacter character) {
+			if(character==null) {
+				return super.getPluralFemaleName(character);
+			}
+			Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character.getBody());
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralFemaleName(character);
+			}
+			return coreSubspecies.getSingularFemaleName(character)+"-"+super.getNamePlural(character);
 		}
 	},
-	SLIME_DOG("statusEffects/raceSlime",
-			"dog-slime",
-			"dog-slimes",
-			"dog-slime-boy",
-			"dog-slime-girl",
-			"dog-slime-boys",
-			"dog-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a dog-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_DOG_DOBERMANN("statusEffects/raceSlime",
-			"dobermann-slime",
-			"dobermann-slimes",
-			"dobermann-slime-boy",
-			"dobermann-slime-girl",
-			"dobermann-slime-boys",
-			"dobermann-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a dobermann.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_DOG_BORDER_COLLIE("statusEffects/raceSlime",
-			"border-collie-slime",
-			"border-collie-slimes",
-			"border-collie-slime-boy",
-			"border-collie-slime-girl",
-			"border-collie-slime-boys",
-			"border-collie-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a border-collie-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_FOX("statusEffects/raceSlime",
-			"fox-slime",
-			"fox-slimes",
-			"fox-slime-boy",
-			"fox-slime-girl",
-			"fox-slime-boys",
-			"fox-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a fox-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_FOX_FENNEC("statusEffects/raceSlime",
-			"fennec-slime",
-			"fennec-slimes",
-			"fennec-slime-boy",
-			"fennec-slime-girl",
-			"fennec-slime-boys",
-			"fennec-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a fennec-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_WOLF("statusEffects/raceSlime",
-			"wolf-slime",
-			"wolf-slimes",
-			"wolf-slime-boy",
-			"wolf-slime-girl",
-			"wolf-slime-boys",
-			"wolf-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a wolf-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.WOLF_MORPH, Subspecies.WOLF_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_CAT("statusEffects/raceSlime",
-			"cat-slime",
-			"cat-slimes",
-			"cat-slime-boy",
-			"cat-slime-girl",
-			"cat-slime-boys",
-			"cat-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a cat-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.CAT_MORPH, Subspecies.CAT_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_HORSE("statusEffects/raceSlime",
-			"horse-slime",
-			"horse-slimes",
-			"horse-slime-boy",
-			"horse-slime-girl",
-			"horse-slime-boys",
-			"horse-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a horse-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HORSE_MORPH, Subspecies.HORSE_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_REINDEER("statusEffects/raceSlime",
-			"reindeer-slime",
-			"reindeer-slimes",
-			"reindeer-slime-boy",
-			"reindeer-slime-girl",
-			"reindeer-slime-boys",
-			"reindeer-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a reindeer-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.REINDEER_MORPH, Subspecies.REINDEER_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_ALLIGATOR("statusEffects/raceSlime",
-			"alligator-slime",
-			"alligator-slimes",
-			"alligator-slime-boy",
-			"alligator-slime-girl",
-			"alligator-slime-boys",
-			"alligator-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of an alligator-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_SQUIRREL("statusEffects/raceSlime",
-			"squirrel-slime",
-			"squirrel-slimes",
-			"squirrel-slime-boy",
-			"squirrel-slime-girl",
-			"squirrel-slime-boys",
-			"squirrel-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a squirrel-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_RAT("statusEffects/raceSlime",
-			"rat-slime",
-			"rat-slimes",
-			"rat-slime-boy",
-			"rat-slime-girl",
-			"rat-slime-boys",
-			"rat-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a rat-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RAT_MORPH, Subspecies.RAT_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_RABBIT("statusEffects/raceSlime",
-			"rabbit-slime",
-			"rabbit-slimes",
-			"rabbit-slime-boy",
-			"rabbit-slime-girl",
-			"rabbit-slime-boys",
-			"rabbit-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a rabbit-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RABBIT_MORPH, Subspecies.RABBIT_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_BAT("statusEffects/raceSlime",
-			"bat-slime",
-			"bat-slimes",
-			"bat-slime-boy",
-			"bat-slime-girl",
-			"bat-slime-boys",
-			"bat-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a bat-morph.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.BAT_MORPH, Subspecies.BAT_MORPH, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_HARPY("statusEffects/raceSlime",
-			"harpy-slime",
-			"harpy-slimes",
-			"harpy-slime-boy",
-			"harpy-slime-girl",
-			"harpy-slime-boys",
-			"harpy-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a harpy.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_HARPY_RAVEN("statusEffects/raceSlime",
-			"harpy-raven-slime",
-			"harpy-raven-slimes",
-			"harpy-raven-slime-boy",
-			"harpy-raven-slime-girl",
-			"harpy-raven-slime-boys",
-			"harpy-raven-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a raven-harpy.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_RAVEN, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	SLIME_HARPY_BALD_EAGLE("statusEffects/raceSlime",
-			"bald-eagle-slime",
-			"bald-eagle-slimes",
-			"bald-eagle-slime-boy",
-			"bald-eagle-slime-girl",
-			"bald-eagle-slime-boys",
-			"bald-eagle-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a bald-eagle-harpy.",
-			Util.newArrayListOfValues(
-					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_BALD_EAGLE, RaceStage.GREATER);
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_LYNX("statusEffects/raceSlime",
-			"lynx-slime",
-			"lynx-slimes",
-			"lynx-slime-boy",
-			"lynx-slime-girl",
-			"lynx-slime-boys",
-			"lynx-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a lynx-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_LEOPARD_SNOW("statusEffects/raceSlime",
-			"snow leopard-slime",
-			"snow leopard-slimes",
-			"snow leopard-slime-boy",
-			"snow leopard-slime-girl",
-			"snow leopard-slime-boys",
-			"snow leopard-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a snow leopard-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_LEOPARD("statusEffects/raceSlime",
-			"leopard-slime",
-			"leopard-slimes",
-			"leopard-slime-boy",
-			"leopard-slime-girl",
-			"leopard-slime-boys",
-			"leopard-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a leopard-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_LION("statusEffects/raceSlime",
-			"lion-slime",
-			"lion-slimes",
-			"lion-slime-boy",
-			"lion-slime-girl",
-			"lion-slime-boys",
-			"lion-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a lion-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_TIGER("statusEffects/raceSlime",
-			"tiger-slime",
-			"tiger-slimes",
-			"tiger-slime-boy",
-			"tiger-slime-girl",
-			"tiger-slime-boys",
-			"tiger-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a lion-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_CHEETAH("statusEffects/raceSlime",
-			"cheetah-slime",
-			"cheetah-slimes",
-			"cheetah-slime-boy",
-			"cheetah-slime-girl",
-			"cheetah-slime-boys",
-			"cheetah-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a cheetah-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
-	
-	SLIME_CAT_CARACAL("statusEffects/raceSlime",
-			"caracal-slime",
-			"caracal-slimes",
-			"caracal-slime-boy",
-			"caracal-slime-girl",
-			"caracal-slime-boys",
-			"caracal-slime-girls",
-
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
-			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
-			
-			Race.SLIME,
-			Colour.RACE_SLIME,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a caracal-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-	},
+//	SLIME_ANGEL("statusEffects/raceSlime",
+//			"angel-slime",
+//			"angel-slimes",
+//			"angel-slime-boy",
+//			"angel-slime-girl",
+//			"angel-slime-boys",
+//			"angel-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of an angel.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ANGEL, Subspecies.ANGEL, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_DEMON("statusEffects/raceSlime",
+//			"demon-slime",
+//			"demon-slimes",
+//			"incubus-slime",
+//			"succubus-slime",
+//			"incubus-slimes",
+//			"succubus-slimes",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a demon.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.DEMON, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_IMP("statusEffects/raceSlime",
+//			"imp-slime",
+//			"imp-slimes",
+//			"imp-slime-boy",
+//			"imp-slime-girl",
+//			"imp-slime-boys",
+//			"imp-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of an imp.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//		@Override
+//		public boolean isShortStature() {
+//			return true;
+//		}
+//	},
+//	SLIME_COW("statusEffects/raceSlime",
+//			"cow-slime",
+//			"cow-slimes",
+//			"cow-slime-boy",
+//			"cow-slime-girl",
+//			"cow-slime-boys",
+//			"cow-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a cow-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.COW_MORPH, Subspecies.COW_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_DOG("statusEffects/raceSlime",
+//			"dog-slime",
+//			"dog-slimes",
+//			"dog-slime-boy",
+//			"dog-slime-girl",
+//			"dog-slime-boys",
+//			"dog-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a dog-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_DOG_DOBERMANN("statusEffects/raceSlime",
+//			"dobermann-slime",
+//			"dobermann-slimes",
+//			"dobermann-slime-boy",
+//			"dobermann-slime-girl",
+//			"dobermann-slime-boys",
+//			"dobermann-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a dobermann.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_DOG_BORDER_COLLIE("statusEffects/raceSlime",
+//			"border-collie-slime",
+//			"border-collie-slimes",
+//			"border-collie-slime-boy",
+//			"border-collie-slime-girl",
+//			"border-collie-slime-boys",
+//			"border-collie-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a border-collie-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_FOX("statusEffects/raceSlime",
+//			"fox-slime",
+//			"fox-slimes",
+//			"fox-slime-boy",
+//			"fox-slime-girl",
+//			"fox-slime-boys",
+//			"fox-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a fox-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+////			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_FOX_FENNEC("statusEffects/raceSlime",
+//			"fennec-slime",
+//			"fennec-slimes",
+//			"fennec-slime-boy",
+//			"fennec-slime-girl",
+//			"fennec-slime-boys",
+//			"fennec-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a fennec-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+////			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_WOLF("statusEffects/raceSlime",
+//			"wolf-slime",
+//			"wolf-slimes",
+//			"wolf-slime-boy",
+//			"wolf-slime-girl",
+//			"wolf-slime-boys",
+//			"wolf-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a wolf-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.WOLF_MORPH, Subspecies.WOLF_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_CAT("statusEffects/raceSlime",
+//			"cat-slime",
+//			"cat-slimes",
+//			"cat-slime-boy",
+//			"cat-slime-girl",
+//			"cat-slime-boys",
+//			"cat-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a cat-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.CAT_MORPH, Subspecies.CAT_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_HORSE("statusEffects/raceSlime",
+//			"horse-slime",
+//			"horse-slimes",
+//			"horse-slime-boy",
+//			"horse-slime-girl",
+//			"horse-slime-boys",
+//			"horse-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a horse-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HORSE_MORPH, Subspecies.HORSE_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_REINDEER("statusEffects/raceSlime",
+//			"reindeer-slime",
+//			"reindeer-slimes",
+//			"reindeer-slime-boy",
+//			"reindeer-slime-girl",
+//			"reindeer-slime-boys",
+//			"reindeer-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a reindeer-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.REINDEER_MORPH, Subspecies.REINDEER_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_ALLIGATOR("statusEffects/raceSlime",
+//			"alligator-slime",
+//			"alligator-slimes",
+//			"alligator-slime-boy",
+//			"alligator-slime-girl",
+//			"alligator-slime-boys",
+//			"alligator-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of an alligator-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_SQUIRREL("statusEffects/raceSlime",
+//			"squirrel-slime",
+//			"squirrel-slimes",
+//			"squirrel-slime-boy",
+//			"squirrel-slime-girl",
+//			"squirrel-slime-boys",
+//			"squirrel-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a squirrel-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_RAT("statusEffects/raceSlime",
+//			"rat-slime",
+//			"rat-slimes",
+//			"rat-slime-boy",
+//			"rat-slime-girl",
+//			"rat-slime-boys",
+//			"rat-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a rat-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RAT_MORPH, Subspecies.RAT_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_RABBIT("statusEffects/raceSlime",
+//			"rabbit-slime",
+//			"rabbit-slimes",
+//			"rabbit-slime-boy",
+//			"rabbit-slime-girl",
+//			"rabbit-slime-boys",
+//			"rabbit-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a rabbit-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RABBIT_MORPH, Subspecies.RABBIT_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_BAT("statusEffects/raceSlime",
+//			"bat-slime",
+//			"bat-slimes",
+//			"bat-slime-boy",
+//			"bat-slime-girl",
+//			"bat-slime-boys",
+//			"bat-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a bat-morph.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.BAT_MORPH, Subspecies.BAT_MORPH, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_HARPY("statusEffects/raceSlime",
+//			"harpy-slime",
+//			"harpy-slimes",
+//			"harpy-slime-boy",
+//			"harpy-slime-girl",
+//			"harpy-slime-boys",
+//			"harpy-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a harpy.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_HARPY_RAVEN("statusEffects/raceSlime",
+//			"harpy-raven-slime",
+//			"harpy-raven-slimes",
+//			"harpy-raven-slime-boy",
+//			"harpy-raven-slime-girl",
+//			"harpy-raven-slime-boys",
+//			"harpy-raven-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a raven-harpy.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_RAVEN, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	SLIME_HARPY_BALD_EAGLE("statusEffects/raceSlime",
+//			"bald-eagle-slime",
+//			"bald-eagle-slimes",
+//			"bald-eagle-slime-boy",
+//			"bald-eagle-slime-girl",
+//			"bald-eagle-slime-boys",
+//			"bald-eagle-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a bald-eagle-harpy.",
+//			Util.newArrayListOfValues(
+//					WorldType.SUBMISSION,
+//					WorldType.BAT_CAVERNS)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_BALD_EAGLE, RaceStage.GREATER);
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_LYNX("statusEffects/raceSlime",
+//			"lynx-slime",
+//			"lynx-slimes",
+//			"lynx-slime-boy",
+//			"lynx-slime-girl",
+//			"lynx-slime-boys",
+//			"lynx-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a lynx-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_LEOPARD_SNOW("statusEffects/raceSlime",
+//			"snow leopard-slime",
+//			"snow leopard-slimes",
+//			"snow leopard-slime-boy",
+//			"snow leopard-slime-girl",
+//			"snow leopard-slime-boys",
+//			"snow leopard-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a snow leopard-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_LEOPARD("statusEffects/raceSlime",
+//			"leopard-slime",
+//			"leopard-slimes",
+//			"leopard-slime-boy",
+//			"leopard-slime-girl",
+//			"leopard-slime-boys",
+//			"leopard-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a leopard-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_LION("statusEffects/raceSlime",
+//			"lion-slime",
+//			"lion-slimes",
+//			"lion-slime-boy",
+//			"lion-slime-girl",
+//			"lion-slime-boys",
+//			"lion-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a lion-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_TIGER("statusEffects/raceSlime",
+//			"tiger-slime",
+//			"tiger-slimes",
+//			"tiger-slime-boy",
+//			"tiger-slime-girl",
+//			"tiger-slime-boys",
+//			"tiger-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a lion-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_CHEETAH("statusEffects/raceSlime",
+//			"cheetah-slime",
+//			"cheetah-slimes",
+//			"cheetah-slime-boy",
+//			"cheetah-slime-girl",
+//			"cheetah-slime-boys",
+//			"cheetah-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a cheetah-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
+//	
+//	SLIME_CAT_CARACAL("statusEffects/raceSlime",
+//			"caracal-slime",
+//			"caracal-slimes",
+//			"caracal-slime-boy",
+//			"caracal-slime-girl",
+//			"caracal-slime-boys",
+//			"caracal-slime-girls",
+//
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_BASIC"),
+//			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
+//			
+//			Race.SLIME,
+//			Colour.RACE_SLIME,
+//			SubspeciesPreference.FOUR_ABUNDANT,
+//			"A slime that's taken on the form of a caracal-morph.",
+//			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.setBodyMaterial(BodyMaterial.SLIME);
+//		}
+//	},
 	
 	
 //	//SLIME_QUEEN(Race.SLIME_QUEEN.getName(), Race.SLIME, RacialBody.SLIME_QUEEN, SubspeciesPreference.ONE_MINIMAL,
@@ -2110,6 +2162,13 @@ public enum Subspecies {
 		return Subspecies.HUMAN;
 	}
 	
+	/**
+	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
+	 */
+	public static Subspecies getFleshSubspecies(Body body) {
+		return getSubspeciesFromBody(body, body.getRaceFromPartWeighting());
+	}
+	
 	public static Subspecies getSubspeciesFromBody(Body body, Race race) {
 		switch(body.getBodyMaterial()) {
 			case FIRE:
@@ -2285,120 +2344,120 @@ public enum Subspecies {
 				break;
 			case SLIME:
 				subspecies = Subspecies.SLIME;
-				switch(body.getRaceFromPartWeighting()) {
-					case NONE:
-						break;
-					case ALLIGATOR_MORPH:
-						subspecies = Subspecies.SLIME_ALLIGATOR;
-						break;
-					case ANGEL:
-						subspecies = Subspecies.SLIME_ANGEL;
-						break;
-					case CAT_MORPH:
-						subspecies = Subspecies.SLIME_CAT;
-						if(body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF
-								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED
-								&& body.getEar().getType()==EarType.CAT_MORPH_TUFTED
-								&& body.getTail().getType()==TailType.CAT_MORPH_SHORT
-								) {
-								subspecies = Subspecies.SLIME_CAT_LYNX;
-							}
-						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
-								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED
-								&& body.getTail().getType()==TailType.CAT_MORPH
-								) {
-								subspecies = Subspecies.SLIME_CAT_LEOPARD;
-							}
-						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
-								&& body.getTail().getType()==TailType.CAT_MORPH_TUFTED
-								) {
-								subspecies = Subspecies.SLIME_CAT_LION;
-							}
-						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
-								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.STRIPED
-								&& body.getTail().getType()==TailType.CAT_MORPH
-								) {
-								subspecies = Subspecies.SLIME_CAT_TIGER;
-							}
-						else if(body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED	) {
-								subspecies = Subspecies.SLIME_CAT_CHEETAH;
-							}
-						else if(body.getEar().getType()==EarType.CAT_MORPH_TUFTED) {
-								subspecies = Subspecies.SLIME_CAT_CARACAL;
-							}
-						break;
-					case COW_MORPH:
-						subspecies = Subspecies.SLIME_COW;
-						break;
-					case DEMON:
-						subspecies = Subspecies.SLIME_DEMON;
-						if(body.getHeightValue()<Height.NEGATIVE_ONE_TINY.getMaximumValue()) {
-							subspecies = Subspecies.SLIME_IMP;
-						}
-						break;
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						subspecies = Subspecies.SLIME_DEMON;
-						break;
-					case DOG_MORPH:
-						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK
-								&& (body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN
-										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN_DARK
-										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
-								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
-							subspecies = Subspecies.SLIME_DOG_DOBERMANN;
-						
-						} else if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.SLIME_BLACK
-								&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.SLIME_WHITE)
-								&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
-								&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
-								) {
-								subspecies = Subspecies.SLIME_DOG_BORDER_COLLIE;
-								
-						} else {
-							subspecies = Subspecies.SLIME_DOG;
-						}
-						break;
-					case HARPY:
-						subspecies = Subspecies.SLIME_HARPY;
-						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK) {
-							subspecies = Subspecies.SLIME_HARPY_RAVEN;
-						}
-						break;
-					case HORSE_MORPH:
-						subspecies = Subspecies.SLIME_HORSE;
-						break;
-					case HUMAN:
-						subspecies = Subspecies.SLIME;
-						break;
-					case REINDEER_MORPH:
-						subspecies = Subspecies.SLIME_REINDEER;
-						break;
-					case SLIME:
-						subspecies = Subspecies.SLIME;
-						break;
-					case SQUIRREL_MORPH:
-						subspecies = Subspecies.SLIME_SQUIRREL;
-						break;
-					case RAT_MORPH:
-						subspecies = Subspecies.SLIME_RAT;
-						break;
-					case BAT_MORPH:
-						subspecies = Subspecies.SLIME_BAT;
-						break;
-					case RABBIT_MORPH:
-						subspecies = Subspecies.SLIME_RABBIT;
-						break;
-					case WOLF_MORPH:
-						subspecies = Subspecies.SLIME_WOLF;
-						break;
-					case FOX_MORPH:
-						subspecies = Subspecies.SLIME_FOX;
-						break;
-				}
+//				switch(body.getRaceFromPartWeighting()) {
+//					case NONE:
+//						break;
+//					case ALLIGATOR_MORPH:
+//						subspecies = Subspecies.SLIME_ALLIGATOR;
+//						break;
+//					case ANGEL:
+//						subspecies = Subspecies.SLIME_ANGEL;
+//						break;
+//					case CAT_MORPH:
+//						subspecies = Subspecies.SLIME_CAT;
+//						if(body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF
+//								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED
+//								&& body.getEar().getType()==EarType.CAT_MORPH_TUFTED
+//								&& body.getTail().getType()==TailType.CAT_MORPH_SHORT
+//								) {
+//								subspecies = Subspecies.SLIME_CAT_LYNX;
+//							}
+//						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
+//								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED
+//								&& body.getTail().getType()==TailType.CAT_MORPH
+//								) {
+//								subspecies = Subspecies.SLIME_CAT_LEOPARD;
+//							}
+//						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
+//								&& body.getTail().getType()==TailType.CAT_MORPH_TUFTED
+//								) {
+//								subspecies = Subspecies.SLIME_CAT_LION;
+//							}
+//						else if(body.getFace().getType() == FaceType.CAT_MORPH_PANTHER
+//								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.STRIPED
+//								&& body.getTail().getType()==TailType.CAT_MORPH
+//								) {
+//								subspecies = Subspecies.SLIME_CAT_TIGER;
+//							}
+//						else if(body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.SPOTTED	) {
+//								subspecies = Subspecies.SLIME_CAT_CHEETAH;
+//							}
+//						else if(body.getEar().getType()==EarType.CAT_MORPH_TUFTED) {
+//								subspecies = Subspecies.SLIME_CAT_CARACAL;
+//							}
+//						break;
+//					case COW_MORPH:
+//						subspecies = Subspecies.SLIME_COW;
+//						break;
+//					case DEMON:
+//						subspecies = Subspecies.SLIME_DEMON;
+//						if(body.getHeightValue()<Height.NEGATIVE_ONE_TINY.getMaximumValue()) {
+//							subspecies = Subspecies.SLIME_IMP;
+//						}
+//						break;
+//					case ELEMENTAL_AIR:
+//					case ELEMENTAL_ARCANE:
+//					case ELEMENTAL_EARTH:
+//					case ELEMENTAL_FIRE:
+//					case ELEMENTAL_WATER:
+//						subspecies = Subspecies.SLIME_DEMON;
+//						break;
+//					case DOG_MORPH:
+//						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK
+//								&& (body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN
+//										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN_DARK
+//										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
+//								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
+//							subspecies = Subspecies.SLIME_DOG_DOBERMANN;
+//						
+//						} else if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.SLIME_BLACK
+//								&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.SLIME_WHITE)
+//								&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+//								&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
+//								) {
+//								subspecies = Subspecies.SLIME_DOG_BORDER_COLLIE;
+//								
+//						} else {
+//							subspecies = Subspecies.SLIME_DOG;
+//						}
+//						break;
+//					case HARPY:
+//						subspecies = Subspecies.SLIME_HARPY;
+//						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK) {
+//							subspecies = Subspecies.SLIME_HARPY_RAVEN;
+//						}
+//						break;
+//					case HORSE_MORPH:
+//						subspecies = Subspecies.SLIME_HORSE;
+//						break;
+//					case HUMAN:
+//						subspecies = Subspecies.SLIME;
+//						break;
+//					case REINDEER_MORPH:
+//						subspecies = Subspecies.SLIME_REINDEER;
+//						break;
+//					case SLIME:
+//						subspecies = Subspecies.SLIME;
+//						break;
+//					case SQUIRREL_MORPH:
+//						subspecies = Subspecies.SLIME_SQUIRREL;
+//						break;
+//					case RAT_MORPH:
+//						subspecies = Subspecies.SLIME_RAT;
+//						break;
+//					case BAT_MORPH:
+//						subspecies = Subspecies.SLIME_BAT;
+//						break;
+//					case RABBIT_MORPH:
+//						subspecies = Subspecies.SLIME_RABBIT;
+//						break;
+//					case WOLF_MORPH:
+//						subspecies = Subspecies.SLIME_WOLF;
+//						break;
+//					case FOX_MORPH:
+//						subspecies = Subspecies.SLIME_FOX;
+//						break;
+//				}
 				break;
 			case RABBIT_MORPH:
 				subspecies = Subspecies.RABBIT_MORPH;
@@ -2483,60 +2542,69 @@ public enum Subspecies {
 		return false;
 	}
 	
-	public String getName() {
+	/**
+	 * @param The character whose subspecies's name is to be returned. Can pass in null.
+	 * @return The singular name of this character's subspecies.
+	 */
+	public String getName(GameCharacter character) {
 		return name;
 	}
-	
-	public String getNamePlural() {
+
+	/**
+	 * @param The character whose subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return The plural name of this character's subspecies.
+	 */
+	public String getNamePlural(GameCharacter character) {
 		return namePlural;
 	}
 	
-	public String getSingularMaleName() {
-		if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+	/**
+	 * @param The character whose male subspecies name is to be returned. Can pass in null.
+	 * @return The singular male name of this character's subspecies.
+	 */
+	public String getSingularMaleName(GameCharacter character) {
+		if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 			return "awoo-boy";
-		}
-		else{
+			
+		} else{
 			return singularMaleName;
 		}
 	}
 
-	public String getSingularFemaleName() {
-		if(getRace() == Race.WOLF_MORPH && Main.getProperties().hasValue(PropertyValue.sillyMode)){
+	/**
+	 * @param The character whose female subspecies name is to be returned. Can pass in null.
+	 * @return The singular female name of this character's subspecies.
+	 */
+	public String getSingularFemaleName(GameCharacter character) {
+		if(getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
 			return "awoo-girl";
-		}
-		else{
+			
+		} else{
 			return singularFemaleName;
 		}
 	}
-	
-	public String getPluralMaleName() {
+
+	/**
+	 * @param The character whose male subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return The plural male name of this character's subspecies.
+	 */
+	public String getPluralMaleName(GameCharacter character) {
 		return pluralMaleName;
 	}
 
-	public String getPluralFemaleName() {
+	/**
+	 * @param The character whose female subspecies's pluralised name is to be returned. Can pass in null.
+	 * @return The plural female name of this character's subspecies.
+	 */
+	public String getPluralFemaleName(GameCharacter character) {
 		return pluralFemaleName;
 	}
 
-	public String getOffspringMaleName() {
-		return pluralMaleName;
-	}
-	public String getOffspringMaleNameSingular() {
-		return singularMaleName;
-	}
-	
-	public String getOffspringFemaleName() {
-		return pluralFemaleName;
-	}
-	
-	public String getOffspringFemaleNameSingular() {
-		return singularFemaleName;
-	}
-
-	public String getBasicDescription() {
+	public String getBasicDescription(GameCharacter character) {
 		return basicDescription;
 	}
 
-	public String getAdvancedDescription() {
+	public String getAdvancedDescription(GameCharacter character) {
 		return advancedDescription;
 	}
 	
@@ -2544,7 +2612,7 @@ public enum Subspecies {
 		return race;
 	}
 	
-	public Colour getColour() {
+	public Colour getColour(GameCharacter character) {
 		return colour;
 	}
 	
@@ -2552,7 +2620,7 @@ public enum Subspecies {
 		return subspeciesPreferenceDefault;
 	}
 	
-	public String getDescription() {
+	public String getDescription(GameCharacter character) {
 		return description;
 	}
 	

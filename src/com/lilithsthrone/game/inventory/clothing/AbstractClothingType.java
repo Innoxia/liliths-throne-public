@@ -44,14 +44,19 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, namePlural, description, pathName, pathNameEquipped;
+	private String determiner;
+	private String name;
+	private String namePlural;
+	private String description;
+	private String pathName;
+	private String pathNameEquipped;
 
 	private boolean plural;
 	private boolean isMod;
@@ -213,7 +218,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.blockedPartsList = new ArrayList<>();
 		}
 		
-		// MAke sure that clothing can't conceal itself (in case I made an error in defining concealed slots):
+		// Make sure that clothing can't conceal itself (in case I made an error in defining concealed slots):
 		for(BlockedParts bp : this.blockedPartsList) {
 			bp.concealedSlots.removeIf((concealedSlot) -> concealedSlot == this.slot);
 		}
@@ -707,11 +712,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		result = 31 * result + getPhysicalResistance();
 		result = 31 * result + getFemininityMaximum();
 		result = 31 * result + getFemininityMinimum();
-		if(getFemininityRestriction()!=null)
+		if(getFemininityRestriction()!=null) {
 			result = 31 * result + getFemininityRestriction().hashCode();
+		}
 		result = 31 * result + getEffects().hashCode();
-		if(getClothingSet()!=null)
+		if(getClothingSet()!=null) {
 			result = 31 * result + getClothingSet().hashCode();
+		}
 		result = 31 * result + getRarity().hashCode();
 		return result;
 	}

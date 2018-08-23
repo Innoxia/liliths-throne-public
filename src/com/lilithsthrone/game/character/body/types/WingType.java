@@ -20,6 +20,8 @@ public enum WingType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
 
+	DEMON_FEATHERED(BodyCoveringType.DEMON_FEATHER, Race.DEMON, true),
+
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true);
 
 	private BodyCoveringType skinType;
@@ -69,9 +71,11 @@ public enum WingType implements BodyPartTypeInterface {
 	public String getDescriptor(GameCharacter gc) {
 		switch(this){
 			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic", "huge", "feathered");
+				return UtilText.returnStringAtRandom("angelic", "feathered");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic", "bat-like");
+			case DEMON_FEATHERED:
+				return UtilText.returnStringAtRandom("demonic", "feathered");
 			case NONE:
 				return "";
 		}
@@ -85,6 +89,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "angelic feathered";
 			case DEMON_COMMON:
 				return "demonic bat-like";
+			case DEMON_FEATHERED:
+				return "demonic feathered";
 			case NONE:
 				return "none";
 		}

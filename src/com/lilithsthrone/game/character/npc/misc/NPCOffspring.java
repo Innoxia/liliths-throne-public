@@ -31,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.95
+ * @version 0.2.11
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -50,7 +50,7 @@ public class NPCOffspring extends NPC {
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(false, null, "",
-				18, Main.game.getDateNow().minusMonths(1).getMonth(), 1+Util.random.nextInt(25),
+				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
@@ -114,6 +114,13 @@ public class NPCOffspring extends NPC {
 		} else {
 			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		}
+
+		if(this.getConceptionDate().isAfter(this.getBirthday())) {
+			this.setBirthday(this.getConceptionDate().plusMonths(2));
+			
+		} else if(Math.abs((int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday()))>300) {
+			this.setConceptionDate(this.getBirthday().minusMonths(2));
+		}
 	}
 
 	@Override
@@ -152,7 +159,7 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public String getDescription() {
-		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getBirthday(), this.getConceptionDate());
+		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday());
 		
 		if(this.getMother()==null || this.getFather()==null) {
 			return "";

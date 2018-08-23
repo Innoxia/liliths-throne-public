@@ -474,6 +474,7 @@ public enum SexPositionType {
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
 													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToAss,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
 													SexActionPresets.breastsToMouth,
@@ -484,7 +485,9 @@ public enum SexPositionType {
 							new Value<>(
 									SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS,
 									new SexActionInteractions(
-											SexActionPresets.appendagesToAllAreas)))))) {
+											Util.mergeMaps(
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.groinToAss))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),

@@ -115,7 +115,9 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainSelf() {
-		if(Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING) {
+		if(Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
+				&& this.getActionType()!=SexActionType.PREPARE_FOR_PARTNER_ORGASM
+				&& this.getActionType()!=SexActionType.SPECIAL) {
 			if(Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.FOUR_HIGH;
 				
@@ -137,7 +139,9 @@ public abstract class SexAction implements SexActionInterface {
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
 		if(!Sex.isMasturbation()) {
-			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING) {
+			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING
+					&& this.getActionType()!=SexActionType.PREPARE_FOR_PARTNER_ORGASM
+					&& this.getActionType()!=SexActionType.SPECIAL) {
 				if(Sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 					return ArousalIncrease.FOUR_HIGH;
 					
@@ -178,6 +182,9 @@ public abstract class SexAction implements SexActionInterface {
 		return getFetishesForEitherPartner(characterPerformingAction, true);
 	}
 	
+	/**
+	 * To be overridden to add extra fetishes on top of the automatically-generated ones in getFetishes() and getFetishesForTargetedPartner().
+	 */
 	public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 		return null;
 	}

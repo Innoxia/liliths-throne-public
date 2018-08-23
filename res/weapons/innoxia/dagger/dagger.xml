@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<!-- How much this weapon is worth. -->
+		<value>5000</value> 
+		
+		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
+		<melee>true</melee>
+		
+		<!-- Use "true" if this weapon is two-handed, and thus cannot be simultaneously wielded with an offhand weapon, and "false" if it's one-handed. (Without quotation marks.) -->
+		<twoHanded>false</twoHanded>
+		
+		<!-- What's appended before the weapon's name in an instance of "Innoxia was holding X Demon's Dagger", where X is the determiner. This will usually be either "a" or "an", but for other weapons may be different.
+		An example might be: "Innoxia was holding X scissors", where X (the determiner) would now need to be "a pair of". -->
+		<determiner><![CDATA[a]]></determiner>
+		
+		<!-- The name of this weapon. -->
+		<name><![CDATA[Demon's Dagger]]></name>
+		
+		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
+		<namePlural pluralByDefault="false"><![CDATA[Demon's Daggers]]></namePlural> 
+		
+		<!-- The description/lore of this weapon. -->
+		<description><![CDATA[A demon's dagger, with a blade made out of enchanted ethereal energy. Daggers such as this one are carried by the elite demon Enforcers, and, while intended primarily to be a symbol of power and status, they are nonetheless completely functional.]]></description> 
+		
+		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
+		<attackDescriptor>stab</attackDescriptor>
+		
+		<!-- The description that's displayed when hovering over the attack action in combat. Follow the same guidelines as equipText (a couple of entries further down this page).
+		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
+		<attackTooltipDescription>Strike out with your Demon's Dagger at [npc2.name].</attackTooltipDescription>
+		
+		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<rarity>EPIC</rarity> 
+		
+		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
+		[npc.verb(run)] if npc is player = "run"
+		[npc.verb(run)] if npc is not the player = "runs"
+		Always use the first-person singular verb.
+		The target "npc" OR "npc1" should be used for the character using the weapon. e.g. If the player is the one attacking (and is called Innoxia), then [npc.Name] will return "Innoxia"
+		The target "npc2" should be used for the character being attacked. e.g. If Brax is the one being attacked, then [npc2.Name] will return "Brax"
+		-->
+		<equipText><![CDATA[[npc.Name] [npc.verb(unsheathe)] the dagger, readying it for use in combat.]]></equipText>
+		
+		<!-- The description that's used when equipping this weapon. Follow the same guidelines as equipText. -->
+		<unequipText><![CDATA[[npc.Name] [npc.verb(sheathe)] the dagger, before putting it away.]]></unequipText>
+		
+		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
+		<imageName>dagger_sheathed.svg</imageName> 
+		
+		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
+		<imageEquippedName>dagger.svg</imageEquippedName>
+		
+		<!-- The base damage that this weapon deals. -->
+		<damage>6</damage> 
+		
+		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
+		<arcaneCost>0</arcaneCost> 
+		
+		<!-- The variance in base damage when this weapon is actually used to attack. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageVariance.java -->
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<!-- The available damage types that this weapon can spawn in with. Values can be found here (MISC should not be used): https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageType.java -->
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<!-- The spells that are unlocked when equipping this weapon. IF you want to add any, use the format:
+		<spells>
+			<spell>FIREBALL</spell>
+		</spells>
+		
+		Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
+		<spells/>
+		
+		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
+		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
+		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
+		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		
+		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
+		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff2a2a
+			#ff5555
+			#ff8080
+			#ffaaaa
+			#ffd5d5
+		Orange is used as base colour for changing the PRIMARY colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff7f2a
+			#ff9955
+			#ffb380
+			#ffccaa
+			#ffe6d5
+		Yellow is used as base colour for changing the SECODNARY colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ffd42a
+			#ffdd55
+			#ffe680
+			#ffeeaa
+			#fff6d5
+		As you can see above, weapons differ from clothing in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours" and "secondaryColours" defined below are for recolouring the Orange and Yellow values, respectively.
+			
+		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
+		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		<primaryColours values="JUST_STEEL"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_BLACK"/> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Demon's Dagger, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(attempt)] to stab [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] Demon's Dagger, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Demon's Dagger, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

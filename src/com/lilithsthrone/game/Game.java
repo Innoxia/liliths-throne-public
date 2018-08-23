@@ -1275,8 +1275,10 @@ public class Game implements Serializable, XMLSaving {
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
+					&& !npc.isSlave()
 					&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
@@ -3020,6 +3022,8 @@ public class Game implements Serializable, XMLSaving {
 		return NPCMap.containsKey(id);
 	}
 	
+	List<String> nullCharacterIds = new ArrayList<>();
+	
 	public GameCharacter getNPCById(String id) {
 		if(id==null || id.isEmpty()) {
 			return null;
@@ -3029,8 +3033,11 @@ public class Game implements Serializable, XMLSaving {
 			return Main.game.getPlayer();
 		}
 		if(!NPCMap.containsKey(id)) {
-			System.err.println("!WARNING! getNPC("+id+") is returning null! Returning GenericAndrogynousNPC instead!");
-
+			if(!nullCharacterIds.contains(id)) {
+				System.err.println("!WARNING! getNPC("+id+") is returning null! GenericAndrogynousNPC will be returned for all instances of this!");
+				nullCharacterIds.add(id);
+			}
+			
 			if(Main.DEBUG) {
 				new NullPointerException().printStackTrace();
 			}
@@ -3291,6 +3298,10 @@ public class Game implements Serializable, XMLSaving {
 	
 	public boolean isPlayerTileFull() {
 		return getActiveWorld().getCell(getPlayer().getLocation()).getInventory().isInventoryFull();
+	}
+	
+	public boolean isSillyModeEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.sillyMode);
 	}
 	
 	public boolean isNonConEnabled() {

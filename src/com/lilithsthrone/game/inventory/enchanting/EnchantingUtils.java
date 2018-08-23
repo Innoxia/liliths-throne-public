@@ -19,6 +19,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -81,13 +83,30 @@ public class EnchantingUtils {
 		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
 	}
 	
+	public static AbstractWeapon craftWeapon(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		AbstractWeapon craftedWeapon = null;
+
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
+		effectsToBeAdded.addAll(effects);
+		
+		craftedWeapon = AbstractWeaponType.generateWeapon(
+				(AbstractWeaponType) ingredient.getEnchantmentItemType(effects),
+				((AbstractWeapon) ingredient).getDamageType(),
+				ingredient.getColour(),
+				((AbstractWeapon)ingredient).getSecondaryColour());
+		
+		craftedWeapon.setEffects(effectsToBeAdded);
+		
+		craftedWeapon.setName(EnchantmentDialogue.getOutputName());
+		
+		return craftedWeapon;
+	}
+	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
-		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
-			return Util.capitaliseSentence(ingredient.getName());
-		}
-		
-		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType
+				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType
+				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractWeaponType) {
 			return Util.capitaliseSentence(ingredient.getName());
 		}
 		
@@ -204,11 +223,9 @@ public class EnchantingUtils {
 	
 	public static String getSVGString(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
-		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
-			return ingredient.getSVGString();
-		}
-		
-		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType
+				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType
+				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractWeaponType) {
 			return ingredient.getSVGString();
 		}
 		

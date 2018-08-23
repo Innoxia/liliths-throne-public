@@ -60,6 +60,19 @@ public enum BodyCoveringType {
 	DEMON_COMMON(BodyCoveringTemplateFactory.createTopSkin(
 			Util.newArrayListOfValues(CoveringPattern.NONE),
 			Colour.demonSkinColours)),
+
+	DEMON_FEATHER("a layer of",
+			true,
+			"feathers",
+			"feather",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newArrayListOfValues(CoveringPattern.NONE),
+			CoveringPattern.allHairCoveringPatterns,
+			Util.newArrayListOfValues(Colour.COVERING_BLACK),
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours),
+			Util.newArrayListOfValues(Colour.COVERING_BLACK),
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours)),
 	
 	BAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(Colour.humanSkinColours)),
 	

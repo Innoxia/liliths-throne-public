@@ -66,8 +66,7 @@ public class GamblingDenPatron extends NPC {
 			
 			// RACE & NAME:
 			
-			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 50 : 20;
-			int otherSlimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 2 : 1;
+			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 100 : 50;
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
@@ -131,36 +130,6 @@ public class GamblingDenPatron extends NPC {
 						break;
 					case SLIME:
 						addToSubspeciesMap(slimeChance, gender, s, availableRaces);
-						break;
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HARPY_BALD_EAGLE:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_WOLF:
-					case SLIME_RAT:
-					case SLIME_BAT:
-					case SLIME_RABBIT:
-					case SLIME_FOX:
-					case SLIME_FOX_FENNEC:
-					case SLIME_CAT_CARACAL:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_TIGER:
-						addToSubspeciesMap(otherSlimeChance, gender, s, availableRaces);
 						break;
 				}
 			}

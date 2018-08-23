@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -357,6 +358,9 @@ public class DoggyStyle {
 
 		@Override
 		public String getActionDescription() {
+			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				return "Roughly fuck [npc2.name] into the floor before filling your condom with your cum. Then slide it off and use [npc2.her] mouth to clean yourself off.";
+			}
 			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.ass] with your cum. Then use [npc2.her] mouth to clean yourself off.";
 		}
 
@@ -379,28 +383,35 @@ public class DoggyStyle {
 					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
 					break;
 				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts");
 					break;
 				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your [pc.cum+] shoots");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", your load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your load pours out");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your huge load pours out");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+					UtilText.nodeContentSB.append(", your enormous load pours out");
 					break;
 				default:
 					break;
+			}
+			if(Main.game.getPlayer().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+					UtilText.nodeContentSB.append(" into the condom that you're wearing, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+				} else {
+					UtilText.nodeContentSB.append(" deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
+				}
 			}
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
@@ -415,10 +426,16 @@ public class DoggyStyle {
 						+ "As you slide your softening member out from [npc.namePos] well-used ass, you look down, grinning, at the mess you've made of [npc.herHim]."
 						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
 			}
-			
-			UtilText.nodeContentSB.append("<br/><br/>"
-					+ "Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+
+			UtilText.nodeContentSB.append("<br/><br/>");
+			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+],"
+						+ " and before [npc.she] has a chance to react, you slide your condom off and roughly shove [npc.her] [npc.face+] down onto your [pc.cock+].");
+			} else {
+				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+].");
+			}
+			UtilText.nodeContentSB.append(
+					" [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "<br/>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 

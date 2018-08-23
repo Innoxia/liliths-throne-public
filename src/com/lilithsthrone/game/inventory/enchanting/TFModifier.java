@@ -171,6 +171,15 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
+	/**
+	 * Utility value for initialising a weapon to have attribute bonuses related to its damage type.
+	 */
+	DAMAGE_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_PHYSICAL,
+			"Applies a damage effect related to the weapon's damage type.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+	
 	
 	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
@@ -199,6 +208,15 @@ public enum TFModifier {
 	RESISTANCE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_POISON,
 			"Applies an effect related to the secondary attribute 'Poison resistance'.",
+			"modifier_circle_resistance",
+			Rarity.RARE),
+
+	/**
+	 * Utility value for initialising a weapon to have attribute bonuses related to its damage type.
+	 */
+	RESISTANCE_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.RESISTANCE_PHYSICAL,
+			"Applies a resistance effect related to the weapon's damage type.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -1066,6 +1084,9 @@ public enum TFModifier {
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
 	
 	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
+
+	private static List<TFModifier> weaponPrimaryList = new ArrayList<>();
+	private static List<TFModifier> weaponAttributeList = new ArrayList<>();
 	
 	static {
 
@@ -1212,6 +1233,36 @@ public enum TFModifier {
 		tattooPrimaryList.add(TF_BREASTS);
 		tattooPrimaryList.add(TF_PENIS);
 		tattooPrimaryList.add(TF_VAGINA);
+		
+
+		weaponPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		
+//		weaponAttributeList.add(TFModifier.RESISTANCE_WEAPON);
+//		weaponAttributeList.add(TFModifier.DAMAGE_WEAPON);
+
+		weaponAttributeList.add(TFModifier.STRENGTH);
+		weaponAttributeList.add(TFModifier.INTELLIGENCE);
+		weaponAttributeList.add(TFModifier.CORRUPTION);
+		
+		weaponAttributeList.add(TFModifier.FERTILITY);
+		weaponAttributeList.add(TFModifier.VIRILITY);
+		weaponAttributeList.add(TFModifier.RESISTANCE_FIRE);
+		weaponAttributeList.add(TFModifier.RESISTANCE_ICE);
+		weaponAttributeList.add(TFModifier.RESISTANCE_LUST);
+		weaponAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
+		weaponAttributeList.add(TFModifier.RESISTANCE_POISON);
+		weaponAttributeList.add(TFModifier.DAMAGE_FIRE);
+		weaponAttributeList.add(TFModifier.DAMAGE_ICE);
+		weaponAttributeList.add(TFModifier.DAMAGE_LUST);
+		weaponAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		weaponAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		weaponAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
+		weaponAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
+		weaponAttributeList.add(TFModifier.DAMAGE_POISON);
+		weaponAttributeList.add(TFModifier.DAMAGE_SPELLS);
+		weaponAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
+		weaponAttributeList.add(TFModifier.CRITICAL_CHANCE);
+		weaponAttributeList.add(TFModifier.CRITICAL_DAMAGE);
 	}
 	
 	
@@ -1404,5 +1455,13 @@ public enum TFModifier {
 
 	public static List<TFModifier> getTattooPrimaryList() {
 		return tattooPrimaryList;
+	}
+
+	public static List<TFModifier> getWeaponPrimaryList() {
+		return weaponPrimaryList;
+	}
+
+	public static List<TFModifier> getWeaponAttributeList() {
+		return weaponAttributeList;
 	}
 }

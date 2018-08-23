@@ -751,34 +751,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case SLIME:
-				case SLIME_ALLIGATOR:
-				case SLIME_ANGEL:
-				case SLIME_BAT:
-				case SLIME_CAT:
-				case SLIME_CAT_CARACAL:
-				case SLIME_CAT_CHEETAH:
-				case SLIME_CAT_LEOPARD:
-				case SLIME_CAT_LEOPARD_SNOW:
-				case SLIME_CAT_LION:
-				case SLIME_CAT_LYNX:
-				case SLIME_CAT_TIGER:
-				case SLIME_COW:
-				case SLIME_DEMON:
-				case SLIME_DOG:
-				case SLIME_DOG_BORDER_COLLIE:
-				case SLIME_DOG_DOBERMANN:
-				case SLIME_FOX:
-				case SLIME_FOX_FENNEC:
-				case SLIME_HARPY:
-				case SLIME_HARPY_BALD_EAGLE:
-				case SLIME_HARPY_RAVEN:
-				case SLIME_HORSE:
-				case SLIME_IMP:
-				case SLIME_RABBIT:
-				case SLIME_RAT:
-				case SLIME_REINDEER:
-				case SLIME_SQUIRREL:
-				case SLIME_WOLF:
 					book = ItemType.BOOK_SLIME;
 					raceIngredient = ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
 					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
@@ -1049,9 +1021,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
 			if (getPreferredBody().getGender().isFeminine()) {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularFemaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularFemaleName(null);
 			} else {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularMaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularMaleName(null);
 			}
 		
 			switch(getPreferredBody().getSubspecies()) {
@@ -1138,34 +1110,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ELEMENTAL_EARTH:
 				case ELEMENTAL_FIRE:
 				case ELEMENTAL_WATER:
-				case SLIME_ALLIGATOR:
-				case SLIME_ANGEL:
-				case SLIME_BAT:
-				case SLIME_CAT:
-				case SLIME_CAT_CARACAL:
-				case SLIME_CAT_CHEETAH:
-				case SLIME_CAT_LEOPARD:
-				case SLIME_CAT_LEOPARD_SNOW:
-				case SLIME_CAT_LION:
-				case SLIME_CAT_LYNX:
-				case SLIME_CAT_TIGER:
-				case SLIME_COW:
-				case SLIME_DEMON:
-				case SLIME_DOG:
-				case SLIME_DOG_BORDER_COLLIE:
-				case SLIME_DOG_DOBERMANN:
-				case SLIME_FOX:
-				case SLIME_FOX_FENNEC:
-				case SLIME_HARPY:
-				case SLIME_HARPY_BALD_EAGLE:
-				case SLIME_HARPY_RAVEN:
-				case SLIME_HORSE:
-				case SLIME_IMP:
-				case SLIME_RABBIT:
-				case SLIME_RAT:
-				case SLIME_REINDEER:
-				case SLIME_SQUIRREL:
-				case SLIME_WOLF:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 			}
@@ -3247,11 +3191,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
-				if((!item.getItemType().isTransformative() || !target.isUnique()) // Cannot TF uniques
-						&& ((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))
-							|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
-							|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && !item.getItemType().isTransformative()))
-							|| (!target.isUnique() && target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative()))) {
+				if((target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))
+						|| ((!item.getItemType().isTransformative() || !target.isUnique()) // Cannot TF non-player-slave uniques
+							&& ((Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target))
+								|| (target.getPartyLeader()==null || (target.getPartyLeader().equals(user) && !item.getItemType().isTransformative()))
+								|| (!target.isUnique() && target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else if(target instanceof Elemental) {
