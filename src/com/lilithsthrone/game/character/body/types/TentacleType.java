@@ -30,6 +30,13 @@ public enum TentacleType implements BodyPartTypeInterface {
 		this.race = race;
 		this.suitableForPenetration = suitableForPenetration;
 	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static TentacleType getTypeFromString(String value) {
+		return valueOf(value);
+	}
 	
 	@Override
 	public boolean isDefaultPlural() {
@@ -79,7 +86,8 @@ public enum TentacleType implements BodyPartTypeInterface {
 		
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case DEMON_COMMON:

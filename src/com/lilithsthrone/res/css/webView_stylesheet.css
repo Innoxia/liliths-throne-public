@@ -637,7 +637,7 @@ position:relative;
     white-space: nowrap;
 	
 	text-align:center;
-	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
 	font-size: 16px;
 	line-height: 16px;
 
@@ -662,11 +662,9 @@ position:relative;
 	cursor:pointer;
 }
 .cosmetics-button.active{
-	/*width:16%;*/
-	border:2px;
-	margin:2px;
+	border:1px;
 	border-style:solid;
-	border-color:#777;
+	border-color:#999;
 }
 .cosmetics-button.disabled{
 	background:#222;

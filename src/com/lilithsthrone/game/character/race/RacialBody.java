@@ -34,7 +34,6 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
@@ -58,7 +57,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum RacialBody {
@@ -86,10 +85,10 @@ public enum RacialBody {
 			PenisType.HUMAN, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.NONE,
+			Util.newArrayListOfValues(TailType.NONE),
 			TentacleType.NONE,
 			VaginaType.HUMAN, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL),
 
 	// ANGEL:
@@ -115,10 +114,10 @@ public enum RacialBody {
 			PenisType.ANGEL, PenisSize.FOUR_HUGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
-			TailType.NONE,
+			Util.newArrayListOfValues(TailType.NONE),
 			TentacleType.NONE,
 			VaginaType.ANGEL, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.ANGEL, WingSize.THREE_LARGE, WingSize.THREE_LARGE,
+			Util.newArrayListOfValues(WingType.ANGEL), WingSize.THREE_LARGE, WingSize.THREE_LARGE,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -161,10 +160,10 @@ public enum RacialBody {
 			PenisType.DEMON_COMMON, PenisSize.FIVE_ENORMOUS, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.FOUR_HUGE, 4, CumProduction.SIX_EXTREME,
-			TailType.DEMON_COMMON,
+			Util.newArrayListOfValues(TailType.DEMON_COMMON, TailType.DEMON_HAIR_TIP),
 			TentacleType.NONE,
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.DEMON_COMMON, WingSize.ONE_SMALL, WingSize.ONE_SMALL,
+			Util.newArrayListOfValues(WingType.DEMON_COMMON, WingType.DEMON_FEATHERED), WingSize.ONE_SMALL, WingSize.ONE_SMALL,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -183,50 +182,50 @@ public enum RacialBody {
 		}
 	},
 	
-	IMP(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(1, 10)),
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(5, 10)),
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(90, 100))),
-			AntennaType.NONE,
-			ArmType.IMP, 1,
-			AssType.IMP, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			BreastType.IMP,
-			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
-			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			EarType.IMP,
-			EyeType.IMP,
-			FaceType.IMP, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
-			HairType.IMP, HairLength.TWO_SHORT, HairLength.FIVE_ABOVE_ASS,
-			LegType.IMP,
-			SkinType.IMP, BodyMaterial.FLESH,
-			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
-			PenisType.IMP, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
-			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
-			TesticleSize.THREE_LARGE, 4, CumProduction.SIX_EXTREME,
-			TailType.IMP,
-			TentacleType.NONE,
-			VaginaType.IMP, Wetness.SEVEN_DROOLING, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FIVE_STRETCHY, OrificePlasticity.FIVE_YIELDING,
-			WingType.IMP, WingSize.TWO_AVERAGE, WingSize.TWO_AVERAGE,
-			GenitalArrangement.NORMAL) {
-		
-		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
-		}
-		
-		@Override
-		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
-		}
-	},
+//	IMP(Util.newHashMapOfValues(
+//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(1, 10)),
+//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(5, 10)),
+//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(90, 100))),
+//			AntennaType.NONE,
+//			ArmType.IMP, 1,
+//			AssType.IMP, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
+//			BreastType.IMP,
+//			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+//			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
+//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+//			EarType.IMP,
+//			EyeType.IMP,
+//			FaceType.IMP, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+//			HairType.IMP, HairLength.TWO_SHORT, HairLength.FIVE_ABOVE_ASS,
+//			LegType.IMP,
+//			SkinType.IMP, BodyMaterial.FLESH,
+//			HornLength.ONE_SMALL, HornLength.TWO_LONG,
+//				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
+//			PenisType.IMP, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
+//			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
+//			TesticleSize.THREE_LARGE, 4, CumProduction.SIX_EXTREME,
+//			TailType.IMP,
+//			TentacleType.NONE,
+//			VaginaType.IMP, Wetness.SEVEN_DROOLING, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FIVE_STRETCHY, OrificePlasticity.FIVE_YIELDING,
+//			WingType.IMP, WingSize.TWO_AVERAGE, WingSize.TWO_AVERAGE,
+//			GenitalArrangement.NORMAL) {
+//		
+//		@Override
+//		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+//			return Util.newHashMapOfValues(
+//					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+//					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+//					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+//					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+//					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+//		}
+//		
+//		@Override
+//		public SexualOrientation getSexualOrientation(Gender gender) {
+//			return SexualOrientation.AMBIPHILIC;
+//		}
+//	},
 
 	// BOVINES:
 	COW_MORPH(
@@ -252,10 +251,10 @@ public enum RacialBody {
 			PenisType.BOVINE, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
-			TailType.COW_MORPH,
+			Util.newArrayListOfValues(TailType.COW_MORPH),
 			TentacleType.NONE,
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	},
 	
@@ -283,10 +282,10 @@ public enum RacialBody {
 			PenisType.CANINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
-			TailType.DOG_MORPH,
+			Util.newArrayListOfValues(TailType.DOG_MORPH),
 			TentacleType.NONE,
 			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -323,10 +322,10 @@ public enum RacialBody {
 			PenisType.VULPINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.FOUR_LARGE,
-			TailType.FOX_MORPH,
+			Util.newArrayListOfValues(TailType.FOX_MORPH),
 			TentacleType.NONE,
 			VaginaType.FOX_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -354,10 +353,10 @@ public enum RacialBody {
 			PenisType.LUPINE, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
-			TailType.LYCAN,
+			Util.newArrayListOfValues(TailType.LYCAN),
 			TentacleType.NONE,
 			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -386,10 +385,10 @@ public enum RacialBody {
 			PenisType.FELINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.CAT_MORPH,
+			Util.newArrayListOfValues(TailType.CAT_MORPH),
 			TentacleType.NONE,
 			VaginaType.CAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -418,10 +417,10 @@ public enum RacialBody {
 			PenisType.EQUINE, PenisSize.FOUR_HUGE, PenisGirth.FOUR_FAT,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.FOUR_FAT,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
-			TailType.HORSE_MORPH,
+			Util.newArrayListOfValues(TailType.HORSE_MORPH),
 			TentacleType.NONE,
 			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -448,10 +447,10 @@ public enum RacialBody {
 			PenisType.REINDEER_MORPH, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.REINDEER_MORPH,
+			Util.newArrayListOfValues(TailType.REINDEER_MORPH),
 			TentacleType.NONE,
 			VaginaType.REINDEER_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	
 	},
@@ -479,10 +478,10 @@ public enum RacialBody {
 		    PenisType.ALLIGATOR_MORPH, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 		    PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 		    TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
-		    TailType.ALLIGATOR_MORPH,
+			Util.newArrayListOfValues(TailType.ALLIGATOR_MORPH),
 			TentacleType.NONE,
 		    VaginaType.ALLIGATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-		    WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+		    Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 		    GenitalArrangement.CLOACA) {
 		
 		@Override
@@ -514,10 +513,10 @@ public enum RacialBody {
 			PenisType.SQUIRREL, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(TailType.SQUIRREL_MORPH),
 			TentacleType.NONE,
 			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -544,10 +543,10 @@ public enum RacialBody {
 			PenisType.RAT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.RAT_MORPH,
+			Util.newArrayListOfValues(TailType.RAT_MORPH),
 			TentacleType.NONE,
 			VaginaType.RAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -583,10 +582,10 @@ public enum RacialBody {
 			PenisType.RABBIT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.RABBIT_MORPH,
+			Util.newArrayListOfValues(TailType.RABBIT_MORPH),
 			TentacleType.NONE,
 			VaginaType.RABBIT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 	},
@@ -613,10 +612,10 @@ public enum RacialBody {
 			PenisType.BAT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
-			TailType.NONE,
+			Util.newArrayListOfValues(TailType.NONE),
 			TentacleType.NONE,
 			VaginaType.BAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -653,10 +652,10 @@ public enum RacialBody {
 			PenisType.AVIAN, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
 			PenisType.NONE, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
-			TailType.HARPY,
+			Util.newArrayListOfValues(TailType.HARPY),
 			TentacleType.NONE,
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
 
 		@Override
@@ -697,10 +696,10 @@ public enum RacialBody {
 	private List<HornType> hornTypes;
 	private PenisType penisType;
 	private PenisType penisSecondType;
-	private TailType tailType;
+	private List<TailType> tailTypes;
 	private TentacleType tentacleType;
 	private VaginaType vaginaType;
-	private WingType wingType;
+	private List<WingType> wingTypes;
 	
 	private BodyMaterial bodyMaterial;
 	private GenitalArrangement genitalArrangement;
@@ -743,10 +742,10 @@ public enum RacialBody {
 			PenisType penisType, PenisSize penisSize, PenisGirth penisGirth,
 			PenisType penisSecondType, PenisSize penisSecondSize, PenisGirth penisSecondGirth,
 			TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
-			TailType tailType,
+			List<TailType> tailTypes,
 			TentacleType tentacleType,
 			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			WingType wingType, WingSize maleWingSize, WingSize femaleWingSize,
+			List<WingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
 		
 		this.attributeModifiers = attributeModifiers;
@@ -768,10 +767,10 @@ public enum RacialBody {
 		
 		this.penisType = penisType;
 		this.penisSecondType = penisSecondType;
-		this.tailType = tailType;
+		this.tailTypes = tailTypes;
 		this.tentacleType = tentacleType;
 		this.vaginaType = vaginaType;
-		this.wingType = wingType;
+		this.wingTypes = wingTypes;
 
 		this.anusCapacity = anusCapacity.getMedianValue();
 		this.anusWetness = anusWetness.getValue();
@@ -861,8 +860,6 @@ public enum RacialBody {
 			case ELEMENTAL_FIRE:
 			case ELEMENTAL_WATER:
 				return RacialBody.DEMON;
-			case IMP:
-				return RacialBody.IMP;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
 			case FOX_MORPH:
@@ -1046,9 +1043,24 @@ public enum RacialBody {
 	public PenisType getPenisSecondType() {
 		return penisSecondType;
 	}
-
-	public TailType getTailType() {
-		return tailType;
+	
+	/**
+	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
+	 * @return A random TailType from this race's possible tailTypes.
+	 */
+	public TailType getRandomTailType(boolean includeTypeNONE) {
+		List<TailType> tailList = new ArrayList<>(tailTypes);
+		
+		if(includeTypeNONE || tailTypes.size()==1) {
+			return tailTypes.get(Util.random.nextInt(tailTypes.size()));
+		} else {
+			tailList.remove(TailType.NONE);
+			return tailList.get(Util.random.nextInt(tailList.size()));
+		}
+	}
+	
+	public List<TailType> getTailType() {
+		return tailTypes;
 	}
 
 	public TentacleType getTentacleType() {
@@ -1059,8 +1071,23 @@ public enum RacialBody {
 		return vaginaType;
 	}
 
-	public WingType getWingType() {
-		return wingType;
+	/**
+	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
+	 * @return A random TailType from this race's possible tailTypes.
+	 */
+	public WingType getRandomWingType(boolean includeTypeNONE) {
+		List<WingType> wingList = new ArrayList<>(wingTypes);
+		
+		if(includeTypeNONE || wingTypes.size()==1) {
+			return wingTypes.get(Util.random.nextInt(wingTypes.size()));
+		} else {
+			wingList.remove(WingType.NONE);
+			return wingList.get(Util.random.nextInt(wingList.size()));
+		}
+	}
+	
+	public List<WingType> getWingTypes() {
+		return wingTypes;
 	}
 
 

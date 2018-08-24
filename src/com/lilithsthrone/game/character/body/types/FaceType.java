@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum FaceType implements BodyPartTypeInterface {
@@ -21,8 +21,6 @@ public enum FaceType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.ANGEL, MouthType.ANGEL, TongueType.ANGEL, Race.ANGEL),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, MouthType.DEMON_COMMON, TongueType.DEMON_COMMON, Race.DEMON),
-
-	IMP(BodyCoveringType.IMP, MouthType.IMP, TongueType.IMP, Race.IMP),
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, MouthType.DOG_MORPH, TongueType.DOG_MORPH, Race.DOG_MORPH),
 	
@@ -63,6 +61,16 @@ public enum FaceType implements BodyPartTypeInterface {
 		this.tongueType = tongueType;
 		this.race = race;
 	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static FaceType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
+	}
 	
 	@Override
 	public boolean isDefaultPlural() {
@@ -84,7 +92,6 @@ public enum FaceType implements BodyPartTypeInterface {
 			case HARPY:
 			case HORSE_MORPH:
 			case HUMAN:
-			case IMP:
 				return UtilText.returnStringAtRandom("face");
 			case RAT_MORPH:
 			case RABBIT_MORPH:
@@ -113,7 +120,6 @@ public enum FaceType implements BodyPartTypeInterface {
 			case HARPY:
 			case HORSE_MORPH:
 			case HUMAN:
-			case IMP:
 				return UtilText.returnStringAtRandom("faces");
 			case RAT_MORPH:
 			case RABBIT_MORPH:
@@ -146,8 +152,6 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("perfect", "flawless", "demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("mischievous", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic dog-like", "dog-like", "canine");
 			case SQUIRREL_MORPH:
@@ -176,6 +180,7 @@ public enum FaceType implements BodyPartTypeInterface {
 		return "";
 	}
 
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
@@ -186,8 +191,6 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "panther";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:
@@ -197,17 +200,17 @@ public enum FaceType implements BodyPartTypeInterface {
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case HARPY:
-				return "avian";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case HUMAN:
 				return "human";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
-				return "vulpine";
+				return "fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

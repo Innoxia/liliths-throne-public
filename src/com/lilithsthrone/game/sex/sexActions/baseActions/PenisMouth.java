@@ -224,7 +224,7 @@ public class PenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isInternalTesticles()
+			return !Sex.getCharacterTargetedForSexAction(this).isInternalTesticles()
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		

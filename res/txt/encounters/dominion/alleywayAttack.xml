@@ -156,7 +156,7 @@
 		#IF npc.hasFetish(FETISH_PREGNANCY)
 		#THEN
 			<p>
-				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHas] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 					#IF npc.isAttractedTo(pc)
 					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -178,7 +178,7 @@
 		#IF npc.hasFetish(FETISH_PREGNANCY)
 		#THEN
 			<p>
-				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHas] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 					#IF npc.isAttractedTo(pc)
 					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -319,7 +319,7 @@
 			[npc.Name] casts [npc.her] [npc.eyes] to the floor, shuffling [npc.her] [npc.feet] a little as [npc.she] replies, [npc.speech(Nobody ever asks me stuff like that... I guess I'm ok, I usually get enough money to buy food and stuff. I don't really have any fixed place to sleep, but the alleys nearest to the street are usually safe enough...)]
 		</p>
 		<p>
-			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned that ever for [npc.her] well-being.
+			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned than ever for [npc.her] well-being.
 		</p>
 		<p>
 			[npc.speech(No...)] [npc.name] replies, letting out a disheartening sigh, before trying to force [npc.herself] to smile back at you. [npc.speech(You're the only friend I've got. Sure, I used to know some other people, but they've all moved on now... I don't know how they're doing, or even where they went...)]

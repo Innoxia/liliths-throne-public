@@ -46,7 +46,7 @@ public enum InventorySlot {
 	TORSO_OVER(50, "over-torso", false, false, "upper back"),
 
 	/** Clothing slot "torso". Used for shirts.<br/>
-	 *  Tattoo slot "upper face".*/
+	 *  Tattoo slot "lower back".*/
 	TORSO_UNDER(40, "torso", true, false, "lower back"),
 
 	/** Clothing slot "chest". Used for bras.<br/>
@@ -153,11 +153,14 @@ public enum InventorySlot {
 	private String tattooSlotName;
 	private boolean jewellery, coreClothing;
 	private static List<InventorySlot> clothingSlots;
+	private static List<InventorySlot> mainClothingSlots;
+	private static List<InventorySlot> extraClothingSlots;
 	private static List<InventorySlot> piercingSlots;
 
 	static {
 		clothingSlots = new ArrayList<>();
 		piercingSlots = new ArrayList<>();
+		extraClothingSlots = new ArrayList<>();
 		
 		clothingSlots.add(HEAD);
 		clothingSlots.add(EYES);
@@ -189,6 +192,14 @@ public enum InventorySlot {
 		clothingSlots.add(PENIS);
 		clothingSlots.add(VAGINA);
 		
+		extraClothingSlots.add(HORNS);
+		extraClothingSlots.add(TAIL);
+		extraClothingSlots.add(WINGS);
+		extraClothingSlots.add(PENIS);
+		extraClothingSlots.add(VAGINA);
+		
+		mainClothingSlots = new ArrayList<>(clothingSlots);
+		mainClothingSlots.removeAll(extraClothingSlots);
 		
 		piercingSlots.add(PIERCING_EAR);
 		piercingSlots.add(PIERCING_NOSE);
@@ -236,6 +247,14 @@ public enum InventorySlot {
 		return piercingSlots;
 	}
 	
+	public static List<InventorySlot> getMainClothingSlots() {
+		return mainClothingSlots;
+	}
+
+	public static List<InventorySlot> getExtraClothingSlots() {
+		return extraClothingSlots;
+	}
+
 	/**
 	 * Calculates if the character cannot wear clothing in the provided slot due to his or her race. If a part of their body is preventing the clothing from being equipped, this method returns the race of that body part.<br/>
 	 * e.g. Horse legs block FOOT slot, so passing in a character who has horse legs and InventorySlot.FOOT will return Race.HORSE_MORPH.<br/>

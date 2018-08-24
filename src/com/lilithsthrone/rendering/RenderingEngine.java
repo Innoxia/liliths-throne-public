@@ -186,7 +186,7 @@ public enum RenderingEngine {
 		if (charactersInventoryToRender.getMainWeapon() != null) {
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot weapon" + getClassRarityIdentifier(charactersInventoryToRender.getMainWeapon().getRarity()) + "'>"
-						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getMainWeapon().getSVGString()+"</div>"
+						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getMainWeapon().getSVGEquippedString(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN.toString() + "Slot'></div>"
 					+ "</div>");
 		} else {
@@ -196,9 +196,12 @@ public enum RenderingEngine {
 		// Offhand weapon:
 		if (charactersInventoryToRender.getOffhandWeapon() != null) {
 			equippedPanelSB.append("<div class='inventory-item-slot weapon" + getClassRarityIdentifier(charactersInventoryToRender.getOffhandWeapon().getRarity()) + "'>"
-						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getOffhandWeapon().getSVGString()+"</div>"
+						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getOffhandWeapon().getSVGEquippedString(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND.toString() + "Slot'></div>"
 					+ "</div>");
+		} else if (charactersInventoryToRender.getMainWeapon() != null && charactersInventoryToRender.getMainWeapon().getWeaponType().isTwoHanded()) {
+			equippedPanelSB.append("<div class='inventory-item-slot weapon disabled' id='" + InventorySlot.WEAPON_OFFHAND.toString() + "Slot'></div>");
+			
 		} else {
 			equippedPanelSB.append("<div class='inventory-item-slot weapon' id='" + InventorySlot.WEAPON_OFFHAND.toString() + "Slot'></div>");
 		}
@@ -1356,7 +1359,7 @@ public enum RenderingEngine {
 											?"background-color:"+c.getPlace().getPlaceType().getBackgroundColour().toWebHexString()+";"
 											:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
 				
-				if(!discovered) {
+				if(!discovered || c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
 					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
 					
 				} else {
@@ -1795,7 +1798,7 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
-											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
+											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
 								+ " - Level "+ character.getLevel()
@@ -2042,7 +2045,7 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
-											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
+											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
 									+ " - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>"

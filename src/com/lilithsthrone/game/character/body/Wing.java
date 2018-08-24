@@ -99,82 +99,45 @@ public class Wing implements BodyPartInterface, Serializable {
 		
 		switch (type) {
 			case ANGEL:
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from your shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" You give them an experimental flap, and, much to your delight, you discover that they're powerful enough to enable you to fly."
-										:" You give them an experimental flap, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "<br/>"
-								+ "You now have [style.boldAngel(angelic, feathered wings)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from [npc.her] shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" [npc.She] gives them an experimental flap, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
-										:" [npc.She] gives them an experimental flap, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldAngel(angelic, feathered wings)]."
-							+ "</p>");
-				}
+				UtilText.transformationContentSB.append(
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from [npc.her] shoulder blades."
+							+ (getSize().isSizeAllowsFlight()
+									?" [npc.She] [npc.verb(give)] them an experimental flap, and, much to [npc.her] delight, [npc.she] [npc.verb(discover)] that they're powerful enough to enable [npc.herHim] to fly."
+									:" [npc.She] [npc.verb(give)] them an experimental flap, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
+							+ "<br/>"
+							+ "[npc.Name] now has [style.boldAngel(angelic, feathered wings)]."
+						+ "</p>");
 				break;
 			case DEMON_COMMON:
-				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from your shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
-										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "<br/>"
-								+ "You now have [style.boldDemon(demonic bat-like wings)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from [npc.her] shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
-										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldDemon(demonic bat-like wings)]."
-							+ "</p>");
-				}
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to [npc.verb(try)] and suppress an unexpected moan of pleasure as a pair of bat-like wings push out from [npc.her] shoulder blades."
+							+ (getSize().isSizeAllowsFlight()
+									?" [npc.She] [npc.verb(give)] them an experimental flap, and, much to [npc.her] delight, [npc.she] [npc.verb(discover)] that they're powerful enough to enable [npc.herHim] to fly."
+									:" [npc.She] [npc.verb(give)] them an experimental flutter, and although they aren't quite powerful enough just yet, if they were to be a little larger, they'd enable [npc.herHim] to fly.")
+							+ "<br/>"
+							+ (!owner.isShortStature()
+									?"[npc.Name] now [npc.has] [style.boldDemon(demonic bat-like wings)]."
+									:"[npc.Name] now [npc.has] [style.boldImp(impish bat-like wings)].")
+						+ "</p>");
 				break;
-			case IMP:
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from your shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
-										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "<br/>"
-								+ "You now have [style.boldImp(impish bat-like wings)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from [npc.her] shoulder blades."
-								+ (getSize().isSizeAllowsFlight()
-										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
-										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldImp(impish bat-like wings)]."
-							+ "</p>");
-				}
+			case DEMON_FEATHERED:
+				UtilText.transformationContentSB.append(
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from [npc.her] shoulder blades."
+							+ (getSize().isSizeAllowsFlight()
+									?" [npc.She] [npc.verb(give)] them an experimental flap, and, much to [npc.her] delight, [npc.she] [npc.verb(discover)] that they're powerful enough to enable [npc.herHim] to fly."
+									:" [npc.She] [npc.verb(give)] them an experimental flap, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
+							+ "<br/>"
+							+ (!owner.isShortStature()
+									?"[npc.Name] now [npc.has] [style.boldDemon(demonic feathered wings)]."
+									:"[npc.Name] now [npc.has] [style.boldImp(impish feathered wings)].")
+						+ "</p>");
 				break;
 			case NONE:
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" With a strong tugging sensation, your [pc.wings] shrink away into the flesh of your back."
-								+ "<br/>"
-								+ "You now have [style.boldTfGeneric(no wings)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" With a strong tugging sensation, [npc.her] [npc.wings] shrink away into the flesh of [npc.her] back."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldTfGeneric(no wings)]."
-							+ "</p>");
-				}
+				UtilText.transformationContentSB.append(
+							" With a strong tugging sensation, [npc.her] [npc.wings] shrink away into the flesh of [npc.her] back."
+							+ "<br/>"
+							+ "[npc.Name] now has [style.boldTfGeneric(no wings)]."
+						+ "</p>");
 				break;
 		}
 

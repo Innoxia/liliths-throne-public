@@ -131,7 +131,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		if(!Main.game.getCharactersPresent().contains(occupant)) { // Don't give them a new job if the player is present...
 			if(occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
-				System.out.println(occupant.getName());
+//				System.out.println(occupant.getName());
 				if(Math.random()<0.1) {
 					List<Occupation> occupations = new ArrayList<>();
 					for(Occupation occ : Occupation.values()) {
@@ -141,7 +141,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 					occupant.setHistory(Util.randomItemFrom(occupations));
 					occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
-					System.out.println(occupant.getHistory().getName());
+//					System.out.println(occupant.getHistory().getName());
 				}
 			}
 		}

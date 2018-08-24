@@ -1452,6 +1452,7 @@ public enum Combat {
 		
 		attackStringBuilder = new StringBuilder("<p>");
 		if(allEnemiesStunned) {
+			escaped = true;
 			attackStringBuilder.append("All of your enemies are stunned, so you're easily able to escape!");
 		} else if (Util.random.nextInt(100) < escapeChance) {
 			escaped = true;

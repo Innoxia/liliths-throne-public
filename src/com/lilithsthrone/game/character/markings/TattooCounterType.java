@@ -169,7 +169,9 @@ public enum TattooCounterType {
 			GameCharacter character = Main.game.getPlayer();
 			if(!character.equals(bearer)) {
 				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
-					if(pen.isTakesVirginity() && character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen)).getKey().equals(bearer.getId())) {
+					if(pen.isTakesVirginity()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pen)).getKey().equals(bearer.getId())) {
 						count++;
 						break;
 					}
@@ -201,7 +203,9 @@ public enum TattooCounterType {
 			GameCharacter character = Main.game.getPlayer();
 			if(!character.equals(bearer)) {
 				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
-					if(pen.isTakesVirginity() && character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen)).getKey().equals(bearer.getId())) {
+					if(pen.isTakesVirginity()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pen)).getKey().equals(bearer.getId())) {
 						count++;
 						break;
 					}

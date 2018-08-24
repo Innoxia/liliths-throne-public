@@ -12,13 +12,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.99
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum AntennaType implements BodyPartTypeInterface {
 	NONE("", null, null);
-	
-	
 	
 	private BodyCoveringType skinType;
 	private Race race;
@@ -26,6 +24,13 @@ public enum AntennaType implements BodyPartTypeInterface {
 	private AntennaType(String descriptor, BodyCoveringType skinType, Race race) {
 		this.skinType = skinType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static AntennaType getTypeFromString(String value) {
+		return valueOf(value);
 	}
 
 	@Override
@@ -74,6 +79,7 @@ public enum AntennaType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case NONE:

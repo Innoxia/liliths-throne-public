@@ -126,28 +126,15 @@ public class Ass implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-							"You now have a [style.boldDemon(demonic ass)], covered in [pc.assFullDescription].<br/>"
-							+ "You have also been left with [style.boldDemon(a demonic)] [pc.assholeFullDescription]."
+							"[npc.She] now [npc.has] a [style.boldDemon(demonic ass)], covered in [npc.assFullDescription].<br/>"
+							+ "[npc.She] [npc.has] also been left with a [style.boldDemon(demonic)] [npc.assholeFullDescription]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-							"[npc.She] now has a [style.boldDemon(demonic ass)], covered in [npc.assFullDescription].<br/>"
-							+ "[npc.She] has also been left with [style.boldDemon(a demonic)] [npc.assholeFullDescription]."
-							+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							"You now have an [style.boldImp(impish ass)], covered in [pc.assFullDescription].<br/>"
-							+ "You have also been left with [style.boldImp(an impish)] [pc.assholeFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-							"[npc.She] now has an [style.boldImp(impish ass)], covered in [npc.assFullDescription].<br/>"
-							+ "[npc.She] has also been left with [style.boldImp(an impish)] [npc.assholeFullDescription]."
+							"[npc.She] now [npc.has] an [style.boldImp(impish ass)], covered in [npc.assFullDescription].<br/>"
+							+ "[npc.She] [npc.has] also been left with an [style.boldImp(impish)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}
 				break;

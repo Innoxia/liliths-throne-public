@@ -104,29 +104,16 @@ public class Hair implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with silky, demonic hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldDemon(demonic hair)]."
-							+ "</p>");
+							" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, demonic hair.<br/>"
+							+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldDemon(demonic hair)]."
+						+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, demonic hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldDemon(demonic hair)]."
-							+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with silky, impish hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldImp(impish hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, impish hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldImp(impish hair)]."
-							+ "</p>");
+							" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, impish hair.<br/>"
+							+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldImp(impish hair)]."
+						+ "</p>");
 				}
 				break;
 			case DOG_MORPH:

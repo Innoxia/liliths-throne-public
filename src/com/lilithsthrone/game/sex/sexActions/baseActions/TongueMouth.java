@@ -616,7 +616,7 @@ public class TongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
 		
@@ -627,7 +627,7 @@ public class TongueMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Resist [npc.namePos] kiss.";
+			return "Resist [npc2.namePos] kiss.";
 		}
 		
 		@Override
@@ -719,7 +719,7 @@ public class TongueMouth {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(breathe)] a small sigh of relief, before quickly continuing to [npc2.sob] and struggle against [npc.name] as [npc2.she] [npc2.verb(try)] to break free from [npc.her] grasp.",
@@ -1003,7 +1003,7 @@ public class TongueMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Resist [npc.namePos] kiss.";
+			return "Resist [npc2.namePos] kiss.";
 		}
 		
 		@Override
@@ -1095,7 +1095,7 @@ public class TongueMouth {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(breathe)] a small sigh of relief, before quickly continuing to [npc2.sob] and struggle against [npc.name] as [npc2.she] [npc2.verb(try)] to break free from [npc.her] grasp.",

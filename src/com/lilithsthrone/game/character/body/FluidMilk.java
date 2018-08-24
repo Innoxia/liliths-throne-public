@@ -76,7 +76,7 @@ public class FluidMilk implements FluidInterface, Serializable {
 			
 		} else {
 			try {
-				fluidType = FluidType.valueOf(milk.getAttribute("type"));
+				fluidType = FluidType.getTypeFromString(milk.getAttribute("type"));
 			} catch(Exception ex) {
 			}
 		}

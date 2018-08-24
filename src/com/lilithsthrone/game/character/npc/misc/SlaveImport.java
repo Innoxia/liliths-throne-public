@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -23,7 +23,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.90
- * @version 0.1.98
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlaveImport extends NPC {
@@ -33,9 +33,9 @@ public class SlaveImport extends NPC {
 	}
 	
 	public SlaveImport(boolean isImported) {
-		super(new NameTriplet("Slave"), "Generic slave.",
+		super(isImported, new NameTriplet("Slave"), "Generic slave.",
 				18, Month.JUNE, 10,
-				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
+				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
@@ -48,6 +48,16 @@ public class SlaveImport extends NPC {
 		}
 		
 //		this.clearAllCompanionVariables();
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	public void applyNewlyImportedSlaveVariables() {

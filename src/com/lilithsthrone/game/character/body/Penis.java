@@ -246,7 +246,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		switch (type) {
 			case DILDO:
-				return "You have somehow transformed your penis into a dildo... This is a bug... (please let Innoxia know!)";
+				return "You have somehow transformed your penis into a dildo... This is a bug... (Please let Innoxia know!)";
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -266,45 +266,32 @@ public class Penis implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"You now have a [style.boldHuman(human penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldHuman([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" human balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldHuman(human cum)].");
+							+ "You have [style.boldHuman([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" human balls)], covered in [pc.ballsFullDescription(true)],"
+									+ " which produce [pc.cumColour(true)] [style.boldHuman(human cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
 							"[npc.She] now has a [style.boldHuman(human penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldHuman([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" human balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldHuman(human cum)].");
+							+ "[npc.She] has [style.boldHuman([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" human balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldHuman(human cum)].");
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-							"You squirm and [pc.moan] as the skin covering your cock transforms into a smooth, highly sensitive demonic counterpart."
-							+ " Slimy pre-cum starts drooling from the tip, and you let out [pc.a_moan+] as thick ridges suddenly press out all along its length."
+							"[npc.She] [npc.verb(squirm)] and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive demonic counterpart."
+							+ " Slimy pre-cum starts drooling from the tip, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as thick ridges suddenly press out all along its length."
 							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.<br/>"
-							+ "You now have a [style.boldDemon(demonic penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldDemon([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" demonic balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldDemon(demon cum)].");
+							+ "[npc.She] now [npc.has] a [style.boldDemon(demonic penis)], covered in [npc.penisFullDescription(true)].<br/>"
+							+ "[npc.She] [npc.has] [style.boldDemon([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" demonic balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldDemon(demon cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
-							"[npc.She] squirms and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive demonic counterpart."
-							+ " Slimy pre-cum starts drooling from the tip, and [npc.she] lets out [npc.a_moan+] as thick ridges suddenly press out all along its length."
+							"[npc.She] [npc.verb(squirm)] and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive impish counterpart."
+							+ " Slimy pre-cum starts drooling from the tip, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as thick ridges suddenly press out all along its length."
 							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.<br/>"
-							+ "[npc.She] now has a [style.boldDemon(demonic penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldDemon([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" demonic balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldDemon(demon cum)].");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							"You squirm and [pc.moan] as the skin covering your cock transforms into a smooth, highly sensitive impish counterpart."
-							+ " Slimy pre-cum starts drooling from the tip, and you let out [pc.a_moan+] as thick ridges suddenly press out all along its length."
-							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.<br/>"
-							+ "You now have an [style.boldImp(impish penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldImp([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" impish balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldImp(imp cum)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							"[npc.She] squirms and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive impish counterpart."
-							+ " Slimy pre-cum starts drooling from the tip, and [npc.she] lets out [npc.a_moan+] as thick ridges suddenly press out all along its length."
-							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.<br/>"
-							+ "[npc.She] now has a [style.boldImp(impish penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldImp([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" impish balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldImp(imp cum)].");
+							+ "[npc.She] now [npc.has] a [style.boldImp(impish penis)], covered in [npc.penisFullDescription(true)].<br/>"
+							+ "[npc.She] [npc.has] [style.boldImp([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" impish balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldImp(imp cum)].");
 				}
 				break;
 			case CANINE:
@@ -314,13 +301,16 @@ public class Penis implements BodyPartInterface, Serializable {
 							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of your shaft."
 							+ " Panting and gasping for air, you feel the tip of your cock narrowing down as it tapers into its new form.<br/>"
 							+ "You now have a [style.boldDogMorph(canine penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldDogMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" canine balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldDogMorph(canine cum)].");
+							+ "You have [style.boldDogMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" canine balls)], covered in [pc.ballsFullDescription(true)],"
+									+ " which produce [pc.cumColour(true)] [style.boldDogMorph(canine cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
-							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
+							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form,"
+									+ " and [npc.sheIs] hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
 							+ " As [npc.she] pants and gasps for air, the tip of [npc.her] cock narrows down as it tapers into its new form.<br/>"
 							+ "[npc.She] now has a [style.boldDogMorph(canine penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldDogMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" canine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldDogMorph(canine cum)].");
+							+ "[npc.She] has [style.boldDogMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" canine balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldDogMorph(canine cum)].");
 				}
 				break;
 			case VULPINE:

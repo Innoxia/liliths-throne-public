@@ -619,13 +619,12 @@ position:relative;
     white-space: nowrap;
 	
 	text-align:center;
-	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
 	font-size: 16px;
 	line-height: 16px;
 
 	border-radius: 5px;
 	min-width:100px;
-	/*width:18%;*/
 	margin:4px;
 	padding:4px;
 	
@@ -644,11 +643,9 @@ position:relative;
 	cursor:pointer;
 }
 .cosmetics-button.active{
-	/*width:16%;*/
-	border:2px;
-	padding:2px;
+	border:1px;
 	border-style:solid;
-	border-color:#777;
+	border-color:#444;
 }
 .cosmetics-button.disabled{
 	background:#ddd;

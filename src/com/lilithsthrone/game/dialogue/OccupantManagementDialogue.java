@@ -1060,7 +1060,7 @@ public class OccupantManagementDialogue {
 					for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 						NPC occupant = (NPC) Main.game.getNPCById(id);
 						if(!occupant.equals(Main.game.getGenericAndrogynousNPC()) && occupant.getHomeWorldLocation()!=WorldType.DOMINION) {
-							System.out.println(occupant.getName());
+//							System.out.println(occupant.getName());
 							AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(occupant.getAffection(Main.game.getPlayer()));
 							ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(occupant.getObedienceValue());
 							float affectionChange = occupant.getDailyAffectionChange();
@@ -1172,7 +1172,7 @@ public class OccupantManagementDialogue {
 								OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 									@Override
 									public void effects() {
-										BodyChanging.setTarget(Main.game.getActiveNPC());
+										BodyChanging.setTarget(characterSelected());
 									}
 								};
 					} else {
@@ -1372,7 +1372,7 @@ public class OccupantManagementDialogue {
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b><br/>"
 							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span><br/>"
+								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1466,7 +1466,7 @@ public class OccupantManagementDialogue {
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b><br/>"
 							+ "<span style='color:"+occupant.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName():occupant.getSubspecies().getSingularMaleName()))+"</span><br/>"
+								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant):occupant.getSubspecies().getSingularMaleName(occupant)))+"</span><br/>"
 							+ "<span style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(occupant.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -2545,6 +2545,7 @@ public class OccupantManagementDialogue {
 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							CharacterModificationUtils.tattoo.setName(CharacterModificationUtils.tattoo.getType().getName());
 							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
 						}
 					};

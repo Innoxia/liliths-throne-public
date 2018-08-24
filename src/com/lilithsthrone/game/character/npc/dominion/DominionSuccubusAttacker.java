@@ -20,11 +20,13 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionSuccubusDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -45,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -55,9 +57,9 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	public DominionSuccubusAttacker(boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
+				5, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -71,7 +73,7 @@ public class DominionSuccubusAttacker extends NPC {
 			CharacterUtils.addFetishes(this);
 			
 			if(!GenderPreference.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER);
+				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}
 			
@@ -89,13 +91,13 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setPlayerKnowsName(false);
 			
 			// Set random inventory & weapons:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(50);
 			CharacterUtils.generateItemsInInventory(this);
 			
 			// CLOTHING:
 			
-			this.equipClothing(true, false);
+			this.equipClothing(true, true, true);
 			
 			CharacterUtils.applyMakeup(this, true);
 			
@@ -107,7 +109,7 @@ public class DominionSuccubusAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(DominionSuccubusDialogue.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
 	}
 	
 	@Override
@@ -116,6 +118,16 @@ public class DominionSuccubusAttacker extends NPC {
 		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override
@@ -133,11 +145,6 @@ public class DominionSuccubusAttacker extends NPC {
 		return UtilText.parse(this,
 				"Although all demons have an extremely powerful libido, some suffer from it far more than others."
 				+ " While most are able to control their sexual desires, others, such as this [npc.race], struggle to think of anything but how to secure their next sexual conquest.");
-	}
-	
-	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, onlyAddCoreClothing);
 	}
 	
 	@Override
@@ -166,7 +173,11 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return DominionSuccubusDialogue.ALLEY_DEMON_ATTACK;
+		if(Main.game.getPlayer().getCompanions().isEmpty()) {
+			return AlleywayDemonDialogue.ALLEY_DEMON_ATTACK;
+		} else {
+			return AlleywayDemonDialogueCompanions.ALLEY_DEMON_ATTACK;
+		}
 	}
 
 	// Combat:
@@ -314,9 +325,9 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", DominionSuccubusDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", AlleywayDemonDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", DominionSuccubusDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", AlleywayDemonDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 	
