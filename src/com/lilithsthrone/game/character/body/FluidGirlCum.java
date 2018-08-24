@@ -76,7 +76,7 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 			
 		} else {
 			try {
-				fluidType = FluidType.valueOf(girlcum.getAttribute("type"));
+				fluidType = FluidType.getTypeFromString(girlcum.getAttribute("type"));
 			} catch(Exception ex) {
 			}
 		}

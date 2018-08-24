@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -22,7 +22,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -488,40 +488,40 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
-				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+				return bookResponse(ItemType.BOOK_HARPY, Subspecies.HARPY);
 
 			} else if (city == 2) {
-				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
+				return bookResponse(ItemType.BOOK_DEMON, Subspecies.DEMON);
 
 			} else if (city == 3) {
-				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
+				return bookResponse(ItemType.BOOK_DOG_MORPH, Subspecies.DOG_MORPH);
 
 			} else if (city == 4) {
-				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Subspecies.CAT_MORPH);
 
 			} else if (city == 5) {
-				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
+				return bookResponse(ItemType.BOOK_HORSE_MORPH, Subspecies.HORSE_MORPH);
 
 			} else if (city == 6) {
-				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Subspecies.WOLF_MORPH);
 
 			} else if (city == 7) {
-				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+				return bookResponse(ItemType.BOOK_HUMAN, Subspecies.HUMAN);
 
 			} else if (city == 8) {
-				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH);
+				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH);
 
 			} else if (city == 9) {
-				return bookResponse(ItemType.BOOK_BAT_MORPH, Race.BAT_MORPH);
+				return bookResponse(ItemType.BOOK_BAT_MORPH, Subspecies.BAT_MORPH);
 
 			} else if (city == 10) {
-				return bookResponse(ItemType.BOOK_IMP, Race.IMP);
+				return bookResponse(ItemType.BOOK_IMP, Subspecies.IMP);
 
 			} else if (city == 11) {
-				return bookResponse(ItemType.BOOK_SLIME, Race.SLIME);
+				return bookResponse(ItemType.BOOK_SLIME, Subspecies.SLIME);
 
 			} else if (city == 12) {
-				return bookResponse(ItemType.BOOK_RAT_MORPH, Race.RAT_MORPH);
+				return bookResponse(ItemType.BOOK_RAT_MORPH, Subspecies.RAT_MORPH);
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
@@ -557,19 +557,19 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int field) {
 			if (field == 1) {
-				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH);
 
 			} else if (field == 2) {
-				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+				return bookResponse(ItemType.BOOK_COW_MORPH, Subspecies.COW_MORPH);
 
 			} else if (field == 3) {
-				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Race.RABBIT_MORPH);
+				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Subspecies.RABBIT_MORPH);
 
 			} else if (field == 4) {
-				return bookResponse(ItemType.BOOK_FOX_MORPH, Race.FOX_MORPH);
+				return bookResponse(ItemType.BOOK_FOX_MORPH, Subspecies.FOX_MORPH);
 
 			} else if (field == 5) {
-				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
+				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Subspecies.REINDEER_MORPH);
 
 			} else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
@@ -732,8 +732,8 @@ public class Library {
 //	
 //	};
 	
-	private static Response bookResponse(AbstractItemType book, Race race) {
-		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)) {
+	private static Response bookResponse(AbstractItemType book, Subspecies subspecies) {
+		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override
 				public void effects() {

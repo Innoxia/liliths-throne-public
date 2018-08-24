@@ -6,22 +6,29 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -48,7 +55,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Ralph extends NPC {
@@ -75,40 +82,12 @@ public class Ralph extends NPC {
 	}
 	
 	public Ralph(boolean isImported) {
-		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
+		super(isImported, new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				34, Month.MAY, 17,
-				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
+				10, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
 		
 		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-			this.setHairStyle(HairStyle.LOOSE);
-	
-			this.setPenisVirgin(false);
-			
-			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
-			
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_IMPREGNATION);
-	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
-			
 			dailyReset();
 		}
 		
@@ -117,9 +96,126 @@ public class Ralph extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
 	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
+	
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_STORE_OWNER);
+	
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+		}
+		
+		// Body:
+
+		// Core:
+		this.setHeight(195);
+		this.setFemininity(5);
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		
+		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		this.setHairLength(HairLength.TWO_SHORT);
+		this.setHairStyle(HairStyle.LOOSE);
+
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.THREE_TRIMMED);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+		
+		// Face:
+		this.setFaceVirgin(true);
+		// Leave as default:
+//		this.setLipSize(LipSize.ONE_AVERAGE);
+//		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		// Throat settings and modifiers
+//		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		// Leave as default:
+//		this.setNippleVirgin(true);
+//		this.setBreastSize(CupSize.FLAT.getMeasurement());
+//		this.setBreastShape(BreastShape.ROUND);
+//		this.setNippleSize(NippleSize.ZERO_TINY);
+//		this.setAreolaeSize(AreolaeSize.ZERO_TINY);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(true);
+		this.setAssBleached(false);
+		// Leave as default:
+//		this.setAssSize(AssSize.TWO_SMALL);
+//		this.setHipSize(HipSize.TWO_NARROW);
+//		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
+//		this.setAssWetness(Wetness.ZERO_DRY);
+//		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
+//		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisSize(14);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
+		this.setPenisCumStorage(65);
+		this.fillCumToMaxStorage();
+		// Leave cum as normal value
+		
+		// Vagina:
+		// No vagina
+		
+		// Feet:
+		// Foot shape
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+
+		this.unequipAllClothingIntoVoid(true);
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
+
+	}
+
 
 	@Override
 	public boolean isUnique() {

@@ -733,26 +733,25 @@ public class InventoryTooltipEventListener implements EventListener {
 		// Core info:
 		tooltipSB.append("<div class='container-half-width titular' style='color:"+absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + " damage</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
-							+ (absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? "Primary Slot" : "Secondary Slot")
+							+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")
 						+ "</div>");
 		
-
 		
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
 		if (equippedToCharacter != null) {
 			tooltipSB.append("<b>"
-								+ Attack.getMinimumDamage(owner, null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+								+ Attack.getMinimumDamage(owner, null, Attack.MAIN, absWep)
 								+ " - "
-								+ Attack.getMaximumDamage(owner, null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+								+ Attack.getMaximumDamage(owner, null, Attack.MAIN, absWep)
 							+ "</b>"
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 		} else {
 			tooltipSB.append("<b>"
-								+ Attack.getMinimumDamage(Main.game.getPlayer(), null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+								+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep)
 								+ " - "
-								+ Attack.getMaximumDamage(Main.game.getPlayer(), null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+								+ Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep)
 							+ "</b>"
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 		}
@@ -782,7 +781,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		
 		// Picture:
 		tooltipSB.append("<div class='container-half-width' style='width:calc(33.3% - 16px);'>"
-						+ absWep.getSVGString()
+						+ (owner!=null && (absWep.equals(owner.getMainWeapon()) || absWep.equals(owner.getOffhandWeapon()))?absWep.getSVGEquippedString(owner):absWep.getSVGString())
 					+ "</div>");
 
 		tooltipSB.append("</div>");

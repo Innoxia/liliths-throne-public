@@ -56,9 +56,9 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -106,35 +106,7 @@ public class DominionAlleywayAttacker extends NPC {
 						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_TIGER:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_CARACAL:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_FOX:
-					case SLIME_FOX_FENNEC:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HARPY_BALD_EAGLE:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
-						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?15:0, gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
 						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
@@ -213,7 +185,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
@@ -237,7 +209,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
@@ -259,6 +231,16 @@ public class DominionAlleywayAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override

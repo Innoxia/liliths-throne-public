@@ -22,8 +22,6 @@ public enum TongueType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.TONGUE, Race.ANGEL, 1),
 
 	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON, 1, TongueModifier.BIFURCATED),
-	
-	IMP(BodyCoveringType.TONGUE, Race.IMP, 1, TongueModifier.BIFURCATED),
 
 	DOG_MORPH(BodyCoveringType.TONGUE, Race.DOG_MORPH, 1),
 
@@ -63,6 +61,16 @@ public enum TongueType implements BodyPartTypeInterface {
 		
 		this.defaultRacialTongueModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialTongueModifiers, defaultRacialTongueModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static TongueType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -111,8 +119,6 @@ public enum TongueType implements BodyPartTypeInterface {
 			case TENGU:
 				return UtilText.returnStringAtRandom("bird-like");
 			case BAT_MORPH:
-				break;
-			case IMP:
 				break;
 			case RAT_MORPH:
 				break;

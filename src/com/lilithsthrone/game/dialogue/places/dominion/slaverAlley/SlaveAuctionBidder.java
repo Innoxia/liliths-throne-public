@@ -10,30 +10,30 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.90
- * @version 0.1.90
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlaveAuctionBidder {
 
 	private String name;
-	private Subspecies race;
+	private Subspecies subspecies;
 	private Gender gender;
 	private List<String> biddingComments;
 	private List<String> failedBidComments;
 	private List<String> successfulBidComments;
 	
-	public SlaveAuctionBidder(Subspecies race, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
+	public SlaveAuctionBidder(Subspecies subspecies, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
 		super();
-		this.race = race;
+		this.subspecies = subspecies;
 		this.gender = gender;
 		this.biddingComments = biddingComments;
 		this.failedBidComments = failedBidComments;
 		this.successfulBidComments = successfulBidComments;
 		
 		if(gender.isFeminine()) {
-			name = race.getSingularFemaleName();
+			name = subspecies.getSingularFemaleName(null);
 		} else {
-			name = race.getSingularMaleName();
+			name = subspecies.getSingularMaleName(null);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class SlaveAuctionBidder {
 	}
 	
 	public Subspecies getRace() {
-		return race;
+		return subspecies;
 	}
 
 	public Gender getGender() {

@@ -6344,8 +6344,7 @@ public class ClothingType {
 							null, null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6408,8 +6407,7 @@ public class ClothingType {
 							null, null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6473,8 +6471,7 @@ public class ClothingType {
 							null),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6538,8 +6535,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6606,8 +6602,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6673,8 +6668,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6740,8 +6734,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6806,8 +6799,7 @@ public class ClothingType {
 							null),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -6879,8 +6871,7 @@ public class ClothingType {
 									InventorySlot.PIERCING_PENIS)),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
 									CoverableArea.PENIS,
@@ -7204,8 +7195,7 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(CoverableArea.ANUS),
 							null,
 							Util.newArrayListOfValues(InventorySlot.ANUS))),
@@ -11834,7 +11824,7 @@ public class ClothingType {
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
 										} catch(Exception ex) {
-											System.err.println("Loading modded clothing failed at 'ClothingType' Line 11685. File path: "+innerChild.getAbsolutePath());
+											System.err.println("Loading modded clothing failed at 'ClothingType' Code 1. File path: "+innerChild.getAbsolutePath());
 										}
 									}
 								}
@@ -11870,7 +11860,7 @@ public class ClothingType {
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
 										} catch(Exception ex) {
-											System.err.println("Loading modded clothing failed at 'ClothingType' Line 11728. File path: "+innerChild.getAbsolutePath());
+											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
 										}
 									}
 								}

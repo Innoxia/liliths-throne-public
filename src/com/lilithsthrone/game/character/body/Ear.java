@@ -103,33 +103,18 @@ public class Ear implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [pc.earFullDescriptionColour]."
-								+ "<br/>"
-								+ "You now have [style.boldDemon(pointed, demonic ears)]."
-							+ "</p>");
+							" They quickly shift into delicate, humanoid ears, with long, pointed tips, covered in [npc.earFullDescriptionColour]."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(pointed, demonic ears)]."
+						+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [npc.earFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldDemon(pointed, demonic ears)]."
-							+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [pc.earFullDescriptionColour]."
-								+ "<br/>"
-								+ "You now have [style.boldImp(pointed, impish ears)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [npc.earFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.Name] now has [style.boldImp(pointed, impish ears)]."
-							+ "</p>");
+							" They quickly shift into delicate, humanoid ears, with long, pointed tips, covered in [npc.earFullDescriptionColour]."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(pointed, impish ears)]."
+						+ "</p>");
 				}
 				break;
 			case DOG_MORPH: case DOG_MORPH_POINTED: case DOG_MORPH_FOLDED:

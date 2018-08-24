@@ -8,15 +8,6 @@
 	
 	Goals:
 	
-	Sex content improvements
-	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
-	- Add modding framework for sex actions.
-	- Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content
-	
-	Submission content
-	- Add an Imp gang attack.
-	- Adding in repeatable mini-quests for the Imp fortresses.
-	
 	Clothing todo:
 		Ribbons
 		Horn rings
@@ -24,7 +15,100 @@
 		Tail rings
 		Wing chains
 		Wing bindings
+		
+		
 	
+	- Alexa's romance quest. (Regal, arrogant attitude)
+		Talk about shop - She says business is tough - all the other shops are well established. Only has 3 slaves for sale. She reluctantly asks for help (mentioning she usually has servants do this thing for her)
+		Need to:
+		    Advertise store (or hire someone to do it through Finch)
+		    Rennovate frontage (or hire)
+		    Put posters up at the entrance (need to bribe/sex guards)
+		After you've finished and returned to Alexa, is is happy, and says come back in a week (once the effects will have taken root).
+		Upon return, Alexa has turned the shop into a luxury high-end slave shop, where customers order custom slaves
+		She has harpy assistants working for her
+			(if sold or freed Scarlett, she's there as a PA. If not, she offers to buy Scarlett back for 5000)
+		She says she owes you, and as payment, she'd give you the pleasure of letting you take her on a date (to a restaurant she specifies)
+		Can go on date to an upmarket restaurant beneath Harpy Nests (turns out Alexa owns it, and it's connected to her nest)
+		Use actions to increase affection. Can only increase by 25 per date.
+		Can then ask out on date once a week.
+		Once affection >=75, you can talk to Alexa about her sex life. She is very flustered and hesitantly admits that she's never had sex. (Believing herself to be too good for anyone)
+		You can take her up to her apartment and have sex with her.
+			 If arousal < 40, she needs you to be gentle, otherwise she ends it.
+			 If arousal < 80, she doesn't want rough, or she ends it.
+			 If arousal > 80, she wants anything.
+		If Scarlett as PA, you can make Scarlett watch, or convince Alexa to let Scarlett take her virginity.
+	
+	
+	- Add Axel's quest (will take place in the Rat Warren).
+		After met Roxy, can talk to Axel about Roxy's rudeness.
+			He says how she's the ex of Vengar, and he's been told to let her run her shop
+		Talk to Axel about Vengar
+			He says how he's being forced to pay protection money, like most of the other shops in Submission
+		Offer to help
+			Quest:
+				Vengar's Gang
+					Rat Warren
+					Entry
+						Say you're there to deliver Axel's monthly payment
+							Taken to Vengar or fight
+						Say you're a prostitute
+					Explore
+						Breeding den
+							Kidnapped humans
+						Card room
+							In day, rats are in here
+						Sleeping quarters
+							At night, rats are in here
+						Vengar's hall
+							Confront
+							Vengar offers you to join
+							Fight or join
+							If lose, taken to breeding den
+								Roxy visits and grows cock to impregnate you
+							If win, Vengar's strangehold is broken
+								Can then enslave him and Roxy
+						
+	- Roxy improvements
+		Add a variation of Roxy's encounter for if you cure yourself.
+		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
+		
+	
+	- Claire's quest (will include a way to have sex with her).
+		Can ask her about teleportation.
+		She is clearly already in deep trouble for having bragged about it, and begs you not to tell anyone in exchange for her demonstrating it to you.
+		Teleport platform is only meant to teleport one person, and the two of you end up being teleported into Enforcer HQ contraband storage (to an old multi-person platform that's in storage)
+		Both are stripped naked (like Lilaya did in intro).
+			Pick up teleport book from shelf
+			Claire says she will arrest you, then realises the situation you're both in
+		Need to sneak out.
+			Areas in warehouse:
+				Something lust related - makes you and Claire super horny
+				Weapons
+				Golden ark - can't open due to huge arcane-infused iron locks
+				Scrolls
+		Enforcer-guarded exit
+			If horny, can sex or tell Claire to sex
+			Fight without Claire
+				If win, escape
+				If lose, locked in stocks
+				
+				
+	- Add in modding framework for sex actions. 
+	
+	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
+	
+	- Add a way to buy Brax from Candi.
+		Simply offer to buy, and she sells him/her to you
+	
+	- Adding mod support for items and weapons.
+	
+	- Add Enforcer alleyway encounter
+		If human, forcibly search
+		Else, question, can lead into search
+		Fights end with locked in stocks
+	
+	- Main Quest content (with Lyssieth's palace).
 	
 	
 	
@@ -32,25 +116,87 @@
 	
 	Patch notes:
 	
+	Engine:
+		<b>Added:</b> weapon modding support. It works much the same way as clothing modding, and an example of how to make them can be found in the res/weapons/innoxia/dagger folder.
+	
+	Gameplay:
+		<b>Added:</b> Ability to enchant weapons.
+		<b>Added:</b> Demon's Dagger. Sold by Vicky.
+		Added feathered demonic wings as a TF option.
+		You now have access to the transformation menu in all post-combat scenes with demon or slime NPCs.
+		Expanded the recently added 'moving in' actions to be available for demons in alleyways, harpies in the harpy nest, and submission attackers. (Still need to add it for bat caverns and offspring...)
+		Slaves with 'Outside Freedom' and 'Use You' permissions enabled can now randomly ambush you in Dominion's streets.
+		You can now choose which slot weapons are equipped into, allowing you to dual-wield weapons. Also, functionality for weapons to be classed as two-handed has been added (only affects the zweihander and musket so far).
+	
+	Artwork:
+		Added Jam's artwork for Katherine & Kelly.
+	
+	Other:
+		Went over all unique NPCs' creation methods and made sure that they had the correct starting values for all body parts. Some of these NPCs might have slightly different appearances when you load in.
+		You now have management options available for friendly occupants who have moved out into an apartment.
+		You can now ask friendly occupants to transform, under the 'Manage' tab (if they are a demon or slime). Also moved the transform option to the 'Manage' tab for slaves.
+		Standardised all races' parts names, and removed Latin part names for all but canine, feline, equine, and bovine.
+		Changed race discovery tracking to subspecies tracking.
+		Debug mode now reveals all NPCs' concealed parts and clothing.
+		Slightly refined Angel's, Bunny's, and Loppy's appearance, and changed Bunny and Loppy from being twin sisters to Loppy being slightly older.
+		Horns are no longer counted towards calculating your race. (So, for example, you can now have a horned fox-morph that's still counted as 'greater'.)
+		Fixed slime subspecies code, so all subspecies are now available for slime NPCs to spawn in as.
+		Slightly improved random fetish desire generation, so NPCs with impregnation/pregnancy fetishes will no longer spawn in hating using/receiving cock.
+		Added slave dialogue variations for if they like being inspected or spanked.
+		Non-androphilic characters will no longer spawn disliking vagina or breasts, and non-gynephilic characters will no longer spawn disliking penises.
 	
 	Bugs:
-		Fixed errors in 'Seductive look' action.
-		Fixed issue where if you had a companion that was a slave that you imported through the Auction Block, the game would break.
-		Fixed not being able to penetrate partners vaginally when you're in the missionary (on your back) position.
-		Fixed tattoo defloration counters being reset each time you loaded a game.
-		Typo fixes.
+		Typo and parsing fixes.
+		Fixed storm attackers sometimes being able to be talked to after combat victory.
+		Fixed phone's map having white borders on all impassable tiles.
+		NPCs with a concealed race no longer have their race shown in the phone map's tooltips.
+		Fixed all tattoos being called 'tribal'.
+		Rose will now correctly prioritise penetrating your vagina or ass in her sex scene.
+		Fixed NPCs commenting on strap-on reveals twice.
+		Fixed UI issue in transformation dialogues where selecting buttons would change their size, sometimes making the buttons wrap around onto the next line.
+		Fixed Imp Essences not being able to be used by demons.
+		Fixed friendly occupants sometimes getting the job 'reindeer overseer'.
+		Fixed anal not being available in missionary position.
+		Dominant partners in the nightclub will no longer drink enough to pass out.
+		Kalahari now correctly returns to the bar after sex, fixing the cause of some errors.
+		Cultists and Kate will now correctly use your 'futa internal testicles' setting, instead of always spawning with internal testicles.
+		Fixed 'Lick balls' action being able to be performed on characters with internal testicles.
+		Fixed bug where sometimes the slave you were sending to Kate incorrectly ended up being the previous one you'd selected.
+		Fixed bug where your offspring would be described as being born thousands of days before they were conceived. (Any offspring with birthdays prior to their conception date, or with conception dates over 300 days prior to their birthday, have had their birthdays adjusted to be within two months after conception.)
+		Fixed not being able to feed an enslaved Scarlett any potions.
+		Fixed issue where virginity loss messages would display incorrect messages.
+		Fixed bug where trying to inspect an NPC (such as by clicking on their name) would throw a background error and not show their inspection screen.
+		Elementals no longer have a random job's perk in their perk tree.
+		Fixed dirty talk always returning the backup single-word lines, instead of penetration-specific ones.
+		Fixed steal spell not working if the enemy did not have a weapon and you have only advanced the steal spell to 'Disarm'.
+		You now actually escape when the game says 'All of your enemies are stunned, so you're easily able to escape!'.
+		Fixed bug where you wouldn't be able to displace underwear through unzipped legwear.
+		Alleyway attackers will no longer instantly disappear from canal crossing tiles.
+		NPCs will now correctly displace your clothing to get access to your dildo, if they want to use it in sex.
+		The 'Calm down' action's arousal loss should no longer be counteracted by your fetishes, which was causing this action to sometimes increase arousal instead of losing it.
+		Fixed orgasm denial not working if your partner had the non-con sub fetish in a non-con scene.
+		Fixed some issues with alleyway dialogue when you had a companion present.
+		Cum and precum no longer lubricates contacting sex areas through condoms.
+		Fixed stop kissing action returning incorrect pace-related descriptions.
+		Fixed incorrect reactions being returned for genital/breast reveals during sex.
+		Added descriptions for if you're wearing a condom in the 'Ass to mouth' orgasm action.
+		Sucking Jules's cock to gain quick entry to the nightclub is now correctly counted as public sex.
+		Fixed 'Resist kiss' action being duplicated and having incorrect tooltip text.
+		Fixed incorrect bow & arrow firing description.
+		Fixed Lilaya's first reaction to you being pregnant not being displayed.
+	
+	
+	PRs dev
+	
+	Irbynx PR
+	
+	Progress post
 	
 	
 	
 	
-	I noticed that attempting to "calm down" while in the "resisting" pace does not decrease arousal if the character has the noncon_sub fetish.
-	 Similarly, you cant deny your partner orgasms if they're in the resisting pace with the noncon_sub fetish. There might be something wonky with how arousal gets applied to non consenting characters.
 	
-	Orgasm cum targets make no sense in threesomes
-	
-	Also for some reason you cant pull down underwear after you unzip a character pants, is that intentional
-	
-	
+	Submission dialogue sorted
 	
 	Add wanted board to Enforcer HQ, where can import as attackers
 	
@@ -58,8 +204,58 @@
 	
 	Finish bat-morphs
 	
-	The Inspect and Spanking actions still say in the text that they reduce affection, even if the slave has the fetish that cause them to increase.
+	give the NPCs that can move in gifts, like the ones we can give Nyan
 	
+	- Imps
+		Adding Imp gang attacks and unique imp encounter descriptions.
+		Imps should be wearing loincloths
+		Need size difference sex
+		Encounters
+			Group
+			Solo
+		Fortresses
+			Respawning miniquests to clear
+			
+	Improve sex action descriptions.
+		- Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.
+	
+	Moving in content for all generic NPCs and offspring.
+		- Need to add it for: Bat Cavern attackers, and offspring.
+	
+	Mod support Items & Sex actions
+		
+		
+	
+	
+	
+	
+	
+	Fix cat icons
+
+	Need to add clothing tags for clothing generation
+	
+	Suggestion: Inability to tell anything about your glory hole partner, with the exception of the bimbo speech pattern.
+	
+	I scolded one many times, including it calling her a prostitute when she was a mugger. But I didn't see her changing or getting a real job.
+	
+	>Special clothing shop restock is still broken
+	So, to replicate the bug try putting clothing enchantments for cum storage set to hourly with a high goal and put them on random alleyway attackers, you should see the shops break reliably.
+	
+	java.lang.NullPointerException
+	at com.lilithsthrone.game.Game.getCharactersTreatingCellAsHome(Game.java:2568)
+	etc.
+	with the latest version? It doesn't seem to break anything, but the luft and down most square on the city map is bugged in that it is showing multiple inhabitants(the encounter there works as it should tough).
+	
+	Also it seems like prostitute encounters from earlier saves revert to the standard hostile encounter.
+	
+	Orgasm cum targets make no sense in threesomes
+	>A lot of sex text still referes to the wrong participants(you companion cums in a third party but the text refers you, etc.)
+	
+	
+	Need to add display buttons for fetishes
+		Fetishes
+		Compact bars
+		Compact status effects
 	
 	Affecting other cat subspecies:
 		Tigers are slipping past the filters.  I've got all the cat subspecies disabled, but tigers and tigresses are still spawning.
@@ -67,9 +263,6 @@
 	if you don't let a partner cum in The Watering Hole, they'll say the sex was disappointing even if they have the self-denial fetish
 	I noticed that those with a fetish or like/love for having their orgasms denied seem to say the same things as anyone else
 	
-	Fix cat icons
-	
-	After companion fucked, ending description is of them patting you on the head
 	
 	Need age settings and potions of age appearance
 	
@@ -408,29 +601,11 @@ my character is a guy, so this is super confusing lol
 	
 	Add attackers wanting multiple orgasms
 	
-	I will definitely be adding more interactions for Roxy. I definitely want to add a variation of her encounter for if you cure yourself, and she will be playing a part in Axel's quest when I add that. (Which will reveal why Axel tolerates her treating her customers so poorly.) ^^
-		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
-	
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
 		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
 		To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
 	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
 	
-		
-	[ ] Axel/Vengar quest done
-		Talk to Roxy
-		Talk to Axel about Roxy
-			He says how she's the ex of Vengar, and he's been told to let her run her shop
-		Talk to Axel about Vengar
-			He says how he's being forced to pay protection money, like most of the other shops in Submission
-		Offer to help
-			Quest:
-				Vengar's Gang
-					Rat Warren
-					Entry
-						Say you're there to deliver Axel's monthly payment
-						Say you're a prostitute
-						Smash down door
 					
 	[ ] Imp fortresses
 	

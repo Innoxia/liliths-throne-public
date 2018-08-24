@@ -491,8 +491,11 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().addClothing(craftedClothing, false);
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
 			
-		} else if(ingredient instanceof AbstractWeapon) { //TODO
+		} else if(ingredient instanceof AbstractWeapon) {
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
+			AbstractWeapon craftedWeapon = EnchantingUtils.craftWeapon(ingredient, effects);
+			Main.game.getPlayer().addWeapon(craftedWeapon, false);
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
 			
 		} else if(ingredient instanceof Tattoo) {
 			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
@@ -556,7 +559,8 @@ public class EnchantmentDialogue {
 		EnchantmentDialogue.tattooSlot = tattooSlot;
 		
 		if(ingredient instanceof AbstractClothing
-				|| ingredient instanceof Tattoo) {
+				|| ingredient instanceof Tattoo
+				|| ingredient instanceof AbstractWeapon) {
 			EnchantmentDialogue.effects = new ArrayList<>(ingredient.getEffects());
 			if (ingredient instanceof Tattoo && tattooBearer.getTattooInSlot(tattooSlot) == ingredient) {
 				EnchantmentDialogue.isEquipped = true;

@@ -11,14 +11,42 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Occupation {
 	
 	// Unique:
+	
+	ELEMENTAL(Perk.JOB_MISC, "elemental", "-", OccupationTag.HAS_PREREQUISITES),
 
-	REINDEER_OVERSEER(null, "overseer", "-"),
+	REINDEER_OVERSEER(Perk.JOB_MISC, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_HARPY_MATRIARCH(Perk.JOB_MISC, "harpy matriarch", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_MISC, "harpy flock member", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_ARCANE_RESEARCHER(Perk.JOB_MISC, "arcane researcher", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_HIGH_RANKING_ENFORCER(Perk.JOB_MISC, "Enforcer chief", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_SLAVER_ADMIN(Perk.JOB_MISC, "slaver administration staff", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_NIGHTCLUB_OWNER(Perk.JOB_MISC, "nightclub owner", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_CLOTHING_STORE_OWNER(Perk.JOB_MISC, "clothing store owner", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_GYM_OWNER(Perk.JOB_MISC, "gym owner", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_STORE_OWNER(Perk.JOB_MISC, "store owner", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_CASINO_OWNER(Perk.JOB_MISC, "casino owner", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_EPONA(Perk.JOB_MISC, "pregnancy roulette manager", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_SLIME_QUEEN(Perk.JOB_MISC, "slime queen", "-", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_SLIME_QUEEN_GUARD(Perk.JOB_MISC, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	// NPC histories:
 
@@ -69,14 +97,14 @@ public enum Occupation {
 	NPC_MUGGER(Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions.", OccupationTag.LOWLIFE),
 	
 	NPC_CONSTRUCTION_WORKER(Perk.JOB_MISC, "construction worker", "-"),
+
+	NPC_BOUNCER(Perk.JOB_MISC, "bouncer", "-"),
 	
 	NPC_MECHANIC(Perk.JOB_MISC, "mechanic", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_TEACHER(Perk.JOB_MISC, "teacher", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ENFORCER(Perk.JOB_MISC, "enforcer", "-"),
-	
-//	NPC_HIGH_RANKING_ENFORCER(false, false, Perk.JOB_MISC, "enforcer chief", "-"),
 	
 	// Analytical personality:
 
@@ -91,8 +119,6 @@ public enum Occupation {
 	NPC_ARCHITECT(Perk.JOB_MISC, "architect", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_DOCTOR(Perk.JOB_MISC, "doctor", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_ARCANE_RESEARCHER(Perk.JOB_MISC, "arcane researcher", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	
 	// Calm personality:

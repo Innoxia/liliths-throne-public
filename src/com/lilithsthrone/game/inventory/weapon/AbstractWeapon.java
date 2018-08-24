@@ -2,14 +2,15 @@ package com.lilithsthrone.game.inventory.weapon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -19,8 +20,14 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -28,7 +35,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable, XMLSaving {
@@ -36,6 +43,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	private AbstractWeaponType weaponType;
+	protected List<ItemEffect> effects;
+	
 	private DamageType damageType;
 	private Attribute coreEnchantment;
 	private List<Spell> spells;
@@ -43,7 +52,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private Colour secondaryColour;
 
 	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
-		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
+		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), null);
 		
 		this.weaponType = weaponType;
 		damageType = dt;
@@ -57,11 +66,55 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		if (weaponType.getGenerationSpells(damageType) != null) {
 			this.spells.addAll(weaponType.getGenerationSpells(damageType));
 		}
-		
-		if(weaponType.getGenerationAttributeModifiers(damageType)!=null) {
-			for(Entry<Attribute, Integer> e : weaponType.getGenerationAttributeModifiers(damageType).entrySet()) {
-				this.getAttributeModifiers().putIfAbsent(e.getKey(), 0);
-				this.getAttributeModifiers().put(e.getKey(), this.getAttributeModifiers().get(e.getKey())+e.getValue());
+
+		this.effects = new ArrayList<>();
+		if(weaponType.getEffects()!=null) {
+			for(ItemEffect effect : weaponType.getEffects()) {
+				if(effect.getSecondaryModifier()==TFModifier.DAMAGE_WEAPON) {
+					switch(damageType) {
+						case FIRE:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case ICE:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case LUST:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case MISC:
+							break;
+						case PHYSICAL:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case POISON:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_POISON, TFPotency.MAJOR_BOOST, 0));
+							break;
+					}
+					
+				} else if(effect.getSecondaryModifier()==TFModifier.RESISTANCE_WEAPON) {
+					switch(damageType) {
+						case FIRE:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case ICE:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case LUST:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case MISC:
+							break;
+						case PHYSICAL:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
+							break;
+						case POISON:
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.MAJOR_BOOST, 0));
+							break;
+					}
+					
+				} else {
+					this.effects.add(effect);
+				}
 			}
 		}
 		
@@ -123,17 +176,13 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		
-		Element attributeElement = doc.createElement("attributeModifiers");
-		element.appendChild(attributeElement);
-		for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
-			Element modifier = doc.createElement("modifier");
-			attributeElement.appendChild(modifier);
-			
-			CharacterUtils.addAttribute(doc, modifier, "attribute", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, modifier, "value", String.valueOf(entry.getValue()));
+		Element innerElement = doc.createElement("effects");
+		element.appendChild(innerElement);
+		for(ItemEffect ie : this.getEffects()) {
+			ie.saveAsXML(innerElement, doc);
 		}
 		
-		Element innerElement = doc.createElement("spells");
+		innerElement = doc.createElement("spells");
 		element.appendChild(innerElement);
 		for(Spell s : this.getSpells()) {
 			Element spell = doc.createElement("spell");
@@ -160,20 +209,26 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
 		} catch(Exception ex) {
 		}
-		
-		weapon.setAttributeModifiers(new HashMap<Attribute, Integer>());
-		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-		NodeList modifierElements = element.getElementsByTagName("modifier");
-		for(int i=0; i<modifierElements.getLength(); i++){
-			Element e = ((Element)modifierElements.item(i));
+
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			try {
-				weapon.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+				weapon.getEffects().clear();
+				
+				Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
+				NodeList effectElements = element.getElementsByTagName("effect");
+				for(int i=0; i<effectElements.getLength(); i++){
+					Element e = ((Element)effectElements.item(i));
+					ItemEffect ie = ItemEffect.loadFromXML(e, doc);
+					if(ie!=null) {
+						weapon.addEffect(ie);
+					}
+				}
 			} catch(Exception ex) {
 			}
 		}
 		
 		weapon.spells = new ArrayList<>();
-		element = (Element)parentElement.getElementsByTagName("spells").item(0);
+		Element element = (Element)parentElement.getElementsByTagName("spells").item(0);
 		NodeList spellElements = element.getElementsByTagName("spell");
 		for(int i=0; i<spellElements.getLength(); i++){
 			Element e = ((Element)spellElements.item(i));
@@ -211,13 +266,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	
 	public String getDescription() {
 		descriptionSB = new StringBuilder();
-
+		
 		descriptionSB.append(
 					"<p>"
 						+ "<b>"
-							+ Attack.getMinimumDamage(Main.game.getPlayer(), null, this.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, this)
-							+ "-"
-							+ Attack.getMaximumDamage(Main.game.getPlayer(), null, this.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, this)
+							+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)
 						+ "</b>"
 						+ " <b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 							+ damageType.getName()
@@ -333,6 +386,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
 	}
 
+	public String getSVGEquippedString(GameCharacter owner) {
+		return weaponType.getSVGEquippedImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
+	}
+
 	public List<Spell> getSpells() {
 		return spells;
 	}
@@ -355,6 +412,57 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	
 	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
 		return this.getWeaponType().applyExtraEfects(user, target, isHit);
+	}
+	
+
+	@Override
+	public List<ItemEffect> getEffects() {
+		return effects;
+	}
+	
+	public void setEffects(List<ItemEffect> effects) {
+		this.effects = effects;
+	}
+
+	public void addEffect(ItemEffect effect) {
+		effects.add(effect);
+	}
+	
+	@Override
+	public Map<Attribute, Integer> getAttributeModifiers() {
+		attributeModifiers.clear();
+		
+		for(ItemEffect ie : getEffects()) {
+			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
+					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
+				} else {
+					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), ie.getPotency().getClothingBonusValue());
+				}
+			}
+		}
+		
+		return attributeModifiers;
+	}
+	
+	@Override
+	public int getEnchantmentLimit() {
+		return weaponType.getEnchantmentLimit();
+	}
+	
+	@Override
+	public AbstractItemEffectType getEnchantmentEffect() {
+		return weaponType.getEnchantmentEffect();
+	}
+	
+	@Override
+	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
+		return weaponType.getEnchantmentItemType(effects);
+	}
+	
+	@Override
+	public TFEssence getRelatedEssence() {
+		return weaponType.getRelatedEssence();
 	}
 
 }

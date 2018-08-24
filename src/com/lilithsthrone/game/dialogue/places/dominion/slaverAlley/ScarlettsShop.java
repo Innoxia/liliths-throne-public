@@ -162,7 +162,7 @@ public class ScarlettsShop {
 						public void effects() {
 							Main.game.getAlexa().addSlave(Main.game.getScarlett());
 							Main.game.getScarlett().setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
-							Main.game.getScarlett().resetInventory();
+							Main.game.getScarlett().resetInventory(true);
 							AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getScarlett().equipClothingFromNowhere(collar, true, Main.game.getAlexa());
@@ -384,7 +384,7 @@ public class ScarlettsShop {
 					collar.setSealed(false);
 					Main.game.getScarlett().unequipClothingIntoVoid(collar, true, Main.game.getAlexa());
 					
-					((Scarlett) Main.game.getScarlett()).getDressed();
+					((Scarlett) Main.game.getScarlett()).equipClothing(true, false, false);
 					
 					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());

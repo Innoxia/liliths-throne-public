@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum BodyCoveringType {
@@ -60,12 +60,20 @@ public enum BodyCoveringType {
 	DEMON_COMMON(BodyCoveringTemplateFactory.createTopSkin(
 			Util.newArrayListOfValues(CoveringPattern.NONE),
 			Colour.demonSkinColours)),
-	
-	IMP(BodyCoveringTemplateFactory.createTopSkin(
+
+	DEMON_FEATHER("a layer of",
+			true,
+			"feathers",
+			"feather",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
 			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Colour.demonSkinColours)),
-
-
+			CoveringPattern.allHairCoveringPatterns,
+			Util.newArrayListOfValues(Colour.COVERING_BLACK),
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours),
+			Util.newArrayListOfValues(Colour.COVERING_BLACK),
+			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours)),
+	
 	BAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(Colour.humanSkinColours)),
 	
 	BAT_FUR(BodyCoveringTemplateFactory.createFurSkin(
@@ -322,8 +330,6 @@ public enum BodyCoveringType {
 
 	HAIR_DEMON(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SILKEN)),
 
-	HAIR_IMP(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SILKEN)),
-	
 	HAIR_CANINE_FUR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.FURRY)),
 
 	HAIR_LYCAN_FUR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.FURRY)),
@@ -367,8 +373,6 @@ public enum BodyCoveringType {
 	BODY_HAIR_ANGEL(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.SILKEN)),
 
 	BODY_HAIR_DEMON(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.SILKEN)),
-
-	BODY_HAIR_IMP(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.SILKEN)),
 
 	BODY_HAIR_CANINE_FUR(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.FURRY)),
 
@@ -442,9 +446,6 @@ public enum BodyCoveringType {
 	EYE_DEMON_COMMON(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
 			Colour.naturalDemonIrisColours, Colour.dyeDemonIrisColours)),
 
-	EYE_IMP(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalDemonIrisColours, Colour.dyeDemonIrisColours)),
-	
 	EYE_DOG_MORPH(BodyCoveringTemplateFactory.createEyeIrises()),
 
 	EYE_LYCAN(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
@@ -1003,6 +1004,25 @@ public enum BodyCoveringType {
 		}
 	}
 
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static BodyCoveringType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+			
+		} else if(value.equals("HAIR_IMP")) {
+			value = "HAIR_DEMON";
+			
+		} else if(value.equals("BODY_HAIR_IMP")) {
+			value = "BODY_HAIR_DEMON";
+			
+		} else if(value.equals("EYE_IMP")) {
+			value = "EYE_DEMON_COMMON";
+		}
+		return valueOf(value);
+	}
+	
 	public String getDeterminer(GameCharacter gc) {
 		return determiner;
 	}

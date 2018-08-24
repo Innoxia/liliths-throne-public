@@ -78,7 +78,7 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 			
 		} else {
 			try {
-				fluidType = FluidType.valueOf(cum.getAttribute("type"));
+				fluidType = FluidType.getTypeFromString(cum.getAttribute("type"));
 			} catch(Exception ex) {
 			}
 		}

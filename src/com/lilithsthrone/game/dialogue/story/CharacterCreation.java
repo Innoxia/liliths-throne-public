@@ -25,9 +25,9 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -59,7 +59,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -326,7 +326,7 @@ public class CharacterCreation {
 	}
 	
 	public static void getDressed(GameCharacter character, boolean spawnClothingOnFloor) {
-		character.resetInventory();
+		character.resetInventory(false);
 		Main.game.getPlayerCell().resetInventory();
 		
 		equipPiercings();
@@ -1197,6 +1197,7 @@ public class CharacterCreation {
 						public void effects() {
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							CharacterModificationUtils.tattoo.setName(CharacterModificationUtils.tattoo.getType().getName());
 							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
 						}
 					};
@@ -1746,7 +1747,7 @@ public class CharacterCreation {
 	};
 
 	private static void applyGameStart() {
-		Main.getProperties().addRaceDiscovered(Race.HUMAN);
+		Main.getProperties().addRaceDiscovered(Subspecies.HUMAN);
 		
 		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
@@ -1764,8 +1765,8 @@ public class CharacterCreation {
 		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
 		
-		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
-		Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
+		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getSubspecies());
+		Main.getProperties().addRaceDiscovered(Main.game.getRose().getSubspecies());
 
 		moveNPCOutOfPlayerTile();
 		Main.game.setPrologueFinished(true);

@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
@@ -51,9 +50,9 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				10, gender, RacialBody.REINDEER_MORPH, RaceStage.GREATER,
+				10, gender, Subspecies.REINDEER_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
@@ -64,41 +63,18 @@ public class ReindeerOverseer extends NPC {
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			Subspecies species = Subspecies.REINDEER_MORPH;
+			Subspecies subspecies = Subspecies.REINDEER_MORPH;
 				
 			if(gender.isFeminine()) {
-				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
-					case HUMAN: case MINIMUM:
-						setBodyFromPreferences(1, gender, species);
-						break;
-					case REDUCED:
-						setBodyFromPreferences(2, gender, species);
-						break;
-					case NORMAL:
-						setBodyFromPreferences(3, gender, species);
-						break;
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-				}
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
+				setBody(gender, subspecies, stage);
+				
 			} else {
-				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
-					case HUMAN: case MINIMUM:
-						setBodyFromPreferences(1, gender, species);
-						break;
-					case REDUCED:
-						setBodyFromPreferences(2, gender, species);
-						break;
-					case NORMAL:
-						setBodyFromPreferences(3, gender, species);
-						break;
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-				}
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
+				setBody(gender, subspecies, stage);
 			}
 
-			setName(Name.getRandomTriplet(species.getRace()));
+			setName(Name.getRandomTriplet(subspecies.getRace()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -115,7 +91,7 @@ public class ReindeerOverseer extends NPC {
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			
 			CharacterUtils.equipClothing(this, true, false);
@@ -131,6 +107,16 @@ public class ReindeerOverseer extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		// Not needed
 	}
 	
 	@Override

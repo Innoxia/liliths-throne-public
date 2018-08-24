@@ -13,7 +13,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum EyeType implements BodyPartTypeInterface {
@@ -24,8 +24,6 @@ public enum EyeType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.EYE_COW_MORPH, Race.COW_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
 	DEMON_COMMON(BodyCoveringType.EYE_DEMON_COMMON, Race.DEMON, 1, EyeShape.ROUND, EyeShape.VERTICAL),
-
-	IMP(BodyCoveringType.EYE_IMP, Race.IMP, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
 	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
@@ -65,6 +63,16 @@ public enum EyeType implements BodyPartTypeInterface {
 		this.pupilShape = pupilShape;
 	}
 
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static EyeType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
+	}
+
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "a pair of";
@@ -96,8 +104,6 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
@@ -122,46 +128,6 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("rabbit-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("bat-like");
-		}
-		return "";
-	}
-	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel-like";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "avian";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case LYCAN:
-				return "lupine";
-			case FOX_MORPH:
-				return "vulpine";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case BAT_MORPH:
-				return "bat";
 		}
 		return "";
 	}

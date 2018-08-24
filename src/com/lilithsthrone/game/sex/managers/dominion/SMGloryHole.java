@@ -100,9 +100,9 @@ public class SMGloryHole extends SexManagerDefault {
 						"The crowd cheers you on as you carry on servicing the glory holes.",
 						"The crowd laughs and cheers as you carry on acting like a desperate slut in front of them.",
 						"Several members of the crowd shout and cheer as you carry on servicing the glory holes.",
-						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularFemaleName()))+" "+subspecies.getSingularFemaleName()+" steps forwards,"
+						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularFemaleName(null)))+" "+subspecies.getSingularFemaleName(null)+" steps forwards,"
 								+ " stroking her exposed cock as she suddenly cums all over the floor in front of you.",
-						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularMaleName()))+" "+subspecies.getSingularMaleName()+" steps forwards,"
+						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularMaleName(null)))+" "+subspecies.getSingularMaleName(null)+" steps forwards,"
 								+ " stroking his exposed cock as he suddenly cums all over the floor in front of you."))
 			+"</p>";
 	}

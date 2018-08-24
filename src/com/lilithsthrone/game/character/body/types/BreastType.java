@@ -12,12 +12,10 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
- * BreastType is only really a change of nipple type. Breasts always look
- * human-like. Don't use SkinType for Breasts. Instead, use the character's main
- * body skin.
+ * BreastType should only influence a character's milk type.
  * 
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum BreastType implements BodyPartTypeInterface {
@@ -27,8 +25,6 @@ public enum BreastType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(NippleType.DEMON_COMMON, FluidType.MILK_DEMON_COMMON, BodyCoveringType.DEMON_COMMON, Race.DEMON),
 	
-	IMP(NippleType.IMP, FluidType.MILK_IMP, BodyCoveringType.IMP, Race.IMP),
-
 	DOG_MORPH(NippleType.DOG_MORPH, FluidType.MILK_DOG_MORPH, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
 	WOLF_MORPH(NippleType.WOLF_MORPH, FluidType.MILK_WOLF_MORPH, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
@@ -65,6 +61,16 @@ public enum BreastType implements BodyPartTypeInterface {
 		this.fluidType = fluidType;
 		this.skinType = skinType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static BreastType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -136,46 +142,6 @@ public enum BreastType implements BodyPartTypeInterface {
 
 	public FluidType getFluidType() {
 		return fluidType;
-	}
-	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "furry";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "feathered";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case WOLF_MORPH:
-				return "lupine";
-			case FOX_MORPH:
-				return "vulpine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-		}
-		return "";
 	}
 	
 	private static Map<Race, List<BreastType>> typesMap = new HashMap<>();

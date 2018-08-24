@@ -29,7 +29,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
@@ -48,7 +47,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Properties implements Serializable {
@@ -103,7 +102,8 @@ public class Properties implements Serializable {
 	private Set<AbstractItemType> itemsDiscovered;
 	private Set<AbstractWeaponType> weaponsDiscovered;
 	private Set<AbstractClothingType> clothingDiscovered;
-	private Set<Race> racesDiscovered, racesAdvancedKnowledge;
+	private Set<Subspecies> subspeciesDiscovered;
+	private Set<Subspecies> subspeciesAdvancedKnowledge;
 
 	public Properties() {
 		hotkeyMapPrimary = new EnumMap<>(KeyboardAction.class);
@@ -158,8 +158,8 @@ public class Properties implements Serializable {
 		itemsDiscovered = new HashSet<>();
 		weaponsDiscovered = new HashSet<>();
 		clothingDiscovered = new HashSet<>();
-		racesDiscovered = new HashSet<>();
-		racesAdvancedKnowledge = new HashSet<>();
+		subspeciesDiscovered = new HashSet<>();
+		subspeciesAdvancedKnowledge = new HashSet<>();
 		
 		values = new HashSet<>();
 		
@@ -409,20 +409,20 @@ public class Properties implements Serializable {
 			
 			Element racesDiscovered = doc.createElement("racesDiscovered");
 			properties.appendChild(racesDiscovered);
-			for (Race race : Race.values()) {
+			for (Subspecies subspecies : Subspecies.values()) {
 				Element element = doc.createElement("raceDiscovery");
 				racesDiscovered.appendChild(element);
 				
 				Attr discovered = doc.createAttribute("race");
-				discovered.setValue(race.toString());
+				discovered.setValue(subspecies.toString());
 				element.setAttributeNode(discovered);
 				
 				discovered = doc.createAttribute("discovered");
-				discovered.setValue(String.valueOf(this.racesDiscovered.contains(race)));
+				discovered.setValue(String.valueOf(this.subspeciesDiscovered.contains(subspecies)));
 				element.setAttributeNode(discovered);
 				
 				discovered = doc.createAttribute("advancedKnowledge");
-				discovered.setValue(String.valueOf(this.racesAdvancedKnowledge.contains(race)));
+				discovered.setValue(String.valueOf(this.subspeciesAdvancedKnowledge.contains(subspecies)));
 				element.setAttributeNode(discovered);
 			}
 			
@@ -768,7 +768,7 @@ public class Properties implements Serializable {
 						if(!e.getAttribute("discovered").isEmpty()) {
 							if(Boolean.valueOf(e.getAttribute("discovered"))) {
 								try {
-									this.racesDiscovered.add(Race.valueOf(e.getAttribute("race")));
+									this.subspeciesDiscovered.add(Subspecies.valueOf(e.getAttribute("race")));
 								} catch(Exception ex) {
 								}
 							}
@@ -776,7 +776,7 @@ public class Properties implements Serializable {
 						if(!e.getAttribute("advancedKnowledge").isEmpty()) {
 							if(Boolean.valueOf(e.getAttribute("advancedKnowledge"))) {
 								try {
-									this.racesAdvancedKnowledge.add(Race.valueOf(e.getAttribute("race")));
+									this.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getAttribute("race")));
 								} catch(Exception ex) {
 								}
 							}
@@ -840,29 +840,29 @@ public class Properties implements Serializable {
 		return weaponsDiscovered.contains(weaponType);
 	}
 	
-	public boolean addRaceDiscovered(Race race) {
-		if(racesDiscovered.add(race)) {
-			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName(), race.getColour()), true);
+	public boolean addRaceDiscovered(Subspecies subspecies) {
+		if(subspeciesDiscovered.add(subspecies)) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null), subspecies.getColour(null)), true);
 			setValue(PropertyValue.newRaceDiscovered, true);
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean isRaceDiscovered(Race race) {
-		return racesDiscovered.contains(race);
+	public boolean isRaceDiscovered(Subspecies subspecies) {
+		return subspeciesDiscovered.contains(subspecies);
 	}
 	
-	public boolean addAdvancedRaceKnowledge(Race race) {
-		boolean added = racesAdvancedKnowledge.add(race);
+	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
+		boolean added = subspeciesAdvancedKnowledge.add(subspecies);
 		if(added) {
-			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName()+" (Advanced)", race.getColour()), true);
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null)+" (Advanced)", subspecies.getColour(null)), true);
 		}
 		return added;
 	}
 	
-	public boolean isAdvancedRaceKnowledgeDiscovered(Race race) {
-		return racesAdvancedKnowledge.contains(race);
+	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
+		return subspeciesAdvancedKnowledge.contains(subspecies);
 	}
 	
 	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {

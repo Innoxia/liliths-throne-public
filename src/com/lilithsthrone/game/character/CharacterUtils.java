@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -84,6 +85,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -204,7 +206,7 @@ public class CharacterUtils {
 	}
 	
 	public static PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -234,6 +236,25 @@ public class CharacterUtils {
 		return importedCharacter;
 	}
 	
+	public static RaceStage getRaceStageFromPreferences(FurryPreference preference, Gender gender, Subspecies species) {
+
+		RaceStage raceStage = RaceStage.PARTIAL;
+		
+		switch(preference) {
+			case HUMAN:
+				return RaceStage.HUMAN;
+			case MINIMUM:
+				return RaceStage.PARTIAL;
+			case REDUCED:
+				return Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER));
+			case NORMAL:
+				return Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER, RaceStage.GREATER));
+			case MAXIMUM:
+				return RaceStage.GREATER;
+		}
+		
+		return raceStage;
+	}
 	
 	public static Body generateBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
 		RacialBody startingBodyType = RacialBody.HUMAN;
@@ -871,6 +892,84 @@ public class CharacterUtils {
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
+		boolean isSlime = false;
+		
+		if(species == Subspecies.SLIME) {
+			isSlime = true;
+			List<Subspecies> slimeSubspecies = new ArrayList<>();
+			// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
+			for(Subspecies subspecies : Subspecies.values()) {
+				switch(subspecies) { //TODO
+					case ALLIGATOR_MORPH:
+					case ANGEL:
+					case BAT_MORPH:
+					case CAT_MORPH:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LION:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_TIGER:
+					case COW_MORPH:
+					case DEMON:
+					case DOG_MORPH:
+					case DOG_MORPH_BORDER_COLLIE:
+					case DOG_MORPH_DOBERMANN:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case HARPY:
+					case HARPY_BALD_EAGLE:
+					case HARPY_RAVEN:
+					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
+					case HUMAN:
+					case IMP:
+					case IMP_ALPHA:
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+					case RAT_MORPH:
+					case REINDEER_MORPH:
+					case SQUIRREL_MORPH:
+					case WOLF_MORPH:
+						if(startingGender.isFeminine()) {
+							for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+								if(entry.getValue() != FurryPreference.HUMAN) {
+									slimeSubspecies.add(subspecies);
+								}
+							}
+						} else {
+							for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+								if(entry.getValue() != FurryPreference.HUMAN) {
+									slimeSubspecies.add(subspecies);
+								}
+							}
+						}
+						break;
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+					case SLIME:
+						break;
+				}
+			}
+			
+			species = Util.randomItemFrom(slimeSubspecies);
+			
+			if(startingGender.isFeminine()) {
+				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
+				
+			} else {
+				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), startingGender, species);
+			}
+			
+			startingBodyType = RacialBody.valueOfRace(species.getRace());
+			
+		}
 		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
@@ -935,9 +1034,9 @@ public class CharacterUtils {
 						: new Penis(PenisType.NONE, 0, 0, 0, 0, 2))
 				.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 				.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
-				.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
+				.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
 				.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
-				.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
+				.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 				.build();
 		
 		if(body.getPenis().getType()!=PenisType.NONE
@@ -957,6 +1056,9 @@ public class CharacterUtils {
 		if(species!=null) {
 			body.calculateRace();
 			species.applySpeciesChanges(body);
+			if(isSlime) {
+				Subspecies.SLIME.applySpeciesChanges(body);
+			}
 			body.calculateRace();
 		}
 		
@@ -1052,11 +1154,11 @@ public class CharacterUtils {
 		
 		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE));
 		
-		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE));
+		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE));
 		
 		body.setTentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE));
 		
-		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
+		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
 		
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
@@ -1181,7 +1283,7 @@ public class CharacterUtils {
 		}
 		
 		// Penis:
-		if(character.hasPenis() || character.getRace()==Race.DEMON || character.getRace()==Race.IMP) {
+		if(character.hasPenis() || character.getRace()==Race.DEMON) {
 			character.setPenisVirgin(true);
 			if(Math.random()>0.15f
 					|| character.getHistory()==Occupation.NPC_PROSTITUTE
@@ -1483,30 +1585,52 @@ public class CharacterUtils {
 		int numberOfNegativeDesires = Util.randomItemFrom(negDesireProb);
 		
 		int desiresAssigned = 0;
+		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes());
 		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
 			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
+			fetishesLiked.add(f);
+			desiresAssigned++;
+		}
+
+		// Related fetishes cannot be liked and disliked at the same time:
+		for(Fetish f : fetishesLiked) {
 			switch(f) {
 				default:
 					break;
-				// Related fetishes cannot be liked and disliked at the same time:
+				case FETISH_VAGINAL_RECEIVING:
+					availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
+					break;
+				case FETISH_VAGINAL_GIVING:
+					availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
+					break;
 				case FETISH_PREGNANCY:
 					availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
+					availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
+					availableFetishes.remove(Fetish.FETISH_CUM_ADDICT);
 					break;
 				case FETISH_IMPREGNATION:
 					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
+					availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
+					availableFetishes.remove(Fetish.FETISH_CUM_STUD);
 					break;
 				case FETISH_NON_CON_SUB:
 					availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
 					break;
 			}
-			desiresAssigned++;
 		}
 		
 		desiresAssigned = 0;
 		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers like raping
 			availableFetishes.remove(Fetish.FETISH_NON_CON_DOM);
+		}
+		if(character.getSexualOrientation()!=SexualOrientation.GYNEPHILIC) {
+			availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
+		}
+		if(character.getSexualOrientation()!=SexualOrientation.ANDROPHILIC) {
+			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
+			availableFetishes.remove(Fetish.FETISH_BREASTS_OTHERS);
 		}
 		
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3

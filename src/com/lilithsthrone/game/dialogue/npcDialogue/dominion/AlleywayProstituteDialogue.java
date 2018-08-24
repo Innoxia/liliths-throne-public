@@ -626,7 +626,7 @@ public class AlleywayProstituteDialogue {
 							+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once [npc.sheIs] had [npc.her] fun with you.</i>"
+							+ "<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once [npc.sheHas] had [npc.her] fun with you.</i>"
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),

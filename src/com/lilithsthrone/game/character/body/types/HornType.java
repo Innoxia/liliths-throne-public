@@ -9,8 +9,9 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
+ * 
  * @since 0.1.0
- * @version 0.1.95
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum HornType implements BodyPartTypeInterface {
@@ -27,7 +28,7 @@ public enum HornType implements BodyPartTypeInterface {
 	SWEPT_BACK("swept-back", BodyCoveringType.HORN, Race.DEMON),
 	STRAIGHT("straight", BodyCoveringType.HORN, Race.DEMON);
 	
-	//TODO if add any more, add more TFModifiers for enchanting
+	//TODO If any more horn types are added, check to see that the potion TFs still work. (5 might be the maximum.)
 	
 	private BodyCoveringType skinType;
 	private Race race;
@@ -35,6 +36,13 @@ public enum HornType implements BodyPartTypeInterface {
 	private HornType(String descriptor, BodyCoveringType skinType, Race race) {
 		this.skinType = skinType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static HornType getTypeFromString(String value) {
+		return valueOf(value);
 	}
 
 	@Override
@@ -87,7 +95,8 @@ public enum HornType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case NONE:

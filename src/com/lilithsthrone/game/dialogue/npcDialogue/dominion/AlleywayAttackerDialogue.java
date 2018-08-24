@@ -16,6 +16,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -732,6 +733,17 @@ public class AlleywayAttackerDialogue {
 						};
 					}
 					
+				} else if (index == 8 && getMugger().isAbleToSelfTransform()) {
+					return new Response("Transform [npc.herHim]",
+							"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(getMugger());
+						}
+					};
+					
 				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
 							"Remove character",
@@ -843,6 +855,17 @@ public class AlleywayAttackerDialogue {
 							}
 						};
 					}
+					
+				} else if (index == 8 && getMugger().isAbleToSelfTransform()) {
+					return new Response("Transform [npc.herHim]",
+							"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(getMugger());
+						}
+					};
 					
 				} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response(
@@ -1227,7 +1250,6 @@ public class AlleywayAttackerDialogue {
 
 		@Override
 		public String getContent() {
-
 			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {

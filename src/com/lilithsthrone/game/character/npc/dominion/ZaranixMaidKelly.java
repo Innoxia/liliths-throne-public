@@ -5,27 +5,49 @@ import java.time.Month;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -49,7 +71,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.11
  * @author Innoxia
  */
 public class ZaranixMaidKelly extends NPC {
@@ -59,83 +81,149 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	public ZaranixMaidKelly(boolean isImported) {
-		super(new NameTriplet("Kelly"),
+		super(isImported, new NameTriplet("Kelly"),
 				"One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.",
 				26, Month.SEPTEMBER, 20,
-				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
-		
-		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_BLUE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-			this.setHairStyle(HairStyle.STRAIGHT);
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_IVORY), true);
-	
-			this.setHornType(HornType.CURLED);
-			
-			this.setLegType(LegType.DEMON_COMMON);
-			
-			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_MASOCHIST);
-
-			this.setVaginaVirgin(false);
-			this.setAssVirgin(false);
-			this.setFaceVirgin(false);
-			this.setNippleVirgin(false);
-			this.setPenisVirgin(false);
-	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
-		}
-	}
-	
-	@Override
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+				10, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
 
 		this.setPlayerKnowsName(true);
 		
-		this.setLegType(LegType.DEMON_COMMON);
-		
-		if(this.getMainWeapon()==null) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
-		}
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.setDescription("One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.");
 	}
 
-	public void resetBody() {
-		this.setBody(Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER);
-
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_BLUE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		this.setHairStyle(HairStyle.STRAIGHT);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_IVORY), true);
-
-		this.setHornType(HornType.CURLED);
+	@Override
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
+		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
+	
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_MAID);
+	
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+		}
+		
+		
+		// Body:
+		// Add full body reset as this method is called after leaving Zaranix's house:
+		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+		this.setTailType(TailType.DEMON_COMMON);
+		this.setWingType(WingType.NONE);
+		this.setLegType(LegType.DEMON_COMMON);
+		this.setHornType(HornType.CURLED);
+
+		// Core:
+		this.setHeight(180);
+		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		
+		// Coverings:
+
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_PURPLE));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_IVORY), true);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.COVERING_WHITE), false);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		this.setHairStyle(HairStyle.HIME_CUT);
+		
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.ZERO_NONE);
+		this.setPubicHair(BodyHair.ZERO_NONE);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+		
+		// Face:
+		this.setFaceVirgin(false);
+		this.setLipSize(LipSize.TWO_FULL);
+		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		this.setNippleVirgin(false);
+		this.setBreastSize(CupSize.F.getMeasurement());
+		this.setBreastShape(BreastShape.ROUND);
+		this.setNippleSize(NippleSize.THREE_LARGE);
+		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(false);
+		this.setAssBleached(false);
+		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setHipSize(HipSize.FOUR_WOMANLY);
+		// Anus settings and modifiers
+		
+		// Penis:
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
+		this.setPenisSize(8);
+		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
+		this.setPenisCumStorage(100);
+		this.fillCumToMaxStorage();
+		
+		// Vagina:
+		this.setVaginaVirgin(false);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
+		this.setVaginaSquirter(true);
+		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
+		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		
+		// Feet:
+		// Foot shape
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+		
+		this.unequipAllClothingIntoVoid(true);
+
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
+		
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+
 	}
 	
 	@Override

@@ -88,7 +88,7 @@ public class Addiction implements XMLSaving {
 			IDs.add(((Element)idList.item(i)).getAttribute("value"));
 		}
 		
-		return new Addiction(FluidType.valueOf(parentElement.getAttribute("fluid")),
+		return new Addiction(FluidType.getTypeFromString(parentElement.getAttribute("fluid")),
 				Long.valueOf(parentElement.getAttribute("lastTimeSatisfied")),
 				IDs);
 	}

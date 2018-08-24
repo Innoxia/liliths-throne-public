@@ -31,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.89
- * @version 0.2.3
+ * @version 0.2.11
  * @author Innoxia
  */
 public class ZaranixHomeGroundFloor {
@@ -44,10 +44,10 @@ public class ZaranixHomeGroundFloor {
 		
 		Main.game.getAmber().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
-		((Zaranix)Main.game.getZaranix()).resetBody();
-		((Amber)Main.game.getAmber()).resetBody();
-		((ZaranixMaidKatherine)Main.game.getKatherine()).resetBody();
-		((ZaranixMaidKelly)Main.game.getKelly()).resetBody();
+		((Zaranix)Main.game.getZaranix()).setStartingBody(false);
+		((Amber)Main.game.getAmber()).setStartingBody(false);
+		((ZaranixMaidKatherine)Main.game.getKatherine()).setStartingBody(false);
+		((ZaranixMaidKelly)Main.game.getKelly()).setStartingBody(false);
 	}
 	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", true) {
