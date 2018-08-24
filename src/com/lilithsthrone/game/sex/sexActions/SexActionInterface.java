@@ -948,8 +948,6 @@ public interface SexActionInterface {
 				case MINOR_DRAIN:
 					max *= 0.8;
 					break;
-				default:
-					break;
 				}
 			}
 		}
