@@ -65,7 +65,7 @@ public enum DamageType {
 			damageAmount = shieldCheck(target, damageAmount);
 			if(damageAmount > 0)
 			{
-				target.setLust(target.getLust()-damageAmount);
+				target.setLust(target.getLust()+damageAmount);
 			}
 			return damageAmount;
 

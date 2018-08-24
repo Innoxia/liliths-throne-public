@@ -2,6 +2,8 @@ package com.lilithsthrone.game.combat;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -38,6 +40,11 @@ public class CombatMove {
         // Escape: Attempts to escape
         // Tease: Deals 7 lust damage
 
+        /*=============================================
+         *
+         *
+         *
+         */
         CombatMove newCombatMove = new CombatMove("strike",
                 "strike",
                 0,
@@ -59,6 +66,12 @@ public class CombatMove {
             }
 
             @Override
+            public String isAvailableFromSpecialCase(GameCharacter source)
+            {
+                return "This move is a starter move, available to everyone from the beginning.";
+            }
+
+            @Override
             public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
                 DamageType damageType = DamageType.PHYSICAL;
@@ -66,10 +79,10 @@ public class CombatMove {
                 {
                     damageType = source.getMainWeapon().getDamageType();
                 }
-                return "Attack " + target.getName() + ", dealing 100% ("
+                return "Attack " + target.getName() + ", dealing "
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-                        + String.valueOf(getDamage(source)) + "</span>"
-                        + ") of their weapon's damage to them.";
+                        + String.valueOf(getDamage(source)) + " " + damageType.getName() + "</span>"
+                        + " damage.";
             }
 
             @Override
@@ -105,6 +118,11 @@ public class CombatMove {
         };
         allCombatMoves.add(newCombatMove);
 
+        /*=============================================
+         *
+         *
+         *
+         */
         newCombatMove = new CombatMove("block",
                 "block",
                 0,
@@ -119,13 +137,19 @@ public class CombatMove {
             }
 
             @Override
+            public String isAvailableFromSpecialCase(GameCharacter source)
+            {
+                return "This move is a starter move, available to everyone from the beginning.";
+            }
+
+            @Override
             public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
                 DamageType damageType = DamageType.ENERGY;
                 return "Defend for "
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-                        + String.valueOf(getBlock()) + "</span>"
-                        + " of the incoming " + damageType.getName() + " damage for the next turn.";
+                        + String.valueOf(getBlock())+ " " + damageType.getName() + " </span>"
+                        + " damage for the next turn.";
             }
 
             @Override
@@ -147,6 +171,141 @@ public class CombatMove {
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
                         + String.valueOf(getBlock()) + "</span>"
                         + " of the incoming " + damageType.getName() + " damage for this turn.";
+            }
+        };
+        allCombatMoves.add(newCombatMove);
+
+
+        /*=============================================
+         *
+         *
+         *
+         */
+        newCombatMove = new CombatMove("tease",
+                "tease",
+                0,
+                1,
+                CombatMoveType.TEASE,
+                "moves/tease",
+                false,
+                true,
+                false){
+
+            private int getDamage(GameCharacter source)
+            {
+                return 7;
+            }
+
+            @Override
+            public String isAvailableFromSpecialCase(GameCharacter source)
+            {
+                return "This move is a starter move, available to everyone from the beginning.";
+            }
+
+            @Override
+            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.LUST;
+                return "Tease " + target.getName() + ", dealing "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getDamage(source)) + " " + damageType.getName() + "</span>"
+                        + " damage.";
+            }
+
+            @Override
+            public String getDescription()
+            {
+                DamageType damageType = DamageType.LUST;
+                return "Tease your enemy, dealing "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getDamage(Main.game.getPlayer())) + "</span>"
+                        + " lust damage to them.";
+            }
+
+            @Override
+            public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.LUST;
+
+                int dealtDamage = damageType.damageTarget(target, getDamage(source));
+
+                return source.getSeductionDescription(target) + "<br/>"
+                        + "As a result, " + source.getName("the")+" teased " + target.getName() + ", dealing "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(dealtDamage) + "</span> "
+                        + damageType.getName() + " damage to them.";
+            }
+        };
+        allCombatMoves.add(newCombatMove);
+
+
+        /*=============================================
+         *
+         *
+         *
+         */
+        newCombatMove = new CombatMove("avert",
+                "avert",
+                0,
+                1,
+                CombatMoveType.DEFEND,
+                "moves/avert",
+                false,
+                false,
+                true){
+            private int getBlock() {
+                return 7;
+            }
+
+            @Override
+            public String isAvailableFromSpecialCase(GameCharacter source)
+            {
+                return "This move is a starter move, available to everyone from the beginning.";
+            }
+
+            @Override
+            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.LUST;
+                return "Defend for "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getBlock())+ " " + damageType.getName() + " </span>"
+                        + " damage for the next turn.";
+            }
+
+            @Override
+            public String getDescription()
+            {
+                DamageType damageType = DamageType.LUST;
+                return "Avert your gase, blocking for "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getBlock()) + "</span>"
+                        + " of the incoming " + damageType.getName() + " damage for this turn.";
+            }
+
+            @Override
+            public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.LUST;
+                target.setShields(damageType, target.getShields(damageType) + getBlock());
+                return source.getName("The")+" averted their gase this turn, gaining protection from "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getBlock()) + "</span>"
+                        + " of the incoming " + damageType.getName() + " damage for this turn.";
+            }
+
+            @Override
+            public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                if(shouldBlunder())
+                {
+                    return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
+                }
+                if(source.getLustLevel() == LustLevel.FOUR_IMPASSIONED || source.getLustLevel() == LustLevel.FIVE_BURNING)
+                {
+                    return 1.0f + 0.2f * (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
+                }
+                return 0.8f + 0.2f * (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
             }
         };
         allCombatMoves.add(newCombatMove);
@@ -204,11 +363,50 @@ public class CombatMove {
         {
             return 0.0f;
         }
-        return (float)(Math.random());
+        if(shouldBlunder())
+        {
+            return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+        }
+        // Trying to figure out best use cases
+        switch(type)
+        {
+            default:
+                return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Other types are too nuanced in themselves to have a broad weight generation apply to them
+            case ATTACK:
+                for(GameCharacter character : enemies)
+                {
+                    if(character.getHealthPercentage() < 0.2)
+                    {
+                        return 1.1f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // If the enemy is low on health, chances to attack increase
+                    }
+                }
+                return 0.8f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Attacks aren't sophisticated
+            case DEFEND:
+                if(source.getHealthPercentage() < 0.2)
+                {
+                    return 1.0f + 0.5f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+                }
+                return 0.25f + 0.75f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+            case TEASE:
+                float weight = 0.8f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+                for(GameCharacter character : enemies)
+                {
+                    if(character.getLustLevel() == LustLevel.FOUR_IMPASSIONED || character.getLustLevel() == LustLevel.FIVE_BURNING)
+                    {
+                        weight += 0.2f;
+                        break;
+                    }
+                }
+                if(source.getCorruptionLevel() == CorruptionLevel.FOUR_LUSTFUL || source.getCorruptionLevel() == CorruptionLevel.FIVE_CORRUPT)
+                {
+                    weight += 0.4f;
+                }
+                return weight; // Attacks aren't sophisticated
+        }
     }
 
     /**
-     * Returns the preferred target for the action. By default prefers a random enemy or ally if it can't target enemies but can target allies and has one, otherwise targets self.
+     * Returns the preferred target for the action. Prefers to aim at targets with lowest HP values if not forced to select at random. Override for custom behavior
      * @param source Character that uses the target function.
      * @param enemies Enemies of the character
      * @param allies Allies of the character
@@ -218,11 +416,45 @@ public class CombatMove {
     {
         if(canTargetEnemies)
         {
-            return enemies.get(Util.random.nextInt(enemies.size()));
+            if(shouldBlunder())
+            {
+                return enemies.get(Util.random.nextInt(enemies.size()));
+            }
+            else
+            {
+                float lowestHP = -1;
+                GameCharacter potentialCharacter = null;
+                for(GameCharacter character : enemies)
+                {
+                    if(lowestHP == -1 || character.getHealth() < lowestHP)
+                    {
+                        potentialCharacter = character;
+                        lowestHP = character.getHealth();
+                    }
+                }
+                return potentialCharacter;
+            }
         }
         if(canTargetAllies && !allies.isEmpty())
         {
-            return allies.get(Util.random.nextInt(allies.size()));
+            if(shouldBlunder())
+            {
+                return allies.get(Util.random.nextInt(allies.size()));
+            }
+            else
+            {
+                float lowestHP = -1;
+                GameCharacter potentialCharacter = null;
+                for(GameCharacter character : allies)
+                {
+                    if(lowestHP == -1 || character.getHealth() < lowestHP)
+                    {
+                        potentialCharacter = character;
+                        lowestHP = character.getHealth();
+                    }
+                }
+                return potentialCharacter;
+            }
         }
         return source;
     }
@@ -268,11 +500,13 @@ public class CombatMove {
     }
 
     /**
-     * Returns true if the character has the move available to select even if they don't "own" it; for example, purity based moves are available to Pure Virgin fetishists without even unlocking them.
+     * Returns a string if the character has the move available to select even if they don't "own" it; for example, purity based moves are available to Pure Virgin fetishists without even unlocking them.
+     *
+     * String contains the reason for why the move is available to them. Otherwise returns null.
      */
-    public boolean isAvailableFromSpecialCase(GameCharacter source)
+    public String isAvailableFromSpecialCase(GameCharacter source)
     {
-        return false;
+        return null;
     }
 
     /**
@@ -314,6 +548,15 @@ public class CombatMove {
         }
 
         return null;
+    }
+
+    /**
+     * Returns true based on user settings on how often should the AI make "mistakes" and select actions irrationally.
+     * @return
+     */
+    static boolean shouldBlunder()
+    {
+        return Math.random() <= Main.getProperties().AIblunderRate;
     }
 
     public String getIdentifier() {

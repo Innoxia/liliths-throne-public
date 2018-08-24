@@ -184,8 +184,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
 			null) {
 		
 		@Override
@@ -219,8 +218,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
 			null) {
 		
 		@Override
@@ -254,8 +252,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null) {
 		
 		@Override
@@ -423,8 +420,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
 			null) {
 		
 		@Override
@@ -462,8 +458,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f)),
 			null) {
 		
 		@Override
@@ -502,8 +497,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
 			null) {
 		
 		@Override

@@ -212,8 +212,8 @@ import com.lilithsthrone.world.places.PlaceType;
 public abstract class GameCharacter implements XMLSaving {
 
 	/** Calculations description as used in getAttributeValue() */
-	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*2 + Bonus Energy";
-	public static final String MANA_CALCULATION = "10 + 2*level + Arcane*2 + Bonus Aura";
+	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*0.25 + Bonus Energy";
+	public static final String MANA_CALCULATION = "100 + Arcane*0.2 + Bonus Aura";
 	public static final String RESTING_LUST_CALCULATION = "Corruption/2";
 
 	public static final int LEVEL_CAP = 50;
@@ -586,10 +586,10 @@ public abstract class GameCharacter implements XMLSaving {
 		PerkManager.initialisePerks(this);
 
 		// Default moves
-		knownMoves.add(CombatMove.getMove("strike"));
 		equipMove("strike");
-		knownMoves.add(CombatMove.getMove("block"));
 		equipMove("block");
+		equipMove("tease");
+		equipMove("avert");
 	}
 	
 
@@ -840,6 +840,28 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			CharacterUtils.addAttribute(doc, element, "type", se.toString());
 			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getStatusEffectDuration(se)));
+		}
+
+
+
+		// Moves
+		Element characterMoves = doc.createElement("knownMoves");
+		properties.appendChild(characterMoves);
+		for(CombatMove move : this.knownMoves){
+			Element element = doc.createElement("move");
+			characterMoves.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
+		}
+
+		// Equipped moves
+		Element characterEquippedMoves = doc.createElement("equippedMoves");
+		properties.appendChild(characterEquippedMoves);
+		for(CombatMove move : this.equippedMoves){
+			Element element = doc.createElement("move");
+			characterEquippedMoves.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
 		}
 		
 		
@@ -1812,6 +1834,29 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}catch(IllegalArgumentException ex){
 			}
+		}
+
+		// Moves:
+		nodes = parentElement.getElementsByTagName("knownMoves");
+		character.resetMoveData();
+		element = (Element) nodes.item(0);
+		try {
+			NodeList moveElements = element.getElementsByTagName("move");
+			for(int i=0; i<moveElements.getLength(); i++){
+				Element e = ((Element)moveElements.item(i));
+				character.addKnownMove(String.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		nodes = parentElement.getElementsByTagName("equippedMoves");
+		element = (Element) nodes.item(0);
+		try {
+			NodeList moveElements = element.getElementsByTagName("move");
+			for(int i=0; i<moveElements.getLength(); i++){
+				Element e = ((Element)moveElements.item(i));
+				character.equipMove(String.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
 		}
 		
 		
@@ -4079,7 +4124,24 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public float getBaseAttributeValue(Attribute attribute) {
+
 		// Special case for health:
+		if (attribute == Attribute.HEALTH_MAXIMUM) {
+			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_PHYSIQUE)*0.25f;
+		}
+
+		// Special case for mana:
+		if (attribute == Attribute.MANA_MAXIMUM) {
+			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 15) {
+				return 5;
+			}
+			else {
+				return 100 + getAttributeValue(Attribute.MAJOR_ARCANE)*0.20f;
+			}
+
+		}
+		// OLD FORMULAS
+		/*// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
 			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_PHYSIQUE)*2;
 		}
@@ -4087,7 +4149,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
 			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*2;
-		}
+		}*/
 		
 		return Math.round(attributes.get(attribute)*100)/100f;
 	}
@@ -4856,8 +4918,16 @@ public abstract class GameCharacter implements XMLSaving {
 			+ "</p>";
 	}
 	
-	public String getSeductionDescription() {
+	public String getSeductionDescription(GameCharacter target) {
 		String description = "";
+
+		// LEGACY COMBAT SUPPORT
+		// TODO: Remove when legacy support is unnecessary
+		if(target == null)
+		{
+			target = Combat.getTargetedCombatant(this);
+		}
+
 		if(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
@@ -4903,7 +4973,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(this.isFeminine()) {
-			if(Combat.getTargetedCombatant(this).isPlayer()) {
+			if(target.isPlayer()) {
 				description = UtilText.parse(this,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] erotically runs [npc.her] hands down [npc.her] legs and bends forwards as [npc.she] teases you, "
@@ -4919,7 +4989,7 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.Name] slowly runs [npc.her] [npc.hands] up the length of [npc.her] body, before pouting at you."));
 				
 			} else {
-				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
 						"Biting [npc.her] lip and putting on [npc.her] most smouldering look, [npc.name] runs [npc.her] hands slowly up [npc.her] inner thighs.",
@@ -4929,7 +4999,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			if(Combat.getTargetedCombatant(this).isPlayer()) {
+			if(target.isPlayer()) {
 				description = UtilText.parse(this,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] winks at you and flexes [npc.his] muscles, "
@@ -4945,7 +5015,7 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.Name] tries to look as commanding as possible as [npc.she] smirks playfully at you."));
 				
 			} else {
-				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
 						"Smiling confidently at [npc2.name], [npc.name] slowly runs [npc.her] hands up [npc.her] inner thighs.",
@@ -10930,7 +11000,7 @@ public abstract class GameCharacter implements XMLSaving {
 		int index = 0;
 		for(CombatMove move : selectedMoves)
 		{
-			result += "<b style='color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b> ";
+			result += "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/> ";
 			result += move.perform(this, selectedMoveTargets.get(index), enemies, allies);
 			result += "<br/>";
 			index++;
@@ -11007,12 +11077,41 @@ public abstract class GameCharacter implements XMLSaving {
 		return equippedMoves;
 	}
 
+	public void resetDefaultMoves()
+	{
+		// TODO:  Add the case for player owned slaves since they won't need that once the menu will be added to manage their abilities
+		if(this != Main.game.getPlayer() && this.getEquippedMoves().size() == 0)
+		{
+			for(CombatMove move : getAvailableMoves())
+			{
+				if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES)
+				{
+					break;
+				}
+				equipMove(move.getIdentifier());
+			}
+		}
+	}
+
+	public int getSelectedMovesByType(CombatMoveType type)
+	{
+		int moves = 0;
+		for(CombatMove move : selectedMoves)
+		{
+			if(move.getType().countsAs(type))
+			{
+				moves++;
+			}
+		}
+		return moves;
+	}
+
 	public List<CombatMove> getAvailableMoves()
 	{
 		List<CombatMove> availableMoves = new ArrayList<>(knownMoves);
 		for(CombatMove move : CombatMove.allCombatMoves)
 		{
-			if(move.isAvailableFromSpecialCase(this))
+			if(move.isAvailableFromSpecialCase(this) != null)
 			{
 				availableMoves.add(move);
 			}
@@ -11022,7 +11121,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public boolean isMoveAvailable(String identifier)
 	{
-		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this))
+		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) != null)
 		{
 			return true;
 		}
@@ -11034,6 +11133,22 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return false;
+	}
+
+	public String getMoveAvailableReason(String identifier)
+	{
+		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) != null)
+		{
+			return CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) ;
+		}
+		for(CombatMove move : knownMoves)
+		{
+			if(move.getIdentifier().equals(identifier))
+			{
+				return "You have learned how to use this move during your adventures";
+			}
+		}
+		return "This move is not available to you.";
 	}
 
 	public void unequipMove(String identifier)
@@ -11061,6 +11176,21 @@ public abstract class GameCharacter implements XMLSaving {
 		{
 			equippedMoves.add(moveToAdd);
 		}
+	}
+
+	public void addKnownMove(String identifier)
+	{
+		CombatMove moveToAdd = CombatMove.getMove(identifier);
+		if(moveToAdd != null)
+		{
+			knownMoves.add(moveToAdd);
+		}
+	}
+
+	public void resetMoveData()
+	{
+		equippedMoves.clear();
+		knownMoves.clear();
 	}
 
 	public void resetMoveCooldowns()

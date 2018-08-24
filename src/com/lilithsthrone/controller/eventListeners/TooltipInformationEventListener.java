@@ -266,7 +266,10 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
 
 			// Description:
-			tooltipSB.append("<div class='subTitle-picture'>" + move.getDescription() + "</div>");
+			tooltipSB.append("<div class='subTitle-picture'>" + owner.getMoveAvailableReason(move.getIdentifier()) + "</div>");
+
+			// Description:
+			tooltipSB.append("<div class='description'>" + move.getDescription() + "</div>");
 
 			if(owner.getEquippedMoves().contains(move)) {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");

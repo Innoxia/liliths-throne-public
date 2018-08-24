@@ -183,6 +183,7 @@ public enum Combat {
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP());
 		for(NPC npc : allCombatants)
 		{
+			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
 			npc.resetMoveCooldowns();
 			npc.setRemainingAP(npc.getMaxAP());
 			// Sets up NPC ally/enemy lists that include player
@@ -734,7 +735,7 @@ public enum Combat {
 				
 			}
 
-			List<GameCharacter> pcEnemies = new ArrayList<>(allies);
+			List<GameCharacter> pcEnemies = new ArrayList<>(enemies);
 			List<GameCharacter> pcAllies = new ArrayList<>(allies);
 			pcAllies.add(Main.game.getPlayer());
 			int moveIndex = index==0?14:(index<15?index-1:index);
@@ -762,7 +763,7 @@ public enum Combat {
 
 			} else if(index == 0) {
 				return new Response("End Turn",
-						Main.game.getPlayer().getRemainingAP()>0?"Ends your current turn":"Ends your current turn. You still have unspent AP!",
+						Main.game.getPlayer().getRemainingAP()<=0?"Ends your current turn":"Ends your current turn. You still have unspent AP!",
 						ENEMY_ATTACK){
 					@Override
 					public void effects() {
@@ -771,7 +772,7 @@ public enum Combat {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						if(Main.game.getPlayer().getRemainingAP() > 0)
+						if(Main.game.getPlayer().getRemainingAP() <= 0)
 						{
 							return Colour.GENERIC_BAD;
 						}
@@ -1309,7 +1310,7 @@ public enum Combat {
 		// Calculate hit + damage
 		attackStringBuilder = new StringBuilder("");
 		
-		attackStringBuilder.append(attacker.getSeductionDescription());
+		attackStringBuilder.append(attacker.getSeductionDescription(null));
 		
 		boolean critical = false;//Attack.rollForCritical(attacker);
 	
@@ -1603,14 +1604,14 @@ public enum Combat {
 			List<GameCharacter> npcEnemies;
 			if(allies.contains(npc))
 			{
-				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName()+"</span> is planning:</br></br>");
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
 				npcAllies = new ArrayList<>(allies);
 				npcAllies.add(Main.game.getPlayer());
 				npcEnemies = new ArrayList<>(enemies);
 			}
 			else
 			{
-				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName()+"</span> is planning:</br></br>");
+				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
 				npcEnemies = new ArrayList<>(allies);
 				npcEnemies.add(Main.game.getPlayer());
 				npcAllies = new ArrayList<>(enemies);
@@ -1743,14 +1744,22 @@ public enum Combat {
 
 	private static String getAPString()
 	{
+		List<GameCharacter> pcEnemies = new ArrayList<>(enemies);
+		List<GameCharacter> pcAllies = new ArrayList<>(allies);
+		pcAllies.add(Main.game.getPlayer());
+
 		Colour APColour = Colour.GENERIC_MINOR_BAD;
 		if(Main.game.getPlayer().getRemainingAP() > 0)
 		{
 			APColour = Colour.GENERIC_MINOR_GOOD;
 		}
-		String returnable = "<div class='container-quarter-width'style='width: calc(20% - 16px); style='text-align:center; box-sizing: border-box; border:6px solid "+APColour.getShades()[0]+"; border-radius:5px;'>"+
-				"<div class='container-quarter-width'style='width: calc(20% - 16px);'>" +
-				"<b style='color: " + APColour.toWebHexString() + "'> AP: "+String.valueOf(Main.game.getPlayer().getRemainingAP())+"</b></div></div>";
+
+		String returnable = "<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+APColour.getShades()[0]+"; border-radius:5px;'>"
+				+ "<div class='container-quarter-width'style='width: calc(20% - 16px);'>"
+				+ "<b style='color: " + APColour.toWebHexString() + "'> AP: "+String.valueOf(Main.game.getPlayer().getRemainingAP())+"</b></div>"
+				+ "<div class='container-half-width' style='width: calc(80% - 16px);'>"
+				+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You</span> are planning:</br></br>"
+				+ Main.game.getPlayer().getMovesPredictionString(pcEnemies, pcAllies)+"</div></div>";
 		return returnable;
 	}
 	

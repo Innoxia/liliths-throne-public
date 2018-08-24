@@ -26,6 +26,7 @@ public enum CombatMoveType {
     {
         this.name = name;
         this.colour = colour;
+        countsAsList = new ArrayList<>();
     }
 
     CombatMoveType(String name, Colour colour, List<CombatMoveType> countsAsList)
