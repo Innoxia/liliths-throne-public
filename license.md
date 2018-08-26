@@ -14,8 +14,6 @@ Although this Project is publicly available, it is not open source software. All
 
 "Contribution" shall be defined as submitting any Content, idea, or suggestion available to the Project creator(s) and/or maintainers by any means, including e-mail, file transfer protocols of any kind, git pull requests, git pushes, or any other electronic or physical transfer of any kind which makes available to the project creator(s) and/or maintainers for inclusion in the Project.
 
-"Derived Work" shall be defined as any modification of, addition to, or deletion of any part of this Project, its Content, or its Binaries.
-
 
 --------
 
@@ -28,7 +26,6 @@ Redistribution, use, and modification of the Project and its Content, with or wi
 3a. must carry prominent notices stating it is modified, and not endorsed by Innoxia, if applicable.  
 3b. must be available free of charge, if distributed.  
 3c. may not be used for commercial purposes.
-4. Any Derived Work(s) must carry prominent notices that they are not endorsed by Innoxia, unless given Innoxia's explicit written endorsement.
 
 *Points 3b and 3c are to protect the player base from having to pay for modded copies of the game. I don't want modders to try and take advantage of players (by adding a paywall to their mods).*
 
