@@ -24,6 +24,9 @@ import java.util.Locale;
 public enum Units {
     FORMATTER;
 
+    public final static int MIN_PRECISION = 0;
+    public final static int MAX_PRECISION = 2;
+
     DateTimeFormatter shortDate;
     DateTimeFormatter longDate;
     DateTimeFormatter time;
@@ -66,7 +69,8 @@ public enum Units {
     public void updateNumberFormat() {
         number = NumberFormat.getNumberInstance(Main.getProperties().hasValue(PropertyValue.autoLocale) ? Locale.getDefault() : Locale.ENGLISH);
         number.setRoundingMode(RoundingMode.HALF_UP);
-        number.setMaximumFractionDigits(2);
+        number.setMinimumFractionDigits(MIN_PRECISION);
+        number.setMaximumFractionDigits(MAX_PRECISION);
         Platform.runLater(StatusEffect::updateAttributeModifiers);
     }
 
@@ -103,19 +107,15 @@ public enum Units {
      * @param maxPrecision Maximum fractional digits
      */
     public static String number(double amount, int minPrecision, int maxPrecision) {
-        // Store previous settings
-        NumberFormat formatter = FORMATTER.number;
-        int previousMinPlaces = formatter.getMinimumFractionDigits();
-        int previousMaxPlaces = formatter.getMaximumFractionDigits();
-
         // Apply new settings and generate output
+        NumberFormat formatter = FORMATTER.number;
         formatter.setMinimumFractionDigits(minPrecision);
         formatter.setMaximumFractionDigits(maxPrecision);
         String output = formatter.format(amount);
 
-        // Restore previous settings
-        formatter.setMinimumFractionDigits(previousMinPlaces);
-        formatter.setMaximumFractionDigits(previousMaxPlaces);
+        // Restore default settings
+        formatter.setMinimumFractionDigits(MIN_PRECISION);
+        formatter.setMaximumFractionDigits(MAX_PRECISION);
 
         return output;
     }
