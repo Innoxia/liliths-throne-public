@@ -81,7 +81,7 @@ public class Pazu extends NPC {
 			
 			this.setPenisSize(7);
 			
-			this.setHeight(73);
+			this.setHeight(185);
 			
 			this.setFemininity(80);
 			

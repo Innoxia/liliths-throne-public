@@ -14471,7 +14471,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue()));
 	}
 
-	public float getHeightValue() {
+	/**
+	 * @return The character's height in cm.
+	 */
+	public int getHeightValue() {
 		return body.getHeightValue();
 	}
 	
@@ -14483,18 +14486,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return this.getHeightValue()<Height.getShortStatureCutOff();
 	}
 	
-	public float getMinimumHeight() {
+	public int getMinimumHeight() {
 		return this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue();
 	}
 	
-	public float getMaximumHeight() {
+	public int getMaximumHeight() {
 		return Height.SEVEN_COLOSSAL.getMaximumValue();
 	}
 	
 	/**
 	 * @return Formatted description of height change.
 	 */
-	public String setHeight(float height) {
+	public String setHeight(int height) {
 		height = Math.min(Height.SEVEN_COLOSSAL.getMaximumValue(), Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height));
 		
 		if (body.getHeightValue() < height) {
@@ -14540,7 +14543,7 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * @return Formatted description of height change.
 	 */
-	public String incrementHeight(float increment) {
+	public String incrementHeight(int increment) {
 		return setHeight(getHeightValue() + increment);
 	}
 

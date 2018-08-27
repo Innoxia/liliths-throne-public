@@ -857,14 +857,10 @@ public class CharacterUtils {
 		
 		return tempList;
 	}
-
-	private static int getSizeFromGenetics(int baseSize, boolean inheritsFromMother, int motherSize, boolean inheritsFromFather, int fatherSize) {
-		return (int) getSizeFromGenetics((float) baseSize, inheritsFromMother, (float) motherSize, inheritsFromFather, (float) fatherSize);
-	}
 	
-	private static float getSizeFromGenetics(float baseSize, boolean inheritsFromMother, float motherSize, boolean inheritsFromFather, float fatherSize) {
+	private static int getSizeFromGenetics(int baseSize, boolean inheritsFromMother, int motherSize, boolean inheritsFromFather, int fatherSize) {
 		// $BaseRaceSize + RandomAmount($ParentSize - $BaseRaceSize), then +-10%
-		float variation = 0;
+		int variation = 0;
 		if(inheritsFromMother && inheritsFromFather) {
 			variation = (motherSize + fatherSize)/2;
 		} else if(inheritsFromMother) {
@@ -874,7 +870,7 @@ public class CharacterUtils {
 		}
 		
 		if(variation != 0) {
-			float difference = variation - baseSize;
+			int difference = variation - baseSize;
 			return (int) Math.round(baseSize + difference*Math.random());
 		} else {
 			return baseSize;
@@ -1227,7 +1223,7 @@ public class CharacterUtils {
 		}
 		
 		// Body:
-		character.setHeight(character.getHeightValue()-6 + Util.random.nextInt(12) +1);
+		character.setHeight(character.getHeightValue()-15 + Util.random.nextInt(30) +1);
 		
 		//Breasts:
 		if(Main.getProperties().multiBreasts==0) {

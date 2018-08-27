@@ -92,7 +92,7 @@ public class TestNPC extends NPC {
 			
 			this.setFemininity(75);
 			
-			this.setHeight(67);
+			this.setHeight(170);
 			
 			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 			

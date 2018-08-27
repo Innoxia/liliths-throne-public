@@ -597,11 +597,6 @@ public class Game implements Serializable, XMLSaving {
 				
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 
-				// Convert size from centimetres to inches
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.10.2")) { // FIXME change version after merging
-					Main.game.player.setHeight(Units.round(Main.game.player.getHeightValue() / 2.54, 1));
-				}
-
 				if(debug) {
 					System.out.println("Player finished");
 				}
@@ -645,11 +640,6 @@ public class Game implements Serializable, XMLSaving {
 							if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
 								npc.clearFetishDesires();
 								CharacterUtils.generateDesires(npc);
-							}
-
-							// Convert size from centimetres to inches
-							if(Main.isVersionOlderThan(loadingVersion, "0.2.10.2")) { // FIXME change version after merging
-								npc.setHeight(Units.round(npc.getHeightValue() / 2.54, 1));
 							}
 							
 							if(npc instanceof SlaveImport) {

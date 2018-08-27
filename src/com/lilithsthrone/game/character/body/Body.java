@@ -116,8 +116,7 @@ public class Body implements Serializable, XMLSaving {
 	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
-	private float height;
-	private int femininity, bodySize, muscle;
+	private int height, femininity, bodySize, muscle;
 	private BodyHair pubicHair;
 	
 	private Map<BodyCoveringType, Covering> coverings;
@@ -139,7 +138,7 @@ public class Body implements Serializable, XMLSaving {
 		private final Skin skin;
 		private final BodyMaterial bodyMaterial;
 		private GenitalArrangement genitalArrangement;
-		private final float height;
+		private final int height;
 		private final int femininity, bodySize, muscle;
 		
 		// Optional parameters - initialised to null values:
@@ -152,7 +151,7 @@ public class Body implements Serializable, XMLSaving {
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
 		private Wing wing = new Wing(WingType.NONE, 0);
 
-		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, float height, int femininity, int bodySize, int muscle) {
+		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, int height, int femininity, int bodySize, int muscle) {
 			this.arm = arm;
 			this.ass = ass;
 			this.breast = breast;
@@ -701,8 +700,8 @@ public class Body implements Serializable, XMLSaving {
 		int importedFemininity = (Integer.valueOf(element.getAttribute("femininity")));
 		CharacterUtils.appendToImportLog(log, "<br/>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
 		
-		float importedHeight = Float.valueOf(element.getAttribute("height"));
-		CharacterUtils.appendToImportLog(log, "<br/>Body: Set height: "+Float.valueOf(element.getAttribute("height")));
+		int importedHeight =(Integer.valueOf(element.getAttribute("height")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
 		
 		int importedBodySize = (Integer.valueOf(element.getAttribute("bodySize")));
 		CharacterUtils.appendToImportLog(log, "<br/>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
@@ -6130,24 +6129,22 @@ public class Body implements Serializable, XMLSaving {
 		return weight;
 	}
 
-	/**
-	 * @return Height in inches
-	 */
-	public float getHeightValue() {
+	/** Height is measured in cm. **/
+	public int getHeightValue() {
 		return height;
 	}
 	
 	public Height getHeight() {
-		return Height.getHeightFromFloat(height);
+		return Height.getHeightFromInt(height);
 	}
 
 	/**
-	 * Sets height attribute. Bound between 2 feet and 12 feet.
+	 * Sets height attribute. Bound between 61 (2 feet) and 365 (12 feet).
 	 * 
 	 * @param height Value to set height to.
 	 * @return True if height was changed.
 	 */
-	public boolean setHeight(float height) {
+	public boolean setHeight(int height) {
 		if (this.height == height) {
 			return false;
 		}

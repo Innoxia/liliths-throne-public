@@ -294,7 +294,7 @@ public abstract class AbstractItemEffectType {
 			case TF_CORE:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						return Math.round(Height.SEVEN_COLOSSAL.getMaximumValue() - Height.ZERO_TINY.getMinimumValue());
+						return Height.SEVEN_COLOSSAL.getMaximumValue() - Height.ZERO_TINY.getMinimumValue();
 					case TF_MOD_SIZE_SECONDARY:
 						return Muscle.FOUR_RIPPED.getMaximumValue();
 					case TF_MOD_SIZE_TERTIARY:
