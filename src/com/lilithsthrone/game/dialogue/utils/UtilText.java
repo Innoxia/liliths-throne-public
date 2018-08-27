@@ -15,6 +15,7 @@ import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Units;
 import org.w3c.dom.Document;

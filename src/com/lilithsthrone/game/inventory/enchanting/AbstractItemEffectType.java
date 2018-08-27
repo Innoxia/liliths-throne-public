@@ -2760,9 +2760,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes an extra pair of horns.", singleDrain, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
+								return new RacialEffectUtil("Removes an extra pair of horns.") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
 							case MINOR_BOOST: default://TODO
-								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
+								return new RacialEffectUtil("Adds an extra pair of horns.") { @Override public String applyEffect() {
 									List<HornType> hornTypesSuitableForTransformation = HornType.getHornTypesSuitableForTransformation(RacialBody.valueOfRace(race).getHornType());
 									if(target.getHornType()==HornType.NONE && !hornTypesSuitableForTransformation.isEmpty()) {
 										return target.setHornType(hornTypesSuitableForTransformation.get(0));
@@ -2806,7 +2806,7 @@ public abstract class AbstractItemEffectType {
 						return getHornTypeRacialEffectUtil(race, target, 4);
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") {
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") {
 							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
 				}
 				
@@ -3122,7 +3122,7 @@ public abstract class AbstractItemEffectType {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra tail.") { @Override public String applyEffect() { return target.incrementTailCount(singleDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds an extra tail.", singleBoost, " tail") { @Override public String applyEffect() {
+								return new RacialEffectUtil("Adds an extra tail.") { @Override public String applyEffect() {
 									List<TailType> tailTypesSuitableForTransformation = TailType.getTailTypesSuitableForTransformation(RacialBody.valueOfRace(race).getTailType());
 									if(target.getTailType()==TailType.NONE && !tailTypesSuitableForTransformation.isEmpty()) {
 										return target.setTailType(tailTypesSuitableForTransformation.get(0));
@@ -3154,7 +3154,7 @@ public abstract class AbstractItemEffectType {
 							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(4)); } };
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" tail transformation.", 0, "") {
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" tail transformation.") {
 							@Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getRandomTailType(false)); } };
 				}
 				
@@ -3514,7 +3514,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in wing size. (+" + smallChangeMajorBoost + " wing size)") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
 						}
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") {
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.") {
 							@Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getRandomWingType(false)); } };
 				}
 				
