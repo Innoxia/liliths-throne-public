@@ -33,13 +33,13 @@ public enum ItemTag {
 	
 	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 	
-	DILDO_TINY, // 3 inches
-	DILDO_AVERAGE, // 6 inches
-	DILDO_LARGE, // 10 inches
-	DILDO_HUGE, // 14 inches
-	DILDO_ENORMOUS, // 18 inches
-	DILDO_GIGANTIC, // 22 inches
-	DILDO_STALLION, // 32 inches
+	DILDO_TINY, // 8 cm
+	DILDO_AVERAGE, // 15 cm
+	DILDO_LARGE, // 25 cm
+	DILDO_HUGE, // 35 cm
+	DILDO_ENORMOUS, // 45 cm
+	DILDO_GIGANTIC, // 55 cm
+	DILDO_STALLION, // 80 cm
 	
 	SPELL_BOOK,
 	SPELL_SCROLL,
