@@ -4421,8 +4421,8 @@ public class Body implements Serializable, XMLSaving {
 			}
 
 			if (viewedBreast.getRawMilkStorageValue() > 0) {
-				descriptionSB.append("<br/>You are currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue()) + " of [pc.milkPrimaryColour(true)] [pc.milk] ("
-						+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [pc.a_milkRegen] rate.");
+				descriptionSB.append("<br/>You are currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [pc.milkPrimaryColour(true)] [pc.milk] ("
+						+ Units.fluid(viewedBreast.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [pc.a_milkRegen] rate.");
 				
 				switch(viewedBreast.getMilk().getFlavour()) {
 					case CHOCOLATE:
@@ -4626,8 +4626,8 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				if (viewedBreast.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("<br/>[npc.She] is currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue()) + " of [npc.milkPrimaryColour(true)] [npc.milk] ("
-							+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
+					descriptionSB.append("<br/>[npc.She] is currently producing "+ Units.fluid(viewedBreast.getRawMilkStorageValue(), Units.UnitType.LONG) + " of [npc.milkPrimaryColour(true)] [npc.milk] ("
+							+ Units.fluid(viewedBreast.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_milkRegen] rate.");
 					
 					switch(viewedBreast.getMilk().getFlavour()) {
 						case CHOCOLATE:
