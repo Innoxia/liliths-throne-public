@@ -4610,37 +4610,37 @@ public enum StatusEffect {
 			// Vagina:
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 				switch(target.getVaginaElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
+					//Takes 3 hours to recover each cm of capacity:
 					case ZERO_UNYIELDING:
-						target.incrementVaginaStretchedCapacity(-(1/6f) * (minutesPassed/60f));
+						target.incrementVaginaStretchedCapacity(-(1/3f) * (minutesPassed/60f));
 						break;
-					//Takes 4 hours to recover each inch of capacity:
+					//Takes 2 hours to recover each cm of capacity:
 					case ONE_RIGID:
-						target.incrementVaginaStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
 						target.incrementVaginaStretchedCapacity(-(1/2f) * (minutesPassed/60f));
 						break;
-					//Takes 1 hour to recover each inch of capacity:
+					//Takes 1 hour to recover each cm of capacity:
+					case TWO_FIRM:
+						target.incrementVaginaStretchedCapacity(-(1) * (minutesPassed/60f));
+						break;
+					//Takes 30 minutes to recover each cm of capacity:
 					case THREE_FLEXIBLE:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementVaginaStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
 						target.incrementVaginaStretchedCapacity(-2 * (minutesPassed/60f));
 						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
+					//Takes 20 minutes to recover each cm of capacity:
+					case FOUR_LIMBER:
+						target.incrementVaginaStretchedCapacity(-3 * (minutesPassed/60f));
+						break;
+					//Takes 15 minutes to recover each cm of capacity:
+					case FIVE_STRETCHY:
 						target.incrementVaginaStretchedCapacity(-4 * (minutesPassed/60f));
+						break;
+					//Takes 10 minutes to recover each cm of capacity:
+					case SIX_SUPPLE:
+						target.incrementVaginaStretchedCapacity(-6 * (minutesPassed/60f));
 						break;
 					//Should have been instant after sex, this is just a backup:
 					case SEVEN_ELASTIC:
-						target.incrementVaginaStretchedCapacity(-100);
+						target.incrementVaginaStretchedCapacity(-200);
 						break;
 					default:
 						break;
@@ -4654,37 +4654,37 @@ public enum StatusEffect {
 			// Ass:
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 				switch(target.getAssElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
+					//Takes 3 hours to recover each cm of capacity:
 					case ZERO_UNYIELDING:
-						target.incrementAssStretchedCapacity(-(1/6f) * (minutesPassed/60f));
+						target.incrementAssStretchedCapacity(-(1/3f) * (minutesPassed/60f));
 						break;
-					//Takes 4 hours to recover each inch of capacity:
+					//Takes 2 hours to recover each cm of capacity:
 					case ONE_RIGID:
-						target.incrementAssStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
 						target.incrementAssStretchedCapacity(-(1/2f) * (minutesPassed/60f));
 						break;
-					//Takes 1 hour to recover each inch of capacity:
+					//Takes 1 hour to recover each cm of capacity:
+					case TWO_FIRM:
+						target.incrementAssStretchedCapacity(-(1) * (minutesPassed/60f));
+						break;
+					//Takes 30 minutes to recover each cm of capacity:
 					case THREE_FLEXIBLE:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementAssStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
 						target.incrementAssStretchedCapacity(-2 * (minutesPassed/60f));
 						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
+					//Takes 20 minutes to recover each cm of capacity:
+					case FOUR_LIMBER:
+						target.incrementAssStretchedCapacity(-3 * (minutesPassed/60f));
+						break;
+					//Takes 15 minutes to recover each cm of capacity:
+					case FIVE_STRETCHY:
 						target.incrementAssStretchedCapacity(-4 * (minutesPassed/60f));
+						break;
+					//Takes 10 minutes to recover each cm of capacity:
+					case SIX_SUPPLE:
+						target.incrementAssStretchedCapacity(-6 * (minutesPassed/60f));
 						break;
 					//Should have been instant after sex, this is just a backup:
 					case SEVEN_ELASTIC:
-						target.incrementAssStretchedCapacity(-100);
+						target.incrementAssStretchedCapacity(-200);
 						break;
 					default:
 						break;
@@ -4697,37 +4697,37 @@ public enum StatusEffect {
 			// Nipples:
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				switch(target.getNippleElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
+					//Takes 3 hours to recover each cm of capacity:
 					case ZERO_UNYIELDING:
-						target.incrementNippleStretchedCapacity(-(1/6f) * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-(1/3f) * (minutesPassed/60f));
 						break;
-					//Takes 4 hours to recover each inch of capacity:
+					//Takes 2 hours to recover each cm of capacity:
 					case ONE_RIGID:
-						target.incrementNippleStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
 						target.incrementNippleStretchedCapacity(-(1/2f) * (minutesPassed/60f));
 						break;
-					//Takes 1 hour to recover each inch of capacity:
+					//Takes 1 hour to recover each cm of capacity:
+					case TWO_FIRM:
+						target.incrementNippleStretchedCapacity(-(1) * (minutesPassed/60f));
+						break;
+					//Takes 30 minutes to recover each cm of capacity:
 					case THREE_FLEXIBLE:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
 						target.incrementNippleStretchedCapacity(-2 * (minutesPassed/60f));
 						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
+					//Takes 20 minutes to recover each cm of capacity:
+					case FOUR_LIMBER:
+						target.incrementNippleStretchedCapacity(-3 * (minutesPassed/60f));
+						break;
+					//Takes 15 minutes to recover each cm of capacity:
+					case FIVE_STRETCHY:
 						target.incrementNippleStretchedCapacity(-4 * (minutesPassed/60f));
+						break;
+					//Takes 10 minutes to recover each cm of capacity:
+					case SIX_SUPPLE:
+						target.incrementNippleStretchedCapacity(-6 * (minutesPassed/60f));
 						break;
 					//Should have been instant after sex, this is just a backup:
 					case SEVEN_ELASTIC:
-						target.incrementNippleStretchedCapacity(-100);
+						target.incrementNippleStretchedCapacity(-200);
 						break;
 					default:
 						break;
@@ -4740,37 +4740,37 @@ public enum StatusEffect {
 			// Urethra:
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
 				switch(target.getUrethraElasticity()){
-					//Takes 6 hours to recover each inch of capacity:
+					//Takes 3 hours to recover each cm of capacity:
 					case ZERO_UNYIELDING:
-						target.incrementPenisStretchedCapacity(-(1/6f) * (minutesPassed/60f));
+						target.incrementPenisStretchedCapacity(-(1/3f) * (minutesPassed/60f));
 						break;
-					//Takes 4 hours to recover each inch of capacity:
+					//Takes 2 hours to recover each cm of capacity:
 					case ONE_RIGID:
-						target.incrementPenisStretchedCapacity(-(1/4f) * (minutesPassed/60f));
-						break;
-					//Takes 2 hours to recover each inch of capacity:
-					case TWO_FIRM:
 						target.incrementPenisStretchedCapacity(-(1/2f) * (minutesPassed/60f));
 						break;
-					//Takes 1 hour to recover each inch of capacity:
+					//Takes 1 hour to recover each cm of capacity:
+					case TWO_FIRM:
+						target.incrementPenisStretchedCapacity(-(1) * (minutesPassed/60f));
+						break;
+					//Takes 30 minutes to recover each cm of capacity:
 					case THREE_FLEXIBLE:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 1 hour to recover each inch of capacity:
-					case FOUR_LIMBER:
-						target.incrementPenisStretchedCapacity(-1 * (minutesPassed/60f));
-						break;
-					//Takes 30 minutes to recover each inch of capacity:
-					case FIVE_STRETCHY:
 						target.incrementPenisStretchedCapacity(-2 * (minutesPassed/60f));
 						break;
-					//Takes 15 minutes to recover each inch of capacity:
-					case SIX_SUPPLE:
+					//Takes 20 minutes to recover each cm of capacity:
+					case FOUR_LIMBER:
+						target.incrementPenisStretchedCapacity(-3 * (minutesPassed/60f));
+						break;
+					//Takes 15 minutes to recover each cm of capacity:
+					case FIVE_STRETCHY:
 						target.incrementPenisStretchedCapacity(-4 * (minutesPassed/60f));
+						break;
+					//Takes 10 minutes to recover each cm of capacity:
+					case SIX_SUPPLE:
+						target.incrementPenisStretchedCapacity(-6 * (minutesPassed/60f));
 						break;
 					//Should have been instant after sex, this is just a backup:
 					case SEVEN_ELASTIC:
-						target.incrementPenisStretchedCapacity(-100);
+						target.incrementPenisStretchedCapacity(-200);
 						break;
 					default:
 						break;

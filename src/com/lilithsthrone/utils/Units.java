@@ -263,7 +263,7 @@ public enum Units {
      * {@link UnitType#LONG}: 1.42 metres
      * {@link UnitType#LONG_SINGULAR}: 1.42-metre
      * {@link UnitType#ROUGH_TEXT}: one metre
-     * @param cm Amount of inches to convert
+     * @param cm Amount of centimetres to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted, converted size, including unit
      */
