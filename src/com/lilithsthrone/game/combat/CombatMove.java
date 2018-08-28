@@ -568,7 +568,7 @@ public class CombatMove {
                     spell.getCooldown(),
                     spell.getAPCost(),
                     CombatMoveType.SPELL,
-                    spell.getSVGString(),
+                    "moves/"+spell.getPathName(),
                     spell.isCanTargetAllies(),
                     spell.isCanTargetEnemies(),
                     spell.isCanTargetSelf()) {
