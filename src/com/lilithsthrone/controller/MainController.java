@@ -1374,11 +1374,7 @@ public class MainController implements Initializable {
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
 						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+ (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate) || !Main.game.isInNewWorld() ? Units.date(Main.game.getDateNow(), Units.DateType.LONG) : "Unknown")
-//						+", " // TODO fix year if in game world
-//						+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)||!Main.game.isInNewWorld()
-//								?(!Main.game.isInNewWorld()?Main.game.getDateNow().getYear()-Game.TIME_SKIP_YEARS:Main.game.getDateNow().getYear())
-//								:"????")
+						+ Main.game.getDisplayDate()
 						+"</b><br/>"
 						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);

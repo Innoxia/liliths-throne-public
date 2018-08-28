@@ -2629,6 +2629,16 @@ public class Game implements Serializable, XMLSaving {
 	public LocalDateTime getDateNow() {
 		return getStartingDate().plusMinutes(Main.game.getMinutesPassed());
 	}
+
+	public String getDisplayDate() {
+		if (isInNewWorld()) {
+			if (getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
+				return Units.date(getDateNow(), Units.DateType.LONG);
+			}
+			return "Unknown";
+		}
+		return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+	}
 	
 	public int getYear() {
 		return Main.game.getDateNow().getYear();
