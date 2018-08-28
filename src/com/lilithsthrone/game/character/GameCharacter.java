@@ -11373,6 +11373,13 @@ public abstract class GameCharacter implements XMLSaving {
 		knownMoves.clear();
 	}
 
+	public void resetSelectedMoves()
+	{
+		selectedMoves.clear();
+		selectedMovesDisruption.clear();
+		selectedMoveTargets.clear();
+	}
+
 	public void resetMoveCooldowns()
 	{
 		this.moveTypeDisruptionMap.clear();

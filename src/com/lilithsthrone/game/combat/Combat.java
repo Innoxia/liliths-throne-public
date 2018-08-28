@@ -179,10 +179,12 @@ public enum Combat {
 			}
 		}
 
+		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), null, null);
 		for(NPC npc : allCombatants)
 		{
+			npc.resetSelectedMoves();
 			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
 			npc.resetMoveCooldowns();
 			npc.setRemainingAP(npc.getMaxAP(), null, null);
@@ -759,6 +761,10 @@ public enum Combat {
 					}
 					@Override
 					public Colour getHighlightColour() {
+						if(Main.game.getPlayer().getEquippedMoves().get(moveIndex).getAssociatedSpell() != null)
+						{
+							return Main.game.getPlayer().getEquippedMoves().get(moveIndex).getAssociatedSpell().getSpellSchool().getColour();
+						}
 						return Main.game.getPlayer().getEquippedMoves().get(moveIndex).getType().getColour();
 					}
 				};
@@ -1606,14 +1612,14 @@ public enum Combat {
 			List<GameCharacter> npcEnemies;
 			if(allies.contains(npc))
 			{
-				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
+				predictionStringBuilder.append("<p><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
 				npcAllies = new ArrayList<>(allies);
 				npcAllies.add(Main.game.getPlayer());
 				npcEnemies = new ArrayList<>(enemies);
 			}
 			else
 			{
-				predictionStringBuilder.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
+				predictionStringBuilder.append("<p><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+npc.getName("The")+"</span> is planning:</br></br>");
 				npcEnemies = new ArrayList<>(allies);
 				npcEnemies.add(Main.game.getPlayer());
 				npcAllies = new ArrayList<>(enemies);
@@ -1624,6 +1630,7 @@ public enum Combat {
 			// Figures out the new ones
 			npc.selectMoves(npcEnemies, npcAllies);
 			predictionStringBuilder.append(UtilText.parse(npc, npc.getMovesPredictionString(npcEnemies, npcAllies)));
+			predictionStringBuilder.append("</p>");
 
 			// Legacy code below
 			// Calculate what attack to use based on NPC preference:

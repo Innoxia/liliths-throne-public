@@ -274,7 +274,7 @@ public class TooltipInformationEventListener implements EventListener {
 			if(owner.getEquippedMoves().contains(move)) {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
 			} else {
-				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_TRAITS) {
+				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
 					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum moves activated.</div>");
 				} else {
 					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");

@@ -31,6 +31,8 @@ public class CombatMove {
     private boolean canTargetSelf;
     private String SVGString;
 
+    private Spell associatedSpell;
+
     static {
         // Initializing default actions
         // TODO
@@ -82,7 +84,7 @@ public class CombatMove {
             @Override
             public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
-                DamageType damageType = DamageType.PHYSICAL;
+                DamageType damageType = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getMainWeapon() != null)
                 {
                     damageType = source.getMainWeapon().getDamageType();
@@ -96,7 +98,7 @@ public class CombatMove {
             @Override
             public String getDescription()
             {
-                DamageType damageType = DamageType.PHYSICAL;
+                DamageType damageType = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(Main.game.getPlayer().getMainWeapon() != null)
                 {
                     damageType = Main.game.getPlayer().getMainWeapon().getDamageType();
@@ -110,7 +112,7 @@ public class CombatMove {
             @Override
             public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
-                DamageType damageType = DamageType.PHYSICAL;
+                DamageType damageType = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getMainWeapon() != null)
                 {
                     damageType = source.getMainWeapon().getDamageType();
@@ -174,12 +176,12 @@ public class CombatMove {
             @Override
             public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
-                DamageType damageTypeMain = DamageType.PHYSICAL;
+                DamageType damageTypeMain = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getMainWeapon() != null)
                 {
                     damageTypeMain = source.getMainWeapon().getDamageType();
                 }
-                DamageType damageTypeOffhand = DamageType.PHYSICAL;
+                DamageType damageTypeOffhand = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getOffhandWeapon() != null)
                 {
                     damageTypeOffhand = source.getOffhandWeapon().getDamageType();
@@ -196,12 +198,12 @@ public class CombatMove {
             @Override
             public String getDescription()
             {
-                DamageType damageTypeMain = DamageType.PHYSICAL;
+                DamageType damageTypeMain = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(Main.game.getPlayer().getMainWeapon() != null)
                 {
                     damageTypeMain = Main.game.getPlayer().getMainWeapon().getDamageType();
                 }
-                DamageType damageTypeOffhand = DamageType.PHYSICAL;
+                DamageType damageTypeOffhand = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(Main.game.getPlayer().getOffhandWeapon() != null)
                 {
                     damageTypeOffhand = Main.game.getPlayer().getOffhandWeapon().getDamageType();
@@ -218,12 +220,12 @@ public class CombatMove {
             @Override
             public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
             {
-                DamageType damageTypeMain = DamageType.PHYSICAL;
+                DamageType damageTypeMain = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getMainWeapon() != null)
                 {
                     damageTypeMain = source.getMainWeapon().getDamageType();
                 }
-                DamageType damageTypeOffhand = DamageType.PHYSICAL;
+                DamageType damageTypeOffhand = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
                 if(source.getOffhandWeapon() != null)
                 {
                     damageTypeOffhand = source.getOffhandWeapon().getDamageType();
@@ -498,7 +500,7 @@ public class CombatMove {
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
                         + String.valueOf(getDamage(source)) + " " + damageType.getName() + "</span>"
                         + " damage. "
-                        + "<span style='color:" + Colour.GENERIC_GOOD + ";'>"
+                        + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>"
                         + "Crit if this move breaks block; if crits, do a second kick." + "</span>";
             }
 
@@ -510,7 +512,7 @@ public class CombatMove {
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
                         + String.valueOf(getDamage(Main.game.getPlayer())) + "</span>"
                         + ") unarmed damage to them. "
-                        + "<span style='color:" + Colour.GENERIC_GOOD + ";'>"
+                        + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>"
                         + "Will crit if this move breaks block; if it crits, will do a second kick." + "</span>";
             }
 
@@ -529,7 +531,7 @@ public class CombatMove {
                 {
                     dealtDamage = damageType.damageTarget(target, source, getDamage(source)); // Second kick damage from the crit.
                     report += "The attack broke through the block, staggering the target, letting " + source.getName("the")
-                        + "<span style='color:" + Colour.GENERIC_GOOD + ";'>"
+                        + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>"
                         + "to critically hit" + "</span>" + target.getName("the") + ", throwing in a second kick for "
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
                         + String.valueOf(dealtDamage) + "</span> "
@@ -573,14 +575,16 @@ public class CombatMove {
                     spell.isCanTargetEnemies(),
                     spell.isCanTargetSelf()) {
 
-                private Spell associatedSpell = spell;
-
                 @Override
                 public String isAvailableFromSpecialCase(GameCharacter source)
                 {
-                    if(source.hasSpell(this.associatedSpell))
+                    if(source.hasSpell(this.getAssociatedSpell()))
                     {
                         return "This is a spell and it is available to casters that learned it.";
+                    }
+                    else if(source.getExtraSpells().contains(this.getAssociatedSpell()))
+                    {
+                        return "This is a spell and it is available to you because of your equipped weapon.";
                     }
                     else
                     {
@@ -591,52 +595,203 @@ public class CombatMove {
                 @Override
                 public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    return associatedSpell.getWeight(source, enemies, allies);
+                    return getAssociatedSpell().getWeight(source, enemies, allies);
                 }
 
                 @Override
                 public GameCharacter getPreferredTarget(GameCharacter  source, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    return associatedSpell.getPreferredTarget(source, enemies, allies);
+                    return getAssociatedSpell().getPreferredTarget(source, enemies, allies);
                 }
 
                 @Override
                 public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    return associatedSpell.getPrediction(source, target, enemies, allies);
+                    return getAssociatedSpell().getPrediction(source, target, enemies, allies);
                 }
 
                 @Override
                 public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    associatedSpell.applyDisruption(source, target, enemies, allies);
+                    getAssociatedSpell().applyDisruption(source, target, enemies, allies);
                 }
 
                 @Override
                 public String getDescription()
                 {
-                    return associatedSpell.getDescription();
+                    return getAssociatedSpell().getDescription();
                 }
 
                 @Override
                 public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    return associatedSpell.perform(source, target, enemies, allies);
+                    return getAssociatedSpell().perform(source, target, enemies, allies);
                 }
 
                 @Override
                 public void performOnSelection(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    associatedSpell.performOnSelection(source, target, enemies, allies);
+                    getAssociatedSpell().performOnSelection(source, target, enemies, allies);
                 }
 
                 @Override
                 public boolean canCrit(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
                 {
-                    return associatedSpell.canCrit(source, target, enemies, allies);
+                    return getAssociatedSpell().canCrit(source, target, enemies, allies);
+                }
+
+                @Override
+                public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+                {
+                    String reason = super.isUseable(source, target, enemies, allies);
+                    if(reason == null)
+                    {
+                        if(getAssociatedSpell().getSpellSchool() != SpellSchool.FIRE && getAssociatedSpell().getModifiedCost(source) < source.getMana())
+                        {
+                            reason = "Not enough aura to cast this spell!";
+                        }
+                    }
+                    return reason;
                 }
             };
+            newCombatMove.setAssociatedSpell(spell);
+            allCombatMoves.add(newCombatMove);
         }
+
+        // Note: Not a spell per se, but recovers mana and is only available to spell casters.
+        /*=============================================
+         *
+         *
+         *
+         */
+        newCombatMove = new CombatMove("arcane-strike",
+                "arcane strike",
+                0,
+                1,
+                CombatMoveType.ATTACK,
+                "moves/arcane-strike",
+                false,
+                true,
+                false){
+
+            private int getDamage(GameCharacter source)
+            {
+                AbstractWeapon weapon = source.getMainWeapon();
+                int totalDamage;
+                if (weapon == null) {
+                    totalDamage = source.getUnarmedDamage();
+                } else {
+                    totalDamage = weapon.getWeaponType().getDamage();
+                }
+                return (int)(totalDamage * 0.33);
+            }
+
+            private int getManaGain(GameCharacter source)
+            {
+                return 15;
+            }
+
+            @Override
+            public String isAvailableFromSpecialCase(GameCharacter source)
+            {
+                if(source.getSpells().size() > 0)
+                {
+                    return "This is a very simple move that requires a knowledge of at least 1 spell.";
+                }
+                return null;
+            }
+
+            @Override
+            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
+                if(source.getMainWeapon() != null)
+                {
+                    damageType = source.getMainWeapon().getDamageType();
+                }
+                return "Attack " + target.getName() + ", dealing "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getDamage(source)) + " " + damageType.getName() + "</span>"
+                        + " damage and recover "
+                        + "<span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"
+                        + String.valueOf(getManaGain(source)) + "</span> "
+                        + " arcane. "
+                        + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>"
+                        + "Crit if won't cast spells this turn; if crits, double aura gain and damage dealt." + "</span>";
+            }
+
+            @Override
+            public String getDescription()
+            {
+                DamageType damageType = DamageType.PHYSICAL;
+                if(Main.game.getPlayer().getMainWeapon() != null)
+                {
+                    damageType = Main.game.getPlayer().getMainWeapon().getDamageType();
+                }
+                return "Attack your enemy, dealing 33% ("
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(getDamage(Main.game.getPlayer())) + "</span>"
+                        + ") of your main weapon's damage to them and recover "
+                        + "<span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"
+                        + String.valueOf(getManaGain(Main.game.getPlayer())) + "</span> "
+                        + " arcane. "
+                        + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>"
+                        + "Crits if you don't cast any spells this turn; if crits, double aura gain and damage dealt." + "</span>";
+            }
+
+            @Override
+            public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                DamageType damageType = DamageType.UNARMED.getSuperDamage(null, Main.game.getPlayer());
+                if(source.getMainWeapon() != null)
+                {
+                    damageType = source.getMainWeapon().getDamageType();
+                }
+
+                int dealtDamage;
+                int manaGain;
+                boolean didCrit;
+                if(canCrit(source, target, enemies, allies))
+                {
+                    didCrit = true;
+                    dealtDamage = damageType.damageTarget(target, source, getDamage(source) * 2);
+                    manaGain = getManaGain(source) * 2;
+                }
+                else
+                {
+                    didCrit = false;
+                    dealtDamage = damageType.damageTarget(target, source, getDamage(source));
+                    manaGain = getManaGain(source);
+                }
+
+                source.incrementMana(manaGain);
+
+                String report = source.getName("The")+" attacked " + target.getName() + ", dealing "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+                        + String.valueOf(dealtDamage) + "</span> "
+                        + damageType.getName() + " damage to them and recovers "
+                        + "<span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"
+                        + String.valueOf(manaGain) + "</span> "
+                        + " arcane. ";
+                if(didCrit)
+                {
+                    report += "Since " + source.getName("The")+ " didn't use a spell this turn,"
+                            + "<span style='color:" + Colour.CRIT.toWebHexString() + ";'>" + " the attack crits, doubling aura gain and damage dealt!" + "</span>";
+                }
+                return report;
+            }
+
+            @Override
+            public boolean canCrit(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+            {
+                if(source.getSelectedMovesByType(CombatMoveType.SPELL) == 0) // Crits if no spells are cast this turn.
+                {
+                    return true;
+                }
+                return false;
+            }
+        };
+        allCombatMoves.add(newCombatMove);
     }
 
     /**
@@ -649,6 +804,8 @@ public class CombatMove {
      */
     public CombatMove(String identifier, String name, int cooldown, int APcost, CombatMoveType type, String pathName, boolean canTargetAllies, boolean canTargetEnemies, boolean canTargetSelf)
     {
+        this.associatedSpell = null;
+
         this.identifier = identifier;
         this.name = name;
         this.cooldown = cooldown;
@@ -884,7 +1041,6 @@ public class CombatMove {
     {
         if(target != null)
         {
-            // TODO: Figure out if target is an enemy
             if(!canTargetSelf && source == target)
             {
                 return "This action can't be used on yourself!";
@@ -933,6 +1089,14 @@ public class CombatMove {
 
     public CombatMoveType getType() {
         return type;
+    }
+
+    public Spell getAssociatedSpell() {
+        return associatedSpell;
+    }
+
+    public void setAssociatedSpell(Spell associatedSpell) {
+        this.associatedSpell = associatedSpell;
     }
 
     public boolean isCanTargetEnemies() {

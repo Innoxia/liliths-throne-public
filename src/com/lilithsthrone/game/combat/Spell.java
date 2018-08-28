@@ -45,7 +45,7 @@ public enum Spell {
 			"Summons a ball of arcane flames that can be launched at a target.",
 			15,
 			DamageVariance.LOW,
-			50,
+			75,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.FIREBALL_1,
@@ -132,8 +132,6 @@ public enum Spell {
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			
-			caster.incrementMana(-cost);
-			
 			return descriptionSB.toString();
 		}
 	},
@@ -148,7 +146,7 @@ public enum Spell {
 			"Crates a blinding flash of light that stuns the target.",
 			0,
 			DamageVariance.LOW,
-			60,
+			75,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FLASH, 1)),
 			Util.newArrayListOfValues(
 					SpellUpgrade.FLASH_1,
@@ -230,7 +228,6 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -246,7 +243,7 @@ public enum Spell {
 			"Shrouds the target in a protective cloak of arcane flames, granting them improved fire and ice resistance.",
 			0,
 			DamageVariance.LOW,
-			40,
+			50,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3)),
 			Util.newArrayListOfValues(
 					SpellUpgrade.CLOAK_OF_FLAMES_1,
@@ -301,8 +298,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -370,7 +366,6 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -388,7 +383,7 @@ public enum Spell {
 			"Summons a shard of ice that can be launched at a target.",
 			15,
 			DamageVariance.LOW,
-			50,
+			33,
 			null, Util.newArrayListOfValues(
 							SpellUpgrade.ICE_SHARD_1,
 							SpellUpgrade.ICE_SHARD_2,
@@ -454,8 +449,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -470,7 +464,7 @@ public enum Spell {
 			"Summons a small cloud of arcane-enchanted rain above the target's head, which saps their ability to cast spells.",
 			0,
 			DamageVariance.LOW,
-			30,
+			33,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.RAIN_CLOUD_1,
@@ -530,8 +524,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -576,8 +569,7 @@ public enum Spell {
 			descriptionSB.append("</p>");
 			
 			
-			caster.incrementMana(-cost);
-			
+
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_3)) {
@@ -728,8 +720,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -804,8 +795,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -881,8 +871,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -955,8 +944,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1023,8 +1011,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1119,8 +1106,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1192,8 +1178,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1266,8 +1251,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1334,8 +1318,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1416,8 +1399,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1489,8 +1471,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1563,8 +1544,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1680,8 +1660,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1876,8 +1855,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 		
@@ -1969,8 +1947,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2057,8 +2034,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2125,8 +2101,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2174,8 +2149,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2220,8 +2194,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	};
@@ -2955,7 +2928,9 @@ public enum Spell {
 
 	public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
 	{
-		return "An unknown spell!";
+		return "Cast "
+				+ "<span style='color:" + getSpellSchool().getColour().toWebHexString() + ";'>"
+				+ getName() + "</span>" + " spell.";
 	}
 
 	public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
@@ -2963,14 +2938,22 @@ public enum Spell {
 		return this.applyEffect(source, target, enemies, allies, true, canCrit(source, target, enemies, allies));
 	}
 
+	// Applies mana cost effects here. If overriden, don't forget to call it unless it's a free spell.
 	public void performOnSelection(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
 	{
-		// Nothing. Override it.
+		if(getSpellSchool() == SpellSchool.FIRE)
+		{
+			source.burnMana(getModifiedCost(source));
+		}
+		else
+		{
+			source.incrementMana(-getModifiedCost(source));
+		}
 	}
 
 	public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
 	{
-		// Nothing. Override it.
+		// Override. Note that disrupted spells don't disrupt their mana.
 	}
 
 	//Differs from normal version; spells have special crit requirements.
