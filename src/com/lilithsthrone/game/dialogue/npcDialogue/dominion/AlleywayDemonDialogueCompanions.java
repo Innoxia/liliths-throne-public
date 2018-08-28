@@ -1289,7 +1289,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} else if (index == 2) {
 				return new Response("Tiny cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little 1-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a tiny little [unit.convertedSingularSize(3)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1310,7 +1310,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} else if (index == 3) {
 				return new Response("Average-sized cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have an average, 6-inch, cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have an average, [unit.convertedSingularSize(15)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1331,7 +1331,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} if (index == 4) {
 				return new Response("Large cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a large, 11-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a large, [unit.convertedSingularSize(30)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -1352,7 +1352,7 @@ public class AlleywayDemonDialogueCompanions {
 				
 			} if (index == 5) {
 				return new Response("Enormous cock",
-						"Tell the [npc.race] that you want [npc.herHim] to have a massive 19-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to have a massive [unit.convertedSingularSize(50)] cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {

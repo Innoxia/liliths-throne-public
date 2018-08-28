@@ -170,7 +170,7 @@
 	<p>
 		[claire.speech(Hmm... A Slime Queen...)]
 		 Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other enforcers are all giving her a wide berth.
-		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last inch of the tunnels, and haven't found any trace of her.)]
+		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last [unit.size] of the tunnels, and haven't found any trace of her.)]
 	</p>
 	<p>
 		[pc.speech(Perhaps she isn't in the tunnels?)]
@@ -281,7 +281,7 @@
 	<p>
 		The main tunnels of Submission are surprisingly spacious, clean and full of life.
 		 A deep channel of opaque, greenish water flows at a steady pace down the centre of each passage, and to either side, well-maintained wooden walkways have been built up against the grey stone walls.
-		 Numerous bridges cross the watery divide at regular intervals, and every [unit.convertedSize(3937)] or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
+		 Numerous bridges cross the watery divide at regular intervals, and every [unit.convertedSize(10000)] or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
 	</p>
 	<p>
 		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
@@ -368,7 +368,7 @@
 	<p>
 		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
 		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichins and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
-		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about [unit.convertedSize(591)] or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
+		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about [unit.convertedSize(1500)] or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
 	</p>
 	<p>
 		Determined to continue on your downwards journey, you proceed to the bottom of the staircase, and find yourself stepping forwards into pitch-black cavern.

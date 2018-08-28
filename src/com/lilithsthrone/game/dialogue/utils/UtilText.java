@@ -3429,6 +3429,20 @@ public class UtilText {
 				return Units.size(Double.valueOf(arguments), Units.UnitType.ROUGH_TEXT);
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"parsedSingularSize",
+						"convertedSingularSize"),
+				true,
+				false,
+				"(cm to convert)",
+				"Returns the converted size to the localized, singular form."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return Units.size(Double.valueOf(arguments), Units.UnitType.LONG_SINGULAR);
+			}
+		});
 		
 		
 		// Body parts:
