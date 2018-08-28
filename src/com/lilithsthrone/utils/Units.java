@@ -217,7 +217,7 @@ public enum Units {
      */
     public static String sizeAsImperial(double cm, UnitType type) {
         // Convert centimetres to inches
-        double inches = round(cm / 2.54, 1);
+        double inches = adaptiveRound(cm / 2.54);
 
         switch (type) {
             case NONE:
@@ -247,7 +247,7 @@ public enum Units {
                 }
 
                 if (inch != 0) {
-                    output += number(output.isEmpty() ? inch : Math.abs(Math.round(inch))) + "&quot;";
+                    output += number(output.isEmpty() ? inch : Math.abs(inch)) + "&quot;";
                 } else if (feet == 0) {
                     output = "0&quot;";
                 }
@@ -472,5 +472,18 @@ public enum Units {
      */
     public static long roundTo(double value, long toNearest) {
         return Math.round(value / toNearest) * toNearest;
+    }
+
+    /**
+     * Rounds a given number based on its value. Values below 2 are rounded to 1 fractional digit, values below 10 are
+     * rounded to the nearest 0.5, otherwise the number is rounded to the nearest integer.
+     * @param value Number to round
+     * @return A variably rounded double
+     */
+    public static double adaptiveRound(double value) {
+        double absoluteValue = Math.abs(value);
+        if (absoluteValue < 2) return round(value, 1);
+        if (absoluteValue < 10) return roundTo(value, 0.5);
+        return Math.round(value);
     }
 }
