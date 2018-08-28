@@ -326,7 +326,10 @@ public abstract class GameCharacter implements XMLSaving {
 	protected List<CombatMove> equippedMoves;
 	protected List<CombatMove> knownMoves;
 	protected List<CombatMove> selectedMoves;
+	protected List<Boolean> selectedMovesDisruption;
 	protected List<GameCharacter> selectedMoveTargets;
+	protected List<String> movesToDisrupt;
+	protected Map<CombatMoveType, Integer> moveTypeDisruptionMap;
 	protected Map<DamageType, Integer> shields;
 	protected Map<String, Integer> moveCooldowns;
 	protected int remainingAP;
@@ -497,10 +500,13 @@ public abstract class GameCharacter implements XMLSaving {
 		potionAttributes = new EnumMap<>(Attribute.class);
 
 		moveCooldowns = new HashMap<>();
+		moveTypeDisruptionMap = new EnumMap<>(CombatMoveType.class);
 		knownMoves = new ArrayList<>();
 		equippedMoves = new ArrayList<>();
 		selectedMoves = new ArrayList<>();
 		selectedMoveTargets = new ArrayList<>();
+		selectedMovesDisruption = new ArrayList<>();
+		movesToDisrupt = new ArrayList<>();
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
 		spells = new ArrayList<>();
 		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
@@ -10966,15 +10972,137 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Combat:
 
-	public void selectMove(CombatMove move, GameCharacter target)
+	public void selectMove(CombatMove move, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
 	{
 		if(move.getAPcost() <= remainingAP)
 		{
 			remainingAP -= move.getAPcost();
 			selectedMoves.add(move);
+			selectedMovesDisruption.add(move.isAlreadyDisrupted(this));
 			selectedMoveTargets.add(target);
+			move.performOnSelection(this, target, enemies, allies);
 			this.setCooldown(move.getIdentifier(), move.getCooldown());
 		}
+	}
+
+	public void disruptMove(String moveIdentifier, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		// Making sure we aren't in a disruption loop
+		if(movesToDisrupt.size() == 0)
+		{
+			movesToDisrupt.add(moveIdentifier);
+			while(movesToDisrupt.size() > 0)
+			{
+				// Finding last move with the same type
+				int lastFoundIndex = -1;
+				int index = 0;
+				for(CombatMove move : selectedMoves)
+				{
+					if(move.getIdentifier().equals(movesToDisrupt.get(movesToDisrupt.size()-1)))
+					{
+						lastFoundIndex = index;
+					}
+					index++;
+				}
+
+				// Making sure it was found. Applying disruption effects in reverse, then reapplying the effects.
+				if(lastFoundIndex >= 0)
+				{
+					// Applying disruption in reverse, undoing everything that was done.
+					List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+					Collections.reverse(selectedMoves);
+					index = 0;
+					for(CombatMove move : reversedList)
+					{
+						// Excluding already disrupted moves.
+						if(selectedMovesDisruption.get(index) == false)
+						{
+							move.applyDisruption(this, selectedMoveTargets.get(index), enemies, allies);
+						}
+						index++;
+					}
+
+					// Reapplying it, excluding the disrupted move.
+					index = 0;
+					for(CombatMove move : selectedMoves)
+					{
+						if(lastFoundIndex == index)
+						{
+							selectedMovesDisruption.set(index, true);
+						}
+						else
+						{
+							// Excluding already disrupted moves.
+							if(selectedMovesDisruption.get(index) == false)
+							{
+								move.performOnSelection(this, selectedMoveTargets.get(index), enemies, allies);
+							}
+						}
+						index++;
+					}
+
+				}
+
+				// Removing the move from the list of moves to disrupt.
+				movesToDisrupt.remove(movesToDisrupt.size()-1);
+			}
+		}
+		else
+		{
+			// Adding move to queue as it was disrupted as a result of another move being disrupted; we need to deal with that move first completely before disrupting this one.
+			movesToDisrupt.add(moveIdentifier);
+		}
+	}
+
+	/**
+	 * Will disrupt by move type. If no moves of the specified type are selected, stores it till the cooldowns reset.
+	 *
+	 * Example: Flash spell disrupting a BLOCK type move.
+	 */
+	public void disruptMoveByType(CombatMoveType type, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+		Collections.reverse(selectedMoves);
+		int index = 0;
+		int highestIndex = -1;
+		for(CombatMove move : reversedList)
+		{
+			// Excluding already disrupted moves.
+			if(selectedMovesDisruption.get(index) == false)
+			{
+				if(move.getType().countsAs(type))
+				{
+					highestIndex = index;
+				}
+			}
+			index++;
+		}
+		if(highestIndex >= 0)
+		{
+			disruptMove(reversedList.get(highestIndex).getIdentifier(), enemies, allies);
+		}
+		else
+		{
+			moveTypeDisruptionMap.put(type, moveTypeDisruptionMap.get(type)+1); // Adding for the future
+		}
+	}
+
+	/**
+	 * Used by isAlreadyDisrupted function of CombatMove to figure out if a move of it's type is already disrupted.
+	 * @param type
+	 * @return
+	 */
+	public boolean disruptionByTypeCheck(CombatMoveType typeBase)
+	{
+		for(CombatMoveType type : typeBase.getCountsAsList()) {
+			if (moveTypeDisruptionMap.containsKey(type)) {
+				if (moveTypeDisruptionMap.get(type) > 0) {
+					moveTypeDisruptionMap.put(type, moveTypeDisruptionMap.get(type) - 1);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public String getMovesPredictionString(List<GameCharacter> enemies, List<GameCharacter> allies)
@@ -10984,6 +11112,10 @@ public abstract class GameCharacter implements XMLSaving {
 		for(CombatMove move : selectedMoves)
 		{
 			prediction += move.getPrediction(this, selectedMoveTargets.get(index), enemies, allies);
+			if(selectedMovesDisruption.get(index) == true)
+			{
+				prediction += "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + " (Disrupted!)</b>";
+			}
 			prediction += "</br>";
 			index++;
 		}
@@ -11000,13 +11132,23 @@ public abstract class GameCharacter implements XMLSaving {
 		int index = 0;
 		for(CombatMove move : selectedMoves)
 		{
-			result += "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/> ";
-			result += move.perform(this, selectedMoveTargets.get(index), enemies, allies);
-			result += "<br/>";
+			if(selectedMovesDisruption.get(index) == false)
+			{
+				result += "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/> ";
+				result += move.perform(this, selectedMoveTargets.get(index), enemies, allies);
+				result += "<br/>";
+			}
+			else
+			{
+				result += "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/> ";
+				result += "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>";
+				result += "<br/>";
+			}
 			index++;
 		}
 		selectedMoves.clear();
 		selectedMoveTargets.clear();
+		selectedMovesDisruption.clear();
 		remainingAP = maxAP;
 		return result;
 	}
@@ -11046,7 +11188,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			else
 			{
-				selectMove(selectedMove, selectedMove.getPreferredTarget(this, enemies, allies));
+				selectMove(selectedMove, selectedMove.getPreferredTarget(this, enemies, allies), enemies, allies);
 			}
 
 		}
@@ -11062,9 +11204,42 @@ public abstract class GameCharacter implements XMLSaving {
 		return maxAP;
 	}
 
-	public void setRemainingAP(int value)
+	/**
+	 * Sets remaining AP. If AP is set to negative values, will cause action disruptions. If enemies and allies are null, guarantees that no  AP related disruptions are necessary.
+	 * @param value
+	 * @param enemies
+	 * @param allies
+	 */
+	public void setRemainingAP(int value, List<GameCharacter> enemies, List<GameCharacter> allies)
 	{
 		remainingAP = value;
+		while(remainingAP < 0 && enemies != null && allies != null) // If something put our AP below 0, we remove the actions causing that.
+		{
+			List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+			Collections.reverse(selectedMoves);
+			int index = 0;
+			int highestIndex = -1;
+			for(CombatMove move : reversedList)
+			{
+				// Excluding already disrupted moves.
+				if(selectedMovesDisruption.get(index) == false)
+				{
+					if(move.getAPcost() > 0)
+					{
+						highestIndex = index;
+					}
+				}
+				index++;
+			}
+			if(highestIndex >= 0)
+			{
+				disruptMove(reversedList.get(highestIndex).getIdentifier(), enemies, allies);
+			}
+			else
+			{
+				remainingAP = 0; // Safeguard in case no actions could be removed to remedy the AP situation.
+			}
+		}
 	}
 
 	public void setMaxAP(int value)
@@ -11104,6 +11279,11 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return moves;
+	}
+
+	public List<CombatMove> getSelectedMoves()
+	{
+		return selectedMoves;
 	}
 
 	public List<CombatMove> getAvailableMoves()
@@ -11195,6 +11375,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void resetMoveCooldowns()
 	{
+		this.moveTypeDisruptionMap.clear();
 		this.moveCooldowns = new HashMap<>();
 	}
 
@@ -11237,6 +11418,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void lowerMoveCooldowns()
 	{
+		this.moveTypeDisruptionMap.clear();
 		for(String action : moveCooldowns.keySet())
 		{
 			if(moveCooldowns.get(action) > 0)
@@ -11244,6 +11426,28 @@ public abstract class GameCharacter implements XMLSaving {
 				this.moveCooldowns.put(action, moveCooldowns.get(action)-1);
 			}
 		}
+	}
+
+	/**
+	 * Returns base unarmed damage value.
+	 * @return
+	 */
+	public int getUnarmedDamage()
+	{
+		int totalDamage = 1 + (int)(this.getAttributeValue(Attribute.MAJOR_PHYSIQUE)/10); // Basic physique damage calculation
+		if(totalDamage > 8) // Hard cap at 8 from physique
+		{
+			totalDamage = 8;
+		}
+
+		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) // Unarmed training always gives guaranteed 8 base damage.
+		{
+			totalDamage = 8;
+		}
+
+		totalDamage *= 1 + Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+
+		return totalDamage;
 	}
 
 	public boolean isImmuneToDamageType(DamageType type) {
@@ -11533,6 +11737,27 @@ public abstract class GameCharacter implements XMLSaving {
 			this.mana = mana;
 
 		updateAttributeListeners();
+	}
+
+	/**
+	 * "Burns" mana instead of lowering it. If the character has no mana, would lower HP instead with a 4 mana to 1 ratio. Used by fire spells.
+	 * @param mana
+	 */
+	public void burnMana(float mana) {
+		float healthDamage = (getMana() - mana) * -1;
+		if(healthDamage > 0)
+		{
+			healthDamage = (int)(0.25 * healthDamage);
+			if(healthDamage > getHealth())
+			{
+				setHealth(1); // Can't burn below 1 HP.
+			}
+			else
+			{
+				setHealth(getHealth() - healthDamage);
+			}
+		}
+		setMana(getMana() - mana);
 	}
 	
 	/**

@@ -27,6 +27,7 @@ public enum CombatMoveType {
         this.name = name;
         this.colour = colour;
         countsAsList = new ArrayList<>();
+        countsAsList.add(this);
     }
 
     CombatMoveType(String name, Colour colour, List<CombatMoveType> countsAsList)
@@ -44,6 +45,8 @@ public enum CombatMoveType {
     public Colour getColour() {
         return colour;
     }
+
+    public List<CombatMoveType> getCountsAsList() { return countsAsList; }
 
     /**
      * Returns true if the type can count as a different type. Use it for multitypes.

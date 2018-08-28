@@ -2,6 +2,8 @@ package com.lilithsthrone.game.combat;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -52,6 +54,62 @@ public enum DamageType {
 			SpellSchool.AIR,
 			DamageType.ENERGY),
 
+	UNARMED("unarmed",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			"unarmed",
+			Attribute.RESISTANCE_PHYSICAL,
+			Attribute.DAMAGE_PHYSICAL,
+			SpellSchool.EARTH,
+			DamageType.ENERGY) {
+		@Override
+		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount)
+		{
+			// Flame cloak gives fire melee damage at a cost of arcane.
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES))
+			{
+				// Burning mana for each melee strike proportional to it's unchanged damage.
+				source.burnMana(damageAmount * 0.25f);
+				// Increasing damage amount by 50%
+				damageAmount = (int)(damageAmount * 0.5f);
+			}
+			return getSuperDamage(target, source).damageTarget(target, source, damageAmount);
+		}
+
+		@Override
+		public DamageType getSuperDamage(GameCharacter target, GameCharacter source)
+		{
+			// Flame cloak gives fire melee damage
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES))
+			{
+				return FIRE;
+			}
+
+			if(source instanceof Elemental) {
+				switch(source.getBodyMaterial()) {
+					case AIR:
+						return POISON;
+					case ARCANE:
+						return LUST;
+					case FIRE:
+						return FIRE;
+					case FLESH:
+					case SLIME:
+						return PHYSICAL;
+					case RUBBER:
+					case STONE:
+						return PHYSICAL;
+					case ICE:
+					case WATER:
+						return ICE;
+					default:
+						return PHYSICAL;
+				}
+			}
+
+			return PHYSICAL; // Normal characters deal physical damage with their melee strikes.
+		}
+	},
+
 	LUST("lust",
 			Colour.DAMAGE_TYPE_LUST,
 			"arousing",
@@ -60,9 +118,9 @@ public enum DamageType {
 			SpellSchool.ARCANE,
 			null) {
 		@Override
-		public int damageTarget(GameCharacter target, int damageAmount)
+		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount)
 		{
-			damageAmount = shieldCheck(target, damageAmount);
+			damageAmount = shieldCheck(target, source, damageAmount);
 			if(damageAmount > 0)
 			{
 				target.setLust(target.getLust()+damageAmount);
@@ -129,8 +187,8 @@ public enum DamageType {
 	 * @param damageAmount
 	 * @return
 	 */
-	public int damageTarget(GameCharacter target, int damageAmount) {
-		damageAmount = shieldCheck(target, damageAmount);
+	public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
+		damageAmount = shieldCheck(target, source, damageAmount);
 		if(damageAmount > 0)
 		{
 			target.setHealth(target.getHealth()-damageAmount);
@@ -138,20 +196,28 @@ public enum DamageType {
 		return damageAmount;
 	}
 
-	public int shieldCheck(GameCharacter target, int damageAmount)
+	public int shieldCheckNoDamage(GameCharacter target, GameCharacter source, int damageAmount)
 	{
-		if(this.superDamage != null)
+		if(this.getSuperDamage(target, source) != null)
 		{
-			if(target.getShields(this.superDamage) > 0)
+			damageAmount = this.getSuperDamage(target, source).shieldCheckNoDamage(target, source, damageAmount);
+		}
+		if(target.getShields(this) > 0)
+		{
+			damageAmount -= target.getShields(this);
+			if(damageAmount < 0)
 			{
-				int oldShields = target.getShields(this.superDamage);
-				target.setShields(this.superDamage, target.getShields(this.superDamage) - damageAmount);
-				damageAmount -= oldShields;
-				if(damageAmount < 0)
-				{
-					damageAmount = 0;
-				}
+				damageAmount = 0;
 			}
+		}
+		return damageAmount;
+	}
+
+	public int shieldCheck(GameCharacter target, GameCharacter source, int damageAmount)
+	{
+		if(this.getSuperDamage(target, source) != null)
+		{
+			damageAmount = this.getSuperDamage(target, source).shieldCheck(target, source, damageAmount);
 		}
 		if(target.getShields(this) > 0)
 		{
@@ -164,6 +230,11 @@ public enum DamageType {
 			}
 		}
 		return damageAmount;
+	}
+
+	public DamageType getSuperDamage(GameCharacter target, GameCharacter source)
+	{
+		return this.superDamage;
 	}
 	
 }

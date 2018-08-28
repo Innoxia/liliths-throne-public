@@ -66,7 +66,7 @@ public enum PerkManager {
 		physical2 = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.PHYSIQUE_5, physical1);
 		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.OBSERVANT, physical1);
 		
-		physical1 = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.BRAWLER, physical2);
+		physical1 = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.UNARMED_TRAINING, physical2);
 		physical3 = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.RUNNER, physical2);
 		physical4 = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.PHYSIQUE_1, physical3);
 		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.RUNNER_2, physical4);
@@ -172,7 +172,7 @@ public enum PerkManager {
 		physical2 = addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 2, Perk.PHYSIQUE_5, physical1);
 		addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 2, Perk.OBSERVANT, physical1);
 		
-		physical1 = addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 3, Perk.BRAWLER, physical2);
+		physical1 = addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 3, Perk.UNARMED_TRAINING, physical2);
 		physical3 = addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 3, Perk.RUNNER, physical2);
 		physical4 = addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 3, Perk.PHYSIQUE_1, physical3);
 		addPerkEntry(NPCPerkTree, PerkCategory.PHYSICAL, 3, Perk.RUNNER_2, physical4);

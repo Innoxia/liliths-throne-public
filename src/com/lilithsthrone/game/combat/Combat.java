@@ -180,12 +180,12 @@ public enum Combat {
 		}
 
 		Main.game.getPlayer().resetMoveCooldowns();
-		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP());
+		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), null, null);
 		for(NPC npc : allCombatants)
 		{
 			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
 			npc.resetMoveCooldowns();
-			npc.setRemainingAP(npc.getMaxAP());
+			npc.setRemainingAP(npc.getMaxAP(), null, null);
 			// Sets up NPC ally/enemy lists that include player
 			List<GameCharacter> npcAllies;
 			List<GameCharacter> npcEnemies;
@@ -748,12 +748,14 @@ public enum Combat {
 										rejectionReason,
 							null);
 				}
+				String moveStatblock = "";
+				moveStatblock += "(AP: " + String.valueOf(move.getAPcost()) + ")(CD: " + String.valueOf(move.getCooldown()) + ") ";
 				return new Response(Util.capitaliseSentence(move.getName()),
-					move.getDescription(),
+					moveStatblock + move.getDescription(),
 					ENEMY_ATTACK){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().selectMove(move, getTargetedCombatant(Main.game.getPlayer()));
+						Main.game.getPlayer().selectMove(move, getTargetedCombatant(Main.game.getPlayer()), pcEnemies, pcAllies);
 					}
 					@Override
 					public Colour getHighlightColour() {
@@ -772,7 +774,7 @@ public enum Combat {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						if(Main.game.getPlayer().getRemainingAP() <= 0)
+						if(Main.game.getPlayer().getRemainingAP() > 0)
 						{
 							return Colour.GENERIC_BAD;
 						}
@@ -1695,9 +1697,27 @@ public enum Combat {
 		
 		List<NPC> combatants = new ArrayList<>(allCombatants); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
 		for(NPC character : combatants) {
+
+			// Sets up NPC ally/enemy lists that include player
+			List<GameCharacter> npcAllies;
+			List<GameCharacter> npcEnemies;
+			if(allies.contains(character))
+			{
+				npcAllies = new ArrayList<>(allies);
+				npcAllies.add(Main.game.getPlayer());
+				npcEnemies = new ArrayList<>(enemies);
+			}
+			else
+			{
+				npcEnemies = new ArrayList<>(allies);
+				npcEnemies.add(Main.game.getPlayer());
+				npcAllies = new ArrayList<>(enemies);
+			}
+
 		    character.resetShields();
+			character.lowerMoveCooldowns();
+			character.setRemainingAP(character.getMaxAP(), npcEnemies, npcAllies);
 			attackNPC(character);
-			character.setRemainingAP(character.getMaxAP());
 		}
 		
 		// Player end turn effects:
@@ -1705,9 +1725,12 @@ public enum Combat {
 		/*for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {
 			Combat.incrementCooldown(Main.game.getPlayer(), sa, -1);
 		}*/
+		List<GameCharacter> pcAllies = new ArrayList<>(allies);
+		pcAllies.add(Main.game.getPlayer());
+		List<GameCharacter> pcEnemies = new ArrayList<>(enemies);
         Main.game.getPlayer().resetShields();
 		Main.game.getPlayer().lowerMoveCooldowns();
-		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP());
+		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), pcEnemies, pcAllies);
 
 		// NPC end turn effects:
 		for(NPC character : allCombatants) {
