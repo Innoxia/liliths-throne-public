@@ -3422,7 +3422,7 @@ public class UtilText {
 						"convertedSize"),
 				true,
 				false,
-				"(inches to convert)",
+				"(cm to convert)",
 				"Returns the converted size to the localized form."){
 			@Override
 			public String parse(String command, String arguments, String target) {

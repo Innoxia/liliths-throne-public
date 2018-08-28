@@ -261,7 +261,7 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(14);
+		this.setPenisSize(35);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();

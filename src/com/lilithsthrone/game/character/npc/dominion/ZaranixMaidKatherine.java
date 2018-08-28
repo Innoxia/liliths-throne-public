@@ -190,7 +190,7 @@ public class ZaranixMaidKatherine extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(8);
+		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(100);
 		this.fillCumToMaxStorage();

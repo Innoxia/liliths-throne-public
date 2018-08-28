@@ -79,7 +79,7 @@ public class Pazu extends NPC {
 			
 			this.setBreastSize(CupSize.FLAT.getMeasurement());
 			
-			this.setPenisSize(7);
+			this.setPenisSize(18);
 			
 			this.setHeight(185);
 			

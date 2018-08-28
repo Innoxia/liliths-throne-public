@@ -191,7 +191,7 @@ public class Ralph extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(14);
+		this.setPenisSize(35);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();

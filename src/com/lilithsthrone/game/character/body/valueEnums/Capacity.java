@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.utils.Colour;
 
 /**
- * Measured in inches of penis size that could fit comfortably within this capacity.
+ * Measured in cm of penis size that could fit comfortably within this capacity.
  * 
  * @since 0.1.0
  * @version 0.1.83

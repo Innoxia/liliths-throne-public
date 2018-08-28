@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -870,9 +871,6 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
 		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType());
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedBreast.milk.type = importedBreast.getType().getFluidType();
-		}
 
 		
 		// **************** Ear **************** //
@@ -1176,9 +1174,6 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Cum:");
 		
 		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc, importedPenis.getType().getTesticleType().getFluidType());
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
-		}
 
 		
 		// **************** Skin **************** //
@@ -1314,9 +1309,6 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Girlcum:");
 		
 		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc, importedVagina.getType().getFluidType());
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
-		}
 		
 		// **************** Wing **************** //
 		
@@ -1329,6 +1321,39 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Wing: "
 				+ "<br/>type: "+importedWing.getType()+"<br/>"
 				+ "<br/>size: "+importedWing.getSizeValue()+"<br/>");
+
+
+		// ************** Version Overrides **************//
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.5.1")) {
+			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
+			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
+			importedBreast.milk.type = importedBreast.getType().getFluidType();
+		}
+
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) { // FIXME change version after merging
+			// Convert all sizes from inch to cm
+			importedHair.length *= 2.54;
+			importedHorn.length *= 2.54;
+			importedFace.tongue.tongueLength *= 2.54;
+			importedPenis.size *= 2.54;
+			importedVagina.clitoris.clitSize *= 2.54;
+
+			// Convert all capacities from inch to cm
+			importedFace.mouth.orificeMouth.capacity *= 2.54;
+			importedFace.mouth.orificeMouth.stretchedCapacity *= 2.54;
+			importedPenis.orificeUrethra.capacity *= 2.54;
+			importedPenis.orificeUrethra.stretchedCapacity *= 2.54;
+			importedVagina.orificeVagina.capacity *= 2.54;
+			importedVagina.orificeVagina.stretchedCapacity *= 2.54;
+			importedVagina.orificeUrethra.capacity *= 2.54;
+			importedVagina.orificeUrethra.stretchedCapacity *= 2.54;
+			importedAss.anus.orificeAnus.capacity *= 2.54;
+			importedAss.anus.orificeAnus.stretchedCapacity *= 2.54;
+			importedBreast.nipples.orificeNipples.capacity *= 2.54;
+			importedBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
+		}
 		
 		
 		Body body = new Body.BodyBuilder(

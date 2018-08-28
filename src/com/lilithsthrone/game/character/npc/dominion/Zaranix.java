@@ -167,7 +167,7 @@ public class Zaranix extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(18);
+		this.setPenisSize(45);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
 		this.fillCumToMaxStorage();

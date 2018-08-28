@@ -252,7 +252,7 @@ public class Kate extends NPC {
 		// (For when she grows one)
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(10);
+		this.setPenisSize(25);
 //		this.setInternalTesticles(true); Use player preferences
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(150);

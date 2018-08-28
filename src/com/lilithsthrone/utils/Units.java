@@ -182,40 +182,43 @@ public enum Units {
     }
 
     /**
-     * Formats a size in inches with short units. See {@link Units#size(double, UnitType)} for details.
+     * Formats a size in centimetres with short units. See {@link Units#size(double, UnitType)} for details.
      */
-    public static String size(double inches) {
-        return size(inches, UnitType.SHORT);
+    public static String size(double cm) {
+        return size(cm, UnitType.SHORT);
     }
 
     /**
-     * Formats a size, given in inches, with the current number formatter and units depending on the imperial unit
+     * Formats a size, given in centimetres, with the current number formatter and units depending on the imperial unit
      * setting as well as the given type. For examples of the result, see {@link Units#sizeAsImperial(double, UnitType)} and
      * {@link Units#sizeAsMetric(double, UnitType)}.
-     * @param inches Amount of inches to convert
+     * @param cm Amount of centimetres to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the localized, wrapped, converted size and its associated unit
      */
-    public static String size(double inches, UnitType type) {
+    public static String size(double cm, UnitType type) {
         if (Main.getProperties().hasValue(PropertyValue.imperialSystem))
-            return sizeAsImperial(inches, type);
+            return sizeAsImperial(cm, type);
         else
-            return sizeAsMetric(inches, type);
+            return sizeAsMetric(cm, type);
     }
 
     /**
-     * Formats a size, given in inches, to the common imperial form. Note that only {@link UnitType#SHORT} applies
-     * wrapping, so the output for 56 inches, would be:
+     * Formats a size, given in centimetres, to the common imperial form. Note that only {@link UnitType#SHORT} applies
+     * wrapping, so the output for 142 centimetres would be:
      * {@link UnitType#NONE}: 56
      * {@link UnitType#SHORT}: 4'8"
      * {@link UnitType#LONG}: 56 inches
      * {@link UnitType#LONG_SINGULAR}: 56-inch
      * {@link UnitType#ROUGH_TEXT}: five feet
-     * @param inches Amount of inches to format
+     * @param cm Amount of centimetres to format
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the imperial, formatted size, including unit
      */
-    public static String sizeAsImperial(double inches, UnitType type) {
+    public static String sizeAsImperial(double cm, UnitType type) {
+        // Convert centimetres to inches
+        double inches = round(cm / 2.54, 1);
+
         switch (type) {
             case NONE:
                 return number(inches);
@@ -228,7 +231,7 @@ public enum Units {
                 } else {
                     String number = number(inches);
                     if (type == UnitType.LONG) {
-                        return number + (Math.abs(inches) == 1 ? " inch" : " inches");
+                        return number + (Math.abs(inches) <= 1 ? " inch" : " inches");
                     } else {
                         return number + "-inch";
                     }
@@ -244,7 +247,7 @@ public enum Units {
                 }
 
                 if (inch != 0) {
-                    output += number(output.isEmpty() ? roundTo(inch, 0.5) : Math.abs(inch)) + "&quot;";
+                    output += number(output.isEmpty() ? inch : Math.abs(Math.round(inch))) + "&quot;";
                 } else if (feet == 0) {
                     output = "0&quot;";
                 }
@@ -253,21 +256,18 @@ public enum Units {
     }
 
     /**
-     * Converts a size, given in inches, to the common metric form. Note that the type {@link UnitType#NONE} does not
-     * apply wrapping and centimetre values are rounded correctly, so the output for 56 inches would be:
+     * Converts a size, given in centimetres, to the common metric form. Note that the type {@link UnitType#NONE} does not
+     * apply wrapping and centimetre values are rounded correctly, so the output for 142 centimetres would be:
      * {@link UnitType#NONE}: 142
      * {@link UnitType#SHORT}: 1.42 m
      * {@link UnitType#LONG}: 1.42 metres
      * {@link UnitType#LONG_SINGULAR}: 1.42-metre
      * {@link UnitType#ROUGH_TEXT}: one metre
-     * @param inches Amount of inches to convert
+     * @param cm Amount of inches to convert
      * @param type The desired length of the units, see {@link UnitType} for details
      * @return A string containing the metric, formatted, converted size, including unit
      */
-    public static String sizeAsMetric(double inches, UnitType type) {
-        // Convert inches to centimetres
-        double cm = inches * 2.54;
-
+    public static String sizeAsMetric(double cm, UnitType type) {
         double m = cm / 100;
         return withUnit(Math.round(cm), "cm", "centimetre", m, "m", "metre", type);
     }
