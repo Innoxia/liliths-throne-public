@@ -6,7 +6,7 @@
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[realistic dildo]]></name>
     <namePlural pluralByDefault="false"><![CDATA[realistic dildos]]></namePlural>
-    <description><![CDATA[A thick, veiny [unit.convertedSingularSize(20)] dildo made of arcane-cured silicone.]]></description>
+    <description><![CDATA[A thick, veiny [unit.size(20)] dildo made of arcane-cured silicone.]]></description>
     
     <physicalResistance>0</physicalResistance>
     <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
