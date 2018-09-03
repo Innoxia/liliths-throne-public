@@ -204,8 +204,9 @@ public enum Units {
     }
 
     /**
-     * Formats a size, given in centimetres, to the common imperial form. Note that only {@link UnitType#SHORT} applies
-     * wrapping, so the output for 142 centimetres would be:
+     * Formats a size, given in centimetres, to the common imperial form. Note that {@link UnitType#LONG} and
+     * {@link UnitType#LONG_SINGULAR} only apply wrapping if the amount of inches is a multiple of 12, so the output for
+     * 142 centimetres would be:
      * {@link UnitType#NONE}: 56
      * {@link UnitType#SHORT}: 4'8"
      * {@link UnitType#LONG}: 56 inches
@@ -219,6 +220,10 @@ public enum Units {
         // Convert centimetres to inches
         double inches = adaptiveRound(cm / 2.54);
 
+        // Wrap inches to feet
+        long feet = (long) (inches / 12);
+        double remainingInches = inches % 12;
+
         switch (type) {
             case NONE:
                 return number(inches);
@@ -229,28 +234,36 @@ public enum Units {
                 if (Math.floor(inches) == 0) {
                     return "less than 1 inch";
                 } else {
-                    String number = number(inches);
-                    if (type == UnitType.LONG) {
-                        return number + (Math.abs(inches) <= 1 ? " inch" : " inches");
+                    boolean forceWrap = remainingInches == 0 && feet != 0;
+
+                    double usedValue = forceWrap ? feet : inches;
+                    String usedUnit;
+
+                    if (type == UnitType.LONG_SINGULAR) {
+                        usedUnit = forceWrap ? "-foot" : "-inch";
+                    } else if (Math.abs(usedValue) <= 1) {
+                        usedUnit = forceWrap ? " foot" : " inch";
                     } else {
-                        return number + "-inch";
+                        usedUnit = forceWrap ? " feet" : " inches";
                     }
+
+                    return number(usedValue) + usedUnit;
                 }
             default:
-                // Wrap inches to feet
-                long feet = (long) (inches / 12);
-                double inch = inches % 12;
-
                 String output = "";
+
+                // Append feet
                 if (feet != 0) {
                     output = number(feet) + "&#39;";
                 }
 
-                if (inch != 0) {
-                    output += number(output.isEmpty() ? inch : Math.abs(inch)) + "&quot;";
+                // Append inches
+                if (remainingInches != 0) {
+                    output += number(output.isEmpty() ? remainingInches : Math.abs(remainingInches)) + "&quot;";
                 } else if (feet == 0) {
                     output = "0&quot;";
                 }
+
                 return output;
         }
     }
@@ -412,7 +425,7 @@ public enum Units {
         String usedUnit;
         double usedValue;
 
-        if (wrappedValue > 1 || wrappedValue < -1) {
+        if (wrappedValue >= 1 || wrappedValue <= -1) {
             // Use wrapped value
             usedUnit = type == UnitType.SHORT ? shortWrappedUnit
                     : (Math.abs(wrappedValue) <= 1 || type == UnitType.LONG_SINGULAR ? wrappedUnit : wrappedUnit + "s");
