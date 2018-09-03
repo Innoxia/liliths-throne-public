@@ -32,7 +32,10 @@ public enum Units {
     DateTimeFormatter time;
     NumberFormat number;
 
+    Locale defaultLocale;
+
     Units() {
+        defaultLocale = Locale.getDefault();
         updateDateFormat();
         updateTimeFormat();
         updateNumberFormat();
@@ -42,11 +45,13 @@ public enum Units {
      * Resets the date formatter depending on the system locale (if automatic) or the imperial number flag (if manual).
      */
     public void updateDateFormat() {
-        shortDate = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+        boolean autoLocale = Main.getProperties().hasValue(PropertyValue.autoLocale);
+        Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
+        shortDate = (autoLocale
                 ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
-        longDate = (Main.getProperties().hasValue(PropertyValue.autoLocale)
+        longDate = (autoLocale
                 ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM d, yyyy" : "d. MMMM yyyy"))
                 .withZone(ZoneId.systemDefault());
