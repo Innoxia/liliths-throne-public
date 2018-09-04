@@ -462,15 +462,55 @@ public enum Subspecies {
 						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f));
 			}
 		}
-		
+
 		@Override
 		public String getSVGString(GameCharacter character) {
-			return SVGStringFoxTails.get(Math.min(8, character.getTailCount()-1));
+			switch(character.getTailCount()) {
+				case 1:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
+				case 2:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail2();
+				case 3:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail3();
+				case 4:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail4();
+				case 5:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail5();
+				case 6:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail6();
+				case 7:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail7();
+				case 8:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail8();
+				case 9:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
+			}
+			return "";
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
-			return SVGStringFoxTailsDesaturated.get(Math.min(8, character.getTailCount()-1));
+			switch(character.getTailCount()) {
+				case 1:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
+				case 2:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated2();
+				case 3:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated3();
+				case 4:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated4();
+				case 5:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated5();
+				case 6:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated6();
+				case 7:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated7();
+				case 8:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated8();
+				case 9:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
+			}
+			return "";
 		}
 	},
 	
@@ -537,12 +577,52 @@ public enum Subspecies {
 		
 		@Override
 		public String getSVGString(GameCharacter character) {
-			return SVGStringFoxTails.get(Math.min(8, character.getTailCount()-1));
+			switch(character.getTailCount()) {
+				case 1:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
+				case 2:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail2();
+				case 3:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail3();
+				case 4:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail4();
+				case 5:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail5();
+				case 6:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail6();
+				case 7:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail7();
+				case 8:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail8();
+				case 9:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
+			}
+			return "";
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
-			return SVGStringFoxTailsDesaturated.get(Math.min(8, character.getTailCount()-1));
+			switch(character.getTailCount()) {
+				case 1:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
+				case 2:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated2();
+				case 3:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated3();
+				case 4:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated4();
+				case 5:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated5();
+				case 6:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated6();
+				case 7:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated7();
+				case 8:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated8();
+				case 9:
+					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
+			}
+			return "";
 		}
 	},
 	
@@ -1547,9 +1627,6 @@ public enum Subspecies {
 	protected String slimeSVGString;
 	private List<WorldType> worldLocations;
 
-	protected static List<String> SVGStringFoxTails;
-	protected static List<String> SVGStringFoxTailsDesaturated;
-	
 	private static Map<WorldType, List<Subspecies>> worldSpecies;
 	private static List<Subspecies> dominionStormImmuneSpecies;
 	
@@ -1566,41 +1643,6 @@ public enum Subspecies {
 					dominionStormImmuneSpecies.add(species);
 				}
 			}
-		}
-		
-		SVGStringFoxTails = new ArrayList<>();
-		SVGStringFoxTailsDesaturated = new ArrayList<>();
-		for(int i=1; i<=9; i++) {
-			InputStream is = SVGStringFoxTails.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail" + i + ".svg");
-			if(is==null) {
-				System.err.println("Error! FoxTail "+i+" icon file does not exist! (Code F1)");
-			}
-			String foxSVGString = Util.inputStreamToString(is);
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			String baseSVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
-					+SVGImages.SVG_IMAGE_PROVIDER.getRaceBackground()
-					+"</div>"
-					+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+foxSVGString+"</div>";
-
-
-			SVGStringFoxTails.add(
-					Util.colourReplacement("foxTail"+i,
-							Colour.RACE_FOX_MORPH,
-							Colour.RACE_FOX_MORPH,
-							Colour.RACE_FOX_MORPH,
-							baseSVGString));
-
-			SVGStringFoxTailsDesaturated.add(
-					Util.colourReplacement("foxTail"+i,
-							Colour.BASE_GREY,
-							Colour.BASE_GREY,
-							Colour.BASE_GREY,
-							baseSVGString));
 		}
 	}
 
