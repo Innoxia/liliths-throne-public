@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
@@ -3573,7 +3572,7 @@ public class NightlifeDistrict {
 	};
 	
 	private static void spawnDomGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {
@@ -3607,7 +3606,7 @@ public class NightlifeDistrict {
 	}
 	
 	private static void spawnSubGloryHoleNPC() {
-		NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		if(Math.random()<0.4f) {
 			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		} else {

@@ -232,10 +232,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			
 			int count = Integer.parseInt(e.getAttribute("count"));
 			String id = e.getAttribute("id");
-			if(id.equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+			if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
 				itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 				
-			} else if(id.equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
+			} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
 				itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 				
 			} else {

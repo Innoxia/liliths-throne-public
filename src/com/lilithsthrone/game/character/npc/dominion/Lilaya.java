@@ -99,6 +99,9 @@ public class Lilaya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(24);
+		}
 	}
 	
 	@Override
@@ -129,6 +132,7 @@ public class Lilaya extends NPC {
 		// Body:
 
 		// Core:
+		this.setAgeAppearanceDifferenceToAppearAsAge(24);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ZERO_TINY.getValue());
@@ -230,11 +234,6 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
-	}
-	
-	@Override
-	public int getAppearsAsAge() {
-		return 24;
 	}
 	
 	// Prevent issues with Geisha Lilaya immediately

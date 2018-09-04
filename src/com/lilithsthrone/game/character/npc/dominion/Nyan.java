@@ -148,6 +148,9 @@ public class Nyan extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(this.getSexCount(Main.game.getPlayer().getId()).getTotalTimesHadSex()==0) {
+			this.setVaginaVirgin(true);
+		}
 		
 		for(Entry<String, List<AbstractClothing>> entry : this.getAllClothingListsMap().entrySet()) {
 			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
@@ -256,7 +259,7 @@ public class Nyan extends NPC {
 		// No penis
 		
 		// Vagina:
-		this.setVaginaVirgin(false);
+		this.setVaginaVirgin(true);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.ONE_SMALL);
 		this.setVaginaSquirter(false);

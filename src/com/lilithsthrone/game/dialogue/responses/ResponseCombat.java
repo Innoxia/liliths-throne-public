@@ -58,11 +58,10 @@ public class ResponseCombat extends Response {
 		}
 	}
 	
-	public ResponseCombat(String title, String tooltipText, List<NPC> enemies, Map<GameCharacter, String> openingDescriptions) {
+	public ResponseCombat(String title, String tooltipText, List<GameCharacter> enemies, Map<GameCharacter, String> openingDescriptions) {
 		super(title, tooltipText, null);
 		this.allies = new ArrayList<>();
-		for(GameCharacter companion : Main.game.getPlayer().getCompanions())
-		{
+		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
 		
@@ -70,7 +69,10 @@ public class ResponseCombat extends Response {
 		// Assuming this function overload is used for very specific combat instances in mind. To add companions to equation, just pass them mixed in with the lists
 		// Innoxia's note:
 		// Ok... I changed it a little... BlobSweats
-		this.enemies = enemies;
+		this.enemies = new ArrayList<>();
+		for(GameCharacter enemy : enemies) {
+			this.enemies.add((NPC) enemy);
+		}
 		
 		if(openingDescriptions!=null) {
 			this.openingDescriptions = openingDescriptions;

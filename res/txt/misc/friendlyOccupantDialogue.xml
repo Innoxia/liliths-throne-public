@@ -17,11 +17,11 @@
 		#IF npc.getAffection(pc) < 30
 		#THEN
 		<p>
-			[npc.speech(Oh! Hi, [pc.name]!)] [npc.name] happily replies, bounding forwards with a huge grin on [npc.her] face. [npc.speech(Thank you so much for everything again! What can I do for you?)]
+			[npc.speech(Oh! Hi, [npc.pcName]!)] [npc.name] happily replies, bounding forwards with a huge grin on [npc.her] face. [npc.speech(Thank you so much for everything again! What can I do for you?)]
 		</p>
 		#ELSE
 		<p>
-			[npc.speech([pc.Name]!)] [npc.name] happily shouts, bounding forwards with a huge grin on [npc.her] face as [npc.she] sees that you've come to talk to [npc.herHim]. [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts, bounding forwards with a huge grin on [npc.her] face as [npc.she] sees that you've come to talk to [npc.herHim]. [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
 		</p>
 		#ENDIF
 	#ENDIF
@@ -36,7 +36,7 @@
 		#IF npc.getPregnantLitter().isFatherId(pc.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_PREGNANCY)
-			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [pc.name]!)]
+			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [npc.pcName]!)]
 			#ELSE [npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, stepping forwards shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ELSE
@@ -64,13 +64,13 @@
 		#IF pc.getPregnantLitter().isFatherId(npc.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [pc.name]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [npc.pcName]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
 			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, stepping forwards and nervously placing [npc.her] [npc.hand] on your rounded belly. [npc.speech(I got you pregnant... I can't believe it! I-I'm going to be a father...)]
 			#ENDIF
 		#ELSE
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [pc.name]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
-			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [pc.name]! You'll make a fantastic mother!)]
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You'll make a fantastic mother!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -116,7 +116,7 @@
 		#THEN
 			[npc.speech(So, what is it then?)] [npc.name] asks again, placing [npc.her] [npc.hands] on [npc.her] [npc.hips] as [npc.she] awaits your response...
 		#ELSE
-			[npc.speech(So, what can I do for you then, [pc.name]?)] [npc.name] happily asks again, placing [npc.her] [npc.hands] on [npc.her] [npc.hips] and throwing you a happy grin as [npc.she] awaits your response...
+			[npc.speech(So, what can I do for you then, [npc.pcName]?)] [npc.name] happily asks again, placing [npc.her] [npc.hands] on [npc.her] [npc.hips] and throwing you a happy grin as [npc.she] awaits your response...
 		#ENDIF
 	</p>
 	]]>
@@ -309,7 +309,7 @@
 		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
 	</p>
 	<p>
-		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [pc.Name]?)]
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
 	</p>
 	<p>
 		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
@@ -358,10 +358,10 @@
 		You feel as though the time has come to kick [npc.name] out. Stepping towards [npc.herHim], you put on your most authoritative tone as you state, [pc.speech(You're going to have to leave, [npc.name]. I can't support you here any longer.)]
 	</p>
 	<p>
-		[npc.speech(I understand,)] [npc.name] replies, casting [npc.her] gaze down at the floor as [npc.she] quickly gathers what few possessions [npc.she] has. Having got all of [npc.her] things together in less than a minute, [npc.she] turns to face you with a big smile on [npc.her] face. [npc.speech(Thank you for everything, [pc.name]! I've been thinking ever since I got here about what I'll do next, and I've decided to leave Dominion for good. I'm not sure where I'll go, but anywhere's better than city.)]
+		[npc.speech(I understand,)] [npc.name] replies, casting [npc.her] gaze down at the floor as [npc.she] quickly gathers what few possessions [npc.she] has. Having got all of [npc.her] things together in less than a minute, [npc.she] turns to face you with a big smile on [npc.her] face. [npc.speech(Thank you for everything, [npc.pcName]! I've been thinking ever since I got here about what I'll do next, and I've decided to leave Dominion for good. I'm not sure where I'll go, but anywhere's better than city.)]
 	</p>
 	<p>
-		You escort [npc.name] down to the front entrance, where [npc.she] turns to say one final farewell, [npc.speech(Really, thank you, [pc.name]. You've helped me to start a new chapter in my life, and I'll always remember you.)]
+		You escort [npc.name] down to the front entrance, where [npc.she] turns to say one final farewell, [npc.speech(Really, thank you, [npc.pcName]. You've helped me to start a new chapter in my life, and I'll always remember you.)]
 	</p>
 	<p>
 		[pc.speech(Goodbye, [npc.name]. I'm sure you'll be able to make something of yourself,)] you reply, waving at [npc.herHim] as [npc.she] heads out into the streets of Dominion, and out of your life forever...
@@ -399,7 +399,7 @@
 		You let out a sigh as you step forwards and smile wistfully at the [npc.race], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
 	</p>
 	<p>
-		Dropping [npc.her] suitcases, [npc.name] rushes forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [pc.name]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
+		Dropping [npc.her] suitcases, [npc.name] rushes forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [npc.pcName]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
 	</p>
 	<p>
 		Feeling yourself starting to get a little emotional, but knowing that this is for the best, you return [npc.namePos] loving hug for a moment, before breaking it off and stepping back. [pc.speech(You take care of yourself now, [npc.name], and lead a good life!)]
@@ -418,7 +418,7 @@
 		[pc.speech(Of course I'll come with you!)] you reply, smiling happily as you see [npc.namePos] [npc.eyes] light up. Helping [npc.herHim] to take one of [npc.her] suitcases down to the front door, you turn and ask, [pc.speech(So, which direction is it?)]
 	</p>
 	<p>
-		[npc.speech(It's this way, it won't take too long to get there,)] [npc.name] replies, pulling [npc.her] suitcase along behind [npc.herHim] as [npc.she] sets off down the street. Suddenly remembering [npc.her] other belongings, [npc.she] looks back and apologises, [npc.speech(Oh, sorry, [pc.name]! I've left you with my other bag!)]
+		[npc.speech(It's this way, it won't take too long to get there,)] [npc.name] replies, pulling [npc.her] suitcase along behind [npc.herHim] as [npc.she] sets off down the street. Suddenly remembering [npc.her] other belongings, [npc.she] looks back and apologises, [npc.speech(Oh, sorry, [npc.pcName]! I've left you with my other bag!)]
 	</p>
 	<p>
 		[pc.speech(Don't worry, I've got this one,)] you reply, stepping forwards and walking alongside [npc.name] as you help [npc.herHim] to move [npc.her] belongings to [npc.her] new apartment.
@@ -430,10 +430,10 @@
 		After a short while, [npc.name] returns, key in [npc.hand], and excitedly bounds over towards you. [npc.speech(I've got the apartment! Come on, let's head up and check it out!)]
 	</p>
 	<p>
-		Helping [npc.name] carry [npc.her] suitcases up to the second floor, the two of you soon find yourselves stepping into a simply furnished, one-bedroom apartment. While smaller than the room [npc.she] was renting from you, [npc.name] is nevertheless overcome with happiness at finally having [npc.her] own place in which to live. As soon as you place the suitcase you were carrying down on the floor, the [npc.race] throws [npc.herself] at you, wrapping [npc.her] [npc.arms] around your back and pulling you into a loving hug as [npc.she] starts crying, [npc.speech(T-Thank you f-for everything, [pc.name]! Y-You're t-the best thing t-that's ever h-happened to me!)]
+		Helping [npc.name] carry [npc.her] suitcases up to the second floor, the two of you soon find yourselves stepping into a simply furnished, one-bedroom apartment. While smaller than the room [npc.she] was renting from you, [npc.name] is nevertheless overcome with happiness at finally having [npc.her] own place in which to live. As soon as you place the suitcase you were carrying down on the floor, the [npc.race] throws [npc.herself] at you, wrapping [npc.her] [npc.arms] around your back and pulling you into a loving hug as [npc.she] starts crying, [npc.speech(T-Thank you f-for everything, [npc.pcName]! Y-You're t-the best thing t-that's ever h-happened to me!)]
 	</p>
 	<p>
-		Pulling [npc.name] into your embrace, the two of you stand there for a while, hugging one another, before [npc.she] slowly pulls back, sniffling as [npc.she] wipes away [npc.her] tears of joy, [npc.speech(R-Really, thank you so, so much, [pc.name]. I can't believe all this is really happening...)]
+		Pulling [npc.name] into your embrace, the two of you stand there for a while, hugging one another, before [npc.she] slowly pulls back, sniffling as [npc.she] wipes away [npc.her] tears of joy, [npc.speech(R-Really, thank you so, so much, [npc.pcName]. I can't believe all this is really happening...)]
 	</p>
 	<p>
 		[pc.speech(You're very welcome, [npc.name], but remember, you got here through your own hard work and effort. I'm so proud of you,)] you reply, smiling at the [npc.race] you saved from a life of crime.
@@ -444,14 +444,14 @@
 	#IF npc.isAttractedTo(pc)
 	#THEN
 		<p>
-			[npc.speech(Hey, [pc.name]...)] [npc.name] says in a mischievous tone. [npc.speech(All the excitement of moving in has got me worked up... You want to help me release some stress?)]
+			[npc.speech(Hey, [npc.pcName]...)] [npc.name] says in a mischievous tone. [npc.speech(All the excitement of moving in has got me worked up... You want to help me release some stress?)]
 		</p>
 		<p>
 			You look across at [npc.name] to see that [npc.sheHas] a lustful glint in [npc.her] [npc.eye], and you wonder if you should give [npc.herHim] what [npc.she] wants, or just take it easy for the time being...
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(Thanks, [pc.name],)] [npc.name] says, leaning back on the sofa. [npc.speech(I really am so grateful for everything you've done for me.)]
+			[npc.speech(Thanks, [npc.pcName],)] [npc.name] says, leaning back on the sofa. [npc.speech(I really am so grateful for everything you've done for me.)]
 		</p>
 		<p>
 			You look across at [npc.name] and tell [npc.herHim] that [npc.sheIs] very welcome, before wondering what to do now...
@@ -468,7 +468,7 @@
 		Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
 	</p>
 	<p>
-		After just a moment, the door swings inwards, and you find yourself looking upon the delighted face of [npc.name], who instantly calls out, [npc.speech([pc.Name]! Oh, I'm so happy to see you again!)]
+		After just a moment, the door swings inwards, and you find yourself looking upon the delighted face of [npc.name], who instantly calls out, [npc.speech([npc.PcName]! Oh, I'm so happy to see you again!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -481,7 +481,7 @@
 		#IF npc.getPregnantLitter().isFatherId(pc.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_PREGNANCY)
-			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [pc.name]!)]
+			#THEN [npc.speech(That's right, you got me pregnant!)] [npc.name] excitedly cries out, stepping forwards and taking hold of your [pc.hand] in [npc.hers], before rubbing it over [npc.her] swollen belly. [npc.speech(I love being pregnant so much! Thank you so much, [npc.pcName]!)]
 			#ELSE [npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, stepping forwards shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ELSE
@@ -509,13 +509,13 @@
 		#IF pc.getPregnantLitter().isFatherId(npc.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [pc.name]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before stepping forwards and rubbing [npc.her] [npc.hands] all over it. [npc.speech(I made you a mommy, huh, [npc.pcName]?! Isn't this exciting? And pretty hot as well... It's like I've claimed your womb...)]
 			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, stepping forwards and nervously placing [npc.her] [npc.hand] on your rounded belly. [npc.speech(I got you pregnant... I can't believe it! I-I'm going to be a father...)]
 			#ENDIF
 		#ELSE
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [pc.name]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
-			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [pc.name]! You'll make a fantastic mother!)]
+			#THEN [npc.speech(Wait... You're pregnant!)] [npc.name] excitedly shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You're going to be a mommy, huh? That lucky stud who knocked you up... Fuck, I wish it'd have been me...)]
+			#ELSE [npc.speech(Wait... You're pregnant!)] [npc.name] shouts, gazing down at your rounded belly for a moment, before looking up at you and smiling. [npc.speech(Congratulations, [npc.pcName]! You'll make a fantastic mother!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -563,7 +563,7 @@
 		You let out a sigh as you smile wistfully at [npc.name], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
 	</p>
 	<p>
-		Tears start to well up [npc.her] [npc.eyes], and before you can react, [npc.name] leans forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [pc.name]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
+		Tears start to well up [npc.her] [npc.eyes], and before you can react, [npc.name] leans forwards and gives you a big hug. As [npc.she] presses [npc.herself] close to your body, you hear [npc.her] voice start to break as [npc.she] cries, [npc.speech(I-I'll never forget you, [npc.pcName]! I'll a-always be eternally grateful f-for everything that you've done for me! I-I love you!)]
 	</p>
 	<p>
 		Feeling yourself starting to get a little emotional, but knowing that this is for the best, you return [npc.namePos] loving hug for a moment, before breaking it off and standing up. [pc.speech(You take care of yourself now, [npc.name], and lead a good life!)]
@@ -701,7 +701,7 @@
 		Some time later, you wake up, and, rubbing the sleep out of your [pc.eyes], sit up on the sofa. Looking around, you don't see any sign of [npc.name], but there looks to be a note left on the coffee table in front of you. Leaning forwards, you pick it up and read:
 	</p>
 	<p style='text-align:center;'><i>
-		Hi, [pc.name]!<br/>
+		Hi, [npc.pcName]!<br/>
 		I hope you slept well! You looked so happy fast asleep that I couldn't wake you to tell you that I needed to go to work, but that's where I am!<br/>
 		I'll be back at [npc.jobEndHour]:00, so if you wanted to drop by again after that time, I'll be here!<br/>
 		See you soon,<br/>
@@ -734,7 +734,7 @@
 		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
 	</p>
 	<p>
-		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [pc.Name]?)]
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
 	</p>
 	<p>
 		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.

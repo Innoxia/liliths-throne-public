@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -41,7 +42,10 @@ public class PenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING && !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Main.game.isNipplePenEnabled()
+					&& Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()
+					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
@@ -188,7 +192,10 @@ public class PenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING && !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
+			return Sex.getSexPace(Sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING
+					&& Main.game.isNipplePenEnabled()
+					&& Sex.getCharacterPerformingAction().isBreastFuckableNipplePenetration()
+					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
@@ -595,7 +602,7 @@ public class PenisNipple {
 							+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.hips] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] brutally [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
 
 					"Violently thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc2.verb(start)] roughly slamming [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
+							+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
 
 					"Forcefully driving [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam [npc.her] [npc.hips] back and forth,"
 							+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently [npc.verb(fuck)] [npc2.her] [npc2.breasts]."));
@@ -636,7 +643,7 @@ public class PenisNipple {
 							+ " [npc.name] [npc.verb(start)] rocking [npc.her] [npc.hips] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
 
 					"Pushing [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc2.verb(start)] thrusting [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
+							+ " [npc.name] [npc.verb(start)] thrusting [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.her] [npc2.breasts].",
 
 					"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump [npc.her] [npc.hips] back and forth,"
 							+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(fuck)] [npc2.her] [npc2.breasts]."));
@@ -796,7 +803,7 @@ public class PenisNipple {
 							" [npc2.Name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.sob+] as [npc.name] [npc.verb(pull)] out of [npc2.namePos] [npc2.nipple],"
 									+ " and [npc2.she] [npc2.verb(continue)] crying and protesting as [npc2.she] [npc2.verb(carry)] on weakly struggling against [npc.herHim].",
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.nipple+] away from [npc.name]."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.nipple+] away from [npc.name]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

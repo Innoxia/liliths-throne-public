@@ -341,7 +341,7 @@ public class Vicky extends NPC {
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-			for(AbstractItemType itemType : ItemType.essences) {
+			for(AbstractItemType itemType : ItemType.getEssences()) {
 				for(int i=0;i<20+Util.random.nextInt(11);i++) {
 					this.addItem(AbstractItemType.generateItem(itemType), false);
 				}
@@ -402,7 +402,12 @@ public class Vicky extends NPC {
 	}
 	
 	// Sex:
-
+	
+	@Override
+	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+		return true;
+	}
+	
 	@Override
 	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();

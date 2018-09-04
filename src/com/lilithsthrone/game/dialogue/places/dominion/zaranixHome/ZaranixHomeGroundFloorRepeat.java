@@ -10,7 +10,6 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
@@ -1782,13 +1781,13 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new Response("Amber's friend", "You stay by Mistress Amber's side as the two of you head over to what must be Mistress's friend.", WALKIES_PET_FUCKS_SNIFFING) {
 					@Override
 					public void effects() {
-						Gender petGender = GenderPreference.getGenderFromUserPreferences(false, false);
+						Gender petGender = Gender.getGenderFromUserPreferences(false, false);
 						
 						pet = new GenericSexualPartner(
 								petGender.getGenderName().isHasPenis()?petGender:(petGender.isFeminine()?Gender.F_P_V_B_FUTANARI:Gender.M_P_MALE), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 						pet.setPlayerKnowsName(true);
 						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-						owner.setBody(GenderPreference.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER);
+						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER);
 						owner.setName(Name.getRandomTriplet(owner.getRace()));
 						
 						try {

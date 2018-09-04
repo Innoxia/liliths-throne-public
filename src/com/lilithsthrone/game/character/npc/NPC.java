@@ -17,6 +17,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -721,33 +722,33 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case ELEMENTAL_AIR:
-					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
-					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
-					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR);
+					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
+					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
+					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
 					break;
 					
 				case ELEMENTAL_ARCANE:
-					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
-					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
-					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
+					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
 					break;
 					
 				case ELEMENTAL_EARTH:
-					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
-					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
-					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
+					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
 					break;
 					
 				case ELEMENTAL_FIRE:
-					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
-					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
-					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
+					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
 					break;
 					
 				case ELEMENTAL_WATER:
-					book = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
-					raceIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
-					raceTFIngredient = ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER);
+					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
+					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
+					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
 					break;
 					
 				case SLIME:
@@ -940,14 +941,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		bodyPreference = generatePreferredBody();
 	}
 	
-	
-	public Value<String, AbstractItem> getTransfomativePotion( ) {
-		
-		return getTransfomativePotion(false);
+	public boolean isAffectionHighEnoughToInviteHome() {
+		return this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
 	}
 	
-	public Value<String, AbstractItem> getTransfomativePotion(boolean generateNew ) {
-		
+	
+	public Value<String, AbstractItem> getTransfomativePotion(GameCharacter target) {
+		return getTransfomativePotion(target, false);
+	}
+	
+	public Value<String, AbstractItem> getTransfomativePotion(GameCharacter target, boolean generateNew) {
 		if(generateNew) {
 			this.heldTransformativePotion = null;
 			
@@ -968,7 +971,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					this.heldTransformativePotion = generateFetishPotion(false);
 					
 				} else {
-					this.heldTransformativePotion = generateTransformativePotion();
+					this.heldTransformativePotion = generateTransformativePotion(target);
 				}
 				
 			} else if(hasFetish(Fetish.FETISH_KINK_GIVING)) {
@@ -990,7 +993,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				
 			} else if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-				this.heldTransformativePotion = generateTransformativePotion();
+				this.heldTransformativePotion = generateTransformativePotion(target);
 			}
 		}
 		
@@ -1002,7 +1005,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Example return value: ["Let's give you bigger breasts!", AbstractItem]
 	 * @return NPC's speech as a reaction to giving you this potion, along with the potion itself.
 	 */
-	public Value<String, AbstractItem> generateTransformativePotion() {
+	public Value<String, AbstractItem> generateTransformativePotion(GameCharacter target) {
 		
 		/* TODO
 		 * Body Size

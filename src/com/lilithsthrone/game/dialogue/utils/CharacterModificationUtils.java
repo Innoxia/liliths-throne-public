@@ -300,9 +300,9 @@ public class CharacterModificationUtils {
 	}
 	
 	public static void performPlayerAgeCheck(int ageTarget) {
-		if(Main.game.getPlayer().getAge()>ageTarget) {
+		if(Main.game.getPlayer().getAgeValue()>ageTarget) {
 			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
-		} else if(Main.game.getPlayer().getAge()<ageTarget) {
+		} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
 			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
 		}
 	}
@@ -319,7 +319,7 @@ public class CharacterModificationUtils {
 							+ "You were born on the "
 								+Util.intToDate(Main.game.getPlayer().getBirthday().getDayOfMonth())
 								+" "+Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
+								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAgeValue())+" years old."
 						+ "</p>");
 
 			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");
@@ -330,8 +330,8 @@ public class CharacterModificationUtils {
 				
 				contentSB.append(applyDateWrapper("Age", "AGE", "", "",
 						String.valueOf(Main.game.getPlayer().getAge()),
-						Main.game.getPlayer().getAge()<=18,
-						Main.game.getPlayer().getAge()>=50));
+						Main.game.getPlayer().getAgeValue()<=18,
+						Main.game.getPlayer().getAgeValue()>=50));
 			contentSB.append("</div>");
 		
 		contentSB.append("</div>");

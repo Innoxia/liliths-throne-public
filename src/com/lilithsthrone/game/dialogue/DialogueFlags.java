@@ -190,7 +190,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		if(slaveTrader==null) {
 			return null;
 		}
-		return (NPC) Main.game.getNPCById(slaveTrader);
+		try {
+			return (NPC) Main.game.getNPCById(slaveTrader);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveTrader+") returning null in method: getSlaveTrader()");
+			return null;
+		}
 	}
 
 	public void setSlaveTrader(GameCharacter slaveTrader) {
@@ -214,7 +219,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				|| slaveryManagerSlaveSelected.isEmpty()) {
 			return null;
 		}
-		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+		try {
+			return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveryManagerSlaveSelected+") returning null in method: getSlaveryManagerSlaveSelected()");
+			return null;
+		}
 	}
 
 	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
