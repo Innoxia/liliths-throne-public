@@ -69,14 +69,6 @@ public class Ralph extends NPC {
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
 	
-	static {
-		for(AbstractItemType itemType : ItemType.allItems) {
-			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE) && (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))) {
-				itemsForSale.add(itemType);
-			}
-		}
-	}
-	
 	public Ralph() {
 		this(false);
 	}
@@ -240,7 +232,11 @@ public class Ralph extends NPC {
 		for(int i=0;i<25;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
 		}
-		
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
+				this.addItem(AbstractItemType.generateItem(item), false);
+			}
+		}
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);

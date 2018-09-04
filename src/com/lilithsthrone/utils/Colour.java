@@ -120,7 +120,7 @@ public enum Colour {
 	RACE_WOLF_MORPH(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("wolfMorph", "wolf")),
 	RACE_FOX_MORPH(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("foxMorph", "fox")),
 	RACE_HARPY(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("harpy")),
-	RACE_SLIME(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("slime")),
+	RACE_SLIME(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("slime")),
 	RACE_SQUIRREL_MORPH(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("squirrelMorph", "squirrel")),
 	RACE_RAT_MORPH(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("ratMorph", "rat")),
 	RACE_RABBIT_MORPH(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("rabbitMorph", "rabbit")),
@@ -236,9 +236,10 @@ public enum Colour {
 	AGE_TWENTIES(false, Util.newColour(0xCCE698), Util.newColour(0x638A0F), "green", Util.newArrayListOfValues("ageTwenties")),
 	AGE_THIRTIES(false, Util.newColour(0xB8DC6F), Util.newColour(0x52730D), "green", Util.newArrayListOfValues("ageThirties")),
 	AGE_FORTIES(false, Util.newColour(0xA4D246), Util.newColour(0x41590D), "green", Util.newArrayListOfValues("ageForties")),
+	AGE_FIFTIES(false, Util.newColour(0x8AB92D), Util.newColour(0x334408), "green", Util.newArrayListOfValues("ageFifties")),
+	AGE_SIXTIES(false, Util.newColour(0x6B9023), Util.newColour(0x232E05), "green", Util.newArrayListOfValues("ageSixties")),
 	
 	ALCOHOL(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("alcohol")),
-
 	ALCOHOL_LEVEL_ZERO(false, Util.newColour(0xF2E8C0), Util.newColour(0x967F22), "light yellow"),
 	ALCOHOL_LEVEL_ONE(false,  Util.newColour(0xEDDFAB), Util.newColour(0x967F22), "light yellow"),
 	ALCOHOL_LEVEL_TWO(false,  Util.newColour(0xE8D696), Util.newColour(0x967F22), "yellow"),
@@ -366,12 +367,12 @@ public enum Colour {
 	// Skin (Human and Demon):
 	SKIN_PORCELAIN(false, Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain"),
 	SKIN_PALE(false, Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale"),
-	SKIN_LIGHT(false, BaseColour.YELLOW_LIGHT, "light"),
+	SKIN_LIGHT(false, Util.newColour(0xEFDBD7), Util.newColour(0x534946), "light"),
 	SKIN_ROSY(false, Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy"),
-	SKIN_TANNED(false, Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "tanned"),
 	SKIN_OLIVE(false, BaseColour.TAN, "olive"),
-	SKIN_CHOCOLATE(false, Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate"),
+	SKIN_TANNED(false, Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "tanned"),
 	SKIN_DARK(false, BaseColour.BROWN_DARK, "dark"),
+	SKIN_CHOCOLATE(false, Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate"),
 	SKIN_EBONY(false, BaseColour.BLACK, "ebony"),
 	
 	SKIN_RED(false, BaseColour.CRIMSON, "scarlet"),

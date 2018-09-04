@@ -142,7 +142,7 @@ public class KneelingOral {
 			
 			if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" [npc.She] [npc.verb(force)] the knot at the base of [npc.her] [npc.cock] past [npc2.her] [npc2.lips+],"
-						+ " and [npc2.name] [npc.verb(shuffle)] around on [npc2.her] knees as it quickly swells up, locking you to one another.");
+						+ " and [npc2.name] [npc2.verb(shuffle)] around on [npc2.her] knees as it quickly swells up, locking you to one another.");
 				
 			} else if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" [npc.She] [npc.verb(feel)] it start to twitch and throb,"

@@ -65,13 +65,18 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.10.5",
-			VERSION_DESCRIPTION = "Alpha";
+	public static final String VERSION_NUMBER = "0.2.10.8";
+	public static final String VERSION_DESCRIPTION = "Alpha";
 	
-	public final static boolean DEBUG = true;
+	/**
+	 * To turn it on, just add -Ddebug=true to java's VM options. (You should be able to do this in Eclipse through Run::Run Configurations...::Arguments tab::VM Arguments).
+	 * Help page: https://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.pde.doc.user%2Fguide%2Ftools%2Flaunchers%2Farguments.htm
+	 *  Or, from the command line java -Ddebug=true -jar LilithsThrone.jar
+	 */
+	public final static boolean DEBUG = Boolean.valueOf(System.getProperty("debug", "false"));
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
-
+	
 	private static Properties properties;
 	
 	public static String patchNotes =
@@ -81,13 +86,23 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've got most of version 0.2.11's coding work done for this update (fixing bugs and getting all minor things out of the way), so now I can move on to focusing on writing for the full release next week."
-			+ " I'll start by writing the Imp fortress & encounters, before moving on to focus on expanding the sex actions."
+			+ "I'm sorry for how rough this version this."
+			+ " For the first time since publicly announcing Lilith's Throne back in January 2017, I've got sick."
+			+ " I thought it was just tiredness at first (which started on the 25th), which is why I delayed this release instead of postponing it until I got better."
+			+ " As this last week came to an end, however, I've started feeling faint and physically sick throughout the day, and even after sleeping for 14 hours these past few days, I feel absolutely exhausted."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I want to spend a good amount of time on improving the sex actions & positions, so I think I'll only have time for one of the planned quests."
-			+ " I'd like this quest to be Axel's, but if I'm running low on time, it will have to be one of the others (which are smaller in scope)."
+			+ "As a result, I've barely been able to get anything done, and around 80% of the work that was done for this release was completed on the Thursday and Friday before I started feeling ill (23rd and 24th)."
+			+ " I should have realised that there was something wrong earlier, and delayed the release until I was better, but I didn't want to disappoint you all."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "The next release will be out after I'm better, which I'll say for now will be the 19th, but it may be sooner than that, depending on how quickly I get over this."
+		+ "</p>"
+		
+		+ "<p>"
+			+ "<b>This version is likely to be buggier than usual.</b> Sorry..."
 		+ "</p>"
 			
 		+ "<p>"
@@ -168,6 +183,68 @@ public class Main extends Application {
 			+"<ul>Fixed incorrect bow & arrow firing description.</ul>"
 			+"<ul>Fixed Lilaya's first reaction to you being pregnant not being displayed.</ul>"
 		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.10.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>You can now invite offspring home in the same way that you can with random NPCs. (They use the same dialogue for now, but that's just temporary.)</ul>"
+			+"<ul>Started rework of Submission to add imp gang attacks and imp fortress content, but it's very half-finished right now...</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added age preference settings in the options menu.</ul>"
+			+"<ul>Slaves now require the exhibitionist fetish to use you in Dominion's streets, and can now use you in the alleyways & canal areas as well (not requiring the exhibitionist fetish).</ul>"
+			+"<ul>Changed cat subspecies icons to fit in with the same style as all the others in the game.</ul>"
+			+"<ul>Changed racial status effects to be specific to subspecies, and changed their bonuses. Cheetah-morphs can now always escape from non-cheetah-morph enemies.</ul>"
+			+"<ul>Changed demons to have normal-shaped nipples by default.</ul>"
+			+"<ul>Added dye options for headband and headband with bow.</ul>"
+			+"<ul>Added 'SOLD_BY_RALPH' tag for clothing & weapon mods.</ul>"
+			+"<ul>Using the 'Grow cock' action in sex to get a demon to grow a cock will now set their girth to thick.</ul>"
+			+"<ul>Increased chance of rat-morphs, alligator-morphs, and slimes spawning in canal tiles.</ul>"
+			+"<ul>Changed slime icon to be based on what race they appear as, and changed racial colour from pink to light green, to help differentiate it from harpy/demon/imp/cat-morph icons.</ul>"
+			+"<ul>Improved debug menu and changed the body part TF system to use the same one you get from demon & slime TFs.</ul>"
+			+"<ul>Changed 'minor' category to include race's breasts and ass.</ul>"
+			+"<ul>Separated debug menu's 'Debug Mode' into three separate values (Debug Mode, Reveal Map, and Reveal Bodies), which are now saved in the properties.xml file.</ul>"
+			+"<ul>Hooded cloak no longer conceals the mouth slot.</ul>"
+			+"<ul>Modifying cum storage amount through potions now fills cum to maximum storage.</ul>"
+			+"<ul>You can now set a pet name for friendly occupants to call you by (under their 'Management' tab).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Changed Short Bow to be two-handed. (Rfpnj)</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added Jam's futa artwork variation for Kelly & Katherine.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Penis-Nipple tease sex action is now correctly disabled if you have nipple penetrations turned off.</ul>"
+			+"<ul>Nyan now correctly spawns into the game as a virgin. (If you haven't had sex with her, she will reset to a virgin when you load in.)</ul>"
+			+"<ul>Fixed body-part setting actions in the debug menu having identical names.</ul>"
+			+"<ul>Typo/parsing/grammar fixes.</ul>"
+			+"<ul>Slaves can no longer use you if you have someone in your party.</ul>"
+			+"<ul>Character creation no longer starts incorrectly displaying your character's age as '-3'.</ul>"
+			+"<ul>Friendly NPCs that move in with you will no longer find a job as a slave or unemployed...</ul>"
+			+"<ul>Fixed 'Request cum' action sometimes being incorrectly associated with the pregnancy fetish.</ul>"
+			+"<ul>Fixed bug where if you unequipped your main weapon first, then you wouldn't be able to unequip your offhand weapon.</ul>"
+			+"<ul>Fixed city map in the library not displaying.</ul>"
+			+"<ul>Fixed tooltip for the bottom-left cell in Dominion incorrectly showing a list of names of people who weren't there.</ul>"
+			+"<ul>Fixed weapon mods not being able to have more than one spell.</ul>"
+			+"<ul>Modded weapons attack actions in combat are now always capitalised.</ul>"
+			+"<ul>Transforming a slave and then returning to the Slavery Management screen will now correctly show the updated slave.</ul>"
+			+"<ul>Fixed footjob counter for tattoos not persisting across saves.</ul>"
+			+"<ul>NPCs will no longer magically be able to clean their clothes & dirty slots while having sex with you.</ul>"
+			+"<ul>Fixed issue where when navigating between pages with a different number of response tabs, sometimes you'd end up on a page with no options.</ul>"
+			+"<ul>Fixed being able to click past the 'Pregnancy Breast Growth Limit' maximum limit in the Content Options screen.</ul>"
+			+"<ul>Fixed offspring's body being randomised after being set by genetics.</ul>"
+			+"<ul>Fixed enslavement dialogue always saying you couldn't enslave the target due to them already being a slave.</ul>"
+			+"<ul>Fixed enslavement clothing not being able to be equipped on Scarlett.</ul>"
+			+"<ul>Fixed NPCs' speech sometimes being muffled or interspersed with moans even if they weren't involved in penetrative actions.</ul>"
+			+"<ul>Vicky now correctly says that she's denying your requests in sex, instead of accepting then ignoring your request.</ul>"
+			+"<ul>Tidied up throwing of errors in the engine when a character's id can no longer be found in the game.</ul>"
+			+"<ul>Fixed stored milk and milk regeneration values not being saved/loaded correctly.</ul>"
+			+"<ul>Fixed bugs where NPCs would incorrectly lose affection towards other NPCs in a sex scene.</ul>"
+			+"<ul>Fixed penile virginity being always described as being taken by yourself.</ul>"
+		+ "</list>"
 	;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -229,6 +306,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 11));
 		credits.add(new CreditsSlot("BlakLite", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 13));
+		credits.add(new CreditsSlot("Captain_Sigmus", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Brandon Stach", "", 0, 0, 9, 0));
 		credits.add(new CreditsSlot("BreakerB", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("BRobort", "", 0, 0, 9, 0));
@@ -294,6 +372,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("Garth614", "", 0, 0, 0, 9));
 		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("Kaerea", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Kaleb the Wise", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 13));
 		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 6, 0));
@@ -418,7 +497,7 @@ public class Main extends Application {
 
 		Main.primaryStage.getIcons().add(WINDOW_IMAGE);
 
-		Main.primaryStage.setTitle("Lilith's Throne " + VERSION_NUMBER + " " + VERSION_DESCRIPTION);
+		Main.primaryStage.setTitle("Lilith's Throne " + VERSION_NUMBER + " " + VERSION_DESCRIPTION+(DEBUG?" (Debug Mode)":""));
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
 

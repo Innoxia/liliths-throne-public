@@ -79,7 +79,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	
 	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
 		try {
-			AbstractItem item = AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+			AbstractItem item = AbstractItemType.generateItem(ItemType.getIdToItemMap().get(parentElement.getAttribute("id")));
 			
 			if(!parentElement.getAttribute("name").isEmpty()) {
 				item.setName(parentElement.getAttribute("name"));

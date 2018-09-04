@@ -3322,34 +3322,34 @@ public class GenericOrgasms {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			if (Sex.getAllContactingSexAreas(character, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Sex.getCharacterContactingSexArea(character, SexAreaOrifice.VAGINA).contains(character)) {
+			if (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Sex.getCharacterPerformingAction())) {
 				if(character.equals(Sex.getCharacterPerformingAction())) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_PREGNANCY);
 				} else {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Sex.getAllContactingSexAreas(character, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Sex.getCharacterContactingSexArea(character, SexAreaOrifice.ANUS).contains(character)) {
+			} else if (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Sex.getCharacterPerformingAction())) {
 				if(character.equals(Sex.getCharacterPerformingAction())) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if ((Sex.getAllContactingSexAreas(character, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS)
-					&& !Sex.getCharacterContactingSexArea(character, SexAreaOrifice.NIPPLE).contains(character))
-					|| (Sex.getAllContactingSexAreas(character, SexAreaOrifice.BREAST).contains(SexAreaPenetration.PENIS)
-							&& !Sex.getCharacterContactingSexArea(character, SexAreaOrifice.BREAST).contains(character))) {
+			} else if ((Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(Sex.getCharacterPerformingAction()))
+					|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(SexAreaPenetration.PENIS)
+							&& !Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(Sex.getCharacterPerformingAction()))) {
 				if(character.equals(Sex.getCharacterPerformingAction())) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_BREASTS_SELF);
 				} else {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_BREASTS_OTHERS);
 				}
 				
-			} else if (Sex.getAllContactingSexAreas(character, SexAreaPenetration.FOOT).contains(SexAreaPenetration.PENIS)
-					&& !Sex.getCharacterContactingSexArea(character, SexAreaPenetration.FOOT).contains(character)) {
+			} else if (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(Sex.getCharacterPerformingAction())) {
 				if(character.equals(Sex.getCharacterPerformingAction())) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_FOOT_GIVING);
 				} else {

@@ -166,7 +166,7 @@ public class OccupantDialogue {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_STILL_PREGNANT", occupant()));
 				}
 			}
-
+			
 			if(Main.game.getPlayer().isVisiblyPregnant()) {
 				if(!Main.game.getPlayer().isCharacterReactedToPregnancy(occupant())) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_PLAYER_PREGNANCY", occupant()));
@@ -186,7 +186,7 @@ public class OccupantDialogue {
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
-
+		
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index == 0) {
@@ -535,6 +535,9 @@ public class OccupantDialogue {
 							};
 						}
 						
+					case 8:
+						return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OCCUPANT_CHOOSE_NAME);
+						
 					case 0:
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
 							@Override
@@ -684,11 +687,12 @@ public class OccupantDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			String id = Util.randomItemFrom(Main.game.getPlayer().getSlavesOwned());
-			NPC slave = (NPC) Main.game.getNPCById(id);
-			
-			if(slave!=null) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES", occupant(), slave));
-			} else {
+
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: OCCUPANT_TALK_SLAVES.getContent()");
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES_NULL_SLAVE", occupant()));
 			}
 			
@@ -1427,6 +1431,67 @@ public class OccupantDialogue {
 				
 			} else {
 				return null;
+			}
+		}
+	};
+	
+	
+	// MANAGEMENT DIALOGUES:
+	
+	
+	public static final DialogueNodeOld OCCUPANT_CHOOSE_NAME = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "You decide to ask [npc.name] to call you by a different name."
+						+ " At the moment, [npc.sheIs] calling you '[npc.pcName]'."
+					+ "</p>"
+					
+					// TODO align this properly
+					
+					+ "<div class='container-full-width' style='text-align:center;'>"
+						+ "<div style='position:relative; display: inline-block; padding:0 auto; margin:0 auto;vertical-align:middle;width:100%;'>"
+							+ "<p style='float:left; padding:0; margin:0; height:32px; line-height:32px;'>[npc.Name] will call you: </p>"
+							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInput' value='"+ UtilText.parseForHTMLDisplay(occupant().getPlayerPetName())+ "'></form>"
+							+ " <div class='SM-button' id='"+occupant().getId()+"_PET_NAME' style='float:left; width:auto; height:28px;'>"
+								+ "Rename"
+							+ "</div>"
+						+ "</div>"
+						+ "<p>"
+						+ "<i>The names 'Mom'/'Dad' and 'Mommy'/'Daddy' are special, and will automatically switch to the appropriate femininity of your character.</i>"
+						+ "</p>"
+					+ "</div>"
+					
+					+ "<p id='hiddenFieldName' style='display:none;'></p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(occupant().getHomeWorldLocation()==WorldType.LILAYAS_HOUSE_GROUND_FLOOR || occupant().getHomeWorldLocation()==WorldType.LILAYAS_HOUSE_FIRST_FLOOR) {
+				return OCCUPANT_START.getResponseTabTitle(index);
+			} else {
+				return OCCUPANT_APARTMENT.getResponseTabTitle(index);
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (responseTab==2 && index == 8) {
+				return new Response("Pet name", "You're already asking [npc.name] to call you by a different name.", null);
+				
+			} else {
+				if(occupant().getHomeWorldLocation()==WorldType.LILAYAS_HOUSE_GROUND_FLOOR || occupant().getHomeWorldLocation()==WorldType.LILAYAS_HOUSE_FIRST_FLOOR) {
+					return OCCUPANT_START.getResponse(responseTab, index);
+				} else {
+					return OCCUPANT_APARTMENT.getResponse(responseTab, index);
+				}
 			}
 		}
 	};

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -112,7 +111,7 @@ public class SlaverAlleyDialogue {
 
 		// Anal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -145,7 +144,7 @@ public class SlaverAlleyDialogue {
 
 		// Vaginal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(true, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false));
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -169,7 +168,7 @@ public class SlaverAlleyDialogue {
 
 		// Oral stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {

@@ -1,12 +1,29 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.*;
+import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
+import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderNames;
+import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -16,7 +33,12 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.settings.*;
+import com.lilithsthrone.game.settings.ContentPreferenceValue;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
@@ -26,14 +48,6 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.FileUtils;
 import com.lilithsthrone.utils.Util;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.*;
-import java.util.List;
 
 /**
  * @since 0.1.0
@@ -669,6 +683,9 @@ public class OptionsDialogue {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
 			} else if (index == 9) {
+				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
+			
+			} else if (index == 10) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
 			} else if (index == 0) {
@@ -1120,48 +1137,6 @@ public class OptionsDialogue {
 	};
 	
 	
-	private static String getGenderRepresentation() {
-		
-		float total=0;
-		for(Gender g : Gender.values()) {
-			total+=Main.getProperties().genderPreferencesMap.get(g);
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		
-		if(total==0) {
-			sb.append("<div style='width:100%;height:12px;background:"+Colour.FEMININE.getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
-			
-		} else {
-			sb.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
-			
-			int f=0, m=0, n=0;
-			for(Gender g : Gender.values()) {
-				sb.append("<div style='width:" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "%; height:12px; background:");
-				switch(g.getType()) {
-					case MASCULINE:
-						sb.append(Colour.MASCULINE.getShades(8)[m] + "; float:left; border-radius: 2;'></div>");
-						m++;
-						break;
-					case NEUTRAL:
-						sb.append(Colour.ANDROGYNOUS.getShades(8)[n] + "; float:left; border-radius: 2;'></div>");
-						n++;
-						break;
-					case FEMININE:
-						sb.append(Colour.FEMININE.getShades(8)[f] + "; float:left; border-radius: 2;'></div>");
-						f++;
-						break;
-					default:
-						break;
-				}
-			}
-		}
-		
-		sb.append("</div>");
-		
-		return sb.toString();
-	}
-	
 	public static final DialogueNodeOld GENDER_PREFERENCE = new DialogueNodeOld("Gender preferences", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1179,9 +1154,9 @@ public class OptionsDialogue {
 					+ "A character is considered to have breasts if they are at least an AA-cup."
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.MASCULINE));
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.NEUTRAL));
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.FEMININE));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.MASCULINE));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.NEUTRAL));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.FEMININE));
 			
 			
 			return UtilText.nodeContentSB.toString();
@@ -1208,7 +1183,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	private static String getGenerPreferencesPanel(PronounType type) {
+	private static String getGenderPreferencesPanel(PronounType type) {
 		int count = 0;
 		Colour colour = Colour.MASCULINE;
 		switch(type) {
@@ -1235,7 +1210,7 @@ public class OptionsDialogue {
 							+ "<div style='display:inline-block; margin:0 auto;'>"
 								+ "<div style='width:140px; float:left;'><b style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"</b></div>");
 				
-				for(GenderPreference preference : GenderPreference.values()) {
+				for(ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 					sb.append("<div id='"+preference+"_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==preference.getValue()?" selected":"")+"'>"+Util.capitaliseSentence(preference.getName())+"</div>");
 				}
 								
@@ -1255,6 +1230,168 @@ public class OptionsDialogue {
 		sb.append(
 				getGenderRepresentation()
 				+"</div>");
+		
+		return sb.toString();
+	}
+	
+	private static String getGenderRepresentation() {
+		
+		float total=0;
+		for(Gender g : Gender.values()) {
+			total+=Main.getProperties().genderPreferencesMap.get(g);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(total==0) {
+			sb.append("<div style='width:100%;height:12px;background:"+Colour.FEMININE.getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+		} else {
+			sb.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+			int f=0, m=0, n=0;
+			for(Gender g : Gender.values()) {
+				switch(g.getType()) {
+					case MASCULINE:
+						if(Main.getProperties().genderPreferencesMap.get(g)>0) {
+							sb.append("<div style='width:calc(" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "% - 1px); height:12px;"
+									+ " background:"+Colour.MASCULINE.getShades(8)[m] + "; float:left; border-radius: 2;'></div>");
+							sb.append("<div style='width:1px; height:12px; background:#000; float:left; border-radius: 2;'></div>");
+						}
+						m++;
+						break;
+					case NEUTRAL:
+						if(Main.getProperties().genderPreferencesMap.get(g)>0) {
+							sb.append("<div style='width:calc(" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "% - 1px); height:12px;"
+									+ " background:"+Colour.ANDROGYNOUS.getShades(8)[n] + "; float:left; border-radius: 2;'></div>");
+							sb.append("<div style='width:1px; height:12px; background:#000; float:left; border-radius: 2;'></div>");
+						}
+						n++;
+						break;
+					case FEMININE:
+						if(Main.getProperties().genderPreferencesMap.get(g)>0) {
+							sb.append("<div style='width:calc(" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "% - 1px); height:12px;"
+									+ " background:"+Colour.FEMININE.getShades(8)[f] + "; float:left; border-radius: 2;'></div>");
+							sb.append("<div style='width:1px; height:12px; background:#000; float:left; border-radius: 2;'></div>");
+						}
+						f++;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	public static final DialogueNodeOld AGE_PREFERENCE = new DialogueNodeOld("Age preferences", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getHeaderContent(){
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+					+ "These options will determine the age encounter rates of random NPCs, based on their femininity."
+					+ " Some NPCs, such as demons and harpies, may appear to be younger than they actually are, but your preferences will be taken into account wherever possible.<br/>"
+					+ "<b>A visual representation of the age chances can be seen in the bars at the bottom of each section.</b>"
+					+ "</div>");
+			
+			UtilText.nodeContentSB.append(getAgePreferencesPanel(PronounType.MASCULINE));
+			UtilText.nodeContentSB.append(getAgePreferencesPanel(PronounType.NEUTRAL));
+			UtilText.nodeContentSB.append(getAgePreferencesPanel(PronounType.FEMININE));
+			
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			 if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			}else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
+		}
+	};
+	
+	private static String getAgePreferencesPanel(PronounType type) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<div class='container-full-width' style='text-align:center;'>"
+				+ "<p><b style='color:"+type.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(type.getName())+"</b></p>");
+		
+		int i=AgeCategory.values().length-1;
+		for(AgeCategory ageCat : AgeCategory.values()) {
+			sb.append(
+					"<div style='display:inline-block; margin:4px auto;width:100%;'>"
+						+ "<div style='display:inline-block; margin:0 auto;'>"
+							+ "<div style='width:140px; float:left;'><b style='color:"+type.getColour().getShades(AgeCategory.values().length)[i]+";'>" +Util.capitaliseSentence(ageCat.getName())+"</b></div>");
+			
+			for(ContentPreferenceValue preference : ContentPreferenceValue.values()) {
+				sb.append(
+						"<div id='"+type+"_"+preference+"_"+ageCat+"' class='preference-button"+(Main.getProperties().agePreferencesMap.get(type).get(ageCat)==preference.getValue()?" selected":"")+"'>"
+								+Util.capitaliseSentence(preference.getName())
+						+"</div>");
+			}
+							
+			sb.append("</div>"
+					+ "</div>"
+					+ "<hr/>");
+			i--;
+		}
+		
+		sb.append(
+				getAgeRepresentation(type)
+				+"</div>");
+		
+		return sb.toString();
+	}
+	
+	private static String getAgeRepresentation(PronounType type) {
+		
+		float total=0;
+		for(AgeCategory ageCat : AgeCategory.values()) {
+			total+=Main.getProperties().agePreferencesMap.get(type).get(ageCat);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(total==0) {
+			sb.append("<div style='width:100%;height:12px;background:"+type.getColour().getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+		} else {
+			sb.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+
+			int i=(AgeCategory.values().length*2)-1;
+			for(AgeCategory ageCat : AgeCategory.values()) {
+				if(Main.getProperties().agePreferencesMap.get(type).get(ageCat)>0) {
+					sb.append("<div style='width:calc(" + (Main.getProperties().agePreferencesMap.get(type).get(ageCat)/total) * (100) + "% - 1px); height:12px;"
+							+ " background:"+type.getColour().getShades(AgeCategory.values().length*2)[i] + "; float:left; border-radius: 2;'></div>");
+					sb.append("<div style='width:1px; height:12px; background:#000; float:left; border-radius: 2;'></div>");
+				}
+				i--;
+				i--;
+			}
+		}
+		
+		sb.append("</div>");
 		
 		return sb.toString();
 	}

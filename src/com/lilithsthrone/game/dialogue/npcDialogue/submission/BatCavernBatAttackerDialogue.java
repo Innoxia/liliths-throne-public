@@ -394,7 +394,7 @@ public class BatCavernBatAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
-				potion = Main.game.getActiveNPC().generateTransformativePotion();
+				potion = Main.game.getActiveNPC().generateTransformativePotion(Main.game.getPlayer());
 				
 				if(potion == null) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -494,7 +494,7 @@ public class BatCavernBatAttackerDialogue {
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
+							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion(Main.game.getPlayer());
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."

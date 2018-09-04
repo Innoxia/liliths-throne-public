@@ -110,6 +110,9 @@ public class Kate extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(28);
+		}
 	}
 
 	@Override
@@ -193,6 +196,7 @@ public class Kate extends NPC {
 		}
 
 		// Core:
+		this.setAgeAppearanceDifferenceToAppearAsAge(28);
 		this.setHeight(180);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
@@ -298,11 +302,6 @@ public class Kate extends NPC {
 		return true;
 	}
 	
-	@Override
-	public int getAppearsAsAge() {
-		return 28;
-	}
-
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
