@@ -223,7 +223,7 @@ public enum Units {
      */
     public static String sizeAsImperial(double cm, UnitType type) {
         // Convert centimetres to inches
-        double inches = adaptiveRound(cm / 2.54);
+        double inches = cm / 2.54;
 
         // Wrap inches to feet
         long feet = (long) (inches / 12);
@@ -231,7 +231,7 @@ public enum Units {
 
         switch (type) {
             case NONE:
-                return number(inches);
+                return number(adaptiveRound(inches));
             case ROUGH_TEXT:
                 return roughly(inches / 12, "foot", "feet");
             case LONG:
@@ -241,7 +241,7 @@ public enum Units {
                 } else {
                     boolean forceWrap = remainingInches == 0 && feet != 0;
 
-                    double usedValue = forceWrap ? feet : inches;
+                    double usedValue = forceWrap ? feet : adaptiveRound(inches);
                     String usedUnit;
 
                     if (type == UnitType.LONG_SINGULAR) {
@@ -263,8 +263,9 @@ public enum Units {
                 }
 
                 // Append inches
-                if (remainingInches != 0) {
-                    output += number(output.isEmpty() ? remainingInches : Math.abs(remainingInches)) + "&quot;";
+                if (roundTo(remainingInches, 0.125) != 0) {
+                    remainingInches = output.isEmpty() ? remainingInches : Math.abs(remainingInches);
+                    output += withEighths(remainingInches) + "&quot;";
                 } else if (feet == 0) {
                     output = "0&quot;";
                 }
@@ -287,7 +288,7 @@ public enum Units {
      */
     public static String sizeAsMetric(double cm, UnitType type) {
         double m = cm / 100;
-        return withUnit(Math.round(cm), "cm", "centimetre", m, "m", "metre", type);
+        return withUnit(cm, "cm", "centimetre", m, "m", "metre", type);
     }
 
     /**
@@ -329,7 +330,7 @@ public enum Units {
         double oz = ml / 28.4131;
 
         double gal = oz / 160;
-        return withUnit(round(oz, 1), "oz", "ounce", gal, "gal", "gallon", type);
+        return withUnit(oz, "oz", "ounce", gal, "gal", "gallon", type);
     }
 
     /**
@@ -346,7 +347,7 @@ public enum Units {
      */
     public static String fluidAsMetric(double ml, UnitType type) {
         double l = ml / 1000;
-        return withUnit(Math.round(ml), "mL", "millilitre", l, "L", "litre", type);
+        return withUnit(ml, "mL", "millilitre", l, "L", "litre", type);
     }
 
     /**
@@ -388,7 +389,7 @@ public enum Units {
         double oz = grams / 28.34952;
 
         double lb = oz / 16;
-        return withUnit(round(oz, 1), "oz", "ounce", lb, "lb", "pound", type);
+        return withUnit(oz, "oz", "ounce", lb, "lb", "pound", type);
     }
 
     /**
@@ -405,7 +406,7 @@ public enum Units {
      */
     public static String weightAsMetric(double grams, UnitType type) {
         double kg = grams / 1000;
-        return withUnit(Math.round(grams), "g", "gram", kg, "kg", "kilogram", type);
+        return withUnit(grams, "g", "gram", kg, "kg", "kilogram", type);
     }
 
     /**
@@ -423,9 +424,12 @@ public enum Units {
     public static String withUnit(double value, String shortUnit, String unit,
                                    double wrappedValue, String shortWrappedUnit, String wrappedUnit,
                                    UnitType type) {
-        if (type == UnitType.NONE) return number(Math.round(value));
+        if (type == UnitType.NONE) return number(adaptiveRound(value));
         if (type == UnitType.ROUGH_TEXT) return roughly(wrappedValue, wrappedUnit, wrappedUnit + "s");
-        if ((type == UnitType.LONG || type == UnitType.LONG_SINGULAR) && Math.floor(value) == 0) return "less than 1 " + unit;
+        if ((type == UnitType.LONG || type == UnitType.LONG_SINGULAR)) {
+            if (Math.floor(value) == 0) return "less than 1 " + unit;
+            value = adaptiveRound(value);
+        }
 
         String usedUnit;
         double usedValue;
@@ -443,6 +447,31 @@ public enum Units {
         }
 
         return number(usedValue) + (type == UnitType.LONG_SINGULAR ? "-" : " ") + usedUnit;
+    }
+
+    /**
+     * Formats the given value with eighth fraction symbols instead of fractional digits.
+     * @param value The number to format
+     * @return A string containing the formatted number with an optional eighth symbol
+     */
+    public static String withEighths(double value) {
+        value = roundTo(value, 0.125);
+        double floor = Math.floor(value);
+        int eights = (int) Math.round((value - floor) / 0.125);
+        return (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
+    }
+
+    private static String getEighthSymbol(int eighths) {
+        switch (eighths) {
+            case 1: return "&frac18;";
+            case 2: return "&frac14;";
+            case 3: return "&frac38;";
+            case 4: return "&frac12;";
+            case 5: return "&frac58;";
+            case 6: return "&frac34;";
+            case 7: return "&frac78;";
+            default: return "";
+        }
     }
 
     /**
@@ -476,20 +505,20 @@ public enum Units {
      * Rounds a given number to the nearest multiple of the second parameter. Note that {@link Units#round(double, int)} is
      * more precise and should be preferred.
      * @param value Number to round
-     * @param toNearest Number to round to
+     * @param nearest Number to round to
      * @return A rounded float
      */
-    public static float roundTo(double value, double toNearest) {
-        return (float) (Math.round(value / toNearest) * toNearest);
+    public static float roundTo(double value, double nearest) {
+        return (float) (Math.round(value / nearest) * nearest);
     }
 
     /**
      * Convenience overload of {@link Units#roundTo(double, double)} for integers.
-     * @param toNearest Integer number to round to
+     * @param nearest Integer number to round to
      * @return A rounded integer
      */
-    public static long roundTo(double value, long toNearest) {
-        return Math.round(value / toNearest) * toNearest;
+    public static long roundTo(double value, long nearest) {
+        return Math.round(value / nearest) * nearest;
     }
 
     /**
