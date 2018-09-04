@@ -63,7 +63,7 @@ public class PenisMouth {
 								+"saliva across [npc2.her] face, before thrusting [npc.her] [npc.cock+] back down [npc2.her] throat.",
 
 						"Stepping back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] free from [npc2.namePos] mouth, before proceeding to slap the saliva-coated [npc1.cockHead] against [npc2.her] cheeks."
-								+ " As [npc2.name] [npc2.verb(open)] [npc2.namePos] mouth to gasp in shock, [npc.name] [npc2.verb(use)] the opportunity to guide the [npc.cockHead] of [npc.her] [npc.cock] back past [npc2.namePos] [npc2.lips+],"
+								+ " As [npc2.name] [npc2.verb(open)] [npc2.namePos] mouth to gasp in shock, [npc.name] [npc.verb(use)] the opportunity to guide the [npc.cockHead] of [npc.her] [npc.cock] back past [npc2.namePos] [npc2.lips+],"
 								+ " before pushing it deep down [npc2.namePos] throat.",
 
 						"[npc.Name] [npc.verb(step)] back and [npc.verb(allow)] [npc.her] [npc.cock+] to slide out from [npc2.namePos] mouth."
@@ -247,7 +247,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Letting [npc2.namePos] [npc2.cock+] slip completely out of [npc.her] mouth, [npc.name] [npc.verb(move)] [npc.her] head down and [npc.verb(start)] to gently lick and suck on [npc2.her] [npc2.balls+].",
 
-							"[npc.Name] [npc2.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start gently licking and kissing [npc2.her] [npc2.balls+].",
+							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start gently licking and kissing [npc2.her] [npc2.balls+].",
 
 							"Sliding [npc2.namePos] [npc2.cock+] out from [npc.her] mouth, [npc.name] [npc.verb(move)] [npc2.her] head down to start gently kissing and licking [npc2.her] [npc2.balls+].",
 
@@ -258,7 +258,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Letting [npc2.namePos] [npc2.cock+] slip completely out of [npc.her] mouth, [npc.name] [npc.verb(move)] [npc.her] head down and [npc.verb(start)] to eagerly lick and suck on [npc2.her] [npc2.balls+].",
 
-							"[npc.Name] [npc2.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start desperately licking and kissing [npc2.her] [npc2.balls+].",
+							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start desperately licking and kissing [npc2.her] [npc2.balls+].",
 
 							"Sliding [npc2.namePos] [npc2.cock+] out from [npc.her] mouth, [npc.name] [npc.verb(move)] [npc2.her] head down to start eagerly kissing and licking [npc2.her] [npc2.balls+].",
 
@@ -268,7 +268,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Letting [npc2.namePos] [npc2.cock+] slip completely out of [npc.her] mouth, [npc.name] [npc.verb(move)] [npc.her] head down and [npc.verb(start)] to roughly lick and suck on [npc2.her] [npc2.balls+].",
 
-							"[npc.Name] [npc2.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start roughly licking and kissing [npc2.her] [npc2.balls+].",
+							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start roughly licking and kissing [npc2.her] [npc2.balls+].",
 
 							"Sliding [npc2.namePos] [npc2.cock+] out from [npc.her] mouth, [npc.name] [npc.verb(move)] [npc2.her] head down to start roughly kissing and licking [npc2.her] [npc2.balls+].",
 
@@ -278,7 +278,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Letting [npc2.namePos] [npc2.cock+] slip completely out of [npc.her] mouth, [npc.name] [npc.verb(move)] [npc.her] head down and [npc.verb(start)] to lick and suck on [npc2.her] [npc2.balls+].",
 
-							"[npc.Name] [npc2.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start licking and kissing [npc2.her] [npc2.balls+].",
+							"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.cock+] slide out of [npc.her] mouth, before moving [npc.her] [npc.lips+] down to start licking and kissing [npc2.her] [npc2.balls+].",
 
 							"Sliding [npc2.namePos] [npc2.cock+] out from [npc.her] mouth, [npc.name] [npc.verb(move)] [npc2.her] head down to start kissing and licking [npc2.her] [npc2.balls+].",
 
@@ -1027,7 +1027,7 @@ public class PenisMouth {
 								+ " [npc2.Her] grip proves to be too strong, however, and [npc2.name] gently, but firmly, [npc.verb(continue)] to suck [npc.her] [npc.cock+] as [npc.she] weakly struggles against [npc2.herHim].",
 
 						"[npc.Sobbing+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.cock+] out of [npc2.namePos] mouth, but [npc2.her] grip is too strong for [npc.herHim]"
-								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc.verb(continue)] giving [npc.herHim] a slow, gentle blowjob."));
+								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a slow, gentle blowjob."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1035,10 +1035,10 @@ public class PenisMouth {
 								+ " growling in a threatening manner as [npc2.she] forcefully [npc2.verb(slide)] [npc2.her] [npc2.lips+] up and down the length of [npc.her] [npc.cock+].",
 
 						"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
-								+ " [npc2.Her] grip proves to be far too strong, however, and [npc2.name] [npc2.verb(let)] out a threatening growl as [npc2.name] [npc.verb(continue)] to suck [npc.her] [npc.cock+].",
+								+ " [npc2.Her] grip proves to be far too strong, however, and [npc2.name] [npc2.verb(let)] out a threatening growl as [npc2.name] [npc2.verb(continue)] to suck [npc.her] [npc.cock+].",
 
 						"[npc.Sobbing+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.cock+] out of [npc2.namePos] mouth, but [npc2.her] grip is too strong for [npc.herHim]"
-								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc.verb(continue)] giving [npc.herHim] a rough, forceful blowjob."));
+								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a rough, forceful blowjob."));
 					break;
 				default: // DOM_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1049,7 +1049,7 @@ public class PenisMouth {
 								+ " [npc2.Her] grip proves to be too strong, however, and [npc2.she] eagerly [npc.verb(continue)] to suck [npc.her] [npc.cock+] as [npc.she] weakly struggles against [npc2.herHim].",
 
 						"[npc.Sobbing+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.cock+] out of [npc2.namePos] mouth, but [npc2.her] grip is too strong for [npc.herHim]"
-								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc.verb(continue)] giving [npc.herHim] an eager blowjob."));
+								+ ", and [npc.her] struggles prove to be in vain as [npc2.name] [npc2.verb(continue)] giving [npc.herHim] an eager blowjob."));
 					break;
 			}
 			
@@ -1234,7 +1234,7 @@ public class PenisMouth {
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.namePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] slowly [npc.verb(lower)] [npc.her] head down between [npc2.her] [npc2.legs],"
+								"[npc.NamePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] slowly [npc.verb(lower)] [npc.her] head down between [npc2.her] [npc2.legs],"
 										+ " passionately kissing the [npc2.cockHead+] of [npc2.her] [npc2.cock+] before taking [npc2.herHim] into [npc.her] mouth.",
 
 								"Gently lowering [npc.her] head down between [npc2.namePos] [npc2.legs],"
@@ -1243,7 +1243,7 @@ public class PenisMouth {
 					case DOM_NORMAL:
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.namePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] eagerly [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
+								"[npc.NamePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] eagerly [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
 										+ " passionately kissing the [npc2.cockHead+] of [npc2.her] [npc2.cock+] before greedily taking [npc2.herHim] into [npc.her] mouth.",
 
 								"Eagerly dropping [npc.her] head down between [npc2.namePos] [npc2.legs],"
@@ -1251,7 +1251,7 @@ public class PenisMouth {
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.namePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] quickly [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
+								"[npc.NamePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] quickly [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
 										+ " roughly kissing the [npc2.cockHead+] of [npc2.her] [npc2.cock+] before forcefully taking [npc2.herHim] into [npc.her] mouth.",
 
 								"Dropping [npc.her] head down between [npc2.namePos] [npc2.legs],"
@@ -1259,7 +1259,7 @@ public class PenisMouth {
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.namePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
+								"[npc.NamePos] hot breath falls down onto [npc2.namePos] groin as [npc.she] [npc.verb(drop)] [npc.her] head down between [npc2.her] [npc2.legs],"
 										+ " kissing the [npc2.cockHead+] of [npc2.her] [npc2.cock+] before taking [npc2.herHim] into [npc.her] mouth.",
 
 								"Dropping [npc.her] head down between [npc2.namePos] [npc2.legs],"

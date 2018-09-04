@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="IMP_ATTACK"><![CDATA[
+	<p>
+		A group of imps attack!
+	</p>
+	<p>
+		[npc.RaceFull], [npc2.raceFull], [npc3.raceFull], [npc4.raceFull].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_OFFER_BODY"><![CDATA[
+	<p>
+		You decide that the best course of action would be to just submit and let the imps use your body.
+	</p>
+	<p>
+		The imps like this idea, and push you down ready to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You beat the imps!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and move to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and move to have sex with them. You decide to take it slowly...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and move to have sex with them. You decide to teach them a lesson they won't soon forget!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You feel sorry for the imps, and offer yourself to them. They quickly move to take advantage of you, and before you know it, the imps are swarming over you, ready to have sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_CLOTHING_DISPLACEMENT"><![CDATA[
+	<p>
+		The imps
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_NO_TF"><![CDATA[
+	<p>
+		Imps do not TF you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_TF"><![CDATA[
+	<p>
+		Imps TF you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		Imps move to have sex with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		Imps move to have sex with you. You eagerly respond.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		Imps move to have sex with you. You resist.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_TF_REFUSED"><![CDATA[
+	<p>
+		You spit out the TF potion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_TF_ACCEPTED"><![CDATA[
+	<p>
+		You gulp down the TF potion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_DEFEAT_TF_APPLIED"><![CDATA[
+	<p>
+		You are transformed! Imps now want sex with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_VICTORY_SEX"><![CDATA[
+	<p>
+		Having used the imps, you continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		Having been used by the imps, you spend some time getting your breath back before continuing on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

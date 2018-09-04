@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character.race;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -23,7 +22,6 @@ public enum Race {
 			"none",
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
@@ -47,7 +45,6 @@ public enum Race {
 			
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
@@ -69,7 +66,6 @@ public enum Race {
 
 			Colour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
-			StatusEffect.PURE_HUMAN,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
@@ -93,7 +89,6 @@ public enum Race {
 
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
-			StatusEffect.DEMON,
 			Util.newArrayListOfValues(
 					Attack.SPECIAL_ATTACK,
 					Attack.SEDUCTION,
@@ -108,29 +103,6 @@ public enum Race {
 			FurryPreference.MAXIMUM,
 			false),
 
-//	IMP("imp",
-//			"imps",
-//			"imp",
-//			"imp",
-//			"imps",
-//			"imps",
-//
-//			Colour.RACE_DEMON,
-//			Disposition.UNPREDICTABLE,
-//			StatusEffect.IMP,
-//			Util.newArrayListOfValues(
-//					Attack.MAIN,
-//					Attack.SEDUCTION),
-//			true,
-//			0.75f,
-//			2,
-//			3,
-//			Attribute.DAMAGE_IMP,
-//			Attribute.RESISTANCE_IMP,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
-
 	// BOVINES:
 	COW_MORPH("cow-morph",
 			"cow-morphs",
@@ -141,7 +113,6 @@ public enum Race {
 
 			Colour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.COW_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -165,7 +136,6 @@ public enum Race {
 
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.DOG_MORPH,
 			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
@@ -186,7 +156,6 @@ public enum Race {
 			
 			Colour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
-			StatusEffect.WOLF_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -209,7 +178,6 @@ public enum Race {
 			
 			Colour.RACE_FOX_MORPH,
 			Disposition.UNPREDICTABLE,
-			StatusEffect.FOX_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SEDUCTION,
@@ -234,7 +202,6 @@ public enum Race {
 
 			Colour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.CAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
@@ -258,7 +225,6 @@ public enum Race {
 			
 			Colour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.HORSE_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -282,7 +248,6 @@ public enum Race {
 		 
 	  Colour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.REINDEER_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -306,7 +271,6 @@ public enum Race {
 
 			Colour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
-			StatusEffect.SQUIRREL_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
 			true,
@@ -328,7 +292,6 @@ public enum Race {
 
 			Colour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.RAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -351,7 +314,6 @@ public enum Race {
 
 			Colour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.RABBIT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
@@ -374,7 +336,6 @@ public enum Race {
 
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.BAT_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -397,7 +358,6 @@ public enum Race {
 
 			Colour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.ALLIGATOR_MORPH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
@@ -421,7 +381,6 @@ public enum Race {
 
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
-			StatusEffect.SLIME,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			true,
 			0.5f,
@@ -443,7 +402,6 @@ public enum Race {
 			
 			Colour.RACE_HARPY,
 			Disposition.NEUTRAL,
-			StatusEffect.HARPY,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
@@ -468,7 +426,6 @@ public enum Race {
 
 			Colour.SPELL_SCHOOL_EARTH,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_EARTH,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
@@ -491,7 +448,6 @@ public enum Race {
 
 			Colour.SPELL_SCHOOL_WATER,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_WATER,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
@@ -514,7 +470,6 @@ public enum Race {
 
 			Colour.SPELL_SCHOOL_AIR,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_AIR,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
@@ -537,7 +492,6 @@ public enum Race {
 
 			Colour.SPELL_SCHOOL_FIRE,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_FIRE,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SEDUCTION,
@@ -561,7 +515,6 @@ public enum Race {
 
 			Colour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
-			StatusEffect.ELEMENTAL_ARCANE,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPELL),
@@ -1313,7 +1266,6 @@ public enum Race {
 	private String name;
 	private Colour colour;
 	private Disposition disposition;
-	private StatusEffect statusEffect;
 	private List<Attack> preferredAttacks;
 	private boolean vulnerableToLilithsLustStorm;
 	private int numberOfOffspringLow, numberOfOffspringHigh;
@@ -1331,27 +1283,24 @@ public enum Race {
 
 			Colour colour,
 			Disposition disposition,
-			StatusEffect statusEffect,
 			List<Attack> preferredAttacks,
 			boolean vulnerableToLilithsLustStorm,
-			
 			float chanceForMaleOffspring,
+			
 			int numberOfOffspringLow,
 			int numberOfOffspringHigh,
-			
 			Attribute damageMultiplier,
+			
 			Attribute resistanceMultiplier,
-			
 			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference,
 			
+			FurryPreference defaultMasculinePreference,
 			boolean affectedByFurryPreference) {
 		
 		this.name = name;
 
 		this.colour = colour;
 		this.disposition = disposition;
-		this.statusEffect = statusEffect;
 
 		this.preferredAttacks = preferredAttacks;
 
@@ -1377,10 +1326,6 @@ public enum Race {
 
 	public Disposition getDisposition() {
 		return disposition;
-	}
-
-	public StatusEffect getStatusEffect() {
-		return statusEffect;
 	}
 
 	public List<Attack> getPreferredAttacks() {

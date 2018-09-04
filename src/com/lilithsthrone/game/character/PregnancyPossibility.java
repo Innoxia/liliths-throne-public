@@ -70,11 +70,21 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 	}
 
 	public GameCharacter getMother() {
-		return Main.game.getNPCById(motherId);
+		try {
+			return Main.game.getNPCById(motherId);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: PregnancyPossibility.getMother()");
+			return Main.game.getGenericFemaleNPC();
+		}
 	}
 
 	public GameCharacter getFather() {
-		return Main.game.getNPCById(fatherId);
+		try {
+			return Main.game.getNPCById(fatherId);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: PregnancyPossibility.getFather()");
+			return Main.game.getGenericMaleNPC();
+		}
 	}
 
 	public float getProbability() {

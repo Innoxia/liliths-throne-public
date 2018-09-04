@@ -103,13 +103,13 @@ public class DominionAlleywayAttacker extends NPC {
 						
 					// Canals spawn only:
 					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?25:0, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(canalSpecies?15:0, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?30:0, gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
-						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?15:0, gender, s, availableRaces);
 						break;
 						
 					// Special spawns:
@@ -205,7 +205,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
 			

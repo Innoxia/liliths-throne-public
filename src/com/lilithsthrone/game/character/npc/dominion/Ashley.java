@@ -112,6 +112,7 @@ public class Ashley extends NPC {
 		// Body:
 
 		// Core:
+		this.setAgeAppearanceDifferenceToAppearAsAge(25);
 		this.setHeight(186);
 		this.setFemininity(50);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
@@ -201,11 +202,6 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public int getAppearsAsAge() {
-		return 25;
-	}
-	
-	@Override
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 		
@@ -222,9 +218,13 @@ public class Ashley extends NPC {
 							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
 		
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
-			GameCharacter target = Main.game.getNPCById(entry.getKey());
-			if(!target.isPlayer()) {
-				infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+			try {
+				GameCharacter target = Main.game.getNPCById(entry.getKey());
+				if(!target.isPlayer()) {
+					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+				}
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+entry.getKey()+") returning null in method: Ashley.getCharacterInformationScreen()");
 			}
 		}
 		

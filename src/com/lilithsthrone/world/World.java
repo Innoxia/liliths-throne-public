@@ -87,7 +87,12 @@ public class World implements Serializable, XMLSaving {
 	}
 
 	public Cell getCell(Vector2i vec) {
-		return grid[vec.getX()][vec.getY()];
+		try {
+			return grid[vec.getX()][vec.getY()];
+		} catch(Exception ex) {
+			System.err.println("Error in WorldType: "+this.getWorldType());
+			throw ex;
+		}
 	}
 	
 	/**

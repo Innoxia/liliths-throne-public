@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SVGImages {
@@ -38,7 +38,7 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceUnknown, raceDobermann, raceDobermannDesaturated,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -240,15 +240,25 @@ public enum SVGImages {
 			playerMapDangerousIcon = setColour(playerMapDangerousIcon, Colour.GENERIC_BAD);
 
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+			raceBackground = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundHalf.svg");
+			raceBackgroundHalf = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundSlime.svg");
+			raceBackgroundSlime = Util.inputStreamToString(is);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceUnknown.svg");
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceUnknown.svg");
 			raceUnknown = Util.inputStreamToString(is);
 			raceUnknown = setColour(raceUnknown, Colour.RACE_UNKNOWN);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermann = Util.inputStreamToString(is);
 			raceDobermann = setColour(raceDobermann, Colour.RACE_DOG_MORPH);
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermannDesaturated = Util.inputStreamToString(is);
 			raceDobermannDesaturated = setColour(raceDobermannDesaturated, Colour.BASE_GREY);
 			
@@ -1181,6 +1191,18 @@ public enum SVGImages {
 
 	public String getCreampieMasochist() {
 		return creampieMasochist;
+	}
+
+	public String getRaceBackground() {
+		return raceBackground;
+	}
+
+	public String getRaceBackgroundHalf() {
+		return raceBackgroundHalf;
+	}
+
+	public String getRaceBackgroundSlime() {
+		return raceBackgroundSlime;
 	}
 
 	public String getRaceUnknown() {

@@ -823,7 +823,7 @@ public class FingerVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(gasp)] as [npc.name] withdraws from [npc2.her] [npc2.pussy], before letting out [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.herHim].",
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle against [npc.name] as [npc.she] withdraws from [npc2.her] [npc2.pussy+]."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle against [npc.name] as [npc.she] withdraws from [npc2.her] [npc2.pussy+]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1243,13 +1243,13 @@ public class FingerVagina {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(growl)] at [npc2.name] as [npc.she] [npc.verb(command)] [npc2.herHim] to stop fingering [npc.herHim].",
+							"Yanking [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(growl)] as [npc.she] [npc.verb(command)] [npc2.herHim] to stop fingering [npc.herHim].",
 
 							"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent+] before yanking [npc2.her] [npc2.fingers] out of [npc.her] [npc.pussy+]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before telling [npc2.name] to stop fingering [npc.herHim].",
+							"Sliding [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before telling [npc2.herHim] to stop fingering [npc.herHim].",
 
 							"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent+] before sliding [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.pussy+]."));
 					break;

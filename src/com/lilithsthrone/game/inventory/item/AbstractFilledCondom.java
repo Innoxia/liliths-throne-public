@@ -105,7 +105,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 
 	public static AbstractFilledCondom loadFromXML(Element parentElement, Document doc) {
 		return new AbstractFilledCondom(
-				ItemType.idToItemMap.get(parentElement.getAttribute("id")),
+				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
 				parentElement.getAttribute("cumProvidor"),
 				((Element) parentElement.getElementsByTagName("cum").item(0)==null
@@ -177,7 +177,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 	}
 	
 	public GameCharacter getCumProvidor() {
-		return Main.game.getNPCById(cumProvidor);
+		try {
+			return Main.game.getNPCById(cumProvidor);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+cumProvidor+") returning null in method: getCumProvidor()");
+			return null;
+		}
 	}
 
 	public FluidCum getCum() {
