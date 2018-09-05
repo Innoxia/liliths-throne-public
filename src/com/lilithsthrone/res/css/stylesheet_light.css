@@ -1,6 +1,6 @@
 .root{
     -fx-font-size: 12pt;
-	-fx-font-family: Verdana, "DejaVu Sans", serif;
+	-fx-font-family: Verdana, "DejaVu Sans", sans-serif;
     /*-fx-font-family: "Angelina";*/
 	-fx-background-color: "#fcfcfc";/*linear-gradient(from 0% 0% to 100% 100%, #290a1f 0%, #1a001a 100%);*/
 }
