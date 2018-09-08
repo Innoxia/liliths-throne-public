@@ -1177,7 +1177,7 @@ public class TunnelAttackDialogueCompanions {
 			}
 			
 			if(getMugger().hasTransformationFetish() && getMugger().isWillingToRape(Main.game.getPlayer()) ) {
-				potion = getMugger().getTransfomativePotion(true);
+				potion = getMugger().getTransfomativePotion(Main.game.getPlayer(), true);
 				
 //				System.out.println("Potion Check 1"); 
 //				System.out.println(potion); 
@@ -1281,7 +1281,7 @@ public class TunnelAttackDialogueCompanions {
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = getMugger().getTransfomativePotion();
+							Util.Value<String, AbstractItem> potion = getMugger().getTransfomativePotion(Main.game.getPlayer());
 							
 //							System.out.println("Potion Check 3"); 
 //							System.out.println(potion.getValue().getName()); 

@@ -222,7 +222,12 @@ public class Litter implements Serializable, XMLSaving {
 	}
 
 	public GameCharacter getMother() {
-		return Main.game.getNPCById(motherId);
+		try {
+			return Main.game.getNPCById(motherId);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: Litter.getMother()");
+			return Main.game.getGenericFemaleNPC();
+		}
 	}
 
 	public boolean isMotherId(String motherId) {
@@ -230,7 +235,12 @@ public class Litter implements Serializable, XMLSaving {
 	}
 
 	public GameCharacter getFather() {
-		return Main.game.getNPCById(fatherId);
+		try {
+			return Main.game.getNPCById(fatherId);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: Litter.getFather()");
+			return Main.game.getGenericMaleNPC();
+		}
 	}
 
 	public boolean isFatherId(String fatherId) {

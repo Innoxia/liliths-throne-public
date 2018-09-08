@@ -152,17 +152,21 @@ public class OccupancyUtil implements XMLSaving {
 		// Non-slave occupants:
 		
 		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
-			NPC occupant = (NPC) Main.game.getNPCById(id);
-
-			if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
-				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
-					if(occupant.getHistory().isAtWork(hour)) {
-						occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-						
-					} else {
-						occupant.setLocation(occupant.getHomeWorldLocation(), occupant.getHomeLocation(), false);
+			try {
+				NPC occupant = (NPC) Main.game.getNPCById(id);
+	
+				if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
+					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+						if(occupant.getHistory().isAtWork(hour)) {
+							occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+							
+						} else {
+							occupant.setLocation(occupant.getHomeWorldLocation(), occupant.getHomeLocation(), false);
+						}
 					}
 				}
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section.");
 			}
 		}
 		
@@ -173,37 +177,48 @@ public class OccupancyUtil implements XMLSaving {
 		
 		// First need to set correct jobs:
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
-			NPC slave = (NPC) Main.game.getNPCById(id);
-			if(Main.game.getPlayer().hasCompanion(slave)) {
-				continue;
-			}
-			
-			if(!Main.game.getCharactersPresent().contains(slave)) { // If the player isn't interacting with them, then move them:
-				if(slave.getWorkHours()[hour]) {
-					slave.getSlaveJob().sendToWorkLocation(slave);
-					slavesAtJob.get(slave.getSlaveJob()).add(slave);
-					
-				} else {
-					if(slave.getSlaveJob()==SlaveJob.PROSTITUTE) {
-						// Remove client before leaving:
-						List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
-						for(NPC npc : charactersPresent) {
-							if(npc instanceof GenericSexualPartner) {
-								Main.game.banishNPC(npc);
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(Main.game.getPlayer().hasCompanion(slave)) {
+					continue;
+				}
+				
+				if(!Main.game.getCharactersPresent().contains(slave)) { // If the player isn't interacting with them, then move them:
+					if(slave.getWorkHours()[hour]) {
+						slave.getSlaveJob().sendToWorkLocation(slave);
+						slavesAtJob.get(slave.getSlaveJob()).add(slave);
+						
+					} else {
+						if(slave.getSlaveJob()==SlaveJob.PROSTITUTE) {
+							// Remove client before leaving:
+							List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
+							for(NPC npc : charactersPresent) {
+								if(npc instanceof GenericSexualPartner) {
+									Main.game.banishNPC(npc);
+								}
 							}
 						}
+						slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
+						slavesResting.add(slave);
 					}
-					slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
-					slavesResting.add(slave);
 				}
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section.");
 			}
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
-			NPC slave = (NPC) Main.game.getNPCById(id);
+			NPC slave;
 			
-			if(slave==null || Main.game.getPlayer().hasCompanion(slave)) {
+			try {
+				slave = (NPC) Main.game.getNPCById(id);
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getSlavesOwned() section second instance.");
+				continue;
+			}
+			
+			if(Main.game.getPlayer().hasCompanion(slave)) {
 				continue;
 			}
 			
@@ -234,7 +249,8 @@ public class OccupancyUtil implements XMLSaving {
 			// Washing body:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
 					&& !slave.getWorkHours()[hour]
-					&& !slave.getDirtySlots().isEmpty()) {
+					&& !slave.getDirtySlots().isEmpty()
+					&& !Main.game.getCharactersPresent().contains(slave)) {
 				SlaveryEventLogEntry entry = new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.WASHED_BODY,
@@ -257,7 +273,8 @@ public class OccupancyUtil implements XMLSaving {
 			// Washing clothes:
 			if((slave.hasStatusEffect(StatusEffect.CLOTHING_CUM) || !slave.getDirtySlots().isEmpty())
 					&& !slave.getWorkHours()[hour]
-					&& slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
+					&& slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)
+					&& !Main.game.getCharactersPresent().contains(slave)) {
 				Main.game.addSlaveryEvent(day, slave, new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.WASHED_CLOTHES,
@@ -356,9 +373,13 @@ public class OccupancyUtil implements XMLSaving {
 				generatedUpkeep += c.getPlace().getUpkeep();
 			}
 			for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
-				NPC occupant = (NPC) Main.game.getNPCById(id);
-				if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
-					generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
+				try {
+					NPC occupant = (NPC) Main.game.getNPCById(id);
+					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+						generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
+					}
+				} catch (Exception e) {
+					System.err.println("Main.game.getNPCById("+id+") returning null in method: performHourlyUpdate(), getFriendlyOccupants() section second instance.");
 				}
 			}
 		}

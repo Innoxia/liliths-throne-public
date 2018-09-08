@@ -206,13 +206,14 @@ public class UtilText {
 				}
 			}
 			
-		} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(character)) {
-			if(Sex.isCharacterEngagedInOngoingAction(character)) {
+		} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
+			if(Sex.isCharacterEngagedInOngoingAction(target)) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(!Sex.getContactingSexAreas(character, SexAreaOrifice.MOUTH).isEmpty()) {
+			if(!Sex.getContactingSexAreas(target, SexAreaOrifice.MOUTH).isEmpty()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+				
 			} else {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
 					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -2828,6 +2829,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"is",
+						"are"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'is' for this character (is or are)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "are";
+				} else {
+					return "is";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"does",
 						"do"),
 				true,
@@ -2840,6 +2859,24 @@ public class UtilText {
 					return "do";
 				} else {
 					return "does";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"were",
+						"was"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'was' for this character (was or were)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "were";
+				} else {
+					return "was";
 				}
 			}
 		});

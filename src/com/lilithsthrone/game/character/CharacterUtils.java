@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -899,7 +901,7 @@ public class CharacterUtils {
 			List<Subspecies> slimeSubspecies = new ArrayList<>();
 			// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
 			for(Subspecies subspecies : Subspecies.values()) {
-				switch(subspecies) { //TODO
+				switch(subspecies) {
 					case ALLIGATOR_MORPH:
 					case ANGEL:
 					case BAT_MORPH:
@@ -916,18 +918,16 @@ public class CharacterUtils {
 					case DOG_MORPH:
 					case DOG_MORPH_BORDER_COLLIE:
 					case DOG_MORPH_DOBERMANN:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case IMP:
+					case IMP_ALPHA:
 					case HARPY:
 					case HARPY_BALD_EAGLE:
 					case HARPY_RAVEN:
 					case HORSE_MORPH:
 					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
-					case IMP:
-					case IMP_ALPHA:
 					case RABBIT_MORPH:
 					case RABBIT_MORPH_LOP:
 					case RAT_MORPH:
@@ -948,11 +948,14 @@ public class CharacterUtils {
 							}
 						}
 						break;
+					// Special races that slimes do not spawn as:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case SLIME:
 						break;
 				}
@@ -1065,7 +1068,9 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	public static Body reassignBody(Body body, Gender startingGender, RacialBody startingBodyType, Subspecies species, RaceStage stage) {
+	public static Body reassignBody(Body body, Gender startingGender, Subspecies species, RaceStage stage) {
+		
+		RacialBody startingBodyType = RacialBody.valueOfRace(species.getRace());
 		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
@@ -1183,7 +1188,15 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	public static void randomiseBody(GameCharacter character) {
+	public static void randomiseBody(GameCharacter character, boolean randomiseAge) {
+		
+		if(randomiseAge) {
+			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+			if(character.getRace()==Race.DEMON || character.getRace()==Race.HARPY) {
+				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
+			}
+		}
+		
 		// Piercings (in order of probability that they'll have them, based on some random website that orders popularity):
 		// All piercings are reliant on having ear piercings first:
 		if (Math.random() >= (character.isFeminine()?0.1f:0.9f) || character.hasFetish(Fetish.FETISH_MASOCHIST)) {

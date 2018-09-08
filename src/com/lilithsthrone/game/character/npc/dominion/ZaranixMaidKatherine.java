@@ -97,6 +97,9 @@ public class ZaranixMaidKatherine extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(18);
+		}
 		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
 	}
 	
@@ -128,6 +131,7 @@ public class ZaranixMaidKatherine extends NPC {
 		
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
+		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
@@ -246,11 +250,6 @@ public class ZaranixMaidKatherine extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
-	}
-	
-	@Override
-	public int getAppearsAsAge() {
-		return 18;
 	}
 	
 	@Override

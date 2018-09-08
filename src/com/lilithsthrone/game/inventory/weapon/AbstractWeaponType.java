@@ -332,7 +332,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				try {
 					if(coreAttributes.getElementsByTagName("spells").getLength() > 0) {
 						for(int i=0; i<coreAttributes.getElementsByTagName("spell").getLength(); i++){
-							this.spells.add(Spell.valueOf(coreAttributes.getElementsByTagName("spell").item(0).getTextContent()));
+							this.spells.add(Spell.valueOf(coreAttributes.getElementsByTagName("spell").item(i).getTextContent()));
 						}
 					}
 				} catch(Exception ex) {

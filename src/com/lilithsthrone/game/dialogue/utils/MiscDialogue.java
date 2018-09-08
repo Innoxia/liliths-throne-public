@@ -43,7 +43,7 @@ public class MiscDialogue {
 				return new ResponseEffectsOnly("Continue", "Carry on with whatever you were doing."){
 					@Override
 					public void effects() {
-						Main.game.restoreSavedContent();
+						Main.game.restoreSavedContent(false);
 					}
 				};
 			} else {

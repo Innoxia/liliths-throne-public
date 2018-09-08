@@ -81,7 +81,7 @@ public class Roxy extends NPC {
 			ItemType.PREGNANCY_TEST);
 
 	static {
-		for(AbstractItemType itemType : ItemType.allItems) {
+		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
 					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)

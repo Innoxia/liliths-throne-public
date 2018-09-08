@@ -3006,17 +3006,35 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_WETNESS:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in maximum cum storage.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in maximum cum storage.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeMajorDrain);
+									target.fillCumToMaxStorage();
+									return s;} };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in maximum cum storage.", largeChangeDrain, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeDrain); } };
+								return new RacialEffectUtil("Decrease in maximum cum storage.", largeChangeDrain, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeDrain);
+									target.fillCumToMaxStorage();
+									return s; } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in maximum cum storage.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in maximum cum storage.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeMinorDrain);
+									target.fillCumToMaxStorage();
+									return s; } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in maximum cum storage.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in maximum cum storage.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeMinorBoost);
+									target.fillCumToMaxStorage();
+									return s; } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in maximum cum storage.", largeChangeBoost, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeBoost); } };
+								return new RacialEffectUtil("Increase in maximum cum storage.", largeChangeBoost, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeBoost);
+									target.fillCumToMaxStorage();
+									return s; } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in maximum cum storage.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in maximum cum storage.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() {
+									String s = target.incrementPenisCumStorage(largeChangeMajorBoost);
+									target.fillCumToMaxStorage();
+									return s; } };
 						}
 					case TF_MOD_REGENERATION:
 						switch(potency) {

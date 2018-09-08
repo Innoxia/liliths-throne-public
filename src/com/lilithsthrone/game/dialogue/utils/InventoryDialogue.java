@@ -41,12 +41,10 @@ import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.11
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -3518,19 +3516,21 @@ public class InventoryDialogue {
 											public DialogueNodeOld getNextDialogue() {
 												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
+													
 												} else {
 													return INVENTORY_MENU;
 												}
 											}
 											@Override
 											public void effects(){
-												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
-													Main.game.getPlayer().addSlave(inventoryNPC);
-													inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+												if(!inventoryNPC.isAbleToBeEnslaved()) {
+													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 												} else {
-													Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													if(inventoryNPC.isSlave()) {
+														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													}
+													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												}
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 											}
 										};
 										
@@ -4026,19 +4026,21 @@ public class InventoryDialogue {
 											public DialogueNodeOld getNextDialogue() {
 												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 													return inventoryNPC.getEnslavementDialogue(clothing);
+													
 												} else {
 													return INVENTORY_MENU;
 												}
 											}
 											@Override
 											public void effects(){
-												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
-													Main.game.getPlayer().addSlave(inventoryNPC);
-													inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+												if(!inventoryNPC.isAbleToBeEnslaved()) {
+													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 												} else {
-													Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													if(inventoryNPC.isSlave()) {
+														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													}
+													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												}
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 											}
 										};
 										
@@ -4270,7 +4272,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + weapon.getName(),
 											"<p style='text-align:center;'>"
-													+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 														?Main.game.getPlayer().unequipMainWeapon(false)
 														:Main.game.getPlayer().unequipOffhandWeapon(false))
 												+ "</p>");
@@ -4292,7 +4294,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), "Drop " + weapon.getName(),
 													"<p style='text-align:center;'>"
-															+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+															+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 																?Main.game.getPlayer().unequipMainWeapon(true)
 																:Main.game.getPlayer().unequipOffhandWeapon(true))
 														+ "</p>");
@@ -4313,7 +4315,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), "Store " + weapon.getName(),
 													"<p style='text-align:center;'>"
-															+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+															+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 																?Main.game.getPlayer().unequipMainWeapon(true)
 																:Main.game.getPlayer().unequipOffhandWeapon(true))
 														+ "</p>");
@@ -4346,7 +4348,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(false)
 													:Main.game.getPlayer().unequipOffhandWeapon(false))
 											+ "</p>");
@@ -4365,7 +4367,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4383,7 +4385,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4425,7 +4427,7 @@ public class InventoryDialogue {
 								@Override
 								public void effects(){
 									Sex.setUnequipClothingText("<p style='text-align:center;'>"
-											+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+											+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 											?Main.game.getPlayer().unequipMainWeapon(false)
 											:Main.game.getPlayer().unequipOffhandWeapon(false))
 									+ "</p>");
@@ -4446,7 +4448,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
@@ -4466,7 +4468,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (Main.game.getPlayer().getMainWeapon().equals(weapon)
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
@@ -4524,7 +4526,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (inventoryNPC.getMainWeapon().equals(weapon)
+												+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 													?inventoryNPC.unequipMainWeapon(false)
 													:inventoryNPC.unequipOffhandWeapon(false))
 											+ "</p>");
@@ -4543,7 +4545,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (inventoryNPC.getMainWeapon().equals(weapon)
+														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4561,7 +4563,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (inventoryNPC.getMainWeapon().equals(weapon)
+														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
