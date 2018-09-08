@@ -980,21 +980,24 @@ public class Sex {
 					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
 
 				}
-				
-				if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
-					if((Sex.getSexPace(participant)!=SexPace.SUB_RESISTING || participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
-						if(Sex.getNumberOfOrgasms(participant)>0
-								|| participant.hasFetish(Fetish.FETISH_DENIAL_SELF)
-								|| (Sex.isDom(participant) && !Sex.isSubHasEqualControl())) {
-//							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
-						} else {
+
+				if(Sex.getSexPositionSlot(participant)!=SexPositionSlot.MISC_WATCHING) {
+					if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
+						if((Sex.getSexPace(participant)==SexPace.SUB_RESISTING && !participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
 							for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
-								sexSB.append(participant.incrementAffection(domParticipant, -2));
+								if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
+									sexSB.append(participant.incrementAffection(domParticipant, -50));
+								}
 							}
-						}
-					} else {
-						for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
-							sexSB.append(participant.incrementAffection(domParticipant, -50));
+							
+						} else {
+							if(Sex.getNumberOfOrgasms(participant)==0 && !participant.hasFetish(Fetish.FETISH_DENIAL_SELF) && !Sex.isDom(participant)) {
+								for(GameCharacter domParticipant : Sex.getDominantParticipants().keySet()) {
+									if(Sex.getSexPositionSlot(domParticipant)!=SexPositionSlot.MISC_WATCHING) {
+										sexSB.append(participant.incrementAffection(domParticipant, -2));
+									}
+								}
+							}
 						}
 					}
 				}
@@ -2552,7 +2555,7 @@ public class Sex {
 						characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
 						characterPenetrated.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 					}
-					characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrating, characterPenetrated.getLostVirginityDescriptor());
+					characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated, characterPenetrated.getLostVirginityDescriptor());
 					characterPenetrating.setPenisVirgin(false);
 				}
 				

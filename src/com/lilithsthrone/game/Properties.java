@@ -3,6 +3,7 @@ package com.lilithsthrone.game;
 import java.io.File;
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -23,11 +24,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
@@ -84,14 +87,25 @@ public class Properties implements Serializable {
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
-	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapPrimary, hotkeyMapSecondary;
+	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapPrimary;
+	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapSecondary;
 
-	public Map<GenderNames, String> genderNameFemale, genderNameMale, genderNameNeutral;
-	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
+	public Map<GenderNames, String> genderNameFemale;
+	public Map<GenderNames, String> genderNameMale;
+	public Map<GenderNames, String> genderNameNeutral;
+	
+	public Map<GenderPronoun, String> genderPronounFemale;
+	public Map<GenderPronoun, String> genderPronounMale;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
-	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
-	private Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
+
+	public Map<PronounType, Map<AgeCategory, Integer>> agePreferencesMap;
+	
+	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap;
+	private Map<Subspecies, FurryPreference> subspeciesMasculineFurryPreferencesMap;
+	
+	private Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap;
+	private Map<Subspecies, SubspeciesPreference> subspeciesMasculinePreferencesMap;
 	
 	// Transformation Settings
 	public FurryPreference forcedTFPreference;
@@ -135,6 +149,14 @@ public class Properties implements Serializable {
 		genderPreferencesMap = new EnumMap<>(Gender.class);
 		for(Gender g : Gender.values()) {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
+		}
+		
+		agePreferencesMap = new HashMap<>();
+		for(PronounType pronoun : PronounType.values()) {
+			agePreferencesMap.put(pronoun, new HashMap<>());
+			for(AgeCategory ageCat : AgeCategory.values()) {
+				agePreferencesMap.get(pronoun).put(ageCat, ageCat.getAgePreferenceDefault().getValue());
+			}
 		}
 		
 		forcedTFPreference = FurryPreference.NORMAL;
@@ -330,6 +352,24 @@ public class Properties implements Serializable {
 				Attr value = doc.createAttribute("value");
 				value.setValue(String.valueOf(genderPreferencesMap.get(g).intValue()));
 				element.setAttributeNode(value);
+			}
+			
+			// Age preferences:
+			Element agePreferences = doc.createElement("agePreferences");
+			properties.appendChild(agePreferences);
+			for (AgeCategory ageCat : AgeCategory.values()) {
+				Element element = doc.createElement("preference");
+				agePreferences.appendChild(element);
+				
+				Attr age = doc.createAttribute("age");
+				age.setValue(ageCat.toString());
+				element.setAttributeNode(age);
+				
+				for(PronounType pronoun : PronounType.values()) {
+					Attr value = doc.createAttribute(pronoun.toString());
+					value.setValue(String.valueOf(agePreferencesMap.get(pronoun).get(ageCat).intValue()));
+					element.setAttributeNode(value);
+				}
 			}
 			
 			// Forced TF settings:
@@ -687,7 +727,22 @@ public class Properties implements Serializable {
 						}
 					}
 				}
-				
+
+				// Age preferences:
+				nodes = doc.getElementsByTagName("agePreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							for(PronounType pronoun : PronounType.values()) {
+								agePreferencesMap.get(pronoun).put(AgeCategory.valueOf(e.getAttribute("age")), Integer.valueOf(e.getAttribute(pronoun.toString())));
+							}
+						} catch(IllegalArgumentException ex){
+						}
+					}
+				}
 				
 				// Race preferences:
 				nodes = doc.getElementsByTagName("subspeciesPreferences");
@@ -728,8 +783,8 @@ public class Properties implements Serializable {
 						Element e = ((Element)element.getElementsByTagName("itemType").item(i));
 						
 						if(!e.getAttribute("id").isEmpty()) {
-							if(ItemType.idToItemMap.get(e.getAttribute("id"))!=null) {
-								itemsDiscovered.add(ItemType.idToItemMap.get(e.getAttribute("id")));
+							if(ItemType.getIdToItemMap().get(e.getAttribute("id"))!=null) {
+								itemsDiscovered.add(ItemType.getIdToItemMap().get(e.getAttribute("id")));
 							}
 						}
 					}

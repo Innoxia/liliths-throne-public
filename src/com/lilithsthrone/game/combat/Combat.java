@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -114,6 +115,17 @@ public enum Combat {
 		}
 		if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
 			escapeChance = 100;
+		}
+		if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+			boolean cheetahEnemy = false;
+			for(NPC enemy : Combat.getEnemies()) {
+				if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+					cheetahEnemy = true;
+				}
+			}
+			if(!cheetahEnemy) {
+				escapeChance = 100;
+			}
 		}
 		
 		String startingEffect = "";
@@ -776,9 +788,14 @@ public enum Combat {
 					
 				} else {
 					return new Response("Escape",
-							Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true) && escapeChance==100
-								?"Try to escape.<br/><br/>Thanks to your <b style='color:"+Perk.JOB_ATHLETE.getColour().toWebHexString()+";'>"+Perk.JOB_ATHLETE.getName(Main.game.getPlayer())+"</b> ability, you have a "+escapeChance+"% chance to get away!"
-								:"Try to escape.<br/><br/>You have a "+escapeChance+"% chance to get away!",
+							"Try to escape.<br/><br/>"
+							+ (escapeChance==100 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)
+								?"Thanks to your <b style='color:"+Perk.JOB_ATHLETE.getColour().toWebHexString()+";'>"
+											+Perk.JOB_ATHLETE.getName(Main.game.getPlayer())+"</b> ability, you are easily able to sprint away from this fight! "
+								:(escapeChance==100 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH
+										?"Thanks to your cheetah-morph's body, you are easily able to sprint away from this fight! "
+										:""))
+							+"You have a "+escapeChance+"% chance to get away!",
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
@@ -790,7 +807,10 @@ public enum Combat {
 				
 			} else if (index == 1) {
 				if(Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
-					return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+					return new Response((
+							Main.game.getPlayer().getMainWeapon() != null
+								? Util.capitaliseSentence(Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor())
+								: "Melee Strike"),
 							getMainAttackDescription(),
 							ENEMY_ATTACK){
 						@Override
@@ -800,13 +820,19 @@ public enum Combat {
 						}
 					};
 				} else {
-					return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+					return new Response(
+							(Main.game.getPlayer().getMainWeapon() != null
+								?Util.capitaliseSentence(Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor())
+								:"Melee Strike"),
 							Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
 				}
 
 			} else if (index == 2) {
 				if(Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
-					return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+					return new Response(
+							(Main.game.getPlayer().getOffhandWeapon() != null
+								? Util.capitaliseSentence(Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor())
+								: "Melee Strike"),
 							getOffhandAttackDescription(), ENEMY_ATTACK){
 						@Override
 						public void effects() {
@@ -815,7 +841,10 @@ public enum Combat {
 						}
 					};
 				} else {
-					return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+					return new Response(
+							(Main.game.getPlayer().getOffhandWeapon() != null
+								? Util.capitaliseSentence(Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor())
+								: "Melee Strike"),
 							Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
 				}
 
@@ -966,39 +995,22 @@ public enum Combat {
 
 		attackStringBuilder.append(getMainAttackDescription(attacker, target, isHit));
 		
-		DamageType dt = (attacker.getMainWeapon() == null
-					?attacker.getBodyMaterial().getUnarmedDamageType()
-					:attacker.getMainWeapon().getDamageType());
+		Attribute damageAttribute = (attacker.getMainWeapon() == null
+					?attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute()
+					:attacker.getMainWeapon().getDamageType().getMultiplierAttribute());
 		
 		if(damage==0) {
-			if(target.isPlayer()) {
-				attackStringBuilder.append("<p>You are completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>");
-			} else {
-				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>"));
-			}
+			attackStringBuilder.append(UtilText.parse(target,"<p>[npc.NameIsFull] completely [style.boldExcellent(immune)] to "+damageAttribute.getName()+"!</p>"));
 			
 		} else if(isHit) {
-			if(attacker.isPlayer()) {
-				if(attacker.getMainWeapon() == null) {
-					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ dt.getColour().toWebHexString() + ";'>" + dt.getName() + "</b>!</b></p>");
-					
-				} else {
-					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ dt.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + dt.getMultiplierAttribute().getName() + "</b>!</b></p>");
-				}
-			} else {
-				if(attacker.getMainWeapon() == null) {
-					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
-							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ dt.getColour().toWebHexString() + ";'>" + dt.getName() + "</b>!</b></p>");
-					
-				} else {
-					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
-							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ dt.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + dt.getMultiplierAttribute().getName() + "</b>!</b></p>");
-				}
-			}
+			attackStringBuilder.append(
+					"<p><b>"+UtilText.parse(target, "[npc.Name] [npc.was]")
+					+ (critical
+							? " <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b>"
+							:"")
+					+ " hit for " + damage + " <b style='color: "
+					+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
+			
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
 		}
 		
@@ -1032,31 +1044,22 @@ public enum Combat {
 		attackStringBuilder = new StringBuilder("");
 
 		attackStringBuilder.append(getOffhandDescription(attacker, target, isHit));
-		
-		DamageType dt = (attacker.getOffhandWeapon() == null
-				?attacker.getBodyMaterial().getUnarmedDamageType()
-				:attacker.getOffhandWeapon().getDamageType());
+
+		Attribute damageAttribute = (attacker.getOffhandWeapon() == null
+					?attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute()
+					:attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
 	
 		if(damage==0) {
-			if(target.isPlayer()) {
-				attackStringBuilder.append("<p>You are completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>");
-			} else {
-				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>"));
-			}
+			attackStringBuilder.append(UtilText.parse(target,"<p>[npc.NameIsFull] completely [style.boldExcellent(immune)] to "+damageAttribute.getName()+"!</p>"));
 			
 		} else if(isHit) {
-			
-			Attribute damageAttribute = dt.getMultiplierAttribute();
-	
-			if(attacker.isPlayer()) {
-				attackStringBuilder.append("<p>"
-						+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
-						+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
-			} else {
-				attackStringBuilder.append("<p>"
-						+ "<b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
-						+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
-			}
+			attackStringBuilder.append(
+					"<p><b>"+UtilText.parse(target, "[npc.Name] [npc.was]")
+					+ (critical
+							? " <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b>"
+							:"")
+					+ " hit for " + damage + " <b style='color: "
+					+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
 	
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
 		}
@@ -1109,7 +1112,7 @@ public enum Combat {
 		} else {
 			isHit = false;
 			attackStringBuilder.append(getDualDescription(attacker, target, false));
-			attackStringBuilder.append("<p><b>"+(attacker.isPlayer()?"You ":UtilText.parse(attacker,"[npc.Name] "))+"missed!</b></p>");
+			attackStringBuilder.append(UtilText.parse(attacker, "<p><b>[npc.Name] missed!</b></p>"));
 		}
 		
 		attackStringBuilder.append(target.incrementHealth(attacker, -(damageMain+damageOffhand)));

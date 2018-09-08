@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTER_FORTRESS"><![CDATA[
+	<p>
+		Entering the fortress
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Gateway
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_FORTRESS"><![CDATA[
+	<p>
+		Leaving the fortress
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COURTYARD"><![CDATA[
+	<p>
+		Empty squalid courtyard
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WELL"><![CDATA[
+	<p>
+		Well
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		Keep
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CELLS"><![CDATA[
+	<p>
+		Cells building
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TREASURY"><![CDATA[
+	<p>
+		Small treasury building
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

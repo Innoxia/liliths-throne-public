@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -156,6 +156,15 @@ public enum DialogueFlagValue {
 	kalahariWantsSex,
 	krugerIntroduced,
 	
-	
+	// Submission:
+	impFortressAlphaPacified,
+	impFortressDemonPacified,
+	impFortressFemalesPacified,
+	impFortressMalesPacified,
+
+	impFortressAlphaEnslaved,
+	impFortressDemonEnslaved,
+	impFortressFemalesEnslaved,
+	impFortressMalesEnslaved,
 	;
 }

@@ -2,11 +2,15 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PropertyValue {
-
+	
+	debugMode(false),
+	mapReveal(false),
+	concealedSlotsReveal(false),
+	
 	artwork(true),
 	thumbnail(true),
 	

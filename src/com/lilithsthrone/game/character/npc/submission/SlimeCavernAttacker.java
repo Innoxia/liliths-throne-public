@@ -137,7 +137,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			this.setBodyMaterial(BodyMaterial.SLIME);
 			

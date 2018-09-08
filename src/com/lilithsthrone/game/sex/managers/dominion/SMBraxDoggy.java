@@ -9,7 +9,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SMBraxDoggy extends SexManagerDefault {

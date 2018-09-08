@@ -67,7 +67,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private List<String> charactersEncountered;
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, "", level, birthday, gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+		super(nameTriplet, "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -350,17 +350,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	@Override
-	public int getAppearsAsAge() {
+	public int getAppearsAsAgeValue() {
 		if(Main.game.isInNewWorld()) {
-			return getAge() - Game.TIME_SKIP_YEARS;
+			return getAgeValue() - Game.TIME_SKIP_YEARS;
 		}
-		return getAge();
+		return getAgeValue();
 	}
 
 	@Override
-	public int getAge() {
+	public int getAgeValue() {
 		if(Main.game.isInNewWorld()) {
-			return super.getAge();
+			return super.getAgeValue();
 		} else {
 			return (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow().minusYears(Game.TIME_SKIP_YEARS));
 		}
@@ -591,10 +591,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public List<GameCharacter> getCharactersEncounteredAsGameCharacters() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
-		for(String s : charactersEncountered) {
-			GameCharacter npc = Main.game.getNPCById(s);
-			if(npc!=null) {
+		for(String characterId : charactersEncountered) {
+			try {
+				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: getCharactersEncounteredAsGameCharacters()");
 			}
 		}
 		return npcsEncountered;
@@ -602,10 +604,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public void sortCharactersEncountered() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
-		for(String s : charactersEncountered) {
-			GameCharacter npc = Main.game.getNPCById(s);
-			if(npc!=null) {
+		for(String characterId : charactersEncountered) {
+			try {
+				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: sortCharactersEncountered()");
 			}
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
