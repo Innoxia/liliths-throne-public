@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum BodySize {
@@ -46,6 +46,17 @@ public enum BodySize {
 		}
 		return FOUR_HUGE;
 	}
+	
+	public static BodySize getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+		for(BodySize size : values())
+            if(size.name().equalsIgnoreCase(value)) {
+            	return size;
+            }
+        throw new IllegalArgumentException();
+    }
 	
 	public String getName(boolean withDeterminer) {
 		if(withDeterminer) {

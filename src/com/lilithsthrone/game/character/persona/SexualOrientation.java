@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.79
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SexualOrientation {

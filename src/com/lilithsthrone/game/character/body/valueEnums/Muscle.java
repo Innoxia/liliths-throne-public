@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Muscle {
@@ -59,4 +59,15 @@ public enum Muscle {
 	public Colour getColour() {
 		return colour;
 	}
+	
+	public static Muscle getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+        for(Muscle muscle : values())
+            if(muscle.name().equalsIgnoreCase(value)) {
+            	return muscle;
+            }
+        throw new IllegalArgumentException();
+    }
 }

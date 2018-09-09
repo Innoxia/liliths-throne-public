@@ -304,6 +304,39 @@ public enum ParserTarget {
 		}
 	},
 	
+	WALLACE(Util.newArrayListOfValues("wallace"), "") {
+		public String getDescription() {
+			return Main.game.getWallace().getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getWallace();
+		}
+	},
+	
+	EIRWEN(Util.newArrayListOfValues("eirwen"), "") {
+		public String getDescription() {
+			return Main.game.getEirwen().getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEirwen();
+		}
+	}, 
+	
+	RECHT(Util.newArrayListOfValues("recht"), "") {
+		public String getDescription() {
+			return Main.game.getRecht().getDescription();
+		}
+		
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRecht();
+		}
+	},
+	
 	PIX(Util.newArrayListOfValues("pix"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(Pix.class).getDescription();

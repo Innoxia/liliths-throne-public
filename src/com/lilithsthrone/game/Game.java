@@ -61,7 +61,6 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -1074,7 +1073,18 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kate.class))) { addNPC(new Kate(), false); addedNpcs.add(Kate.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierLeader.class))) { addNPC(new SupplierLeader(), false); addedNpcs.add(SupplierLeader.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierPartner.class))) { addNPC(new SupplierPartner(), false); addedNpcs.add(SupplierPartner.class); }
-
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Wallace.class))) { addNPC(new Wallace(), false); addedNpcs.add(Wallace.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Eirwen.class))) { addNPC(new Eirwen(), false); addedNpcs.add(Eirwen.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Recht.class))) { addNPC(new Recht(), false); addedNpcs.add(Recht.class); }
+			if(addedNpcs.contains(Eirwen.class)) {
+				getNpc(Eirwen.class).setAffection(getNpc(Wallace.class), 80);
+				getNpc(Eirwen.class).setObedience(90);
+			}
+			if(addedNpcs.contains(Wallace.class)) {
+				getNpc(Wallace.class).setAffection(getNpc(Eirwen.class), 80);
+				getNpc(Wallace.class).addSlave(Eirwen.class);
+			}			
+			
 			// Harpy nests:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Scarlett.class))) { addNPC(new Scarlett(), false); addedNpcs.add(Scarlett.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Alexa.class))) { addNPC(new Alexa(), false); addedNpcs.add(Alexa.class); }

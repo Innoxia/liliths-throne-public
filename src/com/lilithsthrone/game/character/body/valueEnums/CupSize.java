@@ -4,7 +4,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  * Measurements are in inches. Measured in bust to underbust using the UK system.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum CupSize {
@@ -172,4 +172,15 @@ public enum CupSize {
 	public static CupSize getMaximumCupSize() {
 		return XXX_N;
 	}
+	
+	public static CupSize getEnum(String value) {
+        if (value.equals("null")) {
+        	return null;
+        }
+        for(CupSize size : values())
+            if(size.name().equalsIgnoreCase(value)) {
+            	return size;
+            }
+        throw new IllegalArgumentException();
+    }
 }
