@@ -618,224 +618,229 @@ public class MainControllerInitMethod {
 			
 	
 			// -------------------- Enchantments --------------------
-			
-			// Tooltips:
-			if (((EventTarget) MainController.document.getElementById("MOD_PRIMARY_ENCHANTING")) != null) {
 
-				EnchantmentEventListener el = new EnchantmentEventListener().setPrimaryModifier(TFModifier.NONE);
-				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "click", el, false);
-				
-				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
-				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod());
-				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseenter", el2, false);
-			}
-			if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_ENCHANTING")) != null) {
+			if (Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_MENU) {
+				// Tooltips:
+				if (((EventTarget) MainController.document.getElementById("MOD_PRIMARY_ENCHANTING")) != null) {
 
-				EnchantmentEventListener el = new EnchantmentEventListener().setSecondaryModifier(TFModifier.NONE);
-				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "click", el, false);
-				
-				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
-				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getSecondaryMod());
-				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
-			}
+					EnchantmentEventListener el = new EnchantmentEventListener().setPrimaryModifier(TFModifier.NONE);
+					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "click", el, false);
 
-			for(TFPotency potency : TFPotency.values()) {
-				id = "POTENCY_"+potency;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-	
-					EnchantmentEventListener el = new EnchantmentEventListener().setPotency(potency);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
-					
-					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					
+					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
+
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod());
+					MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseenter", el2, false);
+				}
+				if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_ENCHANTING")) != null) {
+
+					EnchantmentEventListener el = new EnchantmentEventListener().setSecondaryModifier(TFModifier.NONE);
+					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "click", el, false);
+
+					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
+
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getSecondaryMod());
+					MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
+				}
+
+				for(TFPotency potency : TFPotency.values()) {
+					id = "POTENCY_"+potency;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+
+						EnchantmentEventListener el = new EnchantmentEventListener().setPotency(potency);
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
 //					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
 				}
-			}
-			for(int effectCount=0; effectCount<EnchantmentDialogue.getEffects().size(); effectCount++) {
-				id = "DELETE_EFFECT_"+effectCount;
-				
+				for(int effectCount=0; effectCount<EnchantmentDialogue.getEffects().size(); effectCount++) {
+					id = "DELETE_EFFECT_"+effectCount;
+
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+
+						EnchantmentEventListener el = new EnchantmentEventListener().removeEffect(effectCount);
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Delete Effect", "");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
+				}
+
+				AbstractItemEffectType effect = EnchantmentDialogue.getIngredient().getEnchantmentEffect();
+				int maxLimit = effect.getMaximumLimit();
+				int currentLimit = EnchantmentDialogue.getLimit();
+
+				id = "LIMIT_MINIMUM";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					
-					EnchantmentEventListener el = new EnchantmentEventListener().removeEffect(effectCount);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
-					
+					if(currentLimit > 0) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(0);
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
-					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Delete Effect", "");
-					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-				}
-			}
-			
-			id = "LIMIT_MINIMUM";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.getLimit()>0) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(0);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
-				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Minimum"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			id = "LIMIT_DECREASE_LARGE";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.getLimit()>0) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(
-							Math.max(0, EnchantmentDialogue.getLimit()-(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10)));
-					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
+
+				id = "LIMIT_DECREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					if(currentLimit > 0) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(
+								Math.max(0, EnchantmentDialogue.getLimit() - effect.getLargeLimitChange()));
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			id = "LIMIT_DECREASE";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.getLimit()>0) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()-1);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
+
+				id = "LIMIT_DECREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					if(currentLimit > 0) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit() - effect.getSmallLimitChange());
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Decrease"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			id = "LIMIT_INCREASE";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()+1);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
+
+				id = "LIMIT_INCREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					if(currentLimit < maxLimit) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit() + effect.getSmallLimitChange());
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
 //						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 //								?"Limit Increase"
 //								:"Maximum Limit Reached"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			id = "LIMIT_INCREASE_LARGE";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				int currentLimit = EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
-				if(EnchantmentDialogue.getLimit() < currentLimit) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(currentLimit, EnchantmentDialogue.getLimit()+(currentLimit/10)));
-					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
+
+				id = "LIMIT_INCREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					if(currentLimit < maxLimit) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(
+								Math.min(maxLimit, EnchantmentDialogue.getLimit() + effect.getLargeLimitChange()));
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
 //						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 //								?"Large Limit Increase"
 //								:"Maximum Limit Reached"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-
-			id = "LIMIT_MAXIMUM";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()));
-					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				
+
+				id = "LIMIT_MAXIMUM";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					if(currentLimit < maxLimit) {
+						EnchantmentEventListener el = new EnchantmentEventListener().setLimit(maxLimit);
+						MainController.addEventListener(MainController.document, id, "click", el, false);
+					}
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
 //				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
 //						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 //								?"Set Limit To Maximum"
 //								:"Maximum Limit Reached"), "");
 //				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			// Ingredient icon:
-			if (((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")) != null) {
-				
-				((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
-					Main.game.setResponseTab(1);
-					if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
-						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
-							@Override
-							public void effects() {
-								EnchantmentDialogue.resetEnchantmentVariables();
-							}
-						});
-						
-					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
-						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
-							@Override
-							public void effects() {
-								EnchantmentDialogue.resetEnchantmentVariables();
-							}
-						});
-						
-					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
-							@Override
-							public void effects() {
-								EnchantmentDialogue.resetEnchantmentVariables();
-							}
-						});
-						
-					} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
-						Main.game.setContent(new Response("Back", "Stop enchanting.", BodyChanging.getTarget().isPlayer()?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS:OccupantManagementDialogue.SLAVE_MANAGEMENT_TATTOOS){
-							@Override
-							public void effects() {
-								EnchantmentDialogue.resetEnchantmentVariables();
-							}
-						});
-						
-					}
-					
-				}, false);
-				
-				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
-				
-				InventoryTooltipEventListener el2 = null;
-				if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
-					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
-					
-				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
-					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
-					
-				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
-					
-				}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
-					el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
 				}
-				
-				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
-			}
-			
-			// Output icon:
-			if (((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")) != null) {
-				
-				((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")).addEventListener("click", e -> {
-					 if(EnchantmentDialogue.getEffects().isEmpty()) {
-							
+
+				// Ingredient icon:
+				if (((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")) != null) {
+
+					((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
+						Main.game.setResponseTab(1);
+						if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+								@Override
+								public void effects() {
+									EnchantmentDialogue.resetEnchantmentVariables();
+								}
+							});
+
+						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
+								@Override
+								public void effects() {
+									EnchantmentDialogue.resetEnchantmentVariables();
+								}
+							});
+
+						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+								@Override
+								public void effects() {
+									EnchantmentDialogue.resetEnchantmentVariables();
+								}
+							});
+
+						} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+							Main.game.setContent(new Response("Back", "Stop enchanting.", BodyChanging.getTarget().isPlayer()?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS:OccupantManagementDialogue.SLAVE_MANAGEMENT_TATTOOS){
+								@Override
+								public void effects() {
+									EnchantmentDialogue.resetEnchantmentVariables();
+								}
+							});
+
+						}
+
+					}, false);
+
+					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
+
+					InventoryTooltipEventListener el2 = null;
+					if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+						el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+						el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+						el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
+
+					}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+						el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
+					}
+
+					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
+				}
+
+				// Output icon:
+				if (((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")) != null) {
+
+					((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")).addEventListener("click", e -> {
+						if(EnchantmentDialogue.getEffects().isEmpty()) {
+
 						} else if(EnchantmentDialogue.canAffordCost(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects())) {
 							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantmentDialogue.getOutputName()+"'."){
 								@Override
 								public void effects() {
-									
+
 									EnchantmentDialogue.craftItem(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
-									
+
 									if((EnchantmentDialogue.getPreviousIngredient() instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.getPreviousIngredient()):true)
 											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.getPreviousIngredient()):true)
 											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.getPreviousIngredient()):true)) {
@@ -846,80 +851,77 @@ public class MainControllerInitMethod {
 									}
 								}
 							});
-							
+
 						}
-				}, false);
-				
-				MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
-				
-				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Craft", "Click to craft this item!");
-				MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseenter", el2, false);
-			}
-			
-			// Adding an effect:
-			id = "ENCHANT_ADD_BUTTON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					if(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getEffectsDescription(
-							EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit(), Main.game.getPlayer(), Main.game.getPlayer())==null) {
-						
-					} else {
-						Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
-							@Override
-							public void effects() {
-								EnchantmentDialogue.addEffect(new ItemEffect(
-										EnchantmentDialogue.getIngredient().getEnchantmentEffect(), EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit()));
-							}
-						});
-					}
-				}, false);
-				
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					}, false);
 
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect", "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			id = "ENCHANT_ADD_BUTTON_DISABLED";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
-						EnchantmentDialogue.getEffects().size() >= EnchantmentDialogue.getIngredient().getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-			
-			// Choosing a primary modifier:
-			if(EnchantmentDialogue.getIngredient() != null) {
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Craft", "Click to craft this item!");
+					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseenter", el2, false);
+				}
+
+				// Adding an effect:
+				id = "ENCHANT_ADD_BUTTON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getEffectsDescription(
+								EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit(), Main.game.getPlayer(), Main.game.getPlayer())==null) {
+
+						} else {
+							Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
+								@Override
+								public void effects() {
+									EnchantmentDialogue.addEffect(new ItemEffect(
+											EnchantmentDialogue.getIngredient().getEnchantmentEffect(), EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit()));
+								}
+							});
+						}
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+
+				id = "ENCHANT_ADD_BUTTON_DISABLED";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
+							EnchantmentDialogue.getEffects().size() >= EnchantmentDialogue.getIngredient().getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+
+				// Choosing a primary modifier:
 				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers()) {
 					if (((EventTarget) MainController.document.getElementById("MOD_PRIMARY_" + tfMod.hashCode())) != null) {
-						
+
 						EnchantmentEventListener el = new EnchantmentEventListener().setPrimaryModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_"+tfMod.hashCode(), "click", el, false);
-						
+
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
-	
+
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_PRIMARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}
 				}
-			}
-			// Choosing a secondary modifier:
-			if(EnchantmentDialogue.getIngredient() != null) {
+				// Choosing a secondary modifier:
 				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod())) {
 					if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_" + tfMod.hashCode())) != null) {
-						
+
 						EnchantmentEventListener el = new EnchantmentEventListener().setSecondaryModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_"+tfMod.hashCode(), "click", el, false);
-						
+
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseleave", MainController.hideTooltipListener, false);
-	
+
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
 						MainController.addEventListener(MainController.document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}

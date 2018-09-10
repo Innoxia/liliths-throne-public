@@ -60,6 +60,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.main.Main;
@@ -105,6 +106,24 @@ public abstract class AbstractItemEffectType {
 	
 	public int getLimits(TFModifier primaryModifier, TFModifier secondaryModifier) {
 		return 0;
+	}
+
+	public int getSmallLimitChange() {
+		if (EnchantmentDialogue.getSecondaryMod() == TFModifier.TF_MOD_WETNESS
+				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
+				|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
+			// Increase minimum change for fluids
+			return 4;
+		}
+		return 1;
+	}
+
+	public int getLargeLimitChange() {
+		return getMaximumLimit() / 10;
+	}
+
+	public int getMaximumLimit() {
+		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
 	
 	public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -1859,8 +1878,8 @@ public abstract class AbstractItemEffectType {
 	
 	private static int largeChangeMajorDrain = -50;
 	private static int largeChangeDrain = -15;
-	private static int largeChangeMinorDrain = -1;
-	private static int largeChangeMinorBoost = 1;
+	private static int largeChangeMinorDrain = -4;
+	private static int largeChangeMinorBoost = 4;
 	private static int largeChangeBoost = 15;
 	private static int largeChangeMajorBoost = 50;
 
