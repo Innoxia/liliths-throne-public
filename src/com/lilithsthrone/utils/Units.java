@@ -446,7 +446,8 @@ public enum Units {
             usedValue = value;
         }
 
-        return number(usedValue) + (type == UnitType.LONG_SINGULAR ? "-" : " ") + usedUnit;
+        return (Main.getProperties().hasValue(PropertyValue.imperialSystem) ? withEighths(usedValue) : number(usedValue))
+                + (type == UnitType.LONG_SINGULAR ? "-" : " ") + usedUnit;
     }
 
     /**
@@ -457,6 +458,8 @@ public enum Units {
     public static String withEighths(double value) {
         value = roundTo(value, 0.125);
         double floor = Math.floor(value);
+        if (value == floor) return number(floor);
+
         int eights = (int) Math.round((value - floor) / 0.125);
         return (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
     }
