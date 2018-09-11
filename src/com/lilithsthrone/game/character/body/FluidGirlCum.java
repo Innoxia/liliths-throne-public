@@ -242,6 +242,19 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(bubbly)]!"
 							+ "</p>");
 				}
+			case FEMINIZING:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a warm, radiating heat deep within your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.girlcum] is now [style.boldGrow(feminizing)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A warm, radiating heat takes root deep within [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(feminizing)]!"
+							+ "</p>");
+				}
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
@@ -357,6 +370,19 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 							"<p>"
 								+ "A calm, settling feeling spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer bubbly)]!"
+							+ "</p>");
+				}
+			case FEMINIZING:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a soft coolness spreading up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
+								+ "Your [pc.girlcum] is [style.boldShrink(no longer feminizing)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soft coolness spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer feminizing)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:

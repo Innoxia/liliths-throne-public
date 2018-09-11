@@ -4417,6 +4417,9 @@ public class Body implements Serializable, XMLSaving {
 							case BUBBLING:
 								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 								break;
+							case FEMINIZING:
+								descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
+								break;
 							case HALLUCINOGENIC:
 								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 								break;
@@ -4620,6 +4623,9 @@ public class Body implements Serializable, XMLSaving {
 									break;
 								case BUBBLING:
 									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+									break;
+								case FEMINIZING:
+									descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
 									break;
 								case HALLUCINOGENIC:
 									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
@@ -5278,6 +5284,9 @@ public class Body implements Serializable, XMLSaving {
 							break;
 						case ALCOHOLIC:
 							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+							break;
+						case FEMINIZING:
+							descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
 							break;
 					}
 				}

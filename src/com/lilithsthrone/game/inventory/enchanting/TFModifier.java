@@ -924,6 +924,13 @@ public enum TFModifier {
 			Colour.BASE_PINK_DEEP,
 			Rarity.COMMON),
 	
+	TF_MOD_FLUID_FEMINIZING("feminizing",
+			"Applies an effect related to changing a fluid.",
+			"feminizing",
+			"modifier_circle_fluid_modifier",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
 	TF_MOD_FLUID_HALLUCINOGENIC("psychoactive",
 			"Applies an effect related to changing a fluid.",
 			"psychoactive",

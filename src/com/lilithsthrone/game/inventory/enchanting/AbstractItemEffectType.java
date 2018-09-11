@@ -1812,6 +1812,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ADDICTIVE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ALCOHOLIC, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_BUBBLING, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_FEMINIZING, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_HALLUCINOGENIC, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_MUSKY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_SLIMY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -3602,6 +3603,12 @@ public abstract class AbstractItemEffectType {
 						} else {
 							return new RacialEffectUtil("Makes cum fizzy and bubbly.", 0, "") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.BUBBLING); } };
 						}
+					case TF_MOD_FLUID_FEMINIZING:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes feminizing effect from cum.", 0, "") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.FEMINIZING); } };
+						} else {
+							return new RacialEffectUtil("Adds an feminizing effect to cum.", 0, "") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.FEMINIZING); } };
+						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
 							return new RacialEffectUtil("Removes psychoactive effect from cum.", 0, "") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.HALLUCINOGENIC); } };
@@ -3694,6 +3701,12 @@ public abstract class AbstractItemEffectType {
 						} else {
 							return new RacialEffectUtil("Makes milk fizzy and bubbly.", 0, "") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.BUBBLING); } };
 						}
+					case TF_MOD_FLUID_FEMINIZING:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes feminizing effect from milk.", 0, "") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.FEMINIZING); } };
+						} else {
+							return new RacialEffectUtil("Adds an feminizing effect to milk.", 0, "") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.FEMINIZING); } };
+						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
 							return new RacialEffectUtil("Removes psychoactive effect from milk.", 0, "") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.HALLUCINOGENIC); } };
@@ -3785,6 +3798,12 @@ public abstract class AbstractItemEffectType {
 							return new RacialEffectUtil("Removes bubbling effect from girlcum.", 0, "") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.BUBBLING); } };
 						} else {
 							return new RacialEffectUtil("Makes girlcum fizzy and bubbly.", 0, "") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.BUBBLING); } };
+						}
+					case TF_MOD_FLUID_FEMINIZING:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes feminizing effect from girlcum.", 0, "") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.FEMINIZING); } };
+						} else {
+							return new RacialEffectUtil("Adds an feminizing effect to girlcum.", 0, "") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.FEMINIZING); } };
 						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {

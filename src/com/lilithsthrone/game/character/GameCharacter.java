@@ -10803,6 +10803,23 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(modifiers.contains(FluidModifier.FEMINIZING)) {
+			if(isPlayer()) {
+				fluidIngestionSB.append("<p>"
+							+ "Due to the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", you start <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
+						+ "</p>"
+						+ this.incrementFemininity(5));
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p>"
+						+ "Due to the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+", [npc.name] starts <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
+					+ "</p>"
+					+ this.incrementFemininity(5)));
+			}
+		}
+		
 		if(modifiers.contains(FluidModifier.ADDICTIVE) && this.getAddiction(fluid) == null) {
 			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), charactersFluid.getId()));
 			if(isPlayer()) {
