@@ -455,12 +455,14 @@ public enum Units {
      * @return A string containing the formatted number with an optional eighth symbol
      */
     public static String withEighths(double value) {
-        value = roundTo(value, 0.125);
+        boolean negative = value < 0;
+        value = roundTo(Math.abs(value), 0.125);
         double floor = Math.floor(value);
+
         if (value == floor) return number(floor);
 
         int eights = (int) Math.round((value - floor) / 0.125);
-        return (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
+        return (negative ? '-' : "") + (floor == 0 ? "" : number(floor)) + getEighthSymbol(eights);
     }
 
     private static String getEighthSymbol(int eighths) {
