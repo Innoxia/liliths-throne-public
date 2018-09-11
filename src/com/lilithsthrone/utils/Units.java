@@ -246,7 +246,7 @@ public enum Units {
                             output.append(number(Math.round(remainingInches))).append("&quot;");
                         break;
                     case PRECISE:
-                        if (remainingInches >= 1/16)
+                        if (remainingInches >= 0.0625)
                             output.append(withEighths(remainingInches)).append("&quot;");
                         break;
                     case TEXT:
