@@ -516,14 +516,14 @@ public class ItemEffectType {
 			target.incrementBreastStoredMilk(-milkPumped);
 			if(target.isPlayer()) {
 				return "<p>"
-							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped)+" of your [pc.milk]."
+							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped, Units.UnitType.LONG)+" of your [pc.milk]."
 						+ "</p>"
 						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
 			
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped)+" of [npc.her] [npc.milk]."
+							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped, Units.UnitType.LONG)+" of [npc.her] [npc.milk]."
 						+ "</p>"
 						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
 			}

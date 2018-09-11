@@ -312,9 +312,9 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else {
 			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+Colour.CUM.toWebHexString()+";'>"
 					+ UtilText.returnStringAtRandom(
-							Units.fluid(cumChange)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
-							Units.fluid(cumChange)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
-							Units.fluid(cumChange)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
 				+ "</i>"
 				+ (this.cumStored==0
 					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"

@@ -14506,7 +14506,7 @@ public abstract class GameCharacter implements XMLSaving {
 						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "<br/>"
-							+ "You are now <b>" + Units.size(getHeightValue()) + "</b> tall."
+							+ "You are now <b>" + Units.size(getHeightValue(), Units.UnitType.LONG) + "</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
 							"<p class='center'>"
@@ -14520,7 +14520,7 @@ public abstract class GameCharacter implements XMLSaving {
 						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
 							+ "<br/>"
-							+ "You are now <b>" + Units.size(getHeightValue()) + "</b> tall."
+							+ "You are now <b>" + Units.size(getHeightValue(), Units.UnitType.LONG) + "</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
 							"<p class='center'>"

@@ -654,9 +654,9 @@ public class Breast implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
-								Units.fluid(lactationChange)+" of your [pc.milk] squirts out of your [pc.nipples+].",
-								Units.fluid(lactationChange)+" of [pc.milk+] leaks out of your [pc.nipples+].",
-								Units.fluid(lactationChange)+" of [pc.milk+] drips out of your [pc.nipples+].")
+								Units.fluid(lactationChange, Units.UnitType.LONG)+" of your [pc.milk] squirts out of your [pc.nipples+].",
+								Units.fluid(lactationChange, Units.UnitType.LONG)+" of [pc.milk+] leaks out of your [pc.nipples+].",
+								Units.fluid(lactationChange, Units.UnitType.LONG)+" of [pc.milk+] drips out of your [pc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
 							?"<br/><i>You now have no more [pc.milk] stored in your breasts!</i>"
@@ -666,9 +666,9 @@ public class Breast implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 								+ UtilText.returnStringAtRandom(
-										Units.fluid(lactationChange)+" of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
-										Units.fluid(lactationChange)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
-										Units.fluid(lactationChange)+" of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
+										Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.milk] squirts out of [npc.her] [npc.nipples+].",
+										Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] leaks out of [npc.namePos] [npc.nipples+].",
+										Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
 							?"<br/><i>[npc.Name] now has no more [npc.milk] stored in [npc.her] breasts!</i>"

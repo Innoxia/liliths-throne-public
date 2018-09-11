@@ -3338,10 +3338,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"The package is quite small, measuring roughly " + Units.size(8) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly " + Units.size(8) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly " + Units.size(8) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly " + Units.size(8) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
+					"The package is quite small, measuring roughly " + Units.size(8, Units.UnitType.LONG) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly " + Units.size(8, Units.UnitType.LONG) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly " + Units.size(8, Units.UnitType.LONG) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly " + Units.size(8, Units.UnitType.LONG) + " along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
 		}
 		
 		@Override
