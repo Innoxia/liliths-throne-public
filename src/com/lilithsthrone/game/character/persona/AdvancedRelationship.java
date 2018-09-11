@@ -11,7 +11,7 @@ public enum AdvancedRelationship {
     HalfSibling("half-sibling"),
     Cousin("cousin"),
     Aunt("aunt"),
-    Niche("niche");
+    Niece("niece");
 
     private String display;
 

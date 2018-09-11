@@ -3978,53 +3978,48 @@ public abstract class GameCharacter implements XMLSaving {
 		return result;
 	}
 
-	private Set<GameCharacter> getParents(int level)
+	private Set<GameCharacter> getParents(int level, Set<GameCharacter> trace)
 	{
 	    assert level >= 0;
+
+	    if(trace != null)
+			trace.add(this);
+
 	    if(level == 0)
 	        return getParents();
 
 		HashSet<GameCharacter> result = new HashSet<>();
 		GameCharacter c;
 		if((c = getMother()) != null)
-			result.addAll(c.getParents(level - 1));
+			result.addAll(c.getParents(level - 1, trace));
 		if((c = getFather()) != null)
-			result.addAll(c.getParents(level - 1));
+			result.addAll(c.getParents(level - 1, trace));
 		return result;
 	}
 
-	private Set<GameCharacter> getChildren(int level)
+	private Set<GameCharacter> getChildren(int level, Set<GameCharacter> exclude)
 	{
 	    assert level >= 0;
+
+	    if(exclude != null && exclude.contains(this))
+	    	return Collections.emptySet();
+
 	    if(level == 0)
 	        return getChildren();
 
 		HashSet<GameCharacter> result = new HashSet<>();
 		for(GameCharacter child : getChildren())
-			result.addAll(child.getChildren(level - 1));
+			result.addAll(child.getChildren(level - 1, exclude));
 		return result;
 	}
 
-	private Set<GameCharacter> getFullParentalMatching(int up, int down)
+	private Set<GameCharacter> getNonCommonNodes(int up, int down)
 	{
 		HashSet<GameCharacter> result = new HashSet<>();
-		Set<GameCharacter> parents = getParents();
-		getParents(up).stream()
-				.flatMap(p -> p.getChildren(down).stream())
+		HashSet<GameCharacter> trace = new HashSet<>();
+		getParents(up, trace).stream()
+				.flatMap(p -> p.getChildren(down, trace).stream())
 				.filter(s -> !s.equals(this))
-				.filter(s -> parents.equals(s.getParents()))
-				.forEach(result::add);
-		return result;
-	}
-
-	private Set<GameCharacter> getPartialParentalMatching()
-	{
-		HashSet<GameCharacter> result = new HashSet<>();
-		Set<GameCharacter> parents = getParents();
-		getParents().stream()
-				.flatMap(p -> p.getChildren().stream())
-				.filter(s -> !s.equals(this))
-				.filter(s -> !parents.equals(s.getParents()) && !Collections.disjoint(parents, s.getParents()))
 				.forEach(result::add);
 		return result;
 	}
@@ -4032,30 +4027,34 @@ public abstract class GameCharacter implements XMLSaving {
 	public Set<AdvancedRelationship> getAdvancedRelationshipTo(GameCharacter character) {
 		EnumSet<AdvancedRelationship> result = EnumSet.noneOf(AdvancedRelationship.class);
 
-        if(character.getParents(0).contains(this))
+        if(character.getParents(0, null).contains(this))
             result.add(AdvancedRelationship.Parent);
-        if(character.getParents(1).contains(this))
+        if(character.getParents(1, null).contains(this))
             result.add(AdvancedRelationship.GrandParent);
-        if(character.getParents(2).contains(this))
+        if(character.getParents(2, null).contains(this))
             result.add(AdvancedRelationship.GrandGrandParent);
-        if(character.getChildren(0).contains(this))
+        if(character.getChildren(0, null).contains(this))
             result.add(AdvancedRelationship.Child);
-        if(character.getChildren(1).contains(this))
+        if(character.getChildren(1, null).contains(this))
             result.add(AdvancedRelationship.GrandChild);
-        if(character.getChildren(2).contains(this))
+        if(character.getChildren(2, null).contains(this))
             result.add(AdvancedRelationship.GrandGrandChild);
 
-		if(character.getFullParentalMatching(0, 0).contains(this))
-			result.add(AdvancedRelationship.Sibling);
-		if(character.getPartialParentalMatching().contains(this))
+		Set<GameCharacter> commonParents = character.getParents();
+		commonParents.retainAll(this.getParents());
+		if(commonParents.size() == 1) {
 			result.add(AdvancedRelationship.HalfSibling);
+		}
+		else if(commonParents.size() == 2) {
+			result.add(AdvancedRelationship.Sibling);
+		}
 
-		if(character.getFullParentalMatching(1,0).contains(this))
+		if(character.getNonCommonNodes(1,0).contains(this))
 			result.add(AdvancedRelationship.Aunt);
-		if(character.getFullParentalMatching(1,1).contains(this))
+		if(character.getNonCommonNodes(1,1).contains(this))
 			result.add(AdvancedRelationship.Cousin);
-		if(character.getFullParentalMatching(0,1).contains(this))
-			result.add(AdvancedRelationship.Niche);
+		if(character.getNonCommonNodes(0,1).contains(this))
+			result.add(AdvancedRelationship.Niece);
 
 		return result;
 	}

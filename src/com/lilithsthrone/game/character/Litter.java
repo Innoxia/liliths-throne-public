@@ -392,6 +392,14 @@ public class Litter implements Serializable, XMLSaving {
 					.flatMap(x -> x.getAdvancedRelationshipTo(getMother()).stream())
 					.collect(Collectors.toSet());
 		}
+
+		Set<AdvancedRelationship> relPlayer = Collections.emptySet();
+		if(getFather() != null && !getFather().isPlayer() && getMother() != null && !getMother().isPlayer()) {
+			relPlayer = getOffspringCharacters().stream()
+					.flatMap(x -> x.getAdvancedRelationshipTo(Main.game.getPlayer()).stream())
+					.collect(Collectors.toSet());
+		}
+
 		if(!relMother.isEmpty() || !relFather.isEmpty())
 		{
 			descriptionSB.append(" (");
@@ -401,7 +409,7 @@ public class Litter implements Serializable, XMLSaving {
 				else
 					descriptionSB.append(getFather().getName() + "'s ");
 				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relFather));
-				if(!relMother.isEmpty())
+				if(!relMother.isEmpty() || !relPlayer.isEmpty())
 					descriptionSB.append(", ");
 			}
 
@@ -412,6 +420,14 @@ public class Litter implements Serializable, XMLSaving {
 				else
 					descriptionSB.append(getMother().getName() + "'s ");
 				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relMother));
+				if(!relPlayer.isEmpty())
+					descriptionSB.append(", ");
+			}
+
+			if(!relPlayer.isEmpty())
+			{
+				descriptionSB.append("your ");
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relPlayer));
 			}
 			descriptionSB.append(")");
 		}
