@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -77,7 +78,6 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -4050,21 +4050,23 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		if(character.getNonCommonNodes(1,0).contains(this))
-			result.add(AdvancedRelationship.Aunt);
+			result.add(AdvancedRelationship.Pibling);
+		if(character.getNonCommonNodes(2,0).contains(this))
+			result.add(AdvancedRelationship.GrandPibling);
 		if(character.getNonCommonNodes(1,1).contains(this))
 			result.add(AdvancedRelationship.Cousin);
 		if(character.getNonCommonNodes(0,1).contains(this))
-			result.add(AdvancedRelationship.Niece);
+			result.add(AdvancedRelationship.Nibling);
 
 		return result;
 	}
 
     public String getAdvancedRelationshipStrTo(GameCharacter character) {
-	    return getAdvancedRelationshipStr(getAdvancedRelationshipTo(character));
+	    return getAdvancedRelationshipStr(getAdvancedRelationshipTo(character), getGender().getType());
     }
 
-    public static String getAdvancedRelationshipStr(Collection<AdvancedRelationship> rel) {
-	    return String.join(", ", rel.stream().map(AdvancedRelationship::toString).collect(Collectors.toList()));
+    public static String getAdvancedRelationshipStr(Collection<AdvancedRelationship> rel, PronounType pronounType) {
+	    return UtilText.getNaturalEnumeration(rel.stream().map(x -> x.toString(pronounType)).collect(Collectors.toList()));
     }
 
     public boolean isRelatedTo(GameCharacter character) {

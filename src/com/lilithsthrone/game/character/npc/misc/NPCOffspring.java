@@ -28,7 +28,6 @@ import org.w3c.dom.Element;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @since 0.1.82
@@ -154,13 +153,22 @@ public class NPCOffspring extends NPC {
 		}
 	}
 
-	private String getAdditionalRelationsFromPlayer()
+	private String getAdvancedRelationsFromPlayer()
 	{
 		Set<AdvancedRelationship> rel = Main.game.getPlayer().getAdvancedRelationshipTo(this);
 		if(rel.isEmpty())
 			return "";
 
-		return " For her, you are: " + String.join(", ", rel.stream().map(AdvancedRelationship::toString).collect(Collectors.toList())) + ".";
+		return UtilText.parse(this, " You are [npc.himHer] ") + getAdvancedRelationshipStr(rel, Main.game.getPlayer().getGender().getType()) + ".";
+	}
+
+	private static String getMatingDescription(GameCharacter self, GameCharacter partner, String what) {
+		String result = what + " with " + partner.getName("a");
+		String rel = partner.getAdvancedRelationshipStrTo(self);
+		if(!rel.isEmpty())
+			return result + UtilText.parse(partner, " ([npc.she]'s your ") + rel + ")";
+		else
+			return result;
 	}
 
 	@Override
@@ -173,10 +181,10 @@ public class NPCOffspring extends NPC {
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+
 						(this.getMother().isPlayer()
-								? "mothered with "+(this.getFather().getName("a"))+" (she's your "+getFather().getAdvancedRelationshipStrTo(getMother())+")"
-								: "fathered with "+(this.getMother().getName("a"))+" (she's your "+getMother().getAdvancedRelationshipStrTo(getFather())+")"
+								? getMatingDescription(getMother(), getFather(), "mothered")
+								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
-						+ getAdditionalRelationsFromPlayer()
+						+ getAdvancedRelationsFromPlayer()
 						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
 						+(daysToBirth==0
 							?"later that same day"

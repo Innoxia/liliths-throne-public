@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character;
 
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.AdvancedRelationship;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -379,6 +380,12 @@ public class Litter implements Serializable, XMLSaving {
 			}
 		}
 
+		// FIXME: this won't work when there are multiple children, even if they all have the same gender
+		Set<PronounType> childrenPronouns = getOffspringCharacters().stream().map(x -> x.getGender().getType()).collect(Collectors.toSet());
+		PronounType childrenPronoun = PronounType.NEUTRAL;
+		if(childrenPronouns.size() == 1)
+		    childrenPronoun = childrenPronouns.iterator().next();
+
 		Set<AdvancedRelationship> relFather = Collections.emptySet();
 		if(getFather() != null) {
 			relFather = getOffspringCharacters().stream()
@@ -408,7 +415,7 @@ public class Litter implements Serializable, XMLSaving {
 					descriptionSB.append("your ");
 				else
 					descriptionSB.append(getFather().getName() + "'s ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relFather));
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relFather, childrenPronoun));
 				if(!relMother.isEmpty() || !relPlayer.isEmpty())
 					descriptionSB.append(", ");
 			}
@@ -419,7 +426,7 @@ public class Litter implements Serializable, XMLSaving {
 					descriptionSB.append("your ");
 				else
 					descriptionSB.append(getMother().getName() + "'s ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relMother));
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relMother, childrenPronoun));
 				if(!relPlayer.isEmpty())
 					descriptionSB.append(", ");
 			}
@@ -427,7 +434,7 @@ public class Litter implements Serializable, XMLSaving {
 			if(!relPlayer.isEmpty())
 			{
 				descriptionSB.append("your ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relPlayer));
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relPlayer, childrenPronoun));
 			}
 			descriptionSB.append(")");
 		}
