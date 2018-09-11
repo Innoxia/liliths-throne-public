@@ -598,7 +598,7 @@ public class CharacterModificationUtils {
 			?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
 			:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
 			"HEIGHT",
-			Units.size(BodyChanging.getTarget().getHeightValue())+"<br/>",
+			Units.size(BodyChanging.getTarget().getHeightValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)+"<br/>",
 			1, 5,
 			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
 			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
@@ -2347,7 +2347,7 @@ public class CharacterModificationUtils {
 			?"Change the size of your penis."
 			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
 			"PENIS_SIZE",
-			Units.size(BodyChanging.getTarget().getPenisRawSizeValue())+"<br/>",
+			Units.size(BodyChanging.getTarget().getPenisRawSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)+"<br/>",
 			1, 5,
 			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
@@ -2489,7 +2489,7 @@ public class CharacterModificationUtils {
 			?"Change your maximum cum storage."
 			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] maximum cum storage.")),
 			"CUM_PRODUCTION",
-				Units.fluid(BodyChanging.getTarget().getPenisRawCumStorageValue()),
+				Units.fluid(BodyChanging.getTarget().getPenisRawCumStorageValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT),
 			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
 			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 	}
