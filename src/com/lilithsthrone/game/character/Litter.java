@@ -1,21 +1,21 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.AdvancedRelationship;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @since 0.1.62
@@ -251,6 +251,18 @@ public class Litter implements Serializable, XMLSaving {
 		return offspring;
 	}
 
+	public Set<GameCharacter> getOffspringCharacters() {
+		HashSet<GameCharacter> result = new HashSet<>();
+		offspring.stream().map(x -> {
+			try {
+				return Main.game.getNPCById(x);
+			} catch (Exception e) {
+				return null;
+			}
+		}).filter(Objects::nonNull).forEach(result::add);
+		return result;
+	}
+
 	public int getSonsFromMother() {
 		return sonsMother;
 	}
@@ -366,7 +378,44 @@ public class Litter implements Serializable, XMLSaving {
 						+ "</b>");
 			}
 		}
-		
+
+		Set<AdvancedRelationship> relFather = Collections.emptySet();
+		if(getFather() != null) {
+			relFather = getOffspringCharacters().stream()
+					.flatMap(x -> x.getAdvancedRelationshipTo(getFather()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		Set<AdvancedRelationship> relMother = Collections.emptySet();
+		if(getFather() != null) {
+			relMother = getOffspringCharacters().stream()
+					.flatMap(x -> x.getAdvancedRelationshipTo(getMother()).stream())
+					.collect(Collectors.toSet());
+		}
+		if(!relMother.isEmpty() || !relFather.isEmpty())
+		{
+			descriptionSB.append(" (");
+			if(!relFather.isEmpty()) {
+				if(getFather().isPlayer())
+					descriptionSB.append("your ");
+				else
+					descriptionSB.append(getFather().getName() + "'s ");
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relFather));
+				if(!relMother.isEmpty())
+					descriptionSB.append(", ");
+			}
+
+			if(!relMother.isEmpty())
+			{
+				if(getMother().isPlayer())
+					descriptionSB.append("your ");
+				else
+					descriptionSB.append(getMother().getName() + "'s ");
+				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relMother));
+			}
+			descriptionSB.append(")");
+		}
+
 		return descriptionSB.toString();
 	}
 

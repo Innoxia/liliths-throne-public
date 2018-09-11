@@ -1,70 +1,12 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodyCoveringSkinToneColorHelper;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HornLength;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -81,6 +23,13 @@ import com.lilithsthrone.utils.Builder;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -1477,13 +1426,6 @@ public class Body implements Serializable, XMLSaving {
 		}
 	}
 	
-	/**
-	 * @param owner
-	 * @param playerKnowledgeOfThroat
-	 * @param playerKnowledgeOfBreasts
-	 * @param playerKnowledgeOfGroin
-	 * @return
-	 */
 	public String getDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		// Describe race:

@@ -1,11 +1,5 @@
 package com.lilithsthrone.game.character.npc.misc;
 
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -13,6 +7,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.AdvancedRelationship;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -27,6 +22,13 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @since 0.1.82
@@ -151,7 +153,16 @@ public class NPCOffspring extends NPC {
 			return playerPetName;
 		}
 	}
-	
+
+	private String getAdditionalRelationsFromPlayer()
+	{
+		Set<AdvancedRelationship> rel = Main.game.getPlayer().getAdvancedRelationshipTo(this);
+		if(rel.isEmpty())
+			return "";
+
+		return " For her, you are: " + String.join(", ", rel.stream().map(AdvancedRelationship::toString).collect(Collectors.toList())) + ".";
+	}
+
 	@Override
 	public String getDescription() {
 		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday());
@@ -160,7 +171,12 @@ public class NPCOffspring extends NPC {
 			return "";
 		}
 		return (UtilText.parse(this,
-				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
+				"[npc.Name] is your [npc.daughter], who you "+
+						(this.getMother().isPlayer()
+								? "mothered with "+(this.getFather().getName("a"))+" (she's your "+getFather().getAdvancedRelationshipStrTo(getMother())+")"
+								: "fathered with "+(this.getMother().getName("a"))+" (she's your "+getMother().getAdvancedRelationshipStrTo(getFather())+")"
+						)+"."
+						+ getAdditionalRelationsFromPlayer()
 						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
 						+(daysToBirth==0
 							?"later that same day"

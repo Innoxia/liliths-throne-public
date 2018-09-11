@@ -1,8 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -49,12 +46,10 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.ClothingRarityComparator;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ItemRarityComparator;
-import com.lilithsthrone.utils.TreeNode;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.WeaponRarityComparator;
+import com.lilithsthrone.utils.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
@@ -1037,7 +1032,7 @@ public class PhoneDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 					
 					+ "<table align='center'>"
-					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th></tr>"
+					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>You are...</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
 			for(NPC npc : Main.game.getOffspring()) {
@@ -1056,6 +1051,9 @@ public class PhoneDialogue {
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
+								+ "<td style='min-width:100px;'>"
+									+ "<b>"+Main.game.getPlayer().getAdvancedRelationshipStrTo(npc)+"</b>"
+								+ "</td>"
 							+ "</tr>");
 				} else {
 					UtilText.nodeContentSB.append(
@@ -1071,6 +1069,9 @@ public class PhoneDialogue {
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
+								+ "</td>"
+								+ "<td style='min-width:100px;'>"
+									+ "<b>"+Main.game.getPlayer().getAdvancedRelationshipStrTo(npc)+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				}
