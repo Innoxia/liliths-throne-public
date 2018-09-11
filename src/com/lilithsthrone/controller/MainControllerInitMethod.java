@@ -1122,7 +1122,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						int milkAmount = (int) (Math.min(room.getMilkStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(milkAmount>0) {
+							if(milkAmount>=5) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, milkAmount, entry.getKey().getFluidModifiers()));
 								room.incrementMilkStorage(entry.getKey(), -milkAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -1131,12 +1131,13 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(milkAmount>0) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+ Units.fluid(milkAmount)+")", "Drink "+Units.fluid(milkAmount)+" of the "+entry.getKey().getName(null)+".");
+						if(milkAmount>=5) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+ Units.fluid(milkAmount)+")",
+									"Drink "+Units.fluid(milkAmount)+" of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
-									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(5),
+									"There needs to be at least " + Units.fluid(5) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1154,7 +1155,8 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(room.getMilkStorage().get(entry.getKey())>=500) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500), "Drink " + Units.fluid(500) + " of the "+entry.getKey().getName(null)+".");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
+									"Drink " + Units.fluid(500) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(500),
@@ -1186,7 +1188,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						int cumAmount = (int) (Math.min(room.getCumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(room.getCumStorage().get(entry.getKey())>0) {
+							if(room.getCumStorage().get(entry.getKey())>=5) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, cumAmount, entry.getKey().getFluidModifiers()));
 								room.incrementCumStorage(entry.getKey(), -cumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -1195,13 +1197,13 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(room.getCumStorage().get(entry.getKey())>0) {
+						if(room.getCumStorage().get(entry.getKey())>=5) {
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (" + Units.fluid(cumAmount) + ")",
 									"Drink " + Units.fluid(cumAmount) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
-									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+									"There needs to be at least " + Units.fluid(5) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1252,7 +1254,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						int girlcumAmount = (int) (Math.min(room.getGirlcumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(room.getGirlcumStorage().get(entry.getKey())>0) {
+							if(room.getGirlcumStorage().get(entry.getKey())>=5) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, girlcumAmount, entry.getKey().getFluidModifiers()));
 								room.incrementGirlcumStorage(entry.getKey(), -girlcumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -1261,13 +1263,13 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(room.getGirlcumStorage().get(entry.getKey())>0) {
+						if(room.getGirlcumStorage().get(entry.getKey())>=5) {
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (" + Units.fluid(girlcumAmount) + ")",
 									"Drink " + Units.fluid(girlcumAmount) + " of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(0),
-									"There needs to be at least " + Units.fluid(1) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink " + Units.fluid(5),
+									"There needs to be at least " + Units.fluid(5) + " of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -4869,7 +4871,7 @@ public class MainControllerInitMethod {
 			id = "PREGNANCY_LACTATION_LIMIT_ON";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().pregnancyLactationLimit = Math.min(Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(), Main.getProperties().pregnancyLactationLimit+250);
+					Main.getProperties().pregnancyLactationLimit = Math.min(Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(), Main.getProperties().pregnancyLactationLimit+500);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4877,7 +4879,7 @@ public class MainControllerInitMethod {
 			id = "PREGNANCY_LACTATION_LIMIT_OFF";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().pregnancyLactationLimit = Math.max(0, Main.getProperties().pregnancyLactationLimit-250);
+					Main.getProperties().pregnancyLactationLimit = Math.max(0, Main.getProperties().pregnancyLactationLimit-500);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);

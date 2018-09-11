@@ -688,10 +688,10 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-1)+")]":"[style.boldBadMinor("+Units.fluid(-1)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-5)+")]":"[style.boldBadMinor("+Units.fluid(-5)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-25)+")]":"[style.boldBad("+Units.fluid(-25)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-50)+")]":"[style.boldBad("+Units.fluid(-50)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_HUGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
 								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-500)+")]":"[style.boldBad("+Units.fluid(-500)+")]")
@@ -702,10 +702,10 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(1)+")]":"[style.boldGoodMinor(+"+Units.fluid(1)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(5)+")]":"[style.boldGoodMinor(+"+Units.fluid(5)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(25)+")]":"[style.boldGood(+"+Units.fluid(25)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(50)+")]":"[style.boldGood(+"+Units.fluid(50)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_HUGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(500)+")]":"[style.boldGood(+"+Units.fluid(500)+")]")
@@ -3151,19 +3151,17 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
 		
-		CumProduction[] sizesAvailable = new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
-		
-		for(CumProduction value : sizesAvailable) {
+		for(CumProduction value : getCumProductionAvailable()) {
 			if(BodyChanging.getTarget().getPenisCumStorage() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Units.fluid(value.getMedianValue())+"</b>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Units.fluid(value.getMaximumValue())+"</b>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CUM_PRODUCTION_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Units.fluid(value.getMedianValue())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Units.fluid(value.getMaximumValue())+"</span>"
 						+ "</div>");
 			}
 		}
