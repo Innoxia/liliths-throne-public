@@ -148,22 +148,22 @@ public class Tongue implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p>A soothing coolness rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldShrink(getting shorter)].<br/>"
 						+ "You now have "+UtilText.generateSingularDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("
-						+ Units.size(this.tongueLength, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR)+" [pc.tongue])]!</p>";
+						+ Units.size(this.tongueLength, Units.UnitType.LONG_SINGULAR)+" [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.tongue], before it suddenly [style.boldShrink(gets shorter)].<br/>"
 						+ "[npc.Name] now has "+UtilText.generateSingularDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("
-						+ Units.size(this.tongueLength, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR)+" [npc.tongue])]!</p>");
+						+ Units.size(this.tongueLength, Units.UnitType.LONG_SINGULAR)+" [npc.tongue])]!</p>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>A pulsating warmth rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldGrow(growing longer)].<br/>"
 						+ "You now have "+UtilText.generateSingularDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("
-						+ Units.size(this.tongueLength, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR)+" [pc.tongue])]!</p>";
+						+ Units.size(this.tongueLength, Units.UnitType.LONG_SINGULAR)+" [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.tongue], before it suddenly [style.boldGrow(grows longer)].<br/>"
 						+ "[npc.Name] now has "+UtilText.generateSingularDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("
-						+ Units.size(this.tongueLength, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR)+" [npc.tongue])]!</p>");
+						+ Units.size(this.tongueLength, Units.UnitType.LONG_SINGULAR)+" [npc.tongue])]!</p>");
 			}
 		}
 	}

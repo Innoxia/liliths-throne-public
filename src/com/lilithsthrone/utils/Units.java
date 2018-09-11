@@ -202,6 +202,13 @@ public enum Units {
     }
 
     /**
+     * Shortcut for {@link Units#size(double, ValueType, UnitType)} with numeric value.
+     */
+    public static String size(double cm, UnitType uType) {
+        return size(cm, ValueType.NUMERIC, uType);
+    }
+
+    /**
      * Formats a size, given in centimetres, with the current number formatter and units depending on the imperial unit
      * setting as well as the given type.
      * @param cm Amount of centimetres to convert
@@ -259,7 +266,8 @@ public enum Units {
             boolean wrap = feet != 0 && roundTo(remainingInches, 0.125) == 0;
             double usedValue = wrap ? feet : inches;
 
-            appendValue(output, usedValue, vType, true);
+            // Append value
+            output.append(value(usedValue, vType, true));
 
             // Append unit
             switch (uType) {
@@ -306,6 +314,13 @@ public enum Units {
      */
     public static String fluid(double ml) {
         return fluid(ml, ValueType.NUMERIC, UnitType.SHORT);
+    }
+
+    /**
+     * Shortcut for {@link Units#fluid(double, ValueType, UnitType)} with numeric value.
+     */
+    public static String fluid(double ml, UnitType uType) {
+        return fluid(ml, ValueType.NUMERIC, uType);
     }
 
     /**
@@ -358,6 +373,13 @@ public enum Units {
     }
 
     /**
+     * Shortcut for {@link Units#weight(double, ValueType, UnitType)} with numeric value.
+     */
+    public static String weight(double grams, UnitType uType) {
+        return weight(grams, ValueType.NUMERIC, uType);
+    }
+
+    /**
      * Formats a weight, given in grams, with the current number formatter and units depending on the imperial unit
      * setting as well as the given type.
      * @param grams Amount of grams to convert
@@ -399,20 +421,17 @@ public enum Units {
         return valueWithUnit(grams, "g", "gram", kg, "kg", "kilogram", vType, uType, false);
     }
 
-    private static StringBuilder appendValue(StringBuilder output, double value, ValueType vType, boolean useEighths) {
+    private static String value(double value, ValueType vType, boolean useEighths) {
         switch (vType) {
-            case NUMERIC:
-                if (useEighths) output.append(value < 1 ? withEighths(value) : number(Math.round(value)));
-                else output.append(number(adaptiveRound(value))); // TODO round less for wrapped values?
-                break;
             case PRECISE:
-                if (useEighths) output.append(withEighths(value));
-                else output.append(value);
-                break;
+                if (useEighths) return withEighths(value);
+                return number(value);
             case TEXT:
-                output.append(Util.intToString((int) Math.round(value)));
+                return Util.intToString((int) Math.round(value));
+            default:
+                if (useEighths) return Math.abs(value) < 1 ? withEighths(value) : number(Math.round(value));
+                return number(adaptiveRound(value));
         }
-        return output;
     }
 
     private static String valueWithUnit(double value, String shortUnit, String unit,
@@ -422,7 +441,8 @@ public enum Units {
         boolean wrap = Math.abs(wrappedValue) >= 1;
         double usedValue = wrap ? wrappedValue : value;
 
-        appendValue(output, usedValue, vType, useEighths);
+        // Append value with increased precision if it is wrapped and numeric
+        output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useEighths));
 
         // Append unit
         switch (uType) {
