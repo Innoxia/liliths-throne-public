@@ -2096,7 +2096,7 @@ public class UtilText {
 				"Returns the character's height in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Units.size(character.getHeightValue(), Units.UnitType.LONG);
+				return Units.size(character.getHeightValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -2109,7 +2109,7 @@ public class UtilText {
 				"Returns the character's weight in the long, localized format.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Units.weight(character.getWeight() / 1000.0, Units.UnitType.LONG);
+				return Units.weight(character.getWeight() / 1000.0, Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -3368,14 +3368,14 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size to the localized, singular form. " +
+				"Returns the converted size in the localized, singular form. " +
 						"If no argument is given, returns the small singular length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if (arguments == null || arguments.isEmpty()) {
 					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inch" : "centimetre";
 				}
-				return Units.size(Double.valueOf(arguments), Units.UnitType.LONG_SINGULAR);
+				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -3386,14 +3386,14 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size to the long, localized form. " +
+				"Returns the converted size in the long, localized form. " +
 						"If no argument is given, returns the small plural length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if (arguments == null || arguments.isEmpty()) {
 					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "inches" : "centimetres";
 				}
-				return Units.size(Double.valueOf(arguments), Units.UnitType.LONG);
+				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 
@@ -3404,14 +3404,14 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size to the short localized form. " +
+				"Returns the converted size in the short localized form. " +
 						"If no argument is given, returns the large singular length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if (arguments == null || arguments.isEmpty()) {
 					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
 				}
-				return Units.size(Double.valueOf(arguments), Units.UnitType.SHORT);
+				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.SHORT);
 			}
 		});
 
@@ -3422,14 +3422,14 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size to the approximated localized text form. " +
+				"Returns the converted size in the approximated localized text form. " +
 						"If no argument is given, returns the large plural length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if (arguments == null || arguments.isEmpty()) {
 					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "feet" : "metres";
 				}
-				return Units.size(Double.valueOf(arguments), Units.UnitType.ROUGH_TEXT);
+				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG);
 			}
 		});
 		
@@ -4541,7 +4541,7 @@ public class UtilText {
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Units.size(character.getPenisRawSizeValue(), Units.UnitType.LONG);
+				return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -4635,7 +4635,7 @@ public class UtilText {
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Units.size(character.getSecondPenisRawSizeValue(), Units.UnitType.LONG);
+				return Units.size(character.getSecondPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -4827,7 +4827,7 @@ public class UtilText {
 				BodyPartType.VAGINA){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.UnitType.LONG);
+				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
