@@ -159,7 +159,7 @@ public class NPCOffspring extends NPC {
 		if(rel.isEmpty())
 			return "";
 
-		return UtilText.parse(this, " You are [npc.himHer] ") + getAdvancedRelationshipStr(rel, Main.game.getPlayer().getGender().getType()) + ".";
+		return UtilText.parse(this, " You are [npc.hisHer] ") + getAdvancedRelationshipStr(rel, Main.game.getPlayer().getGender().getType()) + ".";
 	}
 
 	private static String getMatingDescription(GameCharacter self, GameCharacter partner, String what) {
