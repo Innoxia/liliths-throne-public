@@ -3171,6 +3171,7 @@ public class DominionOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
+						Main.game.getPlayer().addSlave(Main.game.getActiveNPC());
 					}
 				};
 				
