@@ -1,11 +1,5 @@
 package com.lilithsthrone.game.combat;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -13,11 +7,19 @@ import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * @since 0.1.0
@@ -365,30 +367,23 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			String dialogue = "";
-			
-			switch(caster.getRelationship(target)) {
-				case OFFSPRING:
-					dialogue = UtilText.returnStringAtRandom(
-							"Let me take care of you [npc.mommy]!",
-							"Come on [npc2.mommy]! I just want to take <i>real</i> good care of you!",
-							"[npc2.Mommy]! I just want to show you how much I love you!");
-					break;
-				case PARENT:
-					dialogue = UtilText.returnStringAtRandom(
-							"Let [npc.mommy] take care of you!",
-							"Don't worry sweetie, [npc.mommy]'s going to take good care of you!",
-							"[npc.Mommy] just wants to show you how much [npc.she] loves you!");
-					break;
-				case SIBLING:
-					dialogue = UtilText.returnStringAtRandom(
-							"Let your [npc.sis] take care of you!",
-							"Don't worry [npc2.sis], I'm going to take good care of you!",
-							"Come on [npc2.sis]! I just want to show you how much I love you!");
-					break;
-				default:
-					break;
-			}
-			
+			Set<Relationship> rel = caster.getRelationshipsTo(target);
+			if(rel.contains(Relationship.Child))
+				dialogue = UtilText.returnStringAtRandom(
+						"Let me take care of you [npc.mommy]!",
+						"Come on [npc2.mommy]! I just want to take <i>real</i> good care of you!",
+						"[npc2.Mommy]! I just want to show you how much I love you!");
+			else if(rel.contains(Relationship.Parent))
+				dialogue = UtilText.returnStringAtRandom(
+						"Let [npc.mommy] take care of you!",
+						"Don't worry sweetie, [npc.mommy]'s going to take good care of you!",
+						"[npc.Mommy] just wants to show you how much [npc.she] loves you!");
+			else if(rel.contains(Relationship.Sibling))
+				dialogue = UtilText.returnStringAtRandom(
+						"Let your [npc.sis] take care of you!",
+						"Don't worry [npc2.sis], I'm going to take good care of you!",
+						"Come on [npc2.sis]! I just want to show you how much I love you!");
+
 			if(caster.isPlayer()) {
 				attackText = UtilText.parse(caster, target,
 						(UtilText.returnStringAtRandom(

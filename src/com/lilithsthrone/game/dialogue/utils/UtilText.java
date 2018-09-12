@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -1201,11 +1202,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					return "daughter";
-				} else {
-					return "son";
-				}
+				return Relationship.Child.toString(character.getGender().getType());
 			}
 		});
 		
@@ -1219,11 +1216,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					return "mother";
-				} else {
-					return "father";
-				}
+				return Relationship.Parent.toString(character.getGender().getType());
 			}
 		});
 		
@@ -1274,11 +1267,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					return "sister";
-				} else {
-					return "brother";
-				}
+				return Relationship.Sibling.toString(character.getGender().getType());
 			}
 		});
 		
@@ -1310,11 +1299,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isFeminine()) {
-					return "niece";
-				} else {
-					return "nephew";
-				}
+				return Relationship.Nibling.toString(character.getGender().getType());
 			}
 		});
 		

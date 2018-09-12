@@ -1052,7 +1052,7 @@ public class PhoneDialogue {
 									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+Main.game.getPlayer().getAdvancedRelationshipStrTo(npc)+"</b>"
+									+ "<b>"+Main.game.getPlayer().getRelationshipStrTo(npc)+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				} else {
@@ -1071,7 +1071,7 @@ public class PhoneDialogue {
 									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+Main.game.getPlayer().getAdvancedRelationshipStrTo(npc)+"</b>"
+									+ "<b>"+Main.game.getPlayer().getRelationshipStrTo(npc)+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				}

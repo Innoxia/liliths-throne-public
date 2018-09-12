@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.AdvancedRelationship;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -153,20 +153,20 @@ public class NPCOffspring extends NPC {
 		}
 	}
 
-	private String getAdvancedRelationsFromPlayer()
+	private String getRelationshipFromPlayer()
 	{
-		Set<AdvancedRelationship> rel = Main.game.getPlayer().getAdvancedRelationshipTo(this);
+		Set<Relationship> rel = Main.game.getPlayer().getRelationshipsTo(this);
 		if(rel.isEmpty())
 			return "";
 
-		return UtilText.parse(this, " You are [npc.hisHer] ") + getAdvancedRelationshipStr(rel, Main.game.getPlayer().getGender().getType()) + ".";
+		return UtilText.parse(this, " You are [npc.hisHer] ") + getRelationshipStr(rel, Main.game.getPlayer().getGender().getType()) + ".";
 	}
 
 	private static String getMatingDescription(GameCharacter self, GameCharacter partner, String what) {
 		String result = what + " with " + partner.getName("a");
-		String rel = partner.getAdvancedRelationshipStrTo(self);
+		String rel = partner.getRelationshipStrTo(self);
 		if(!rel.isEmpty())
-			return result + UtilText.parse(partner, " ([npc.she]'s your ") + rel + ")";
+			return result + ", your " + rel;
 		else
 			return result;
 	}
@@ -184,7 +184,7 @@ public class NPCOffspring extends NPC {
 								? getMatingDescription(getMother(), getFather(), "mothered")
 								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
-						+ getAdvancedRelationsFromPlayer()
+						+ getRelationshipFromPlayer()
 						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
 						+(daysToBirth==0
 							?"later that same day"

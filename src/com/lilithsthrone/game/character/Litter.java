@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character;
 
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.AdvancedRelationship;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -386,24 +386,24 @@ public class Litter implements Serializable, XMLSaving {
 		if(childrenPronouns.size() == 1)
 		    childrenPronoun = childrenPronouns.iterator().next();
 
-		Set<AdvancedRelationship> relFather = Collections.emptySet();
+		Set<Relationship> relFather = Collections.emptySet();
 		if(getFather() != null) {
 			relFather = getOffspringCharacters().stream()
-					.flatMap(x -> x.getAdvancedRelationshipTo(getFather()).stream())
+					.flatMap(x -> x.getRelationshipsTo(getFather()).stream())
 					.collect(Collectors.toSet());
 		}
 
-		Set<AdvancedRelationship> relMother = Collections.emptySet();
+		Set<Relationship> relMother = Collections.emptySet();
 		if(getFather() != null) {
 			relMother = getOffspringCharacters().stream()
-					.flatMap(x -> x.getAdvancedRelationshipTo(getMother()).stream())
+					.flatMap(x -> x.getRelationshipsTo(getMother()).stream())
 					.collect(Collectors.toSet());
 		}
 
-		Set<AdvancedRelationship> relPlayer = Collections.emptySet();
+		Set<Relationship> relPlayer = Collections.emptySet();
 		if(getFather() != null && !getFather().isPlayer() && getMother() != null && !getMother().isPlayer()) {
 			relPlayer = getOffspringCharacters().stream()
-					.flatMap(x -> x.getAdvancedRelationshipTo(Main.game.getPlayer()).stream())
+					.flatMap(x -> x.getRelationshipsTo(Main.game.getPlayer()).stream())
 					.collect(Collectors.toSet());
 		}
 
@@ -415,7 +415,7 @@ public class Litter implements Serializable, XMLSaving {
 					descriptionSB.append("your ");
 				else
 					descriptionSB.append(getFather().getName() + "'s ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relFather, childrenPronoun));
+				descriptionSB.append(GameCharacter.getRelationshipStr(relFather, childrenPronoun));
 				if(!relMother.isEmpty() || !relPlayer.isEmpty())
 					descriptionSB.append(", ");
 			}
@@ -426,7 +426,7 @@ public class Litter implements Serializable, XMLSaving {
 					descriptionSB.append("your ");
 				else
 					descriptionSB.append(getMother().getName() + "'s ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relMother, childrenPronoun));
+				descriptionSB.append(GameCharacter.getRelationshipStr(relMother, childrenPronoun));
 				if(!relPlayer.isEmpty())
 					descriptionSB.append(", ");
 			}
@@ -434,7 +434,7 @@ public class Litter implements Serializable, XMLSaving {
 			if(!relPlayer.isEmpty())
 			{
 				descriptionSB.append("your ");
-				descriptionSB.append(GameCharacter.getAdvancedRelationshipStr(relPlayer, childrenPronoun));
+				descriptionSB.append(GameCharacter.getRelationshipStr(relPlayer, childrenPronoun));
 			}
 			descriptionSB.append(")");
 		}

@@ -3927,26 +3927,6 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Relationships:
 
-	public Relationship getRelationship(GameCharacter character) {//TODO grandchildren, cousins, etc.
-		// If this character is the character's parent:
-		if((!character.getMotherId().isEmpty() && character.getMotherId().equals(getId()))
-				|| (!character.getFatherId().isEmpty() && character.getFatherId().equals(getId()))) {
-			return Relationship.PARENT;
-		}
-		// If this character is the character's child:
-		if((!getMotherId().isEmpty() && getMotherId().equals(character.getId()))
-				|| (!getFatherId().isEmpty() && getFatherId().equals(character.getId()))) {
-			return Relationship.OFFSPRING;
-		}
-		// If this character is the character's sibling:
-		if((!getMotherId().isEmpty() && getMotherId().equals(character.getMotherId()))
-				|| (!getFatherId().isEmpty() && getFatherId().equals(character.getFatherId()))) {
-			return Relationship.SIBLING;
-		}
-
-		return null;
-	}
-
 	private Set<GameCharacter> getParents()
 	{
 		HashSet<GameCharacter> result = new HashSet<>();
@@ -4024,53 +4004,53 @@ public abstract class GameCharacter implements XMLSaving {
 		return result;
 	}
 
-	public Set<AdvancedRelationship> getAdvancedRelationshipTo(GameCharacter character) {
-		EnumSet<AdvancedRelationship> result = EnumSet.noneOf(AdvancedRelationship.class);
+	public Set<Relationship> getRelationshipsTo(GameCharacter character) {
+		EnumSet<Relationship> result = EnumSet.noneOf(Relationship.class);
 
         if(character.getParents(0, null).contains(this))
-            result.add(AdvancedRelationship.Parent);
+            result.add(Relationship.Parent);
         if(character.getParents(1, null).contains(this))
-            result.add(AdvancedRelationship.GrandParent);
+            result.add(Relationship.GrandParent);
         if(character.getParents(2, null).contains(this))
-            result.add(AdvancedRelationship.GrandGrandParent);
+            result.add(Relationship.GrandGrandParent);
         if(character.getChildren(0, null).contains(this))
-            result.add(AdvancedRelationship.Child);
+            result.add(Relationship.Child);
         if(character.getChildren(1, null).contains(this))
-            result.add(AdvancedRelationship.GrandChild);
+            result.add(Relationship.GrandChild);
         if(character.getChildren(2, null).contains(this))
-            result.add(AdvancedRelationship.GrandGrandChild);
+            result.add(Relationship.GrandGrandChild);
 
 		Set<GameCharacter> commonParents = character.getParents();
 		commonParents.retainAll(this.getParents());
 		if(commonParents.size() == 1) {
-			result.add(AdvancedRelationship.HalfSibling);
+			result.add(Relationship.HalfSibling);
 		}
 		else if(commonParents.size() == 2) {
-			result.add(AdvancedRelationship.Sibling);
+			result.add(Relationship.Sibling);
 		}
 
 		if(character.getNonCommonNodes(1,0).contains(this))
-			result.add(AdvancedRelationship.Pibling);
+			result.add(Relationship.Pibling);
 		if(character.getNonCommonNodes(2,0).contains(this))
-			result.add(AdvancedRelationship.GrandPibling);
+			result.add(Relationship.GrandPibling);
 		if(character.getNonCommonNodes(1,1).contains(this))
-			result.add(AdvancedRelationship.Cousin);
+			result.add(Relationship.Cousin);
 		if(character.getNonCommonNodes(0,1).contains(this))
-			result.add(AdvancedRelationship.Nibling);
+			result.add(Relationship.Nibling);
 
 		return result;
 	}
 
-    public String getAdvancedRelationshipStrTo(GameCharacter character) {
-	    return getAdvancedRelationshipStr(getAdvancedRelationshipTo(character), getGender().getType());
+    public String getRelationshipStrTo(GameCharacter character) {
+	    return getRelationshipStr(getRelationshipsTo(character), getGender().getType());
     }
 
-    public static String getAdvancedRelationshipStr(Collection<AdvancedRelationship> rel, PronounType pronounType) {
+    public static String getRelationshipStr(Collection<Relationship> rel, PronounType pronounType) {
 	    return UtilText.getNaturalEnumeration(rel.stream().map(x -> x.toString(pronounType)).collect(Collectors.toList()));
     }
 
     public boolean isRelatedTo(GameCharacter character) {
-		return !getAdvancedRelationshipTo(character).isEmpty();
+		return !getRelationshipsTo(character).isEmpty();
 	}
 
 	public GameCharacter getMother() {
