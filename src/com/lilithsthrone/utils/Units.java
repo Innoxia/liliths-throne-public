@@ -438,7 +438,7 @@ public enum Units {
                                         double wrappedValue, String shortWrappedUnit, String wrappedUnit,
                                         ValueType vType, UnitType uType, boolean useEighths) {
         StringBuilder output = new StringBuilder();
-        boolean wrap = Math.abs(wrappedValue) >= 1;
+        boolean wrap = Math.abs(wrappedValue) >= 1 && vType != ValueType.PRECISE;
         double usedValue = wrap ? wrappedValue : value;
 
         // Append value with increased precision if it is wrapped and numeric
