@@ -4420,6 +4420,9 @@ public class Body implements Serializable, XMLSaving {
 							case FEMINIZING:
 								descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
 								break;
+							case MASCULINIZING:
+								descriptionSB.append(" It has a property which will make those who ingest it more manly.");
+								break;
 							case HALLUCINOGENIC:
 								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 								break;
@@ -4626,6 +4629,9 @@ public class Body implements Serializable, XMLSaving {
 									break;
 								case FEMINIZING:
 									descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
+									break;
+								case MASCULINIZING:
+									descriptionSB.append(" It has a property which will make those who ingest it more manly.");
 									break;
 								case HALLUCINOGENIC:
 									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
@@ -5287,6 +5293,9 @@ public class Body implements Serializable, XMLSaving {
 							break;
 						case FEMINIZING:
 							descriptionSB.append(" It has a property which will make those who ingest it more womanly.");
+							break;
+						case MASCULINIZING:
+							descriptionSB.append(" It has a property which will make those who ingest it more manly.");
 							break;
 					}
 				}

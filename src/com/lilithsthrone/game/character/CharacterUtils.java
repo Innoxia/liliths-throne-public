@@ -1259,6 +1259,9 @@ public class CharacterUtils {
 					character.addMilkModifier(FluidModifier.FEMINIZING);
 				}
 				if(Math.random()<=0.025f) {
+					character.addMilkModifier(FluidModifier.MASCULINIZING);
+				}
+				if(Math.random()<=0.025f) {
 					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
 				}
 			}
@@ -1335,6 +1338,9 @@ public class CharacterUtils {
 				character.addCumModifier(FluidModifier.FEMINIZING);
 			}
 			if(Math.random()<=0.02f) {
+				character.addCumModifier(FluidModifier.MASCULINIZING);
+			}
+			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
 			}
 		}
@@ -1361,6 +1367,9 @@ public class CharacterUtils {
 			}
 			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.FEMINIZING);
+			}
+			if(Math.random()<=0.02f) {
+				character.addGirlcumModifier(FluidModifier.MASCULINIZING);
 			}
 			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);

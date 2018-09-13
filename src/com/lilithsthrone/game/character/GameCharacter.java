@@ -10804,19 +10804,66 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(modifiers.contains(FluidModifier.FEMINIZING)) {
-			if(isPlayer()) {
-				fluidIngestionSB.append("<p>"
+			if(this.getFemininityValue() < 100) {
+				if(isPlayer()) {
+					fluidIngestionSB.append("<p>"
+								+ "Due to the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", you start <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(5));
+				} else {
+					fluidIngestionSB.append(UtilText.parse(this,
+							"<p>"
 							+ "Due to the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
-								+", you start <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
+								+", [npc.name] starts <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
 						+ "</p>"
-						+ this.incrementFemininity(5));
+						+ this.incrementFemininity(5)));
+				}
 			} else {
-				fluidIngestionSB.append(UtilText.parse(this,
-						"<p>"
-						+ "Due to the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
-							+", [npc.name] starts <span style='color:"+Colour.FEMININE.toWebHexString()+";'>becoming more feminine</span>!"
-					+ "</p>"
-					+ this.incrementFemininity(5)));
+				if(isPlayer()) {
+					fluidIngestionSB.append("<p>"
+								+ "Despite the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", you cannot <span style='color:"+Colour.FEMININE.toWebHexString()+";'>become any more feminine</span>!"
+							+ "</p>");
+				} else {
+					fluidIngestionSB.append(UtilText.parse(this,
+							"<p>"
+							+ "Despite the feminizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", [npc.name] cannot <span style='color:"+Colour.FEMININE.toWebHexString()+";'>become any more feminine</span>!"
+						+ "</p>"));
+				}
+			}
+		}
+		
+		if(modifiers.contains(FluidModifier.MASCULINIZING)) {
+			if(this.getFemininityValue() > 0) {
+				if(isPlayer()) {
+					fluidIngestionSB.append("<p>"
+								+ "Due to the masculinizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", you start <span style='color:"+Colour.MASCULINE.toWebHexString()+";'>becoming more masculine</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(-5));
+				} else {
+					fluidIngestionSB.append(UtilText.parse(this,
+							"<p>"
+							+ "Due to the masculinizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", [npc.name] starts <span style='color:"+Colour.MASCULINE.toWebHexString()+";'>becoming more masculine</span>!"
+						+ "</p>"
+						+ this.incrementFemininity(-5)));
+				}
+			} else {
+				if(isPlayer()) {
+					fluidIngestionSB.append("<p>"
+								+ "Despite the masculinizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", you cannot <span style='color:"+Colour.MASCULINE.toWebHexString()+";'>become any more masculine</span>!"
+							+ "</p>");
+				} else {
+					fluidIngestionSB.append(UtilText.parse(this,
+							"<p>"
+							+ "Despite the masculinizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", [npc.name] cannot <span style='color:"+Colour.MASCULINE.toWebHexString()+";'>become any more masculine</span>!"
+						+ "</p>"));
+				}
 			}
 		}
 		
