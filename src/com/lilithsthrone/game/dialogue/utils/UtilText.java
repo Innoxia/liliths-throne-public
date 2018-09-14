@@ -3404,14 +3404,14 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the short localized form. " +
+				"Returns the converted size in the localized, singular text form. " +
 						"If no argument is given, returns the large singular length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if (arguments == null || arguments.isEmpty()) {
 					return Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "foot" : "metre";
 				}
-				return Units.size(Double.valueOf(arguments), Units.ValueType.NUMERIC, Units.UnitType.SHORT);
+				return Units.size(Double.valueOf(arguments), Units.ValueType.TEXT, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -3422,7 +3422,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the approximated localized text form. " +
+				"Returns the converted size in the localized text form. " +
 						"If no argument is given, returns the large plural length unit.") {
 			@Override
 			public String parse(String command, String arguments, String target) {

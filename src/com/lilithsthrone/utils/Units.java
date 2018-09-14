@@ -175,7 +175,7 @@ public enum Units {
 
     /**
      * Specifies the display of values, where NUMERIC is a rounded number, PRECISE is a number rounded to at most 2
-     * places in the metric and eights in the imperial system and TEXT is a full text form.
+     * places in the metric and eights in the imperial system and TEXT is a more aggressively rounded full text form.
      */
     public enum ValueType {
         NUMERIC,
@@ -185,7 +185,7 @@ public enum Units {
 
     /**
      * Specifies the length of units, where NONE means that they will be omitted, SHORT means the abbreviation, LONG
-     * means the full text unit, LONG_SINGULAR means full text singular units concatenated with "-" instead of " ".
+     * means the full text unit and LONG_SINGULAR means full text singular units concatenated with "-" instead of " ".
      */
     public enum UnitType {
         NONE,
@@ -262,8 +262,8 @@ public enum Units {
                 }
             }
         } else {
-            // Only wrap when the value is flat
-            boolean wrap = feet != 0 && roundTo(remainingInches, 0.125) == 0;
+            // Only wrap when the value is flat or for text values
+            boolean wrap = feet != 0 && (roundTo(remainingInches, 0.125) == 0 || vType == ValueType.TEXT);
             double usedValue = wrap ? feet : inches;
 
             // Append value
@@ -427,7 +427,7 @@ public enum Units {
                 if (useEighths) return withEighths(value);
                 return number(value);
             case TEXT:
-                return Util.intToString((int) Math.round(value));
+                return Util.intToString((int) aggressiveRound(value));
             default:
                 if (useEighths) return Math.abs(value) < 1 ? withEighths(value) : number(Math.round(value));
                 return number(adaptiveRound(value));
@@ -537,8 +537,22 @@ public enum Units {
      */
     public static double adaptiveRound(double value) {
         double absoluteValue = Math.abs(value);
-        if (absoluteValue < 2) return round(value, 1);
-        if (absoluteValue < 10) return roundTo(value, 0.5);
+        if (absoluteValue <= 2) return round(value, 1);
+        if (absoluteValue <= 10) return roundTo(value, 0.5);
         return Math.round(value);
+    }
+
+    /**
+     * Rounds a given number based on its value, possibly exceeding the original value by more than 1. Values below 10
+     * are rounded to the nearest integer, values below 50 are rounded to the nearest 5, otherwise the number is rounded
+     * to the nearest 10.
+     * @param value Number to round
+     * @return A variably rounded long
+     */
+    public static long aggressiveRound(double value) {
+        double absoluteValue = Math.abs(value);
+        if (absoluteValue <= 10) return Math.round(value);
+        if (absoluteValue <= 50) return roundTo(value, 5);
+        return roundTo(value, 10);
     }
 }
