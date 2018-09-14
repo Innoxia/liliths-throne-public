@@ -76,7 +76,7 @@ import java.util.*;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Game implements Serializable, XMLSaving {

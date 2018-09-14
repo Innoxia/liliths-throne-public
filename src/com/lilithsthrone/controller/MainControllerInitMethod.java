@@ -100,7 +100,7 @@ import java.util.Map.Entry;
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
  * 
  * @since 0.2.5
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public class MainControllerInitMethod {

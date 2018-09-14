@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum ParserTarget {

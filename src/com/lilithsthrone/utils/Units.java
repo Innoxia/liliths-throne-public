@@ -17,8 +17,8 @@ import java.util.Locale;
 /**
  * Collection of utility functions for date, time and number format conversion.
  *
- * @since 0.2.9
- * @version 0.2.10
+ * @since 0.2.11
+ * @version 0.2.11
  * @author Addi
  */
 public enum Units {

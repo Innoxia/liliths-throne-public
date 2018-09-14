@@ -71,7 +71,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public abstract class AbstractItemEffectType {

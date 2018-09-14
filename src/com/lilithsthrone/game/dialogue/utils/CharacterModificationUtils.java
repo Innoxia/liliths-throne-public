@@ -31,7 +31,7 @@ import java.util.*;
 
 /**
  * @since 0.1.7?
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class CharacterModificationUtils {

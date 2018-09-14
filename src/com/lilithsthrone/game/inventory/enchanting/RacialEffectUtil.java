@@ -2,7 +2,7 @@ package com.lilithsthrone.game.inventory.enchanting;
 
 /**
  * @since 0.1.7?
- * @version 0.1.89
+ * @version 0.2.11
  * @author Innoxia
  */
 public abstract class RacialEffectUtil {
