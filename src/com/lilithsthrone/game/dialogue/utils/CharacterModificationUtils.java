@@ -259,7 +259,7 @@ public class CharacterModificationUtils {
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ "You were born on the "
-								+Units.date(Main.game.getPlayer().getBirthday(), Units.DateType.LONG)+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
+								+Units.date(Main.game.getPlayer().getBirthday(), Units.DateType.LONG)+", making you "+Util.intToString(Main.game.getPlayer().getAgeValue())+" years old."
 						+ "</p>");
 
 			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");

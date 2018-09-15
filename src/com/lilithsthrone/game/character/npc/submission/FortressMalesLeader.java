@@ -160,7 +160,7 @@ public class FortressMalesLeader extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(12);
+		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(300);
 		this.fillCumToMaxStorage();

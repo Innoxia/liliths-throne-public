@@ -5,12 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
@@ -658,50 +653,7 @@ public class OptionsDialogue {
 						Main.saveProperties();
 					}
 				};
-
 			} else if (index == 6) {
-				return new Response("Locale: " + (Main.getProperties().hasValue(PropertyValue.autoLocale)
-						? "Auto" : "Manual"), "Toggle the method to determine date, time and number formats. When set to automatic, the system locale is used. Otherwise, the two following options may be used to set the desired formats.", OPTIONS) {
-					@Override
-					public void effects() {
-						// Toggle automatic locale
-						Main.getProperties().setValue(PropertyValue.autoLocale, !Main.getProperties().hasValue(PropertyValue.autoLocale));
-
-						// Update date and time format settings to reflect automatic values
-						if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
-							String countryCode = Locale.getDefault().getCountry().toUpperCase();
-							Main.getProperties().setValue(PropertyValue.imperialSystem, countryCode.equals("US") || countryCode.equals("LR") || countryCode.equals("MM"));
-							List<String> twelveHourCountries = Arrays.asList("US", "UK", "PH", "CA", "AU", "NZ", "IN", "EG", "SA", "CO", "PK", "MY", "SG", "ZA");
-							Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
-						}
-
-						Main.saveProperties();
-						Units.updateFormats();
-					}
-				};
-			} else if (index == 7) {
-				// Button is disabled when auto locale is set
-				return new Response("Time: " + (Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
-						? "24 hours" : "12 hours"), "Toggle the Time format between 24 hour and 12 hour (AM/PM) display.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
-						Main.saveProperties();
-						Units.FORMATTER.updateTimeFormat();
-					}
-				};
-			} else if (index == 8) {
-				// Button is disabled when auto locale is set
-				return new Response("Numbers: " + (Main.getProperties().hasValue(PropertyValue.imperialSystem)
-						? "Imperial" : "Metric"), "Toggle the number format between imperial and metric system.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
-						Main.saveProperties();
-						Units.FORMATTER.updateDateFormat();
-					}
-				};
-			} else if (index == 11) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -734,10 +686,10 @@ public class OptionsDialogue {
 					}
 				};
 				
-			} else if (index == 12) {
+			} else if (index == 7) {
 				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
 				
-			} else if (index == 13) {
+			} else if (index == 8) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
 			} else if (index == 9) {
@@ -745,7 +697,49 @@ public class OptionsDialogue {
 			
 			} else if (index == 10) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
-			
+
+			} else if (index == 11) {
+				return new Response("Locale: " + (Main.getProperties().hasValue(PropertyValue.autoLocale)
+						? "Auto" : "Manual"), "Toggle the method to determine date, time and number formats. When set to automatic, the system locale is used. Otherwise, the two following options may be used to set the desired formats.", OPTIONS) {
+					@Override
+					public void effects() {
+						// Toggle automatic locale
+						Main.getProperties().setValue(PropertyValue.autoLocale, !Main.getProperties().hasValue(PropertyValue.autoLocale));
+
+						// Update date and time format settings to reflect automatic values
+						if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+							String countryCode = Locale.getDefault().getCountry().toUpperCase();
+							Main.getProperties().setValue(PropertyValue.imperialSystem, countryCode.equals("US") || countryCode.equals("LR") || countryCode.equals("MM"));
+							List<String> twelveHourCountries = Arrays.asList("US", "UK", "PH", "CA", "AU", "NZ", "IN", "EG", "SA", "CO", "PK", "MY", "SG", "ZA");
+							Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
+						}
+
+						Main.saveProperties();
+						Units.updateFormats();
+					}
+				};
+			} else if (index == 12) {
+				// Button is disabled when auto locale is set
+				return new Response("Time: " + (Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
+						? "24 hours" : "12 hours"), "Toggle the Time format between 24 hour and 12 hour (AM/PM) display.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+						Main.saveProperties();
+						Units.FORMATTER.updateTimeFormat();
+					}
+				};
+			} else if (index == 13) {
+				// Button is disabled when auto locale is set
+				return new Response("Numbers: " + (Main.getProperties().hasValue(PropertyValue.imperialSystem)
+						? "Imperial" : "Metric"), "Toggle the number format between imperial and metric system.", Main.getProperties().hasValue(PropertyValue.autoLocale) ? null : OPTIONS) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
+						Main.saveProperties();
+						Units.FORMATTER.updateDateFormat();
+					}
+				};
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 

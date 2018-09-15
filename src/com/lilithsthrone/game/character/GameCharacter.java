@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -204,10 +205,6 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;

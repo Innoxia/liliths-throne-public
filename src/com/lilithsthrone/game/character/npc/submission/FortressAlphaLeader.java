@@ -166,7 +166,7 @@ public class FortressAlphaLeader extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(8);
+		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(250);
 		this.fillCumToMaxStorage();
