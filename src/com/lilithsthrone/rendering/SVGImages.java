@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SVGImages {
@@ -38,7 +38,7 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceUnknown, raceDobermann, raceDobermannDesaturated,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -67,6 +67,9 @@ public enum SVGImages {
 			slavePermissionsDisabled, slavePermissions, slaveTransfer, slaveTransferDisabled, slaveCosmetics, slaveCosmeticsDisabled,
 			
 			transactionBuy, transactionBuyDisabled, transactionBid, transactionBidDisabled, transactionSell, transactionSellDisabled,
+			
+			foxTail1, foxTail2, foxTail3, foxTail4, foxTail5, foxTail6, foxTail7, foxTail8, foxTail9,
+			foxTailDesaturated1, foxTailDesaturated2, foxTailDesaturated3, foxTailDesaturated4, foxTailDesaturated5, foxTailDesaturated6, foxTailDesaturated7, foxTailDesaturated8, foxTailDesaturated9,
 			
 			// Effects:
 			creampie, creampieMasochist,
@@ -240,15 +243,25 @@ public enum SVGImages {
 			playerMapDangerousIcon = setColour(playerMapDangerousIcon, Colour.GENERIC_BAD);
 
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+			raceBackground = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundHalf.svg");
+			raceBackgroundHalf = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundSlime.svg");
+			raceBackgroundSlime = Util.inputStreamToString(is);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceUnknown.svg");
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceUnknown.svg");
 			raceUnknown = Util.inputStreamToString(is);
 			raceUnknown = setColour(raceUnknown, Colour.RACE_UNKNOWN);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermann = Util.inputStreamToString(is);
 			raceDobermann = setColour(raceDobermann, Colour.RACE_DOG_MORPH);
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermannDesaturated = Util.inputStreamToString(is);
 			raceDobermannDesaturated = setColour(raceDobermannDesaturated, Colour.BASE_GREY);
 			
@@ -529,6 +542,157 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionSellDisabled.svg");
 			transactionSellDisabled = Util.inputStreamToString(is);
 			transactionSellDisabled = setColour(transactionSellDisabled, Colour.BASE_GREY);
+			
+			
+
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail1.svg");
+			foxTail1 = Util.inputStreamToString(is);
+			foxTail1 = Util.colourReplacement("foxTail1",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail1);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail2.svg");
+			foxTail2 = Util.inputStreamToString(is);
+			foxTail2 = Util.colourReplacement("foxTail2",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail2);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail3.svg");
+			foxTail3 = Util.inputStreamToString(is);
+			foxTail3 = Util.colourReplacement("foxTail3",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail3);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail4.svg");
+			foxTail4 = Util.inputStreamToString(is);
+			foxTail4 = Util.colourReplacement("foxTail4",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail4);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail5.svg");
+			foxTail5 = Util.inputStreamToString(is);
+			foxTail5 = Util.colourReplacement("foxTail5",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail5);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail6.svg");
+			foxTail6 = Util.inputStreamToString(is);
+			foxTail6 = Util.colourReplacement("foxTail6",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail6);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail7.svg");
+			foxTail7 = Util.inputStreamToString(is);
+			foxTail7 = Util.colourReplacement("foxTail7",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail7);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail8.svg");
+			foxTail8 = Util.inputStreamToString(is);
+			foxTail8 = Util.colourReplacement("foxTail8",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail8);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail9.svg");
+			foxTail9 = Util.inputStreamToString(is);
+			foxTail9 = Util.colourReplacement("foxTail9",
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					Colour.RACE_FOX_MORPH,
+					foxTail9);
+			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail1.svg");
+			foxTailDesaturated1 = Util.inputStreamToString(is);
+			foxTailDesaturated1 = Util.colourReplacement("foxTailDesaturated1",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated1);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail2.svg");
+			foxTailDesaturated2 = Util.inputStreamToString(is);
+			foxTailDesaturated2 = Util.colourReplacement("foxTailDesaturated2",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated2);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail3.svg");
+			foxTailDesaturated3 = Util.inputStreamToString(is);
+			foxTailDesaturated3 = Util.colourReplacement("foxTailDesaturated3",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated3);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail4.svg");
+			foxTailDesaturated4 = Util.inputStreamToString(is);
+			foxTailDesaturated4 = Util.colourReplacement("foxTailDesaturated4",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated4);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail5.svg");
+			foxTailDesaturated5 = Util.inputStreamToString(is);
+			foxTailDesaturated5 = Util.colourReplacement("foxTailDesaturated5",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated5);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail6.svg");
+			foxTailDesaturated6 = Util.inputStreamToString(is);
+			foxTailDesaturated6 = Util.colourReplacement("foxTailDesaturated6",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated6);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail7.svg");
+			foxTailDesaturated7 = Util.inputStreamToString(is);
+			foxTailDesaturated7 = Util.colourReplacement("foxTailDesaturated7",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated7);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail8.svg");
+			foxTailDesaturated8 = Util.inputStreamToString(is);
+			foxTailDesaturated8 = Util.colourReplacement("foxTailDesaturated8",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated8);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail9.svg");
+			foxTailDesaturated9 = Util.inputStreamToString(is);
+			foxTailDesaturated9 = Util.colourReplacement("foxTailDesaturated9",
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					Colour.BASE_GREY,
+					foxTailDesaturated9);
+			
+			
+			
 			
 			// Effects:
 
@@ -1183,6 +1347,18 @@ public enum SVGImages {
 		return creampieMasochist;
 	}
 
+	public String getRaceBackground() {
+		return raceBackground;
+	}
+
+	public String getRaceBackgroundHalf() {
+		return raceBackgroundHalf;
+	}
+
+	public String getRaceBackgroundSlime() {
+		return raceBackgroundSlime;
+	}
+
 	public String getRaceUnknown() {
 		return raceUnknown;
 	}
@@ -1297,6 +1473,78 @@ public enum SVGImages {
 
 	public String getFluidIngestedMasochist() {
 		return fluidIngestedMasochist;
+	}
+
+	public String getFoxTail1() {
+		return foxTail1;
+	}
+
+	public String getFoxTail2() {
+		return foxTail2;
+	}
+
+	public String getFoxTail3() {
+		return foxTail3;
+	}
+
+	public String getFoxTail4() {
+		return foxTail4;
+	}
+
+	public String getFoxTail5() {
+		return foxTail5;
+	}
+
+	public String getFoxTail6() {
+		return foxTail6;
+	}
+
+	public String getFoxTail7() {
+		return foxTail7;
+	}
+
+	public String getFoxTail8() {
+		return foxTail8;
+	}
+
+	public String getFoxTail9() {
+		return foxTail9;
+	}
+
+	public String getFoxTailDesaturated1() {
+		return foxTailDesaturated1;
+	}
+
+	public String getFoxTailDesaturated2() {
+		return foxTailDesaturated2;
+	}
+
+	public String getFoxTailDesaturated3() {
+		return foxTailDesaturated3;
+	}
+
+	public String getFoxTailDesaturated4() {
+		return foxTailDesaturated4;
+	}
+
+	public String getFoxTailDesaturated5() {
+		return foxTailDesaturated5;
+	}
+
+	public String getFoxTailDesaturated6() {
+		return foxTailDesaturated6;
+	}
+
+	public String getFoxTailDesaturated7() {
+		return foxTailDesaturated7;
+	}
+
+	public String getFoxTailDesaturated8() {
+		return foxTailDesaturated8;
+	}
+
+	public String getFoxTailDesaturated9() {
+		return foxTailDesaturated9;
 	}
 	
 }

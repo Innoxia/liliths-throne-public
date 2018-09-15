@@ -87,7 +87,7 @@ public class ReindeerOverseer extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
 			
@@ -138,7 +138,7 @@ public class ReindeerOverseer extends NPC {
 			this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
 		}
 		
-		for (AbstractItemType item : ItemType.allItems) {
+		for (AbstractItemType item : ItemType.getAllItems()) {
 			if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
 				for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
 					this.addItem(AbstractItemType.generateItem(item), false);

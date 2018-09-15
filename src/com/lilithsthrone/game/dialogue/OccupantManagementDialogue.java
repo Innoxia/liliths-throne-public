@@ -52,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public class OccupantManagementDialogue {
@@ -1058,17 +1058,20 @@ public class OccupantManagementDialogue {
 				} else {
 					int i = 0;
 					for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
-						NPC occupant = (NPC) Main.game.getNPCById(id);
-						if(!occupant.equals(Main.game.getGenericAndrogynousNPC()) && occupant.getHomeWorldLocation()!=WorldType.DOMINION) {
-//							System.out.println(occupant.getName());
-							AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(occupant.getAffection(Main.game.getPlayer()));
-							ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(occupant.getObedienceValue());
-							float affectionChange = occupant.getDailyAffectionChange();
-							float obedienceChange = occupant.getDailyObedienceChange();
-							GenericPlace place = Main.game.getPlayerCell().getPlace();
-							
-							UtilText.nodeContentSB.append(getOccupantEntry(place, occupant, affection, affectionChange, obedience, obedienceChange, i%2==0));
-							i++;
+						try {
+							NPC occupant = (NPC) Main.game.getNPCById(id);
+							if(occupant.getHomeWorldLocation()!=WorldType.DOMINION) {
+								AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(occupant.getAffection(Main.game.getPlayer()));
+								ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(occupant.getObedienceValue());
+								float affectionChange = occupant.getDailyAffectionChange();
+								float obedienceChange = occupant.getDailyObedienceChange();
+								GenericPlace place = Main.game.getPlayerCell().getPlace();
+								
+								UtilText.nodeContentSB.append(getOccupantEntry(place, occupant, affection, affectionChange, obedience, obedienceChange, i%2==0));
+								i++;
+							}
+						} catch (Exception e) {
+							System.err.println("Main.game.getNPCById("+id+") returning null in method: SLAVE_LIST.getResponse()");
 						}
 					}
 				}
@@ -1093,15 +1096,19 @@ public class OccupantManagementDialogue {
 			} else {
 				int i = 0;
 				for(String id : Main.game.getPlayer().getSlavesOwned()) {
-					NPC slave = (NPC) Main.game.getNPCById(id);
-					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
-					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
-					float affectionChange = slave.getDailyAffectionChange();
-					float obedienceChange = slave.getDailyObedienceChange();
-					GenericPlace place = Main.game.getPlayerCell().getPlace();
-					
-					UtilText.nodeContentSB.append(getSlaveryEntry(true, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
-					i++;
+					try {
+						NPC slave = (NPC) Main.game.getNPCById(id);
+						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
+						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
+						float affectionChange = slave.getDailyAffectionChange();
+						float obedienceChange = slave.getDailyObedienceChange();
+						GenericPlace place = Main.game.getPlayerCell().getPlace();
+						
+						UtilText.nodeContentSB.append(getSlaveryEntry(true, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
+						i++;
+					} catch (Exception e) {
+						System.err.println("Main.game.getNPCById("+id+") returning null 2nd instance in method: SLAVE_LIST.getResponse()");
+					}
 				}
 			}
 			
@@ -1168,7 +1175,7 @@ public class OccupantManagementDialogue {
 						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 						return new Response("Send to Kate",
-								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
+								UtilText.parse(characterSelected(), "Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed."),
 								OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 									@Override
 									public void effects() {
@@ -1185,8 +1192,7 @@ public class OccupantManagementDialogue {
 						
 					} else if(!characterSelected().getOwner().isPlayer()) {
 						return new Response("Perk Tree", "You can't manage the perks of slaves that you do not own!", null);
-						
-					} 
+					}
 					return new Response("Perk Tree", "Spend your slave's perk points.", SLAVE_MANAGEMENT_PERKS);
 					
 				} else if(index == 0) {
@@ -1242,7 +1248,7 @@ public class OccupantManagementDialogue {
 						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 						return new Response("Send to Kate",
-								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
+								UtilText.parse(characterSelected(), "Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed."),
 								OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 									@Override
 									public void effects() {
@@ -1258,7 +1264,7 @@ public class OccupantManagementDialogue {
 						return new Response("Perk Tree", "You haven't selected anyone...", null);
 						
 					}
-					return new Response("Perk Tree", "Assign [npc.namePos] perk points.", SLAVE_MANAGEMENT_PERKS);
+					return new Response("Perk Tree", UtilText.parse(characterSelected(), "Assign [npc.namePos] perk points."), SLAVE_MANAGEMENT_PERKS);
 					
 				} else if(index == 0) {
 					return new Response("Back", "Exit the occupant management screen.", SLAVE_LIST) {

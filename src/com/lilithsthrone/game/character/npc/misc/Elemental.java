@@ -43,7 +43,7 @@ public class Elemental extends NPC {
 	}
 	
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
-		super(isImported, null, "", summoner==null?18:summoner.getAge(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
+		super(isImported, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 
 		if(!isImported) {
@@ -136,7 +136,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	protected String rollForPregnancy(GameCharacter partner, int cum) {
+	public String rollForPregnancy(GameCharacter partner, int cum) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
@@ -254,7 +254,12 @@ public class Elemental extends NPC {
 	}
 	
 	public GameCharacter getSummoner() {
-		return Main.game.getNPCById(summonerID);
+		try {
+			return Main.game.getNPCById(summonerID);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+id+") returning null in method: getSummoner()");
+			return null;
+		}
 	}
 
 	public void setSummoner(String summonerID) {

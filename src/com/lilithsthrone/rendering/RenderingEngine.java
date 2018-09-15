@@ -1095,8 +1095,10 @@ public enum RenderingEngine {
 			uiAttributeSB.append(
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 							+ "<div class='full-width-container' style='text-align:center;'>"
-									+ "<p>"
-										+ (getCharacterToRender()==null?"No Character":UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
+									+ "<p style='white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;'>"
+										+ (getCharacterToRender()==null
+											?"No Character"
+											:UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
 									+ "</p>"
 							+ "</div>"
 						+ "</div>");
@@ -1308,10 +1310,10 @@ public enum RenderingEngine {
 		}
 	}
 
-	public String getFullMap(WorldType world, boolean withFastTravel) {
+	public String getFullMap(WorldType world, boolean withFastTravelAndIcons) {
 		mapSB.setLength(0);
 		
-		if(withFastTravel) {
+		if(withFastTravelAndIcons) {
 			boolean isAbleToTeleport = Main.game.getPlayer().isAbleToTeleport()
 					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer());
@@ -1344,7 +1346,7 @@ public enum RenderingEngine {
 			for(int j=0; j<grid.length; j++) {
 				Cell c = grid[j][i];
 				
-				boolean discovered = c.isDiscovered() || Main.game.isDebugMode();
+				boolean discovered = c.isDiscovered() || Main.game.isMapReveal();
 				
 				String background = c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE
 									?"background:transparent;"
@@ -1380,7 +1382,9 @@ public enum RenderingEngine {
 									: "")
 								+(playerOnTile?"<div class='overlay map-player'></div>":""));
 
-					appendNPCIcon(Main.game.getWorlds().get(world), j, i);
+					if(withFastTravelAndIcons) {
+						appendNPCIcon(Main.game.getWorlds().get(world), j, i);
+					}
 					
 					mapSB.append("</div>");
 				}
@@ -1434,7 +1438,7 @@ public enum RenderingEngine {
 				if (x < Main.game.getActiveWorld().WORLD_WIDTH && x >= 0 && y < Main.game.getActiveWorld().WORLD_HEIGHT && y >= 0) {// If within  bounds of map:
 					PlaceType placeType = Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType();
 
-					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
+					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isMapReveal()) { // If the tile is discovered:
 
 						if (placeType == PlaceType.GENERIC_IMPASSABLE) {
 							mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
@@ -1635,7 +1639,7 @@ public enum RenderingEngine {
 			mapIcons.add(gc.getMapIcon());
 		}
 		
-		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(Main.game.getActiveWorld().getCell(x, y))) {
+		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y))) {
 			if(!charactersPresent.contains(gc) && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
 				mapIcons.add(gc.getHomeMapIcon());
 			}

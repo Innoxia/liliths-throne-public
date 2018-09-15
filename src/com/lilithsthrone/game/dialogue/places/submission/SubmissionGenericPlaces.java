@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.places.submission;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.gender.GenderPreference;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -178,11 +178,11 @@ public class SubmissionGenericPlaces {
 						}
 						
 						try {
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, false), false);
+							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, false), false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -296,11 +296,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-
-//	TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal
-//	Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so.
-	
-	public static final DialogueNodeOld IMP_FORTRESS_1 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Imp Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -321,16 +317,24 @@ public class SubmissionGenericPlaces {
 
 
 		@Override
-		public Response getResponse(int responseTab, int index) {
+		public Response getResponse(int responseTab, int index) {//TODO need guard
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Approach", "Approach the fortress. (Coming soon!)", null);
+//				return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_ALPHA_ENTRANCE.getDialogue(false)) {
+//					@Override
+//					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressAlpha", "ENTER_FORTRESS"));
+//					}
+//				};
+				
 			} else {
 				return null;
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_2 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Imp Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -351,16 +355,24 @@ public class SubmissionGenericPlaces {
 
 
 		@Override
-		public Response getResponse(int responseTab, int index) {
+		public Response getResponse(int responseTab, int index) {//TODO need guard
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Approach", "Approach the fortress. (Coming soon!)", null);
+//				return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
+//					@Override
+//					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressDemon", "ENTER_FORTRESS"));
+//					}
+//				};
+				
 			} else {
 				return null;
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_3 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Imp Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -381,16 +393,24 @@ public class SubmissionGenericPlaces {
 
 
 		@Override
-		public Response getResponse(int responseTab, int index) {
+		public Response getResponse(int responseTab, int index) {//TODO need guard
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Approach", "Approach the fortress. (Coming soon!)", null);
+//				return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_FEMALES_ENTRANCE.getDialogue(false)) {
+//					@Override
+//					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressFemales", "ENTER_FORTRESS"));
+//					}
+//				};
+				
 			} else {
 				return null;
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_4 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Imp Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -411,9 +431,17 @@ public class SubmissionGenericPlaces {
 
 
 		@Override
-		public Response getResponse(int responseTab, int index) {
+		public Response getResponse(int responseTab, int index) {//TODO need guard
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Approach", "Approach the fortress. (Coming soon!)", null);
+//				return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_MALES_ENTRANCE.getDialogue(false)) {
+//					@Override
+//					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressMales", "ENTER_FORTRESS"));
+//					}
+//				};
+				
 			} else {
 				return null;
 			}

@@ -6,7 +6,11 @@ package com.lilithsthrone.game;
  * @author Innoxia
  */
 public enum PropertyValue {
-
+	
+	debugMode(false),
+	mapReveal(false),
+	concealedSlotsReveal(false),
+	
 	artwork(true),
 	thumbnail(true),
 	

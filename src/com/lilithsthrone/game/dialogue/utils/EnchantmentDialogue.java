@@ -931,7 +931,7 @@ public class EnchantmentDialogue {
 					}
 					
 					if(doc.getElementsByTagName("itemType").item(0)!=null) {
-						return new LoadedEnchantment(importedName, ItemType.idToItemMap.get(doc.getElementsByTagName("itemType").item(0).getTextContent()), effectsToBeAdded);
+						return new LoadedEnchantment(importedName, ItemType.getIdToItemMap().get(doc.getElementsByTagName("itemType").item(0).getTextContent()), effectsToBeAdded);
 						
 					} else if(doc.getElementsByTagName("clothingType").item(0)!=null) {
 						return new LoadedEnchantment(importedName, ClothingType.getClothingTypeFromId(doc.getElementsByTagName("clothingType").item(0).getTextContent()), effectsToBeAdded);

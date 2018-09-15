@@ -59,6 +59,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -209,7 +210,7 @@ public class MainController implements Initializable {
 		}
 		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OPTIONS) {
-			Main.game.restoreSavedContent();
+			Main.game.restoreSavedContent(false);
 			
 		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
 			DialogueNodeType currentDialogueNodeType = Main.game.getCurrentDialogueNode().getDialogueNodeType();
@@ -229,7 +230,7 @@ public class MainController implements Initializable {
 		}
 		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
-			Main.game.restoreSavedContent();
+			Main.game.restoreSavedContent(false);
 			
 		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
@@ -245,6 +246,9 @@ public class MainController implements Initializable {
 			return false;
 			
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OPTIONS || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
+			if(Main.game.getSavedDialogueNode()==null) {
+				return true;
+			}
 			return Main.game.getSavedDialogueNode().isInventoryDisabled();
 			
 		} else {
@@ -288,7 +292,10 @@ public class MainController implements Initializable {
 //		}
 		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
-			Main.game.restoreSavedContent();
+			Main.game.restoreSavedContent(
+					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null
+					|| Main.game.getSavedDialogueNode().getDialogueNodeType()==DialogueNodeType.OCCUPANT_MANAGEMENT
+					);
 
 		} else if (!isInventoryDisabled() || npc != null) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
@@ -323,7 +330,7 @@ public class MainController implements Initializable {
 			
 		} else {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT) {
-				Main.game.restoreSavedContent();
+				Main.game.restoreSavedContent(false);
 				
 			} else if (!Main.game.getCharactersPresent().isEmpty()) {
 	
@@ -1175,10 +1182,12 @@ public class MainController implements Initializable {
 		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 		
 		Set<NPC> charactersPresent = new HashSet<>(Main.game.getCharactersPresent(c));
-		charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(c));
+		if(!c.equals(Main.game.getWorlds().get(WorldType.DOMINION).getCell(0, 0))) {
+			charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(c));
+		}
 		
 		StringBuilder charactersPresentDescription = new StringBuilder();
-		if(!charactersPresent.isEmpty()) {
+		if(Main.game.getCurrentDialogueNode() != Library.DOMINION_MAP && !charactersPresent.isEmpty()) {
 			for(NPC character : charactersPresent) {
 				charactersPresentDescription.append(
 						(Main.game.getCharactersPresent(c).contains(character)
@@ -1187,8 +1196,6 @@ public class MainController implements Initializable {
 						+": "+(character.isRaceConcealed()?"[style.colourDisabled(Unknown race!)]":UtilText.parse(character, "[npc.FullRace(true)]"))
 						+"<br/>");
 			}
-		} else {
-//			charactersPresentDescription.append("[style.italics(There are no characters present in this tile...)]");
 		}
 
 		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), charactersPresentDescription.toString());
@@ -1641,7 +1648,7 @@ public class MainController implements Initializable {
 			id = "CHARACTERS_PRESENT_"+character.getId();
 			if (((EventTarget) documentRight.getElementById(id)) != null) {
 				((EventTarget) documentRight.getElementById(id)).addEventListener("click", e -> {
-					openCharactersPresent(Main.game.getNPCById(character.getId()));
+					openCharactersPresent(character);
 				}, false);
 			}
 		}

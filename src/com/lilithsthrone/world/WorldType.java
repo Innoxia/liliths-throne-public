@@ -328,12 +328,70 @@ public enum WorldType {
 					new Value<>(new Color(0x000000), PlaceType.SUBMISSION_LILIN_PALACE_GATE),
 					new Value<>(new Color(0x404040), PlaceType.SUBMISSION_LILIN_PALACE_CAVERN),
 					
-					new Value<>(new Color(0x00ff00), PlaceType.SUBMISSION_IMP_FORTRESS_1),
-					new Value<>(new Color(0x32ff00), PlaceType.SUBMISSION_IMP_FORTRESS_2),
-					new Value<>(new Color(0x64ff00), PlaceType.SUBMISSION_IMP_FORTRESS_3),
-					new Value<>(new Color(0x96ff00), PlaceType.SUBMISSION_IMP_FORTRESS_4),
-					new Value<>(new Color(0xc8ff00), PlaceType.SUBMISSION_IMP_FORTRESS_5),
-					new Value<>(new Color(0xfaff00), PlaceType.SUBMISSION_IMP_FORTRESS_6))),
+					new Value<>(new Color(0x004fc9), PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA),
+					new Value<>(new Color(0x658cc9), PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA),
+					
+					new Value<>(new Color(0x6928c9), PlaceType.SUBMISSION_IMP_FORTRESS_DEMON),
+					new Value<>(new Color(0x8d65c9), PlaceType.SUBMISSION_IMP_TUNNELS_DEMON),
+					
+					new Value<>(new Color(0xa228c9), PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES),
+					new Value<>(new Color(0xb065c9), PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES),
+					
+					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
+					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
+					)),
+
+	IMP_FORTRESS_ALPHA("Alpha Imp Fortress",
+			Colour.BASE_CRIMSON,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_ALPHA_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_ALPHA_CELLS),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_ALPHA_TREASURY))),
+
+	IMP_FORTRESS_DEMON("Demon Imp Fortress",
+			Colour.BASE_PURPLE_DARK,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_DEMON_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_CELLS),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_DEMON_TREASURY))),
+
+	IMP_FORTRESS_FEMALES("Female Imp Fortress",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_FEMALES_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_FEMALES_CELLS),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_FEMALES_TREASURY))),
+
+	IMP_FORTRESS_MALES("Male Imp Fortress",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_MALES_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP),
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_MALES_CELLS),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_MALES_TREASURY))),
 
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,

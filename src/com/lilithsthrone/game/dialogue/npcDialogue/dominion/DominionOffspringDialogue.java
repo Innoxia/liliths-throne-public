@@ -11,7 +11,9 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -22,6 +24,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -30,6 +33,8 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -514,6 +519,10 @@ public class DominionOffspringDialogue {
 										+ "</p>");
 							}
 							setOffspringFlags();
+
+							if(offspring().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
 						}
 					};
 					
@@ -553,6 +562,10 @@ public class DominionOffspringDialogue {
 							}
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 5));
 							setOffspringFlags();
+
+							if(offspring().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
 						}
 					};
 					
@@ -594,6 +607,10 @@ public class DominionOffspringDialogue {
 							}
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
 							setOffspringFlags();
+
+							if(offspring().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
 						}
 					};
 					
@@ -748,6 +765,10 @@ public class DominionOffspringDialogue {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -20));
 							}
 							setOffspringFlags();
+
+							if(offspring().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
 						}
 					};
 					
@@ -894,6 +915,10 @@ public class DominionOffspringDialogue {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -5));
 							}
 							setOffspringFlags();
+
+							if(offspring().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
+							}
 						}
 					};
 					
@@ -1390,6 +1415,35 @@ public class DominionOffspringDialogue {
 					};
 					
 				} else if (index == 5) {
+					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) || !offspring().isAffectionHighEnoughToInviteHome()) {
+						return new Response("Offer room",
+								"You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...<br/>"
+								+ "[style.italics(Requires [npc.name] to have at least "+AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()+" affection towards you.)]",
+								null);
+						
+					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+						return new Response("Offer room",
+								"You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion...",
+								null);
+						
+					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
+						return new Response("Offer room",
+								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
+								null);
+						
+					} else {
+						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", OFFSPRING_OFFER_ROOM) {
+							@Override
+							public void effects() {
+								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
+								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
+								offspring().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
+							}
+						};
+					}
+
+				} else if (index == 6) {
 					return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OFFSPRING_ENCOUNTER_CHOOSE_NAME) {
 						@Override
 						public void effects() {
@@ -1398,31 +1452,7 @@ public class DominionOffspringDialogue {
 						}
 					};
 					
-				} else if (index == 6) {
-					if(offspring().getAffection(Main.game.getPlayer()) < AffectionLevel.POSITIVE_FIVE_WORSHIP.getMinimumValue()) {
-						return new Response("Inventory", "[npc.Name] doesn't like you enough to allow you to choose what [npc.she] wears, or what [npc.she] eats and drinks.", null);
-					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+ "You shuffle a bit closer to [npc.name], and [npc.she] looks up at you expectantly as [npc.she] asks,"
-											+ " [npc.speech(What is it, [npc.pcName]?)]"
-										+ "</p>"
-										+ "<p>"
-											+ "[pc.speech(I think we need to have a little talk about the state of your clothes,)]"
-											+ " you reply, looking up and down over you [npc.daughter]'s body."
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.speech(Yes, [npc.pcName]...)] [npc.she] obediently answers, clearly comfortable with doing whatever [npc.sheIs] told."
-										+ "</p>");
-								Main.mainController.openInventory(offspring(), InventoryInteraction.FULL_MANAGEMENT);
-							}
-						};
-					}
-					
-				} else if (index == 7) {
+				}  else if (index == 7) {
 					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT)) {
 						return new Response("Give Present", "Give [npc.name] the present that you're carrying.", OFFSPRING_PRESENT) {
 							@Override
@@ -1472,6 +1502,30 @@ public class DominionOffspringDialogue {
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
 					};
+					
+				} else if (index == 11) {
+					if(offspring().getAffection(Main.game.getPlayer()) < AffectionLevel.POSITIVE_FIVE_WORSHIP.getMinimumValue()) {
+						return new Response("Inventory", "[npc.Name] doesn't like you enough to allow you to choose what [npc.she] wears, or what [npc.she] eats and drinks.", null);
+					} else {
+						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+ "You shuffle a bit closer to [npc.name], and [npc.she] looks up at you expectantly as [npc.she] asks,"
+											+ " [npc.speech(What is it, [npc.pcName]?)]"
+										+ "</p>"
+										+ "<p>"
+											+ "[pc.speech(I think we need to have a little talk about the state of your clothes,)]"
+											+ " you reply, looking up and down over you [npc.daughter]'s body."
+										+ "</p>"
+										+ "<p>"
+											+ "[npc.speech(Yes, [npc.pcName]...)] [npc.she] obediently answers, clearly comfortable with doing whatever [npc.sheIs] told."
+										+ "</p>");
+								Main.mainController.openInventory(offspring(), InventoryInteraction.FULL_MANAGEMENT);
+							}
+						};
+					}
 					
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
@@ -1882,6 +1936,56 @@ public class DominionOffspringDialogue {
 			} else {
 				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld OFFSPRING_OFFER_ROOM = new DialogueNodeOld("Offer room", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_OFFER_ROOM", offspring());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Show to room", "Take [npc.name] to [npc.her] new room.", OFFSPRING_OFFER_ROOM_BACK_HOME) {
+					@Override
+					public void effects() {
+						Cell c = OccupancyUtil.getFreeRoomForOccupant();
+						offspring().setLocation(c.getType(), c.getLocation(), true);
+						Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
+						Main.game.getPlayer().addFriendlyOccupant(offspring());
+						Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 50));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld OFFSPRING_OFFER_ROOM_BACK_HOME = new DialogueNodeOld("New Room", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME", offspring());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Leave", "Give [npc.name] some time to get settled in [npc.her] new room. You can come back at any time to talk with [npc.herHim].", LilayaHomeGeneric.CORRIDOR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(Main.game.getPlayer().getWorldLocation(), PlaceType.LILAYA_HOME_CORRIDOR, false);
+					}
+				};
+			}
+			return null;
 		}
 	};
 	

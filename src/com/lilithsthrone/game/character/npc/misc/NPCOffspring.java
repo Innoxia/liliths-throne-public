@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -66,7 +65,7 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = GenderPreference.getGenderFromUserPreferences(false, false);
+		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		
 		setBody(gender, mother, father);
 		
@@ -81,10 +80,6 @@ public class NPCOffspring extends NPC {
 		// ADDING FETISHES:
 		
 		CharacterUtils.addFetishes(this);
-		
-		// BODY RANDOMISATION:
-		
-		CharacterUtils.randomiseBody(this);
 		
 		// INVENTORY:
 		

@@ -81,7 +81,7 @@ public class TongueMouth {
 							
 							"With a grin, [npc.name] [npc.verb(lean)] down into [npc2.namePos] [npc2.breasts], breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers].",
 							
-							"Leaning down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] and starts to eagerly kiss [npc2.herHim]."));
+							"Leaning down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] and [npc.verb(start)] to eagerly kiss [npc2.herHim]."));
 				}
 
 				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
@@ -332,7 +332,7 @@ public class TongueMouth {
 					
 					" With [npc2.a_sob+], [npc2.name] [npc2.verb(try)] to [npc2.verb(push)] [npc.name] away, struggling in vain as [npc.she] [npc.verb(continue)] to plant gentle kisses on [npc2.her] unwilling [npc2.lips].",
 					
-					" [npc2.Name] desperately [npc2.verb(try)] to pull away, struggling and pushing back as [npc.name] [npc2.verb(continue)] to molest [npc2.herHim],"
+					" [npc2.Name] desperately [npc2.verb(try)] to pull away, struggling and pushing back as [npc.name] [npc.verb(continue)] to molest [npc2.herHim],"
 							+ " drawing a muffled [npc2.sob] from between [npc2.her] [npc2.lips] at the feel of each of [npc.her] unwanted kisses."));
 			case DOM_GENTLE:
 				return(UtilText.returnStringAtRandom(

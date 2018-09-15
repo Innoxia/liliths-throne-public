@@ -205,9 +205,13 @@ public class LilayaHomeGeneric {
 			slavesAssignedToRoom.addAll(charactersPresent);
 		} else {
 			for(String slave : Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned())) {
-				NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
-				if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
-					slavesAssignedToRoom.add(slaveNPC);
+				try {
+					NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
+					if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
+						slavesAssignedToRoom.add(slaveNPC);
+					}
+				} catch (Exception e) {
+					System.err.println("Main.game.getNPCById("+slave+") returning null in method: getRoomResponse()");
 				}
 			}
 		}
@@ -603,21 +607,25 @@ public class LilayaHomeGeneric {
 		
 		if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
 			List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell());
-			for(String occupantId: Main.game.getPlayer().getFriendlyOccupants()) {
-				NPC occupant = (NPC) Main.game.getNPCById(occupantId);
-				if(occupant!=null && charactersHome.contains(occupant) && !Main.game.getCharactersPresent().contains(occupant)) {
-					roomSB.append(UtilText.parse(occupant,
-							"<p>"
-								+ "[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
-										+ " Walking over and picking it up, you read:"
-							+ "</p>"
-							+ "<p style='text-align:center;'><i>"
-								+ "Hi, [pc.name]!<br/>"
-								+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
-									+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"<br/>"
-								+ "Come and see me when I'm not at work!<br/>"
-								+ "- [npc.Name]"
-							+ "</i></p>"));
+			for(String occupantId : Main.game.getPlayer().getFriendlyOccupants()) {
+				try {
+					NPC occupant = (NPC) Main.game.getNPCById(occupantId);
+					if(occupant!=null && charactersHome.contains(occupant) && !Main.game.getCharactersPresent().contains(occupant)) {
+						roomSB.append(UtilText.parse(occupant,
+								"<p>"
+									+ "[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
+											+ " Walking over and picking it up, you read:"
+								+ "</p>"
+								+ "<p style='text-align:center;'><i>"
+									+ "Hi, [pc.name]!<br/>"
+									+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
+										+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.getDefault())+"<br/>"
+									+ "Come and see me when I'm not at work!<br/>"
+									+ "- [npc.Name]"
+								+ "</i></p>"));
+					}
+				} catch (Exception e) {
+					System.err.println("Main.game.getNPCById("+occupantId+") returning null in method: getRoomModificationsDescription()");
 				}
 			}
 		}

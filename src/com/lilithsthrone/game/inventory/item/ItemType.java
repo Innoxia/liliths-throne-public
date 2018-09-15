@@ -323,7 +323,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -370,7 +371,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -417,7 +419,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -464,7 +467,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -513,7 +517,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -562,7 +567,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FELINE_FANCY)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -609,7 +615,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -658,7 +665,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -707,7 +715,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -756,7 +765,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -805,7 +815,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -853,7 +864,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_EGG_NOG)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -901,7 +913,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME)),
 			Util.newArrayListOfValues(
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -949,7 +962,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -996,7 +1010,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1043,7 +1058,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_MINCE_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1093,7 +1109,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1141,7 +1158,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_IMPISH_BREW)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1189,7 +1207,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1285,7 +1304,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1378,7 +1398,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1426,7 +1447,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1473,7 +1495,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1522,7 +1545,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1573,7 +1597,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1622,7 +1647,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1669,7 +1695,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1718,7 +1745,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1765,7 +1793,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1812,7 +1841,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1859,7 +1889,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1905,7 +1936,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1954,7 +1986,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2002,7 +2035,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2050,7 +2084,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3432,7 +3467,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3471,7 +3507,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3506,7 +3543,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.BAT_CAVERNS_SPAWN)) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3602,7 +3640,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3638,7 +3677,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4610,11 +4650,11 @@ public class ItemType {
 		return 1000;
 	}
 	
-	public static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
-	public static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
-	public static List<AbstractItemType> batCavernItems = new ArrayList<>();
-	public static List<AbstractItemType> essences = new ArrayList<>();
-	public static List<AbstractItemType> allItems = new ArrayList<>();
+	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
+	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
+	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> essences = new ArrayList<>();
+	private static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -4622,7 +4662,7 @@ public class ItemType {
 	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+	private static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -4630,7 +4670,7 @@ public class ItemType {
 	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
+	private static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
 	
 	public static AbstractItemType getSpellBookType(Spell s) {
 		return idToItemMap.get("SPELL_BOOK_"+s);
@@ -5008,6 +5048,33 @@ public class ItemType {
 			
 			allItems.add(scroll);
 		}
+	}
+
+	public static List<AbstractItemType> getDominionAlleywayItems() {
+		return dominionAlleywayItems;
+	}
+	
+	public static List<AbstractItemType> getSubmissionTunnelItems() {
+		return submissionTunnelItems;
+	}
+	
+	public static List<AbstractItemType> getBatCavernItems() {
+		return batCavernItems;
+	}
+	public static List<AbstractItemType> getEssences() {
+		return essences;
+	}
+	
+	public static List<AbstractItemType> getAllItems() {
+		return allItems;
+	}
+	
+	public static Map<AbstractItemType, String> getItemToIdMap() {
+		return itemToIdMap;
+	}
+	
+	public static Map<String, AbstractItemType> getIdToItemMap() {
+		return idToItemMap;
 	}
 
 }

@@ -159,7 +159,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
 					public void effects() {
-						Main.game.restoreSavedContent();
+						Main.game.restoreSavedContent(false);
 					}
 				};
 				
@@ -1506,8 +1506,8 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-				if(npc!=null) {
+				try {
+					GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return new Response(Util.capitaliseSentence(npc.getName()),
 							"Take a detailed look at what " + npc.getName("the") + " looks like.",
 							CONTACTS_CHARACTER){
@@ -1517,7 +1517,8 @@ public class PhoneDialogue {
 							
 						}
 					};
-				} else {
+				} catch (Exception e) {
+					System.err.println("Main.game.getNPCById("+Main.game.getPlayer().getCharactersEncountered().get(index - 1)+") returning null in method: CONTACTS_CHARACTER.getResponse()");
 					return null;
 				}
 			
@@ -1601,7 +1602,7 @@ public class PhoneDialogue {
 	
 	static {
 		
-		itemsDiscoveredList.addAll(ItemType.allItems);
+		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 		
 		weaponsDiscoveredList.addAll(WeaponType.allweapons);
@@ -1732,7 +1733,7 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<div class='title-button' id='"+ItemType.itemToIdMap.get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+									+ "<div class='title-button' id='"+ItemType.getItemToIdMap().get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 									+ " <b style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</b>"
 							+ "</div>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");

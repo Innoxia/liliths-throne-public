@@ -593,7 +593,7 @@ public class TailVagina {
 							+ " [npc.name] [npc.verb(start)] roughly pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] brutally [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Violently thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc2.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(tail-fuck)] [npc2.herHim].",
+							+ " [npc.name] [npc.verb(start)] roughly thrusting it in and out, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Forcefully driving [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently [npc.verb(tail-fuck)] [npc2.herHim]."));
@@ -634,7 +634,7 @@ public class TailVagina {
 							+ " [npc.name] [npc.verb(start)] pumping it in and out, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(tail-fuck)] [npc2.name].",
 
 					"Pushing [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
-							+ " [npc.name] [npc2.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(tail-fuck)] [npc2.herHim].",
+							+ " [npc.name] [npc.verb(start)] thrusting it in and out, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(tail-fuck)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.tail+] deep into [npc2.namePos] [npc2.vagina+],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump it in and out, breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(tail-fuck)] [npc2.herHim]."));
@@ -794,7 +794,7 @@ public class TailVagina {
 							" [npc2.Name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.sob+] as [npc.name] [npc.verb(pull)] out of [npc2.namePos] [npc2.vagina],"
 									+ " and [npc2.she] [npc2.verb(continue)] crying and protesting as [npc2.she] [npc2.verb(carry)] on weakly struggling against [npc.herHim].",
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.vagina+] away from [npc.name]."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.vagina+] away from [npc.name]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

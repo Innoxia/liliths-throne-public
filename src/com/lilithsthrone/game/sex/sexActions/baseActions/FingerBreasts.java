@@ -157,7 +157,7 @@ public class FingerBreasts {
 										+ " pleading for [npc.name] to leave [npc2.herHim] alone as [npc.she] [npc.verb(continue)] playing with [npc2.namePos] [npc2.breasts+].",
 
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at [npc.namePos] touch, and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+],"
-										+ " [npc2.name] [npc.verb(continue)] to struggle against [npc.herHim]."));
+										+ " [npc2.name] [npc2.verb(continue)] to struggle against [npc.herHim]."));
 						break;
 					default:
 						break;
@@ -301,7 +301,7 @@ public class FingerBreasts {
 										+ " pleading for [npc.namePos] to leave [npc2.herHim] alone as [npc.she] [npc.verb(continue)] playing with [npc2.her] [npc2.breasts+].",
 
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] in response to [npc.namePos] touch,"
-										+ " and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+], [npc2.name] [npc.verb(continue)] to struggle against [npc.herHim]."));
+										+ " and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+], [npc2.name] [npc2.verb(continue)] to struggle against [npc.herHim]."));
 						break;
 					default:
 						break;

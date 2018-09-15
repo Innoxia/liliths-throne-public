@@ -944,7 +944,7 @@ public class WeaponType {
 
 	public static AbstractWeaponType OFFHAND_BOW_AND_ARROW = new AbstractWeaponType(2500,
 			false,
-			false,
+			true,
 			"it",
 			false,
 			"Arcane Short Bow",

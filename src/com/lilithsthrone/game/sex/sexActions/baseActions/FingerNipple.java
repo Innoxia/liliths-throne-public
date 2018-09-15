@@ -968,7 +968,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.name].",
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to protest and struggle in discomfort as [npc.name] holds [npc2.herHim] in place."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to protest and struggle in discomfort as [npc.name] holds [npc2.herHim] in place."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1073,7 +1073,7 @@ public class FingerNipple {
 									+ " [npc2.she] roughly [npc2.verb(curl)] [npc2.her] [npc2.fingers] up before starting to ruthlessly finger-fuck [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " seeking to remind [npc.herHim] who's in charge as [npc2.she] starts roughly fingering [npc.her] [npc.nipple+]."));
+									+ " seeking to remind [npc.herHim] who's in charge as [npc2.she] [npc2.verb(start)] roughly fingering [npc.her] [npc.nipple+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1094,7 +1094,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.fingers] inside of [npc.herHim],"
 									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] tries to pull [npc2.herself] free.",
 
-							" With [npc2.a_sob+], [npc2.name] starts struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
 									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] [npc2.fingers] deep into [npc.her] [npc.nipple+]."));
 					break;
 				default:
