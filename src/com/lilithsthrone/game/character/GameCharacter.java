@@ -10803,7 +10803,89 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(modifiers.contains(FluidModifier.FEMINIZING)) {
+		if(modifiers.contains(FluidModifier.FEMINIZING) && modifiers.contains(FluidModifier.MASCULINIZING)) { // Having both feminizing and masculinizing fluidmodifiers makes it androgynizing
+			if(this.getFemininityValue() != 50) {
+				int femVal = this.getFemininityValue();
+				
+				if(femVal > 55) { // Decrease Femininity by 5
+					if(isPlayer()) {
+						fluidIngestionSB.append("<p>"
+									+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+										+", you start <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+								+ "</p>"
+								+ this.incrementFemininity(-5));
+					} else {
+						fluidIngestionSB.append(UtilText.parse(this,
+								"<p>"
+								+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", [npc.name] starts <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(-5)));
+					}
+					
+				} else if(femVal > 50) { // Decrease Femininity by difference of 50 and femVal
+					if(isPlayer()) {
+						fluidIngestionSB.append("<p>"
+									+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+										+", you start <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+								+ "</p>"
+								+ this.incrementFemininity(50-femVal));
+					} else {
+						fluidIngestionSB.append(UtilText.parse(this,
+								"<p>"
+								+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", [npc.name] starts <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(50-femVal)));
+					}
+					
+				} else if(femVal > 45) { // Increase Femininity by difference of femVal and 50
+					if(isPlayer()) {
+						fluidIngestionSB.append("<p>"
+									+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+										+", you start <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+								+ "</p>"
+								+ this.incrementFemininity(femVal-50));
+					} else {
+						fluidIngestionSB.append(UtilText.parse(this,
+								"<p>"
+								+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", [npc.name] starts <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(femVal-50)));
+					}
+					
+				} else { // Increase Femininity by 5
+					if(isPlayer()) {
+						fluidIngestionSB.append("<p>"
+									+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+										+", you start <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+								+ "</p>"
+								+ this.incrementFemininity(5));
+					} else {
+						fluidIngestionSB.append(UtilText.parse(this,
+								"<p>"
+								+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", [npc.name] starts <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
+							+ "</p>"
+							+ this.incrementFemininity(5)));
+					}
+				}
+			}  else {
+				if(isPlayer()) {
+					fluidIngestionSB.append("<p>"
+								+ "Despite the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+									+", you cannot <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>become any more androgynous</span>!"
+							+ "</p>");
+				} else {
+					fluidIngestionSB.append(UtilText.parse(this,
+							"<p>"
+							+ "Despite the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", [npc.name] cannot <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>become any more androgynous</span>!"
+						+ "</p>"));
+				}
+			}
+		} else if(modifiers.contains(FluidModifier.FEMINIZING)) {
 			if(this.getFemininityValue() < 100) {
 				if(isPlayer()) {
 					fluidIngestionSB.append("<p>"
@@ -10833,9 +10915,7 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "</p>"));
 				}
 			}
-		}
-		
-		if(modifiers.contains(FluidModifier.MASCULINIZING)) {
+		} else if(modifiers.contains(FluidModifier.MASCULINIZING)) {
 			if(this.getFemininityValue() > 0) {
 				if(isPlayer()) {
 					fluidIngestionSB.append("<p>"
