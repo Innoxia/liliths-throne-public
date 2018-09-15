@@ -10839,20 +10839,20 @@ public abstract class GameCharacter implements XMLSaving {
 							+ this.incrementFemininity(50-femVal)));
 					}
 					
-				} else if(femVal > 45) { // Increase Femininity by difference of femVal and 50
+				} else if(femVal > 45) { // Increase Femininity by difference of 50 and femVal
 					if(isPlayer()) {
 						fluidIngestionSB.append("<p>"
 									+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 										+", you start <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
 								+ "</p>"
-								+ this.incrementFemininity(femVal-50));
+								+ this.incrementFemininity(50-femVal));
 					} else {
 						fluidIngestionSB.append(UtilText.parse(this,
 								"<p>"
 								+ "Due to the androgynizing properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 									+", [npc.name] starts <span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>becoming more androgynous</span>!"
 							+ "</p>"
-							+ this.incrementFemininity(femVal-50)));
+							+ this.incrementFemininity(50-femVal)));
 					}
 					
 				} else { // Increase Femininity by 5
