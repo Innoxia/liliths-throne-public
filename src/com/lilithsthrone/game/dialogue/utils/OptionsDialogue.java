@@ -705,17 +705,10 @@ public class OptionsDialogue {
 					public void effects() {
 						// Toggle automatic locale
 						Main.getProperties().setValue(PropertyValue.autoLocale, !Main.getProperties().hasValue(PropertyValue.autoLocale));
-
-						// Update date and time format settings to reflect automatic values
-						if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
-							String countryCode = Locale.getDefault().getCountry().toUpperCase();
-							Main.getProperties().setValue(PropertyValue.imperialSystem, countryCode.equals("US") || countryCode.equals("LR") || countryCode.equals("MM"));
-							List<String> twelveHourCountries = Arrays.asList("US", "UK", "PH", "CA", "AU", "NZ", "IN", "EG", "SA", "CO", "PK", "MY", "SG", "ZA");
-							Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
-						}
-
+						Units.FORMATTER.updateSettings();
 						Main.saveProperties();
-						Units.updateFormats();
+
+						Units.FORMATTER.updateFormats(Main.getProperties().hasValue(PropertyValue.autoLocale));
 					}
 				};
 			} else if (index == 12) {
@@ -726,7 +719,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
 						Main.saveProperties();
-						Units.FORMATTER.updateTimeFormat();
+						Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
 					}
 				};
 			} else if (index == 13) {
@@ -737,7 +730,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.imperialSystem, !Main.getProperties().hasValue(PropertyValue.imperialSystem));
 						Main.saveProperties();
-						Units.FORMATTER.updateDateFormat();
+						Units.FORMATTER.updateDateFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
 					}
 				};
 			} else if (index == 0) {

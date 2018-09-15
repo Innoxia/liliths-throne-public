@@ -12,6 +12,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -24,8 +26,11 @@ import java.util.Locale;
 public enum Units {
     FORMATTER;
 
-    public final static int MIN_PRECISION = 0;
-    public final static int MAX_PRECISION = 2;
+    public final int MIN_PRECISION = 0;
+    public final int MAX_PRECISION = 2;
+
+    public final List<String> imperialCountries = Arrays.asList("US", "LR", "MM");
+    public final List<String> twelveHourCountries = Arrays.asList("US", "UK", "PH", "CA", "AU", "NZ", "IN", "EG", "SA", "CO", "PK", "MY", "SG", "ZA");
 
     DateTimeFormatter shortDate;
     DateTimeFormatter longDate;
@@ -36,33 +41,47 @@ public enum Units {
 
     Units() {
         defaultLocale = Locale.getDefault();
-        updateDateFormat();
-        updateTimeFormat();
-        updateNumberFormat();
+
+        if (Main.getProperties() == null) {
+            new NullPointerException("Unit formatters initialized before properties. Assuming auto locale.").printStackTrace();
+            updateFormats(true);
+        } else {
+            updateSettings();
+            updateFormats(Main.getProperties().hasValue(PropertyValue.autoLocale));
+        }
+    }
+
+    /**
+     * Resets the 24-hour and imperial system settings to reflect automatically detected values.
+     */
+    public void updateSettings() {
+        if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+            String countryCode = defaultLocale.getCountry().toUpperCase();
+            Main.getProperties().setValue(PropertyValue.imperialSystem, imperialCountries.contains(countryCode));
+            Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
+        }
     }
 
     /**
      * Resets the date formatter depending on the system locale (if automatic) or the imperial number flag (if manual).
+     * @param autoLocale Determines if automatic or manual detection is used
      */
-    public void updateDateFormat() {
-        boolean autoLocale = Main.getProperties().hasValue(PropertyValue.autoLocale);
+    public void updateDateFormat(boolean autoLocale) {
         Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
-        shortDate = (autoLocale
-                ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+        shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MM/dd/yy" : "dd.MM.yy"))
                 .withZone(ZoneId.systemDefault());
-        longDate = (autoLocale
-                ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
+        longDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.imperialSystem) ? "MMMM d, yyyy" : "d. MMMM yyyy"))
                 .withZone(ZoneId.systemDefault());
     }
 
     /**
      * Resets the time formatter depending on the system locale (if automatic) or the 24 hour time flag (if manual).
+     * @param autoLocale Determines if automatic or manual detection is used
      */
-    public void updateTimeFormat() {
-        time = (Main.getProperties().hasValue(PropertyValue.autoLocale)
-                ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+    public void updateTimeFormat(boolean autoLocale) {
+        time = (autoLocale ? DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                 : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.twentyFourHourTime) ? "HH:mm" : "hh:mm a"))
                 .withZone(ZoneId.systemDefault());
     }
@@ -70,9 +89,10 @@ public enum Units {
     /**
      * Resets the number formatter depending on the system locale (if automatic), defaulting to English otherwise.
      * In all cases, output numbers are rounded correctly to the 2nd fraction digit.
+     * @param autoLocale Determines if automatic or manual detection is used
      */
-    public void updateNumberFormat() {
-        number = NumberFormat.getNumberInstance(Main.getProperties().hasValue(PropertyValue.autoLocale) ? Locale.getDefault() : Locale.ENGLISH);
+    public void updateNumberFormat(boolean autoLocale) {
+        number = NumberFormat.getNumberInstance(autoLocale ? Locale.getDefault() : Locale.ENGLISH);
         number.setRoundingMode(RoundingMode.HALF_UP);
         number.setMinimumFractionDigits(MIN_PRECISION);
         number.setMaximumFractionDigits(MAX_PRECISION);
@@ -80,12 +100,14 @@ public enum Units {
     }
 
     /**
-     * Resets every formatter. See {@link Units#updateDateFormat()}, {@link Units#updateTimeFormat()} and {@link Units#updateNumberFormat()} for details.
+     * Resets every formatter. See {@link Units#updateDateFormat(boolean)}, {@link Units#updateTimeFormat(boolean)} and
+     * {@link Units#updateNumberFormat(boolean)} for details.
+     * @param autoLocale Determines if automatic or manual detection is used
      */
-    public static void updateFormats() {
-        FORMATTER.updateDateFormat();
-        FORMATTER.updateTimeFormat();
-        FORMATTER.updateNumberFormat();
+    public void updateFormats(boolean autoLocale) {
+        updateDateFormat(autoLocale);
+        updateTimeFormat(autoLocale);
+        updateNumberFormat(autoLocale);
     }
 
     /**
@@ -119,8 +141,8 @@ public enum Units {
         String output = formatter.format(amount);
 
         // Restore default settings
-        formatter.setMinimumFractionDigits(MIN_PRECISION);
-        formatter.setMaximumFractionDigits(MAX_PRECISION);
+        formatter.setMinimumFractionDigits(FORMATTER.MIN_PRECISION);
+        formatter.setMaximumFractionDigits(FORMATTER.MAX_PRECISION);
 
         return output;
     }

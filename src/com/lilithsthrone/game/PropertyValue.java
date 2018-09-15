@@ -18,7 +18,7 @@ public enum PropertyValue {
 	overwriteWarning(true),
 	fadeInText(false),
 	calendarDisplay(true),
-	autoLocale(false),
+	autoLocale(true),
 	twentyFourHourTime(true),
 	imperialSystem(false),
 	tattooRemovalConfirmations(true),
