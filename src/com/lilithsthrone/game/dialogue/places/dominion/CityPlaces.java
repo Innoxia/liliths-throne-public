@@ -823,8 +823,8 @@ public class CityPlaces {
 						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b><br/>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
 						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
-					+ "</p>"
-					+ getExtraStreetFeatures();
+					+ "</p>";
+					//+ getExtraStreetFeatures();		//unneeded - this gets called in STREET.getContent()
 		}
 
 		@Override
