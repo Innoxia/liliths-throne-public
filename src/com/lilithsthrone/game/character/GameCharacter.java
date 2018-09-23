@@ -439,6 +439,8 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			this.nameTriplet = nameTriplet;
 		}
+
+		generateId();
 		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
@@ -2518,6 +2520,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void generateId() {
+		id = isUnique() ? getClass().getSimpleName() : getNameIgnoresPlayerKnowledge().substring(0, 3) + UID.get();
 	}
 	
 	public String getMapIcon() {

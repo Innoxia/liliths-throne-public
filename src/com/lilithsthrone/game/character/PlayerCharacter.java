@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -70,12 +71,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SizedStack;
-import com.lilithsthrone.utils.TreeNode;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -145,6 +140,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public void generateId() {
+		id = "PC_" + UID.get();
 	}
 	
 	@Override
@@ -424,11 +424,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if (playerInventoryChangeEventListeners != null)
 			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners)
 				eventListener.onChange();
-	}
-	
-	@Override
-	public String getId() {
-		return "PlayerCharacter";//-"+Main.game.getNpcTally();
 	}
 	
 	@Override
