@@ -175,7 +175,7 @@ public class ImpCitadelDialogue {
 			
 			impGroup = new ArrayList<>();
 			List<String> impAdjectives = new ArrayList<>();
-			
+
 			int impCount = 6;
 			if(Main.game.getDialogueFlags().impCitadelImpWave==5) {
 				impCount = 4;
@@ -186,7 +186,7 @@ public class ImpCitadelDialogue {
 				
 				ImpAttacker imp = new ImpAttacker(subspecies, Gender.getGenderFromUserPreferences(false, false), false);
 				imp.setLevel(12-(i*2)+Util.random.nextInt(3));
-				Main.game.addNPC(imp, false);
+				Main.game.addNPC(imp);
 				if(i==0) {
 					imp.setGenericName("alpha-imp leader");
 					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));

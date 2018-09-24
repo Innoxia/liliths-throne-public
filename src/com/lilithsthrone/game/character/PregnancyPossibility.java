@@ -46,8 +46,8 @@ public class PregnancyPossibility implements XMLSaving {
 		Element element = doc.createElement("pregnancyPossibility");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "motherId", this.getMotherId());
-		CharacterUtils.addAttribute(doc, element, "fatherId", this.getFatherId());
+		CharacterUtils.addAttribute(doc, element, "motherId", Main.game.getId(getMotherId()));
+		CharacterUtils.addAttribute(doc, element, "fatherId", Main.game.getId(getFatherId()));
 		CharacterUtils.addAttribute(doc, element, "probability", String.valueOf(this.getProbability()));
 		
 		return element;

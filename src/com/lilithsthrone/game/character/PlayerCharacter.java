@@ -174,7 +174,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
 		playerSpecific.appendChild(charactersEncounteredElement);
 		for(String id : charactersEncountered) {
-			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
+			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", Main.game.getId(id));
 		}
 		
 		innerElement = doc.createElement("questMap");
@@ -192,7 +192,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("occupant");
 			friendlyOccupants.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", occupant);
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.getId(occupant));
 		}
 		
 		Element worldsVisitedElement = doc.createElement("worldsVisited");

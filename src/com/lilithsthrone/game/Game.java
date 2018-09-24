@@ -76,6 +76,8 @@ import java.io.File;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
@@ -788,6 +790,30 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) { // Update legacy IDs // FIXME update after merging
+					if (Main.game.getPlayer().getId().equals("PlayerCharacter")) {
+					    Main.game.getPlayer().generateId();
+                    }
+
+					Set<NPC> updateSet = new HashSet<>();
+					Main.game.NPCMap.forEach((id, npc) -> {
+						// If NPC has an old ID, create a new one and queue it for update
+						if (id.contains(",") || id.contains("-")) {
+							npc.generateId();
+							updateSet.add(npc);
+						}
+					});
+
+					// Apply update by adding new ids as alias
+					for (NPC c : updateSet) {
+						if (c.isUnique()) {
+							// Override duplicate of unique NPC with loaded variant
+							Main.game.NPCMap.remove(c.getId());
+						}
+						Main.game.addNPC(c);
+					}
+				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")) { //Reset imp fortresses
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
@@ -900,7 +926,7 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Brax.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK);
 					
 					// Remove all NPC offspring who are not related to the player:
-					for(NPC npc : new HashSet<>(Main.game.getNPCMap().values())) {
+					for(NPC npc : (Main.game.getAllNPCs())) {
 						if(npc instanceof NPCOffspring) {
 							if(!npc.isRelatedTo(Main.game.getPlayer())) {
 								Main.game.banishNPC(npc);
@@ -1375,7 +1401,8 @@ public class Game implements XMLSaving {
 		if(loopDebug) {
 			System.out.println("NPC loop start");
 		}
-		for(NPC npc : NPCMap.values()) {
+		
+		for(NPC npc : getAllNPCs()) {
 			// Non-slave NPCs clean clothes:
 			if(!Main.game.getCharactersPresent().contains(npc) && (!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer()))) {
 				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
@@ -3077,7 +3104,7 @@ public class Game implements XMLSaving {
 	public List<NPC> getOffspring(boolean includeNotBorn) {
 		List<NPC> offspring = new ArrayList<>();
 		
-		for(NPC npc : NPCMap.values()) {
+		for(NPC npc : getAllNPCs()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
 				if(npc.getMother()!=null) {
 					if(includeNotBorn || npc.getMother().getPregnantLitter()==null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
@@ -3124,7 +3151,7 @@ public class Game implements XMLSaving {
 		return NPCMap.containsKey(id);
 	}
 
-	public GameCharacter getNPCById(String id) throws Exception {
+	public GameCharacter getNPCById(String id) {
 		if(id==null || id.isEmpty()) {
 			throw new NullPointerException();
 //			return null;
@@ -3249,7 +3276,7 @@ public class Game implements XMLSaving {
 	
 	public int getNumberOfWitches() {
 		int i = 0;
-		for(NPC npc : NPCMap.values()) {
+		for(NPC npc : getAllNPCs()) {
 			if(npc instanceof Cultist && !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE)) {
 				i++;
 			}
