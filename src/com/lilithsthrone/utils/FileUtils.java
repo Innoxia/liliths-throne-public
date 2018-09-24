@@ -107,7 +107,7 @@ public class FileUtils {
      */
     public static boolean copyDirectory(String sourcePath, String destinationPath) {
         Path sourceFolder = Paths.get(sourcePath);
-        if (Files.exists(sourceFolder)) {
+        if (Files.isDirectory(sourceFolder)) {
             Path destinationFolder = Paths.get(destinationPath);
 
             // Traverse the file tree and copy each file
@@ -120,6 +120,32 @@ public class FileUtils {
                 e.printStackTrace();
                 Main.game.flashMessage(Colour.GENERIC_BAD, "Invalid folder!");
                 return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Moves a directory from the source to the target.
+     * @param sourcePath The path of the source directory
+     * @param destinationPath The path of the destination directory
+     * @return True if the operation succeeded, false otherwise
+     */
+    public static boolean moveDirectory(String sourcePath, String destinationPath) {
+        Path sourceFolder = Paths.get(sourcePath);
+        if (Files.isDirectory(sourceFolder)) {
+            try {
+                // Move directly
+                Path destinationFolder = Paths.get(destinationPath);
+                Files.move(sourceFolder, destinationFolder, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                // Direct move failed, try copying and deleting instead
+                if (copyDirectory(sourcePath, destinationPath)) {
+                    deleteDirectory(sourcePath);
+                } else {
+                    e.printStackTrace();
+                    return false;
+                }
             }
         }
         return true;
