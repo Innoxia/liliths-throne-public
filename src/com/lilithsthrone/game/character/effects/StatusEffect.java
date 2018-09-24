@@ -1382,10 +1382,10 @@ public enum StatusEffect {
 				if(Main.game.getReindeerOverseers().isEmpty()) {
 					try {
 						for(int i=0; i<2; i++) {
-							Main.game.addNPC(new ReindeerOverseer(Gender.M_P_MALE), false);
+							Main.game.addNPC(new ReindeerOverseer(Gender.M_P_MALE));
 						}
 						for(int i=0; i<2; i++) {
-							Main.game.addNPC(new ReindeerOverseer(Gender.F_V_B_FEMALE), false);
+							Main.game.addNPC(new ReindeerOverseer(Gender.F_V_B_FEMALE));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

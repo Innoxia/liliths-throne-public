@@ -74,7 +74,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -97,7 +97,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -118,7 +118,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -151,7 +151,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -175,7 +175,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -215,7 +215,7 @@ public class SlaverAlleyDialogue {
 		for(int i=0; i<4; i++) {
 			SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
 			try {
-				Main.game.addNPC(slave, false);
+				Main.game.addNPC(slave);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

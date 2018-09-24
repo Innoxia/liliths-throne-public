@@ -1750,8 +1750,8 @@ public class ZaranixHomeGroundFloorRepeat {
 						owner.setName(Name.getRandomTriplet(owner.getRace()));
 						
 						try {
-							Main.game.addNPC(pet, false);
-							Main.game.addNPC(owner, false);
+							Main.game.addNPC(pet);
+							Main.game.addNPC(owner);
 							
 							pet.setAffection(owner, (float) (75 + Math.random()*25));
 							pet.setObedience(100);

@@ -3922,7 +3922,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			Elemental elemental = new Elemental(Gender.F_V_B_FEMALE, this, false);
 			try {
-				Main.game.addNPC(elemental, false);
+				Main.game.addNPC(elemental);
 			} catch (Exception e2) {
 				e.printStackTrace();
 			}
@@ -13528,7 +13528,7 @@ public abstract class GameCharacter implements XMLSaving {
 					NPC npc = new NPCOffspring(this, partner);
 					offspring.add(npc);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addNPC(npc);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

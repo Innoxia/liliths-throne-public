@@ -106,7 +106,6 @@ public class Game implements XMLSaving {
 	
 	// NPCs:
 	private NPC activeNPC;
-	private AtomicInteger npcTally = new AtomicInteger(0);
 
 	//Note : this is a ConcurrentHashMap
 	private Map<String, NPC> NPCMap;
@@ -282,7 +281,7 @@ public class Game implements XMLSaving {
 						"res/images/characters/" + importedSlave.getArtworkFolderName())) {
 					importedSlave.loadImages(GameCharacter.LoadOption.FORCE_RELOAD);
 				}
-				Main.game.addNPC(importedSlave, false);
+				Main.game.addNPC(importedSlave);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				
 			} catch (Exception e) {
@@ -422,7 +421,7 @@ public class Game implements XMLSaving {
 		
 			// Add all NPCs:
 			try {
-				for(GameCharacter character : Main.game.getNPCMap().values()) {
+				for(GameCharacter character : Main.game.getAllNPCs()) {
 					Element characterNode = doc.createElement("NPC");
 					game.appendChild(characterNode);
 					character.saveAsXML(characterNode, doc);
@@ -683,13 +682,6 @@ public class Game implements XMLSaving {
 								
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
-									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-											|| (npc.getClass()!=DarkSiren.class
-											&& npc.getClass()!=FortressAlphaLeader.class
-											&& npc.getClass()!=FortressMalesLeader.class
-											&& npc.getClass()!=FortressFemalesLeader.class)) {
-										Main.game.safeAddNPC(npc, true);
-									}
 
 									// To fix issues with older versions hair length:
 									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
@@ -703,6 +695,14 @@ public class Game implements XMLSaving {
 									if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
 										npc.clearFetishDesires();
 										CharacterUtils.generateDesires(npc);
+									}
+
+									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
+											|| (npc.getClass()!=DarkSiren.class
+											&& npc.getClass()!=FortressAlphaLeader.class
+											&& npc.getClass()!=FortressMalesLeader.class
+											&& npc.getClass()!=FortressFemalesLeader.class)) {
+										Main.game.addNPC(npc);
 									}
 
 								} else {
@@ -945,7 +945,7 @@ public class Game implements XMLSaving {
 		
 		if(Main.game.getNpc(GenericAndrogynousNPC.class)==null) { // If was accidentally deleted in version 0.2.10:
 			try {
-				Main.game.addNPC(new GenericAndrogynousNPC(), false);
+				Main.game.addNPC(new GenericAndrogynousNPC());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1049,34 +1049,34 @@ public class Game implements XMLSaving {
 		// Set up NPCs:
 		try {
 			List<Class<? extends NPC>> addedNpcs = new ArrayList<>();
-			
+
 			// Misc.:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericMaleNPC.class))) { addNPC(new GenericMaleNPC(), false); addedNpcs.add(GenericMaleNPC.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericFemaleNPC.class))) { addNPC(new GenericFemaleNPC(), false);  addedNpcs.add(GenericFemaleNPC.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericAndrogynousNPC.class))) { addNPC(new GenericAndrogynousNPC(), false); addedNpcs.add(GenericAndrogynousNPC.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueMale.class))) { addNPC(new PrologueMale(), false); addedNpcs.add(PrologueMale.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueFemale.class))) { addNPC(new PrologueFemale(), false); addedNpcs.add(PrologueFemale.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(TestNPC.class))) { addNPC(new TestNPC(), false); addedNpcs.add(TestNPC.class); }
+			if(!Main.game.NPCMap.containsKey(GenericMaleNPC.class.getSimpleName())) { addNPC(new GenericMaleNPC()); addedNpcs.add(GenericMaleNPC.class); }
+			if(!Main.game.NPCMap.containsKey(GenericFemaleNPC.class.getSimpleName())) { addNPC(new GenericFemaleNPC());  addedNpcs.add(GenericFemaleNPC.class); }
+			if(!Main.game.NPCMap.containsKey(GenericAndrogynousNPC.class.getSimpleName())) { addNPC(new GenericAndrogynousNPC()); addedNpcs.add(GenericAndrogynousNPC.class); }
+			if(!Main.game.NPCMap.containsKey(PrologueMale.class.getSimpleName())) { addNPC(new PrologueMale()); addedNpcs.add(PrologueMale.class); }
+			if(!Main.game.NPCMap.containsKey(PrologueFemale.class.getSimpleName())) { addNPC(new PrologueFemale()); addedNpcs.add(PrologueFemale.class); }
+			if(!Main.game.NPCMap.containsKey(TestNPC.class.getSimpleName())) { addNPC(new TestNPC()); addedNpcs.add(TestNPC.class); }
 
 			// Contributors:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) { addNPC(new Lumi(), false); addedNpcs.add(Lumi.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pazu.class))) { addNPC(new Pazu(), false); addedNpcs.add(Pazu.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) { addNPC(new Ashley(), false); addedNpcs.add(Ashley.class); }
-			
+			if(!Main.game.NPCMap.containsKey(Lumi.class.getSimpleName())) { addNPC(new Lumi()); addedNpcs.add(Lumi.class); }
+			if(!Main.game.NPCMap.containsKey(Pazu.class.getSimpleName())) { addNPC(new Pazu()); addedNpcs.add(Pazu.class); }
+			if(!Main.game.NPCMap.containsKey(Ashley.class.getSimpleName())) { addNPC(new Ashley()); addedNpcs.add(Ashley.class); }
+
 			// Story:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Rose.class))) { addNPC(new Rose(), false); addedNpcs.add(Rose.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lilaya.class))) { addNPC(new Lilaya(), false); addedNpcs.add(Lilaya.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Arthur.class))) { addNPC(new Arthur(), false); addedNpcs.add(Arthur.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) { addNPC(new Lyssieth(), false); addedNpcs.add(Lyssieth.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) { addNPC(new Elizabeth(), false); addedNpcs.add(Elizabeth.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) { addNPC(new SubmissionCitadelArcanist(), false); addedNpcs.add(SubmissionCitadelArcanist.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(DarkSiren.class))) { addNPC(new DarkSiren(), false); addedNpcs.add(DarkSiren.class); }
-			
+			if(!Main.game.NPCMap.containsKey(Rose.class.getSimpleName())) { addNPC(new Rose()); addedNpcs.add(Rose.class); }
+			if(!Main.game.NPCMap.containsKey(Lilaya.class.getSimpleName())) { addNPC(new Lilaya()); addedNpcs.add(Lilaya.class); }
+			if(!Main.game.NPCMap.containsKey(Arthur.class.getSimpleName())) { addNPC(new Arthur()); addedNpcs.add(Arthur.class); }
+			if(!Main.game.NPCMap.containsKey(Lyssieth.class.getSimpleName())) { addNPC(new Lyssieth()); addedNpcs.add(Lyssieth.class); }
+			if(!Main.game.NPCMap.containsKey(Elizabeth.class.getSimpleName())) { addNPC(new Elizabeth()); addedNpcs.add(Elizabeth.class); }
+			if(!Main.game.NPCMap.containsKey(SubmissionCitadelArcanist.class.getSimpleName())) { addNPC(new SubmissionCitadelArcanist()); addedNpcs.add(SubmissionCitadelArcanist.class); }
+			if(!Main.game.NPCMap.containsKey(DarkSiren.class.getSimpleName())) { addNPC(new DarkSiren()); addedNpcs.add(DarkSiren.class); }
+
 			if(addedNpcs.contains(Lilaya.class)) {
 				getNpc(Lilaya.class).setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				getNpc(Lilaya.class).setAffection(getNpc(Rose.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 				getNpc(Lilaya.class).addSlave(getNpc(Rose.class));
-				
+
 				getNpc(Lilaya.class).setAffection(getNpc(Lyssieth.class), -60);
 				getNpc(Lilaya.class).setAffection(getNpc(DarkSiren.class), 15);
 				getNpc(Lilaya.class).setMother(getNpc(Lyssieth.class));
@@ -1104,9 +1104,9 @@ public class Game implements XMLSaving {
 			}
 
 			// Enforcers:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Brax.class))) { addNPC(new Brax(), false); addedNpcs.add(Brax.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(CandiReceptionist.class))) { addNPC(new CandiReceptionist(), false); addedNpcs.add(CandiReceptionist.class); }
-			
+			if(!Main.game.NPCMap.containsKey(Brax.class.getSimpleName())) { addNPC(new Brax()); addedNpcs.add(Brax.class); }
+			if(!Main.game.NPCMap.containsKey(CandiReceptionist.class.getSimpleName())) { addNPC(new CandiReceptionist()); addedNpcs.add(CandiReceptionist.class); }
+
 			if(addedNpcs.contains(Brax.class)) {
 				getNpc(Brax.class).setAffection(getNpc(CandiReceptionist.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 			}
@@ -1115,23 +1115,23 @@ public class Game implements XMLSaving {
 			}
 
 			// Shopping Promenade:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ralph.class))) { addNPC(new Ralph(), false); addedNpcs.add(Ralph.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nyan.class))) { addNPC(new Nyan(), false); addedNpcs.add(Nyan.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vicky.class))) { addNPC(new Vicky(), false); addedNpcs.add(Vicky.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pix.class))) { addNPC(new Pix(), false); addedNpcs.add(Pix.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kate.class))) { addNPC(new Kate(), false); addedNpcs.add(Kate.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierLeader.class))) { addNPC(new SupplierLeader(), false); addedNpcs.add(SupplierLeader.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierPartner.class))) { addNPC(new SupplierPartner(), false); addedNpcs.add(SupplierPartner.class); }
+			if(!Main.game.NPCMap.containsKey(Ralph.class.getSimpleName())) { addNPC(new Ralph()); addedNpcs.add(Ralph.class); }
+			if(!Main.game.NPCMap.containsKey(Nyan.class.getSimpleName())) { addNPC(new Nyan()); addedNpcs.add(Nyan.class); }
+			if(!Main.game.NPCMap.containsKey(Vicky.class.getSimpleName())) { addNPC(new Vicky()); addedNpcs.add(Vicky.class); }
+			if(!Main.game.NPCMap.containsKey(Pix.class.getSimpleName())) { addNPC(new Pix()); addedNpcs.add(Pix.class); }
+			if(!Main.game.NPCMap.containsKey(Kate.class.getSimpleName())) { addNPC(new Kate()); addedNpcs.add(Kate.class); }
+			if(!Main.game.NPCMap.containsKey(SupplierLeader.class.getSimpleName())) { addNPC(new SupplierLeader()); addedNpcs.add(SupplierLeader.class); }
+			if(!Main.game.NPCMap.containsKey(SupplierPartner.class.getSimpleName())) { addNPC(new SupplierPartner()); addedNpcs.add(SupplierPartner.class); }
 
 			// Harpy nests:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Scarlett.class))) { addNPC(new Scarlett(), false); addedNpcs.add(Scarlett.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Alexa.class))) { addNPC(new Alexa(), false); addedNpcs.add(Alexa.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimbo.class))) { addNPC(new HarpyBimbo(), false); addedNpcs.add(HarpyBimbo.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimboCompanion.class))) { addNPC(new HarpyBimboCompanion(), false); addedNpcs.add(HarpyBimboCompanion.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyDominant.class))) { addNPC(new HarpyDominant(), false); addedNpcs.add(HarpyDominant.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyDominantCompanion.class))) { addNPC(new HarpyDominantCompanion(), false); addedNpcs.add(HarpyDominantCompanion.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyNympho.class))) { addNPC(new HarpyNympho(), false); addedNpcs.add(HarpyNympho.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyNymphoCompanion.class))) { addNPC(new HarpyNymphoCompanion(), false); addedNpcs.add(HarpyNymphoCompanion.class); }
+			if(!Main.game.NPCMap.containsKey(Scarlett.class.getSimpleName())) { addNPC(new Scarlett()); addedNpcs.add(Scarlett.class); }
+			if(!Main.game.NPCMap.containsKey(Alexa.class.getSimpleName())) { addNPC(new Alexa()); addedNpcs.add(Alexa.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyBimbo.class.getSimpleName())) { addNPC(new HarpyBimbo()); addedNpcs.add(HarpyBimbo.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyBimboCompanion.class.getSimpleName())) { addNPC(new HarpyBimboCompanion()); addedNpcs.add(HarpyBimboCompanion.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyDominant.class.getSimpleName())) { addNPC(new HarpyDominant()); addedNpcs.add(HarpyDominant.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyDominantCompanion.class.getSimpleName())) { addNPC(new HarpyDominantCompanion()); addedNpcs.add(HarpyDominantCompanion.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyNympho.class.getSimpleName())) { addNPC(new HarpyNympho()); addedNpcs.add(HarpyNympho.class); }
+			if(!Main.game.NPCMap.containsKey(HarpyNymphoCompanion.class.getSimpleName())) { addNPC(new HarpyNymphoCompanion()); addedNpcs.add(HarpyNymphoCompanion.class); }
 
 			if(addedNpcs.contains(Scarlett.class)) {
 				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
@@ -1163,16 +1163,16 @@ public class Game implements XMLSaving {
 			}
 			
 			// City hall:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vanessa.class))) { addNPC(new Vanessa(), false); addedNpcs.add(Vanessa.class); }
-			
+			if(!Main.game.NPCMap.containsKey(Vanessa.class.getSimpleName())) { addNPC(new Vanessa()); addedNpcs.add(Vanessa.class); }
+
 			// Slaver alley:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Finch.class))) { addNPC(new Finch(), false); addedNpcs.add(Finch.class); }
+			if(!Main.game.NPCMap.containsKey(Finch.class.getSimpleName())) { addNPC(new Finch()); addedNpcs.add(Finch.class); }
 
 			// Zaranix's home:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Zaranix.class))) { addNPC(new Zaranix(), false); addedNpcs.add(Zaranix.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Amber.class))) { addNPC(new Amber(), false); addedNpcs.add(Amber.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKatherine.class))) { addNPC(new ZaranixMaidKatherine(), false); addedNpcs.add(ZaranixMaidKatherine.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(ZaranixMaidKelly.class))) { addNPC(new ZaranixMaidKelly(), false); addedNpcs.add(ZaranixMaidKelly.class); }
+			if(!Main.game.NPCMap.containsKey(Zaranix.class.getSimpleName())) { addNPC(new Zaranix()); addedNpcs.add(Zaranix.class); }
+			if(!Main.game.NPCMap.containsKey(Amber.class.getSimpleName())) { addNPC(new Amber()); addedNpcs.add(Amber.class); }
+			if(!Main.game.NPCMap.containsKey(ZaranixMaidKatherine.class.getSimpleName())) { addNPC(new ZaranixMaidKatherine()); addedNpcs.add(ZaranixMaidKatherine.class); }
+			if(!Main.game.NPCMap.containsKey(ZaranixMaidKelly.class.getSimpleName())) { addNPC(new ZaranixMaidKelly()); addedNpcs.add(ZaranixMaidKelly.class); }
 
 			if(addedNpcs.contains(Zaranix.class)) {
 				Main.game.getNpc(Zaranix.class).setAffection(Main.game.getNpc(ZaranixMaidKatherine.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
@@ -1196,26 +1196,26 @@ public class Game implements XMLSaving {
 			}
 
 			// Angel's kiss:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angel.class))) { addNPC(new Angel(), false); addedNpcs.add(Angel.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Bunny.class))) { addNPC(new Bunny(), false); addedNpcs.add(Bunny.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) { addNPC(new Loppy(), false); addedNpcs.add(Loppy.class); }
+			if(!Main.game.NPCMap.containsKey(Angel.class.getSimpleName())) { addNPC(new Angel()); addedNpcs.add(Angel.class); }
+			if(!Main.game.NPCMap.containsKey(Bunny.class.getSimpleName())) { addNPC(new Bunny()); addedNpcs.add(Bunny.class); }
+			if(!Main.game.NPCMap.containsKey(Loppy.class.getSimpleName())) { addNPC(new Loppy()); addedNpcs.add(Loppy.class); }
 
 			// Slime queen:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeQueen.class))) { addNPC(new SlimeQueen(), false); addedNpcs.add(SlimeQueen.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeGuardIce.class))) { addNPC(new SlimeGuardIce(), false); addedNpcs.add(SlimeGuardIce.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeGuardFire.class))) { addNPC(new SlimeGuardFire(), false); addedNpcs.add(SlimeGuardFire.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeRoyalGuard.class))) { addNPC(new SlimeRoyalGuard(), false); addedNpcs.add(SlimeRoyalGuard.class); }
-			
+			if(!Main.game.NPCMap.containsKey(SlimeQueen.class.getSimpleName())) { addNPC(new SlimeQueen()); addedNpcs.add(SlimeQueen.class); }
+			if(!Main.game.NPCMap.containsKey(SlimeGuardIce.class.getSimpleName())) { addNPC(new SlimeGuardIce()); addedNpcs.add(SlimeGuardIce.class); }
+			if(!Main.game.NPCMap.containsKey(SlimeGuardFire.class.getSimpleName())) { addNPC(new SlimeGuardFire()); addedNpcs.add(SlimeGuardFire.class); }
+			if(!Main.game.NPCMap.containsKey(SlimeRoyalGuard.class.getSimpleName())) { addNPC(new SlimeRoyalGuard()); addedNpcs.add(SlimeRoyalGuard.class); }
+
 			// Submission:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Claire.class))) { addNPC(new Claire(), false); addedNpcs.add(Claire.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) { addNPC(new FortressAlphaLeader(), false); addedNpcs.add(FortressAlphaLeader.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) { addNPC(new FortressFemalesLeader(), false); addedNpcs.add(FortressFemalesLeader.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressMalesLeader.class))) { addNPC(new FortressMalesLeader(), false); addedNpcs.add(FortressMalesLeader.class); }
-			
+			if(!Main.game.NPCMap.containsKey(Claire.class.getSimpleName())) { addNPC(new Claire()); addedNpcs.add(Claire.class); }
+			if(!Main.game.NPCMap.containsKey(FortressAlphaLeader.class.getSimpleName())) { addNPC(new FortressAlphaLeader()); addedNpcs.add(FortressAlphaLeader.class); }
+			if(!Main.game.NPCMap.containsKey(FortressFemalesLeader.class.getSimpleName())) { addNPC(new FortressFemalesLeader()); addedNpcs.add(FortressFemalesLeader.class); }
+			if(!Main.game.NPCMap.containsKey(FortressMalesLeader.class.getSimpleName())) { addNPC(new FortressMalesLeader()); addedNpcs.add(FortressMalesLeader.class); }
+
 			// Nightclub:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Jules.class))) { addNPC(new Jules(), false); addedNpcs.add(Jules.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kruger.class))) { addNPC(new Kruger(), false); addedNpcs.add(Kruger.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kalahari.class))) { addNPC(new Kalahari(), false); addedNpcs.add(Kalahari.class); }
+			if(!Main.game.NPCMap.containsKey(Jules.class.getSimpleName())) { addNPC(new Jules()); addedNpcs.add(Jules.class); }
+			if(!Main.game.NPCMap.containsKey(Kruger.class.getSimpleName())) { addNPC(new Kruger()); addedNpcs.add(Kruger.class); }
+			if(!Main.game.NPCMap.containsKey(Kalahari.class.getSimpleName())) { addNPC(new Kalahari()); addedNpcs.add(Kalahari.class); }
 
 			if(addedNpcs.contains(Kalahari.class)) {
 				Main.game.getNpc(Kalahari.class).setFather(Main.game.getNpc(Kruger.class));
@@ -1224,11 +1224,11 @@ public class Game implements XMLSaving {
 			if(addedNpcs.contains(Kruger.class)) {
 				Main.game.getNpc(Kruger.class).setAffection(Main.game.getNpc(Kalahari.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			}
-			
+
 			// Gambling den:
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { addNPC(new Roxy(), false); addedNpcs.add(Roxy.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Axel.class))) { addNPC(new Axel(), false); addedNpcs.add(Axel.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Epona.class))) { addNPC(new Epona(), false); addedNpcs.add(Epona.class); }
+			if(!Main.game.NPCMap.containsKey(Roxy.class.getSimpleName())) { addNPC(new Roxy()); addedNpcs.add(Roxy.class); }
+			if(!Main.game.NPCMap.containsKey(Axel.class.getSimpleName())) { addNPC(new Axel()); addedNpcs.add(Axel.class); }
+			if(!Main.game.NPCMap.containsKey(Epona.class.getSimpleName())) { addNPC(new Epona()); addedNpcs.add(Epona.class); }
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -3067,7 +3067,7 @@ public class Game implements XMLSaving {
 	
 	public NPC getNpc(Class<? extends NPC> npcClass) {
 		try {
-			return (NPC) this.getNPCById(getUniqueNPCId(npcClass));
+			return (NPC) this.getNPCById(npcClass.getSimpleName());
 		} catch (Exception e) {
 			System.err.println("getNpc("+npcClass.getName()+") returning null!");
 			return null;
@@ -3115,25 +3115,25 @@ public class Game implements XMLSaving {
 		
 		return reindeerOverseers;
 	}
-	
-	public List<NPC> getAllNPCs() {
-		return new ArrayList<NPC>(NPCMap.values());
+
+	public Set<NPC> getAllNPCs() {
+		return new HashSet<>(NPCMap.values());
 	}
 	
 	public boolean isCharacterExisting(String id) {
 		return NPCMap.containsKey(id);
 	}
-	
+
 	public GameCharacter getNPCById(String id) throws Exception {
 		if(id==null || id.isEmpty()) {
 			throw new NullPointerException();
 //			return null;
 		}
-		
-		if(id.equals(Main.game.getPlayer().getId())) {
+
+		if (id.equals(Main.game.getPlayer().getId()) || id.equals("PlayerCharacter")) {
 			return Main.game.getPlayer();
 		}
-		if(!NPCMap.containsKey(id)) {
+		if (!NPCMap.containsKey(id)) {
 			throw new NullPointerException();
 			
 //			if(!nullCharacterIds.contains(id)) {
@@ -3149,64 +3149,28 @@ public class Game implements XMLSaving {
 		}
 		return NPCMap.get(id);
 	}
-	
-	public Map<String, NPC> getNPCMap() {
-		return NPCMap;
-	}
-	
-	public String getUniqueNPCId(Class<? extends NPC> c) {
-		if(c.equals(DarkSiren.class)) {
-			return "-1,FortressDemonLeader";
-		}
-		return "-1,"+c.getSimpleName();
-	}
 
-	public String getNPCId(Class<? extends NPC> c) {
-		return npcTally.get()+","+c.getSimpleName();
+	public String getId(String alias) {
+		// Player override
+		if (alias.equals("PlayerCharacter")) return Main.game.getPlayer().getId();
+		if (alias.equals(Main.game.getPlayer().getId())) return alias;
+
+		// Invalid entries
+		if (alias.isEmpty() || alias.equals("NOT_SET")) return "";
+		if (!NPCMap.containsKey(alias)) {
+//			System.err.println("ID " + alias + " does not exist.");
+			return "";
+		}
+
+		// Resolve alias
+		return getNPCById(alias).getId();
 	}
 	
-	public String getNextNPCId(Class<? extends NPC> c) {
-		return (npcTally.incrementAndGet())+","+c.getSimpleName();
-	}
+	public String addNPC(NPC npc) throws IllegalArgumentException {
+		if(NPCMap.containsKey(npc.getId())) {
+			throw new IllegalArgumentException("NPC map already contained an NPC with this Id ("+npc.getId()+"). SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
+		}
 
-	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
-	public String safeAddNPC(final NPC npc, boolean isImported) {
-		String id = "";
-		try{
-			id = addNPC(npc,isImported);
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		return id;
-	}
-	public String addNPC(NPC npc, boolean isImported) throws Exception {
-		
-		if(isImported) {
-			int tallyCount;
-			String rawId = npc.getId();
-			// Support old versions (in the format "Stan-Stan-Stan-49"):
-			if(rawId.contains("-") && !rawId.contains(",")){
-				String[] split = rawId.split("-");
-				tallyCount = Integer.parseInt(split[split.length-1]);
-			} else {
-				tallyCount = Integer.parseInt(rawId.split(",")[0]);
-			}
-
-			npcTally.updateAndGet(x -> Math.max(x, tallyCount));
-			
-		} else {
-			if(npc.isUnique()) {
-				npc.setId(getUniqueNPCId(npc.getClass()));
-			} else {
-				int id = npcTally.incrementAndGet();
-				npc.setId(id+","+(npc.getClass().getSimpleName()));
-			}
-		}
-		
-		if(NPCMap.keySet().contains(npc.getId())) {
-			throw new Exception("NPC map already contained an NPC with this Id ("+npc.getId()+"). SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
-		}
-		
 		if(isInNPCUpdateLoop) {
 			npcsToAdd.add(npc);
 		} else {
@@ -3524,11 +3488,6 @@ public class Game implements XMLSaving {
 		slaveryEventLog.putIfAbsent(day, new ArrayList<>());
 		
 		slaveryEventLog.get(day).add(event);
-	}
-	
-
-	public int getNpcTally() {
-		return npcTally.get();
 	}
 
 	public OccupancyUtil getOccupancyUtil() {

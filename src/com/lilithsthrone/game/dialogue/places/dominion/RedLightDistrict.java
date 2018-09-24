@@ -440,7 +440,7 @@ public class RedLightDistrict {
 							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
 							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 							try {
-								Main.game.addNPC(npc, false);
+								Main.game.addNPC(npc);
 								Main.game.setActiveNPC(npc);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -465,7 +465,7 @@ public class RedLightDistrict {
 							npc.removeFetish(Fetish.FETISH_DOMINANT);
 							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 							try {
-								Main.game.addNPC(npc, false);
+								Main.game.addNPC(npc);
 								Main.game.setActiveNPC(npc);
 							} catch (Exception e) {
 								e.printStackTrace();

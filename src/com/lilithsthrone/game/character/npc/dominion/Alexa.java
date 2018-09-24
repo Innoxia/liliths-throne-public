@@ -240,7 +240,7 @@ public class Alexa extends NPC {
 			for(int i=0; i<3; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 				try {
-					Main.game.addNPC(newSlave, false);
+					Main.game.addNPC(newSlave);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

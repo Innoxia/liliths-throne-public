@@ -136,7 +136,7 @@ public enum Encounter {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 				try {
-					Main.game.addNPC(npc, false);
+					Main.game.addNPC(npc);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -154,7 +154,7 @@ public enum Encounter {
 				Main.game.setActiveNPC(new Cultist());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -207,7 +207,7 @@ public enum Encounter {
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 					Main.game.setActiveNPC(new RentalMommy());
 					try {
-						Main.game.addNPC(Main.game.getActiveNPC(), false);
+						Main.game.addNPC(Main.game.getActiveNPC());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -284,7 +284,7 @@ public enum Encounter {
 				
 				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 				try {
-					Main.game.addNPC(npc, false);
+					Main.game.addNPC(npc);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -356,7 +356,7 @@ public enum Encounter {
 			Main.game.setActiveNPC(new DominionSuccubusAttacker());
 
 			try {
-				Main.game.addNPC(Main.game.getActiveNPC(), false);
+				Main.game.addNPC(Main.game.getActiveNPC());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -402,7 +402,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -460,7 +460,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -480,7 +480,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -545,7 +545,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -565,7 +565,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -613,7 +613,7 @@ public enum Encounter {
 						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(8+Util.random.nextInt(5)); // 8-12
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
 						imp.equipMainWeaponFromNowhere(pipe);
@@ -622,7 +622,7 @@ public enum Encounter {
 						// Alpha imp:
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
 
@@ -630,14 +630,14 @@ public enum Encounter {
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
@@ -666,28 +666,28 @@ public enum Encounter {
 						imp.addSpell(Spell.ICE_SHARD);
 						imp.addSpell(Spell.TELEKENETIC_SHOWER);
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(4)); // 6-8
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
@@ -711,7 +711,7 @@ public enum Encounter {
 						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE, false);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						imp.setBreastSize(CupSize.M);
 						
@@ -719,21 +719,21 @@ public enum Encounter {
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						
 						for(GameCharacter impGangMember : impGroup) {
@@ -757,7 +757,7 @@ public enum Encounter {
 						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
 						imp.equipMainWeaponFromNowhere(pipe);
@@ -767,7 +767,7 @@ public enum Encounter {
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 
@@ -775,7 +775,7 @@ public enum Encounter {
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 
@@ -783,7 +783,7 @@ public enum Encounter {
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
-						Main.game.addNPC(imp, false);
+						Main.game.addNPC(imp);
 						impGroup.add(imp);
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 						
@@ -816,7 +816,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -854,7 +854,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new BatMorphCavernAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -872,7 +872,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new SlimeCavernAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
+					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

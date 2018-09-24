@@ -741,7 +741,7 @@ public class GamblingDenDialogue {
 		partner.setAttribute(Attribute.VIRILITY, (partner.getPenisRawSizeValue()*2)+(partner.getTesticleSize().getValue() * 5)+partner.getPenisRawCumStorageValue());
 		
 		try {
-			Main.game.addNPC(partner, false);
+			Main.game.addNPC(partner);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -759,7 +759,7 @@ public class GamblingDenDialogue {
 		mother.setPlayerKnowsName(true);
 		mother.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), mother, false);
 		try {
-			Main.game.addNPC(mother, false);
+			Main.game.addNPC(mother);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
