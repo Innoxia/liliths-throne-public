@@ -828,7 +828,9 @@ public class Game implements XMLSaving {
 						Main.game.addNPC(c);
 					}
 
-					Main.game.setRequestAutosave(true);
+					if (!updateSet.isEmpty()) {
+						Main.game.setRequestAutosave(true);
+					}
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")) { //Reset imp fortresses
