@@ -129,8 +129,8 @@ public class Litter implements XMLSaving {
 		
 		
 		
-		CharacterUtils.addAttribute(doc, element, "motherId", Main.game.getId(getMotherId()));
-		CharacterUtils.addAttribute(doc, element, "fatherId", Main.game.getId(getFatherId()));
+		CharacterUtils.addAttribute(doc, element, "motherId", Main.game.checkId(getMotherId()));
+		CharacterUtils.addAttribute(doc, element, "fatherId", Main.game.checkId(getFatherId()));
 		
 		CharacterUtils.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
 		CharacterUtils.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
@@ -151,7 +151,7 @@ public class Litter implements XMLSaving {
 			element = doc.createElement("offspring");
 			innerElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", Main.game.getId(offspring));
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(offspring));
 		}
 		
 		return element;

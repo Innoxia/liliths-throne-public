@@ -112,7 +112,7 @@ public class Elemental extends NPC {
 		Element npcSpecific = doc.createElement("elementalSpecial");
 		properties.appendChild(npcSpecific);
 
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "summoner", Main.game.getId(getSummoner().getId()));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "summoner", Main.game.checkId(getSummoner().getId()));
 		
 		return properties;
 	}

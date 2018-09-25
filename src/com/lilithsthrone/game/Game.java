@@ -3191,7 +3191,7 @@ public class Game implements XMLSaving {
 		return NPCMap.get(id);
 	}
 
-	public String getId(String alias) {
+	public String checkId(String alias) {
 		// Player override
 		if (alias.equals("PlayerCharacter")) return Main.game.getPlayer().getId();
 		if (alias.equals(Main.game.getPlayer().getId())) return alias;

@@ -506,7 +506,7 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", Main.game.getId(getElementalID()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", Main.game.checkId(getElementalID()));
 		
 		Element petnamesElement = doc.createElement("petNames");
 		characterCoreInfo.appendChild(petnamesElement);
@@ -755,7 +755,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element relationship = doc.createElement("relationship");
 			characterRelationships.appendChild(relationship);
 			
-			CharacterUtils.addAttribute(doc, relationship, "character", Main.game.getId(entry.getKey()));
+			CharacterUtils.addAttribute(doc, relationship, "character", Main.game.checkId(entry.getKey()));
 			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
 		}
 		
@@ -821,8 +821,8 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterFamily = doc.createElement("family");
 		properties.appendChild(characterFamily);
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", Main.game.getId(getMotherId()));
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", Main.game.getId(getFatherId()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", Main.game.checkId(getMotherId()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", Main.game.checkId(getFatherId()));
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
@@ -844,10 +844,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("slave");
 			slavesOwned.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", Main.game.getId(slave));
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(slave));
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":Main.game.getId(getOwner().getId()));
+		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":Main.game.checkId(getOwner().getId()));
 		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "slaveJob", this.getSlaveJob().toString());
 		
 		Element slaveJobSettings = doc.createElement("slaveJobSettings");
@@ -893,10 +893,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("companion");
 			companionsFollowing.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", Main.game.getId(companion));
+			CharacterUtils.addAttribute(doc, element, "id", Main.game.checkId(companion));
 		}
-
-		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":Main.game.getId(this.getPartyLeader().getId()));
+		
+		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":Main.game.checkId(this.getPartyLeader().getId()));
 		CharacterUtils.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
 		
 		
@@ -929,7 +929,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("sexPartner");
 			sexPartnerCount.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "partner", Main.game.getId(entry.getKey()));
+			CharacterUtils.addAttribute(doc, element, "partner", Main.game.checkId(entry.getKey()));
 			CharacterUtils.addAttribute(doc, element, "sexConsensualCount", String.valueOf(entry.getValue().getSexConsensualCount()));
 			CharacterUtils.addAttribute(doc, element, "sexAsSubCount", String.valueOf(entry.getValue().getSexAsSubCount()));
 			CharacterUtils.addAttribute(doc, element, "sexAsDomCount", String.valueOf(entry.getValue().getSexAsDomCount()));
@@ -1043,7 +1043,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(String id : sexPartnerMap.keySet()) {
 			Element element = doc.createElement("id");
 			sexPartnerMapElement.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "value", Main.game.getId(id));
+			CharacterUtils.addAttribute(doc, element, "value", Main.game.checkId(id));
 			
 			for(Entry<SexType, Integer> entry : sexPartnerMap.get(id).entrySet()) {
 				Element entryElement = doc.createElement("entry");

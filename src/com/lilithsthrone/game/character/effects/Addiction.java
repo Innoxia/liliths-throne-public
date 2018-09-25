@@ -76,7 +76,7 @@ public class Addiction implements XMLSaving {
 		for(String id : this.getProviderIDs()) {
 			Element idElement = doc.createElement("id");
 			innerElement.appendChild(idElement);
-			CharacterUtils.addAttribute(doc, idElement, "value", Main.game.getId(id));
+			CharacterUtils.addAttribute(doc, idElement, "value", Main.game.checkId(id));
 		}
 		
 		return element;
