@@ -4008,10 +4008,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Returns true if the character is currently the character's companion.
 	 */
 	public boolean hasCompanion(GameCharacter character) {
-		if(this.companions == null) {
-			return false;
-		}
-		return this.companions.contains(character.getId());
+		return getCompanions().contains(character);
 	}
 	
 	public boolean hasCompanions() {
