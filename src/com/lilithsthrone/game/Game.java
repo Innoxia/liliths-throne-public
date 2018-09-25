@@ -802,6 +802,20 @@ public class Game implements XMLSaving {
 						if (id.contains(",") || id.contains("-")) {
 							npc.generateId();
 							updateSet.add(npc);
+
+							// Move artwork for known generic NPCs
+							if (!npc.isUnique() && npc.isPlayerKnowsName()) {
+								String oldFolder = "res/images/characters/generic/" + npc.getNameIgnoresPlayerKnowledge();
+								String newFolder = "res/images/characters/" + npc.getArtworkFolderName();
+								if (Files.isDirectory(Paths.get(oldFolder))) {
+									if (FileUtils.moveDirectory(oldFolder, newFolder)) {
+										npc.loadImages();
+									} else {
+										System.err.println("Artwork migration for " + npc.getNameIgnoresPlayerKnowledge()
+												+ " (" + npc.getId() + ") failed.");
+									}
+								}
+							}
 						}
 					});
 
