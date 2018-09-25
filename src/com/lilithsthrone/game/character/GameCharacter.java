@@ -2523,7 +2523,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void generateId() {
-		id = isUnique() ? getClass().getSimpleName() : getNameIgnoresPlayerKnowledge().substring(0, 3) + UID.get();
+		if (isUnique()) {
+			id = getClass().getSimpleName();
+		} else {
+			String nameTag = getNameIgnoresPlayerKnowledge();
+			id = (nameTag.length() > 3 ? nameTag.substring(0, 3) : nameTag) + UID.get();
+		}
 	}
 	
 	public String getMapIcon() {
