@@ -3232,6 +3232,10 @@ public class Game implements XMLSaving {
 	 * @return true if NPC was deleted, false if they were moved to the empty world.
 	 */
 	public boolean banishNPC(NPC npc) {
+		if (!npc.isUnique() && npc.hasArtwork()) {
+			FileUtils.deleteDirectory("res/images/characters/" + npc.getArtworkFolderName());
+		}
+
 		// check fluids in rooms and condoms
 		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
 				|| npc.getPregnantLitter()!=null
