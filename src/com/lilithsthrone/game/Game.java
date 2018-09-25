@@ -813,6 +813,8 @@ public class Game implements XMLSaving {
 						}
 						Main.game.addNPC(c);
 					}
+
+					Main.game.setRequestAutosave(true);
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")) { //Reset imp fortresses
@@ -981,8 +983,6 @@ public class Game implements XMLSaving {
 		Main.game.setRenderAttributesSection(true);
 		
 //		Main.game.started = true;
-		
-		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
