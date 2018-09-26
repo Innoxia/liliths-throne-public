@@ -49,9 +49,9 @@ public enum FetishLevel {
 			SVGImageOverlay = Util.inputStreamToString(is);
 
 			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff2a2a", Colour.BASE_PINK.getShades()[0]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff5555", Colour.BASE_PINK.getShades()[1]);
+			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff5555|#f55", Colour.BASE_PINK.getShades()[1]);
 			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff8080", Colour.BASE_PINK.getShades()[2]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffaaaa", Colour.BASE_PINK.getShades()[3]);
+			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffaaaa#faa", Colour.BASE_PINK.getShades()[3]);
 			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffd5d5", Colour.BASE_PINK.getShades()[4]);
 
 			is.close();

@@ -47,17 +47,17 @@ public enum TFEssence {
 			
 			String s = base;
 			s = s.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			s = s.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+			s = s.replaceAll("#ff5555|#f55", Colour.BASE_GREY.getShades()[1]);
 			s = s.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+			s = s.replaceAll("#ffaaaa|#faa", Colour.BASE_GREY.getShades()[3]);
 			s = s.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
 			this.SVGStringUncoloured = s;
 
 			String s2 = base;
 			s2 = s2.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s2 = s2.replaceAll("#ff5555", this.colour.getShades()[1]);
+			s2 = s2.replaceAll("#ff5555|#f55", this.colour.getShades()[1]);
 			s2 = s2.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s2 = s2.replaceAll("#ffaaaa", this.colour.getShades()[3]);
+			s2 = s2.replaceAll("#ffaaaa|#faa", this.colour.getShades()[3]);
 			s2 = s2.replaceAll("#ffd5d5", this.colour.getShades()[4]);
 			this.SVGString = s2;
 

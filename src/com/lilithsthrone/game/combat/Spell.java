@@ -2348,9 +2348,9 @@ public enum Spell {
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", damageType.getMultiplierAttribute().getColour().getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", damageType.getMultiplierAttribute().getColour().getShades()[1]);
+			SVGString = SVGString.replaceAll("#ff5555|#f55", damageType.getMultiplierAttribute().getColour().getShades()[1]);
 			SVGString = SVGString.replaceAll("#ff8080", damageType.getMultiplierAttribute().getColour().getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", damageType.getMultiplierAttribute().getColour().getShades()[3]);
+			SVGString = SVGString.replaceAll("#ffaaaa|#faa", damageType.getMultiplierAttribute().getColour().getShades()[3]);
 			SVGString = SVGString.replaceAll("#ffd5d5", damageType.getMultiplierAttribute().getColour().getShades()[4]);
 			
 			is.close();

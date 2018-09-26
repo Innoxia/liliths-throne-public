@@ -151,25 +151,25 @@ public class Util {
 		
 		if(colour!=null) {
 			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", colour.getShades()[1]);
+			s = s.replaceAll("#ff5555|#f55", colour.getShades()[1]);
 			s = s.replaceAll("#ff8080", colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+			s = s.replaceAll("#ffaaaa|#faa", colour.getShades()[3]);
 			s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 		}
 		
 		if(colourSecondary!=null) {
 			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
-			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
+			s = s.replaceAll("#ff9955|#f95", colourSecondary.getShades()[1]);
 			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
-			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
+			s = s.replaceAll("#ffccaa|#fca", colourSecondary.getShades()[3]);
 			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
 		}
 		
 		if(colourTertiary!=null) {
 			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
-			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
+			s = s.replaceAll("#ffdd55|#fd5", colourTertiary.getShades()[1]);
 			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
-			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
+			s = s.replaceAll("#ffeeaa|#fea", colourTertiary.getShades()[3]);
 			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
 		}
 		

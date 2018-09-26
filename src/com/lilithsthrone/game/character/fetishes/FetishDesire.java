@@ -56,16 +56,16 @@ public enum FetishDesire {
 
 			SVGImage = base;
 			SVGImage = SVGImage.replaceAll("#ff2a2a", colour.getShades()[0]);
-			SVGImage = SVGImage.replaceAll("#ff5555", colour.getShades()[1]);
+			SVGImage = SVGImage.replaceAll("#ff5555|#f55", colour.getShades()[1]);
 			SVGImage = SVGImage.replaceAll("#ff8080", colour.getShades()[2]);
-			SVGImage = SVGImage.replaceAll("#ffaaaa", colour.getShades()[3]);
+			SVGImage = SVGImage.replaceAll("#ffaaaa|#faa", colour.getShades()[3]);
 			SVGImage = SVGImage.replaceAll("#ffd5d5", colour.getShades()[4]);
 			
 			SVGImageDesaturated = base;
 			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff5555|#f55", Colour.BASE_GREY.getShades()[1]);
 			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffaaaa|#faa", Colour.BASE_GREY.getShades()[3]);
 			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
 
 			is.close();
