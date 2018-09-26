@@ -301,17 +301,7 @@
        id="path4284"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4226"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4228"><rect
-           id="rect4230"
-           width="153.03812"
-           height="73.741135"
-           x="11.616755"
-           y="103.97204" /></flowRegion><flowPara
-         id="flowPara4232" /></flowRoot>    <ellipse
+    <ellipse
        style="opacity:1;fill:#80e5ff;fill-opacity:1;stroke:none;stroke-width:8.05607319;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4205"
        cx="128.03682"

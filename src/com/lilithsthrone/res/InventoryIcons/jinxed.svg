@@ -66,17 +66,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4142"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4144"><rect
-           id="rect4146"
-           width="41.858196"
-           height="40.848045"
-           x="15.404826"
-           y="13.1767" /></flowRegion><flowPara
-         id="flowPara4148" /></flowRoot>    <g
+    <g
        id="g4149"
        transform="matrix(0.81,0,0,0.81,6.124262,5.004821)">
       <path

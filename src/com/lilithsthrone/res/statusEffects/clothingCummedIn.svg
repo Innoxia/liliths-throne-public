@@ -211,17 +211,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4142"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4144"><rect
-           id="rect4146"
-           width="41.858196"
-           height="40.848045"
-           x="15.404826"
-           y="13.1767" /></flowRegion><flowPara
-         id="flowPara4148" /></flowRoot>    <path
+    <path
        style="display:inline;fill:#cccccc;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="M 5.8865164,7.3751261 C 17.02532,8.8879511 28.304009,18.147401 59.043985,4.4083931 l 0.354104,3.385688 C 44.041346,18.047637 26.529138,19.00859 7.1628252,11.976184 Z"
        id="path4159"

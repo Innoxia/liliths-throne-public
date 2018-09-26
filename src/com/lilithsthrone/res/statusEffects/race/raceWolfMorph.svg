@@ -107,29 +107,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline;opacity:1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4156"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4158"><rect
-           id="rect4160"
-           width="42.678944"
-           height="44.067905"
-           x="6.5659914"
-           y="11.21953" /></flowRegion><flowPara
-         id="flowPara4162"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4168"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4170"><rect
-           id="rect4172"
-           width="63.765881"
-           height="63.63961"
-           x="0.25253814"
-           y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <path
+    <path
        style="fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 12.726399,47.461744 c 1.18668,-5.670969 4.612664,-10.047036 5.872393,-14.903693 -3.631008,-1.833389 -4.527505,-4.101643 -4.458933,-4.544364 0.133891,-0.864409 4.139001,-1.987602 7.444777,-3.321703 4.009376,-1.61805 4.23737,-5.392102 9.587107,-5.343259 0.767874,0.007 6.51428,-6.290029 9.991687,-9.7660879 1.459564,-1.4589978 3.36621,4.2843839 1.77879,8.4349399 l 1.595659,-0.948794 0.374438,-0.97352 0.731813,0.327585 1.124422,-0.304992 c 2.149612,1.651086 1.454055,4.73742 -0.447054,6.428528 -3.405837,3.029618 -4.308481,6.571538 -5.650427,10.119281 -1.8063,4.775369 0.297059,8.363 -0.374594,12.7429 -0.559417,3.648022 -2.696223,5.35473 -1.9768,10.548598 -9.400548,0.621395 -18.949502,-0.345737 -25.593278,-8.495419 z"
        id="path4162"

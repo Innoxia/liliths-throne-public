@@ -107,29 +107,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline;opacity:1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4156"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4158"><rect
-           id="rect4160"
-           width="42.678944"
-           height="44.067905"
-           x="6.5659914"
-           y="11.21953" /></flowRegion><flowPara
-         id="flowPara4162"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4168"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4170"><rect
-           id="rect4172"
-           width="63.765881"
-           height="63.63961"
-           x="0.25253814"
-           y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <path
+    <path
        style="fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 35.52688,6.4110039 c -2.973132,0.073138 -8.023048,4.6016981 -8.927932,21.6439451 -6.332884,1.825296 -14.205856,7.410566 -14.545898,12.534961 -0.142008,2.140057 3.312686,7.959524 9.260407,8.317216 10.649671,0.640463 8.486048,5.830241 8.86088,8.438253 C 41.274484,58.211036 46.603114,50.667921 49.218478,46.77741 43.088857,42.199754 45.232549,33.557788 38.249731,29.62116 46.82059,22.68941 47.616226,9.3636471 45.947185,9.0828789 38.524615,7.8342427 32.154067,18.430603 31.902265,27.45202 c 0,0 -1.762056,0.12016 -1.768356,-0.04043 C 29.816461,19.302845 34.192378,10.957569 37.594063,8.8051463 38.070559,7.5562272 37.084231,6.3726949 35.52688,6.4110039 Z M 24.691721,33.472527 c 1.412686,-3.7e-4 2.557987,1.144932 2.557617,2.557618 3.7e-4,1.412686 -1.144931,2.557987 -2.557617,2.557617 -1.411999,-6.01e-4 -2.556228,-1.145617 -2.555859,-2.557617 -3.69e-4,-1.412 1.14386,-2.557016 2.555859,-2.557618 z"
        id="path4166"

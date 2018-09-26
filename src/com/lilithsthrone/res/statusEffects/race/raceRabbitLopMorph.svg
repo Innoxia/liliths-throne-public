@@ -107,29 +107,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline;opacity:1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4156"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4158"><rect
-           id="rect4160"
-           width="42.678944"
-           height="44.067905"
-           x="6.5659914"
-           y="11.21953" /></flowRegion><flowPara
-         id="flowPara4162"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4168"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4170"><rect
-           id="rect4172"
-           width="63.765881"
-           height="63.63961"
-           x="0.25253814"
-           y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <path
+    <path
        style="display:inline;opacity:1;fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 27.906584,16.750344 c -6.398513,1.579889 -14.272812,7.410566 -14.612854,12.534961 -0.142008,2.140057 3.312686,7.959524 9.260407,8.317216 10.649667,0.640463 8.486047,5.830241 8.860877,8.438253 11.10015,0.865657 16.42878,-6.677458 19.04414,-10.567969 -6.12962,-4.577656 -3.97766,-12.976397 -10.79017,-17.200893 -4.0195,-2.492526 -7.69999,-2.524637 -11.7624,-1.521568 z m -1.97418,5.417578 c 1.41268,-3.7e-4 2.55798,1.144932 2.55761,2.557618 3.7e-4,1.412686 -1.14493,2.557987 -2.55761,2.557617 -1.412,-6.01e-4 -2.55623,-1.145617 -2.55586,-2.557617 -3.7e-4,-1.412 1.14386,-2.557016 2.55586,-2.557618 z"
        id="path4166-7"

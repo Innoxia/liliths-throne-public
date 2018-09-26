@@ -107,29 +107,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline;opacity:1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4156"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4158"><rect
-           id="rect4160"
-           width="42.678944"
-           height="44.067905"
-           x="6.5659914"
-           y="11.21953" /></flowRegion><flowPara
-         id="flowPara4162"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4168"
-       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
-         id="flowRegion4170"><rect
-           id="rect4172"
-           width="63.765881"
-           height="63.63961"
-           x="0.25253814"
-           y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174"
-         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <path
+    <path
        style="fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:0.59048998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 32.594842,47.280191 C 29.446918,43.037597 27.681384,36.041211 16.716413,39.096147 16.380329,35.597769 15.148535,33.051249 9.7260284,30.529572 9.4453354,27.710227 9.0193395,26.899811 5.4143001,25.107252 c 7.1350849,-0.381801 10.1664299,0.02827 17.3015169,2.868489 0.685284,3.111883 6.805984,12.733524 6.975047,3.532397 -3.029335,-0.96785 -1.366567,-3.674629 0.158185,-5.746734 0.954236,1.206632 1.87259,2.126636 1.687108,3.901453 l 1.845277,0.05272 c -0.172019,-1.370781 0.444658,-2.583394 1.766205,-3.980535 1.080241,1.412617 3.163577,4.201428 0.184518,5.878538 -0.376998,9.41931 6.661096,0.03483 7.016702,-3.395715 3.166464,-1.778819 10.488046,-4.244487 16.296693,-3.073213 -2.925141,1.630808 -3.678072,4.089525 -3.516242,5.592812 -3.074239,0.686656 -6.219819,3.102545 -6.988093,8.574237 -10.27268,-2.721789 -12.260335,2.426921 -15.546375,7.96849 z"
        id="path4288"

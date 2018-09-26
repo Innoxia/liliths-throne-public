@@ -68,17 +68,7 @@
      id="layer5"
      inkscape:label="Stage5"
      style="display:inline">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4142"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4144"><rect
-           id="rect4146"
-           width="41.858196"
-           height="40.848045"
-           x="15.404826"
-           y="13.1767" /></flowRegion><flowPara
-         id="flowPara4148" /></flowRoot>    <path
+    <path
        inkscape:connector-curvature="0"
        style="fill:#ff8080;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 34.753517,31.429018 a 13.8004,13.828189 42.244666 0 0 19.514051,-0.957865 13.8004,13.828189 42.244666 0 0 -0.920517,-19.515848 13.8004,13.828189 42.244666 0 0 -19.512745,0.95905 13.8004,13.828189 42.244666 0 0 0.919211,19.514663 z m 2.462547,-2.71156 A 10.144562,10.164989 42.244666 0 1 36.540646,14.372162 10.144562,10.164989 42.244666 0 1 50.88332,13.668169 10.144562,10.164989 42.244666 0 1 51.561227,28.013345 10.144562,10.164989 42.244666 0 1 37.216064,28.717458 Z"

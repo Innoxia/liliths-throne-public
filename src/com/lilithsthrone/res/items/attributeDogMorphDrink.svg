@@ -134,27 +134,6 @@
        id="path4281"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4156"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4158"><rect
-           id="rect4160"
-           width="42.678944"
-           height="44.067905"
-           x="6.5659914"
-           y="11.21953" /></flowRegion><flowPara
-         id="flowPara4162" /></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4168"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion4170"><rect
-           id="rect4172"
-           width="63.765881"
-           height="63.63961"
-           x="0.25253814"
-           y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174" /></flowRoot>   
     <path
        style="fill:#c66f36;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.38644525;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 30.933765,53.85548 c 0.176918,0.628938 0.763563,1.151808 1.256504,1.368256 0.771589,0.338803 8.980856,-1.462922 9.716822,-2.798236 0.283945,-0.515181 0.501684,-1.045217 0.428918,-1.714335 0,0 -3.964296,-15.089956 -5.946431,-22.634938 -0.831237,-3.164094 -3.03134,-2.940781 -3.442614,-3.924665 -2.437573,-5.831373 -2.764752,-8.384545 -4.147128,-12.576818 0,0 0.09292,-0.658297 -0.138894,-1.256127 l -4.684251,1.338773 c 0.100435,0.736967 0.502513,1.254609 0.502513,1.254609 0.674064,4.324449 1.227305,6.447686 2.022191,12.973347 0.192716,1.582119 -1.876874,2.044159 -1.039453,5.48529 z"
