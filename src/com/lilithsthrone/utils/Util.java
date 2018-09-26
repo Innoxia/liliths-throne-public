@@ -143,11 +143,9 @@ public class Util {
 	
 	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
-		
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-		}
+
+		s = s.replaceAll("linearGradient\\d|innoGrad\\d",
+				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		
 		if(colour!=null) {
 			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -179,10 +177,8 @@ public class Util {
 	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
 
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-		}
+		s = s.replaceAll("linearGradient\\d|innoGrad\\d",
+				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		
 		if(colour!=null) {
 			s = s.replaceAll("#f4d7d7", colour.getShades()[0]);

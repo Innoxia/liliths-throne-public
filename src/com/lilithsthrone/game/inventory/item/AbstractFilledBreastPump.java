@@ -120,8 +120,8 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
 
-			for (int i = 0; i <= 14; i++)
-				s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+			s = s.replaceAll("linearGradient\\d", this.hashCode() + colour.toString() + "$0");
+
 			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
 			s = s.replaceAll("#ff5555|#f55", colour.getShades()[1]);
 			s = s.replaceAll("#ff8080", colour.getShades()[2]);
