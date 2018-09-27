@@ -1,21 +1,17 @@
-# replace default config
+# Lilith's Throne SVGO configuration
+#
+# To use SVGO, Node.js (https://nodejs.org/en/) is required.
+# It can then be installed using "npm install -g svgo" from the command line.
+#
+# Usage follows with "svgo --config=svgoConfig.yml target.svg", where absolute 
+# paths may be required if the config file or the target file are not located 
+# in the current working directory. The target may also be a directory.
 
-# multipass: true
+# Replace entire default configuration
 full: true
 
+# No plugins disabled by default
 plugins:
-
-  # - name
-  #
-  # or:
-  # - name: false
-  # - name: true
-  #
-  # or:
-  # - name:
-  #     param1: 1
-  #     param2: 2
-
   - removeDoctype
   - removeXMLProcInst
   - removeComments
@@ -25,12 +21,14 @@ plugins:
   - inlineStyles
   - minifyStyles
   - convertStyleToAttrs
+  # Preserve gradient IDs by disabling minification
   - cleanupIDs:
       minify: false
   - removeRasterImages
   - removeUselessDefs
   - cleanupNumericValues
   - cleanupListOfValues
+  # Prevent converting colors to names for color replacement
   - convertColors:
       shortname: false
   - removeUnknownsAndDefaults
@@ -50,14 +48,11 @@ plugins:
   - removeEmptyContainers
   - mergePaths
   - removeUnusedNS
+  # Sort attributes for readability
   - sortAttrs: true
   - removeTitle
   - removeDesc
 
-# configure the indent (default 4 spaces) used by `--pretty` here:
-#
-# @see https://github.com/svg/svgo/blob/master/lib/svgo/js2svg.js#L6 for more config options
-#
+# Use indented markup for readability
 js2svg:
   pretty: true
-#  indent: '  '
