@@ -1757,9 +1757,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		//System.out.print(newClipMask);
 		
 		// Adding clip mask to the returned string.
-		returnable = s.substring(0, s.indexOf("<defs")) 
-				+ "<defs>" 
-				+ newClipMask;
+		int defIndex = s.indexOf("<defs");
+		int defEndIndex;
+		if (defIndex > 0) {
+			// Replace defs
+			returnable = s.substring(0, defIndex) + "<defs>" + newClipMask;
+			defEndIndex = s.indexOf("</defs>");
+		} else {
+			// Insert defs
+			returnable = s.substring(0, s.indexOf('>')) + "><defs>" + newClipMask + "</defs>";
+			defEndIndex = s.indexOf('>') + 1;
+		}
 		
 		// Loading pattern
 		String loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
@@ -1797,7 +1805,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 
-		returnable = returnable + s.substring(s.indexOf("</defs>"), firstShapeStartIndex) 
+		returnable = returnable + s.substring(defEndIndex, firstShapeStartIndex)
 				+ newPattern
 				+ s.substring(patternLayerEndIndex);
 		
