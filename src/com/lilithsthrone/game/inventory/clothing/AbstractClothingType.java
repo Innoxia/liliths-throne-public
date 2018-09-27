@@ -679,7 +679,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringEquippedMap = new HashMap<>();
 		
 		// Causes crash if done from here for some reason.
-		//this.isPatternAvailable = this.getSVGImage().contains("label=\"patternLayer\"");
+		//this.isPatternAvailable = this.getSVGImage().contains("id=\"patternLayer\"");
 	}
 	
 	@Override
@@ -1714,7 +1714,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
-		if(!s.contains("label=\"patternLayer\"")) { // Making sure that the pattern layer exists.
+		if(!s.contains("id=\"patternLayer\"")) { // Making sure that the pattern layer exists.
 			return s;
 		}
 		
@@ -1729,7 +1729,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		String returnable;
 		
 		// Locating the "patternLayer".
-		int patternLayerStartIndex = s.indexOf("label=\"patternLayer\"");
+		int patternLayerStartIndex = s.indexOf("id=\"patternLayer\"");
 		int patternLayerEndIndex = s.indexOf("</g>", patternLayerStartIndex);
 		
 		// Setting up clip mask
@@ -1742,7 +1742,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		while(continueSetUp){
 			int currentShapeStartIndex = s.indexOf("<path", lastShapeEndIndex);
-			int currentShapeEndIndex = s.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = s.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex > patternLayerEndIndex || currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continueSetUp = false;
@@ -1784,7 +1784,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			{
 				currentShapeStartIndex = currentRectStartIndex;
 			}
-			int currentShapeEndIndex = loadedPattern.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = loadedPattern.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continuePatternSetUp = false;

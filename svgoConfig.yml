@@ -24,6 +24,7 @@ plugins:
   # Preserve gradient IDs by disabling minification
   - cleanupIDs:
       minify: false
+      preserve: [patternLayer]
   - removeRasterImages
   - removeUselessDefs
   - cleanupNumericValues
@@ -41,7 +42,8 @@ plugins:
   - convertShapeToPath
   - moveElemsAttrsToGroup
   - moveGroupAttrsToElems
-  - collapseGroups
+  # Prevent pattern layer group collapse (enable for non-pattern items)
+  - collapseGroups: false
   - convertPathData
   - convertTransform
   - removeEmptyAttrs
