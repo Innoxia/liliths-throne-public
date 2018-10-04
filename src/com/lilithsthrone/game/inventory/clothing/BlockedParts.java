@@ -131,7 +131,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessRequired.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 1 " + errorCode);
+			System.err.println("BlockedParts loading failed. Code 1 " + errorCode + "\n" + ex);
 		}
 		
 		List<CoverableArea> loadedBlockedBodyParts = new ArrayList<>();
@@ -142,7 +142,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts.add(CoverableArea.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 2 "+ errorCode);
+			System.err.println("BlockedParts loading failed. Code 2 " + errorCode + "\n" + ex);
 		}
 		
 		List<ClothingAccess> loadedClothingAccessBlocked = new ArrayList<>();
@@ -153,7 +153,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessBlocked.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 3 "+ errorCode);
+			System.err.println("BlockedParts loading failed. Code 3 " + errorCode + "\n" + ex);
 		}
 		
 		List<InventorySlot> loadedConcealedSlots = new ArrayList<>();
@@ -167,7 +167,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 					loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
 				}
 			} catch(Exception ex) {
-				System.err.println("BlockedParts loading failed. Code 4"+ errorCode);
+				System.err.println("BlockedParts loading failed. Code 4 " + errorCode + "\n" + ex);
 			}
 		}
 		
