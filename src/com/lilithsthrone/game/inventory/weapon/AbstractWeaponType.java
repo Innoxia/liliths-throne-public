@@ -284,7 +284,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						defaultItemTags.add(ItemTag.valueOf(e.getTextContent()));
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'itemTags' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'itemTags' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				this.itemTags = defaultItemTags;
 				
@@ -325,7 +325,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'availableDamageTypes' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'availableDamageTypes' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				
 				this.spells = new ArrayList<>();
@@ -336,7 +336,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'spells' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'spells' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 
 				enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
@@ -355,7 +355,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'effects' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'effects' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				this.effects = defaultEffects;
 
@@ -371,7 +371,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'hitDescriptions' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'hitDescriptions' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				
 				this.missDescriptions = new ArrayList<>();
@@ -382,7 +382,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'missDescriptions' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'missDescriptions' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				
 				
@@ -399,7 +399,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColours' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColours' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedPrimaryColoursDye = new ArrayList<>();
@@ -415,7 +415,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						importedPrimaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColoursDye' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'primaryColoursDye' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
@@ -433,7 +433,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColours' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
@@ -451,7 +451,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
+					System.err.println("AbstractWeaponType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed. (" + weaponXMLFile.getName() + ")\n" + ex);
 				}
 				
 				setUpColours(
@@ -465,7 +465,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("WeaponType was unable to be loaded from file! Exception message: "+ex.getMessage());
+				System.err.println("WeaponType was unable to be loaded from file! (" + weaponXMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
