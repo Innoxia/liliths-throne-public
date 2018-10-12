@@ -34,7 +34,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public class GenericOrgasms {
@@ -237,6 +237,12 @@ public class GenericOrgasms {
 				break;
 			case GLORY_HOLE_RECEIVING_ORAL_TWO:
 				orgasmText = "[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case OVER_THE_KNEE_SITTING:
+				orgasmText = "[npc1.NamePos] [npc1.hands] [npc1.verb(grab)] [npc2.namePos] lower body, desperately trying to stimulate [npc1.herHim]self as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case OVER_THE_KNEE_LYING:
+				orgasmText = "[npc1.Name] [npc1.verb(thrust)] [npc1.her] groin against [npc2.namePos] [npc2.legs+], [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 		}
 

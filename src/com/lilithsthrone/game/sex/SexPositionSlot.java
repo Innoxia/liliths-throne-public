@@ -6,7 +6,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.97
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SexPositionSlot {
@@ -289,6 +289,35 @@ public enum SexPositionSlot {
 					OrgasmCumTarget.LEGS,
 					OrgasmCumTarget.FEET,
 					OrgasmCumTarget.FLOOR)),
+	
+	/* Over The Knee */
+	
+	OVER_THE_KNEE_SITTING
+	(
+		"Sitting",
+		false,
+		Util.newArrayListOfValues
+		(
+			OrgasmCumTarget.BACK,
+			OrgasmCumTarget.ASS,
+			OrgasmCumTarget.LEGS,
+			OrgasmCumTarget.FEET,
+			OrgasmCumTarget.FLOOR
+		)
+	),
+	
+	OVER_THE_KNEE_LYING
+	(
+		"Lying across lap",
+		false,
+		Util.newArrayListOfValues
+		(
+			OrgasmCumTarget.GROIN,
+			OrgasmCumTarget.LEGS,
+			OrgasmCumTarget.FEET,
+			OrgasmCumTarget.FLOOR
+		)
+	),
 	
 	/* UNIQUE SEX SCENES */
 	

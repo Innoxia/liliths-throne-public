@@ -30,6 +30,7 @@ import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
 import com.lilithsthrone.game.sex.sexActions.universal.MilkingStall;
 import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
+import com.lilithsthrone.game.sex.sexActions.universal.OverTheKnee;
 import com.lilithsthrone.game.sex.sexActions.universal.PetMounting;
 import com.lilithsthrone.game.sex.sexActions.universal.PetOral;
 import com.lilithsthrone.game.sex.sexActions.universal.PixShower;
@@ -54,7 +55,7 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SexPositionType {
@@ -830,6 +831,34 @@ public enum SexPositionType {
 			}
 			
 			return super.isActionBlocked(performer, target, action);
+		}
+	},
+	
+	/* Over The Knee */
+	
+	OVERTHEKNEE("Over the knee",
+			true,
+			true,
+			Util.newArrayListOfValues(OverTheKnee.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.OVER_THE_KNEE_LYING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.OVER_THE_KNEE_SITTING,
+									new SexActionInteractions(
+											Util.mergeMaps(
+													SexActionPresets.penisToThighs))))),
+					new Value<>(
+							SexPositionSlot.OVER_THE_KNEE_SITTING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.OVER_THE_KNEE_LYING,
+									new SexActionInteractions(
+											SexActionPresets.appendagesToAllAreas)))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.OVER_THE_KNEE_SITTING), Sex.getCharacterInPosition(SexPositionSlot.OVER_THE_KNEE_LYING),
+					"[npc.NameIsFull] sitting with [npc2.name] lying across [npc.her] knee.");
 		}
 	},
 	
