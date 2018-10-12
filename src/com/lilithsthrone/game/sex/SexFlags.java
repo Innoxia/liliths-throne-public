@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SexFlags implements Serializable {
@@ -45,7 +45,8 @@ public class SexFlags implements Serializable {
 	public static boolean requestedMissionaryOnBack;
 	public static boolean requestedSitOnFace;
 	public static boolean requestedFaceSitting;
-	
+	public static boolean requestedOverTheKneeSitting;
+	public static boolean requestedOverTheKneeLying;
 	
 	public static boolean requestedChairBottom;
 	public static boolean requestedChairTop;
@@ -120,6 +121,8 @@ public class SexFlags implements Serializable {
 		requestedMissionaryOnBack = false;
 		requestedSitOnFace = false;
 		requestedFaceSitting = false;
+		requestedOverTheKneeSitting = false;
+		requestedOverTheKneeLying = false;
 		
 		requestedChairBottom = false;
 		requestedChairTop = false;

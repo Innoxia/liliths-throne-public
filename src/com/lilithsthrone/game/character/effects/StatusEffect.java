@@ -4790,6 +4790,81 @@ public enum StatusEffect {
 		}
 	},
 	
+	SPANKED_LIGHT(
+			80,
+			"Spanked Lightly",
+			"frustrated",
+			Colour.CORRUPTION_STAGE_ONE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.NamePos] ass is tinted pink from a recent spanking.");
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
+	SPANKED_NORMAL(
+			80,
+			"Spanked Firmly",
+			"frustrated",
+			Colour.CORRUPTION_STAGE_THREE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.NamePos] ass is tinted red from a recent spanking.");
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
+	SPANKED_ROUGH(
+			80,
+			"Spanked Raw",
+			"frustrated",
+			Colour.CORRUPTION_STAGE_FIVE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.NamePos] ass is tinted dark red from a recent spanking.");
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
 	RECOVERING_AURA(
 			80,
 			"Strengthened aura",
