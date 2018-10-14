@@ -1145,7 +1145,6 @@ public class MainControllerInitMethod {
 									public void effects() {
 										NPC slave = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 										slave.setName(new NameTriplet(name));
-										slave.loadImages();
 									}
 								});
 							}

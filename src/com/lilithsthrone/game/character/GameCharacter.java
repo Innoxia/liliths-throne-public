@@ -16882,7 +16882,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if (body.getFemininity() < femininity) {
 			if (body.setFemininity(femininity)) {
-				loadImages();
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.<br/>"
@@ -16900,7 +16899,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		} else {
 			if (body.setFemininity(femininity)) {
-				loadImages();
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.<br/>"

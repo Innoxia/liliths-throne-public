@@ -310,6 +310,13 @@ public class Brax extends NPC {
 	public String getArtworkFolderName() {
 		return this.getNameIgnoresPlayerKnowledge();
 	}
+
+	@Override
+	public String setFemininity(int femininity) {
+		String rv = super.setFemininity(femininity);
+		loadImages();
+		return rv;
+	}
 	
 	@Override
 	public boolean isUnique() {
