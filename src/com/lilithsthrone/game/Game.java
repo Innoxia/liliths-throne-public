@@ -697,13 +697,11 @@ public class Game implements Serializable, XMLSaving {
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
 				int totalNpcCount = npcs.getLength();
-				List<Element> elements = new ArrayList<>(totalNpcCount);
-				for(int x = 0; x < totalNpcCount;x++){
+				/*for(int x = 0; x < totalNpcCount;x++){
 					elements.add((Element) npcs.item(x));
-				}
-				//List<Node> elements = IntStream.rangeClosed(0,totalNpcCount).mapToObj(npcs::item).collect(Collectors.toList());
+				}*/
 				System.out.println(totalNpcCount);
-				elements.parallelStream()
+				IntStream.range(0,totalNpcCount).mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
 							if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
@@ -717,7 +715,7 @@ public class Game implements Serializable, XMLSaving {
 
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
-									System.out.println(npc);
+									//System.out.println(npc);
 									Main.game.safeAddNPC(npc, true);
 									addedIds.add(npc.getId());
 
@@ -1025,6 +1023,7 @@ public class Game implements Serializable, XMLSaving {
 				synchronized (loadNPCMutex) {
 					npcClass = classMap.get(className);
 					if (npcClass == null){
+						//System.out.println("Cache-miss on " + className);
 						npcClass = (Class<? extends NPC>) Class.forName(className);
 						classMap.put(className, npcClass);
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
