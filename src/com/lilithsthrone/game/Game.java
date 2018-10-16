@@ -14,6 +14,10 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,6 +31,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.MainController;
@@ -685,13 +690,61 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				List<String> addedIds = new ArrayList<>();
-				List<NPC> slaveImports = new ArrayList<>();
+//				List<NPC> slaveImports = new ArrayList<>();
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
 				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
 				int totalNpcCount = npcs.getLength();
+				List<Element> elements = new ArrayList<>(totalNpcCount);
+				for(int x = 0; x < totalNpcCount;x++){
+					elements.add((Element) npcs.item(x));
+				}
+				//List<Node> elements = IntStream.rangeClosed(0,totalNpcCount).mapToObj(npcs::item).collect(Collectors.toList());
+				System.out.println(totalNpcCount);
+				elements.parallelStream()
+						.forEach(e ->{
+							if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
+								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
+								if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
+									int lastIndex = className.lastIndexOf('.');
+									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
+										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
+//								System.out.println(className);
+									}
+								}
+
+								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
+								if(npc!=null)  {
+									System.out.println(npc);
+									Main.game.safeAddNPC(npc, true);
+									addedIds.add(npc.getId());
+
+									// To fix issues with older versions hair length:
+									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
+										npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
+									}
+
+									// Generate desires in non-unique NPCs:
+									if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
+										CharacterUtils.generateDesires(npc);
+									}
+
+									if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
+										npc.clearFetishDesires();
+										CharacterUtils.generateDesires(npc);
+									}
+
+/*									if(npc instanceof SlaveImport) {
+										slaveImports.add(npc);
+									}*/
+								}
+							} else {
+								System.err.println("duplicate character attempted to be imported");
+							}
+						});
+/*
 				for(int i=0; i < totalNpcCount; i++) {
 					Element e = (Element) npcs.item(i);
 					
@@ -736,7 +789,7 @@ public class Game implements Serializable, XMLSaving {
 						System.out.println("NPC: "+i);
 					}
 				}
-
+*/
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
@@ -960,31 +1013,35 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.endTurn(0);
 	}
 
+	private static final Object loadNPCMutex = new Object();
 	@SuppressWarnings("unchecked")
 	private static NPC loadNPC(Document doc, Element e, String className, 
 			Map<String, Class<? extends NPC>> classMap, Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
-			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap) throws ClassNotFoundException,
-			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
 		
 		try {
 			Class<? extends NPC> npcClass = classMap.get(className);
 			if (npcClass == null) {
-				npcClass = (Class<? extends NPC>) Class.forName(className);
-				classMap.put(className, npcClass);
-				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-				loadFromXMLMethodMap.put(npcClass, m);
-				
-				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-				constructorMap.put(npcClass, declaredConstructor);
-				NPC npc = declaredConstructor.newInstance(true);
-				m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-				return npc;
-			} else {
-				Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-				NPC npc = declaredConstructor.newInstance(true);
-				loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
-				return npc;
+				synchronized (loadNPCMutex) {
+					npcClass = classMap.get(className);
+					if (npcClass == null){
+						npcClass = (Class<? extends NPC>) Class.forName(className);
+						classMap.put(className, npcClass);
+						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+						loadFromXMLMethodMap.put(npcClass, m);
+
+						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+						constructorMap.put(npcClass, declaredConstructor);
+						NPC npc = declaredConstructor.newInstance(true);
+						m.invoke(npc, e, doc, new CharacterImportSetting[] {});
+						return npc;
+					}
+				}
 			}
+			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
+			NPC npc = declaredConstructor.newInstance(true);
+			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
+			return npc;
 		} catch(Exception ex) {
 			System.err.println("Failed to load NPC class: "+className);
 			ex.printStackTrace();
@@ -3343,7 +3400,15 @@ public class Game implements Serializable, XMLSaving {
 	public String getNextNPCId(Class<? extends NPC> c) {
 		return (npcTally+1)+","+c.getSimpleName();
 	}
-	
+	public String safeAddNPC(final NPC npc, boolean isImported) {
+		String id = "";
+		try{
+			id = addNPC(npc,isImported);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return id;
+	}
 	public String addNPC(NPC npc, boolean isImported) throws Exception {
 		
 		if(isImported) {
