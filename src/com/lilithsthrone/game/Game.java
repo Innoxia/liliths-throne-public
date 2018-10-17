@@ -14,6 +14,8 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -177,7 +179,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	// NPCs:
 	private NPC activeNPC;
-	private int npcTally = 0;
+	private AtomicInteger npcTally = new AtomicInteger(0);
 	private Map<String, NPC> NPCMap;
 	
 	private Map<WorldType, World> worlds;
@@ -240,7 +242,7 @@ public class Game implements Serializable, XMLSaving {
 		started = false;
 		prologueFinished = true;
 
-		NPCMap = new HashMap<>();
+		NPCMap = new ConcurrentHashMap<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -701,7 +703,7 @@ public class Game implements Serializable, XMLSaving {
 					elements.add((Element) npcs.item(x));
 				}*/
 				System.out.println(totalNpcCount);
-				IntStream.range(0,totalNpcCount).mapToObj(i -> ((Element) npcs.item(i)))
+				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
 							if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
@@ -737,6 +739,9 @@ public class Game implements Serializable, XMLSaving {
 /*									if(npc instanceof SlaveImport) {
 										slaveImports.add(npc);
 									}*/
+								} else {
+									System.out.println("LOADNPC returned null");
+									System.out.println("CLASS: " + className);
 								}
 							} else {
 								System.err.println("duplicate character attempted to be imported");
@@ -791,6 +796,8 @@ public class Game implements Serializable, XMLSaving {
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
+
+				System.out.println("TOTAL ADDED NPCS: " + addedIds.size());
 				
 				// Add in new NPCS:
 				
@@ -3397,7 +3404,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public String getNextNPCId(Class<? extends NPC> c) {
-		return (npcTally+1)+","+c.getSimpleName();
+		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
 	public String safeAddNPC(final NPC npc, boolean isImported) {
 		String id = "";
@@ -3405,6 +3412,7 @@ public class Game implements Serializable, XMLSaving {
 			id = addNPC(npc,isImported);
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			System.out.println(ex.getMessage());
 		}
 		return id;
 	}
@@ -3419,15 +3427,15 @@ public class Game implements Serializable, XMLSaving {
 			}catch(NumberFormatException ex) {
 				tallyCount = Integer.parseInt(npc.getId().split(",")[0]);
 			}
-			if(tallyCount>npcTally) {
-				npcTally = tallyCount;
+			if(tallyCount>npcTally.get()) {
+				npcTally.set(tallyCount);
 			}
 			
 		} else {
 			if(npc.isUnique()) {
 				npc.setId(getUniqueNPCId(npc.getClass()));
 			} else {
-				npcTally++;
+				npcTally.incrementAndGet();
 				npc.setId(getNPCId(npc.getClass()));
 			}
 		}
@@ -3722,7 +3730,7 @@ public class Game implements Serializable, XMLSaving {
 	
 
 	public int getNpcTally() {
-		return npcTally;
+		return npcTally.get();
 	}
 
 	public OccupancyUtil getOccupancyUtil() {
