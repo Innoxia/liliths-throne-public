@@ -139,10 +139,10 @@ public class MainControllerInitMethod {
 			id = "ARTWORK_ADD";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					// Create file chooser for .jpg and .png images in the most recently used directory
+					// Create file chooser for JPEG, PNG and BMP images in the most recently used directory
 					FileChooser chooser = new FileChooser();
 					chooser.setTitle("Add Images");
-					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"));
+					chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.bmp"));
 					if (lastOpened != null)
 						chooser.setInitialDirectory(lastOpened);
 
