@@ -682,18 +682,13 @@ public class Game implements Serializable, XMLSaving {
 				if(debug) {
 					System.out.println("Player finished");
 				}
-				
-				List<String> addedIds = Collections.synchronizedList(new ArrayList<>());
-//				List<NPC> slaveImports = new ArrayList<>();
+
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
 				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
 				int totalNpcCount = npcs.getLength();
-				/*for(int x = 0; x < totalNpcCount;x++){
-					elements.add((Element) npcs.item(x));
-				}*/
 				System.out.println(totalNpcCount);
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
@@ -703,7 +698,6 @@ public class Game implements Serializable, XMLSaving {
 									int lastIndex = className.lastIndexOf('.');
 									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
-//								System.out.println(className);
 									}
 								}
 
@@ -711,7 +705,6 @@ public class Game implements Serializable, XMLSaving {
 								if(npc!=null)  {
 									//System.out.println(npc);
 									Main.game.safeAddNPC(npc, true);
-									//addedIds.add(npc.getId());
 
 									// To fix issues with older versions hair length:
 									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
@@ -728,9 +721,6 @@ public class Game implements Serializable, XMLSaving {
 										CharacterUtils.generateDesires(npc);
 									}
 
-/*									if(npc instanceof SlaveImport) {
-										slaveImports.add(npc);
-									}*/
 								} else {
 									System.out.println("LOADNPC returned null");
 									System.out.println("CLASS: " + className);
@@ -739,52 +729,6 @@ public class Game implements Serializable, XMLSaving {
 								System.err.println("duplicate character attempted to be imported");
 							}
 						});
-/*
-				for(int i=0; i < totalNpcCount; i++) {
-					Element e = (Element) npcs.item(i);
-					
-					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
-						String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
-						if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
-							int lastIndex = className.lastIndexOf('.');
-							if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
-								className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
-//								System.out.println(className);
-							}
-						}
-						
-						NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-						if(npc!=null)  {
-							Main.game.addNPC(npc, true);
-							addedIds.add(npc.getId());
-							
-							// To fix issues with older versions hair length:
-							if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
-								npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
-							}
-	
-							// Generate desires in non-unique NPCs:
-							if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-								CharacterUtils.generateDesires(npc);
-							}
-							
-							if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
-								npc.clearFetishDesires();
-								CharacterUtils.generateDesires(npc);
-							}
-							
-							if(npc instanceof SlaveImport) {
-								slaveImports.add(npc);
-							}
-						}
-					} else {
-						System.err.println("duplicate character attempted to be imported");
-					}
-					if(debug) {
-						System.out.println("NPC: "+i);
-					}
-				}
-*/
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
@@ -1031,9 +975,6 @@ public class Game implements Serializable, XMLSaving {
 
 						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
 						constructorMap.put(npcClass, declaredConstructor);
-						//NPC npc = declaredConstructor.newInstance(true);
-						//m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-						//return npc;
 					}
 				}
 			}
