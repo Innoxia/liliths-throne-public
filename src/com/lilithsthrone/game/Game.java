@@ -4,17 +4,13 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.IntFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,7 +24,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.MainController;
@@ -175,6 +170,8 @@ public class Game implements Serializable, XMLSaving {
 	// NPCs:
 	private NPC activeNPC;
 	private AtomicInteger npcTally = new AtomicInteger(0);
+
+	//Note : this is a ConcurrentHashMap
 	private Map<String, NPC> NPCMap;
 	
 	private Map<WorldType, World> worlds;
@@ -700,7 +697,7 @@ public class Game implements Serializable, XMLSaving {
 				System.out.println(totalNpcCount);
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
-							if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
+							if(!Main.game.NPCMap.containsKey(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
 								if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
 									int lastIndex = className.lastIndexOf('.');
@@ -714,7 +711,7 @@ public class Game implements Serializable, XMLSaving {
 								if(npc!=null)  {
 									//System.out.println(npc);
 									Main.game.safeAddNPC(npc, true);
-									addedIds.add(npc.getId());
+									//addedIds.add(npc.getId());
 
 									// To fix issues with older versions hair length:
 									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
@@ -792,7 +789,7 @@ public class Game implements Serializable, XMLSaving {
 					System.out.println("NPCs finished");
 				}
 
-				System.out.println("TOTAL ADDED NPCS: " + addedIds.size());
+				System.out.println("TOTAL ADDED NPCS: " + Main.game.NPCMap.values().size());
 				
 				// Add in new NPCS:
 				
