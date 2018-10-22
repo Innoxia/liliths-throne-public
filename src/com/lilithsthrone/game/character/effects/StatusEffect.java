@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -655,9 +654,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (owner.getVaginaType() != VaginaType.NONE) {
+				if (owner.hasVagina()) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body, and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (owner.getPenisType() != PenisType.NONE) {
+				} else if (owner.hasPenis()) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -665,10 +664,10 @@ public enum StatusEffect {
 				}
 				
 			} else {
-				if (owner.getVaginaType() != VaginaType.NONE) {
+				if (owner.hasVagina()) {
 					return UtilText.parse(owner,
 							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body, making it far easier for [npc.herHim] to get pregnant.");
-				} else if (owner.getPenisType() != PenisType.NONE) {
+				} else if (owner.hasPenis()) {
 					return UtilText.parse(owner,
 							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body, making it far easier for [npc.herHim] to impregnate others.");
 				} else {
@@ -710,10 +709,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (owner.getVaginaType() != VaginaType.NONE) {
+				if (owner.hasVagina()) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (owner.getPenisType() != PenisType.NONE) {
+				} else if (owner.hasPenis()) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -722,11 +721,11 @@ public enum StatusEffect {
 				}
 				
 			} else {
-				if (owner.getVaginaType() != VaginaType.NONE) {
+				if (owner.hasVagina()) {
 					return UtilText.parse(owner,
 							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " making it far easier for [npc.herHim] to get pregnant.");
-				} else if (owner.getPenisType() != PenisType.NONE) {
+				} else if (owner.hasPenis()) {
 					return UtilText.parse(owner,
 							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.namePos] body,"
 							+ " making it far easier for [npc.herHim] to impregnate others.");
@@ -1694,7 +1693,7 @@ public enum StatusEffect {
 
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
-			return target.getSubspecies().getAttributeModifiers(target);
+			return target.getSubspecies().getStatusEffectAttributeModifiers(target);
 		}
 
 		@Override
@@ -4846,9 +4845,11 @@ public enum StatusEffect {
 			return !Main.game.isInSex()
 					&& !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
-							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+					&& ((target.hasBreasts() || target.isFeminine())
+							?!target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+							:true); 
 		}
 	},
 	
@@ -4874,9 +4875,11 @@ public enum StatusEffect {
 			return !Main.game.isInSex()
 					&& !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& !(target.isCoverableAreaExposed(CoverableArea.ANUS)
-							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+					&& ((target.hasBreasts() || target.isFeminine())
+							?target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+							:false); 
 		}
 	},
 	
@@ -4902,9 +4905,11 @@ public enum StatusEffect {
 			return !Main.game.isInSex()
 					&& !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
-							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+					&& ((target.hasBreasts() || target.isFeminine())
+							?target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+							:false); 
 		}
 	},
 	
@@ -4928,11 +4933,13 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !Main.game.isInSex()
-					&& (target.hasFetish(Fetish.FETISH_EXHIBITIONIST)// Exhibitionist
+					&& target.hasFetish(Fetish.FETISH_EXHIBITIONIST)// Exhibitionist
 							&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
-									|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-									|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-						&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+									|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+									|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+							&& ((target.hasBreasts() || target.isFeminine())
+									?!target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+									:true);
 		}
 	},
 	FETISH_EXHIBITIONIST_BREASTS(
@@ -4955,11 +4962,13 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !Main.game.isInSex()
-					&& (target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& !(target.isCoverableAreaExposed(CoverableArea.ANUS)
-							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+					&& ((target.hasBreasts() || target.isFeminine())
+							?target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+							:false);
 		}
 	},
 	FETISH_EXHIBITIONIST_PLUS_BREASTS(
@@ -4982,11 +4991,13 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !Main.game.isInSex()
-					&& (target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
-							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
-							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.hasPenis())
+							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.hasVagina()))
+					&& ((target.hasBreasts() || target.isFeminine())
+							?target.isCoverableAreaExposed(CoverableArea.NIPPLES)
+							:false);
 		}
 	},
 
@@ -6691,7 +6702,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_1)
 						&& !companion.getElemental().equals(target)
@@ -6776,7 +6787,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
@@ -6842,7 +6853,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
@@ -7135,7 +7146,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_1)
 						&& !companion.getElemental().equals(target)
@@ -7190,7 +7201,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_2)
 						&& !companion.getElemental().equals(target)
@@ -7234,7 +7245,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
@@ -7300,7 +7311,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
@@ -7702,12 +7713,8 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!";
-			} else {
-				return UtilText.parse(target,
-						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!");
-			}
+			return UtilText.parse(target,
+					"A benevolent wind has been summoned to protect [npc.name] from any poisonous vapours, and to help throw off any attacks directed towards [npc.herHim].");
 		}
 
 		@Override
@@ -7735,14 +7742,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!"
-						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
-			} else {
-				return UtilText.parse(target,
-						"A sustained void in the air, which shifts to remain close to [npc.namePos] body, is causing [npc.her] balance to be thrown off!"
-						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
-			}
+			return UtilText.parse(target,
+					"A benevolent wind has been summoned to protect [npc.name] from any poisonous vapours, and to help throw off any attacks directed towards [npc.herHim]."
+							+ " It is also helping to guide [npc.her] attacks.");
 		}
 
 		@Override
@@ -7771,14 +7773,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A sustained, powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
-						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
-			} else {
-				return UtilText.parse(target,
-						"A sustained, powerful void is shifting to remain close to [npc.namePos] body, and is causing [npc.her] balance to be thrown off!"
-						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
-			}
+			return UtilText.parse(target,
+					"A benevolent wind has been summoned to protect [npc.name] from any poisonous vapours, and to help throw off any attacks directed towards [npc.herHim]."
+							+ " It is also helping to guide and increase the power of [npc.her] attacks.");
 		}
 
 		@Override
@@ -7884,7 +7881,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2)
 						&& !companion.getElemental().equals(target)
@@ -7923,7 +7920,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
@@ -7989,7 +7986,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
@@ -8427,7 +8424,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1)
 						&& !companion.getElemental().equals(target)
@@ -8483,7 +8480,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2)
 						&& !companion.getElemental().equals(target)
@@ -8522,7 +8519,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
@@ -8588,7 +8585,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
@@ -9025,7 +9022,7 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null
+				if(companion.hasDiscoveredElemental()
 						&& allPartyMembers.contains(companion.getElemental())
 						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_1)
 						&& !companion.getElemental().equals(target)
@@ -9110,7 +9107,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
@@ -9176,7 +9173,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null
+			return target.hasDiscoveredElemental()
 					&& target.hasCompanion(target.getElemental())
 					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3B)
 					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
@@ -9593,6 +9590,7 @@ public enum StatusEffect {
 					}
 				}
 			}
+			
 			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
 			}
@@ -9602,6 +9600,22 @@ public enum StatusEffect {
 			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			if(Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							target,
+							SexAreaPenetration.PENIS,
+							partner,
+							Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(partner).iterator().next()));
 		}
 
 		@Override
@@ -9718,6 +9732,23 @@ public enum StatusEffect {
 			
 			return descriptionSB.toString();
 		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.ANUS;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -9828,6 +9859,23 @@ public enum StatusEffect {
 
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.ASS;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
 		}
 
 		@Override
@@ -9945,6 +9993,23 @@ public enum StatusEffect {
 			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.MOUTH;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
 		}
 
 		@Override
@@ -10070,6 +10135,23 @@ public enum StatusEffect {
 			
 			return descriptionSB.toString();
 		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.BREAST;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -10181,6 +10263,23 @@ public enum StatusEffect {
 			
 			return descriptionSB.toString();
 		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.NIPPLE;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -10290,6 +10389,23 @@ public enum StatusEffect {
 			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.URETHRA_PENIS;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
 		}
 
 		@Override
@@ -10401,6 +10517,23 @@ public enum StatusEffect {
 			
 			return descriptionSB.toString();
 		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.URETHRA_VAGINA;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
+		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -10510,6 +10643,23 @@ public enum StatusEffect {
 			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.VAGINA;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
 		}
 
 		@Override
@@ -10625,6 +10775,23 @@ public enum StatusEffect {
 			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.THIGHS;
+			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return Sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice));
 		}
 
 		@Override
@@ -10792,6 +10959,11 @@ public enum StatusEffect {
 	}
 
 	public abstract String getDescription(GameCharacter target);
+
+	// For any extra effects, such as ongoing sex descriptions.
+	public String getAdditionalDescription(GameCharacter target) {
+		return null;
+	}
 
 	public List<String> getModifiersAsStringList(GameCharacter target) {
 		ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(getAttributeModifiers(target)));

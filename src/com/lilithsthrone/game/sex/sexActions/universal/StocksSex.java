@@ -174,6 +174,7 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.STOCKS_LOCKED_IN_STOCKS
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexPositionSlot.STOCKS_FUCKING;
 		}
 		

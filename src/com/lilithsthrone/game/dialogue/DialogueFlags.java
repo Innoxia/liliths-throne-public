@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable, XMLSaving {
@@ -31,6 +31,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public int scarlettPrice;
 	public int eponaStamps;
 	public long kalahariBreakStartTime;
+
+	public long impFortressAlphaPacifiedTime;
+	public long impFortressDemonPacifiedTime;
+	public long impFortressFemalesPacifiedTime;
+	public long impFortressMalesPacifiedTime;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -59,6 +64,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		eponaStamps = 0;
 		
 		scarlettPrice = 15000;
+		
+		impFortressAlphaPacifiedTime = impFortressDemonPacifiedTime = impFortressFemalesPacifiedTime = impFortressMalesPacifiedTime = -50000;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -70,6 +77,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
 		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaPacifiedTime", String.valueOf(impFortressAlphaPacifiedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonPacifiedTime", String.valueOf(impFortressDemonPacifiedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesPacifiedTime", String.valueOf(impFortressFemalesPacifiedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesPacifiedTime", String.valueOf(impFortressMalesPacifiedTime));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
@@ -118,6 +130,15 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			newFlags.kalahariBreakStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
+
+		
+		try {
+			newFlags.impFortressAlphaPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaPacifiedTime").item(0)).getAttribute("value"));
+			newFlags.impFortressDemonPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressDemonPacifiedTime").item(0)).getAttribute("value"));
+			newFlags.impFortressFemalesPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesPacifiedTime").item(0)).getAttribute("value"));
+			newFlags.impFortressMalesPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesPacifiedTime").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
@@ -132,6 +153,13 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			newFlags.values.remove(DialogueFlagValue.axelIntroduced);
 			newFlags.values.remove(DialogueFlagValue.roxyIntroduced);
 			newFlags.values.remove(DialogueFlagValue.eponaIntroduced);
+		}
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			newFlags.values.add(DialogueFlagValue.impFortressAlphaPacified);
+			newFlags.values.add(DialogueFlagValue.impFortressDemonPacified);
+			newFlags.values.add(DialogueFlagValue.impFortressFemalesPacified);
+			newFlags.values.add(DialogueFlagValue.impFortressMalesPacified);
 		}
 
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
@@ -187,7 +215,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	}
 	
 	public NPC getSlaveTrader() {
-		if(slaveTrader==null) {
+		if(slaveTrader==null || slaveTrader.isEmpty()) {
 			return null;
 		}
 		try {

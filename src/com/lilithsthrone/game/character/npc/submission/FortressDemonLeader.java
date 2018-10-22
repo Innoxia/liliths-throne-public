@@ -184,7 +184,7 @@ public class FortressDemonLeader extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		this.unequipAllClothingIntoVoid(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_BLACK, false), true, this);
@@ -199,7 +199,7 @@ public class FortressDemonLeader extends NPC {
 	
 	@Override
 	public boolean isUnique() {
-		return false;
+		return true;
 	}
 
 	@Override

@@ -49,12 +49,8 @@ import com.lilithsthrone.world.Cell;
  */
 public class AlleywayDemonDialogueCompanions {
 	
-	private static List<GameCharacter> getCompanions() {
-		return Main.game.getPlayer().getCompanions();
-	}
-	
 	private static GameCharacter getMainCompanion() {
-		return getCompanions().get(0);
+		return Main.game.getPlayer().getMainCompanion();
 	}
 	
 	private static NPC getDemon() {
@@ -357,7 +353,7 @@ public class AlleywayDemonDialogueCompanions {
 						@Override
 						public void effects() {
 							applyPregnancyReactions();
-							Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
 							
 							if(isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
@@ -387,7 +383,7 @@ public class AlleywayDemonDialogueCompanions {
 					
 				} else if (index == 3) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -409,7 +405,7 @@ public class AlleywayDemonDialogueCompanions {
 					
 				} else if (index == 4) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -452,6 +448,76 @@ public class AlleywayDemonDialogueCompanions {
 							public void effects() {
 								applyPregnancyReactions();
 								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 25));
+							}
+						};
+					}
+					
+				} else if (index == 6) {
+					GameCharacter companion = getMainCompanion();
+	
+					if(!getDemon().isAttractedTo(Main.game.getPlayer())) {
+						return new Response(UtilText.parse(companion, "Offer threesome"),
+								UtilText.parse(getDemon(), companion, "You can tell that [npc.name] isn't at all interested in having sex with you, so wouldn't want to have a threesome..."),
+								null);
+						
+					} else if(!getDemon().isAttractedTo(companion)) {
+						return new Response(UtilText.parse(companion, "Offer threesome"),
+								UtilText.parse(getDemon(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], so wouldn't want to have a threesome..."),
+								null);
+						
+					} else if(!companion.isAttractedTo(getDemon()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						return new Response(UtilText.parse(companion, "Offer threesome"),
+								UtilText.parse(getDemon(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								null);
+						
+					} else {
+						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
+								UtilText.parse(getDemon(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
+								true, true,
+								new SMDoggy(
+										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+												new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+								null,
+								AFTER_SEX_PEACEFUL_THREESOME,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_BODY_WITH_COMPANION", getDemon(), companion)) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+							}
+						};
+					}
+					
+				} else if (index == 7 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
+					GameCharacter companion = getMainCompanion();
+	
+					if(!getDemon().isAttractedTo(companion)) {
+						return new Response(UtilText.parse(companion, "Offer [npc.name]"),
+								UtilText.parse(getDemon(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name]..."),
+								null);
+						
+					} else if(!companion.isAttractedTo(getDemon()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						return new Response(UtilText.parse(companion, "Offer [npc.name]"),
+								UtilText.parse(getDemon(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								null);
+						
+					} else {
+						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
+								UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
+								true, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								AFTER_SEX_PEACEFUL_OFFERED_COMPANION,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_COMPANION", getDemon(), companion)) {
+							@Override
+							public void effects() {
+								applyPregnancyReactions();
+								if(!companion.isAttractedTo(getDemon()) && Main.game.isNonConEnabled()) {
+									Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
+								}
 							}
 						};
 					}
@@ -621,6 +687,48 @@ public class AlleywayDemonDialogueCompanions {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_PEACEFUL", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttackCompanions", "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SEX_PEACEFUL_THREESOME = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_SEX_PEACEFUL_THREESOME", getAllCharacters());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SEX_PEACEFUL_OFFERED_COMPANION = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			if(getMainCompanion().isAttractedTo(getDemon())) {
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION", getAllCharacters());
+			} else {
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT", getAllCharacters());
 			}
 		}
 		
@@ -853,7 +961,7 @@ public class AlleywayDemonDialogueCompanions {
 							@Override
 							public void effects() {
 								getDemon().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getDemon().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -1047,7 +1155,7 @@ public class AlleywayDemonDialogueCompanions {
 							@Override
 							public void effects() {
 								getDemon().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getDemon().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}

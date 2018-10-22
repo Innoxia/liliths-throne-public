@@ -30,7 +30,7 @@ public class TongueBreasts {
 		
 		@Override
 		public String getActionTitle() {
-			return "Kiss breasts";
+			return UtilText.parse(Sex.getCharacterTargetedForSexAction(this), "Kiss [npc.breasts]");
 		}
 
 		@Override
