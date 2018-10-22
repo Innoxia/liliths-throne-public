@@ -7,7 +7,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -3345,7 +3350,7 @@ public class Game implements Serializable, XMLSaving {
 		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
 
-	// Methods in lambdas can't throw exceptions, so we have to wrap addNPC
+	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
 	public String safeAddNPC(final NPC npc, boolean isImported) {
 		String id = "";
 		try{
