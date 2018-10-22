@@ -53,7 +53,7 @@
 		<imageEquippedName>dagger.svg</imageEquippedName>
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>6</damage> 
+		<damage>12</damage> 
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 

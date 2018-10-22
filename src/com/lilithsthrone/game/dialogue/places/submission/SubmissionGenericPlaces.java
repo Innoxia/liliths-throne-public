@@ -15,13 +15,14 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SubmissionGenericPlaces {
@@ -69,10 +70,36 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL"));
 			
-			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL"));
+
+			boolean pacified = true;
+			BaseColour colour = Main.game.getPlayer().getLocationPlace().getPlaceType().getColour();
+			switch(Main.game.getPlayer().getLocationPlace().getPlaceType()) {
+				case SUBMISSION_IMP_TUNNELS_ALPHA:
+					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified);
+					break;
+				case SUBMISSION_IMP_TUNNELS_DEMON:
+					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified);
+					break;
+				case SUBMISSION_IMP_TUNNELS_FEMALES:
+					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified);
+					break;
+				case SUBMISSION_IMP_TUNNELS_MALES:
+					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified);
+					break;
+				default:
+					break;
+			}
+			if(!pacified) {
+				UtilText.nodeContentSB.append(
+						"<span color:"+colour.toWebHexString()+";>"
+						+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
+						+"</span>");
+			}
+			
+			for(GameCharacter npc : Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell())) {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(!pacified));
 			}
 			
 			return UtilText.nodeContentSB.toString();

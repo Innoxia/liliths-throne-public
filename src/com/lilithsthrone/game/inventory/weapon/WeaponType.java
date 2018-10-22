@@ -1016,6 +1016,14 @@ public class WeaponType {
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
+	
+	public static AbstractWeaponType getWeaponTypeFromId(String id) {
+		return idToWeaponMap.get(id);
+	}
+	
+	public static String getIdFromWeaponType(AbstractWeaponType weaponType) {
+		return weaponToIdMap.get(weaponType);
+	}
 
 	static {
 		

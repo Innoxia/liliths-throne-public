@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
@@ -142,34 +143,21 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
-		if(target.isPlayer()) {
-			if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
-				return "<p>"
-							+ "You can't help but let out a delighted [pc.moan] as you greedily gulp down the slimy fluid."
-							+ " Darting your [pc.tongue] out, you desperately lick up every last drop of cum; only discarding the condom once you're sure that's it's completely empty."
-						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
-			} else {
-				return "<p>"
-							+ "You scrunch your [pc.eyes] shut as you gulp down the slimy fluid, trying your best not to think about what you've just done as you throw the now-empty condom to the floor..."
-						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
-			}
-			
+		if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+			return UtilText.parse(user, target,
+					"<p>"
+						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
+						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
+					+ "</p>"
+					+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers()));
 		} else {
-			if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
-				return "<p>"
-							+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily gulps down the slimy fluid."
-							+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately licks up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
-						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
-			} else {
-				return "<p>"
-							+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] gulps down the slimy fluid, trying [npc.her] best not to think about what [npc.sheIs] just done as [npc.she] throws the now-empty condom to the floor..."
-						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
-			}
+			return "<p>"
+						+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
+						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
+					+ "</p>"
+					+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 		}
+		
 	}
 	
 	public String getCumProvidorId() {

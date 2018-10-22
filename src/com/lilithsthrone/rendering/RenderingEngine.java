@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -51,6 +52,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
@@ -63,7 +67,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -1639,8 +1643,9 @@ public enum RenderingEngine {
 			mapIcons.add(gc.getMapIcon());
 		}
 		
-		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y))) {
-			if(!charactersPresent.contains(gc) && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
+		List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
+		for(NPC gc : charactersHome) {
+			if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
 				mapIcons.add(gc.getHomeMapIcon());
 			}
 		}
@@ -2058,7 +2063,7 @@ public enum RenderingEngine {
 							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
 						+"</div>"
 						+"<div class='full-width-container' style='text-align:center;'>"
-							+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName())
+							+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))
 						+ "</div>"
 					+"</div>");
 		
@@ -2101,9 +2106,51 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
+			boolean pointer = false;
+			SexAreaInterface si = null;
+			switch(se) {
+				case PENIS_STATUS:
+					si = SexAreaPenetration.PENIS;
+					break;
+				case ANUS_STATUS:
+					si = SexAreaOrifice.ANUS;
+					break;
+				case ASS_STATUS:
+					si = SexAreaOrifice.ASS;
+					break;
+				case MOUTH_STATUS:
+					si = SexAreaOrifice.MOUTH;
+					break;
+				case BREAST_STATUS:
+					si = SexAreaOrifice.BREAST;
+					break;
+				case NIPPLE_STATUS:
+					si = SexAreaOrifice.NIPPLE;
+					break;
+				case THIGH_STATUS:
+					si = SexAreaOrifice.THIGHS;
+					break;
+				case URETHRA_PENIS_STATUS:
+					si = SexAreaOrifice.URETHRA_PENIS;
+					break;
+				case URETHRA_VAGINA_STATUS:
+					si = SexAreaOrifice.URETHRA_VAGINA;
+					break;
+				case VAGINA_STATUS:
+					si = SexAreaOrifice.VAGINA;
+					break;
+				default:
+					break;
+			}
+			if(Main.game.isInSex() && si!=null) {
+				if(!Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()) {
+					pointer = true;
+				}
+			}
+			
 			if (se.isSexEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel()) {
 				panelSB.append(
-						"<div class='icon effect'>"
+						"<div class='icon effect' "+(pointer?"style='cursor:pointer;'":"")+">"
 								+ "<div class='icon-content'>"
 									+ se.getSVGString(character)
 									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"

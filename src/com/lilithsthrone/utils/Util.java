@@ -305,6 +305,10 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param lists The lists to merge.
+	 * @return A new ArrayList which contains all the elements from both lists.
+	 */
 	public static <U> ArrayList<U> mergeLists(List<U>... lists) {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
@@ -885,7 +889,7 @@ public class Util {
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
-	
+
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}

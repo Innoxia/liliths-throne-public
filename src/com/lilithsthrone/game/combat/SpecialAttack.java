@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -1456,149 +1457,43 @@ public enum SpecialAttack {
 			
 			String attackText = "";
 			
-			if(caster.isPlayer()) {
-				if(target.isVisiblyPregnant()) {
-					attackText = UtilText.parse(target,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab your crotch, you wink at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [pc.cum+]!)]"
-										:"[pc.speech(How many girls have you knocked up recently?)]"),
+			if(target.isVisiblyPregnant()) {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"Reaching down to grab [npc.her] crotch, [npc.name] [npc.verb(wink)] at [npc2.name], "
+								+ "[npc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [npc.cum+]!)]",
 
-							"Running your hands down over your crotch, you wink at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(You may already be pregnant, but that won't stop me from giving you a nice creampie!)]"
-										:"[pc.speech(How many girls have you got pregnant recently?)]"),
+						"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] [npc.verb(wink)] at [npc2.name], "
+								+ "[npc.speech(You may already be pregnant, but that won't stop me from giving you a nice creampie!)]",
 
-							"Sliding your hands down to draw attention to your crotch, you grin at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(Don't think that being pregnant will stop me from filling your cunt with my [pc.cum+]!)]"
-										:"[pc.speech(Got many girls pregnant recently?)]"),
+						"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] [npc.verb(grin)] at [npc2.name], "
+								+ "[npc.speech(Don't think that being pregnant will stop me from filling your cunt with my [npc.cum+]!)]",
 
-							"Reaching down to grab your crotch, you grin at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [pc.cum+]!)]"
-										:"[pc.speech(Got many girls knocked up recently?)]"))));
-					
-				} else {
-					attackText = UtilText.parse(target,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab your crotch, you wink at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
-										:"[pc.speech(How many girls have you knocked up recently?)]"),
-
-							"Running your hands down over your crotch, you wink at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(My seed's so potent, I'm going to knock you up on the first fuck!)]"
-										:"[pc.speech(How many girls have you got pregnant recently?)]"),
-
-							"Sliding your hands down to draw attention to your crotch, you grin at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(My seed's so potent, you're going to get knocked up from our first fuck!)]"
-										:"[pc.speech(Got many girls pregnant recently?)]"),
-
-							"Reaching down to grab your crotch, you grin at [npc.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[pc.speech(I'm going to fuck you pregnant!)]"
-										:"[pc.speech(Got many girls knocked up recently?)]"))));
-				}
-				
-			} else if(target.isPlayer()) {
-				if(target.isVisiblyPregnant()) {
-					attackText = UtilText.parse(caster,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab [npc.her] crotch, [npc.name] winks at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [npc.cum+]!)]"
-										:"[npc.speech(How many girls have you knocked up recently?)]"),
-
-							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(You may already be pregnant, but that won't stop me from giving you a nice creampie!)]"
-										:"[npc.speech(How many girls have you got pregnant recently?)]"),
-
-							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Don't think that being pregnant will stop me from filling your cunt with my [npc.cum+]!)]"
-										:"[npc.speech(Got many girls pregnant recently?)]"),
-
-							"Reaching down to grab [npc.her] crotch, [npc.name] grins at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [npc.cum+]!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]"))));
-					
-				} else {
-					attackText = UtilText.parse(caster,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab [npc.her] crotch, [npc.name] winks at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
-										:"[npc.speech(How many girls have you knocked up recently?)]"),
-
-							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(My seed's so potent, I'm going to knock you up on the first fuck!)]"
-										:"[npc.speech(How many girls have you got pregnant recently?)]"),
-
-							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(My seed's so potent, you're going to get knocked up from our first fuck!)]"
-										:"[npc.speech(Got many girls pregnant recently?)]"),
-
-							"Reaching down to grab [npc.her] crotch, [npc.name] grins at you, "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(I'm going to fuck you pregnant!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]"))));
-				}
+						"Reaching down to grab [npc.her] crotch, [npc.name] [npc.verb(grin)] at [npc2.name], "
+								+ "[npc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [npc.cum+]!)]")));
 				
 			} else {
-				if(target.isVisiblyPregnant()) {
-					attackText = UtilText.parse(caster, target,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab [npc.her] crotch, [npc.name] winks at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [npc.cum+]!)]"
-										:"[npc.speech(How many girls have you knocked up recently?)]"),
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"Reaching down to grab [npc.her] crotch, [npc.name] [npc.verb(wink)] at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine() || (target.isAreaKnownByCharacter(CoverableArea.VAGINA, caster) && target.hasVagina())
+									?"[npc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
+									:"[npc.speech(Maybe I should give you a pussy, then knock you up!)]"),
 
-							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(You may already be pregnant, but that won't stop me from giving you a nice creampie!)]"
-										:"[npc.speech(How many girls have you got pregnant recently?)]"),
+						"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] [npc.verb(wink)] at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine() || (target.isAreaKnownByCharacter(CoverableArea.VAGINA, caster) && target.hasVagina())
+									?"[npc.speech(My seed's so potent, I'm going to knock you up on the first fuck!)]"
+									:"[npc.speech(If only you had a pussy, I'd breed you real good!)]"),
 
-							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Don't think that being pregnant will stop me from filling your cunt with my [npc.cum+]!)]"
-										:"[npc.speech(Got many girls pregnant recently?)]"),
+						"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] [npc.verb(grin)] at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine() || (target.isAreaKnownByCharacter(CoverableArea.VAGINA, caster) && target.hasVagina())
+									?"[npc.speech(My seed's so potent, you're going to get knocked up from our first fuck!)]"
+									:"[npc.speech(Perhaps I'll give you a nice tight cunt, then knock you up on your first fuck!)]"),
 
-							"Reaching down to grab [npc.her] crotch, [npc.name] grins at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [npc.cum+]!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]"))));
-					
-				} else {
-					attackText = UtilText.parse(caster, target,
-							(UtilText.returnStringAtRandom(
-							"Reaching down to grab [npc.her] crotch, [npc.name] winks at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
-										:"[npc.speech(How many girls have you knocked up recently?)]"),
-
-							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(My seed's so potent, I'm going to knock you up on the first fuck!)]"
-										:"[npc.speech(How many girls have you got pregnant recently?)]"),
-
-							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(My seed's so potent, you're going to get knocked up from our first fuck!)]"
-										:"[npc.speech(Got many girls pregnant recently?)]"),
-
-							"Reaching down to grab [npc.her] crotch, [npc.name] grins at [npc2.name], "
-									+ (target.getAppearsAsGender().isFeminine()
-										?"[npc.speech(I'm going to fuck you pregnant!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]"))));
-				}
+						"Reaching down to grab [npc.her] crotch, [npc.name] [npc.verb(grin)] at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine() || (target.isAreaKnownByCharacter(CoverableArea.VAGINA, caster) && target.hasVagina())
+									?"[npc.speech(I'm going to fuck you pregnant!)]"
+									:"[npc.speech(You need a nice tight pussy, so I can fuck you pregnant!)]"))));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_PREGNANCY, attackText);
@@ -2033,8 +1928,8 @@ public enum SpecialAttack {
 					"<p>"
 						+ "Flexing the claws on [npc.her] anthropomorphic squirrel-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to strike at [npc2.name]."
 						+ (isHit
-								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc2.she] [npc2.verb(let)] out a surprised cry as [npc.she] [npc2.verb(jump)] back."
-								: " [npc2.She] manages to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
+								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc.she] [npc.verb(let)] out a triumphant shout before jumping back."
+								: " [npc2.Name] [npc2.verb(manage)] to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
 					+ "</p>")
 					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
@@ -2135,8 +2030,8 @@ public enum SpecialAttack {
 					"<p>"
 						+ "Extending the claws on [npc.her] anthropomorphic cat-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to strike at [npc2.name]."
 						+ (isHit
-								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc2.she] [npc2.verb(let)] out a surprised cry as [npc.she] [npc2.verb(jump)] back."
-								: " [npc2.She] manages to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
+								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc.she] [npc.verb(let)] out a triumphant shout before jumping back."
+								: " [npc2.Name] [npc2.verb(manage)] to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
 					+ "</p>")
 					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
@@ -2273,65 +2168,44 @@ public enum SpecialAttack {
 
 		Combat.setCooldown(caster, this, this.getCooldown()+1);
 		
-		if (caster == Main.game.getPlayer()) {
-			if (isCritical)
-				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-						+ damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
-			else
-				descriptionSB.append(
-						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
-
-			if (statusEffects != null && isHit) {
-				descriptionSB.append(UtilText.parse(target, "<p>[npc.She] is now suffering "));
-				int i = 0;
-				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
-					if (i != 0) {
-						if (i == statusEffects.size() - 1)
-							descriptionSB.append(" and ");
-						else
-							descriptionSB.append(", ");
-					}
-					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
-					i++;
-				}
-				descriptionSB.append(".</p>");
-			}
-
+		if (isCritical) {
 			descriptionSB.append("<p>"
-									+ "You will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
-								+ "</p>");
-
+					+ (isHit 
+							? "<b>[npc.Name] <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> [npc.verb(hit)] for " + damage
+								+ " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+							: "<b>[npc.Name] missed!</b>")
+					+ "</p>");
 		} else {
-			if (isCritical)
-				descriptionSB.append("<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString()
-						+ ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
-			else
-				descriptionSB.append("<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
-						: "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
-
-			if (statusEffects != null && isHit) {
-				descriptionSB.append("<p>You are now suffering ");
-				int i = 0;
-				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
-					if (i != 0) {
-						if (i == statusEffects.size() - 1)
-							descriptionSB.append(" and ");
-						else
-							descriptionSB.append(", ");
-					}
-					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
-					i++;
-				}
-				descriptionSB.append("!</p>");
-			}
-
-			descriptionSB.append(UtilText.parse(caster,
+			descriptionSB.append(
 					"<p>"
-						+ "[npc.Name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
-					+ "</p>"));
+						+ (isHit
+								? "<b>[npc.Name] [npc.verb(hit)] for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+								: "<b>[npc.Name] missed!</b>")
+					+ "</p>");
+		}
+		
+		if (statusEffects != null && isHit) {
+			descriptionSB.append("<p>[npc2.NameIsFull] now suffering ");
+			int i = 0;
+			for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
+				if (i != 0) {
+					if (i == statusEffects.size() - 1) {
+						descriptionSB.append(" and ");
+					} else {
+						descriptionSB.append(", ");
+					}
+				}
+				descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+				i++;
+			}
+			descriptionSB.append(".</p>");
 		}
 
-		return descriptionSB.toString();
+		descriptionSB.append("<p>"
+								+ "[npc.Name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+							+ "</p>");
+
+		return UtilText.parse(caster, target, descriptionSB.toString());
 	}
 	
 	protected String applySpecialSeduction(GameCharacter caster, GameCharacter target, Fetish fetishWeakness, String attackText) {

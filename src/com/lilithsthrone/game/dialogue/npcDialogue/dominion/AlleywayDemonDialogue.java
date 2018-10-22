@@ -308,7 +308,7 @@ public class AlleywayDemonDialogue {
 					
 				} else if (index == 3) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -330,7 +330,7 @@ public class AlleywayDemonDialogue {
 					
 				} else if (index == 4) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -691,7 +691,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								getDemon().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getDemon().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -820,7 +820,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								getDemon().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getDemon().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}

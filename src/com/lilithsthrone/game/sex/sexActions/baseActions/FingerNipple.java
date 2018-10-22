@@ -951,13 +951,13 @@ public class FingerNipple {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] gives [npc2.namePos] [npc2.breast] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before roughly yanking [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] gives [npc2.namePos] [npc2.breast] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
 					break;

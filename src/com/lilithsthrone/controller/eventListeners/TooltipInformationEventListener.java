@@ -84,19 +84,26 @@ public class TooltipInformationEventListener implements EventListener {
 		Main.mainController.setTooltipContent("");
 
 		if (statusEffect != null) {
-			
-			int yIncrease = (statusEffect.getModifiersAsStringList(owner).size() > 4 ? statusEffect.getModifiersAsStringList(owner).size() - 4 : 0)
+
+			// I hate this. If only JavaFX's height detection and resizing methods actually worked...
+			int size = statusEffect.getModifiersAsStringList(owner).size();
+			int yIncrease = (size > 4 ? size - 4 : 0)
 								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
 
+			if(statusEffect.getAdditionalDescription(owner)!=null && !statusEffect.getAdditionalDescription(owner).isEmpty()) {
+				yIncrease += 7;
+			}
+				
 			Main.mainController.setTooltipSize(360, 284 + (yIncrease * LINE_HEIGHT));
-
+			
+			
 			// Title:
 			tooltipSB.setLength(0);
 			tooltipSB.append("<body>"
 					+ "<div class='title'>" + Util.capitaliseSentence(statusEffect.getName(owner)) + "</div>");
 
 			// Attribute modifiers:
-			tooltipSB.append("<div class='subTitle-picture'>");
+			tooltipSB.append("<div class='subTitle-picture' style='white-space: nowrap'>");
 				if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : statusEffect.getModifiersAsStringList(owner)) {
@@ -116,8 +123,14 @@ public class TooltipInformationEventListener implements EventListener {
 							+ "<div class='description'>"
 								+ statusEffect.getDescription(owner)
 							+ "</div>");
-
-			if(owner.hasStatusEffect(statusEffect))
+			
+			if(statusEffect.getAdditionalDescription(owner)!=null && !statusEffect.getAdditionalDescription(owner).isEmpty()) {
+				tooltipSB.append("<div class='description'>"
+						+ statusEffect.getAdditionalDescription(owner)
+					+ "</div>");
+			}
+			
+			if(owner.hasStatusEffect(statusEffect)) {
 				if (owner.getStatusEffectDuration(statusEffect) != -1) {
 					if (statusEffect.isCombatEffect()) {
 						tooltipSB.append("<div class='subTitle'><b>Turns remaining: " + owner.getStatusEffectDuration(statusEffect) + "</b></div>");
@@ -141,10 +154,19 @@ public class TooltipInformationEventListener implements EventListener {
 						//STATUS_EFFECT_TIME_OVERFLOW
 					}
 				}
+			}
 			
 			tooltipSB.append("</body>");
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			
+			// Wasted more time trying to get JavaFX to return sensible height values.
+//			int height = Integer.valueOf(((String) Main.mainController.getWebEngineTooltip().executeScript("window.getComputedStyle(document.body, null).getPropertyValue('height')")).replace("px", ""));
+////					"Math.max( document.body.scrollHeight, document.body.offsetHeight );");
+//			
+//			System.out.println(height);
+//
+//			Main.mainController.setTooltipSize(360, height+8);
 
 		} else if (perk != null) { // Perks:
 			

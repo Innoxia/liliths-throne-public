@@ -132,7 +132,11 @@ public class OccupancyUtil implements XMLSaving {
 				if(Math.random()<0.1) {
 					List<Occupation> occupations = new ArrayList<>();
 					for(Occupation occ : Occupation.values()) {
-						if(!occ.isAvailableToPlayer() && !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES) && occ.isAvailable(occupant) && occ!=Occupation.NPC_UNEMPLOYED) {
+						if(!occ.isAvailableToPlayer()
+								&& !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES)
+								&& occ.isAvailable(occupant)
+								&& occ!=Occupation.NPC_UNEMPLOYED
+								&& !occ.isLowlife()) {
 							occupations.add(occ);
 						}
 					}
@@ -1173,7 +1177,7 @@ public class OccupancyUtil implements XMLSaving {
 		for(int i=0; i< grid.length; i++) {
 			for(int j=0; j< grid[0].length; j++) {
 				Cell c = grid[i][j];
-				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersPresent(c).isEmpty()) {
+				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersTreatingCellAsHome(c).isEmpty()) {
 					return c;
 				}
 			}

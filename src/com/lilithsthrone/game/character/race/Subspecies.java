@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -25,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -137,10 +139,19 @@ public enum Subspecies {
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
 			Race.DEMON,
-			Colour.RACE_IMP, SubspeciesPreference.FOUR_ABUNDANT, "A typical imp.", Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 10f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(10f, 20f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(95f, 100f))),
+			Colour.RACE_IMP,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical imp.",
+			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
 		@Override
-		public void applySpeciesChanges(Body body) { //TODO randomise
-			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMedianValue());
+		public void applySpeciesChanges(Body body) {
+			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
+			body.getPenis().setPenisSize(null, 3+Util.random.nextInt(6)); // 3-8 inches
+			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
 		public boolean isShortStature() {
@@ -164,14 +175,23 @@ public enum Subspecies {
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_BASIC"),
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
 			Race.DEMON,
-			Colour.RACE_IMP, SubspeciesPreference.ONE_LOW, "A more powerful form of imp, standing at over 3'6\" tall.", Util.newArrayListOfValues(WorldType.SUBMISSION)) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(10f, 25f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(15f, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(95f, 100f))),
+			Colour.RACE_IMP,
+			SubspeciesPreference.ONE_LOW,
+			"A more powerful form of imp, standing at over 3'6\" tall.",
+			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
 		@Override
 		public Subspecies getOffspringSubspecies() {
 			return IMP;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) { //TODO randomise
-			body.setHeight(Height.NEGATIVE_ONE_TINY.getMedianValue());
+		public void applySpeciesChanges(Body body) {
+			body.setHeight(Height.NEGATIVE_ONE_TINY.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_ONE_TINY.getMaximumValue() - Height.NEGATIVE_ONE_TINY.getMinimumValue()));
+			body.getPenis().setPenisSize(null, 6+Util.random.nextInt(5)); // 6-10 inches
+			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
 		public boolean isShortStature() {
@@ -449,7 +469,7 @@ public enum Subspecies {
 		}
 
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter character) {
+		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
 			if(character.getTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, (float) (10 + 5*character.getTailCount())),
@@ -561,7 +581,7 @@ public enum Subspecies {
 		}
 
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter character) {
+		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
 			if(character.getTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, (float) (10 + 5*character.getTailCount())),
@@ -1612,7 +1632,8 @@ public enum Subspecies {
 	private String pluralFemaleName;
 	
 	private String statusEffectDescription;
-	private Map<Attribute, Float> attributeModifiers;
+	private Map<Attribute, AttributeRange> attributeModifiers;
+	private Map<Attribute, Float> statusEffectAttributeModifiers;
 	private List<String> extraEffects;
 	
 	private String basicDescription;
@@ -1656,11 +1677,52 @@ public enum Subspecies {
 			String pluralMaleName,
 			String pluralFemaleName,
 			String statusEffectDescription,
-			Map<Attribute, Float> attributeModifiers,
+			Map<Attribute, Float> statusEffectAttributeModifiers,
 			List<String> extraEffects,
 			String basicDescription,
 			String advancedDescription,
 			Race race,
+			Colour colour,
+			SubspeciesPreference subspeciesPreferenceDefault,
+			String description,
+			List<WorldType> worldLocations) {
+		this(iconPathName,
+				 iconBackgroundPathName,
+				 name,
+				 namePlural,
+				 singularMaleName,
+				 singularFemaleName,
+				 pluralMaleName,
+				 pluralFemaleName,
+				 statusEffectDescription,
+				 statusEffectAttributeModifiers,
+				 extraEffects,
+				 basicDescription,
+				 advancedDescription,
+				 race,
+				 null,
+				 colour,
+				 subspeciesPreferenceDefault,
+				 description,
+				 worldLocations);
+	}
+	
+	private Subspecies(
+			String iconPathName,
+			String iconBackgroundPathName,
+			String name,
+			String namePlural,
+			String singularMaleName,
+			String singularFemaleName,
+			String pluralMaleName,
+			String pluralFemaleName,
+			String statusEffectDescription,
+			Map<Attribute, Float> statusEffectAttributeModifiers,
+			List<String> extraEffects,
+			String basicDescription,
+			String advancedDescription,
+			Race race,
+			Map<Attribute, AttributeRange> attributeModifiers,
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
 			String description,
@@ -1676,7 +1738,13 @@ public enum Subspecies {
 		this.pluralFemaleName = pluralFemaleName;
 
 		this.statusEffectDescription = statusEffectDescription;
-		this.attributeModifiers = attributeModifiers;
+		this.statusEffectAttributeModifiers = statusEffectAttributeModifiers;
+		
+		if(attributeModifiers!=null) {
+			this.attributeModifiers = attributeModifiers;
+		} else {
+			this.attributeModifiers = new HashMap<>();
+		}
 
 		if(extraEffects == null) {
 			this.extraEffects = new ArrayList<>();
@@ -1908,9 +1976,9 @@ public enum Subspecies {
 				break;
 			case DEMON:
 				subspecies = Subspecies.DEMON;
-				if(body.getHeightValue()<Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue()) {
+				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 					subspecies = Subspecies.IMP;
-				} else if(body.getHeightValue()<Height.NEGATIVE_ONE_TINY.getMaximumValue()) {
+				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
 					subspecies = Subspecies.IMP_ALPHA;
 				}
 				break;
@@ -2154,7 +2222,11 @@ public enum Subspecies {
 		return UtilText.parse(character, statusEffectDescription);
 	}
 
-	public Map<Attribute, Float> getAttributeModifiers(GameCharacter character) {
+	public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+		return statusEffectAttributeModifiers;
+	}
+
+	public Map<Attribute, AttributeRange> getAttributeModifiers(GameCharacter character) {
 		return attributeModifiers;
 	}
 

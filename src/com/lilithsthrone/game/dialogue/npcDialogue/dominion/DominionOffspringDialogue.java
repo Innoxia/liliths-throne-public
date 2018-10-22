@@ -5,6 +5,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -3171,6 +3172,8 @@ public class DominionOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
+						Main.game.getPlayer().addSlave((NPC) Main.game.getActiveNPC());
+						Main.game.getActiveNPC().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 					}
 				};
 				
