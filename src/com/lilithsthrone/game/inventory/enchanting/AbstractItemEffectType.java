@@ -1848,6 +1848,13 @@ public abstract class AbstractItemEffectType {
 	private static int smallChangeBoost = 2;
 	private static int smallChangeMajorBoost = 3;
 	
+	private static int smallMediumChangeMajorDrain = -10;
+	private static int smallMediumChangeDrain = -5;
+	private static int smallMediumChangeMinorDrain = -1;
+	private static int smallMediumChangeMinorBoost = 1;
+	private static int smallMediumChangeBoost = 5;
+	private static int smallMediumChangeMajorBoost = 10;
+	
 	private static int mediumChangeMajorDrain = -15;
 	private static int mediumChangeDrain = -5;
 	private static int mediumChangeMinorDrain = -1;
@@ -2864,17 +2871,17 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in penis size.", mediumChangeMajorDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in penis size.", smallMediumChangeMajorDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in penis size.", mediumChangeDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeDrain); } };
+								return new RacialEffectUtil("Decrease in penis size.", smallMediumChangeDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in penis size.", mediumChangeMinorDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in penis size.", smallMediumChangeMinorDrain, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in penis size.", mediumChangeMinorBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in penis size.", smallMediumChangeMinorBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in penis size.", mediumChangeBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeBoost); } };
+								return new RacialEffectUtil("Increase in penis size.", smallMediumChangeBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in penis size.", mediumChangeMajorBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in penis size.", smallMediumChangeMajorBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(smallMediumChangeMajorBoost); } };
 						}
 					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {

@@ -1173,8 +1173,8 @@ public class FingerVagina {
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.her] [npc.eyes],"

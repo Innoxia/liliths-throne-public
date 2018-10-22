@@ -298,7 +298,7 @@ public class AlleywayAttackerDialogue {
 							public void effects() {
 								applyPregnancyReactions();
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-250));
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 15));
+								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
 
 								if(getMugger().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
@@ -309,7 +309,7 @@ public class AlleywayAttackerDialogue {
 					
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -331,7 +331,7 @@ public class AlleywayAttackerDialogue {
 					
 				} else if (index == 4) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -724,7 +724,7 @@ public class AlleywayAttackerDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -847,7 +847,7 @@ public class AlleywayAttackerDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}

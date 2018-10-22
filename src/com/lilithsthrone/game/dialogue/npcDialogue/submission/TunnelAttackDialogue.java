@@ -291,7 +291,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -313,7 +313,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 4) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -548,48 +548,6 @@ public class TunnelAttackDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel(){
-			return "Assaulted!";
-		}
-
-		@Override
-		public String getContent() {
-			// Storm attackers are different from alley attackers. They are not saved as persistent NPCs, so don't worry about giving any repeat-encounter descriptions.
-			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK", getMugger());
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new ResponseCombat("Fight", "Defend yourself against the unwanted advances of [npc.name]!", getMugger());
-				
-			} else if (index == 2) {
-				return new Response("Offer money",
-						"Due to the ongoing arcane storm, [npc.name] isn't interested in your money, and only wants to have sex! You'll have to either fight [npc.herHim] or give [npc.herHim] what [npc.she] wants!",
-						null);
-				
-			} else if (index == 3) {
-				return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
-						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
-						null, null, null,
-						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null,
-						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
-					
-			} else {
-				return null;
-			}
-		}
-	};
-	
 	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -706,7 +664,7 @@ public class TunnelAttackDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -829,7 +787,7 @@ public class TunnelAttackDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}

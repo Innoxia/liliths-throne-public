@@ -165,6 +165,7 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexPositionSlot.MILKING_STALL_FUCKING;
 		}
 		

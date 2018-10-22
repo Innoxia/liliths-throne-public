@@ -1730,7 +1730,7 @@ public class PenisBreasts {
 								+ " [npc.name] gently [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, softly [npc.moaning] as [npc.she] [npc.verb(use)] [npc.her] cleavage.",
 
 						"Gently wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] slowly [npc.verb(lift)] them up and down,"
-								+ " letting out a soft [npc.moan] as [npc.she] lovingly gives [npc2.herHim] a titfuck.",
+								+ " letting out a soft [npc.moan] as [npc.she] lovingly [npc.verb(give)] [npc2.herHim] a titfuck.",
 
 						"Letting out a soft [npc.moan], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a loving titfuck."));
@@ -1804,7 +1804,7 @@ public class PenisBreasts {
 								+ " [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] an eager titfuck.",
 
 						"Eagerly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] an enthusiastic titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] happily [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] an eager titfuck."));
@@ -1878,7 +1878,7 @@ public class PenisBreasts {
 								+ " [npc.name] rapidly [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] a dominant titfuck.",
 
 						"Dominantly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] roughly [npc.verb(bounce)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] a forceful titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] a forceful titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] forcefully [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a dominant titfuck."));
@@ -1952,7 +1952,7 @@ public class PenisBreasts {
 								+ " [npc.name] [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] a titfuck.",
 
 						"Wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] a titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] a titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a titfuck."));
@@ -2026,7 +2026,7 @@ public class PenisBreasts {
 								+ " [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] an eager titfuck.",
 
 						"Eagerly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] an enthusiastic titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] happily [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] an eager titfuck."));

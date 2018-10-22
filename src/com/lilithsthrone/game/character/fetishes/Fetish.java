@@ -897,7 +897,7 @@ public enum Fetish {
 	
 	FETISH_KINK_RECEIVING(60,
 			"kink curious",
-			"being given new fetishes",
+			"gaining fetishes",
 //			"fetish_transformation_receiving",
 			"fetish_kink_receiving",
 			Fetish.BASE_EXPERIENCE_GAIN,

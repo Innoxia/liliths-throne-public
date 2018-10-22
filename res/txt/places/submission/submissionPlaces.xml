@@ -333,12 +333,17 @@
 	
 	<htmlContent tag="TUNNEL"><![CDATA[
 	<p>
-		Unlike the main passages of Submission, the shaded alcoves and wide pipe openings make these dark, claustrophobic tunnels the perfect place for an ambush.
-		 Filmy perspiration drips from the walls, and you flinch every time a drop touches you.
+		Unlike the main passages of Submission, the shaded alcoves and wide pipe openings make these dark, claustrophobic tunnels the perfect place for an ambush. Filmy perspiration drips from the walls, and you flinch every time a drop touches you.
 	</p>
 	<p>
-		Kicking up rubbish and random debris as you quickly move through the dilapidated area, each of your steps sounds as loud as a thunder-clap to your ears.
-		 You can't help but shake the feeling that someone's lying in wait around each corner, waiting for their chance to lunge out of the shadows and attack...
+		Kicking up rubbish and random debris as you quickly move through the dilapidated area, each of your steps sounds as loud as a thunder-clap to your ears. You can't help but shake the feeling that someone's lying in wait around each corner, waiting for their chance to lunge out of the shadows and attack...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TUNNEL_IMP_CONTROL"><![CDATA[
+	<p style='color:[#pc.getLocationPlace().getPlaceType().getColour().toWebHexString()];'>
+		<i>This tunnel is part of a network that's currently being controlled by an imp fortress! Until the fortress is cleared, anyone who calls these tunnels home is sure to remain in hiding...</i>
 	</p>
 	]]>
 	</htmlContent>

@@ -144,7 +144,7 @@ public class ClitMouth {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Slowly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] [npc2.clit+], before starting to gently suck and kiss it.",
+							"Slowly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.her] [npc2.clit+], before starting to gently suck and kiss it.",
 
 							"With a long, slow lick, [npc.name] [npc.verb(run)] [npc.her] [npc.tongue] up and over [npc2.namePos] [npc2.clit+],"
 									+ " pressing [npc.her] [npc.lips+] against it as [npc.she] gently [npc.verb(start)] kissing and sucking on [npc2.her] [npc2.clit+].",
@@ -154,7 +154,7 @@ public class ClitMouth {
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] [npc2.clit+], before starting to greedily suck and kiss it.",
+							"Eagerly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.her] [npc2.clit+], before starting to greedily suck and kiss it.",
 
 							"With a long, wet lick, [npc.name] [npc.verb(run)] [npc.her] [npc.tongue] up and over [npc2.namePos] [npc2.clit+],"
 									+ " pressing [npc.her] [npc.lips+] against it as [npc.she] eagerly [npc.verb(start)] kissing and sucking on [npc2.her] [npc2.clit+].",
@@ -165,7 +165,7 @@ public class ClitMouth {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly dragging [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.pussy+],"
-									+ " [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] [npc2.clit+], before starting to dominantly suck and kiss it.",
+									+ " [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.her] [npc2.clit+], before starting to dominantly suck and kiss it.",
 
 							"With a rough, wet lick, [npc.name] [npc.verb(run)] [npc.her] [npc.tongue] up and over [npc2.namePos] [npc2.clit+],"
 									+ " pressing [npc.her] [npc.lips+] against it as [npc.she] [npc.verb(start)] forcefully kissing and sucking on [npc2.her] [npc2.clit+].",
@@ -175,7 +175,7 @@ public class ClitMouth {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] [npc2.clit+], before starting to greedily suck and kiss it.",
+							"Eagerly sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.her] [npc2.clit+], before starting to greedily suck and kiss it.",
 
 							"With a long, wet lick, [npc.name] [npc.verb(run)] [npc.her] [npc.tongue] up and over [npc2.namePos] [npc2.clit+],"
 									+ " pressing [npc.her] [npc.lips+] against it as [npc.she] eagerly [npc.verb(start)] kissing and sucking on [npc2.her] [npc2.clit+].",
@@ -185,7 +185,7 @@ public class ClitMouth {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] [npc2.clit+], before starting to suck and kiss it.",
+							"Sliding [npc.her] [npc.tongue] over [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.her] [npc2.clit+], before starting to suck and kiss it.",
 
 							"With a long, wet lick, [npc.name] [npc.verb(run)] [npc.her] [npc.tongue] up and over [npc2.namePos] [npc2.clit+],"
 									+ " pressing [npc.her] [npc.lips+] against it as [npc.she] [npc.verb(start)] kissing and sucking on [npc2.her] [npc2.clit+].",

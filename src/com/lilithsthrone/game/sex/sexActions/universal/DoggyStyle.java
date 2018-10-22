@@ -43,6 +43,8 @@ public class DoggyStyle {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
+					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.DOGGY_ON_ALL_FOURS
+						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND)
 					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.DOGGY_BEHIND);
 		}
 		
