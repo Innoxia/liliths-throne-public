@@ -5209,7 +5209,6 @@ public class UtilText {
 		}
 	}
 
-	//private static GameCharacter character;
 	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise, parseAddPronoun;
 	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList, ParseMode currentParseMode) {
@@ -5494,16 +5493,6 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				if(getBodyPartFromType(bodyPart,character).getType().getBodyCoveringType(character) == null){
-					System.out.println("FAILED TO GET BODY PART FROM TYPE");
-					System.out.println("COMMAND: " + command);
-					System.out.println("ARGUMENTS: " + arguments);
-					System.out.println("TARGET: " + target);
-				    System.out.println("BODYPART: " + bodyPart);
-					System.out.println("TYPE: " + getBodyPartFromType(bodyPart,character).getType());
-					System.out.println("CHARACTER: " + character);
-					System.out.println("COVERINGTYPE: " + getBodyPartFromType(bodyPart,character).getType().getBodyCoveringType(character));
-				}
 				if(character.getCovering(getBodyPartFromType(bodyPart,character).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}

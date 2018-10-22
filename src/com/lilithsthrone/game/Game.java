@@ -689,7 +689,6 @@ public class Game implements Serializable, XMLSaving {
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
 				int totalNpcCount = npcs.getLength();
-				System.out.println(totalNpcCount);
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
 							if(!Main.game.NPCMap.containsKey(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
@@ -703,7 +702,6 @@ public class Game implements Serializable, XMLSaving {
 
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
-									//System.out.println(npc);
 									Main.game.safeAddNPC(npc, true);
 
 									// To fix issues with older versions hair length:
@@ -732,8 +730,6 @@ public class Game implements Serializable, XMLSaving {
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
-
-				System.out.println("TOTAL ADDED NPCS: " + Main.game.NPCMap.values().size());
 				
 				// Add in new NPCS:
 				
@@ -967,7 +963,6 @@ public class Game implements Serializable, XMLSaving {
 				synchronized (loadNPCMutex) {
 					npcConst = constructorMap.get(classMap.get(className));
 					if (npcConst == null){
-						System.out.println("Class loaded: " + className);
 						npcClass = (Class<? extends NPC>) Class.forName(className);
 						classMap.put(className, npcClass);
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
@@ -984,11 +979,11 @@ public class Game implements Serializable, XMLSaving {
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
 			return npc;
 		} catch(ClassNotFoundException CNFE) {
-			System.out.println("No Class found for: " + className);
+			System.err.println("No Class found for: " + className);
 			CNFE.printStackTrace();
 			return null;
 		} catch(NoSuchMethodException NSME) {
-			System.out.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
+			System.err.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
 			NSME.printStackTrace();
 			return null;
 		} catch(Exception ex) {
@@ -3349,13 +3344,14 @@ public class Game implements Serializable, XMLSaving {
 	public String getNextNPCId(Class<? extends NPC> c) {
 		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
+
+	// Methods in lambdas can't throw exceptions, so we have to wrap addNPC
 	public String safeAddNPC(final NPC npc, boolean isImported) {
 		String id = "";
 		try{
 			id = addNPC(npc,isImported);
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println(ex.getMessage());
 		}
 		return id;
 	}
