@@ -8,12 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntFunction;
@@ -691,7 +686,7 @@ public class Game implements Serializable, XMLSaving {
 					System.out.println("Player finished");
 				}
 				
-				List<String> addedIds = new ArrayList<>();
+				List<String> addedIds = Collections.synchronizedList(new ArrayList<>());
 //				List<NPC> slaveImports = new ArrayList<>();
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
@@ -1025,12 +1020,13 @@ public class Game implements Serializable, XMLSaving {
 			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
 		
 		try {
-			Class<? extends NPC> npcClass = classMap.get(className);
-			if (npcClass == null) {
+			Class<? extends NPC> npcClass;
+			Constructor<? extends NPC> npcConst = constructorMap.get(classMap.get(className));
+			if (npcConst == null) {
 				synchronized (loadNPCMutex) {
-					npcClass = classMap.get(className);
-					if (npcClass == null){
-						//System.out.println("Cache-miss on " + className);
+					npcConst = constructorMap.get(classMap.get(className));
+					if (npcConst == null){
+						System.out.println("Class loaded: " + className);
 						npcClass = (Class<? extends NPC>) Class.forName(className);
 						classMap.put(className, npcClass);
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
@@ -1038,16 +1034,25 @@ public class Game implements Serializable, XMLSaving {
 
 						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
 						constructorMap.put(npcClass, declaredConstructor);
-						NPC npc = declaredConstructor.newInstance(true);
-						m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-						return npc;
+						//NPC npc = declaredConstructor.newInstance(true);
+						//m.invoke(npc, e, doc, new CharacterImportSetting[] {});
+						//return npc;
 					}
 				}
 			}
+			npcClass = classMap.get(className);
 			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
 			NPC npc = declaredConstructor.newInstance(true);
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
 			return npc;
+		} catch(ClassNotFoundException CNFE) {
+			System.out.println("No Class found for: " + className);
+			CNFE.printStackTrace();
+			return null;
+		} catch(NoSuchMethodException NSME) {
+			System.out.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
+			NSME.printStackTrace();
+			return null;
 		} catch(Exception ex) {
 			System.err.println("Failed to load NPC class: "+className);
 			ex.printStackTrace();
