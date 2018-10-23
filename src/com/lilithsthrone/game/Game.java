@@ -697,9 +697,9 @@ public class Game implements Serializable, XMLSaving {
 
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
-				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
-				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
-				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
+				Map<String, Class<? extends NPC>> npcClasses = new ConcurrentHashMap<>();
+				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new ConcurrentHashMap<>();
+				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new ConcurrentHashMap<>();
 				int totalNpcCount = npcs.getLength();
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
@@ -737,8 +737,8 @@ public class Game implements Serializable, XMLSaving {
 									}
 
 								} else {
-									System.out.println("LOADNPC returned null");
-									System.out.println("CLASS: " + className);
+									System.err.println("LOADNPC returned null");
+									System.err.println("CLASS: " + className);
 								}
 							} else {
 								System.err.println("duplicate character attempted to be imported");
@@ -967,30 +967,22 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.endTurn(0);
 	}
 
-	private static final Object loadNPCMutex = new Object();
 	@SuppressWarnings("unchecked")
 	private static NPC loadNPC(Document doc, Element e, String className, 
 			Map<String, Class<? extends NPC>> classMap, Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
 			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
 		
 		try {
-			Class<? extends NPC> npcClass;
-			Constructor<? extends NPC> npcConst = constructorMap.get(classMap.get(className));
-			if (npcConst == null) {
-				synchronized (loadNPCMutex) {
-					npcConst = constructorMap.get(classMap.get(className));
-					if (npcConst == null){
-						npcClass = (Class<? extends NPC>) Class.forName(className);
-						classMap.put(className, npcClass);
-						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-						loadFromXMLMethodMap.put(npcClass, m);
+			Class<? extends NPC> npcClass = classMap.get(className);
+			if (npcClass == null) {
+				npcClass = (Class<? extends NPC>) Class.forName(className);
+				classMap.put(className, npcClass);
+				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+				loadFromXMLMethodMap.put(npcClass, m);
 
-						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-						constructorMap.put(npcClass, declaredConstructor);
-					}
-				}
+				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+				constructorMap.put(npcClass, declaredConstructor);
 			}
-			npcClass = classMap.get(className);
 			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
 			NPC npc = declaredConstructor.newInstance(true);
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
