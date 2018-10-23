@@ -233,6 +233,60 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return true If performer is able to free up orifices in order to perform this action.
+	 */
+	public default boolean isAbleToAccessParts(GameCharacter performer) {
+		boolean canAccessSelfParts = true;
+		for(SexAreaOrifice orifice : this.getPerformingCharacterOrifices()) {
+			if(!orifice.isFree(performer)) {
+				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
+						if(Sex.isDom(character)) {
+							canAccessSelfParts = false;
+						}
+					}
+				}
+			}
+		}
+		for(SexAreaPenetration penetration : this.getPerformingCharacterPenetrations()) {
+			if(!penetration.isFree(performer)) {
+				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
+						if(Sex.isDom(character)) {
+							canAccessSelfParts = false;
+						}
+					}
+				}
+			}
+		}
+		boolean canAccessOthersParts = true;
+		GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+		for(SexAreaOrifice orifice : this.getTargetedCharacterOrifices()) {
+			if(!orifice.isFree(target)) {
+				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
+						if(!character.equals(performer)) { // It's someone else they're interacting with:
+							canAccessOthersParts = false;
+						}
+					}
+				}
+			}
+		}
+		for(SexAreaPenetration penetration : this.getTargetedCharacterPenetrations()) {
+			if(!penetration.isFree(target)) {
+				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
+						if(!character.equals(performer)) { // It's someone else they're interacting with:
+							canAccessOthersParts = false;
+						}
+					}
+				}
+			}
+		}
+		return canAccessSelfParts && canAccessOthersParts;
+	}
+	
 	public default boolean isAddedToAvailableSexActions() {
 		return toResponse() != null;
 	}
@@ -363,8 +417,24 @@ public interface SexActionInterface {
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					if(this.getParticipantType() != SexParticipantType.SELF) { // This is a penetrative action between both partners:
-						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction()) && Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())))
-								|| getSexPace()==SexPace.SUB_RESISTING) {
+						
+						boolean canStartPenetration = Sex.isSubHasEqualControl() || Sex.isDom(Sex.getCharacterPerformingAction()) || !Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
+						
+						if(!canStartPenetration && Sex.getCharacterPerformingAction().isPlayer()) {
+							if(this.getTargetedCharacterOrifices().isEmpty()) {
+								canStartPenetration = true; // Can start submissive penetrations (getting penetrated, not doing the penetrating) when player is a sub with restricted control.
+							} else {
+								boolean virginityTakingPenetration = false;
+								for(SexAreaPenetration pen :this.getPerformingCharacterPenetrations()) {
+									if(pen.isTakesVirginity()) {
+										virginityTakingPenetration = true;
+									}
+								}
+								canStartPenetration = !virginityTakingPenetration;
+							}
+						}
+						
+						if(!canStartPenetration || getSexPace()==SexPace.SUB_RESISTING) {
 							return null;
 						}
 					}

@@ -123,7 +123,7 @@
 	
 	Gameplay:
 		Added all dialogue for imp encounters in submission, including variations for if you have a companion with you. Imps now TF your companion alongside you if you lose or submit.
-		Added doggy-style and missionary group sex support, and made these positions available for imp gangs found in the tunnels, both for loss and victory scenes, with and without a companion. Includes a couple of new size-difference positions eahc position.
+		Added doggy-style and missionary group sex support, and made these positions available for imp gangs found in the tunnels, both for loss and victory scenes, with and without a companion. Includes a couple of new size-difference positions each position.
 		Persistent NPCs that are in an imp tunnel will no longer be encountered while the associated fortress is active.
 	
 	Items:
@@ -162,6 +162,7 @@
 		Did some more work to improve the AI's targeting in sex, and to reduce the occurrences of repeatedly starting & stopping actions.
 		NPCs will now try to expose genitals in foreplay, with a lesser priority than exposing breasts and mouth.
 		Penis size change potions now transform in increments of 1/5/10 instead of 1/5/15.
+		You can now start submissive penetrations in sex scenes in which you are the submissive, restricted partner. NPCs can still not do this. (i.e. You can get your partners to penetrate you in scenes where you couldn't before.)
 		
 	Bugs:
 		Fixed issue with orgasm cum targets being illogical in multiple-partner sex scenes.
@@ -210,15 +211,45 @@
 		Fixed issues with new imp fortress leaders spawning each time you loaded the game, which was slowly bloating save files.
 		Fixed issue with some npcs not dressing themselves properly.
 	
-	
-	
-	
-	Test each tunnel's dialogue
+	Additions after push to dev branch:
+		Tested the new group sex positions, and fixed quite a few bugs related to that.
+		Fixed some bugs in the sex AI, and improved it for large group scenes. (This will still require some work.)
+		Fixed several conflicting methods in the group sex missionary position that were causing actions to be incorrectly disabled.
+		Remade imp fortress internal maps, and added gate guards and boss guards.
+		Added all imp fortress dialogue framework, with support for peaceful resolutions in the non-demon fortress. (All have placeholder dialogue for now.)
+		Fixed issue where you would end up fighting your own companion in the imp encounters.
+		Fixed your companion joining in with the sex after offering just yourself to imps in order to avoid a fight.
+		Added group oral sex position support.
+		In sex, NPCs are now far less likely to target another NPC of same sub/dom type if that target isn't attracted to the targeter.
+		Fixed issues where NPCs would not stop foreplay actions in order to perform real penetrations. (Such as stopping fingering in order to have penetrative sex.)
+		Fixed cum counts not being saved/loaded properly, which was causing tattoo counters to not keep a proper track of cum received.
+		Fixed issue with NPCs not calling you by the correct pet name.
+		Enslaving characters that are in your party will now work correctly. (I think this was the offspring enslavement bug? Everything else was working fine on my end.)
+		Typo and parsing fixes.
+		
+		
+		
 	
 	---
 	
-	Add fortresses, with guards and bosses
+	Need to make bosses & groups
+		Boss should drop key upon defeat
+	
+	
+	Add 3 outer fortresses, with guards and bosses
 		Make it so the three outer fortresses are smaller & less involved, and each provides a key that can grant access to the middle one (So you only need to clear one)
+		Can fly over fence or encounter guards (2 alphas)
+		If lose to guards, group oral (alpha 2 futa, male 2 males, female 2 female) 
+			If win, can sex
+		Pacify non-demon guards by performing oral or demonic persuasion
+		If lose to boss, sex (they have no TF potions left)
+			If win, can sex. Gain arcane key.
+		Pacify non-demon fortress through combat or demonic persuasion
+	
+	
+	Add missionary/doggy/oral switch actions for player when dom
+	
+	Add framework for final fortress
 	
 	
 	Need tribbing & frotting otherwise positions end up being awkward
@@ -232,6 +263,8 @@
 	Add slave silence permission dialogue
 	
 	Need to stop scroll of right & left panes on each new sex and combat action
+	
+	Sort out NPC management flow, especially in slave rooms/management and character viewing
 	
 	---
 		
@@ -256,6 +289,7 @@
 		Brawlers - leader is imp with biggest cock - 2 imp alpha males, 4 imp males
 			
 		Demon Fortress - leader is demon - demon + 5 alphas (2 arcane, 3 fighters)
+			Cannot enslave
 			Loss vs boss:
 				TF preference:
 					Feminine: TF you into bimbo nympho breeder

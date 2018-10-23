@@ -66,7 +66,7 @@ public class FortressAlphaLeader extends NPC {
 		super(isImported, null,
 				"The ruler of one of Submission's imp fortresses, [npc.name] seems to be very fond of [npc.her] futanari imp followers...",
 				Util.random.nextInt(15)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				20, Gender.F_P_V_B_FUTANARI, Subspecies.IMP_ALPHA, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+				20, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class FortressAlphaLeader extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 25);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 25);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
 			this.setPersonality(Util.newHashMapOfValues(

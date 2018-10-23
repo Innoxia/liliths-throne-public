@@ -158,6 +158,9 @@ public enum DialogueFlagValue {
 	
 	// Submission:
 	impFortressAlphaPacified,
+	impFortressAlphaGuardsPacified,
+	impFortressAlphaGuardsDefeated,
+	
 	impFortressDemonPacified,
 	impFortressFemalesPacified,
 	impFortressMalesPacified,

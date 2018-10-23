@@ -88,11 +88,38 @@ public class GenericOrgasms {
 				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, while watching the lewd display before [npc.herHim], [npc.she] [npc.verb(get)] ready to orgasm.";
 				break;
 			case MISSIONARY_KNEELING_BETWEEN_LEGS:
-				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].";
+				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_SD_HUMPING)==null
+					&& Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_SD_PAIZURI)==null
+					&& Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_FACE_SITTING)==null) {
+					orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].";
+				} else {
+					orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+], and, grinding into [npc2.namePos] groin, [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+				}
 				break;
-			case MISSIONARY_ON_BACK:
+			 case MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND: 
+				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_SD_HUMPING_SECOND)==null
+					&& Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_SD_PAIZURI_SECOND)==null
+					&& Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)==null) {
+					orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].";
+				} else {
+					orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+], and, grinding into [npc2.namePos] groin, [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+				}
+				break;
+			case MISSIONARY_ON_BACK: case MISSIONARY_ON_BACK_SECOND: case MISSIONARY_ON_BACK_THIRD: case MISSIONARY_ON_BACK_FOURTH:
 				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and,"
 						+ " gazing up at [npc2.namePos] face with lust in [npc.her] [npc.eyes], [npc.she] [npc.verb(spread)] [npc.her] [npc.legs] even wider for [npc2.herHim].";
+				break;
+			case MISSIONARY_FACE_SITTING: case MISSIONARY_FACE_SITTING_SECOND:
+				orgasmText = "[npc.Name] [npc.verb(let)] [npc.her] [npc.legs+] give out from under [npc.herHim], collapsing down on [npc2.namePos] face as [npc.she] prepares to reach [npc.her] climax.";
+				break;
+			case MISSIONARY_KNEELING_BESIDE: case MISSIONARY_KNEELING_BESIDE_SECOND: case MISSIONARY_KNEELING_BESIDE_SECOND_TWO: case MISSIONARY_KNEELING_BESIDE_TWO:
+				orgasmText = "[npc.Name] [npc.verb(let)] out [npc.a_moan+], and, shuffling forwards to press [npc.herself] against [npc2.name], [npc.verb(prepare)] to reach [npc.her] climax.";
+				break;
+			case MISSIONARY_SD_HUMPING: case MISSIONARY_SD_HUMPING_SECOND:
+				orgasmText = "[npc1.Name] [npc1.verb(grip)] [npc2.namePos] [npc2.hips+] while continuing to frantically hump [npc2.herHim], before letting out [npc1.a_moan+] as [npc.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case MISSIONARY_SD_PAIZURI: case MISSIONARY_SD_PAIZURI_SECOND:
+				orgasmText = "[npc.Name] [npc.verb(let)] [npc.her] [npc.legs+] give out from under [npc.herHim], grinding down on [npc2.namePos] chest as [npc.she] prepares to reach [npc.her] climax.";
 				break;
 			case BACK_TO_WALL_AGAINST_WALL:
 				orgasmText = "Leaning back, [npc.name] [npc.verb(brace)] [npc.herself] against the wall as [npc.she] [npc.verb(feel)] [npc.herself] reaching [npc.her] climax.";
@@ -138,7 +165,7 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(brace)] [npc1.herself] on all fours, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case FACE_TO_WALL_AGAINST_WALL: case FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX:
-				orgasmText = "[npc1.Name] [npc1.verb(brace)] [npc1.herself] against the wall in front of [npc2.herHim], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(brace)] [npc1.herself] against the wall in front of [npc1.herHim], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case FACE_TO_WALL_FACING_TARGET: case FACE_TO_WALL_FACING_TARGET_SHOWER_PIX:
 				orgasmText = "[npc1.Name] [npc1.verb(press)] [npc1.herself] into [npc2.namePos] back, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
@@ -147,9 +174,11 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(look)] into [npc2.namePos] [npc2.eyes+] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.";
 				break;
 			case KNEELING_PERFORMING_ORAL: case KNEELING_PERFORMING_ORAL_CULTIST: case KNEELING_PERFORMING_ORAL_RALPH: case CHAIR_KNEELING:
+				case KNEELING_PERFORMING_ORAL_SECOND: case KNEELING_PERFORMING_ORAL_SECOND_THREE: case KNEELING_PERFORMING_ORAL_SECOND_TWO: case KNEELING_PERFORMING_ORAL_THREE: case KNEELING_PERFORMING_ORAL_TWO:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case KNEELING_RECEIVING_ORAL: case KNEELING_RECEIVING_ORAL_CULTIST: case KNEELING_RECEIVING_ORAL_RALPH: case CHAIR_ORAL_SITTING:
+				case KNEELING_RECEIVING_ORAL_SECOND: case KNEELING_RECEIVING_ORAL_SECOND_THREE: case KNEELING_RECEIVING_ORAL_SECOND_TWO: case KNEELING_RECEIVING_ORAL_THREE: case KNEELING_RECEIVING_ORAL_TWO:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.";
 				break;
 			case MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS:
@@ -3283,31 +3312,36 @@ public class GenericOrgasms {
 				}
 				
 			} else {
+				boolean petName = false;
+				if(!Sex.getCharacterPerformingAction().getPetName(Sex.getCharacterTargetedForSexAction(this)).equals(Sex.getCharacterTargetedForSexAction(this).getName())) {
+					petName = true;
+				}
+				
 				if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
 							+(Sex.getCharacterPerformingAction().isVisiblyPregnant()
-									?" [npc.speech(Fuck! Cum in me! I need your cum!)]"
-									:" [npc.speech(Breed me! Cum in me! I need your cum!)]");
+									?" [npc.speech(Fuck! Cum in me"+(petName?", [#npc.getPetName(npc2)]":"")+"! I need your cum!)]"
+									:" [npc.speech(Breed me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Cum in me! I need your cum!)]");
 
 				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
+							+ " [npc.speech(Fuck! Cum in me"+(petName?", [#npc.getPetName(npc2)]":"")+"! I need your cum!)]";
 
 				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
+							+ " [npc.speech(Fuck! Cum in me"+(petName?", [#npc.getPetName(npc2)]":"")+"! I need your cum!)]";
 
 				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+ " [npc.speech(Yes! Cum for me! Cover my tits with your cum!)]";
+							+ " [npc.speech(Yes! Cum for me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Cover my tits with your cum!)]";
 
 				} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT)) {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+" [npc.speech(Fuck! Yes! Cum all over my [npc.feet]!)]";
+							+" [npc.speech(Fuck! Yes! Cum all over my [npc.feet]"+(petName?", [#npc.getPetName(npc2)]":"")+"!)]";
 					
 				} else {
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,"
-							+ " [npc.speech(Cum for me! I want to taste your cum!)]";
+							+ " [npc.speech(Cum for me"+(petName?", [#npc.getPetName(npc2)]":"")+"! I want to taste your cum!)]";
 				}
 			}
 		}
