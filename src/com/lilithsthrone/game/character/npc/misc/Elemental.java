@@ -100,7 +100,7 @@ public class Elemental extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		// Not needed
 	}
 	
@@ -257,8 +257,9 @@ public class Elemental extends NPC {
 		try {
 			return Main.game.getNPCById(summonerID);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+id+") returning null in method: getSummoner()");
+//			System.err.println("Main.game.getNPCById("+id+") returning null in method: getSummoner()");
 			return null;
+//			throw new NullPointerException();
 		}
 	}
 

@@ -31,6 +31,9 @@ public enum ColourListPresets {
 	
 	JUST_BROWN(Util.newArrayListOfValues(
 			Colour.CLOTHING_BROWN)),
+
+	JUST_DARK_BROWN(Util.newArrayListOfValues(
+			Colour.CLOTHING_BROWN_DARK)),
 	
 	JUST_ORANGE(Util.newArrayListOfValues(
 			Colour.CLOTHING_ORANGE)),

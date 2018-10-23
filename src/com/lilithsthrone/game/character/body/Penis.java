@@ -628,7 +628,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	 * Sets the size. Value is bound to >=0 && <=PenisSize.SEVEN_STALLION.getMaximumValue()
 	 */
 	public String setPenisSize(GameCharacter owner, int size) {
-		if(!owner.hasPenisIgnoreDildo()) {
+		if(owner!=null && !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -649,6 +649,10 @@ public class Penis implements BodyPartInterface, Serializable {
 				sizeChange = size - this.size;
 				this.size = size;
 			}
+		}
+		
+		if(owner==null) {
+			return "";
 		}
 		
 		if(sizeChange == 0) {

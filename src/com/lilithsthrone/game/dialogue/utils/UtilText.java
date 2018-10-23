@@ -15,6 +15,7 @@ import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,7 +47,10 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -1424,7 +1428,8 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"bitch",
-						"slut"),
+						"slut",
+						"insult"),
 				true,
 				true,
 				"",
@@ -1441,12 +1446,31 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"bitches",
+						"sluts",
+						"insultPlural"),
+				true,
+				true,
+				"",
+				"Returns a random mean pluralised word to describe this person, based on their femininity."){ // R-Rude!
+			@Override
+			public String parse(String command, String arguments, String target, GameCharacter character) {
+				if(character.isFeminine()) {
+					return UtilText.returnStringAtRandom("bitches", "sluts", "cunts", "whores", "skanks");
+				} else {
+					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"hun",
 						"babe"),
 				true,
 				true,
 				"",
-				"Returns a random mean word to describe this person, based on their femininity."){ // R-Rude!
+				"Returns a random mean word to describe this person, based on their femininity."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
 				if(character.isFeminine()) {
@@ -5334,6 +5358,7 @@ public class UtilText {
 			}
 		}
 		engine.put("game", Main.game);
+		engine.put("properties", Main.getProperties());
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
@@ -5361,6 +5386,22 @@ public class UtilText {
 		for(Femininity femininity : Femininity.values()) {
 			engine.put("FEMININITY_"+femininity.toString(), femininity);
 		}
+		for(FurryPreference furryPreference : FurryPreference.values()) {
+			engine.put("FURRY_PREF_"+furryPreference.toString(), furryPreference);
+		}
+		for(ForcedTFTendency tfTendency : ForcedTFTendency.values()) {
+			engine.put("FORCED_TF_"+tfTendency.toString(), tfTendency);
+		}
+		for(ForcedFetishTendency fetishTendency : ForcedFetishTendency.values()) {
+			engine.put("FORCED_FETISH_"+fetishTendency.toString(), fetishTendency);
+		}
+		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+			engine.put("ORIFICE_"+orifice.toString(), orifice);
+		}
+		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
+			engine.put("PENETRATION_"+penetration.toString(), penetration);
+		}
+		engine.put("RND", Util.random);
 		engine.put("sex", Main.sexEngine); //TODO static methods don't work...
 		
 //		StringBuilder sb = new StringBuilder();

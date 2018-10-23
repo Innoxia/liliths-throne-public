@@ -1160,7 +1160,8 @@ public class SlimeQueensLair {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSlimeQueen(), SexPositionSlot.MISSIONARY_ON_BACK))),
 						null,
-						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
+						AFTER_SLIME_QUEEN_SEX,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
 				
 			} else if(index==3) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {

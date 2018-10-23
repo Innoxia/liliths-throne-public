@@ -309,13 +309,20 @@ public interface SexActionInterface {
 
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
+				if((Sex.isConsensual() && !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
 					return null;
 				}
 			}
 			
 			// If this is a positioning action:
 			if(getActionType()==SexActionType.POSITIONING) {
+				// If there is size-difference and more than 1 participant, block non-switching with size-difference NPCS:
+				if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
+					if(Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
+							|| Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
+						return convertToNullResponse();
+					}
+				}
 				return convertToResponse();
 				
 			// If this is a 'stop penetration' action, check to see if all the requirements are met:
@@ -619,10 +626,6 @@ public interface SexActionInterface {
 				
 				@Override
 				public void effects() {
-					if(getCategory() == SexActionCategory.POSITIONING) {
-						Sex.responseCategory = null;
-					}
-					
 					if(SexActionInterface.this.getSexPace()!=null) {
 						Sex.setSexPace(Sex.getCharacterPerformingAction(), (SexActionInterface.this.getSexPace()));
 					}
@@ -762,8 +765,16 @@ public interface SexActionInterface {
 						}
 					}
 
-					SB.append("<br/>"
-							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
+					if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
+						if(Sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
+								|| Sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
+							SB.append("<br/>"
+									+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
+						}
+					}
+					
+//					SB.append("<br/>"
+//							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
 					
 					return SB.toString();
 				}

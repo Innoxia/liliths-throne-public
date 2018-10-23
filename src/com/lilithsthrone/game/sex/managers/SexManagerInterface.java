@@ -21,6 +21,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
+import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -90,6 +91,11 @@ public interface SexManagerInterface {
 		boolean subsSatisfied = true;
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
+		
+		if(Sex.getLastUsedPlayerAction().getActionType().isOrgasmOption()
+				|| Sex.getLastUsedPlayerAction().getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
+			return false; // Do not skip orgasms at end of sex.
+		}
 		
 		for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
 			if(Sex.getNumberOfOrgasms(character) == 0 && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
@@ -237,12 +243,14 @@ public interface SexManagerInterface {
 	}
 	
 	// Revealing CoverableAreas:
-
+	
 	// Player:
 	public default String getAssRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
 		String reaction = "";
 		
-		if(!Sex.isMasturbation()) {
+		if(!Sex.isMasturbation()
+				&& Sex.getSexPositionSlot(characterBeingRevealed)!=SexPositionSlot.MISC_WATCHING
+				&& Sex.getSexPositionSlot(charactersReacting.get(0))!=SexPositionSlot.MISC_WATCHING) {
 			reaction = (!characterBeingRevealed.isPlayer()
 						?"<p>"
 							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getAssDescription())
@@ -259,8 +267,10 @@ public interface SexManagerInterface {
 
 	public default String getVaginaRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
 		String reaction = "";
-		
-		if(!Sex.isMasturbation()) {
+
+		if(!Sex.isMasturbation()
+				&& Sex.getSexPositionSlot(characterBeingRevealed)!=SexPositionSlot.MISC_WATCHING
+				&& Sex.getSexPositionSlot(charactersReacting.get(0))!=SexPositionSlot.MISC_WATCHING) {
 			reaction = (!characterBeingRevealed.isPlayer()
 						?"<p>"
 							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getVaginaDescription())
@@ -277,8 +287,10 @@ public interface SexManagerInterface {
 
 	public default String getBreastsRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
 		String reaction = "";
-		
-		if(!Sex.isMasturbation()) {
+
+		if(!Sex.isMasturbation()
+				&& Sex.getSexPositionSlot(characterBeingRevealed)!=SexPositionSlot.MISC_WATCHING
+				&& Sex.getSexPositionSlot(charactersReacting.get(0))!=SexPositionSlot.MISC_WATCHING) {
 			reaction = (!characterBeingRevealed.isPlayer()
 						?"<p>"
 							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getBreastDescription())
@@ -295,8 +307,10 @@ public interface SexManagerInterface {
 
 	public default String getPenisRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
 		String reaction = "";
-		
-		if(!Sex.isMasturbation()) {
+
+		if(!Sex.isMasturbation()
+				&& Sex.getSexPositionSlot(characterBeingRevealed)!=SexPositionSlot.MISC_WATCHING
+				&& Sex.getSexPositionSlot(charactersReacting.get(0))!=SexPositionSlot.MISC_WATCHING) {
 			reaction = (!characterBeingRevealed.isPlayer()
 						?"<p>"
 							+ UtilText.parse(characterBeingRevealed, characterBeingRevealed.getPenisDescription())
@@ -313,8 +327,10 @@ public interface SexManagerInterface {
 
 	public default String getMoundRevealReaction(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
 		String reaction = "";
-		
-		if(!Sex.isMasturbation()) {
+
+		if(!Sex.isMasturbation()
+				&& Sex.getSexPositionSlot(characterBeingRevealed)!=SexPositionSlot.MISC_WATCHING
+				&& Sex.getSexPositionSlot(charactersReacting.get(0))!=SexPositionSlot.MISC_WATCHING) {
 			reaction = charactersReacting.get(0).getMoundRevealDescription(characterBeingRevealed, charactersReacting);
 		}
 

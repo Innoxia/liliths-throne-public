@@ -206,9 +206,9 @@ public class SlaveInStocks extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-	
-//			CharacterUtils.equipClothing(this, true, false);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
+
+			equipClothing(true, true, true, true);
+			
 			CharacterUtils.applyMakeup(this, true);
 			
 			this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
@@ -243,8 +243,8 @@ public class SlaveInStocks extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
-		// Not needed
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
 	}
 	
 	@Override

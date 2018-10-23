@@ -63,6 +63,7 @@ public class SlimeCavernAttacker extends NPC {
 		if(!isImported) {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setHomeLocation();
 			
 			// Set random level from 8 to 12:
 			setLevel(8 + Util.random.nextInt(5));
@@ -147,13 +148,11 @@ public class SlimeCavernAttacker extends NPC {
 			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
-			CharacterUtils.equipClothing(this, true, false);
+			equipClothing(true, true, true, true);
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			for (Attribute a : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().keySet()) {
-				attributes.put(a, RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getRandomVariance());
-			}
+			initAttributes();
 			
 			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
 			
@@ -175,8 +174,8 @@ public class SlimeCavernAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
-		// Not needed
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override

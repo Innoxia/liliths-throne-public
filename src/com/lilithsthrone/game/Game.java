@@ -270,7 +270,14 @@ public class Game implements Serializable, XMLSaving {
 			
 			Element characterNode = doc.createElement("exportedCharacter");
 			doc.appendChild(characterNode);
-			character.saveAsXML(characterNode, doc);
+			// If player, modify birth date so that imported characters are the same age:
+			if(character.isPlayer()) {
+				character.setBirthday(character.getBirthday().plusYears(Game.TIME_SKIP_YEARS));
+				character.saveAsXML(characterNode, doc);
+				character.setBirthday(character.getBirthday().minusYears(Game.TIME_SKIP_YEARS));
+			} else {
+				character.saveAsXML(characterNode, doc);
+			}
 			
 			// Ending stuff:
 			
@@ -707,13 +714,18 @@ public class Game implements Serializable, XMLSaving {
 
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
-									Main.game.safeAddNPC(npc, true);
+									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11")
+											|| (npc.getClass()!=FortressDemonLeader.class
+											&& npc.getClass()!=FortressAlphaLeader.class
+											&& npc.getClass()!=FortressMalesLeader.class
+											&& npc.getClass()!=FortressFemalesLeader.class)) {
+										Main.game.safeAddNPC(npc, true);
+									}
 
 									// To fix issues with older versions hair length:
 									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
 										npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
 									}
-
 									// Generate desires in non-unique NPCs:
 									if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
 										CharacterUtils.generateDesires(npc);
@@ -1216,6 +1228,37 @@ public class Game implements Serializable, XMLSaving {
 			}
 		}
 		
+		// Reset imp tunnels after 5 days:
+		boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaPacifiedTime) > 60*24*5);
+		boolean demonReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressDemonPacifiedTime) > 60*24*5);
+		boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesPacifiedTime) > 60*24*5);
+		boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesPacifiedTime) > 60*24*5);
+		
+		if(alphaReset || demonReset || femalesReset || malesReset) {
+			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, !alphaReset);
+			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonPacified, !demonReset);
+			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, !femalesReset);
+			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, !malesReset);
+			
+			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
+			for(int i=0; i< cells.length;i++) {
+				for(int j=0; j< cells[i].length;j++) {
+					Cell cell = cells[j][i];
+					if((cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA && alphaReset)
+							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON && demonReset)
+							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES && femalesReset)
+							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES && malesReset)) {
+						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
+							if(!Main.game.getPlayer().getCompanions().contains(character)) {
+								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
+								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
 		for(GameCharacter companion : companions) {
@@ -1297,7 +1340,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		// Apply status effects and update all NPCs:
 		isInNPCUpdateLoop = true;
-		
+
 		for(NPC npc : NPCMap.values()) {
 			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
@@ -1349,10 +1392,11 @@ public class Game implements Serializable, XMLSaving {
 						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 							npc.replaceAllClothing();
 						}
-						npc.equipClothing(true, true, false);
+						npc.equipClothing(true, true, false, false);
 						npc.setPendingClothingDressing(false);
 						
-					} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
+					} else if(!npc.isSlave() && !npc.isUnique()
+							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))){
 						// Try to replace clothing to cover themselves up:
 						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 							npc.replaceAllClothing();
@@ -1360,7 +1404,8 @@ public class Game implements Serializable, XMLSaving {
 						npc.calculateStatusEffects(0);
 						// If still exposed after this, get new clothes:
 						if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
-							npc.equipClothing(true, true, false);
+							npc.equipClothing(true, true, false, false);
+//							System.out.println(npc.getName()+" "+npc.getClass().getName()+" got dressed");
 						}
 						npc.setPendingClothingDressing(false);
 					}
@@ -3311,7 +3356,8 @@ public class Game implements Serializable, XMLSaving {
 	
 	public GameCharacter getNPCById(String id) throws Exception {
 		if(id==null || id.isEmpty()) {
-			return null;
+			throw new NullPointerException();
+//			return null;
 		}
 		
 		if(id.equals(Main.game.getPlayer().getId())) {
