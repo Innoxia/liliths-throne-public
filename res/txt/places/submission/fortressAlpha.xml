@@ -1,37 +1,215 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 	
-	<htmlContent tag="ENTER_FORTRESS"><![CDATA[
+	<htmlContent tag="ENTRANCE_DEMON"><![CDATA[
 	<p>
-		Entering the fortress
+		Approach gateway. Imps see that you're a demon, and apologise for getting in your way.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		Gateway
+		Approach gateway. Challenged by imps.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_DESERTED"><![CDATA[
+	<p>
+		Approach gateway. Imps guards have run away, leaving this area completely undefended.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_PACIFIED"><![CDATA[
+	<p>
+		Approach gateway. Imps eye nervously watch you and ask if everything is ok.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_PACIFIED_BY_SEX"><![CDATA[
+	<p>
+		Approach gateway. Imps watch you with a suspicious eye, before mocking you as an oral slut.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_OFFER_ORAL"><![CDATA[
+	<p>
+		You agree to perform oral on the imps in order to gain entry.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_OFFER_ORAL_WITH_COMPANION"><![CDATA[
+	<p>
+		You and [npc.name] agree to perform oral on the imps in order to gain entry.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_ORAL_FOR_ENTRY"><![CDATA[
+	<p>
+		The imps say what a slut you are, before letting you pass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_ORAL_FOR_ENTRY_WITH_COMPANION"><![CDATA[
+	<p>
+		The imps say what sluts you are, before letting you pass.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LEAVE_FORTRESS"><![CDATA[
 	<p>
-		Leaving the fortress
+		Leaving the fortress.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You have defeated the guards. Now what to do with them before they run away?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You move the imps into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You gently move the imps into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You roughly force  the imps into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You feel bad about beating the imps, and decide to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_GROUP_SEX"><![CDATA[
+	<p>
+		You decide that you and [npc.name] should have sex with the imps...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_GROUP_SEX_SUBMISSION"><![CDATA[
+	<p>
+		You decide that you and [npc.name] should submit to the imps...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_GIVE_TO_COMPANION"><![CDATA[
+	<p>
+		You decide to give [npc.name] to the imps, so that they can have some fun with [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
+	<p>
+		You decide to let [npc.name] have sex with the imps, and step back to watch...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		You are defeated. The imps start feeling you up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		You let the imps move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		You eagerly encourage the imps to move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX_ROUGH"><![CDATA[
+	<p>
+		You desperately try to resist as the imps move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		You're finished with the guards. You wonder if you should take any of their items before they run off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		The imps are finished dominating you. Dragging you over to the other side of the cavern, they tell you to come back when you're wanting a good fuck again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX_WITH_COMPANION"><![CDATA[
+	<p>
+		The imps are finished dominating you and [npc.name]. Dragging you both over to the other side of the cavern, they tell you to come back when you're wanting a good fuck again.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COURTYARD"><![CDATA[
 	<p>
-		Empty squalid courtyard
+		An empty, squalid courtyard. The main keep is over in one corner, but apart from that, there's nothing of interest inside the walls of this fortress.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="WELL"><![CDATA[
+	<htmlContent tag="KEEP"><![CDATA[
 	<p>
-		Well
+		The keep is quite clearly occupied, as slivers of light shine out from cracks in the large wooden doors. You can also hear the occasional burst of laughter from a group of imps. If you were to enter, you'd better be ready for a fight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED"><![CDATA[
+	<p>
+		Having pacified this fortress, there's nobody living in the keep right now. The entire place is deserted, so there's nothing more to do except head back the way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY"><![CDATA[
+	<p>
+		You enter the keep. There's a group of five imps sitting around a table on the far side of the hall, and there at the head of the table sits a particularly menacing-looking succubus.
+	</p>
+	<p>
+		The demon is the first to notice your entrance, and calls out for her imps to defend themselves. You only have a moment in which to decide what to do...
 	</p>
 	]]>
 	</htmlContent>
@@ -43,19 +221,42 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CELLS"><![CDATA[
+	<htmlContent tag="KEEP"><![CDATA[
 	<p>
-		Cells building
+		Keep
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="TREASURY"><![CDATA[
+	<htmlContent tag="KEEP"><![CDATA[
 	<p>
-		Small treasury building
+		Keep
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		Keep
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		Keep
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		Keep
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	
 	
 </dialogue>

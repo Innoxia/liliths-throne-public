@@ -29,30 +29,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="WELL"><![CDATA[
-	<p>
-		Well
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="KEEP"><![CDATA[
 	<p>
 		Keep
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="CELLS"><![CDATA[
-	<p>
-		Cells building
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="TREASURY"><![CDATA[
-	<p>
-		Small treasury building
 	</p>
 	]]>
 	</htmlContent>

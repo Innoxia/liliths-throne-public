@@ -1380,7 +1380,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(name);
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), name);
 									}
 								});
 							}
@@ -1410,7 +1410,7 @@ public class MainControllerInitMethod {
 									public void effects() {
 										for(String id: Main.game.getPlayer().getSlavesOwned()) {
 											try {
-											Main.game.getNPCById(id).setPlayerPetName(name);
+												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), name);
 											} catch (Exception e) {
 												System.err.println("Main.game.getNPCById("+id+") returning null in method: initMainControllerListeners(), instance 1.");
 											}
@@ -2004,7 +2004,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										Main.game.getActiveNPC().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
 							}
