@@ -495,13 +495,28 @@
 	
 	<htmlContent tag="IMP_FORTRESS"><![CDATA[
 	<p>
-		As you turn a corner in the tunnel that you're travelling down, you find yourself stepping out into a huge, underground cave.
-		 Several holes in the high roof, which you see are covered in iron bars, let a generous amount of light into the cavern.
+		As you turn a corner in the tunnel that you're travelling down, you find yourself stepping out into a huge, underground cave. Several holes in the high roof, which you see are covered in iron bars, let a generous amount of light into the cavern.
 	</p>
 	<p>
-		In the very centre of the cavern's huge floor, a considerable amount of earth and rock has been dug out and piled up to form a large mound.
-		 On the top of this hill, a crude fence, made out of all sorts of old planks and bits of rubbish, has been erected.
-		 Within this circular enclosure, a three-story wooden tower has bee constructed - looking every bit as crude as its protective fence.
+		In the very centre of the cavern's huge floor, a considerable amount of earth and rock has been dug out and piled up to form a large mound. On the top of this hill, a crude fence, made out of all sorts of old planks and bits of rubbish, has been erected. Within this circular enclosure, a squat wooden keep has been constructed - looking every bit as crude as its protective fence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_ENTRY"><![CDATA[
+		 Glancing over at the rudimentary gate that's set in to one side of the wall, you see two alpha-imps standing guard. They seem more interested in talking to one another rather than keeping a close watch, and so haven't spotted you yet. If you were feeling brave enough to try and gain entry to this imp stronghold
+		#IF pc.isPartyAbleToFly()
+		#THEN
+			, you could approach them and see if you can either talk or fight your way through. Then again, you could simply just fly over the stronghold's outer fence...
+		#ELSE
+			, you could approach them and see if you can either talk or fight your way through...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_ENTRY_PACIFIED"><![CDATA[
+		 Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The alpha-imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that's it's just a matter of time before they gather their courage and lay claim to this fortress once again...
 	</p>
 	]]>
 	</htmlContent>
@@ -509,8 +524,6 @@
 	<htmlContent tag="IMP_FORTRESS_ALPHA"><![CDATA[
 	<p>
 		From the very top of this makeshift fortress flies a black and red flag, which depicts the face of a snarling imp.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
-	</p>
 	]]>
 	</htmlContent>
 	

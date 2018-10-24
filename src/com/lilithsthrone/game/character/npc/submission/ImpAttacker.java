@@ -32,6 +32,10 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -178,7 +182,7 @@ public class ImpAttacker extends NPC {
 					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_loin_cloth"), false), true, this);
 
 			// Imps are flying, and don't wear anything on their feet.
-			// Alpha-thiss also wear accessories as symbols of status.
+			// Alpha-imps also wear accessories as symbols of status.
 			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_WRAPS, false), true, this);
@@ -269,23 +273,67 @@ public class ImpAttacker extends NPC {
 	
 	@Override
 	public void applyEscapeCombatEffects() {
-		TunnelImpsDialogue.banishImpGroup();
+		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_ENTRANCE) {
+			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA);
+			
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_ENTRANCE) {
+			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_DEMON);
+			
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_ENTRANCE) {
+			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_MALES);
+			
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_ENTRANCE) {
+			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES);
+			
+		} else {
+			TunnelImpsDialogue.banishImpGroup();
+		}
 	};
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			Value<String, AbstractItem> potion = TunnelImpsDialogue.getImpLeader().getTransfomativePotion(Main.game.getPlayer(), true);
-			TunnelImpsDialogue.getImpGroup().get(1).addItem(potion.getValue(), false);
-			if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
-				Value<String, AbstractItem> potion2 = TunnelImpsDialogue.getImpLeader().getTransfomativePotion(Main.game.getPlayer().getMainCompanion(), true);
-				TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2.getValue(), false);
+		if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_ALPHA_ENTRANCE) {
+			if (victory) {
+				return new Response("", "", FortressAlpha.GUARDS_AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response("", "", FortressAlpha.GUARDS_AFTER_COMBAT_DEFEAT);
 			}
 			
-			return new Response("", "", TunnelImpsDialogue.AFTER_COMBAT_VICTORY);
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_DEMON_ENTRANCE) {
+			if (victory) {
+				return new Response("", "", FortressDemon.GUARDS_AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response("", "", FortressDemon.GUARDS_AFTER_COMBAT_DEFEAT);
+			}
+			
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_MALES_ENTRANCE) {
+			if (victory) {
+				return new Response("", "", FortressMales.GUARDS_AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response("", "", FortressMales.GUARDS_AFTER_COMBAT_DEFEAT);
+			}
+			
+		} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.FORTRESS_FEMALES_ENTRANCE) {
+			if (victory) {
+				return new Response("", "", FortressFemales.GUARDS_AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response("", "", FortressFemales.GUARDS_AFTER_COMBAT_DEFEAT);
+			}
 			
 		} else {
-			return new Response("", "", TunnelImpsDialogue.AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				Value<String, AbstractItem> potion = TunnelImpsDialogue.getImpLeader().getTransfomativePotion(Main.game.getPlayer(), true);
+				TunnelImpsDialogue.getImpGroup().get(1).addItem(potion.getValue(), false);
+				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
+					Value<String, AbstractItem> potion2 = TunnelImpsDialogue.getImpLeader().getTransfomativePotion(Main.game.getPlayer().getMainCompanion(), true);
+					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2.getValue(), false);
+				}
+				
+				return new Response("", "", TunnelImpsDialogue.AFTER_COMBAT_VICTORY);
+				
+			} else {
+				return new Response("", "", TunnelImpsDialogue.AFTER_COMBAT_DEFEAT);
+			}
 		}
 	}
 	

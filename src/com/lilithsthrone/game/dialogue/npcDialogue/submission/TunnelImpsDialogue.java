@@ -127,10 +127,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!isCompanionDialogue()) {
 				if (index == 1) {
-					return new ResponseCombat("Fight",
-							"Stand up for yourself and fight this group of imps!",
-							getImpGroup(),
-							null);
+					return new ResponseCombat("Fight", "Stand up for yourself and fight this group of imps!", getImpGroup(), null);
 					
 				} else if (index == 2) {
 					return new Response("Offer money", "These imps are not interested in your money! You'll have to either fight or surrender yourself to them...", null);
@@ -151,13 +148,13 @@ public class TunnelImpsDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new ResponseCombat("Fight", UtilText.parse(getMainCompanion(), "Stand up for yourself and, with the help of [npc.name], fight the imps!"), getAllCharacters(), null);
+					return new ResponseCombat("Fight", UtilText.parse(getMainCompanion(), "Stand up for yourself and, with the help of [npc.name], fight the imps!"), getImpGroup(), null);
 					
 				} else if (index == 2) {
 					return new Response("Offer money", "These imps are not interested in your money! You'll have to either fight or surrender yourself to them...", null);
 					
 				} else if (index == 3) {
-					return new Response("Offer body",
+					return new Response("Offer body (solo)",
 							UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand aside as you offer your body to the imps in order to avoid a violent confrontation."),
 							IMP_ATTACK_OFFER_BODY,
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
@@ -236,7 +233,7 @@ public class TunnelImpsDialogue {
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
-						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION) {
+						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_SOLO) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_REFUSED", getAllCharacters())); // Re-use TF refuse dialogue
@@ -254,7 +251,7 @@ public class TunnelImpsDialogue {
 							(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE || Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY)
 								?"Swallow the potion, which, if the imps are to be believed, causes the drinker to grow both a penis and vagina, as well as becoming feminine and growing breasts..."
 								:"Swallow the potion, which, if the imps are to be believed, causes the drinker to grow both a penis and vagina...",
-							AFTER_COMBAT_TRANSFORMATION,
+							AFTER_COMBAT_TRANSFORMATION_SOLO,
 							applicableFetishes,
 							applicableCorrutionLevel,
 							null,
@@ -280,7 +277,7 @@ public class TunnelImpsDialogue {
 				}
 				
 			} else {
-				return AFTER_COMBAT_TRANSFORMATION.getResponse(responseTab, index); // Sex responses
+				return AFTER_COMBAT_TRANSFORMATION_SOLO.getResponse(responseTab, index); // Sex responses
 			}
 			
 			return null;
@@ -1111,6 +1108,56 @@ public class TunnelImpsDialogue {
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						AFTER_SEX_WATCHING_COMPANION,
 						UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_SOLO = new DialogueNodeOld("Imp Gang", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new ResponseSex("Sex",
+						"Allow the gang of imps move you into position...",
+						false,
+						false,
+						Util.newArrayListOfValues(Main.game.getPlayer()),
+						impGroup,
+						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
+				
+			} else if (index == 2) {
+				return new ResponseSex("Eager Sex",
+						"Eagerly allow yourself to be moved into position by the gang of imps...",
+						false,
+						false,
+						Util.newArrayListOfValues(Main.game.getPlayer()),
+						impGroup,
+						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()),
+						ResponseTag.START_PACE_PLAYER_SUB_EAGER);
+				
+			} else if (index == 3 && Main.game.isNonConEnabled()) {
+				return new ResponseSex("Resist Sex",
+						"Try to resist as the gang of imps move you into position...",
+						false,
+						false,
+						Util.newArrayListOfValues(Main.game.getPlayer()),
+						impGroup,
+						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
+						AFTER_SEX_DEFEAT,
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()),
+						ResponseTag.START_PACE_PLAYER_SUB_RESIST);
 			} else {
 				return null;
 			}

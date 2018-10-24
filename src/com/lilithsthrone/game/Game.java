@@ -29,6 +29,10 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
 import com.lilithsthrone.game.dialogue.responses.*;
 import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -547,6 +551,11 @@ public class Game implements Serializable, XMLSaving {
 					String worldType = e.getAttribute("worldType");
 					if((!worldType.equals("SEWERS") || !Main.isVersionOlderThan(loadingVersion, "0.2.0.5"))
 							&& (!worldType.equals("SUBMISSION") || !Main.isVersionOlderThan(loadingVersion, "0.2.10.8"))
+							&& ((!worldType.equals("IMP_FORTRESS_ALPHA")
+									&& !worldType.equals("IMP_FORTRESS_DEMON")
+									&& !worldType.equals("IMP_FORTRESS_FEMALES")
+									&& !worldType.equals("IMP_FORTRESS_MALES"))
+									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
@@ -569,6 +578,8 @@ public class Game implements Serializable, XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
 						gen.worldGeneration(WorldType.SUBMISSION);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES);
@@ -1148,29 +1159,17 @@ public class Game implements Serializable, XMLSaving {
 		boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesPacifiedTime) > 60*24*5);
 		boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesPacifiedTime) > 60*24*5);
 		
-		if(alphaReset || demonReset || femalesReset || malesReset) {
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, !alphaReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonPacified, !demonReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, !femalesReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, !malesReset);
-			
-			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
-			for(int i=0; i< cells.length;i++) {
-				for(int j=0; j< cells[i].length;j++) {
-					Cell cell = cells[j][i];
-					if((cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA && alphaReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON && demonReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES && femalesReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES && malesReset)) {
-						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
-							if(!Main.game.getPlayer().getCompanions().contains(character)) {
-								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
-								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-							}
-						}
-					}
-				}
-			}
+		if(alphaReset) {
+			FortressAlpha.resetFortress();
+		}
+		if(demonReset) {
+			FortressDemon.resetFortress();
+		}
+		if(femalesReset) {
+			FortressFemales.resetFortress();
+		}
+		if(malesReset) {
+			FortressMales.resetFortress();
 		}
 		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.

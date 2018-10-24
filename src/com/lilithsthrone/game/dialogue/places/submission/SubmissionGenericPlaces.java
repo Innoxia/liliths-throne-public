@@ -11,6 +11,10 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -338,22 +342,35 @@ public class SubmissionGenericPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ALPHA"));
+
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ENTRY_PACIFIED"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ENTRY"));
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
-		public Response getResponse(int responseTab, int index) {//TODO need guard
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Approach", "Approach the fortress. (Coming soon!)", null);
 //				return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_ALPHA_ENTRANCE.getDialogue(false)) {
 //					@Override
 //					public void effects() {
 //						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
-//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressAlpha", "ENTER_FORTRESS"));
 //					}
 //				};
+				
+			} else if(index==2) {
+				return new Response("Clear", "Clear the fortress. (This is a temporary way to clear the tunnels of imps, until I get the fortress content added! The fortress will regenerate after 5 in-game days.)", IMP_FORTRESS_ALPHA) {
+					@Override
+					public void effects() {
+						FortressAlpha.clearFortress();
+					}
+				};
 				
 			} else {
 				return null;
@@ -393,6 +410,14 @@ public class SubmissionGenericPlaces {
 //					}
 //				};
 				
+			} else if(index==2) {
+				return new Response("Clear", "Clear the fortress. (This is a temporary way to clear the tunnels of imps, until I get the fortress content added! The fortress will regenerate after 5 in-game days.)", IMP_FORTRESS_DEMON) {
+					@Override
+					public void effects() {
+						FortressDemon.clearFortress();
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -414,6 +439,8 @@ public class SubmissionGenericPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_SEDUCERS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ENTRY"));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -430,6 +457,14 @@ public class SubmissionGenericPlaces {
 //						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressFemales", "ENTER_FORTRESS"));
 //					}
 //				};
+				
+			} else if(index==2) {
+				return new Response("Clear", "Clear the fortress. (This is a temporary way to clear the tunnels of imps, until I get the fortress content added! The fortress will regenerate after 5 in-game days.)", IMP_FORTRESS_FEMALES) {
+					@Override
+					public void effects() {
+						FortressFemales.clearFortress();
+					}
+				};
 				
 			} else {
 				return null;
@@ -452,6 +487,8 @@ public class SubmissionGenericPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_BRAWLERS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ENTRY"));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -468,6 +505,14 @@ public class SubmissionGenericPlaces {
 //						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortressMales", "ENTER_FORTRESS"));
 //					}
 //				};
+				
+			} else if(index==2) {
+				return new Response("Clear", "Clear the fortress. (This is a temporary way to clear the tunnels of imps, until I get the fortress content added! The fortress will regenerate after 5 in-game days.)", IMP_FORTRESS_MALES) {
+					@Override
+					public void effects() {
+						FortressMales.clearFortress();
+					}
+				};
 				
 			} else {
 				return null;
