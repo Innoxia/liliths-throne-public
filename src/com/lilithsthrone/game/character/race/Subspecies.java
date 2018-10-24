@@ -150,7 +150,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
-			body.getPenis().setPenisSize(null, 3+Util.random.nextInt(6)); // 3-8 inches
+			body.getPenis().setPenisSize(null, 8+Util.random.nextInt(13)); // 3-8 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
@@ -190,7 +190,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_ONE_TINY.getMaximumValue() - Height.NEGATIVE_ONE_TINY.getMinimumValue()));
-			body.getPenis().setPenisSize(null, 6+Util.random.nextInt(5)); // 6-10 inches
+			body.getPenis().setPenisSize(null, 15+Util.random.nextInt(11)); // 6-10 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
 		@Override
