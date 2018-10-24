@@ -3378,7 +3378,7 @@ public class Game implements Serializable, XMLSaving {
 	public String getUniqueNPCId(Class<? extends NPC> c) {
 		return "-1"+","+c.getSimpleName();
 	}
-	
+
 	public String getNPCId(Class<? extends NPC> c) {
 		return npcTally.get()+","+c.getSimpleName();
 	}
@@ -3403,7 +3403,7 @@ public class Game implements Serializable, XMLSaving {
 			int tallyCount;
 			String rawId = npc.getId();
 			// Support old versions (in the format "Stan-Stan-Stan-49"):
-			if(rawId.contains("-")){
+			if(rawId.contains("-") && !rawId.contains(",")){
 				String[] split = rawId.split("-");
 				tallyCount = Integer.parseInt(split[split.length-1]);
 			} else {
