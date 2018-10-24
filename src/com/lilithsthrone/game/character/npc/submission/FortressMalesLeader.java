@@ -55,7 +55,7 @@ public class FortressMalesLeader extends NPC {
 		super(isImported, null,
 				"The ruler of one of Submission's imp fortresses, [npc.name] has a following consisting entirely of male imps...",
 				Util.random.nextInt(15)+25, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				20, Gender.M_P_MALE, Subspecies.IMP_ALPHA, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class FortressMalesLeader extends NPC {
 		// Persona:
 		
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 30);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 10);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
 			this.setPersonality(Util.newHashMapOfValues(

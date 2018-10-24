@@ -1559,7 +1559,8 @@ public class OccupantManagementDialogue {
 							+ "</div>"
 						+ "</div>"
 						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 0 0 1%; padding:0;'>"
-							+ "<form style='float:left; width:50%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getPlayerPetName())+ "' style='width:100%; margin:0; padding:0;'></form>"
+							+ "<form style='float:left; width:50%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getPetName(Main.game.getPlayer()))
+								+ "' style='width:100%; margin:0; padding:0;'></form>"
 							+ "<div class='SM-button' id='"+character.getId()+"_CALLS_PLAYER' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0;'>"
 								+ "&#10003;"
 							+ "</div>"

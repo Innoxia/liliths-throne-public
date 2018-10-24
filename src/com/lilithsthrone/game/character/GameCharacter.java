@@ -240,7 +240,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected String genericName;
 	protected boolean playerKnowsName;
 	protected boolean raceConcealed;
-	protected String playerPetName = "";
+	protected Map<String, String> petNameMap;
 	protected String description;
 	protected int level;
 	protected LocalDateTime birthday;
@@ -402,6 +402,7 @@ public abstract class GameCharacter implements XMLSaving {
 		raceConcealed = false;
 		this.description = description;
 		this.level = level;
+		petNameMap = new HashMap<>();
 		
 		RacialBody startingRace = RacialBody.valueOfRace(startingSubspecies.getRace());
 		
@@ -614,7 +615,6 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", playerPetName);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
@@ -625,6 +625,16 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
+		
+		Element petnamesElement = doc.createElement("petNames");
+		characterCoreInfo.appendChild(petnamesElement);
+		for(Entry<String, String> entry: getPetNameMap().entrySet()){
+			Element element = doc.createElement("petNameEntry");
+			petnamesElement.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, element, "petName", entry.getValue().toString());
+		}
 		
 		
 //		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
@@ -1277,10 +1287,31 @@ public abstract class GameCharacter implements XMLSaving {
 			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "<br/>Set description");
 		}
-		if(element.getElementsByTagName("playerPetName").getLength()!=0) {
+
+		if(element.getElementsByTagName("petNames").getLength()!=0) {
+			nodes = parentElement.getElementsByTagName("petNames");
+			Element petNameElement = (Element) nodes.item(0);
+			if(petNameElement!=null) {
+				NodeList petNameEntries = petNameElement.getElementsByTagName("petNameEntry");
+				for(int i=0; i<petNameEntries.getLength(); i++){
+					Element e = ((Element)petNameEntries.item(i));
+					try {
+						character.setPetName(e.getAttribute("id"), e.getAttribute("petName"));
+						CharacterUtils.appendToImportLog(log, "<br/>Added pet name: "+e.getAttribute("id")+" "+e.getAttribute("petName"));
+					}catch(IllegalArgumentException ex){
+					}
+				}
+			}
+			
+		} else if(element.getElementsByTagName("playerPetName").getLength()!=0) { // Old version support:
 			String petName = ((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value");
-			character.setPlayerPetName(petName);
-			CharacterUtils.appendToImportLog(log, "<br/>Set playerPetName: "+petName);
+			try {
+				if(!petName.isEmpty()) {
+					character.setPetName(Main.game.getPlayer().getId(), petName);
+					CharacterUtils.appendToImportLog(log, "<br/>Set playerPetName: "+petName);
+				}
+			} catch(Exception ex) {
+			}
 		}
 		if(element.getElementsByTagName("playerKnowsName").getLength()!=0) {
 			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
@@ -2160,13 +2191,13 @@ public abstract class GameCharacter implements XMLSaving {
 				try {
 					sexType = new SexType(
 							SexParticipantType.valueOf(e.getAttribute("participantType")),
-							SexAreaPenetration.valueOf(e.getAttribute("penetrationType")),
-							SexAreaOrifice.valueOf(e.getAttribute("orificeType")));
+							SexAreaOrifice.valueOf(e.getAttribute("orificeType")),
+							SexAreaPenetration.valueOf(e.getAttribute("penetrationType")));
 				} catch(Exception innerEx) {
 					sexType = new SexType(
 							SexParticipantType.valueOf(e.getAttribute("participantType")),
-							SexAreaPenetration.valueOf(e.getAttribute("penetrationType")),
-							SexAreaPenetration.valueOf(e.getAttribute("orificeType")));
+							SexAreaOrifice.valueOf(e.getAttribute("orificeType")),
+							SexAreaPenetration.valueOf(e.getAttribute("penetrationType")));
 				}
 				
 				int count = Integer.parseInt(e.getAttribute("count"));
@@ -3033,19 +3064,23 @@ public abstract class GameCharacter implements XMLSaving {
 		this.genericName = genericName;
 	}
 
-	public String getPlayerPetName() {
-		if(playerPetName.isEmpty()) {
-			if(Main.game.getPlayer()==null) {
-				return "";
-			}
-			return Main.game.getPlayer().getName();
-		} else {
-			return playerPetName;
-		}
+	public Map<String, String> getPetNameMap() {
+		return petNameMap;
 	}
 	
-	public void setPlayerPetName(String playerPetName) {
-		this.playerPetName = playerPetName;
+	public String getPetName(GameCharacter target) {
+		if(petNameMap.containsKey(target.getId())) {
+			return petNameMap.get(target.getId());
+		}
+		return target.getName();
+	}
+	
+	public void setPetName(String targetId, String petName) {
+		petNameMap.put(targetId, petName);
+	}
+	
+	public void setPetName(GameCharacter target, String petName) {
+		setPetName(target.getId(), petName);
 	}
 
 	public boolean isPlayer() {
@@ -3616,6 +3651,8 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this instanceof NPC) {
 			Main.game.setActiveNPC((NPC) this);
 			this.setPlayerKnowsName(true);
+			Main.game.getPlayer().removeFriendlyOccupant(this);
+			Main.game.getPlayer().removeCompanion(this);
 		}
 		this.setAffection(enslaver, -200);
 		this.setObedience(-100);
@@ -3848,6 +3885,22 @@ public abstract class GameCharacter implements XMLSaving {
 			return false;
 		}
 		return this.companions.contains(character.getId());
+	}
+	
+	public boolean hasCompanions() {
+		return this.companions.isEmpty();
+	}
+	
+	public boolean isPartyAbleToFly() {
+		if(!this.isAbleToFly()) {
+			return false;
+		}
+		for(GameCharacter companion : this.getCompanions()) {
+			if(!companion.isAbleToFly()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**

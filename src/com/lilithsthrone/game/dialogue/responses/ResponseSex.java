@@ -20,6 +20,7 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
@@ -125,6 +126,8 @@ public class ResponseSex extends Response {
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
 										return SexPace.SUB_EAGER;
+									case PREFER_ORAL:
+										break;
 								}
 							}
 						}
@@ -149,6 +152,8 @@ public class ResponseSex extends Response {
 										return SexPace.SUB_RESISTING;
 									case START_PACE_PLAYER_SUB_EAGER:
 										return SexPace.SUB_EAGER;
+									case PREFER_ORAL:
+										break;
 								}
 							}
 						}
@@ -163,37 +168,52 @@ public class ResponseSex extends Response {
 			// Sort so penis is used in humping/sex:
 			List<GameCharacter> sortedDominants = new ArrayList<>(dominants);
 			sortedDominants.sort((e1, e2) -> e1.hasPenis()?e2.hasPenis()?0:-1:1);
+
+			boolean sexManagerSet = false;
 			
-			int penisCount = 0;
-			for(GameCharacter dom : sortedDominants) {
-				if(dom.hasPenis()) {
-					penisCount++;
+			for(ResponseTag tag : tags) {
+				switch(tag) {
+					case PREFER_ORAL:
+						generateOralPosition(submissives, sortedDominants, spectators, tags);
+						sexManagerSet = true;
+						break;
+					default:
+						break;
 				}
 			}
 			
-			if(sortedDominants.size()==1) {
-				if(Math.random()>0.5) {
-					generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
-				} else {
-					generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+			if(!sexManagerSet) {
+				int penisCount = 0;
+				for(GameCharacter dom : sortedDominants) {
+					if(dom.hasPenis()) {
+						penisCount++;
+					}
 				}
 				
-			} else {
-				switch(penisCount) {
-					case 0:
-					case 1:
+				if(sortedDominants.size()==1) {
+					if(Math.random()>0.5) {
 						generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
-						break;
-					case 2:
-						if(Math.random()>0.5) {
-							generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
-						} else {
-							generateDoggyPosition(submissives, sortedDominants, spectators, tags);
-						}
-						break;
-					default:
+					} else {
 						generateDoggyPosition(submissives, sortedDominants, spectators, tags);
-						break;
+					}
+					
+				} else {
+					switch(penisCount) {
+						case 0:
+						case 1:
+							generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
+							break;
+						case 2:
+							if(Math.random()>0.5) {
+								generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
+							} else {
+								generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+							}
+							break;
+						default:
+							generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+							break;
+					}
 				}
 			}
 		}
@@ -269,7 +289,87 @@ public class ResponseSex extends Response {
 	public DialogueNodeOld initSex() {
 		return Main.sexEngine.initialiseSex(consensual, subHasEqualControl, sexManager, spectators, postSexDialogue, sexStartDescription);
 	}
+
+	private void generateOralPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
+		
+		Map<GameCharacter, SexPositionSlot> subMap = new HashMap<>();
+		Map<GameCharacter, SexPositionSlot> domMap = new HashMap<>();
+		
+		List<SexPositionSlot> subSlots = new ArrayList<>();
+		subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+		if(sortedDominants.size()>1) {
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND);
+		}
+		subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO);
+		if(sortedDominants.size()>1) {
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO);
+		}
+		subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE);
+		if(sortedDominants.size()>1) {
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE);
+		}
+		if(sortedDominants.size()==1) {
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND);
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO);
+			subSlots.add(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE);
+		}
+
+		List<SexPositionSlot> domSlots = new ArrayList<>();
+		domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+		if(submissives.size()>1) {
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND);
+		}
+		domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO);
+		if(submissives.size()>1) {
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO);
+		}
+		domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE);
+		if(submissives.size()>1) {
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE);
+		}
+		if(submissives.size()==1) {
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND);
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO);
+			domSlots.add(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE);
+		}
+		
+		for(int i=0; i<submissives.size(); i++) {
+			subMap.put(submissives.get(i), subSlots.get(i));
+		}
+		
+		for(int i=0; i<sortedDominants.size(); i++) {
+			domMap.put(sortedDominants.get(i), domSlots.get(i));
+		}
+		
+		this.sexManager = new SMKneeling(domMap, subMap) {
+			@Override
+			public boolean isPositionChangingAllowed(GameCharacter character) {
+				return character.isPlayer() || (submissives.size()+sortedDominants.size()==2); // Only player is allowed to switch in multi-sex scenes
+			} 
+			
+			@Override
+			public SexPace getStartingSexPaceModifier(GameCharacter character) {
+				if(character.isPlayer()) {
+					for(ResponseTag tag : tags) {
+						switch(tag) {
+							case START_PACE_PLAYER_DOM_GENTLE:
+								return SexPace.DOM_GENTLE;
+							case START_PACE_PLAYER_DOM_ROUGH:
+								return SexPace.DOM_ROUGH;
+							case START_PACE_PLAYER_SUB_RESIST:
+								return SexPace.SUB_RESISTING;
+							case START_PACE_PLAYER_SUB_EAGER:
+								return SexPace.SUB_EAGER;
+							case PREFER_ORAL:
+								break;
+						}
+					}
+				}
+				return null;
+			}
+		};
 	
+	}
 
 	private void generateMissionaryPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
 		
@@ -405,14 +505,14 @@ public class ResponseSex extends Response {
 								return SexPace.SUB_RESISTING;
 							case START_PACE_PLAYER_SUB_EAGER:
 								return SexPace.SUB_EAGER;
+							case PREFER_ORAL:
+								break;
 						}
 					}
 				}
 				return null;
 			}
 		};
-	
-		
 	}
 	
 	private void generateDoggyPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
@@ -542,6 +642,8 @@ public class ResponseSex extends Response {
 								return SexPace.SUB_RESISTING;
 							case START_PACE_PLAYER_SUB_EAGER:
 								return SexPace.SUB_EAGER;
+							case PREFER_ORAL:
+								break;
 						}
 					}
 				}

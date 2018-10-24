@@ -1147,6 +1147,11 @@ public enum SexPositionType {
 			
 			return super.isActionBlocked(performer, target, action);
 		}
+
+		@Override
+		public int getMaximumSlots() {
+			return 8;
+		}
 	},
 	
 	SIXTY_NINE("Sixty-nine",
@@ -1239,12 +1244,256 @@ public enum SexPositionType {
 													OrgasmCumTarget.FEET))))))) {
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
-					"[npc2.NameIsFull] kneeling on the floor in front of [npc.name], with [npc2.her] [npc2.face+] hovering just inches away from [npc.her] groin.");
+			StringBuilder descriptionSB = new StringBuilder();
+			
+			if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND)==null) { // Up to 6 subs on 1 dom
+				
+				List<String> performers = new ArrayList<>();
+				boolean playerSub = !Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL).isPlayer();
+				performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), "[npc.Name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(performers, false));
+				if(performers.size()>2) {
+					descriptionSB.append(" are all");
+				} else {
+					descriptionSB.append(" are");
+				}
+				descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL),
+						" kneeling on the floor in front of [npc.name]; "+(playerSub?"your":"their")+" faces just inches away from [npc.her] groin..."));
+				
+			} else if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)==null) { // Up to 6 doms on 1 sub
+				
+				List<String> receivers = new ArrayList<>();
+				receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), "[npc.Name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(receivers, false));
+				if(receivers.size()>2) {
+					descriptionSB.append(" are surrounding");
+				} else {
+					descriptionSB.append(" are standing to either side of");
+				}
+				descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL),
+						" [npc.name] as [npc.she] [npc.verb(kneel)] on the floor before them; their groins just inches away from [npc.her] face..."));
+				
+			} else {
+				
+				List<String> performers = new ArrayList<>();
+				performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), "[npc.Name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(performers, false));
+				if(performers.size()>2) {
+					descriptionSB.append(" are all");
+				} else if(performers.size()>1) {
+					descriptionSB.append(" are");
+				} else if(performers.size()>1) {
+					descriptionSB.append(" is");
+				}
+				descriptionSB.append(" kneeling on the floor in front of ");
+				
+				List<String> receivers = new ArrayList<>();
+				receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), "[npc.Name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(receivers, false));
+				if(receivers.size()>1) {
+					descriptionSB.append(", who are positioning their groins just inches away from");
+					if(performers.size()>1) {
+						descriptionSB.append(" the faces before them.");
+					} else {
+						descriptionSB.append(" the face before them.");
+					}
+				} else {
+					if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL).isPlayer()) {
+						descriptionSB.append(", and you're positioning your groin just inches away from");
+					} else {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), ", who is positioning [npc.her] groin just inches away from"));
+					}
+					if(performers.size()>1) {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), " the faces before [npc.herHim]."));
+					} else {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), " the face before [npc.herHim]."));
+					}
+				}
+				
+				descriptionSB.append("</br>"
+						+ "Just to the side of this, ");
+				
+				performers = new ArrayList<>();
+				performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND), "[npc.name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)!=null) {
+					performers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(performers, false));
+				if(performers.size()>2) {
+					descriptionSB.append(" are all");
+				} else if(performers.size()>1) {
+					descriptionSB.append(" are");
+				} else if(performers.size()>1) {
+					descriptionSB.append(" is");
+				}
+				descriptionSB.append(" similary kneeling on the floor in front of ");
+				
+				receivers = new ArrayList<>();
+				receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND), "[npc.Name]"));
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO), "[npc.name]"));
+				}
+				if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)!=null) {
+					receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE), "[npc.name]"));
+				}
+				
+				descriptionSB.append(Util.stringsToStringList(receivers, false));
+				if(receivers.size()>1) {
+					descriptionSB.append(", who are preparing to receive oral");
+					if(performers.size()>1) {
+						descriptionSB.append(" from those before them.");
+					} else {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)," from the [npc.race] before them."));
+					}
+					
+				} else {
+					if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND).isPlayer()) {
+						descriptionSB.append(", and you're preparing to receive oral");
+					} else {
+						descriptionSB.append(", who is preparing to receive oral");
+					}
+					if(performers.size()>1) {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND), " from those before [npc.herHim]."));
+					} else {
+						descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND),
+								" from the [npc.race] before [npc2.herHim]."));
+					}
+				}
+			}
+			
+			return descriptionSB.toString();
 		}
+
+		@Override
+		public SexActionInteractions getSexInteractions(SexPositionSlot performer, SexPositionSlot target) {
+			if(Main.game.isInSex()) {
+				if((Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND)==null)
+						|| (Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)==null)) { // Up to 6 subs on 1 dom or 6 doms on 1 sub
+					if(((performer==SexPositionSlot.KNEELING_PERFORMING_ORAL && target!=SexPositionSlot.KNEELING_RECEIVING_ORAL)
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)
+							&& (target!=SexPositionSlot.KNEELING_PERFORMING_ORAL
+									&& target!=SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO
+									&& target!=SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE
+									&& target!=SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND
+									&& target!=SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO
+									&& target!=SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_PERFORMING_ORAL, SexPositionSlot.KNEELING_RECEIVING_ORAL);
+					}
+					if(((performer==SexPositionSlot.KNEELING_RECEIVING_ORAL && target!=SexPositionSlot.KNEELING_PERFORMING_ORAL)
+							|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO
+							|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE
+							|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND
+							|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO
+							|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)
+							&& (target!=SexPositionSlot.KNEELING_RECEIVING_ORAL
+									&& target!=SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO
+									&& target!=SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE
+									&& target!=SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND
+									&& target!=SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO
+									&& target!=SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_RECEIVING_ORAL, SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					}
+					
+				} else {
+					if((performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)
+							&& (target==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND
+									|| target==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO
+									|| target==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_PERFORMING_ORAL, SexPositionSlot.KNEELING_RECEIVING_ORAL);
+					}
+					if(((performer==SexPositionSlot.KNEELING_PERFORMING_ORAL && target!=SexPositionSlot.KNEELING_RECEIVING_ORAL)
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO
+							|| performer==SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE)
+							&& (target==SexPositionSlot.KNEELING_RECEIVING_ORAL
+									|| target==SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO
+									|| target==SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_PERFORMING_ORAL, SexPositionSlot.KNEELING_RECEIVING_ORAL);
+					}
+					if((target==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND
+							|| target==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO
+							|| target==SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE)
+							&& (performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND
+									|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO
+									|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_RECEIVING_ORAL, SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					}
+					if(((target==SexPositionSlot.KNEELING_PERFORMING_ORAL && performer!=SexPositionSlot.KNEELING_RECEIVING_ORAL)
+							|| target==SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO
+							|| target==SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE)
+							&& (performer==SexPositionSlot.KNEELING_RECEIVING_ORAL
+									|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO
+									|| performer==SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE)) {
+						return getSexInteractions(SexPositionSlot.KNEELING_RECEIVING_ORAL, SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					}
+				}
+			}
+			return super.getSexInteractions(performer, target);
+		}
+		
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			return false;
+		}
+
+		@Override
+		public int getMaximumSlots() {
+			return 8;
 		}
 	},
 	
@@ -1410,7 +1659,7 @@ public enum SexPositionType {
 						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD),
 								" In much the same way, [npc.NameIsFull] looking down upon [npc2.name]"));
 						positionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_FOURTH),
-								" and [npc2.NameIsFull], and [npc.is] deciding which one to have some fun with first."));
+								" and [npc2.name], and [npc.is] deciding which one to have some fun with first."));
 						
 						
 					} else {
@@ -1541,6 +1790,18 @@ public enum SexPositionType {
 		@Override
 		public SexActionInteractions getSexInteractions(SexPositionSlot performer, SexPositionSlot target) {
 			
+			// Add basic orgasms for all kneeling besides:
+			if(performer == SexPositionSlot.MISSIONARY_KNEELING_BESIDE
+					|| performer == SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO
+					|| performer == SexPositionSlot.MISSIONARY_KNEELING_BESIDE_SECOND
+					|| performer == SexPositionSlot.MISSIONARY_KNEELING_BESIDE_SECOND_TWO) {
+				return new SexActionInteractions(
+						null,
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR));
+			}
+			
+			
 			// Remove kissing and other interactions if there are other positions blocking:
 			if((performer == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS && target == SexPositionSlot.MISSIONARY_ON_BACK)
 					|| (performer == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND && target == SexPositionSlot.MISSIONARY_ON_BACK_SECOND)) {
@@ -1644,6 +1905,7 @@ public enum SexPositionType {
 					
 					interactions = Util.mergeMaps(interactions, SexActionPresets.penisToVagina);
 					interactions = Util.mergeMaps(interactions, SexActionPresets.assToPenis);
+					interactions = Util.mergeMaps(interactions, SexActionPresets.vaginaToPenis);
 					
 				} else {
 					interactions = Util.mergeMaps(interactions, SexActionPresets.groinToGroin);
@@ -1851,12 +2113,16 @@ public enum SexPositionType {
 							OrgasmCumTarget.FLOOR));
 			
 			if(performer == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) {
-				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null) {
-					if(target==SexPositionSlot.MISSIONARY_ON_BACK || target==SexPositionSlot.MISSIONARY_ON_BACK_SECOND) {
+				if(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)==null) {
+					if(target==SexPositionSlot.MISSIONARY_ON_BACK
+							|| target==SexPositionSlot.MISSIONARY_ON_BACK_SECOND
+							|| target==SexPositionSlot.MISSIONARY_ON_BACK_THIRD
+							|| target==SexPositionSlot.MISSIONARY_ON_BACK_FOURTH) {
 						return kneelerBackInteractions;
 					}
 				} else {
-					if(target==SexPositionSlot.MISSIONARY_ON_BACK) {
+					if(target==SexPositionSlot.MISSIONARY_ON_BACK
+							|| (Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_THIRD)!=null && target==SexPositionSlot.MISSIONARY_ON_BACK_SECOND)) {
 						return kneelerBackInteractions;
 					}
 				}
@@ -1881,25 +2147,30 @@ public enum SexPositionType {
 			// Restrict penis actions if there is already an ongoing penis action between on back and between legs slots:
 			if(((Sex.getSexPositionSlot(performer) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(performer) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(target))
 					|| ((Sex.getSexPositionSlot(target) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(target) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(performer))) {
-				
 				if(action.getActionType()!=SexActionType.ONGOING && action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)) {
 					for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
-						if(sa.isOrifice()) {
-							return Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS);
+						if(sa.isOrifice()
+								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
+							return true;
 						}
 					}
 				}
-				
 				if(action.getActionType()!=SexActionType.ONGOING && action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
 					for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
-						if(sa.isOrifice()) {
-							return Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS);
+						if(sa.isOrifice()
+								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
+							return true;
 						}
 					}
 				}
 			}
 			
 			return super.isActionBlocked(performer, target, action);
+		}
+
+		@Override
+		public int getMaximumSlots() {
+			return 8;
 		}
 	},
 

@@ -370,13 +370,139 @@ public enum SexPositionSlot {
 	SIXTY_NINE_BOTTOM("Sixty-nine (bottom)",
 			false),
 	
-	/* Kneeling oral */
+	/* Kneeling oral */ //TODO SD standing/kneeling
 	
-	KNEELING_RECEIVING_ORAL("Standing",
-			true),
+	KNEELING_RECEIVING_ORAL("Standing", true),
 	
-	KNEELING_PERFORMING_ORAL("Kneeling",
-			false),
+	KNEELING_RECEIVING_ORAL_TWO("Standing", true),
+	
+	KNEELING_RECEIVING_ORAL_THREE("Standing", true),
+	
+	KNEELING_RECEIVING_ORAL_SECOND("Standing", true),
+	
+	KNEELING_RECEIVING_ORAL_SECOND_TWO("Standing", true),
+	
+	KNEELING_RECEIVING_ORAL_SECOND_THREE("Standing", true),
+	
+	KNEELING_PERFORMING_ORAL("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
+
+	KNEELING_PERFORMING_ORAL_TWO("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
+
+	KNEELING_PERFORMING_ORAL_THREE("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
+	
+	KNEELING_PERFORMING_ORAL_SECOND("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null && Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO).isSizeDifferenceTallerThan(target)) {
+				return true;
+			} else if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
+
+	KNEELING_PERFORMING_ORAL_SECOND_TWO("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null && Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO).isSizeDifferenceTallerThan(target)) {
+				return true;
+			} else if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
+
+	KNEELING_PERFORMING_ORAL_SECOND_THREE("Kneeling", false) {
+		@Override
+		public String getName(GameCharacter target) {
+			String name = this.isStanding(target)?"Standing":"Kneeling";
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null) {
+				name+=" before "+UtilText.parse(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO), "[npc.name]");
+			}
+			return name;
+		}
+
+		@Override
+		public boolean isStanding(GameCharacter target) {
+			if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO)!=null && Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL_TWO).isSizeDifferenceTallerThan(target)) {
+				return true;
+			} else if(Sex.getCharacterInPosition(KNEELING_RECEIVING_ORAL).isSizeDifferenceTallerThan(target)) {
+				return true;
+			}
+			return super.isStanding(target);
+		}
+	},
 	
 	/* Standing */
 	

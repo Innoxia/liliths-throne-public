@@ -118,6 +118,10 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -632,6 +636,11 @@ public class Game implements Serializable, XMLSaving {
 					String worldType = e.getAttribute("worldType");
 					if((!worldType.equals("SEWERS") || !Main.isVersionOlderThan(loadingVersion, "0.2.0.5"))
 							&& (!worldType.equals("SUBMISSION") || !Main.isVersionOlderThan(loadingVersion, "0.2.10.8"))
+							&& ((!worldType.equals("IMP_FORTRESS_ALPHA")
+									&& !worldType.equals("IMP_FORTRESS_DEMON")
+									&& !worldType.equals("IMP_FORTRESS_FEMALES")
+									&& !worldType.equals("IMP_FORTRESS_MALES"))
+									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
@@ -654,6 +663,8 @@ public class Game implements Serializable, XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
 						gen.worldGeneration(WorldType.SUBMISSION);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES);
@@ -987,13 +998,13 @@ public class Game implements Serializable, XMLSaving {
 			NPC npc = declaredConstructor.newInstance(true);
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
 			return npc;
-		} catch(ClassNotFoundException CNFE) {
+		} catch(ClassNotFoundException cnfe) {
 			System.err.println("No Class found for: " + className);
-			CNFE.printStackTrace();
+			cnfe.printStackTrace();
 			return null;
-		} catch(NoSuchMethodException NSME) {
+		} catch(NoSuchMethodException nsme) {
 			System.err.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
-			NSME.printStackTrace();
+			nsme.printStackTrace();
 			return null;
 		} catch(Exception ex) {
 			System.err.println("Failed to load NPC class: "+className);
@@ -1226,29 +1237,17 @@ public class Game implements Serializable, XMLSaving {
 		boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesPacifiedTime) > 60*24*5);
 		boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesPacifiedTime) > 60*24*5);
 		
-		if(alphaReset || demonReset || femalesReset || malesReset) {
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, !alphaReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonPacified, !demonReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, !femalesReset);
-			this.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, !malesReset);
-			
-			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
-			for(int i=0; i< cells.length;i++) {
-				for(int j=0; j< cells[i].length;j++) {
-					Cell cell = cells[j][i];
-					if((cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA && alphaReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON && demonReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES && femalesReset)
-							|| (cell.getPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES && malesReset)) {
-						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
-							if(!Main.game.getPlayer().getCompanions().contains(character)) {
-								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
-								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-							}
-						}
-					}
-				}
-			}
+		if(alphaReset) {
+			FortressAlpha.resetFortress();
+		}
+		if(demonReset) {
+			FortressDemon.resetFortress();
+		}
+		if(femalesReset) {
+			FortressFemales.resetFortress();
+		}
+		if(malesReset) {
+			FortressMales.resetFortress();
 		}
 		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
@@ -3381,7 +3380,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public String getNPCId(Class<? extends NPC> c) {
-		return npcTally+","+c.getSimpleName();
+		return npcTally.get()+","+c.getSimpleName();
 	}
 	
 	public String getNextNPCId(Class<? extends NPC> c) {
@@ -3401,24 +3400,24 @@ public class Game implements Serializable, XMLSaving {
 	public String addNPC(NPC npc, boolean isImported) throws Exception {
 		
 		if(isImported) {
-			int tallyCount = 0;
+			int tallyCount;
+			String rawId = npc.getId();
 			// Support old versions (in the format "Stan-Stan-Stan-49"):
-			String[] split = npc.getId().split("-");
-			try{
+			if(rawId.contains("-")){
+				String[] split = rawId.split("-");
 				tallyCount = Integer.parseInt(split[split.length-1]);
-			}catch(NumberFormatException ex) {
-				tallyCount = Integer.parseInt(npc.getId().split(",")[0]);
+			} else {
+				tallyCount = Integer.parseInt(rawId.split(",")[0]);
 			}
-			if(tallyCount>npcTally.get()) {
-				npcTally.set(tallyCount);
-			}
+
+			npcTally.updateAndGet(x -> Math.max(x, tallyCount));
 			
 		} else {
 			if(npc.isUnique()) {
 				npc.setId(getUniqueNPCId(npc.getClass()));
 			} else {
-				npcTally.incrementAndGet();
-				npc.setId(getNPCId(npc.getClass()));
+				int id = npcTally.incrementAndGet();
+				npc.setId(id+","+(npc.getClass().getSimpleName()));
 			}
 		}
 		

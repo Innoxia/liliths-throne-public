@@ -1057,7 +1057,7 @@ public class UtilText {
 				"Returns the name that this character prefers to call the player by."){
 			@Override
 			public String parse(String command, String arguments, String target, GameCharacter character) {
-				return character.getPlayerPetName();
+				return character.getPetName(Main.game.getPlayer());
 			}
 		});
 		

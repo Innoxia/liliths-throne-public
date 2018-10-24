@@ -402,7 +402,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 */
 	private SexAction performForeplayAction(SexActionInterface sexActionPlayer) {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
-		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions());
+		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(Sex.getActivePartner()));
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		
@@ -491,8 +491,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //	private boolean removedAllPenetrationAfterForeplay = false;
 	
 	private SexAction performSexAction(SexActionInterface sexActionPlayer) {
+		
+		NPC performingCharacter = (NPC)Sex.getCharacterPerformingAction();
+		GameCharacter targetedCharacter = Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
+		
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
-		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions());
+		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
@@ -500,9 +504,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
 		}
-		
-		NPC performingCharacter = (NPC)Sex.getCharacterPerformingAction();
-		GameCharacter targetedCharacter = Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		availableActions.removeAll(bannedActions);
@@ -514,7 +515,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		for(SexActionInterface action : Sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)) {
 			boolean sexPenetration = false;
 			boolean sexOrifice = false;
-			if(action.isAddedToAvailableSexActions()) {
+			if(action.getParticipantType()!=SexParticipantType.SELF && (action.isAddedToAvailableSexActions() || action.isAbleToAccessParts(performingCharacter))) {
 				for(SexAreaPenetration pen : action.getPerformingCharacterPenetrations()) {
 					if(pen.isTakesVirginity()) {
 						sexPenetration = true;
@@ -746,8 +747,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		List<GameCharacter> availableTargets = new ArrayList<>(Sex.getAllParticipants());
 		
+		// Always target those who are about to cum:
 		if(Sex.isReadyToOrgasm(targeter) && SexFlags.playerPreparedForCharactersOrgasm.contains(targeter)) {
-			
 			availableTargets.clear();
 			List<GameCharacter> floorTargets = new ArrayList<>();
 			
@@ -767,7 +768,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			if(availableTargets.isEmpty()) {
 				availableTargets.addAll(floorTargets);
 			}
-			
 		}
 		
 		// If positioning is blocked, then only prioritise characters that actually have actions available that the targeter wants to perform:
@@ -823,7 +823,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				
 				Set<SexActionInterface> availableActions = Sex.isReadyToOrgasm(targeter)?Sex.getOrgasmActionsPartner(targeter, character):Sex.getActionsAvailablePartner(targeter, character);
 				
-				int attractionModifier = targeter.isAttractedTo(character)?100:1; // If targeter is not attracted to character, they are a hundred times less likely to target them
+				int attractionModifier = 100;
+				
+				 // If targeter is not attracted to the character, or if the character is in the same dom/sub type, and is not attracted to the targeter, then they are a hundred times less likely to target them:
+				if(!targeter.isAttractedTo(character) || (Sex.isDom(targeter)==Sex.isDom(character) && !character.isAttractedTo(targeter))) {
+					attractionModifier/=100;
+				}
 				
 				if(!availableActions.isEmpty()) {
 					if(Sex.isDom(targeter) != Sex.isDom(character)) {
