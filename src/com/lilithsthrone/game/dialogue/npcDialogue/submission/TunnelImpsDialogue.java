@@ -889,7 +889,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
@@ -900,7 +900,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
 								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
@@ -912,7 +912,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
 								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
@@ -930,7 +930,7 @@ public class TunnelImpsDialogue {
 								getImpGroup(),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -948,7 +948,7 @@ public class TunnelImpsDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
 						}
 						
 					} else if (index == 7) {
@@ -967,7 +967,7 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									null,
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
 						}
 						
 					} else if (index == 8) {
@@ -986,7 +986,7 @@ public class TunnelImpsDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -1006,7 +1006,7 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpLeader()) && Main.game.isNonConEnabled()) {
@@ -1107,7 +1107,7 @@ public class TunnelImpsDialogue {
 						getImpGroup(),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						AFTER_SEX_WATCHING_COMPANION,
-						UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
 			} else {
 				return null;
 			}
