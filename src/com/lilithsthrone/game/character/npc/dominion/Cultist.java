@@ -81,6 +81,7 @@ public class Cultist extends NPC {
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setHomeLocation();
 			
 			// BODY RANDOMISATION:
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
@@ -119,63 +120,7 @@ public class Cultist extends NPC {
 			
 			// CLOTHING:
 			
-			List<Colour> colours = new ArrayList<>();
-			colours.add(Colour.CLOTHING_ORANGE);
-			colours.add(Colour.CLOTHING_BLACK);
-			colours.add(Colour.CLOTHING_PURPLE);
-			colours.add(Colour.CLOTHING_PURPLE_LIGHT);
-			Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
-	
-			colours.clear();
-			colours.add(Colour.CLOTHING_WHITE);
-			colours.add(Colour.CLOTHING_BLACK);
-			Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
-			
-			
-			List<AbstractClothingType> clothingChoices = new ArrayList<>();
-			
-			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-			
-			clothingChoices.clear();
-			clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
-			clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-			
-			clothingChoices.clear();
-			clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
-	
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
-			
-			if(Math.random()>0.5f) {
-				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
-			} else {
-				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
-			}
-			
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
-			
-			// Makeup:
-			colours = Util.newArrayListOfValues(
-					Colour.COVERING_NONE,
-					Colour.COVERING_ORANGE,
-					Colour.COVERING_PURPLE,
-					Colour.COVERING_BLACK);
-			
-			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
-			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
-			
-			setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
-			setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-			setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
-			setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
-			
-			setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
-			setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
-			
+			equipClothing(true, true, true, true);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -202,8 +147,65 @@ public class Cultist extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
-		// Not needed
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		List<Colour> colours = new ArrayList<>();
+		colours.add(Colour.CLOTHING_ORANGE);
+		colours.add(Colour.CLOTHING_BLACK);
+		colours.add(Colour.CLOTHING_PURPLE);
+		colours.add(Colour.CLOTHING_PURPLE_LIGHT);
+		Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
+
+		colours.clear();
+		colours.add(Colour.CLOTHING_WHITE);
+		colours.add(Colour.CLOTHING_BLACK);
+		Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
+		
+		
+		List<AbstractClothingType> clothingChoices = new ArrayList<>();
+		
+		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
+		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		
+		clothingChoices.clear();
+		clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		
+		clothingChoices.clear();
+		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
+
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
+		
+		if(Math.random()>0.5f) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
+		} else {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+		}
+		
+		if(addWeapons) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+		}
+		
+		// Makeup:
+		colours = Util.newArrayListOfValues(
+				Colour.COVERING_NONE,
+				Colour.COVERING_ORANGE,
+				Colour.COVERING_PURPLE,
+				Colour.COVERING_BLACK);
+		
+		Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
+		Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
+		
+		setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
+		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
+		setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
+		
+		setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
+		setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
 	}
 	
 	@Override

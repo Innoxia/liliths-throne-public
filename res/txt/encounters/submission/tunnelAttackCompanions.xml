@@ -9,7 +9,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="TUNNEL_ATTACK_REPEAT_PREGNANCY_REVEAL"><![CDATA[
-	#IF npc.isCharacterPossiblyFather(pc.getId())
+	#IF npc.getPregnantLitter().isFatherId(pc.getId())
 	#THEN
 		#IF npc.hasFetish(FETISH_PREGNANCY)
 		#THEN
@@ -25,7 +25,7 @@
 			</p>
 		#ENDIF
 	#ELSE
-		#IF npc.isCharacterPossiblyFather(npc2.getId())
+		#IF npc.getPregnantLitter().isFatherId(npc2.getId())
 		#THEN
 			#IF npc.hasFetish(FETISH_PREGNANCY)
 			#THEN
@@ -482,6 +482,60 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="TUNNEL_ATTACK_PEACEFUL_OFFER_BODY_WITH_COMPANION"><![CDATA[
+	<p>
+		Wanting to offer [npc.name] something a little special, you flash [npc.herHim] a seductive smile, before making your proposition. [pc.speech(You know, if you're looking for a bit of fun, [npc2.name] and I are more than happy to play along...)]
+	</p>
+	<p>
+		#IFnpc2.isAttractedTo(npc) || !game.isNonConEnabled()
+		#THEN[npc2.speech(That's right,)] [npc2.name] teases. [npc2.speech(We can satisfy your desires...)]
+		#ELSE[npc2.speech([pc.Name]!)] [npc2.name] interjects. [npc2.speech(I-I really don't want to do this!)]
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(Mmm, you mean I get to enjoy the two of you at once? How could anyone say no to that?!)] [npc.name] eagerly replies, stepping forwards and placing [npc.a_hand] on each of your waists. With a hungry growl, [npc.she] dominantly pulls the two of you up against [npc.herHim], before leaning in to give you a passionate kiss. 
+	</p>
+	<p>
+		As you press yourself up against [npc.name], [npc.she] suddenly breaks off the kiss, before turning to [npc2.name] and giving [npc2.herHim] a taste of [npc.her] [npc.lips].
+		#IFnpc2.isAttractedTo(npc) || !game.isNonConEnabled()
+		#THEN [npc2.Name] lets out a delighted [npc2.moan], before eagerly returning the kiss and [npc2.moaning], [npc2.speech(~Mmm!~ Yes!)]
+		#ELSE [npc2.Name] lets out a flustered yelp, before pushing [npc.name] away from [npc2.herHim] and complaining, [npc2.speech(I-I don't know about this!)]
+		#ENDIF
+	</p>
+	<p>
+		Before either of you can make another move, [npc.name] suddenly reaches up to grab you both by the shoulders, and with a determined push, forces the two of you down onto all fours. Dropping down behind you, [npc.she] [npc.moansVerb], [npc.speech(You dirty sluts! I'll put the two of you in your place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TUNNEL_ATTACK_PEACEFUL_OFFER_COMPANION"><![CDATA[
+	<p>
+		Wanting to offer [npc.name] something special, you step over towards [npc2.name], and in a low tone, you ask, [pc.speech(You're up for having some fun, aren't you, [npc2.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is spread your legs...)]
+	</p>
+	<p>
+		#IFnpc2.isAttractedTo(npc) || !game.isNonConEnabled()
+		#THEN[npc2.speech(Sure thing, [pc.name],)] [npc2.name] replies. [npc2.speech(If that's really what you want me to do...)]
+		#ELSE[npc2.speech([pc.Name]! W-What the hell?!)] [npc2.name] replies in alarm. [npc2.speech(I-I really don't want to do that!)]
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(What are you two whispering about?)] [npc.name] calls out, stepping forwards and smiling at the two of you. 
+	</p>
+	<p>
+		#IFnpc2.isAttractedTo(npc) || !game.isNonConEnabled()
+		#THEN[npc2.speech(We were just deciding who's going to be the lucky one you get to fuck!)] [npc2.name] replies, turning around and stepping up to [npc.name]. [npc2.speech(And it turns out it's me!)]
+		#ELSE[pc.speech(We were just deciding who's going to be the lucky one you get to fuck!)] you reply, spinning [npc2.name] around and pushing [npc2.herHim] towards [npc.name]. [pc.speech(And it turns out it's [npc2.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		Before either of you can make another move, [npc.name] lets out a hungry [npc.moan], before reaching up to grab [npc2.namePos] [npc2.arm]. With a dominant pull, [npc.she] forces [npc2.name] into [npc.her] embrace, before planting a passionate kiss on [npc2.her] [npc2.lips]. After a moment, [npc.she] breaks away, before growling, [npc.speech(You're going to be a good [npc2.girl] now, aren't you bitch? [pc.Name] can watch me fuck you senseless!)]
+	</p>
+	<p>
+		You let out a content sigh, happy that you had [npc2.name] to offer to [npc.name]. Leaning back against a nearby wall, you decide to take it easy while [npc.name] has [npc.her] fun with your companion...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="TUNNEL_PEACEFUL_TALK"><![CDATA[
 	#IF npc.getAffection(pc)<20
 	#THEN
@@ -783,6 +837,36 @@
 	</p>
 	<p>
 		The two of you set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you then set off on your journey...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_PEACEFUL_THREESOME"><![CDATA[
+	<p>
+		As the three of you step back from one another, [npc.name] smiles and says, [npc.speech(That was great... Thanks [pc.name], and you too, [npc2.name], I really needed that.)]
+	</p>
+	<p>
+		Each of you then set about gathering your things, and, satisfied from your sexual encounter, you prepare to continue on your way. Saying goodbye to [npc.name], and promising to come back and see [npc.herHim] soon, you and [npc2.name] set off on your journey...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_PEACEFUL_OFFERED_COMPANION"><![CDATA[
+	<p>
+		Both [npc.name] and [npc2.name] let out happy sighs as the two of them step back from one another. Looking into [npc2.namePos] [npc2.eyes], the [npc.race] smiles and says, [npc.speech(That was great... Thanks [npc2.name], I really needed that.)]
+	</p>
+	<p>
+		The two of them set about gathering their things, and, after saying goodbye to one another, you and [npc2.name] set off on your journey once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT"><![CDATA[
+	<p>
+		[npc.Name] lets out contented sigh as [npc.she] steps back from [npc.her] used partner. Moving to get [npc.her] things in order, [npc.she] says, [npc.speech(I bet you enjoyed that almost as much as I did, didn't you, [npc2.name]?)]
+	</p>
+	<p>
+		Ignoring the question, [npc2.name] turns towards you and throws you a scowl, before quickly gathering [npc2.her] things and waiting off to one side as you and [npc.name] say goodbye to one another. After just a moment, you're ready to leave, and [npc2.name] follows a few steps behind as the two of you set off on your journey once again...
 	</p>
 	]]>
 	</htmlContent>

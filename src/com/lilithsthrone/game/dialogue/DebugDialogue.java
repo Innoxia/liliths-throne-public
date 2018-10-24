@@ -1072,7 +1072,7 @@ public class DebugDialogue {
 						BODY_PART_RACE_RESET){
 					@Override
 					public void effects() {
-						CharacterUtils.reassignBody(Main.game.getPlayer().getBody(), Main.game.getPlayer().getGender(), Subspecies.values()[index - 1],
+						CharacterUtils.reassignBody(Main.game.getPlayer(), Main.game.getPlayer().getBody(), Main.game.getPlayer().getGender(), Subspecies.values()[index - 1],
 								responseTab==0
 									?RaceStage.PARTIAL
 									:(responseTab==1

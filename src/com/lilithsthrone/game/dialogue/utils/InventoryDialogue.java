@@ -1159,7 +1159,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + item.getItemType().getDeterminer() + " " + item.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + item.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(Main.game.getPlayer(), inventoryNPC, item, 1);
@@ -1752,7 +1752,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + item.getItemType().getDeterminer() + " " + item.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + item.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(inventoryNPC, Main.game.getPlayer(), item, 1);
@@ -2446,7 +2446,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + weapon.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(Main.game.getPlayer(), inventoryNPC, weapon, 1);
@@ -2763,7 +2763,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + weapon.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpWeapons(Main.game.getPlayer(), weapon, 1);
@@ -2899,7 +2899,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take one " + weapon.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(inventoryNPC, Main.game.getPlayer(), weapon, 1);

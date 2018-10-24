@@ -14,9 +14,6 @@
 	<p>
 		As [npc.she] steps over the fallen webbing, you recognise your tormentor as the [npc.fullRace(true)] you've run into before.
 	</p>
-	<p>
-		[npc.speech(It's you again?!)] [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim]. [npc.speech(You're just begging to get fucked!)]
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -111,7 +108,7 @@
 	
 	<htmlContent tag="ALLEY_ATTACK_REPEAT"><![CDATA[
 	<p>
-		[npc.speech(You again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you just give up right now!)] 
+		[npc.speech(It's you again?!)] [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim]. [npc.speech(You're just begging to get fucked!)]
 	</p>
 	]]>
 	</htmlContent>

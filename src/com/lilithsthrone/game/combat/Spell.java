@@ -332,7 +332,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -690,7 +690,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -986,7 +986,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -1297,7 +1297,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -1400,7 +1400,20 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(damage>0) {
-					descriptionSB.append(target.incrementLust(damage));
+					if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+						descriptionSB.append(UtilText.parse(caster, target,
+									"<p>"
+										+ "<b>[npc2.Name] [npc2.verb(take)] " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
+										+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] [npc2.verb(struggle)] to control [npc2.her] burning desire for sex!</b><br/>"
+									+ "</p>"));
+
+						target.incrementHealth(-damage*2);
+						target.incrementMana(-damage);
+						
+					} else {
+						descriptionSB.append(target.incrementLust(damage));
+					}
+					
 				}
 				
 				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
@@ -2088,7 +2101,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());

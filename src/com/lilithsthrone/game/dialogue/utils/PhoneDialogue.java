@@ -1836,8 +1836,8 @@ public class PhoneDialogue {
 						Subspecies subspecies = racesDiscovered.get(index - 1);
 						Race race = subspecies.getRace();
 						
-						Body femaleBody = CharacterUtils.generateBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
-						Body maleBody = CharacterUtils.generateBody(Gender.M_P_MALE, subspecies, RaceStage.GREATER);
+						Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
+						Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspecies, RaceStage.GREATER);
 						
 						title = Util.capitaliseSentence(subspecies.getName(null));
 						raceSB.setLength(0);

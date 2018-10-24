@@ -81,6 +81,9 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
@@ -106,7 +109,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -788,7 +791,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -847,7 +850,7 @@ public class MainController implements Initializable {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 											@Override
 											public void effects() {
-												Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+												Main.game.getActiveNPC().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 											}
 										});
 									} else {
@@ -1534,12 +1537,53 @@ public class MainController implements Initializable {
 			
 			// For status effect slots:
 			for (StatusEffect se : character.getStatusEffects()) {
-				if (((EventTarget) documentAttributes.getElementById("SE_"+idModifier + se)) != null) {
-					addEventListener(documentAttributes, "SE_"+idModifier + se, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "SE_"+idModifier + se, "mouseleave", hideTooltipListener, false);
-	
+				id = "SE_"+idModifier + se;
+				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+					
+					// Set target to whoever is interacting with this area:
+					if(Main.game.isInSex()) { //TODO add click helper text
+						SexAreaInterface si = null;
+						switch(se) {
+							case PENIS_STATUS:
+								si = SexAreaPenetration.PENIS;
+								break;
+							case ANUS_STATUS:
+								si = SexAreaOrifice.ANUS;
+								break;
+							case ASS_STATUS:
+								si = SexAreaOrifice.ASS;
+								break;
+							case MOUTH_STATUS:
+								si = SexAreaOrifice.MOUTH;
+								break;
+							case BREAST_STATUS:
+								si = SexAreaOrifice.BREAST;
+								break;
+							case NIPPLE_STATUS:
+								si = SexAreaOrifice.NIPPLE;
+								break;
+							case THIGH_STATUS:
+								si = SexAreaOrifice.THIGHS;
+								break;
+							case URETHRA_PENIS_STATUS:
+								si = SexAreaOrifice.URETHRA_PENIS;
+								break;
+							case URETHRA_VAGINA_STATUS:
+								si = SexAreaOrifice.URETHRA_VAGINA;
+								break;
+							case VAGINA_STATUS:
+								si = SexAreaOrifice.VAGINA;
+								break;
+							default:
+								break;
+						}
+						setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
+					}
+					
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character);
-					addEventListener(documentAttributes, "SE_"+idModifier + se, "mouseenter", el, false);
+					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
 			
@@ -1582,6 +1626,20 @@ public class MainController implements Initializable {
 			}
 		}
 		
+	}
+	
+	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {
+		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+			GameCharacter target = Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
+					?null
+					:Sex.getCharactersHavingOngoingActionWith(character, si).get(0);
+			if(target!=null && target instanceof NPC) {
+				Sex.setActivePartner((NPC) target);
+				Sex.recalculateSexActions();
+				updateUI();
+				Main.game.updateResponses();
+			}
+		}, false);
 	}
 	
 	private void manageRightListeners() {
@@ -1781,12 +1839,53 @@ public class MainController implements Initializable {
 			if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 				// For status effect slots:
 				for (StatusEffect se : character.getStatusEffects()) {
-					if (((EventTarget) documentRight.getElementById("SE_NPC_"+idModifier + se)) != null) {
-						addEventListener(documentRight, "SE_NPC_"+idModifier + se, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "SE_NPC_"+idModifier + se, "mouseleave", hideTooltipListener, false);
+					id = "SE_NPC_"+idModifier + se;
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 		
+						// Set target to whoever is interacting with this area:
+						if(Main.game.isInSex()) { //TODO add click helper text
+							SexAreaInterface si = null;
+							switch(se) {
+								case PENIS_STATUS:
+									si = SexAreaPenetration.PENIS;
+									break;
+								case ANUS_STATUS:
+									si = SexAreaOrifice.ANUS;
+									break;
+								case ASS_STATUS:
+									si = SexAreaOrifice.ASS;
+									break;
+								case MOUTH_STATUS:
+									si = SexAreaOrifice.MOUTH;
+									break;
+								case BREAST_STATUS:
+									si = SexAreaOrifice.BREAST;
+									break;
+								case NIPPLE_STATUS:
+									si = SexAreaOrifice.NIPPLE;
+									break;
+								case THIGH_STATUS:
+									si = SexAreaOrifice.THIGHS;
+									break;
+								case URETHRA_PENIS_STATUS:
+									si = SexAreaOrifice.URETHRA_PENIS;
+									break;
+								case URETHRA_VAGINA_STATUS:
+									si = SexAreaOrifice.URETHRA_VAGINA;
+									break;
+								case VAGINA_STATUS:
+									si = SexAreaOrifice.VAGINA;
+									break;
+								default:
+									break;
+							}
+							setStatusEffectSexTargetChangeListener(documentRight, id, character, si);
+						}
+						
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character);
-						addEventListener(documentRight, "SE_NPC_"+idModifier + se, "mouseenter", el, false);
+						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
 				

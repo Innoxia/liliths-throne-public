@@ -11,16 +11,10 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -61,7 +55,7 @@ public class FortressMalesLeader extends NPC {
 		super(isImported, null,
 				"The ruler of one of Submission's imp fortresses, [npc.name] has a following consisting entirely of male imps...",
 				Util.random.nextInt(15)+25, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				20, Gender.M_P_MALE, Subspecies.IMP_ALPHA, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
+				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 	}
 
 	@Override
@@ -75,8 +69,8 @@ public class FortressMalesLeader extends NPC {
 		// Persona:
 		
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 30);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 10);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
 			this.setPersonality(Util.newHashMapOfValues(
@@ -136,18 +130,18 @@ public class FortressMalesLeader extends NPC {
 		
 		// Face:
 		this.setFaceVirgin(false);
-		this.setLipSize(LipSize.TWO_FULL);
-		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+//		this.setLipSize(LipSize.TWO_FULL);
+//		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.E.getMeasurement());
-		this.setBreastShape(BreastShape.POINTY);
-		this.setNippleSize(NippleSize.THREE_LARGE);
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+//		this.setNippleVirgin(false);
+//		this.setBreastSize(CupSize.E.getMeasurement());
+//		this.setBreastShape(BreastShape.POINTY);
+//		this.setNippleSize(NippleSize.THREE_LARGE);
+//		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
 		// Nipple settings and modifiers
 		
 		// Ass:
@@ -180,7 +174,7 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -194,7 +188,7 @@ public class FortressMalesLeader extends NPC {
 	
 	@Override
 	public boolean isUnique() {
-		return false;
+		return true;
 	}
 
 	@Override

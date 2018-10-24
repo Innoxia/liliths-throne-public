@@ -233,6 +233,60 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return true If performer is able to free up orifices in order to perform this action.
+	 */
+	public default boolean isAbleToAccessParts(GameCharacter performer) {
+		boolean canAccessSelfParts = true;
+		for(SexAreaOrifice orifice : this.getPerformingCharacterOrifices()) {
+			if(!orifice.isFree(performer)) {
+				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
+						if(Sex.isDom(character)) {
+							canAccessSelfParts = false;
+						}
+					}
+				}
+			}
+		}
+		for(SexAreaPenetration penetration : this.getPerformingCharacterPenetrations()) {
+			if(!penetration.isFree(performer)) {
+				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
+						if(Sex.isDom(character)) {
+							canAccessSelfParts = false;
+						}
+					}
+				}
+			}
+		}
+		boolean canAccessOthersParts = true;
+		GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
+		for(SexAreaOrifice orifice : this.getTargetedCharacterOrifices()) {
+			if(!orifice.isFree(target)) {
+				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
+						if(!character.equals(performer)) { // It's someone else they're interacting with:
+							canAccessOthersParts = false;
+						}
+					}
+				}
+			}
+		}
+		for(SexAreaPenetration penetration : this.getTargetedCharacterPenetrations()) {
+			if(!penetration.isFree(target)) {
+				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
+					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
+						if(!character.equals(performer)) { // It's someone else they're interacting with:
+							canAccessOthersParts = false;
+						}
+					}
+				}
+			}
+		}
+		return canAccessSelfParts && canAccessOthersParts;
+	}
+	
 	public default boolean isAddedToAvailableSexActions() {
 		return toResponse() != null;
 	}
@@ -309,13 +363,20 @@ public interface SexActionInterface {
 
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
+				if((Sex.isConsensual() && !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
 					return null;
 				}
 			}
 			
 			// If this is a positioning action:
 			if(getActionType()==SexActionType.POSITIONING) {
+				// If there is size-difference and more than 1 participant, block non-switching with size-difference NPCS:
+				if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
+					if(Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
+							|| Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
+						return convertToNullResponse();
+					}
+				}
 				return convertToResponse();
 				
 			// If this is a 'stop penetration' action, check to see if all the requirements are met:
@@ -356,8 +417,24 @@ public interface SexActionInterface {
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					if(this.getParticipantType() != SexParticipantType.SELF) { // This is a penetrative action between both partners:
-						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction()) && Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction())))
-								|| getSexPace()==SexPace.SUB_RESISTING) {
+						
+						boolean canStartPenetration = Sex.isSubHasEqualControl() || Sex.isDom(Sex.getCharacterPerformingAction()) || !Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
+						
+						if(!canStartPenetration && Sex.getCharacterPerformingAction().isPlayer()) {
+							if(this.getTargetedCharacterOrifices().isEmpty()) {
+								canStartPenetration = true; // Can start submissive penetrations (getting penetrated, not doing the penetrating) when player is a sub with restricted control.
+							} else {
+								boolean virginityTakingPenetration = false;
+								for(SexAreaPenetration pen :this.getPerformingCharacterPenetrations()) {
+									if(pen.isTakesVirginity()) {
+										virginityTakingPenetration = true;
+									}
+								}
+								canStartPenetration = !virginityTakingPenetration;
+							}
+						}
+						
+						if(!canStartPenetration || getSexPace()==SexPace.SUB_RESISTING) {
 							return null;
 						}
 					}
@@ -619,10 +696,6 @@ public interface SexActionInterface {
 				
 				@Override
 				public void effects() {
-					if(getCategory() == SexActionCategory.POSITIONING) {
-						Sex.responseCategory = null;
-					}
-					
 					if(SexActionInterface.this.getSexPace()!=null) {
 						Sex.setSexPace(Sex.getCharacterPerformingAction(), (SexActionInterface.this.getSexPace()));
 					}
@@ -762,8 +835,16 @@ public interface SexActionInterface {
 						}
 					}
 
-					SB.append("<br/>"
-							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
+					if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
+						if(Sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
+								|| Sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
+							SB.append("<br/>"
+									+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
+						}
+					}
+					
+//					SB.append("<br/>"
+//							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
 					
 					return SB.toString();
 				}

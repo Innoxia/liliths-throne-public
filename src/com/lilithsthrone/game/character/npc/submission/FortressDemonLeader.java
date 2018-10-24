@@ -64,7 +64,7 @@ public class FortressDemonLeader extends NPC {
 		super(isImported, null,
 				"The ruler of one of Submission's imp fortresses, [npc.name] has trained some of [npc.her] imp followers to be able to harness the arcane, making them more dangerous than most...",
 				Util.random.nextInt(31)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				20, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class FortressDemonLeader extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 35);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 60);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
@@ -184,7 +184,7 @@ public class FortressDemonLeader extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		this.unequipAllClothingIntoVoid(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_BLACK, false), true, this);
@@ -199,7 +199,7 @@ public class FortressDemonLeader extends NPC {
 	
 	@Override
 	public boolean isUnique() {
-		return false;
+		return true;
 	}
 
 	@Override

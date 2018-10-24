@@ -230,7 +230,7 @@ public class Brax extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -789,7 +789,7 @@ public class Brax extends NPC {
 							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
 						}
 						
-						switch(Main.getProperties().forcedTFPreference) {
+						switch(Main.getProperties().getForcedTFPreference()) {
 							case HUMAN:
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								if(!Main.game.getPlayer().hasVagina()) {
@@ -965,7 +965,7 @@ public class Brax extends NPC {
 						+ " You hear Brax let out a laugh as he notices that you're trying to find out what he's done to you, and, with a powerful grip, he grabs your shoulders and spins you around to face a mirror hanging on one wall."
 					+ "</p>");
 
-			switch(Main.getProperties().forcedTFPreference) {
+			switch(Main.getProperties().getForcedTFPreference()) {
 				case HUMAN:
 					descriptionSB.append(
 							"<p>"

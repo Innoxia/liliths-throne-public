@@ -1471,7 +1471,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 
 		boolean displacementTypeFound = false;
-		// Check for access needed: TODO check this works
+		// Check for access needed: TODO check this works   // TODO it doesn't... Keeps looping on 1493
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 
 			// Keep iterating through until until we find the displacementType:
