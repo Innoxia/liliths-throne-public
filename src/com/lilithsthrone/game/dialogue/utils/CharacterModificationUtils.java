@@ -540,13 +540,12 @@ public class CharacterModificationUtils {
 	public static String getHeightChoiceDiv() {
 		return applyFullVariableWrapperSizes("Height",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
-			:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
-			"HEIGHT",
-			Units.size(BodyChanging.getTarget().getHeightValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)+"<br/>",
-			1, 5,
-			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
-			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
+						?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
+						:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
+				"HEIGHT",
+				BodyChanging.getTarget().getHeightValue(),
+				BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
+				BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
 	}
 	
 	public static String getFullFemininityChoiceDiv() {
@@ -644,10 +643,10 @@ public class CharacterModificationUtils {
 					+ "</div>";
 		}
 	}
-	
-	private static String applyFullVariableWrapperSizes(String title, String description, String id, String value, double minorStep, double majorStep, boolean decreaseDisabled, boolean increaseDisabled) {
-		return "<div class='container-full-width'>"
-					+"<div class='container-half-width'>"
+
+	private static String applyFullVariableWrapper(String title, String description, String id, String minorStep, String majorStep, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+			return "<div class='container-full-width'>"
+						+"<div class='container-half-width'>"
 						+ "<h5 style='text-align:center;'>"
 							+ title
 						+"</h5>"
@@ -658,10 +657,10 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+ Units.size(minorStep * -1)+")]":"[style.boldBadMinor("+Units.size(minorStep * -1)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.size(majorStep * -1)+")]":"[style.boldBad("+Units.size(majorStep * -1)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -669,14 +668,20 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.size(minorStep)+")]":"[style.boldGoodMinor(+"+Units.size(minorStep)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.size(majorStep)+")]":"[style.boldGood(+"+Units.size(majorStep)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
 				+ "</div>";
+	}
+
+
+	private static String applyFullVariableWrapperSizes(String title, String description, String id, double value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return applyFullVariableWrapper(title, description, id, Units.size(1), Units.size(5),
+				Units.size(value, Units.ValueType.PRECISE, Units.UnitType.SHORT),decreaseDisabled, increaseDisabled);
 	}
 	
 	private static String applyFullVariableWrapperFluids(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled) {
@@ -1781,8 +1786,8 @@ public class CharacterModificationUtils {
 					?"Change the size of your breasts."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts."),
 				"BREAST_SIZE",
-				" cup",
-				" cup",
+				"1 cup size",
+				"5 cup sizes",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastSize().getCupSizeName()),
 				BodyChanging.getTarget().getBreastRawSizeValue()<=0,
 				BodyChanging.getTarget().getBreastRawSizeValue()>=CupSize.XXX_N.getMeasurement());
@@ -2399,13 +2404,12 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformPenisSizeDiv() {
 		return applyFullVariableWrapperSizes("Penis Size",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change the size of your penis."
-			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
-			"PENIS_SIZE",
-			Units.size(BodyChanging.getTarget().getPenisRawSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)+"<br/>",
-			1, 5,
-			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
-			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
+						?"Change the size of your penis."
+						:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
+				"PENIS_SIZE",
+				BodyChanging.getTarget().getPenisRawSizeValue(),
+				BodyChanging.getTarget().getPenisRawSizeValue()<=0,
+				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
 	
 	public static String getSelfTransformPenisGirthDiv() {
