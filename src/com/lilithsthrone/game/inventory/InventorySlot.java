@@ -36,7 +36,7 @@ public enum InventorySlot {
 
 	/** Clothing slot "neck". Used for necklaces and scarfs.<br/>
 	 *  Tattoo slot "neck".*/
-	NECK(30, "neck", false, false, "neck"), // Necklaces
+	NECK(30, "neck", false, false, "neck"),
 	
 	
 	// TORSO:

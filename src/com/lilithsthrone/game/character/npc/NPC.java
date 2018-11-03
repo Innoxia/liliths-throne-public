@@ -959,11 +959,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	
-	public Value<String, AbstractItem> getTransfomativePotion(GameCharacter target) {
-		return getTransfomativePotion(target, false);
+	public Value<String, AbstractItem> getTransformativePotion(GameCharacter target) {
+		return getTransformativePotion(target, false);
 	}
 	
-	public Value<String, AbstractItem> getTransfomativePotion(GameCharacter target, boolean generateNew) {
+	public Value<String, AbstractItem> getTransformativePotion(GameCharacter target, boolean generateNew) {
 		if(generateNew) {
 			this.heldTransformativePotion = null;
 			

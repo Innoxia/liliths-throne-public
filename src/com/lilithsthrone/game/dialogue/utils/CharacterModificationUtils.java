@@ -11,8 +11,12 @@ import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.Eye;
+import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -810,6 +814,31 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] tail type.")),
 				contentSB.toString(), true);
 	}
+
+	public static String getSelfTransformTailCountDiv() {
+		contentSB.setLength(0);
+		
+		for(int i=1; i <= Tail.MAXIMUM_COUNT; i++) {
+			if(BodyChanging.getTarget().getTailCount() == i) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='TAIL_COUNT_"+i+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Tail Count",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change how many [pc.tails] you have."
+					:UtilText.parse(BodyChanging.getTarget(), "Change how many [npc.tails] [npc.name] has.")),
+				contentSB.toString(), true);
+	}
 	
 	public static String getSelfTransformWingSizeDiv() {
 		contentSB.setLength(0);
@@ -928,6 +957,31 @@ public class CharacterModificationUtils {
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the length of your horns."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] horns.")),
+				contentSB.toString(), true);
+	}
+
+	public static String getSelfTransformHornCountDiv() {
+		contentSB.setLength(0);
+		
+		for(int i=1; i <= Horn.MAXIMUM_ROWS; i++) {
+			if(BodyChanging.getTarget().getHornRows() == i) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='HORN_COUNT_"+i+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Horn Rows Count",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change how many pairs of [pc.horns] you have."
+					:UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of [npc.horns] [npc.name] has.")),
 				contentSB.toString(), true);
 	}
 	
@@ -1161,6 +1215,31 @@ public class CharacterModificationUtils {
 						+ "</div>");
 			}
 		}
+	}
+
+	public static String getSelfTransformArmCountDiv() {
+		contentSB.setLength(0);
+		
+		for(int i=1; i <= Arm.MAXIMUM_ROWS; i++) {
+			if(BodyChanging.getTarget().getArmRows() == i) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='ARM_COUNT_"+i+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Arm Rows Count",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change how many pairs of [pc.arms] you have."
+					:UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of [npc.arms] [npc.name] has.")),
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformLegChoiceDiv(List<Race> availableRaces) {
@@ -1433,7 +1512,31 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.namePos] pupils.")),
 				contentSB.toString(), true);
 	}
-	
+
+	public static String getSelfTransformEyeCountDiv() {
+		contentSB.setLength(0);
+		
+		for(int i=1; i <= Eye.MAXIMUM_PAIRS; i++) {
+			if(BodyChanging.getTarget().getEyePairs() == i) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='EYE_COUNT_"+i+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Eye Pairs Count",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change how many pairs of [pc.eyes] you have."
+					:UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of [npc.eyes] [npc.name] has.")),
+				contentSB.toString(), true);
+	}
 	
 	public static String getSelfTransformLipSizeDiv() {
 		contentSB.setLength(0);
@@ -1711,28 +1814,39 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformBreastSizeDiv() {
-		contentSB.setLength(0);
+//		contentSB.setLength(0);
+//		
+//		for(CupSize breastSize : CupSize.values()) {
+//			if(BodyChanging.getTarget().getBreastSize() == breastSize) {
+//				contentSB.append(
+//						"<div class='cosmetics-button active'>"
+//							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(breastSize.getCupSizeName())+"</b>"
+//						+ "</div>");
+//				
+//			} else {
+//				contentSB.append(
+//						"<div id='BREAST_SIZE_"+breastSize+"' class='cosmetics-button'>"
+//							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(breastSize.getCupSizeName())+"</span>"
+//						+ "</div>");
+//			}
+//		}
 		
-		for(CupSize breastSize : CupSize.values()) {
-			if(BodyChanging.getTarget().getBreastSize() == breastSize) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(breastSize.getCupSizeName())+"</b>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='BREAST_SIZE_"+breastSize+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(breastSize.getCupSizeName())+"</span>"
-						+ "</div>");
-			}
-		}
+//		return applyWrapper("Breast Size",
+//				(BodyChanging.getTarget().isPlayer()
+//					?"Change the size of your breasts."
+//					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts.")),
+//				contentSB.toString(), false);
 
-		return applyWrapper("Breast Size",
-				(BodyChanging.getTarget().isPlayer()
+		return applyFullVariableWrapper("Breast Size",
+				BodyChanging.getTarget().isPlayer()
 					?"Change the size of your breasts."
-					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts.")),
-				contentSB.toString(), false);
+					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts."),
+				"BREAST_SIZE",
+				" cup",
+				" cup",
+				Util.capitaliseSentence(BodyChanging.getTarget().getBreastSize().getCupSizeName()),
+				BodyChanging.getTarget().getBreastRawSizeValue()<=0,
+				BodyChanging.getTarget().getBreastRawSizeValue()>=CupSize.XXX_N.getMeasurement());
 	}
 	
 	public static String getSelfTransformBreastShapeDiv() {

@@ -16,6 +16,8 @@ import com.lilithsthrone.utils.Util;
 public class Tail implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	public static final int MAXIMUM_COUNT = 9;
+	
 	protected TailType type;
 	protected int tailCount;
 
@@ -589,7 +591,7 @@ public class Tail implements BodyPartInterface, Serializable {
 	}
 
 	public String setTailCount(GameCharacter owner, int tailCount) {
-		tailCount = Math.max(1, Math.min(tailCount, 9));
+		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

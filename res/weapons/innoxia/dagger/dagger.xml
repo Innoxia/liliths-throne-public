@@ -3,7 +3,7 @@
 	<coreAttributes>
 	
 		<!-- How much this weapon is worth. -->
-		<value>5000</value> 
+		<value>1500</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>

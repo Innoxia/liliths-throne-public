@@ -603,7 +603,7 @@ public class DoggyStyle {
 			return UtilText.returnStringAtRandom(
 					"Turning [npc.her] head back, [npc.name] [npc.verb(look)] up at [npc2.name] and [npc.verb(bite)] [npc.her] [npc.lip], putting on [npc.her] most seductive look as [npc2.she] [npc2.verb(grin)] down at [npc.herHim].",
 					
-					"Looking back at [npc2.name] as [npc2.she] towers over [npc.her] [npc.ass+], [npc.name] [npc.verb(put)] on a seductive look,"
+					"Looking back at [npc2.name] as [npc2.she] [npc2.verb(tower)] over [npc.her] [npc.ass+], [npc.name] [npc.verb(put)] on a seductive look,"
 							+ " smiling happily as [npc.she] [npc.verb(see)] [npc2.herHim] gazing hungrily down at [npc.her] body.",
 					
 					"[npc.Name] [npc.verb(turn)] [npc.her] head and [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], trying to look as seductive as possible as [npc2.she] grins down at [npc.herHim].",

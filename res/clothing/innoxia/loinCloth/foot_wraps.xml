@@ -39,9 +39,13 @@
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
 				
-				<blockedBodyParts/>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
 				
-				<clothingAccessBlocked/>
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
 				
 				<concealedSlots/>
 			</blockedParts>

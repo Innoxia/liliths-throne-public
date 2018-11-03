@@ -18,6 +18,8 @@ import com.lilithsthrone.utils.Util;
 public class Arm implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	public static final int MAXIMUM_ROWS = 3;
+	
 	protected ArmType type;
 	protected int armRows;
 	protected BodyHair underarmHair;
@@ -401,7 +403,7 @@ public class Arm implements BodyPartInterface, Serializable {
 
 	public String setArmRows(GameCharacter owner, int armRows) {
 		int currentArmRows = getArmRows();
-		armRows = Math.max(1, Math.min(armRows, 3));
+		armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
 		if (armRows == currentArmRows) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

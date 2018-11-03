@@ -1560,6 +1560,18 @@ position:relative;
 .legendary:hover{
 	background-color:#F7EAC5;
 }
+.unique {
+	background-color:#F4C9AE;
+}
+.unique:hover{
+	background-color:#FBE7DB;
+}
+.quest {
+	background-color:#BEE4E4;
+}
+.quest:hover{
+	background-color:#E0F1F1;
+}
 .jinxed {
 	background-color:#E3B5B5;
 }
