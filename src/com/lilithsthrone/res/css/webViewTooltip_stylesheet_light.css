@@ -246,6 +246,25 @@ h6{
 .container-quarter-width.inner {
 	background:#ccc;
 }
+.item-image {
+	background:#fcfcfc;
+	position:relative;
+	float:left;
+	border-radius: 5px;
+	width:calc(33.3% - 16px);
+	margin:1%;
+	-webkit-box-sizing: border-box;
+}
+.item-image:after{
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+.item-image-content {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
 
 .titular {
 	font-size:16px;

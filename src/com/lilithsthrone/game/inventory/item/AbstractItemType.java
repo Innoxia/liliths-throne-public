@@ -175,8 +175,12 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return effects;
 	}
 	
-	public boolean canBeSold() {
-		return true;
+	public boolean isAbleToBeSold() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
+	public boolean isAbleToBeDropped() {
+		return getRarity()!=Rarity.QUEST;
 	}
 	
 	// Enchantments:

@@ -23,6 +23,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -338,7 +339,9 @@ public class InventoryDialogue {
 										//TODO optimize (what if someone stores a thousand panties somewhere?)
 										int i = inventoryNPC.getAllItemsInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasItem(inventoryNPC.getAllItemsInInventory().get(i-1))
+													|| inventoryNPC.getAllItemsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
 												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
 											}
@@ -347,7 +350,9 @@ public class InventoryDialogue {
 										
 										i = inventoryNPC.getAllClothingInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))
+													|| inventoryNPC.getAllClothingInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addClothing(inventoryNPC.getAllClothingInInventory().get(i-1), true);
 												inventoryNPC.removeClothing(inventoryNPC.getAllClothingInInventory().get(i-1));
 											}
@@ -356,7 +361,9 @@ public class InventoryDialogue {
 										
 										i = inventoryNPC.getAllWeaponsInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))
+													|| inventoryNPC.getAllWeaponsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1), true);
 												inventoryNPC.removeWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1));
 											}
@@ -847,7 +854,7 @@ public class InventoryDialogue {
 					+ item.getExtraDescription(owner, owner)
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(item)
+									? inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
 											? "<p>"
 												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
 											+ "</p>" 
@@ -881,7 +888,9 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop (1)", "Drop your " + item.getName() + ".", INVENTORY_MENU){
@@ -892,7 +901,9 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + item.getName() + " in this area.", INVENTORY_MENU){
@@ -909,6 +920,9 @@ public class InventoryDialogue {
 							if(owner.getItemCount(item) < 5) {
 								return new Response("Drop (5)", "You don't have five " + item.getNamePlural() + " to give!", null);
 								
+							} else if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + item.getName() + "!", null);
+								
 							} else if(areaFull) {
 								return new Response("Drop (5)", "This area is full, so you can't drop your " + item.getNamePlural() + " here!", null);
 								
@@ -923,6 +937,9 @@ public class InventoryDialogue {
 						} else {
 							if(owner.getItemCount(item) < 5) {
 								return new Response("Store (5)", "You don't have five " + item.getNamePlural() + " to give!", null);
+								
+							} else if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + item.getName() + "!", null);
 								
 							} else if(areaFull) {
 								return new Response("Store (5)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
@@ -939,7 +956,9 @@ public class InventoryDialogue {
 						
 					} else if(index == 3) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (All)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + item.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Drop (All)", "Drop all of your " + item.getNamePlural() + ".", INVENTORY_MENU){
@@ -950,7 +969,9 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + item.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -1156,7 +1177,9 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasItem(item);
 							
 							if(index == 1) {
-								if(inventoryFull) {
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + item.getName() + "."), INVENTORY_MENU){
@@ -1167,7 +1190,9 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getItemCount(item) >= 5) {
@@ -1182,7 +1207,9 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
 									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + item.getNamePlural() + "."), INVENTORY_MENU){
@@ -1482,7 +1509,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(item)) {
+								if(!item.getItemType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + item.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(item)) {
 									int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -1496,7 +1526,10 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								if(Main.game.getPlayer().getItemCount(item) >= 5) {
-									if (inventoryNPC.willBuy(item)) {
+									if(!item.getItemType().isAbleToBeSold()) {
+										return new Response("Sell (5)", "You cannot sell the " + item.getName() + "!", null);
+										
+									} else if (inventoryNPC.willBuy(item)) {
 										int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + item.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
@@ -1513,7 +1546,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(item)) {
+								if(!item.getItemType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + item.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(item)) {
 									int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getItemCount(item), "span") + ")",
 											"Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getItemCount(item)) + ".", INVENTORY_MENU){
@@ -1613,7 +1649,7 @@ public class InventoryDialogue {
 			} else {
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item) && item.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
@@ -1697,15 +1733,7 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					}
-//					else if(index == 11) {
-//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-//						
-//					} else if(index == 11) {
-//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-//						
-//					}
-					else {
+					} else {
 						return null;
 					}
 					
@@ -1746,7 +1774,7 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT:  case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item) && item.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
@@ -2056,7 +2084,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item)  && item.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():item.getPrice(inventoryNPC.getSellModifier());
@@ -2210,8 +2238,12 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
+								
 							} else {
 								return new Response("Drop (1)", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
 									@Override
@@ -2221,7 +2253,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -2235,8 +2270,11 @@ public class InventoryDialogue {
 						
 					} else if(index == 2) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(owner.getWeaponCount(weapon) < 5) {
-								return new Response("Drop (5)", "You don't have five " + weapon.getNamePlural() + " to give!", null);
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(owner.getWeaponCount(weapon) < 5) {
+								return new Response("Drop (5)", "You don't have five " + weapon.getNamePlural() + " to drop!", null);
 								
 							} else if(areaFull) {
 								return new Response("Drop (5)", "This area is full, so you can't drop your " + weapon.getNamePlural() + " here!", null);
@@ -2250,8 +2288,11 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(owner.getWeaponCount(weapon) < 5) {
-								return new Response("Store (5)", "You don't have five " + weapon.getNamePlural() + " to give!", null);
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(owner.getWeaponCount(weapon) < 5) {
+								return new Response("Store (5)", "You don't have five " + weapon.getNamePlural() + " to drop!", null);
 								
 							} else if(areaFull) {
 								return new Response("Store (5)", "This area is full, so you can't store your " + weapon.getNamePlural() + " here!", null);
@@ -2267,7 +2308,10 @@ public class InventoryDialogue {
 						}
 						
 					} else if(index == 3) {
-						if(owner.getLocationPlace().isItemsDisappear()) {
+						if(!weapon.getWeaponType().isAbleToBeDropped()) {
+							return new Response("Drop (All)", "You cannot drop the " + weapon.getName() + "!", null);
+							
+						} else if(owner.getLocationPlace().isItemsDisappear()) {
 							if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + weapon.getNamePlural() + " here!", null);
 							} else {
@@ -2279,7 +2323,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + weapon.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + weapon.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -2293,7 +2340,7 @@ public class InventoryDialogue {
 						
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
@@ -2443,7 +2490,10 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasWeapon(weapon);
 							
 							if(index == 1) {
-								if(inventoryFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + weapon.getName() + "."), INVENTORY_MENU){
@@ -2454,7 +2504,10 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getWeaponCount(weapon) >= 5) {
@@ -2469,7 +2522,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + weapon.getNamePlural() + "."), INVENTORY_MENU){
@@ -2481,7 +2537,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -2615,7 +2671,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(weapon)) {
+								if(!weapon.getWeaponType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + weapon.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(weapon)) {
 									int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -2629,7 +2688,10 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								if(Main.game.getPlayer().getWeaponCount(weapon) >= 5) {
-									if (inventoryNPC.willBuy(weapon)) {
+									if(!weapon.getWeaponType().isAbleToBeSold()) {
+										return new Response("Sell (5)", "You cannot sell the " + weapon.getName() + "!", null);
+										
+									} else if (inventoryNPC.willBuy(weapon)) {
 										int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + weapon.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
@@ -2646,7 +2708,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(weapon)) {
+								if(!weapon.getWeaponType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + weapon.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(weapon)) {
 									int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getWeaponCount(weapon), "span") + ")",
 											"Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getWeaponCount(weapon)) + ".", INVENTORY_MENU){
@@ -2661,7 +2726,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -2757,7 +2822,7 @@ public class InventoryDialogue {
 			} else {
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
@@ -2893,7 +2958,7 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT:  case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
@@ -3045,7 +3110,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():weapon.getPrice(inventoryNPC.getSellModifier());
@@ -3200,7 +3265,10 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 							} else {
 								return new Response("Drop (1)", "Drop your " + clothing.getName() + ".", INVENTORY_MENU){
@@ -3211,7 +3279,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + clothing.getName() + " in this area.", INVENTORY_MENU){
@@ -3225,7 +3296,10 @@ public class InventoryDialogue {
 						
 					} else if(index == 2) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(owner.getClothingCount(clothing) < 5) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(owner.getClothingCount(clothing) < 5) {
 								return new Response("Drop (5)", "You don't have five " + clothing.getNamePlural() + " to give!", null);
 								
 							} else if(areaFull) {
@@ -3240,7 +3314,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(owner.getClothingCount(clothing) < 5) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(owner.getClothingCount(clothing) < 5) {
 								return new Response("Store (5)", "You don't have five " + clothing.getNamePlural() + " to give!", null);
 								
 							} else if(areaFull) {
@@ -3258,7 +3335,10 @@ public class InventoryDialogue {
 						
 					} else if(index == 3) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (All)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + clothing.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Drop (All)", "Drop all of your " + clothing.getNamePlural() + ".", INVENTORY_MENU){
@@ -3269,7 +3349,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + clothing.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + clothing.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -3283,7 +3366,7 @@ public class InventoryDialogue {
 						
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
@@ -3405,10 +3488,13 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasClothing(clothing);
 							
 							if(index == 1) {
-								if(inventoryFull) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] the " + clothing.getClothingType() + " " + clothing.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(Main.game.getPlayer(), inventoryNPC, clothing, 1);
@@ -3416,7 +3502,10 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
@@ -3431,7 +3520,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
 									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + clothing.getNamePlural() + "."), INVENTORY_MENU){
@@ -3624,7 +3716,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(clothing)) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(clothing)) {
 									int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -3637,7 +3732,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 2) {
-								if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (5)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
 									if (inventoryNPC.willBuy(clothing)) {
 										int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + clothing.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
@@ -3655,7 +3753,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(clothing)) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(clothing)) {
 									int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getClothingCount(clothing), "span") + ")",
 											"Sell the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getClothingCount(clothing)) + ".", INVENTORY_MENU){
@@ -3670,7 +3771,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -3819,13 +3920,13 @@ public class InventoryDialogue {
 						}
 					}
 					
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + clothing.getClothingType() + " " + clothing.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpClothing(Main.game.getPlayer(), clothing, 1);
@@ -3938,13 +4039,13 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT: case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take the " + clothing.getClothingType() + " " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, 1);
@@ -4133,7 +4234,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():clothing.getPrice(inventoryNPC.getSellModifier());
@@ -4286,7 +4387,10 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
@@ -4307,7 +4411,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Combat.ENEMY_ATTACK){
@@ -4359,7 +4466,10 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
@@ -4377,7 +4487,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -4441,7 +4554,10 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
@@ -4461,7 +4577,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Sex.SEX_DIALOGUE){
@@ -4521,7 +4640,7 @@ public class InventoryDialogue {
 						
 					case FULL_MANAGEMENT:  case CHARACTER_CREATION:
 						if(index == 1) {
-							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", INVENTORY_MENU){
+							return new Response("Unequip", UtilText.parse(inventoryNPC, "Get [npc.name] to unequip [npc.her] " + weapon.getName() + "."), INVENTORY_MENU){
 								@Override
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
@@ -4537,10 +4656,13 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
-									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "[npc.Name] cannot drop [npc.her] " + weapon.getName() + "!"), null);
+									
+								} else if(areaFull) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so [npc.name] can't drop [npc.her] " + weapon.getName() + " here!"), null);
 								} else {
-									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
+									return new Response("Drop", UtilText.parse(inventoryNPC, "Get [npc.name] to drop [npc.her] " + weapon.getName() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
@@ -4555,10 +4677,13 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
-									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "[npc.Name] cannot drop [npc.her] " + weapon.getName() + "!"), null);
+									
+								} else if(areaFull) {
+									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so [npc.name] can't store [npc.her] " + weapon.getName() + " here!"), null);
 								} else {
-									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
+									return new Response("Store", UtilText.parse(inventoryNPC, "Get [npc.name] to store [npc.her] " + weapon.getName() + " in this area."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
@@ -4701,7 +4826,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
@@ -4722,7 +4850,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
@@ -4839,7 +4970,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
@@ -4855,7 +4989,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
@@ -4997,7 +5134,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
@@ -5021,7 +5161,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
@@ -5191,10 +5334,15 @@ public class InventoryDialogue {
 						}
 						
 					case FULL_MANAGEMENT: case CHARACTER_CREATION:
+						boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
+						
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.namePos] " + clothing.getName() + " here!"), null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
@@ -5210,7 +5358,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.namePos] " + clothing.getName() + " here!"), null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
@@ -5227,7 +5378,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index==2) {
-							if(Main.game.getPlayer().isInventoryFull()) {
+							if(inventoryFull) {
 								return new Response("Take", "Your inventory is full, so you can't take this!", null);
 								
 							} else if(clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -5338,7 +5489,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -5366,7 +5520,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -6272,7 +6429,7 @@ public class InventoryDialogue {
 	// Items:
 	
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
-		if (!to.isInventoryFull() || to.hasItem(item)) {
+		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractItem> items = from.getAllItemsInInventory().stream()
 				.filter(item::equals)
@@ -6302,7 +6459,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
+		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractItem> items = Main.game.getPlayerCell().getInventory().getAllItemsInInventory().stream()
 				.filter(item::equals)
@@ -6316,7 +6473,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
-		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item)) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
@@ -6352,7 +6509,7 @@ public class InventoryDialogue {
 	// Weapons:
 	
 	private static void transferWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count) {
-		if (!to.isInventoryFull() || to.hasWeapon(weapon)) {
+		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
@@ -6382,7 +6539,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpWeapons(GameCharacter to, AbstractWeapon weapon, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
+		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractWeapon> weapons = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
@@ -6396,7 +6553,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
-		if (to.isPlayer()?(!to.isInventoryFull() || to.hasWeapon(weapon)):true) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
@@ -6432,7 +6589,7 @@ public class InventoryDialogue {
 	// Clothing:
 	
 	private static void transferClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count) {
-		if (!to.isInventoryFull() || to.hasClothing(clothing)) {
+		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
 				.filter(clothing::equals)
@@ -6518,7 +6675,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
+		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractClothing> clothings = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().stream()
 				.filter(clothing::equals)
@@ -6534,7 +6691,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
-		if (to.isPlayer()?(!to.isInventoryFull() || to.hasClothing(clothing)):true) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);

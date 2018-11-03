@@ -51,10 +51,8 @@ import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -1065,7 +1063,7 @@ public enum PlaceType {
 	SUBMISSION_IMP_FORTRESS_ALPHA("Imp Fortress", "submission/impFortress1", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_ALPHA, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 				return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_GREEN_LIGHT);
 			}
 			return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_CRIMSON);
@@ -1075,22 +1073,22 @@ public enum PlaceType {
 	SUBMISSION_IMP_TUNNELS_ALPHA("Imp Tunnels", "submission/impTunnels1Icon", BaseColour.RED, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 				return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_GREY);
 			}
 			return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_RED);
 		}
 	},
 
-	FORTRESS_ALPHA_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, FortressAlpha.ENTRANCE, null, false, true, false, "in the Alpha Imp Fortress"),
-	FORTRESS_ALPHA_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, FortressAlpha.COURTYARD, null, false, true, false, "in the Alpha Imp Fortress"),
-	FORTRESS_ALPHA_KEEP("Keep", "submission/impFortress/keep", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, FortressAlpha.KEEP, null, true, true, true, "in the Alpha Imp Fortress"),
+	FORTRESS_ALPHA_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Alpha Imp Fortress"),
+	FORTRESS_ALPHA_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Alpha Imp Fortress"),
+	FORTRESS_ALPHA_KEEP("Keep", "submission/impFortress/keep", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Alpha Imp Fortress"),
 
 	/**This fortress is <b>Demon-led Imps</b>.*/
-	SUBMISSION_IMP_FORTRESS_DEMON("Imp Fortress", "submission/impFortress2", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
+	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 				return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_GREEN_LIGHT);
 			}
 			return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_PURPLE_DARK);
@@ -1100,29 +1098,29 @@ public enum PlaceType {
 	SUBMISSION_IMP_TUNNELS_DEMON("Imp Tunnels", "submission/impTunnels2Icon", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 				return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_GREY);
 			}
 			return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_PURPLE);
 		}
 	},
 
-	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, FortressDemon.ENTRANCE, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, FortressDemon.COURTYARD, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_WELL("Well", "submission/impFortress/well", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, FortressDemon.WELL, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, FortressDemon.KEEP, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.ORANGE, Colour.MAP_BACKGROUND, FortressDemon.CELLS, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_CELLS_COMFORTABLE("Comfortable Cells", "submission/impFortress/cellsComfortable", BaseColour.AMBER, Colour.MAP_BACKGROUND, FortressDemon.CELLS_COMFORTABLE, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY("Treasury", "submission/impFortress/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, FortressDemon.TREASURY, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.YELLOW, Colour.MAP_BACKGROUND, FortressDemon.TREASURY_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_CLOTHES("Treasury", "submission/impFortress/treasury", BaseColour.AQUA, Colour.MAP_BACKGROUND, FortressDemon.TREASURY_CLOTHES, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_CLOTHES_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.TEAL, Colour.MAP_BACKGROUND, FortressDemon.TREASURY_CLOTHES_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpCitadelDialogue.ENTRANCE, null, false, true, false, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.COURTYARD, null, false, true, false, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_WELL("Well", "submission/impFortress/well", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, ImpCitadelDialogue.WELL, null, false, true, false, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS, null, true, true, true, "in the Demon Imp Fortress"),
+//	FORTRESS_DEMON_CELLS_COMFORTABLE("Comfortable Cells", "submission/impFortress/cellsComfortable", BaseColour.AMBER, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS_COMFORTABLE, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_TREASURY("Treasury", "submission/impFortress/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_TREASURY_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.YELLOW, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_TREASURY_CLOTHES("Treasury", "submission/impFortress/treasuryClothes", BaseColour.AQUA, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_TREASURY_CLOTHES_DOOR("Treasury Door", "submission/impFortress/treasuryDoorClothes", BaseColour.TEAL, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
 
 	/**This fortress is <b>Female Imp Seducers</b>.*/
 	SUBMISSION_IMP_FORTRESS_FEMALES("Imp Fortress", "submission/impFortress3", BaseColour.PINK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_FEMALES, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 				return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_GREEN_LIGHT);
 			}
 			return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_PINK);
@@ -1132,22 +1130,22 @@ public enum PlaceType {
 	SUBMISSION_IMP_TUNNELS_FEMALES("Imp Tunnels", "submission/impTunnels3Icon", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 				return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_GREY);
 			}
 			return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_PINK_LIGHT);
 		}
 	},
 
-	FORTRESS_FEMALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, FortressFemales.ENTRANCE, null, false, true, false, "in the Female Imp Fortress"),
-	FORTRESS_FEMALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, FortressFemales.COURTYARD, null, false, true, false, "in the Female Imp Fortress"),
-	FORTRESS_FEMALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.PINK, Colour.MAP_BACKGROUND, FortressFemales.KEEP, null, true, true, true, "in the Female Imp Fortress"),
+	FORTRESS_FEMALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Female Imp Fortress"),
+	FORTRESS_FEMALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Female Imp Fortress"),
+	FORTRESS_FEMALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.PINK, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Female Imp Fortress"),
 
 	/**This fortress is <b>Male Imp Brawlers</b>.*/
 	SUBMISSION_IMP_FORTRESS_MALES("Imp Fortress", "submission/impFortress4", BaseColour.BLUE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_MALES, null, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 				return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_GREEN_LIGHT);
 			}
 			return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_BLUE);
@@ -1157,16 +1155,16 @@ public enum PlaceType {
 	SUBMISSION_IMP_TUNNELS_MALES("Imp Tunnels", "submission/impTunnels4Icon", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 				return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_GREY);
 			}
 			return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_BLUE_LIGHT);
 		}
 	},
 
-	FORTRESS_MALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, FortressMales.ENTRANCE, null, false, true, false, "in the Male Imp Fortress"),
-	FORTRESS_MALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, FortressMales.COURTYARD, null, false, true, false, "in the Male Imp Fortress"),
-	FORTRESS_MALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.BLUE, Colour.MAP_BACKGROUND, FortressMales.KEEP, null, true, true, true, "in the Male Imp Fortress"),
+	FORTRESS_MALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Male Imp Fortress"),
+	FORTRESS_MALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Male Imp Fortress"),
+	FORTRESS_MALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.BLUE, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Male Imp Fortress"),
 	
 
 	SUBMISSION_ENTRANCE("Enforcer Checkpoint", "submission/submissionExit", BaseColour.BROWN, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.SEWER_ENTRANCE, null, false, true, true, "in Submission") {

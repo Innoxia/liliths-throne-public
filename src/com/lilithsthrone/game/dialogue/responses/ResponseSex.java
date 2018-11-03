@@ -400,13 +400,15 @@ public class ResponseSex extends Response {
 				}
 			}
 			
-			for(int i=0; i<domSlots.size();i++) {
+			outerCheck:
+			for(int i=0; i<domSlots.size() && i<sortedDominants.size();i++) {
 				if(domSlots.get(i)==SexPositionSlot.MISSIONARY_FACE_SITTING) {
 					if(sortedDominants.get(i).getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
-						if(i+1<sortedDominants.size()) {
-							Collections.swap(sortedDominants, i, i+1);
-						} else {
-							Collections.swap(sortedDominants, i, i-1);
+						for(int j=0; j<domSlots.size() && j<sortedDominants.size();j++) {
+							if(j!=i && domSlots.get(j)!=SexPositionSlot.MISSIONARY_SD_HUMPING && !sortedDominants.get(j).getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
+								Collections.swap(sortedDominants, i, j);
+								break outerCheck;
+							}
 						}
 					}
 				}

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Colour {
@@ -303,6 +303,7 @@ public enum Colour {
 	RARITY_RARE(false, Util.newColour(0x47C2FF), Util.newColour(0x47C2FF), "blue", Util.newArrayListOfValues("rare")),
 	RARITY_EPIC(false, Util.newColour(0xFF4DFC), Util.newColour(0xFF4DFC), "purple", Util.newArrayListOfValues("epic")),
 	RARITY_LEGENDARY(false, Util.newColour(0xffcc00), Util.newColour(0xffcc00), "gold", Util.newArrayListOfValues("legendary")),
+	RARITY_QUEST(false, BaseColour.TEAL, "teal", Util.newArrayListOfValues("teal")),
 
 	// Inventory colours:
 	CURRENCY_GOLD(true, BaseColour.GOLD, "gold"),
@@ -340,6 +341,7 @@ public enum Colour {
 	CLOTHING_GREEN_LIME(false, Util.newColour(0xD0E37D), Util.newColour(0xD0E37D), "lime green"),
 	CLOTHING_GREEN(false, Util.newColour(0x74AA74), Util.newColour(0x74AA74), "green"),
 	CLOTHING_GREEN_DARK(false, Util.newColour(0x3B6F3D), Util.newColour(0x3B6F3D), "dark green"),
+	CLOTHING_GREEN_VERY_DARK(false, Util.newColour(0x112211), Util.newColour(0x112211), "midnight green"),
 	CLOTHING_TURQUOISE(false, Util.newColour(0x6EC4B3), Util.newColour(0x6EC4B3), "turquoise"),
 	CLOTHING_BLUE_LIGHT(false, Util.newColour(0x72CFE3), Util.newColour(0x72CFE3), "light blue"),
 	CLOTHING_BLUE(false, Util.newColour(0x3971C6), Util.newColour(0x3971C6), "blue"),
@@ -353,6 +355,7 @@ public enum Colour {
 	
 	CLOTHING_BLACK_STEEL(true, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
 	CLOTHING_STEEL(true, Util.newColour(0x969696), Util.newColour(0x969696), "steel"),
+	CLOTHING_BRASS(true, Util.newColour(0xab8317), Util.newColour(0xab8317), "brass"),
 	CLOTHING_COPPER(true, Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")),
 	CLOTHING_SILVER(true, Util.newColour(0xC4C4C4), Util.newColour(0xC4C4C4), "silver", Util.newArrayListOfValues("silver")),
 	CLOTHING_GOLD(true, Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
@@ -365,9 +368,9 @@ public enum Colour {
 	// Body parts:
 
 	// Skin (Human and Demon):
-	SKIN_PORCELAIN(false, Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain"),
 	SKIN_PALE(false, Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale"),
 	SKIN_LIGHT(false, Util.newColour(0xEFDBD7), Util.newColour(0x534946), "light"),
+	SKIN_PORCELAIN(false, Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain"),
 	SKIN_ROSY(false, Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy"),
 	SKIN_OLIVE(false, BaseColour.TAN, "olive"),
 	SKIN_TANNED(false, Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "tanned"),
@@ -528,6 +531,7 @@ public enum Colour {
 	COVERING_BLUE_DARK(false, BaseColour.BLUE_DARK, "dark blue"),
 	COVERING_PERIWINKLE(false, BaseColour.PERIWINKLE, "periwinkle"),
 	COVERING_LILAC(false, BaseColour.LILAC, "lilac"),
+	COVERING_PURPLE_LIGHT(false, BaseColour.PURPLE_LIGHT, "light purple"),
 	COVERING_PURPLE(false, BaseColour.PURPLE, "purple"),
 	COVERING_PURPLE_DARK(false, BaseColour.PURPLE_DARK, "dark purple"),
 	COVERING_PINK_LIGHT(false, BaseColour.PINK_LIGHT, "light pink"),
@@ -582,28 +586,28 @@ public enum Colour {
 	// Skin/fur/body part groups:
 	
 	public static List<Colour> humanSkinColours = Util.newArrayListOfValues(
-			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_ROSY,
-			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
-			Colour.SKIN_CHOCOLATE,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_DARK,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_EBONY);
 
 	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
 			Colour.SKIN_PINK_LIGHT);
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
-			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_ROSY,
-			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
-			Colour.SKIN_CHOCOLATE,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_DARK,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
 			Colour.SKIN_GREY,
@@ -625,14 +629,14 @@ public enum Colour {
 			Colour.SKIN_PINK);
 
 	public static List<Colour> allSkinColours = Util.newArrayListOfValues(
-			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_ROSY,
-			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
-			Colour.SKIN_CHOCOLATE,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_DARK,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
 			Colour.SKIN_GREY,
@@ -707,6 +711,7 @@ public enum Colour {
 			Colour.COVERING_BLUE_DARK,
 			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_LILAC,
+			Colour.COVERING_PURPLE_LIGHT,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_PINK,
@@ -765,6 +770,7 @@ public enum Colour {
 			Colour.COVERING_BLUE_DARK,
 			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_LILAC,
+			Colour.COVERING_PURPLE_LIGHT,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_PINK,

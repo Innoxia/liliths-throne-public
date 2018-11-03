@@ -361,7 +361,7 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
 					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
 					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
-					new Value<>(new Color(0x0000ff), PlaceType.FORTRESS_DEMON_CELLS_COMFORTABLE),
+//					new Value<>(new Color(0x0000ff), PlaceType.FORTRESS_DEMON_CELLS_COMFORTABLE),
 					new Value<>(new Color(0x8000ff), PlaceType.FORTRESS_DEMON_CELLS),
 					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY),
 					new Value<>(new Color(0xff80ff), PlaceType.FORTRESS_DEMON_TREASURY_DOOR),

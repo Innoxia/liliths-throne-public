@@ -3347,55 +3347,13 @@ public class ItemType {
 			return false;
 		}
 	};
-
-	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
-			"",
-			false,
-			"Arthur's Package",
-			"Arthur's Packages",
-			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
-			"arthursPackage",
-			Colour.ANDROGYNOUS,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			null, null) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getUseName() {
-			return "inspect";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
-		}
-		
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-
-	};
 	
 	public static AbstractItemType ORIENTATION_HYPNO_WATCH = new AbstractItemType(50000,
 			"a",
 			false,
 			"Hypno-Watch",
 			"Hypno-Watches",
-			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of giving them a huge increase in corruption.",
+			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of increasing their corruption...",
 			"hypnoClockBase",
 			Colour.ANDROGYNOUS,
 			null,
@@ -4318,11 +4276,6 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "eat";
 		}
@@ -4336,7 +4289,109 @@ public class ItemType {
 					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelmes you both.");
 		}
 	};
-	
+
+
+	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
+			"",
+			false,
+			"Arthur's Package",
+			"Arthur's Packages",
+			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
+			"arthursPackage",
+			Colour.ANDROGYNOUS,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY = new AbstractItemType(0,
+			"",
+			false,
+			"Imp's Arcane Key",
+			"Imp's Arcane Keys",
+			"An arcane key that you obtained from one of the Imp Fortresses in Submission. It will grant entry to the central Imp Citadel.",
+			"impArcaneKey",
+			Colour.BASE_GOLD,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType LYSSIETHS_RING = new AbstractItemType(0,
+			"",
+			false,
+			"Lyssieth's Trapped Signet Ring",
+			"Lyssieth's Trapped Signet Rings",
+			"Beautifully crafted from rose gold, and encrusted with precious gemstones, this ring has been enchanted to enslave whoever puts it on."
+					+ " If you were able to trick 'The Dark Siren' into wearing it, you could earn an audience with Lyssieth without needing to fight.",
+			"lyssiethsRing",
+			Colour.CLOTHING_ROSE_GOLD,
+			Colour.CLOTHING_RED_DARK,
+			Colour.CLOTHING_ROSE_GOLD,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "The ring feels warm to the touch, revealing the fact that it's carrying a potent enchantment. Maybe once all this is over, Lyssieth will allow you to keep it as a reward...");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	
 	// Standard non-racial transformatives:

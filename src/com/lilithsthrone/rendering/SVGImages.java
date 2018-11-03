@@ -23,6 +23,7 @@ public enum SVGImages {
 
 			displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
+			questInventoryIcon, questInventoryIconDisabled,
 			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon, addIcon, removeIcon,
 
 			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskLoadDisabled, diskDelete, diskDeleteConfirm,
@@ -133,6 +134,13 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventory.svg");
 			inventoryIconDisabled = Util.inputStreamToString(is);
 			inventoryIconDisabled = setColour(inventoryIconDisabled, Colour.BASE_PITCH_BLACK);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/questInventory.svg");
+			questInventoryIcon = Util.inputStreamToString(is);
+			questInventoryIcon = setColour(questInventoryIcon, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/questInventory.svg");
+			questInventoryIconDisabled = Util.inputStreamToString(is);
+			questInventoryIconDisabled = setColour(questInventoryIconDisabled, Colour.BASE_PITCH_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
@@ -861,6 +869,14 @@ public enum SVGImages {
 
 	public String getInventoryIconDisabled() {
 		return inventoryIconDisabled;
+	}
+
+	public String getQuestInventoryIcon() {
+		return questInventoryIcon;
+	}
+
+	public String getQuestInventoryIconDisabled() {
+		return questInventoryIconDisabled;
 	}
 
 	public String getJournalIcon() {

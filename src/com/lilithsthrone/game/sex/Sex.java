@@ -2117,7 +2117,7 @@ public class Sex {
 						if(entry.getValue().containsKey(characterTarget)) {
 							for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
 								if(entry.getKey().isPenetration()) {
-									applyPenetrationEffects(character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
+									applyPenetrationEffects(sexAction, character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea);
 								}
 								List<Fetish> selfFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, true);
 								List<Fetish> targetFetishes = sexAction.getFetishesFromPenetrationAndOrificeTypes(character, entry.getKey(), characterTarget, sArea, false);
@@ -2578,7 +2578,7 @@ public class Sex {
 
 	private static boolean displayOngoingPenetrationEffects = false;
 	
-	private static void applyPenetrationEffects(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) { //TODO formatting
+	private static void applyPenetrationEffects(SexActionInterface sexAction, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) { //TODO formatting
 		
 		if(orifice.isOrifice()) {
 			SexAreaOrifice actualOrifice = (SexAreaOrifice) orifice;
@@ -2766,9 +2766,19 @@ public class Sex {
 				
 			} else if (penetrationType == SexAreaPenetration.FOOT && orifice == SexAreaPenetration.PENIS) {
 				if (initialPenetrations.get(characterPenetrated).contains(SexAreaPenetration.PENIS)) {
-					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+					if(sexAction.getActionType()==SexActionType.START_ONGOING) {
+						if(sexAction.getPerformingCharacterPenetrations().contains(SexAreaPenetration.PENIS)) {
+							sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrated, SexAreaPenetration.PENIS, characterPenetrating, SexAreaPenetration.FOOT)));
+						} else {
+							sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, SexAreaPenetration.FOOT, characterPenetrated, SexAreaPenetration.PENIS)));
+						}
+					}
 					
 					initialPenetrations.get(characterPenetrated).remove(SexAreaPenetration.PENIS);
+					initialPenetrations.get(characterPenetrated).remove(SexAreaPenetration.FOOT);
+
+					initialPenetrations.get(characterPenetrating).remove(SexAreaPenetration.PENIS);
+					initialPenetrations.get(characterPenetrating).remove(SexAreaPenetration.FOOT);
 					
 				} else if(displayOngoingPenetrationEffects) {
 					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));

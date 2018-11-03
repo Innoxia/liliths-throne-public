@@ -226,8 +226,8 @@
 	#THEN
 		<p>
 			#IF npc.hasFetish(FETISH_IMPREGNATION)
-			#THEN Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps as [npc.she] looks down at your pregnant bump. [npc.speech(I got you pregnant?! I don't have any money to support you or anything, but you'll be ok, right?)]
-			#ELSE Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps in delight as [npc.she] looks down at your pregnant bump. [npc.speech(I got you pregnant?! Fuck, that turns me on so much... I knew I'd get you knocked up when I cummed in your hot little pussy!)]
+			#THEN Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps in delight as [npc.she] looks down at your pregnant bump. [npc.speech(I got you pregnant?! Fuck, that turns me on so much... I knew I'd get you knocked up when I cummed in your hot little pussy!)]
+			#ELSE Smiling fondly at you as you approach, [npc.name] suddenly notices that you're sporting a swollen belly, and [npc.she] gasps as [npc.she] looks down at your pregnant bump. [npc.speech(I got you pregnant?! I don't have any money to support you or anything, but you'll be ok, right?)]
 			#ENDIF
 		</p>
 		<p>
