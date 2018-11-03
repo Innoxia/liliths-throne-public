@@ -112,7 +112,7 @@ public class CachedImage {
 	 * @param original The BufferedImage to scale
 	 * @param targetWidth The targeted width, ignoring aspect ratio
 	 * @param targetHeight The targeted height, ignoring aspect ratio
-	 * @return The rescaled image
+	 * @return A BufferedImage of smaller or equal size
 	 */
 	static BufferedImage scaleDown(BufferedImage original, int targetWidth, int targetHeight) {
 		int width = original.getWidth();
