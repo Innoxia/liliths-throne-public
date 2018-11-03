@@ -1,40 +1,495 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 	
-	<htmlContent tag="ENTER_FORTRESS"><![CDATA[
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE_PACIFIED"><![CDATA[
 	<p>
-		Entering the fortress
+		You approach the gateway. The imps on guard duty nervously watch you approach, before asking if everything is ok. You reply in the affirmative, and they step back to let you pass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_PACIFIED_BY_SEX"><![CDATA[
+	<p>
+		You approach the gateway. The imps cruelly mock you as an oral slut, before crudely suggesting that you get down on your knees and service them again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_DESERTED"><![CDATA[
+	<p>
+		You approach the gateway. Imps guards have run away, leaving this area completely undefended.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_DESERTED_GUARD_RETURN_WARNING"><![CDATA[
+	<p>
+		<i>If you choose to leave the fortress now, you can be sure that there'll be new guards at the gate when you return!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_DEMON"><![CDATA[
+	<p>
+		You approach the gateway. The imps on guard duty see that you're a demon, and look very nervous. Perhaps you could use this opportunity to command them to get out of your way?
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		Gateway
+		You approach the gateway. The imps on guard duty challenge you, and say that the only way you're getting inside is by getting down on your knees and servicing them with your mouth...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LEAVE_FORTRESS"><![CDATA[
 	<p>
-		Leaving the fortress
+		You leave the fortress, and head back out into Submission.
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_GIVE_ORAL"><![CDATA[
+	<p>
+		You agree to perform oral on the imps in order to gain entry, and, to the sound of cackling laughter, you drop to your knees and prepare to put your mouth to use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_GIVE_ORAL_PACIFIED"><![CDATA[
+	<p>
+		You tell the imps that you're hungry to service them with your mouth, and, dropping down on your knees before them, you beg for them to give you what you want.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- GUARDS_AFTER_ORAL_FOR_ENTRY -->
+	
+	<htmlContent tag="GUARDS_AFTER_ORAL_FOR_ENTRY"><![CDATA[
+	<p>
+		The imps say what a slut you are, before letting you pass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- ENTRANCE_DEMONIC_COMMAND -->
+	
+	<htmlContent tag="ENTRANCE_DEMONIC_COMMAND"><![CDATA[
+	<p>
+		You use your demonic status to intimidate the imps, who immediately stand down and say that you can enter.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- GUARDS_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You have defeated the guards. Now what to do with them before they run away?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You move the into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You gently move the imps into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You roughly force  the imps into position and prepare to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You feel bad about beating the imps, and decide to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- GUARDS_AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		You are defeated. The imps start feeling you up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		You let the imps move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		You eagerly encourage the imps to move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		You desperately try to resist as the imps move you into position and start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- GUARDS_AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="GUARDS_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		You're finished with the guards. You wonder if you should take any of their items before they run off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- AFTER_DEFEAT_SEX -->
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		The imps are finished dominating you. Dragging you over to the othis side of the cavern, they tell you to come back when you're wanting a good fuck again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- COURTYARD -->
 	
 	<htmlContent tag="COURTYARD"><![CDATA[
 	<p>
-		Empty squalid courtyard
+		An empty, squalid courtyard. The main keep is over in one corner, but apart from that, there's nothing of interest inside the walls of this fortress.
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="IMP_FORTRESS_FLY_EXIT"><![CDATA[
+	<p>
+		Breaking out into a run, you quickly launch yourself into the air, before flying over the fortress's outer wall and swooping back down to land on the floor of the cavern beyond.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP -->
 	
 	<htmlContent tag="KEEP"><![CDATA[
 	<p>
-		Keep
+		The keep is quite clearly occupied, as slivers of light shine out from cracks in the large wooden doors. You can also hear the occasional burst of laughter from a group of imps. If you were to enter, you'd better be ready for a fight...
 	</p>
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="KEEP_DEFEATED"><![CDATA[
+	<p>
+		Having defeated the ruler of this fortress, there's nobody living in the keep right now. The entire place is deserted, so there's nothing more to do except head back the way you came.
+	</p>
+	<p>
+		You get the feeling that [npc.name] will return sooner or later...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED"><![CDATA[
+	<p>
+		The keep is quite clearly occupied, as slivers of light shine out from cracks in the large wooden doors. You can also hear the occasional burst of laughter from a group of imps.
+	</p>
+	<p>
+		As [npc.name] no longer considers you a threat, you could enter and say hello without risking a fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_ENTRY -->
+	
+	<htmlContent tag="KEEP_ENTRY"><![CDATA[
+	<p>
+		You enter the keep. There's a group of three imps sitting around a table on the far side of the hall. At the head of this table sits a particularly menacing-looking incubus, who has red skin, messy black hair, and long, red horns. Around his waist and forearms are bands of white wrappings, but apart from that, the only other piece of clothing he's wearing are some very oriental-looking leggings. As you enter, he stands up, allowing you to see that from his waist hang two swords; one long, and one short. Just like his choice in clothing, these blades appear to be Japanese in origin, giving this demon a very Asian look.
+	</p>
+	<p>
+		In a booming voice, the demon calls his imps to defend themselves. He says that you have some nerve to be walking in to his den, and after he's done with you, you'll flinch at even hearing the name '[npc.name]'. He seems very willing to put his threats of violence into action, and you only have a moment in which to decide what to do...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RETURN"><![CDATA[
+	<p>
+		You enter the keep. There's a group of three imps sitting around a table on the far side of the hall. At the head of this table sits a particularly menacing-looking incubus, who has red skin, messy black hair, and long, red horns. Around his waist and forearms are bands of white wrappings, but apart from that, the only other piece of clothing he's wearing are some very oriental-looking leggings. As you enter, he stands up, allowing you to see that from his waist hang two swords; one long, and one short. Just like his choice in clothing, these blades appear to be Japanese in origin, giving this demon a very Asian look.
+	</p>
+	<p>
+		In a booming voice, the demon calls his imps to defend themselves. He says that you have some nerve to be walking in to his den, and after he's done with you, you'll flinch at even hearing the name '[npc.name]'. He seems very willing to put his threats of violence into action, and you only have a moment in which to decide what to do...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_PACIFIED"><![CDATA[
+	<p>
+		You enter the keep. There's a group of three imps sitting around a table on the far side of the hall. At the head of this table sits a particularly menacing-looking incubus, who has red skin, messy black hair, and long, red horns. Around his waist and forearms are bands of white wrappings, but apart from that, the only other piece of clothing he's wearing are some very oriental-looking leggings. As you enter, he stands up, allowing you to see that from his waist hang two swords; one long, and one short. Just like his choice in clothing, these blades appear to be Japanese in origin, giving this demon a very Asian look.
+	</p>
+	<p>
+		In a booming voice, the demon calls out a greeting as he recognises you. He asks if you're back to be his bitch again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED_LEAVE"><![CDATA[
+	<p>
+		You tell the incubus that you were just checking for any signs of trouble, before taking your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_PACIFIED_REPEAT_ORAL"><![CDATA[
+	<p>
+		You answer the incubus's question in the affirmative, and, to the chorus of laughter from his gang of imps, obediently crawl under the table and prepare to start orally servicing her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_OFFER_ORAL"><![CDATA[
+	<p>
+		Deciding that you have no chance again this incubus and his gang, you surrender. Within moments, a pair of imps are dragging you under the table, before pushing your face into his groin.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_TALK -->
+	
+	<htmlContent tag="KEEP_TALK"><![CDATA[
+	<p>
+		You tell [npc.name] that you just want to talk for a moment. He stops to listen, but you can tell that he could attack at any moment...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ELEMENTAL_SUMMON_END"><![CDATA[
+	<p>
+		The incubus and his imps are intimidated at the sight of your elemental. [npc.Name] tells you of the person who rules over all the imp gangs, who calls herself 'The Dark Siren'. A recognised daughter of Lyssieth herself, this demon is extremely powerful, and amuses herself by watching her imp followers fuck anyone who dares stand against her. [npc.Name] then gives you a key to the Siren's imp citadel, in exchange for you letting him leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_CONVINCE -->
+	
+	<htmlContent tag="KEEP_CONVINCE"><![CDATA[
+	<p>
+		You convince the incubus that you're on very good terms with your Lilin mother, who wouldn't hesitate to enslave him and make him your pet. [npc.Name] is duly intimidated, and agrees to leave the fortress if you'll spare him that fate.
+	</p>
+	<p>
+		[npc.Name] then tells you of the one who rules all the imp gangs. Calling herself 'The Dark Siren', this demonic leader is a recognised daughter of Lyssieth herself. Possessing incredible arcane power, he amuses herself by watching her imp followers fuck anyone who dares stand against her. [npc.Name] then gives you a key to the Siren's imp citadel, in exchange for you letting him leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_JOIN -->
+	
+	<htmlContent tag="KEEP_JOIN"><![CDATA[
+	<p>
+		You ask if you can join [npc.namePos] gang. The incubus says that 'The Dark Siren' is the only one who can accept new gang members. If you show your submission to the gang, he'll give you a key that will allow you to see this powerful demon leader. Submission involves orally servicing her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_JOIN_ACCEPT"><![CDATA[
+	<p>
+		You accept [npc.namePos] terms, and, dropping down onto all fours, you crawl under the table and prepare to put your mouth to use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_ELEMENTAL -->
+	
+	<htmlContent tag="KEEP_ELEMENTAL"><![CDATA[
+	<p>
+		You draw attention to the fact that you are powerful enough to have a summoned elemental with you. The incubus and his imps are intimidated by the power it then displays.
+	</p>
+	<p>
+		[npc.Name] tells you of the person who rules over all the imp gangs, who calls herself 'The Dark Siren'. A recognised daughter of Lyssieth herself, this demon is extremely powerful, and amuses herself by watching her imp followers fuck anyone who dares stand against her. [npc.Name] then gives you a key to the Siren's imp citadel, in exchange for you letting him leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_ELEMENTAL_SUMMON -->
+	
+	<htmlContent tag="KEEP_ELEMENTAL_SUMMON"><![CDATA[
+	<p>
+		You summon your elemental, which intimidates the incubus and his gang. [npc.Name] tells you of the person who rules over all the imp gangs, who calls herself 'The Dark Siren'. A recognised daughter of Lyssieth herself, this demon is extremely powerful, and amuses herself by watching her imp followers fuck anyone who dares stand against her. [npc.Name] then gives you a key to the Siren's imp citadel, in exchange for you letting him leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You beat the gang. The incubus tells you of the Dark Siren, and he gives you a key to the imp citadel in exchange for letting him leave. Now to decide what to do with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		You tell the gang to leave the fortress. They dash past you and flee.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You move to have sex with the defeated gang...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You move to have gentle sex with the defeated gang...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You move to have rough sex with the defeated gang...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You move to have sex with the defeated gang...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You decide to submit to the gang, who immediately move to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		The gang mocks you and [npc.name] as you lie defeated on the floor, before moving to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		You allow the gang to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		You eagerly encourage the gang to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		You try to resist against the gang as they move to have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_JOINING_SEX -->
+	
+	<htmlContent tag="KEEP_AFTER_JOINING_SEX"><![CDATA[
+	<p>
+		The incubus says that if you do end up joining the gang, you're welcome to have the job as his personal oral pet.
+	</p>
+	<p>
+		[npc.Name] then tells you more of the person who rules over all the imp gangs, who calls herself 'The Dark Siren'. A recognised daughter of Lyssieth herself, this demon is extremely powerful, and amuses herself by watching her imp followers fuck anyone who dares stand against her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_JOINING_GAIN_KEY -->
+	
+	<htmlContent tag="KEEP_AFTER_JOINING_GAIN_KEY"><![CDATA[
+	<p>
+		[npc.Name] gives you a key to the Siren's imp citadel, so that you can go and ask her about joining the gang.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		You prepare to move off and continue on your way once again. Perhaps you could take some more of the gang's stuff first though...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- AFTER_DEFEAT_SEX -->
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		The gang is finished with you, and throws you out into Submission...
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

@@ -316,6 +316,20 @@ public class Vicky extends NPC {
 				}
 			}
 		}
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				this.addItem(AbstractItemType.generateItem(item), false);
+			}
+		}
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			try {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
+				} 
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));

@@ -1,23 +1,32 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
@@ -31,20 +40,31 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -63,10 +83,15 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	public FortressAlphaLeader(boolean isImported) {
-		super(isImported, null,
-				"The ruler of one of Submission's imp fortresses, [npc.name] seems to be very fond of [npc.her] futanari imp followers...",
-				Util.random.nextInt(15)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+		super(isImported,
+				new NameTriplet("Fyrsia", "Fyrsia", "Fyrsia"),
+				"The leader of one of Submission's imp fortresses, [npc.name] rules over [npc.her] followers with an iron fist, and shows very little respect towards anyone but [npc.her] boss, 'The Dark Siren'...",
+				27, Month.JANUARY, 28,
 				20, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+
+		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+			this.setPlayerKnowsName(false);
+		}
 	}
 
 	@Override
@@ -78,7 +103,7 @@ public class FortressAlphaLeader extends NPC {
 	public void setStartingBody(boolean setPersona) {
 		
 		// Persona:
-
+		
 		if(setPersona) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
@@ -94,11 +119,14 @@ public class FortressAlphaLeader extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_MUGGER);
-			
+
+			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
 			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_CROSS_DRESSER);
+			this.addFetish(Fetish.FETISH_SADIST);
 		}
 		
 		
@@ -106,39 +134,38 @@ public class FortressAlphaLeader extends NPC {
 		this.setAgeAppearanceDifferenceToAppearAsAge(20);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setLegType(LegType.DEMON_HOOFED);
-		this.setHornType(HornType.STRAIGHT);
+		this.setLegType(LegType.DEMON_COMMON);
+		this.setHornType(HornType.CURVED);
 
 		// Core:
-//		this.setHeight(174);
-//		this.setFemininity(80);
+		this.setHeight(176);
+		this.setFemininity(75);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		
 		// Coverings:
 
-		// Allow to be randomised:
-//		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_PURPLE));
-//		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_IVORY), true);
-//		
-//		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.COVERING_WHITE), false);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_PURPLE));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PALE), true);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_WHITE), false);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_PURPLE), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		this.setHairStyle(HairStyle.MOHAWK);
+		
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setFacialHair(BodyHair.ZERO_NONE);
 //
-//		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-//		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-//		this.setHairStyle(HairStyle.HIME_CUT);
-//		
-//		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
-//		this.setUnderarmHair(BodyHair.ZERO_NONE);
-//		this.setAssHair(BodyHair.ZERO_NONE);
-//		this.setPubicHair(BodyHair.ZERO_NONE);
-//		this.setFacialHair(BodyHair.ZERO_NONE);
-//
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE));
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_BLACK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_BLACK));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_BLACK));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -149,18 +176,18 @@ public class FortressAlphaLeader extends NPC {
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.E.getMeasurement());
+		this.setNippleVirgin(true);
+		this.setBreastSize(CupSize.C.getMeasurement());
 		this.setBreastShape(BreastShape.POINTY);
-		this.setNippleSize(NippleSize.THREE_LARGE);
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.FOUR_LARGE);
-		this.setHipSize(HipSize.FOUR_WOMANLY);
+		this.setAssSize(AssSize.THREE_NORMAL);
+		this.setHipSize(HipSize.THREE_GIRLY);
 		// Anus settings and modifiers
 		
 		// Penis:
@@ -190,18 +217,44 @@ public class FortressAlphaLeader extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_PLEATED, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_TIARA, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SARASHI, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TIGHT_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
+		AbstractClothing jacket = AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false);
+		this.equipClothingFromNowhere(jacket, true, this);
+		this.isAbleToBeDisplaced(jacket, DisplacementType.UNZIPS, true, true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FINGERLESS_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MOUTH_BANDANA, Colour.CLOTHING_BLACK, false), true, this);
 		
-		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
-		this.setPiercedNose(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		if(addWeapons) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.PHYSICAL));
+			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.POISON));
+		}
+		
+		if(addScarsAndTattoos) {
+			Tattoo tat = new Tattoo(
+					TattooType.TRIBAL,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_BLACK,
+					true,
+					null,
+					null);
+			this.addTattoo(InventorySlot.TORSO_UNDER, tat);
+
+			tat = new Tattoo(
+					TattooType.TRIBAL,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_BLACK,
+					true,
+					null,
+					null);
+			this.addTattoo(InventorySlot.HORNS, tat);
+		}
 	}
 	
 	@Override
@@ -238,13 +291,36 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	// Combat:
+
+	public Attack attackType() {
+		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
+
+		attackWeightingMap.put(Attack.MAIN, 100);
+		attackWeightingMap.put(Attack.OFFHAND, 25);
+		
+		int total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+		}
+		
+		int index = Util.random.nextInt(total);
+		total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+			if(index<total) {
+				return entry.getKey();
+			}
+		}
+		
+		return Attack.MAIN;
+	}
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", FortressAlpha.KEEP_AFTER_COMBAT_VICTORY);
+			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response("", "", FortressAlpha.KEEP_AFTER_COMBAT_DEFEAT);
+			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_DEFEAT);
 		}
 	}
 

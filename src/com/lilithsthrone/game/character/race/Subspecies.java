@@ -10,6 +10,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
+import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -1660,8 +1661,11 @@ public enum Subspecies {
 				worldSpecies.putIfAbsent(type, new ArrayList<>());
 				worldSpecies.get(type).add(species);
 
-				if(type == WorldType.DOMINION && !species.getRace().isVulnerableToArcaneStorm()) {
-					dominionStormImmuneSpecies.add(species);
+				try {
+					if(type == WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+						dominionStormImmuneSpecies.add(species);
+					}
+				} catch(Exception ex) {	
 				}
 			}
 		}

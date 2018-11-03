@@ -666,7 +666,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 					// GREATER:
 					tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType(owner)));
-					tooltipSB.append(getBodyPartDiv("Body", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType(owner)));
+					tooltipSB.append(getBodyPartDiv("Torso", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType(owner)));
 					
 	
 					// LESSER:

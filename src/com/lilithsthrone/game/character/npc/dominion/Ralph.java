@@ -313,9 +313,7 @@ public class Ralph extends NPC {
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType().canBeSold()) {
-				return true;
-			}
+			return true;
 		}
 		if(item instanceof AbstractClothing) {
 			return ((AbstractClothing)item).getClothingType().equals(ClothingType.PENIS_CONDOM);

@@ -1580,6 +1580,18 @@ float:left;
 .legendary:hover{
 	background-color:#6a6a48;
 }
+.unique {
+	background-color:#654424;
+}
+.unique:hover{
+	background-color:#B36C32;
+}
+.quest {
+	background-color:#344C4B;
+}
+.quest:hover{
+	background-color:#486A69;
+}
 .jinxed {
 	background-color:#694b4e;
 }

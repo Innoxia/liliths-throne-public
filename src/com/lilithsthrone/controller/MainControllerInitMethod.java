@@ -448,6 +448,8 @@ public class MainControllerInitMethod {
 				MainController.setInventoryPageLeft(i);
 				MainController.setInventoryPageRight(i);
 			}
+			// Quest inventory:
+			MainController.setInventoryPageLeft(5);
 			
 			
 			// Player:
@@ -2846,6 +2848,7 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 				}
+				
 				// Face:
 				
 				for(EyeShape eyeShape : EyeShape.values()) {
@@ -2901,6 +2904,30 @@ public class MainControllerInitMethod {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
+				}
+				
+				// Arms:
+
+				for(int i=1; i <= Arm.MAXIMUM_ROWS; i++) {
+					MainController.setArmCountListener(i);
+				}
+				
+				// Eyes:
+
+				for(int i=1; i <= Eye.MAXIMUM_PAIRS; i++) {
+					MainController.setEyeCountListener(i);
+				}
+
+				// Horns:
+
+				for(int i=1; i <= Horn.MAXIMUM_ROWS; i++) {
+					MainController.setHornCountListener(i);
+				}
+
+				// Tails:
+
+				for(int i=1; i <= Tail.MAXIMUM_COUNT; i++) {
+					MainController.setTailCountListener(i);
 				}
 				
 				// Ass:
@@ -2983,6 +3010,35 @@ public class MainControllerInitMethod {
 				
 				
 				// Breasts:
+				
+				id = "BREAST_SIZE_INCREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_INCREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_DECREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(-1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_DECREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(-5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 				
 				for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
 					MainController.setBreastCountListener(i);

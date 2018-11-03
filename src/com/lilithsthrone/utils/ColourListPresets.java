@@ -5,14 +5,12 @@ import java.util.List;
 
 /**
  * @since 0.2.4
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum ColourListPresets {
 
 	NONE(new ArrayList<>()),
-	
-	// > JUST
 	
 	JUST_WHITE(Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE)),
@@ -49,6 +47,9 @@ public enum ColourListPresets {
 	
 	JUST_GOLD(Util.newArrayListOfValues(
 			Colour.CLOTHING_GOLD)),
+	
+	JUST_ROSE_GOLD(Util.newArrayListOfValues(
+			Colour.CLOTHING_ROSE_GOLD)),
 	
 	JUST_STEEL(Util.newArrayListOfValues(
 			Colour.CLOTHING_STEEL)),
@@ -186,6 +187,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_GREEN_LIME,
 			Colour.CLOTHING_GREEN,
 			Colour.CLOTHING_GREEN_DARK,
+			Colour.CLOTHING_GREEN_VERY_DARK,
 			Colour.CLOTHING_TURQUOISE,
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
@@ -214,6 +216,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_GREEN_LIME,
 			Colour.CLOTHING_GREEN,
 			Colour.CLOTHING_GREEN_DARK,
+			Colour.CLOTHING_GREEN_VERY_DARK,
 			Colour.CLOTHING_TURQUOISE,
 			Colour.CLOTHING_BLUE_LIGHT,
 			Colour.CLOTHING_BLUE,
@@ -224,6 +227,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PERIWINKLE,
 			Colour.CLOTHING_PINK,
 			Colour.CLOTHING_PINK_LIGHT,
+			Colour.CLOTHING_BLACK_STEEL,
 			Colour.CLOTHING_STEEL,
 			Colour.CLOTHING_COPPER,
 			Colour.CLOTHING_SILVER,

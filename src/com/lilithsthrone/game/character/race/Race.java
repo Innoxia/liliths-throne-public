@@ -23,7 +23,6 @@ public enum Race {
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			1,
@@ -46,7 +45,6 @@ public enum Race {
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			1,
@@ -69,7 +67,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
-			false,
 			0.25f,
 			1,
 			1,
@@ -93,7 +90,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK,
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			false,
 			0.75f,
 			2,
 			3,
@@ -116,7 +112,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			1,
@@ -137,7 +132,6 @@ public enum Race {
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			2,
@@ -159,7 +153,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
@@ -182,7 +175,6 @@ public enum Race {
 					Attack.MAIN,
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			true,
 			0.5f,
 			1,
 			2,
@@ -205,7 +197,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
@@ -228,7 +219,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			1,
@@ -251,7 +241,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
@@ -273,7 +262,6 @@ public enum Race {
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
-			true,
 			0.5f,
 			1,
 			2,
@@ -295,7 +283,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			4,
@@ -317,7 +304,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			2,
 			8,
@@ -339,7 +325,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			2,
@@ -361,7 +346,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			1,
 			4,
@@ -382,7 +366,6 @@ public enum Race {
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
-			true,
 			0.5f,
 			1,
 			1,
@@ -405,7 +388,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
-			true,
 			0.5f,
 			3,
 			4,
@@ -429,7 +411,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
@@ -451,7 +432,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
@@ -473,7 +453,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
@@ -496,7 +475,6 @@ public enum Race {
 					Attack.MAIN,
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
@@ -518,7 +496,6 @@ public enum Race {
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPELL),
-			false,
 			0.5f,
 			1,
 			1,
@@ -1267,11 +1244,12 @@ public enum Race {
 	private Colour colour;
 	private Disposition disposition;
 	private List<Attack> preferredAttacks;
-	private boolean vulnerableToLilithsLustStorm;
-	private int numberOfOffspringLow, numberOfOffspringHigh;
+	private int numberOfOffspringLow;
+	private int numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
 	private Attribute damageMultiplier, resistanceMultiplier;
-	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
+	private FurryPreference defaultFemininePreference;
+	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
 	
 	private Race(String name,
@@ -1284,17 +1262,16 @@ public enum Race {
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
-			boolean vulnerableToLilithsLustStorm,
 			float chanceForMaleOffspring,
-			
 			int numberOfOffspringLow,
+			
 			int numberOfOffspringHigh,
 			Attribute damageMultiplier,
-			
 			Attribute resistanceMultiplier,
-			FurryPreference defaultFemininePreference,
 			
+			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
+			
 			boolean affectedByFurryPreference) {
 		
 		this.name = name;
@@ -1303,8 +1280,6 @@ public enum Race {
 		this.disposition = disposition;
 
 		this.preferredAttacks = preferredAttacks;
-
-		this.vulnerableToLilithsLustStorm = vulnerableToLilithsLustStorm;
 
 		this.chanceForMaleOffspring=chanceForMaleOffspring;
 		
@@ -1330,10 +1305,6 @@ public enum Race {
 
 	public List<Attack> getPreferredAttacks() {
 		return preferredAttacks;
-	}
-
-	public boolean isVulnerableToArcaneStorm() {
-		return vulnerableToLilithsLustStorm;
 	}
 
 	public int getNumberOfOffspringLow() {

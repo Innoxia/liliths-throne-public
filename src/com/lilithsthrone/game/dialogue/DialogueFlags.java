@@ -32,10 +32,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public int eponaStamps;
 	public long kalahariBreakStartTime;
 
-	public long impFortressAlphaPacifiedTime;
-	public long impFortressDemonPacifiedTime;
-	public long impFortressFemalesPacifiedTime;
-	public long impFortressMalesPacifiedTime;
+	public long impFortressAlphaDefeatedTime;
+	public long impFortressDemonDefeatedTime;
+	public long impFortressFemalesDefeatedTime;
+	public long impFortressMalesDefeatedTime;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -65,7 +65,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		
 		scarlettPrice = 15000;
 		
-		impFortressAlphaPacifiedTime = impFortressDemonPacifiedTime = impFortressFemalesPacifiedTime = impFortressMalesPacifiedTime = -50000;
+		impFortressAlphaDefeatedTime = impFortressDemonDefeatedTime = impFortressFemalesDefeatedTime = impFortressMalesDefeatedTime = -50000;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -78,10 +78,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
 		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaPacifiedTime", String.valueOf(impFortressAlphaPacifiedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonPacifiedTime", String.valueOf(impFortressDemonPacifiedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesPacifiedTime", String.valueOf(impFortressFemalesPacifiedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesPacifiedTime", String.valueOf(impFortressMalesPacifiedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
@@ -133,10 +133,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 
 		
 		try {
-			newFlags.impFortressAlphaPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaPacifiedTime").item(0)).getAttribute("value"));
-			newFlags.impFortressDemonPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressDemonPacifiedTime").item(0)).getAttribute("value"));
-			newFlags.impFortressFemalesPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesPacifiedTime").item(0)).getAttribute("value"));
-			newFlags.impFortressMalesPacifiedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesPacifiedTime").item(0)).getAttribute("value"));
+			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+				newFlags.impFortressAlphaDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value"));
+				newFlags.impFortressDemonDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressDemonDefeatedTime").item(0)).getAttribute("value"));
+				newFlags.impFortressFemalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesDefeatedTime").item(0)).getAttribute("value"));
+				newFlags.impFortressMalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesDefeatedTime").item(0)).getAttribute("value"));
+			}
 		} catch(Exception ex) {
 		}
 		
@@ -155,11 +157,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			newFlags.values.remove(DialogueFlagValue.eponaIntroduced);
 		}
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			newFlags.values.add(DialogueFlagValue.impFortressAlphaPacified);
-			newFlags.values.add(DialogueFlagValue.impFortressDemonPacified);
-			newFlags.values.add(DialogueFlagValue.impFortressFemalesPacified);
-			newFlags.values.add(DialogueFlagValue.impFortressMalesPacified);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) { // Add defeated flags so that the fortress will reset.
+			newFlags.values.add(DialogueFlagValue.impFortressAlphaDefeated);
+			newFlags.values.add(DialogueFlagValue.impFortressDemonDefeated);
+			newFlags.values.add(DialogueFlagValue.impFortressFemalesDefeated);
+			newFlags.values.add(DialogueFlagValue.impFortressMalesDefeated);
 		}
 
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
