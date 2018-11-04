@@ -314,7 +314,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>")) {
+					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
+					"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -348,7 +349,8 @@ public enum StatusEffect {
 			true,
 			null,
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>")) {
+					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
+					"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1531,7 +1533,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if((target.isPlayer() || !target.getRace().isVulnerableToArcaneStorm()) && !target.getLocationPlace().isStormImmune()) {
+			if((target.isPlayer() || !target.isVulnerableToArcaneStorm()) && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 				
 			} else {
@@ -1567,7 +1569,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.getRace().isVulnerableToArcaneStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
+			if(target.isVulnerableToArcaneStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 			} else {
 				return false;
@@ -5414,6 +5416,30 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_DARK_SIREN(
+			70,
+			"Dark Siren",
+			"set_dark_siren",
+			Colour.CLOTHING_PURPLE_DARK,
+			Colour.CLOTHING_BLACK_STEEL,
+			Colour.CLOTHING_RED_DARK,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "<i>Darkness and chaos, let the boundaries of the eternal void be shattered! Intangible manifestation of divine will, now let my sealed power be unleashed!</i>";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.DARK_SIREN.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_BDSM(
 			70,
 			"BDSM",
@@ -5603,6 +5629,34 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_DAISHO(
+			70,
+			"Daisho",
+			"set_daisho",
+			Colour.BASE_ROSE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakazashi (the little)."
+						+ " Wearing both of these swords at once marks the wielder as a member of the samurai class.");
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.WEAPON_DAISHO.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_JOLNIR(
 			70,
 			"J&oacute;lnir",
@@ -5666,19 +5720,17 @@ public enum StatusEffect {
 			"potion effects",
 			"potionEffects",
 			Colour.GENERIC_ARCANE,
+			Colour.BASE_PINK_LIGHT,
+			null,
 			false,
 			null,
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
-				return "After drinking a potion, you are now experiencing some effects...";
-			else
-				return UtilText.parse(target, "After drinking a potion, [npc.name] is now experiencing some effects...");
+			return UtilText.parse(target, "Arcane-infused consumables are very common in this world, and, as [npc.nameHasFull] out, they can have some rather curious effects...");
 		}
 		
-//		potionAttributes
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			return target.getPotionAttributes();
 		}

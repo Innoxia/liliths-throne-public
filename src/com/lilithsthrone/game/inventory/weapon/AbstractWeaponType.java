@@ -27,6 +27,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
@@ -57,6 +58,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private String attackTooltipDescription;
 	private String description;
 
+	private ClothingSet clothingSet;
 	private Rarity rarity;
 	
 	private String equipText;
@@ -104,6 +106,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
@@ -129,6 +132,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				pathName,
 				pathNameEquipped,
 				rarity,
+				clothingSet,
 				availableDamageTypes,
 				damage,
 				arcaneCost,
@@ -160,6 +164,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
@@ -195,6 +200,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		this.description = description;
 		this.rarity = rarity;
+		this.clothingSet = clothingSet;
 
 		this.availableDamageTypes = availableDamageTypes;
 		
@@ -310,7 +316,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				this.pathName = weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				
 				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
-									? null
+									? pathName
 									: weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageEquippedName").item(0).getTextContent();
 
 				this.damage = Integer.valueOf(coreAttributes.getElementsByTagName("damage").item(0).getTextContent());
@@ -340,6 +346,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				}
 
 				enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
+				
+
+				if(coreAttributes.getElementsByTagName("weaponSet").getLength() > 0) {
+					this.clothingSet = !coreAttributes.getElementsByTagName("weaponSet").item(0).hasChildNodes()
+										? null
+										: ClothingSet.valueOf(coreAttributes.getElementsByTagName("weaponSet").item(0).getTextContent());
+				}
 				
 				List<ItemEffect> defaultEffects = new ArrayList<>();
 				try {
@@ -484,6 +497,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						&& ((AbstractWeaponType)o).getAvailableDamageTypes().equals(getAvailableDamageTypes())
 						&& ((AbstractWeaponType)o).getSpells().equals(getSpells())
 						&& ((AbstractWeaponType)o).getEffects().equals(getEffects())
+						&& ((AbstractWeaponType)o).getClothingSet() == getClothingSet()
 						){
 					return true;
 				}
@@ -505,6 +519,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		result = 31 * result + getAvailableDamageTypes().hashCode();
 		result = 31 * result + getSpells().hashCode();
 		result = 31 * result + getEffects().hashCode();
+		if(getClothingSet()!=null) {
+			result = 31 * result + getClothingSet().hashCode();
+		}
 		return result;
 	}
 
@@ -804,11 +821,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
 			if(user.isPlayer()) {
 				return "<p>"
-							+ "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!"
+							+ (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!"
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ UtilText.parse(user, "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.namePos] aura!")
+							+ UtilText.parse(user, (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.namePos] aura!")
 						+ "</p>";
 			}
 		} else {
@@ -837,6 +854,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 
 	public String getName() {
+		if(isPlural()) {
+			return namePlural;
+		}
 		return name;
 	}
 	
@@ -858,6 +878,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	public Rarity getRarity() {
 		return rarity;
+	}
+
+	public ClothingSet getClothingSet() {
+		return clothingSet;
 	}
 
 	public String getPathName() {
@@ -1086,8 +1110,20 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return effects;
 	}
 	
+	public boolean isAbleToBeSold() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
+	public boolean isAbleToBeDropped() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
 	public int getEnchantmentLimit() {
-		return enchantmentLimit;
+		if(enchantmentLimit==-1) {
+			return (getClothingSet()==null?5:10);
+		} else {
+			return enchantmentLimit;
+		}
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {

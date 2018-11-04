@@ -93,6 +93,7 @@ public enum PerkManager {
 		arcane2 = addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.SPELL_DAMAGE_5, arcane6);
 		
 		arcane1 = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.ARCANE_5, arcane3, arcane2);
+		arcane2 = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CHUUNI, arcane1);
 		
 		// Elementalist tree:
 		

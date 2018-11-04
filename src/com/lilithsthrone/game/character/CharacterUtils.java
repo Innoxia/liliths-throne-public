@@ -87,6 +87,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -1193,6 +1194,79 @@ public class CharacterUtils {
 		}
 		
 		return body;
+	}
+	
+	/**
+	 * Generates and sets a generic name for this character, based on their personality.
+	 * @param character The character to set a generic name for.
+	 * @param exclusiveAdjectives A list of adjectives to exclude from the random assignment.
+	 * @return The adjective that was chosen to describe the character.
+	 */
+	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+
+		List<String> characterAdjectives = new ArrayList<>();
+
+		switch(character.getPersonality().get(PersonalityTrait.ADVENTUROUSNESS)) {
+			case HIGH:
+				characterAdjectives.add("daring");
+				characterAdjectives.add("fearless");
+				break;
+			case LOW:
+				characterAdjectives.add("suspicious");
+				characterAdjectives.add("cowardly");
+				break;
+			default:
+				break;
+		}
+		switch(character.getPersonality().get(PersonalityTrait.AGREEABLENESS)) {
+			case HIGH:
+				characterAdjectives.add("playful");
+				break;
+			case LOW:
+				characterAdjectives.add("rude");
+				break;
+			default:
+				break;
+		}
+		switch(character.getPersonality().get(PersonalityTrait.CONSCIENTIOUSNESS)) {
+			case LOW:
+				characterAdjectives.add("arrogant");
+				characterAdjectives.add("smug");
+				break;
+			default:
+				break;
+		}
+		switch(character.getPersonality().get(PersonalityTrait.EXTROVERSION)) {
+			case HIGH:
+				characterAdjectives.add("excitable");
+				characterAdjectives.add("energetic");
+				break;
+			default:
+				break;
+		}
+		switch(character.getPersonality().get(PersonalityTrait.NEUROTICISM)) {
+			case HIGH:
+				characterAdjectives.add("nervous");
+				break;
+			case LOW:
+				characterAdjectives.add("brash");
+				characterAdjectives.add("cocky");
+				break;
+			default:
+				break;
+		}
+		characterAdjectives.removeAll(exclusiveAdjectives);
+		
+		if(characterAdjectives.isEmpty()) {
+			characterAdjectives = Util.newArrayListOfValues("cheeky", "excitable", "energetic", "cunning", "rude", "cocky", "smug");
+			characterAdjectives.removeAll(exclusiveAdjectives);
+		}
+		
+		String adjective = Util.randomItemFrom(characterAdjectives);
+		
+		character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+		
+		return adjective;
 	}
 	
 	public static void randomiseBody(GameCharacter character, boolean randomiseAge) {

@@ -1141,7 +1141,27 @@ public enum Perk {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
-	},;
+	},
+	
+	CHUUNI(20,
+			true,
+			"chuuni",
+			PerkCategory.ARCANE,
+			"perks/misc_chuuni",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 20),
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 20)),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Embarrassing spell dialogue</span>")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Roughly translated from Japanese as 'Middle School 2nd Year Syndrome', those with 'chuuibyou' believe and act as though they possess special powers."
+					+ " While chunnis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
+		}
+	},
+	
+	;
 
 	private int renderingPriority;
 	protected String name;

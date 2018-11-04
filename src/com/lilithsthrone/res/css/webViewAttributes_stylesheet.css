@@ -597,6 +597,12 @@ h6{
 .legendary:hover{
 	background-color:#6a6a48;
 }
+.quest {
+	background-color:#344C4B;
+}
+.quest:hover{
+	background-color:#486A69;
+}
 .jinxed {
 	background-color:#694b4e;
 }

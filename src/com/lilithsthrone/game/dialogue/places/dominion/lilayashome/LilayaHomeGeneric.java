@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -41,10 +42,16 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
+	
+	private static List<NPC> getSlavesAndOccupantsPresent() {
+		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+		charactersPresent.removeIf((character) -> character instanceof Elemental);
+		return charactersPresent;
+	}
 	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
@@ -110,8 +117,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "The many corridors running through Lilaya's house are, while extremely impressive, all much of the same."
@@ -177,8 +183,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
 				return null;
@@ -198,7 +203,7 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static Response getRoomResponse(int index, boolean milkingRoom) {
-		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+		List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
 		if(milkingRoom) {
 			slavesAssignedToRoom.addAll(charactersPresent);
@@ -1533,8 +1538,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "Just like every other room in Lilaya's house, the kitchen is far larger than any you've ever set foot in before."
@@ -1603,8 +1607,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
 				return null;

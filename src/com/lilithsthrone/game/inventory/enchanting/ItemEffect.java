@@ -111,10 +111,16 @@ public class ItemEffect implements Serializable, XMLSaving {
 		
 		ItemEffect ie;
 		try { // Wrap this in a try, as the TFModifier.valueof might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
+			TFModifier primary = (parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier")));
+			TFModifier secondary = (parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier")));
+			if(secondary!=null && TFModifier.getWeaponMajorAttributeList().contains(secondary)) {
+				primary = TFModifier.CLOTHING_MAJOR_ATTRIBUTE;
+			}
+			
 			ie = new ItemEffect(
 					ItemEffectType.getItemEffectTypeFromId(itemEffectType),
-					(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
-					(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
+					primary,
+					secondary,
 					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 					Integer.valueOf(parentElement.getAttribute("limit")));
 		} catch(Exception ex) {
