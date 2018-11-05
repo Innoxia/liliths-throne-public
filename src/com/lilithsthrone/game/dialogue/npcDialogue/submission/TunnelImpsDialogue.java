@@ -217,7 +217,7 @@ public class TunnelImpsDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), true);
+				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
 			}
 			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_BODY", getAllCharacters());
@@ -245,7 +245,7 @@ public class TunnelImpsDialogue {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 
-					Util.Value<String, AbstractItem> potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), false);
+					Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
 					
 					return new Response("Swallow",
 							(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE || Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY)
@@ -290,7 +290,7 @@ public class TunnelImpsDialogue {
 		@Override
 		public String getContent() {
 			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransfomativePotion(getMainCompanion(), true);
+				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
 			}
 			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION", getAllCharacters());
@@ -386,10 +386,10 @@ public class TunnelImpsDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), true);
+				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
 			}
 			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransfomativePotion(getMainCompanion(), true);
+				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
 			}
 			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME", getAllCharacters());
@@ -399,8 +399,8 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(potion != null && companionPotion != null) {
 
-				Util.Value<String, AbstractItem> potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), false);
-				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransfomativePotion(getMainCompanion(), false);
+				Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
+				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), false);
 				
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
@@ -596,7 +596,7 @@ public class TunnelImpsDialogue {
 				
 			} else if(potion != null) {
 
-				Util.Value<String, AbstractItem> potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), false);
+				Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
 				
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
@@ -658,7 +658,7 @@ public class TunnelImpsDialogue {
 				
 			} else {
 
-				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransfomativePotion(getMainCompanion(), false);
+				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), false);
 				
 				if (index == 1) {
 					return new Response("Spit", UtilText.parse(getMainCompanion(),"As the imps cannot gain access to your mouth, they are ignoring you and focusing on transforming [npc.name]!"), null);
@@ -889,7 +889,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
@@ -900,7 +900,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
 								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
@@ -912,7 +912,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
 								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
@@ -930,7 +930,7 @@ public class TunnelImpsDialogue {
 								getImpGroup(),
 								Util.newArrayListOfValues(getMainCompanion()),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -948,7 +948,7 @@ public class TunnelImpsDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
 						}
 						
 					} else if (index == 7) {
@@ -967,7 +967,7 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									null,
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
 						}
 						
 					} else if (index == 8) {
@@ -986,7 +986,7 @@ public class TunnelImpsDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -1006,7 +1006,7 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpLeader()) && Main.game.isNonConEnabled()) {
@@ -1068,10 +1068,10 @@ public class TunnelImpsDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransfomativePotion(Main.game.getPlayer(), true);
+				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
 			}
 			if(isCompanionDialogue() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransfomativePotion(getMainCompanion(), true);
+				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
 			}
 			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF", getAllCharacters());
@@ -1107,7 +1107,7 @@ public class TunnelImpsDialogue {
 						getImpGroup(),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						AFTER_SEX_WATCHING_COMPANION,
-						UtilText.parseFromXMLFile("encounters/submission/impAttackCompanions"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
 			} else {
 				return null;
 			}
@@ -1126,7 +1126,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
-						"Allow the gang of imps move you into position...",
+						"Allow the gang of imps to move you into position...",
 						false,
 						false,
 						Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1176,7 +1176,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
-						"Allow the gang of imps move you into position...",
+						"Allow the gang of imps to move you into position...",
 						false,
 						false,
 						Main.game.getPlayer().getParty(),

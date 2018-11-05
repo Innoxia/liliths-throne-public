@@ -33,7 +33,10 @@ public class Missionary {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_SECOND
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_THIRD
+							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)
 					&& !Sex.isMasturbation();
 		}
 		

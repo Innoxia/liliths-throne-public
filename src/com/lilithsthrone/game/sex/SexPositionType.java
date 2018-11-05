@@ -60,7 +60,6 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public enum SexPositionType {
 
-	
 	STANDING("Standing",
 			true,
 			true,
@@ -1209,7 +1208,8 @@ public enum SexPositionType {
 	KNEELING_ORAL("Kneeling",
 			true,
 			true,
-			Util.newArrayListOfValues(KneelingOral.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(KneelingOral.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL,
 							Util.newHashMapOfValues(
@@ -1228,6 +1228,21 @@ public enum SexPositionType {
 												OrgasmCumTarget.HAIR,
 												OrgasmCumTarget.FLOOR))))),
 					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL_TWO,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_PERFORMING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL_THREE,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_PERFORMING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_PERFORMING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_TWO,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_PERFORMING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND_THREE,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_PERFORMING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
 							SexPositionSlot.KNEELING_PERFORMING_ORAL,
 							Util.newHashMapOfValues(
 							new Value<>(
@@ -1241,7 +1256,22 @@ public enum SexPositionType {
 													OrgasmCumTarget.SELF_GROIN,
 													OrgasmCumTarget.SELF_LEGS,
 													OrgasmCumTarget.FLOOR,
-													OrgasmCumTarget.FEET))))))) {
+													OrgasmCumTarget.FEET))))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL_THREE,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_TWO,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))),
+					new Value<>(
+							SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND_THREE,
+							Util.newHashMapOfValues(new Value<>(SexPositionSlot.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))))) {
 		@Override
 		public String getDescription() {
 			StringBuilder descriptionSB = new StringBuilder();
@@ -1376,7 +1406,7 @@ public enum SexPositionType {
 				} else if(performers.size()>1) {
 					descriptionSB.append(" is");
 				}
-				descriptionSB.append(" similary kneeling on the floor in front of ");
+				descriptionSB.append(" similarly kneeling on the floor in front of ");
 				
 				receivers = new ArrayList<>();
 				receivers.add(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL_SECOND), "[npc.Name]"));
@@ -1489,11 +1519,6 @@ public enum SexPositionType {
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			return false;
-		}
-
-		@Override
-		public int getMaximumSlots() {
-			return 8;
 		}
 	},
 	
@@ -2147,7 +2172,9 @@ public enum SexPositionType {
 			// Restrict penis actions if there is already an ongoing penis action between on back and between legs slots:
 			if(((Sex.getSexPositionSlot(performer) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(performer) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(target))
 					|| ((Sex.getSexPositionSlot(target) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(target) == SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(performer))) {
-				if(action.getActionType()!=SexActionType.ONGOING && action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)) {
+				if((action.getActionType()==SexActionType.START_ONGOING
+						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
+						&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)) {
 					for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
 						if(sa.isOrifice()
 								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
@@ -2155,7 +2182,9 @@ public enum SexPositionType {
 						}
 					}
 				}
-				if(action.getActionType()!=SexActionType.ONGOING && action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
+				if((action.getActionType()==SexActionType.START_ONGOING
+						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
+						&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
 					for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
 						if(sa.isOrifice()
 								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {

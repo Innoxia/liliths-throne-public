@@ -12,11 +12,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public static final int MAXIMUM_PAIRS = 4;
 	
 	protected EyeType type;
 	protected int eyePairs;
@@ -307,7 +309,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 
 	public String setEyePairs(GameCharacter owner, int eyePairs) {
-		eyePairs = Math.max(1, Math.min(eyePairs, 4));
+		eyePairs = Math.max(1, Math.min(eyePairs, MAXIMUM_PAIRS));
 		
 		if(owner.getEyePairs() == eyePairs) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

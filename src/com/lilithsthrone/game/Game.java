@@ -118,10 +118,8 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressAlpha;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressDemon;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressFemales;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.FortressMales;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -637,10 +635,11 @@ public class Game implements Serializable, XMLSaving {
 					if((!worldType.equals("SEWERS") || !Main.isVersionOlderThan(loadingVersion, "0.2.0.5"))
 							&& (!worldType.equals("SUBMISSION") || !Main.isVersionOlderThan(loadingVersion, "0.2.10.8"))
 							&& ((!worldType.equals("IMP_FORTRESS_ALPHA")
-									&& !worldType.equals("IMP_FORTRESS_DEMON")
 									&& !worldType.equals("IMP_FORTRESS_FEMALES")
 									&& !worldType.equals("IMP_FORTRESS_MALES"))
 									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
+							&& (!worldType.equals("IMP_FORTRESS_DEMON")
+									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11.5"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
@@ -666,9 +665,11 @@ public class Game implements Serializable, XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA);
-						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_MALES);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.11.5")) {
+						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
 						gen.worldGeneration(WorldType.DOMINION);
@@ -725,7 +726,7 @@ public class Game implements Serializable, XMLSaving {
 
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 								if(npc!=null)  {
-									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11")
+									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
 											|| (npc.getClass()!=FortressDemonLeader.class
 											&& npc.getClass()!=FortressAlphaLeader.class
 											&& npc.getClass()!=FortressMalesLeader.class
@@ -1232,23 +1233,24 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		// Reset imp tunnels after 5 days:
-		boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaPacifiedTime) > 60*24*5);
-		boolean demonReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressDemonPacifiedTime) > 60*24*5);
-		boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesPacifiedTime) > 60*24*5);
-		boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesPacifiedTime) > 60*24*5);
+		boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaDefeatedTime) > 60*24*5);
+		boolean demonReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressDemonDefeatedTime) > 60*24*5);
+		boolean femalesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressFemalesDefeatedTime) > 60*24*5);
+		boolean malesReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressMalesDefeatedTime) > 60*24*5);
 		
-		if(alphaReset) {
-			FortressAlpha.resetFortress();
+		if(alphaReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_ALPHA) {
+			ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
 		}
-		if(demonReset) {
-			FortressDemon.resetFortress();
+		if(femalesReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_FEMALES) {
+			ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
 		}
-		if(femalesReset) {
-			FortressFemales.resetFortress();
+		if(malesReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_MALES) {
+			ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
 		}
-		if(malesReset) {
-			FortressMales.resetFortress();
+		if(demonReset && Main.game.getPlayer().getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON) {
+			ImpCitadelDialogue.resetFortress();
 		}
+		
 		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
@@ -3272,6 +3274,42 @@ public class Game implements Serializable, XMLSaving {
 			return (NPC) this.getNPCById(getUniqueNPCId(Kalahari.class));
 		} catch (Exception e) {
 			System.err.println("getKalahari() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getFortressAlphaLeader() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(FortressAlphaLeader.class));
+		} catch (Exception e) {
+			System.err.println("getFortressAlphaLeader() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getFortressDemonLeader() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(FortressDemonLeader.class));
+		} catch (Exception e) {
+			System.err.println("getFortressDemonLeader() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getFortressMalesLeader() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(FortressMalesLeader.class));
+		} catch (Exception e) {
+			System.err.println("getFortressMalesLeader() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getFortressFemalesLeader() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(FortressFemalesLeader.class));
+		} catch (Exception e) {
+			System.err.println("getFortressFemalesLeader() returning null!");
 			return null;
 		}
 	}

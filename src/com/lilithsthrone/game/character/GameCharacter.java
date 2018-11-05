@@ -9783,14 +9783,30 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			
-		} else if(penetrationType == SexAreaPenetration.FOOT && orifice == SexAreaPenetration.PENIS) { //TODO
+		} else if(penetrationType == SexAreaPenetration.FOOT && orifice == SexAreaPenetration.PENIS) {
 			if(initialPenetration) {
 				if(Sex.getSexPositionSlot(characterPenetrating).isStanding(characterPenetrating)) {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.foot+] into [npc.namePos] groin, before starting to rub and press down on [npc.her] [npc.cock+].");
 				} else {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
-							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.feet+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] a footjob.");
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.feet+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] [npc2.a_footjob].");
+				}
+				
+			} else {
+				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			}
+			
+			
+		} else if(penetrationType == SexAreaPenetration.PENIS && orifice == SexAreaPenetration.FOOT) {
+			if(initialPenetration) {
+				if(Sex.getSexPositionSlot(characterPenetrated).isStanding(characterPenetrated)) {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.cock+] up against [npc.namePos] [npc.foot+],"
+									+ " before getting [npc.herHim] to start giving [npc2.herHim] [npc.a_footjob].");
+				} else {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc.namePos] [npc.feet+] together, before sliding [npc2.her] [npc2.cock+] between them and starting to receive [npc.a_footjob].");
 				}
 				
 			} else {
@@ -11574,7 +11590,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isVulnerableToLustLoss() {
 		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
 	}
-	
+
+	public boolean isVulnerableToArcaneStorm() {
+		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
+	}
 	
 	public boolean isWearingCondom() {
 //		if(Main.game.isInSex() && this == Sex.getPartner())
@@ -12276,6 +12295,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You add the " + item.getName(false) + " to your inventory.</span>" + "</p>";
 	}
 
+	public String removedItemFromInventoryText(AbstractItemType item) {
+		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You have lost the " + item.getName(false) + ".</span>" + "</p>";
+	}
+
 	public String inventoryFullText() {
 		return "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full!</b>" + "</p>";
 	}
@@ -12421,6 +12444,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getWeaponCount(AbstractWeapon weapon) {
 		return inventory.getWeaponCount(weapon);
 	}
+	public int getUniqueQuestWeaponCount() {
+		return inventory.getUniqueQuestWeaponCount();
+	}
 
 	public Map<AbstractClothing, Integer> getMapOfDuplicateClothing() {
 		return inventory.getMapOfDuplicateClothing();
@@ -12434,6 +12460,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getClothingCount(AbstractClothing clothing) {
 		return inventory.getClothingCount(clothing);
 	}
+	public int getUniqueQuestClothingCount() {
+		return inventory.getUniqueQuestClothingCount();
+	}
 	
 	public Map<AbstractItem, Integer> getMapOfDuplicateItems() {
 		return inventory.getMapOfDuplicateItems();
@@ -12446,6 +12475,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getItemCount(AbstractItem item) {
 		return inventory.getItemCount(item);
+	}
+	public int getUniqueQuestItemCount() {
+		return inventory.getUniqueQuestItemCount();
+	}
+	
+	public boolean isCarryingQuestItems() {
+		return getUniqueQuestWeaponCount()+getUniqueQuestClothingCount()+getUniqueQuestItemCount()>0;
 	}
 	
 	

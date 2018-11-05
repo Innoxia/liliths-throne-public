@@ -185,15 +185,20 @@ public class MainController implements Initializable {
 			public void onChange() {
 				if (Main.game.getPlayer() != null) {
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).setDiscovered(true);
-					if (Main.game.getPlayer().getLocation().getY() < Main.game.getActiveWorld().WORLD_HEIGHT - 1)
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).setTravelledTo(true);
+					if (Main.game.getPlayer().getLocation().getY() < Main.game.getActiveWorld().WORLD_HEIGHT - 1) {
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).setDiscovered(true);
-					if (Main.game.getPlayer().getLocation().getY() != 0)
+					}
+					if (Main.game.getPlayer().getLocation().getY() != 0) {
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).setDiscovered(true);
-					if (Main.game.getPlayer().getLocation().getX() < Main.game.getActiveWorld().WORLD_WIDTH - 1)
+					}
+					if (Main.game.getPlayer().getLocation().getX() < Main.game.getActiveWorld().WORLD_WIDTH - 1) {
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
-					if (Main.game.getPlayer().getLocation().getX() != 0)
+					}
+					if (Main.game.getPlayer().getLocation().getX() != 0) {
 						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
-
+					}
+					
 					// Make sure that images of present characters are cached
 					for (NPC character : Main.game.getCharactersPresent())
 						if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork))
@@ -1207,7 +1212,7 @@ public class MainController implements Initializable {
 			if(Main.game.getPlayer().isAbleToTeleport()
 					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-					&& c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+					&& c.isTravelledTo()) {
 				Main.mainController.openPhone();
 				Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
 				Main.game.getPlayer().setLocation(new Vector2i(j, i));
@@ -1245,10 +1250,18 @@ public class MainController implements Initializable {
 	static void setInventoryPageLeft(int i) {
 		String id = "INV_PAGE_LEFT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				RenderingEngine.setPageLeft(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
+			if(i!=5 || Main.game.getPlayer().isCarryingQuestItems()) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					RenderingEngine.setPageLeft(i);
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			if(i==5) {
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Quest Items", "");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
 		}
 	}
 	
@@ -1281,6 +1294,47 @@ public class MainController implements Initializable {
 			}, false);
 		}
 	}
+	
+	static void setArmCountListener(int i) {
+		String id = "ARM_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setArmRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setHornCountListener(int i) {
+		String id = "HORN_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setHornRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setEyeCountListener(int i) {
+		String id = "EYE_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setEyePairs(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setTailCountListener(int i) {
+		String id = "TAIL_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setTailCount(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
 	
 	static void setTesticleCountListener(int i) {
 		String id = "TESTICLE_COUNT_"+i;

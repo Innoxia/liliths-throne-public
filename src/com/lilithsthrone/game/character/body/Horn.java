@@ -16,6 +16,8 @@ import com.lilithsthrone.utils.Util;
 public class Horn implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	public static final int MAXIMUM_ROWS = 3;
+	
 	protected HornType type;
 	protected int rows;
 	protected int hornsPerRow;
@@ -251,7 +253,7 @@ public class Horn implements BodyPartInterface, Serializable {
 	}
 
 	public String setHornRows(GameCharacter owner, int rows) {
-		rows = Math.max(1, Math.min(rows, 3));
+		rows = Math.max(1, Math.min(rows, MAXIMUM_ROWS));
 		
 		if(owner.getHornRows() == rows) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

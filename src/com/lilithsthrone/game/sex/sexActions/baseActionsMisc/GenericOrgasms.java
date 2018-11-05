@@ -3812,7 +3812,11 @@ public class GenericOrgasms {
 					case ASS:
 						return "Hotdogging Climax";
 					case BREAST:
-						break;
+						if(characterPenetrated.hasBreasts()) {
+							return "Paizuri climax";
+						} else {
+							return "Naizuri climax";
+						}
 					case MOUTH:
 						break;
 					case NIPPLE:

@@ -1285,7 +1285,7 @@ public class HarpyAttackerDialogueCompanions {
 			}
 			
 			if(getHarpy().hasTransformationFetish() && getHarpy().isWillingToRape(Main.game.getPlayer()) ) {
-				potion = getHarpy().getTransfomativePotion(Main.game.getPlayer(), true);
+				potion = getHarpy().getTransformativePotion(Main.game.getPlayer(), true);
 				
 //				System.out.println("Potion Check 1"); 
 //				System.out.println(potion); 
@@ -1389,7 +1389,7 @@ public class HarpyAttackerDialogueCompanions {
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = getHarpy().getTransfomativePotion(Main.game.getPlayer());
+							Util.Value<String, AbstractItem> potion = getHarpy().getTransformativePotion(Main.game.getPlayer());
 							
 //							System.out.println("Potion Check 3"); 
 //							System.out.println(potion.getValue().getName()); 

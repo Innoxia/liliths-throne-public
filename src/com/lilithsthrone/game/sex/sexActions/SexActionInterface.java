@@ -242,7 +242,7 @@ public interface SexActionInterface {
 			if(!orifice.isFree(performer)) {
 				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
 					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
-						if(Sex.isDom(character)) {
+						if(!character.equals(performer) && Sex.isDom(character)) { // It's a non-self action with a dom:
 							canAccessSelfParts = false;
 						}
 					}
@@ -253,7 +253,7 @@ public interface SexActionInterface {
 			if(!penetration.isFree(performer)) {
 				if(!Sex.isDom(performer) && !Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up their own parts.
 					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
-						if(Sex.isDom(character)) {
+						if(!character.equals(performer) && Sex.isDom(character)) { // It's a non-self action with a dom:
 							canAccessSelfParts = false;
 						}
 					}
@@ -264,22 +264,18 @@ public interface SexActionInterface {
 		GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
 		for(SexAreaOrifice orifice : this.getTargetedCharacterOrifices()) {
 			if(!orifice.isFree(target)) {
-				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
-					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, orifice)) {
-						if(!character.equals(performer)) { // It's someone else they're interacting with:
-							canAccessOthersParts = false;
-						}
+				for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(target, orifice)) {
+					if(!character.equals(performer) && !character.equals(target)) { // It's someone else they're interacting with:
+						canAccessOthersParts = false;
 					}
 				}
 			}
 		}
 		for(SexAreaPenetration penetration : this.getTargetedCharacterPenetrations()) {
 			if(!penetration.isFree(target)) {
-				if(Sex.isDom(performer) || Sex.isSubHasEqualControl()) { // Doms and full control subs can always free up parts.
-					for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(performer, penetration)) {
-						if(!character.equals(performer)) { // It's someone else they're interacting with:
-							canAccessOthersParts = false;
-						}
+				for(GameCharacter character : Sex.getCharactersHavingOngoingActionWith(target, penetration)) {
+					if(!character.equals(performer) && !character.equals(target)) { // It's someone else they're interacting with:
+						canAccessOthersParts = false;
 					}
 				}
 			}

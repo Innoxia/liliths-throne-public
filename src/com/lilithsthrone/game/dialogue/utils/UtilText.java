@@ -16,7 +16,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -5808,19 +5807,15 @@ public class UtilText {
 		
 		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
 	}
-	
+
 	private static String getSubspeciesName(Subspecies race, GameCharacter character) {
-		if(race==null)
+		if(race==null) {
 			return "";
+		}
+		
 		if (character.isFeminine()) {
-			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-girl";
-			}
 			return race.getSingularFemaleName(character);
 		} else {
-			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-boy";
-			}
 			return race.getSingularMaleName(character);
 		}
 	}
