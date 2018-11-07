@@ -266,8 +266,8 @@ public enum EyeType implements BodyPartTypeInterface {
 		return this.pupilShape;
 	}
 	
-	public Function<Boolean, String> getTransformationText() {
-		return this.transformationText;
+	public String getTransformationText(Boolean isPc) {
+		return this.transformationText.apply(isPc);
 	}
 
 	/**

@@ -79,9 +79,9 @@ public class Eye implements BodyPartInterface, Serializable {
 		pupilShape = type.getPupilShape();
 		
 		if (EyeType.DEMON_COMMON.equals(type)) {
-			UtilText.transformationContentSB.append(type.getTransformationText().apply(owner.isShortStature()));
+			UtilText.transformationContentSB.append(type.getTransformationText(owner.isShortStature()));
 		} else {
-			UtilText.transformationContentSB.append(type.getTransformationText().apply(owner.isPlayer()));
+			UtilText.transformationContentSB.append(type.getTransformationText(owner.isPlayer()));
 		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString()) + "<p>" + owner.postTransformationCalculation() + "</p>";
