@@ -20,205 +20,109 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public enum EyeType implements BodyPartTypeInterface {
-	HUMAN(
-			BodyCoveringType.EYE_HUMAN,
-			Race.HUMAN,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"",
+	HUMAN(BodyCoveringType.EYE_HUMAN, Race.HUMAN, 1, EyeShape.ROUND, EyeShape.ROUND, "",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_HUMAN
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_HUMAN) + EyeTransformationText.FINISH;
 				}
 		),
 
-	ANGEL(
-			BodyCoveringType.EYE_ANGEL,
-			Race.ANGEL,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"angelic",
+	ANGEL(BodyCoveringType.EYE_ANGEL, Race.ANGEL, 1, EyeShape.ROUND, EyeShape.ROUND, "angelic",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START : EyeTransformationText.NPC_START) + EyeTransformationText.FINISH;
 				}
 		),
 
-	COW_MORPH(
-			BodyCoveringType.EYE_COW_MORPH,
-			Race.COW_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"cow-like",
+	COW_MORPH(BodyCoveringType.EYE_COW_MORPH, Race.COW_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND, "cow-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_COW
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_COW) + EyeTransformationText.FINISH;
 				}
 		),
 
-	DEMON_COMMON(
-			BodyCoveringType.EYE_DEMON_COMMON,
-			Race.DEMON,
-			1,
-			EyeShape.ROUND,
-			EyeShape.VERTICAL,
-			"demonic",
+	DEMON_COMMON(BodyCoveringType.EYE_DEMON_COMMON,	Race.DEMON, 1, EyeShape.ROUND, EyeShape.VERTICAL, "demonic",
 			(Boolean isShortStature) -> {
 				return (isShortStature ? EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_IMP
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_DEMON) + EyeTransformationText.FINISH;
 				}
 		),
 
-	DOG_MORPH(
-			BodyCoveringType.EYE_DOG_MORPH,
-			Race.DOG_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"dog-like",
+	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND, "dog-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_DOG
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_DOG) + EyeTransformationText.FINISH;
 				}
 		),
 
-	LYCAN(
-			BodyCoveringType.EYE_LYCAN,
-			Race.WOLF_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"wolf-like",
+	LYCAN(BodyCoveringType.EYE_LYCAN, Race.WOLF_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND, "wolf-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_LYCAN
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_LYCAN) + EyeTransformationText.FINISH;
 				}
 		),
 	
-	FOX_MORPH(
-			BodyCoveringType.EYE_FOX_MORPH,
-			Race.FOX_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.VERTICAL,
-			"fox-like",
+	FOX_MORPH(BodyCoveringType.EYE_FOX_MORPH, Race.FOX_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL,	"fox-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_FOX
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_FOX) + EyeTransformationText.FINISH;
 				}
 		),
 
-	CAT_MORPH(
-			BodyCoveringType.EYE_FELINE,
-			Race.CAT_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.VERTICAL,
-			"cat-like",
+	CAT_MORPH(BodyCoveringType.EYE_FELINE, Race.CAT_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL, "cat-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_CAT
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_CAT) + EyeTransformationText.FINISH;}
 		),
 
-	SQUIRREL_MORPH(
-			BodyCoveringType.EYE_SQUIRREL,
-			Race.SQUIRREL_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"squirrel-like",
+	SQUIRREL_MORPH(BodyCoveringType.EYE_SQUIRREL, Race.SQUIRREL_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND, "squirrel-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_SQUIRREL
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_SQUIRREL) + EyeTransformationText.FINISH;}
 		),
 
-	RAT_MORPH(
-			BodyCoveringType.EYE_RAT,
-			Race.RAT_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"rat-like",
+	RAT_MORPH(BodyCoveringType.EYE_RAT,	Race.RAT_MORPH,	1, EyeShape.ROUND, EyeShape.ROUND, "rat-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_RAT
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_RAT) + EyeTransformationText.FINISH;
 				}
 		),
 
-	RABBIT_MORPH(
-			BodyCoveringType.EYE_RABBIT,
-			Race.RABBIT_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"rabbit-like",
+	RABBIT_MORPH(BodyCoveringType.EYE_RABBIT, Race.RABBIT_MORPH, 1,	EyeShape.ROUND,	EyeShape.ROUND,	"rabbit-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_RABBIT
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_RABBIT) + EyeTransformationText.FINISH;
 				}
 		),
 	
-	BAT_MORPH(
-			BodyCoveringType.EYE_BAT,
-			Race.BAT_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"bat-like",
+	BAT_MORPH(BodyCoveringType.EYE_BAT,	Race.BAT_MORPH,	1, EyeShape.ROUND, EyeShape.ROUND, "bat-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_BAT
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_BAT) + EyeTransformationText.FINISH;
 				}
 		),
 
-	ALLIGATOR_MORPH(
-			BodyCoveringType.EYE_ALLIGATOR_MORPH,
-			Race.ALLIGATOR_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.VERTICAL,
-			"reptile-like",
+	ALLIGATOR_MORPH(BodyCoveringType.EYE_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH,	1, EyeShape.ROUND, EyeShape.VERTICAL, "reptile-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_ALLIGATOR
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_ALLIGATOR) + EyeTransformationText.FINISH;
 				}
 		),
 
-	HORSE_MORPH(
-			BodyCoveringType.EYE_HORSE_MORPH,
-			Race.HORSE_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.HORIZONTAL,
-			"horse-like",
+	HORSE_MORPH(BodyCoveringType.EYE_HORSE_MORPH, Race.HORSE_MORPH,	1, EyeShape.ROUND, EyeShape.HORIZONTAL, "horse-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_HORSE
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_HORSE) + EyeTransformationText.FINISH;
 				}
 		),
 
-	REINDEER_MORPH(
-			BodyCoveringType.EYE_REINDEER_MORPH,
-			Race.REINDEER_MORPH,
-			1,
-			EyeShape.ROUND,
-			EyeShape.HORIZONTAL,
-			"reindeer-like",
+	REINDEER_MORPH(BodyCoveringType.EYE_REINDEER_MORPH,	Race.REINDEER_MORPH, 1,	EyeShape.ROUND,	EyeShape.HORIZONTAL, "reindeer-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_REINDEER
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_REINDEER) + EyeTransformationText.FINISH;
 				}
 		),
 
-	HARPY(
-			BodyCoveringType.EYE_HARPY,
-			Race.HARPY,
-			1,
-			EyeShape.ROUND,
-			EyeShape.ROUND,
-			"bird-like",
+	HARPY(BodyCoveringType.EYE_HARPY, Race.HARPY, 1, EyeShape.ROUND, EyeShape.ROUND, "bird-like",
 			(Boolean isPc) -> {
 				return (isPc ? EyeTransformationText.PC_START + EyeTransformationText.PC_TO_HARPY
 						: EyeTransformationText.NPC_START + EyeTransformationText.NPC_TO_HARPY) + EyeTransformationText.FINISH;
@@ -233,13 +137,7 @@ public enum EyeType implements BodyPartTypeInterface {
 	private String descriptor;
 	private Function<Boolean, String> transformationText;
 
-	private EyeType(
-			BodyCoveringType coveringType,
-			Race race,
-			int eyePairs,
-			EyeShape irisShape,
-			EyeShape pupilShape,
-			String descriptor, 
+	private EyeType(BodyCoveringType coveringType, Race race, int eyePairs,	EyeShape irisShape,	EyeShape pupilShape, String descriptor, 
 			Function<Boolean, String> transformationText) {
 		this.coveringType = coveringType;
 		this.race = race;
