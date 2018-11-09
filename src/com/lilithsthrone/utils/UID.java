@@ -32,11 +32,7 @@ public class UID {
     public UID() {
         // Timestamp component
         long currentTime = System.currentTimeMillis();
-        if (currentTime <= previousTimestamp.get())
-            currentTime = previousTimestamp.incrementAndGet();
-        else
-            previousTimestamp.set(currentTime);
-        timestamp = currentTime;
+        timestamp = previousTimestamp.updateAndGet(previousValue -> Math.max(previousValue + 1, currentTime));
 
         // Random component
         random = new Random().nextInt(65536);
