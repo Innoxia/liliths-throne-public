@@ -177,12 +177,12 @@ public class SexActionUtility {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Do nothing";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return null;
+			return "Decide to do nothing.";
 		}
 
 		@Override

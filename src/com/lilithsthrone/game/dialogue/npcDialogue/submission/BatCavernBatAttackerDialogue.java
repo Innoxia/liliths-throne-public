@@ -107,7 +107,7 @@ public class BatCavernBatAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_OFFER_BODY")) {
+							null, AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_OFFER_BODY")) {
 						@Override
 						public void effects() {
 							if(Main.game.getActiveNPC().isVisiblyPregnant()){
@@ -187,7 +187,7 @@ public class BatCavernBatAttackerDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null, AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
@@ -204,7 +204,7 @@ public class BatCavernBatAttackerDialogue {
 									return null;
 								}
 							},
-							null, AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
@@ -221,7 +221,7 @@ public class BatCavernBatAttackerDialogue {
 									return null;
 								}
 							},
-							null, AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
@@ -234,7 +234,7 @@ public class BatCavernBatAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
@@ -299,7 +299,7 @@ public class BatCavernBatAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY, "<p>"
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
 							+ "</p>");
@@ -320,7 +320,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, "<p>"
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>");
@@ -341,7 +341,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, "<p>"
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>");
@@ -519,7 +519,7 @@ public class BatCavernBatAttackerDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_DEFEAT, "<p>"
+								null, AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 								+ "</p>");
@@ -540,7 +540,7 @@ public class BatCavernBatAttackerDialogue {
 									}
 								},
 								null,
-								AFTER_SEX_DEFEAT, "<p>"
+								null, AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 								+ "</p>");
@@ -561,7 +561,7 @@ public class BatCavernBatAttackerDialogue {
 									}
 								},
 								null,
-								AFTER_SEX_DEFEAT, "<p>"
+								null, AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -639,7 +639,7 @@ public class BatCavernBatAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -660,7 +660,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
@@ -681,7 +681,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -749,7 +749,7 @@ public class BatCavernBatAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -770,7 +770,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
@@ -791,7 +791,7 @@ public class BatCavernBatAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT, "<p>"
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."

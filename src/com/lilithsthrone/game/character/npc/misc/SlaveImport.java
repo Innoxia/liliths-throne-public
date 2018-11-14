@@ -110,8 +110,4 @@ public class SlaveImport extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

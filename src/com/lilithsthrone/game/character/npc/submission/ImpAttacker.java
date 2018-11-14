@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
@@ -238,7 +239,7 @@ public class ImpAttacker extends NPC {
 	public Attack attackType() {
 		
 		// If can cast spells, then do that:
-		if(!getSpellsAbleToCast().isEmpty()) {
+		if(!getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty()) {
 			return Attack.SPELL;
 		}
 
@@ -516,9 +517,11 @@ public class ImpAttacker extends NPC {
 			
 		}
 		
-		return new Value<>(
-				"",
-				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
+		AbstractItem ingredient = AbstractItemType.generateItem(itemType);
+		AbstractItem potion = EnchantingUtils.craftItem(ingredient, effects);
+		potion.setName(EnchantingUtils.getPotionName(ingredient, effects));
+		
+		return new Value<>("", potion);
 	}
 	
 	private static List<ItemEffect> getMasculineEffects(GameCharacter target, AbstractItemType itemType) {

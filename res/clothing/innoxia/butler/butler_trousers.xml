@@ -32,7 +32,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
 		</effects>
 		
-		<blockedPartsList> 
+		<blockedPartsList>
 		
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 

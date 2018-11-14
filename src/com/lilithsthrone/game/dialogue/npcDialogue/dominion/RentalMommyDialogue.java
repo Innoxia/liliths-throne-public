@@ -95,7 +95,7 @@ public class RentalMommyDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_MOMMY_AS_DOM, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
+						null, AFTER_SEX_MOMMY_AS_DOM, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_SUB")) {
 					@Override
@@ -106,7 +106,7 @@ public class RentalMommyDialogue {
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().getMoney()<2000) {
-					return new Response("Dominant Sex "+UtilText.formatAsMoneyUncoloured(1000, "span"), "You don't have enough money for this!", null);
+					return new Response("Dominant Sex "+UtilText.formatAsMoneyUncoloured(2000, "span"), "You don't have enough money for this!", null);
 				}
 				return new ResponseSex("Dominant Sex "+UtilText.formatAsMoney(2000, "span"), "Follow Mommy into her house, before taking the dominant role and having sex with her.",
 						true, true,
@@ -114,7 +114,7 @@ public class RentalMommyDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_MOMMY_AS_SUB, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
+						null, AFTER_SEX_MOMMY_AS_SUB, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_DOM")) {
 					@Override

@@ -2026,7 +2026,7 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case DEMON_COMMON:
 				if(!owner.isShortStature()) {
-					sb.append(" [npc.She] [npc.has] a pair of pointed, demonic ears, which are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+					sb.append(" [npc.She] [npc.has] a pair of pointed, demonic ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				} else {
 					sb.append(" [npc.She] [npc.has] a pair of pointed, impish ears, which are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				}

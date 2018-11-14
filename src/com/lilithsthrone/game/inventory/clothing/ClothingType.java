@@ -8999,7 +8999,7 @@ public class ClothingType {
 							null,
 							null, null)),
 			null,
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL_WITH_METALS.getPresetColourList(),
 			null,
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11669,7 +11669,7 @@ public class ClothingType {
 			"clothing/ambers_bitch_choker",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),

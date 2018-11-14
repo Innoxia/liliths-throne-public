@@ -218,8 +218,4 @@ public class CandiReceptionist extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

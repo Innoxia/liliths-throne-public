@@ -14,11 +14,16 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public class ItemEffect implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
+
+	public static final int SEALED_COST_MINOR_BOOST = 5;
+	public static final int SEALED_COST_MINOR_DRAIN = 25;
+	public static final int SEALED_COST_DRAIN = 100;
+	public static final int SEALED_COST_MAJOR_DRAIN = 500;
 	
 	private AbstractItemEffectType itemEffectType;
 	private TFModifier primaryModifier, secondaryModifier;
