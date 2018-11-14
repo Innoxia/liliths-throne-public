@@ -18,7 +18,11 @@ public enum Occupation {
 	
 	// Unique:
 	
-	ELEMENTAL(Perk.JOB_MISC, "elemental", "-", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL_EARTH(Perk.ELEMENTAL_BOUND_EARTH, "earth elemental", "[npc.NameIsFull] currently bound to the arcane school of Earth.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL_FIRE(Perk.ELEMENTAL_BOUND_FIRE, "fire elemental", "[npc.NameIsFull] currently bound to the arcane school of Fire.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL_WATER(Perk.ELEMENTAL_BOUND_WATER, "water elemental", "[npc.NameIsFull] currently bound to the arcane school of Water.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
 
 	REINDEER_OVERSEER(Perk.JOB_MISC, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
 	

@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -43,6 +44,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
@@ -377,7 +379,8 @@ public class UtilText {
 	}
 
 	public static String getCurrencySymbol() {
-		return "&#164";
+		return "&#9679;"; // Circle
+//		return "&#164"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
@@ -427,16 +430,32 @@ public class UtilText {
 	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
 		String tagColour;
-		String moneyString = formatter.format(money);
+		int copper = money%100;
+		int silver = (money%10000)/100;
+		int gold = money/10000;
+		String moneyString = formatter.format(gold);
 		
-		if(amountColour==null ) {
+		if(amountColour==null) {
 			tagColour = Colour.TEXT.getShades(8)[3];
 		} else {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
+		return (gold>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">"
+					:"")
+				+(silver>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_SILVER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + silver + "</" + tag + ">"
+					:"")
+				+(copper>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_COPPER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + copper + "</" + tag + ">"
+					:"");
+		
+//		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
@@ -3455,8 +3474,44 @@ public class UtilText {
 				});
 			}
 		}
+
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon",
+						"primaryWeapon"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.getMainWeapon()==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon().getName();
+				}
+			}
+		});
+
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon",
+						"secondaryWeapon"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.getOffhandWeapon()==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon().getName();
+				}
+			}
+		});
 		
 		
 		
@@ -5360,8 +5415,17 @@ public class UtilText {
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
+		for(Perk p : Perk.values()) {
+			engine.put("PERK_"+p.toString(), p);
+		}
+		for(StatusEffect sa : StatusEffect.values()) {
+			engine.put("SA_"+sa.toString(), sa);
+		}
 		for(CoverableArea ca : CoverableArea.values()) {
 			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(InventorySlot is : InventorySlot.values()) {
+			engine.put("IS_"+is.toString(), is);
 		}
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
@@ -5413,7 +5477,7 @@ public class UtilText {
 		if(engine==null) {
 			initScriptEngine();
 		}
-		
+//		System.out.println(specialNPC.size());
 		if(!specialNPC.isEmpty()) {
 			for(int i = 0; i<specialNPC.size(); i++) {
 				if(i==0) {

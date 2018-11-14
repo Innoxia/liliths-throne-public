@@ -143,9 +143,5 @@ public class DominionClubNPC extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
-	@Override
-	public void endSex() {
-	}
 	
 }

@@ -222,8 +222,4 @@ public class Claire extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

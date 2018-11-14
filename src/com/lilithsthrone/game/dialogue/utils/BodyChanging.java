@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
+import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Mouth;
 import com.lilithsthrone.game.character.body.Nipples;
 import com.lilithsthrone.game.character.body.Penis;
@@ -154,7 +155,8 @@ public class BodyChanging {
 						&& !(bp instanceof Ass)
 						&& !(bp instanceof Nipples)
 						&& !(bp instanceof Breast)
-						&& !(bp instanceof Penis)) {
+						&& !(bp instanceof Penis)
+						&& !(bp instanceof Horn)) {
 					
 					String name = bp.getName(getTarget());
 					if(bp instanceof Skin) {
@@ -385,7 +387,7 @@ public class BodyChanging {
 				}
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-						true, 
+						false, 
 						bct,
 						title,
 						description,

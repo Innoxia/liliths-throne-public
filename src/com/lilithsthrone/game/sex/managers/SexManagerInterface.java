@@ -80,7 +80,7 @@ public interface SexManagerInterface {
 	 * @return true by default. If returns false, no position-changing actions at all are available for the character passed in to the method.
 	 */
 	public default boolean isPositionChangingAllowed(GameCharacter character) {
-		return true;
+		return character.isPlayer() || (Sex.getTotalParticipantCount(false)==2); // Only player is allowed to switch in multi-sex scenes
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {
@@ -98,7 +98,7 @@ public interface SexManagerInterface {
 		}
 		
 		for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-			if(Sex.getNumberOfOrgasms(character) == 0 && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
+			if(Sex.getNumberOfOrgasms(character)<character.getOrgasmsBeforeSatisfied() && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
 				domsSatisfied = false;
 			}
 		}
@@ -107,12 +107,12 @@ public interface SexManagerInterface {
 			if(Sex.getSexPace(character)!=SexPace.SUB_RESISTING && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
 				subsResisting = false;
 			}
-			if(Sex.getNumberOfOrgasms(character) == 0 && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
+			if(Sex.getNumberOfOrgasms(character)<character.getOrgasmsBeforeSatisfied() && Sex.getSexPositionSlot(character)!=SexPositionSlot.MISC_WATCHING) {
 				subsSatisfied = false;
 			}
 		}
 		
-		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting)) {
+		if(Sex.isDom(partner) && (!Sex.isConsensual() || subsResisting || !Sex.isSubHasEqualControl())) {
 			return domsSatisfied;
 			
 		} else if(!Sex.isDom(partner) && !Sex.isSubHasEqualControl()) {
@@ -141,9 +141,15 @@ public interface SexManagerInterface {
 		}
 		
 		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
-			if(!character.isPlayer()) {
-				if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
-					character.setLust(0);
+			if(!character.isPlayer() && !Sex.isMasturbation()) {
+				if(Sex.isDom(character)) {
+					if(!((NPC) character).isAttractedTo(Sex.getSubmissiveParticipants().keySet().iterator().next())) {
+						character.setLust(0);
+					}
+				} else {
+					if(!((NPC) character).isAttractedTo(Sex.getDominantParticipants().keySet().iterator().next())) {
+						character.setLust(0);
+					}
 				}
 			}
 		}

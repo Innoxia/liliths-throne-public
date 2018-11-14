@@ -126,11 +126,11 @@ public class Vicky extends NPC {
 				case STONE_SHELL:
 				case PROTECTIVE_GUSTS:
 				case CLOAK_OF_FLAMES:
+				case SOOTHING_WATERS:
 					availableSpellBooks.add(ItemType.getSpellBookType(s));
 					break;
 				case CLEANSE:
 				case STEAL:
-				case SOOTHING_WATERS: // Special quest spells
 					break;
 					
 				// Tier 4:
@@ -178,6 +178,9 @@ public class Vicky extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			setStartingBody(false);
+		}
 	}
 	
 	@Override
@@ -223,7 +226,7 @@ public class Vicky extends NPC {
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);

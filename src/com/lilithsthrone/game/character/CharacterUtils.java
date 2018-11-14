@@ -838,80 +838,81 @@ public class CharacterUtils {
 		
 		if(species == Subspecies.SLIME) {
 			isSlime = true;
-			List<Subspecies> slimeSubspecies = new ArrayList<>();
-			// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
-			for(Subspecies subspecies : Subspecies.values()) {
-				switch(subspecies) {
-					case ALLIGATOR_MORPH:
-					case ANGEL:
-					case BAT_MORPH:
-					case CAT_MORPH:
-					case CAT_MORPH_CARACAL:
-					case CAT_MORPH_CHEETAH:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LION:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_TIGER:
-					case COW_MORPH:
-					case DEMON:
-					case DOG_MORPH:
-					case DOG_MORPH_BORDER_COLLIE:
-					case DOG_MORPH_DOBERMANN:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case IMP:
-					case IMP_ALPHA:
-					case HARPY:
-					case HARPY_BALD_EAGLE:
-					case HARPY_RAVEN:
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-					case HUMAN:
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-					case RAT_MORPH:
-					case REINDEER_MORPH:
-					case SQUIRREL_MORPH:
-					case WOLF_MORPH:
-						if(startingGender.isFeminine()) {
-							for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-								if(entry.getValue() != FurryPreference.HUMAN) {
-									slimeSubspecies.add(subspecies);
+			if(!linkedCharacter.isUnique()) {
+				List<Subspecies> slimeSubspecies = new ArrayList<>();
+				// I do it like this so that when I add a new Subspecies, the IDE tells me there's one to account for here.
+				for(Subspecies subspecies : Subspecies.values()) {
+					switch(subspecies) {
+						case ALLIGATOR_MORPH:
+						case ANGEL:
+						case BAT_MORPH:
+						case CAT_MORPH:
+						case CAT_MORPH_CARACAL:
+						case CAT_MORPH_CHEETAH:
+						case CAT_MORPH_LEOPARD:
+						case CAT_MORPH_LEOPARD_SNOW:
+						case CAT_MORPH_LION:
+						case CAT_MORPH_LYNX:
+						case CAT_MORPH_TIGER:
+						case COW_MORPH:
+						case DEMON:
+						case DOG_MORPH:
+						case DOG_MORPH_BORDER_COLLIE:
+						case DOG_MORPH_DOBERMANN:
+						case FOX_MORPH:
+						case FOX_MORPH_FENNEC:
+						case IMP:
+						case IMP_ALPHA:
+						case HARPY:
+						case HARPY_BALD_EAGLE:
+						case HARPY_RAVEN:
+						case HORSE_MORPH:
+						case HORSE_MORPH_ZEBRA:
+						case HUMAN:
+						case RABBIT_MORPH:
+						case RABBIT_MORPH_LOP:
+						case RAT_MORPH:
+						case REINDEER_MORPH:
+						case SQUIRREL_MORPH:
+						case WOLF_MORPH:
+							if(startingGender.isFeminine()) {
+								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+									if(entry.getValue() != FurryPreference.HUMAN) {
+										slimeSubspecies.add(subspecies);
+									}
+								}
+							} else {
+								for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+									if(entry.getValue() != FurryPreference.HUMAN) {
+										slimeSubspecies.add(subspecies);
+									}
 								}
 							}
-						} else {
-							for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-								if(entry.getValue() != FurryPreference.HUMAN) {
-									slimeSubspecies.add(subspecies);
-								}
-							}
-						}
-						break;
-					// Special races that slimes do not spawn as:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case SLIME:
-						break;
+							break;
+						// Special races that slimes do not spawn as:
+						case ELEMENTAL_AIR:
+						case ELEMENTAL_ARCANE:
+						case ELEMENTAL_EARTH:
+						case ELEMENTAL_FIRE:
+						case ELEMENTAL_WATER:
+						case FOX_ASCENDANT:
+						case FOX_ASCENDANT_FENNEC:
+						case SLIME:
+							break;
+					}
 				}
-			}
-			
-			species = Util.randomItemFrom(slimeSubspecies);
-			
-			if(startingGender.isFeminine()) {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
 				
-			} else {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), startingGender, species);
+				species = Util.randomItemFrom(slimeSubspecies);
+				
+				if(startingGender.isFeminine()) {
+					stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
+					
+				} else {
+					stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), startingGender, species);
+				}
+				
+				startingBodyType = RacialBody.valueOfRace(species.getRace());
 			}
-			
-			startingBodyType = RacialBody.valueOfRace(species.getRace());
-			
 		}
 		
 		Body body = new Body.BodyBuilder(
@@ -1251,10 +1252,10 @@ public class CharacterUtils {
 		// Body:
 		int height = character.getHeightValue()-15 + Util.random.nextInt(30) +1;
 		if(character.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
-			character.setHeight(Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue(), Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height)));
+			character.setHeight(Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height)));
 			
 		} else if(character.getHeight()==Height.NEGATIVE_ONE_TINY) {
-			character.setHeight(Math.min(Height.NEGATIVE_ONE_TINY.getMaximumValue(), Math.max(Height.NEGATIVE_ONE_TINY.getMinimumValue(), height)));
+			character.setHeight(Math.min(Height.NEGATIVE_ONE_TINY.getMaximumValue()-1, Math.max(Height.NEGATIVE_ONE_TINY.getMinimumValue(), height)));
 			
 		} else {
 			character.setHeight(Math.max(Height.ZERO_TINY.getMinimumValue(), height));

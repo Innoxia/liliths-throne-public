@@ -288,8 +288,4 @@ public class Ashley extends NPC {
 		return true;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

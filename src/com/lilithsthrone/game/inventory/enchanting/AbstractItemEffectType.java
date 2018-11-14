@@ -2831,8 +2831,9 @@ public abstract class AbstractItemEffectType {
 						return getHornTypeRacialEffectUtil(race, target, 4);
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
+						HornType hornType = RacialBody.valueOfRace(race).getRandomHornType(false);
+						return new RacialEffectUtil(hornType==HornType.NONE?"Removes horns.":Util.capitaliseSentence(race.getName())+" horn transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setHornType(hornType); } };
 				}
 				
 			case TF_LEGS:
@@ -3202,8 +3203,9 @@ public abstract class AbstractItemEffectType {
 							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(4)); } };
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" tail transformation.", 0, "") {
-							@Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getRandomTailType(false)); } };
+						TailType tailType = RacialBody.valueOfRace(race).getRandomTailType(false);
+						return new RacialEffectUtil(tailType==TailType.NONE?"Removes tail.":Util.capitaliseSentence(race.getName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(tailType); } };
 				}
 				
 			case TF_VAGINA:
@@ -3562,8 +3564,9 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in wing size.", smallChangeMajorBoost, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
 						}
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") {
-							@Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getRandomWingType(false)); } };
+						WingType wingType = RacialBody.valueOfRace(race).getRandomWingType(false);
+						return new RacialEffectUtil(wingType==WingType.NONE?"Removes wings.":Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setWingType(wingType); } };
 				}
 				
 			case TF_CUM:

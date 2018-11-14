@@ -230,10 +230,6 @@ public class Cultist extends NPC {
 	}
 
 	@Override
-	public void endSex() {
-	}
-
-	@Override
 	public boolean isClothingStealable() {
 		return true;
 	}

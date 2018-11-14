@@ -45,6 +45,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -293,7 +294,7 @@ public class FortressDemonLeader extends NPC {
 	public Attack attackType() {
 		
 		// If can cast spells, then do that:
-		if(!getSpellsAbleToCast().isEmpty() && Math.random()<0.75f) {
+		if(!getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty() && Math.random()<0.75f) {
 			return Attack.SPELL;
 		}
 

@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.sex;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.0
@@ -27,7 +28,7 @@ public class SexActionInteractions {
 		}
 
 		if(availableCumTargets==null) {
-			this.availableCumTargets = new ArrayList<>();
+			this.availableCumTargets = Util.newArrayListOfValues(OrgasmCumTarget.FLOOR);
 		} else {
 			this.availableCumTargets = availableCumTargets;
 		}

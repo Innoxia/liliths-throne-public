@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -2618,10 +2619,13 @@ public class OccupantManagementDialogue {
 					
 				}
 			}
-			UtilText.nodeContentSB.append("</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
-					+ "</div>");
+			UtilText.nodeContentSB.append("</div>");
+			
+			if(!(characterSelected() instanceof Elemental)) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
+							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
+						+ "</div>");
+			}
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterSelected()));
 			
@@ -2638,8 +2642,6 @@ public class OccupantManagementDialogue {
 					@Override
 					public void effects() {
 						characterSelected().resetPerksMap();
-						characterSelected().setPerkPoints(characterSelected().getPerkPointsAtLevel(characterSelected().getLevel()));
-						characterSelected().clearTraits();
 					}
 				};
 			}

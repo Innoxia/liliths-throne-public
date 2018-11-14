@@ -73,6 +73,7 @@ public class Generation extends Task<Boolean> {
 						grid[i][j] = new Cell(worldType, new Vector2i(i, j));
 						if(worldType.isRevealedOnStart()) {
 							grid[i][j].setDiscovered(true);
+							grid[i][j].setTravelledTo(true);
 						}
 					}
 				}
@@ -125,6 +126,7 @@ public class Generation extends Task<Boolean> {
 					grid[i][j] = new Cell(worldType, new Vector2i(i, j));
 					if(worldType.isRevealedOnStart()) {
 						grid[i][j].setDiscovered(true);
+						grid[i][j].setTravelledTo(true);
 					}
 				}
 			}

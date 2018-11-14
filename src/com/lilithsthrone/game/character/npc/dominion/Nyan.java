@@ -491,10 +491,6 @@ public class Nyan extends NPC {
 	public boolean willBuy(AbstractCoreItem item) {
 		return item instanceof AbstractClothing;
 	}
-
-	@Override
-	public void endSex() {
-	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {
 		return commonFemaleClothing;

@@ -8,6 +8,8 @@ package com.lilithsthrone.game.dialogue.responses;
 public enum ResponseTag {
 
 	PREFER_ORAL,
+	PREFER_MISSIONARY,
+	PREFER_DOGGY,
 	
 	START_PACE_PLAYER_SUB_RESIST,
 	START_PACE_PLAYER_SUB_EAGER,
