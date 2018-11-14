@@ -437,6 +437,8 @@ public class MainControllerInitMethod {
 				MainController.setInventoryPageLeft(i);
 				MainController.setInventoryPageRight(i);
 			}
+			// Quest inventory:
+			MainController.setInventoryPageLeft(5);
 			
 			
 			// Player:
@@ -1364,7 +1366,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
 							}
@@ -1393,7 +1395,7 @@ public class MainControllerInitMethod {
 									public void effects() {
 										for(String id: Main.game.getPlayer().getSlavesOwned()) {
 											try {
-												Main.game.getNPCById(id).setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+												Main.game.getNPCById(id).setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 											} catch (Exception e) {
 												System.err.println("Main.game.getNPCById("+id+") returning null in method: initMainControllerListeners(), instance 1.");
 											}
@@ -1990,7 +1992,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										Main.game.getActiveNPC().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
 							}
@@ -2821,6 +2823,7 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 				}
+				
 				// Face:
 				
 				for(EyeShape eyeShape : EyeShape.values()) {
@@ -2876,6 +2879,30 @@ public class MainControllerInitMethod {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
+				}
+				
+				// Arms:
+
+				for(int i=1; i <= Arm.MAXIMUM_ROWS; i++) {
+					MainController.setArmCountListener(i);
+				}
+				
+				// Eyes:
+
+				for(int i=1; i <= Eye.MAXIMUM_PAIRS; i++) {
+					MainController.setEyeCountListener(i);
+				}
+
+				// Horns:
+
+				for(int i=1; i <= Horn.MAXIMUM_ROWS; i++) {
+					MainController.setHornCountListener(i);
+				}
+
+				// Tails:
+
+				for(int i=1; i <= Tail.MAXIMUM_COUNT; i++) {
+					MainController.setTailCountListener(i);
 				}
 				
 				// Ass:
@@ -2958,6 +2985,35 @@ public class MainControllerInitMethod {
 				
 				
 				// Breasts:
+				
+				id = "BREAST_SIZE_INCREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_INCREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_DECREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(-1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "BREAST_SIZE_DECREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementBreastSize(-5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 				
 				for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
 					MainController.setBreastCountListener(i);
@@ -4479,7 +4535,7 @@ public class MainControllerInitMethod {
 			id = "forced_tf_limit_human";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFPreference = FurryPreference.HUMAN;
+					Main.getProperties().setForcedTFPreference(FurryPreference.HUMAN);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4493,7 +4549,7 @@ public class MainControllerInitMethod {
 			id = "forced_tf_limit_minimum";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFPreference = FurryPreference.MINIMUM;
+					Main.getProperties().setForcedTFPreference(FurryPreference.MINIMUM);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4507,7 +4563,7 @@ public class MainControllerInitMethod {
 			id = "forced_tf_limit_reduced";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFPreference = FurryPreference.REDUCED;
+					Main.getProperties().setForcedTFPreference(FurryPreference.REDUCED);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4521,7 +4577,7 @@ public class MainControllerInitMethod {
 			id = "forced_tf_limit_normal";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFPreference = FurryPreference.NORMAL;
+					Main.getProperties().setForcedTFPreference(FurryPreference.NORMAL);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4535,7 +4591,7 @@ public class MainControllerInitMethod {
 			id = "forced_tf_limit_maximum";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFPreference = FurryPreference.MAXIMUM;
+					Main.getProperties().setForcedTFPreference(FurryPreference.MAXIMUM);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4933,7 +4989,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFTendency = ForcedTFTendency.NEUTRAL;
+					Main.getProperties().setForcedTFTendency(ForcedTFTendency.NEUTRAL);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4950,7 +5006,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFTendency = ForcedTFTendency.FEMININE;
+					Main.getProperties().setForcedTFTendency(ForcedTFTendency.FEMININE);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4965,7 +5021,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFTendency = ForcedTFTendency.FEMININE_HEAVY;
+					Main.getProperties().setForcedTFTendency(ForcedTFTendency.FEMININE_HEAVY);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4980,7 +5036,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFTendency = ForcedTFTendency.MASCULINE;
+					Main.getProperties().setForcedTFTendency(ForcedTFTendency.MASCULINE);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -4995,7 +5051,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTFTendency = ForcedTFTendency.MASCULINE_HEAVY;
+					Main.getProperties().setForcedTFTendency(ForcedTFTendency.MASCULINE_HEAVY);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -5011,7 +5067,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedFetishTendency = ForcedFetishTendency.NEUTRAL;
+					Main.getProperties().setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -5028,7 +5084,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedFetishTendency = ForcedFetishTendency.BOTTOM;
+					Main.getProperties().setForcedFetishTendency(ForcedFetishTendency.BOTTOM);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -5043,7 +5099,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedFetishTendency = ForcedFetishTendency.BOTTOM_HEAVY;
+					Main.getProperties().setForcedFetishTendency(ForcedFetishTendency.BOTTOM_HEAVY);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -5058,7 +5114,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedFetishTendency = ForcedFetishTendency.TOP;
+					Main.getProperties().setForcedFetishTendency(ForcedFetishTendency.TOP);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -5073,7 +5129,7 @@ public class MainControllerInitMethod {
 			id = "FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedFetishTendency = ForcedFetishTendency.TOP_HEAVY;
+					Main.getProperties().setForcedFetishTendency(ForcedFetishTendency.TOP_HEAVY);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);

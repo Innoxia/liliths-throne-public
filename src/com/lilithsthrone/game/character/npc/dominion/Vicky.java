@@ -126,11 +126,11 @@ public class Vicky extends NPC {
 				case STONE_SHELL:
 				case PROTECTIVE_GUSTS:
 				case CLOAK_OF_FLAMES:
+				case SOOTHING_WATERS:
 					availableSpellBooks.add(ItemType.getSpellBookType(s));
 					break;
 				case CLEANSE:
 				case STEAL:
-				case SOOTHING_WATERS: // Special quest spells
 					break;
 					
 				// Tier 4:
@@ -178,6 +178,9 @@ public class Vicky extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
+			setStartingBody(false);
+		}
 	}
 	
 	@Override
@@ -223,7 +226,7 @@ public class Vicky extends NPC {
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -281,7 +284,7 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		
 		this.unequipAllClothingIntoVoid(true);
 
@@ -314,6 +317,20 @@ public class Vicky extends NPC {
 				for(int i=0; i<1+Util.random.nextInt(3); i++){
 					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
 				}
+			}
+		}
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				this.addItem(AbstractItemType.generateItem(item), false);
+			}
+		}
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			try {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
+				} 
+			} catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
 		

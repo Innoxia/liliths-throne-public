@@ -1194,8 +1194,8 @@ public class PenisNipple {
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"

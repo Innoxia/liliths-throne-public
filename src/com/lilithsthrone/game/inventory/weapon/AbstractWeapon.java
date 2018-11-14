@@ -317,6 +317,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
 
+		if (getWeaponType().getClothingSet() != null) {
+			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"
+					+ getWeaponType().getClothingSet().getName() + "</b> set." + "</p>");
+		}
+		
 		return descriptionSB.toString();
 	}
 
@@ -345,6 +350,14 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		if (attributeModifiers != null) {
 			for (Integer i : attributeModifiers.values()) {
 				attributeBonuses += i * 5;
+			}
+		}
+
+		if (getWeaponType().getClothingSet() != null) {
+			if (getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
+				for (Float f : getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
+					attributeBonuses += f * 15;
+				}
 			}
 		}
 		
@@ -433,7 +446,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
 				} else {

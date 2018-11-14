@@ -627,6 +627,9 @@ position:relative;
 	min-width:100px;
 	margin:4px;
 	padding:4px;
+	border:1px;
+	border-style:solid;
+	border-color:#ccc;
 	
 	background: -webkit-gradient(
 		linear, left top, left bottom,
@@ -1023,7 +1026,7 @@ position:relative;
 	line-height:14px;
 	position:absolute;
 	text-align: right;
-	left:2px;
+	right:2px;
 	bottom:0;
 	pointer-events: none;
 	text-shadow: 2px 0 0 #fcfcfc, -2px 0 0 #fcfcfc, 0 2px 0 #fcfcfc, 0 -2px 0 #fcfcfc, 1px 1px #fcfcfc, -1px -1px 0 #fcfcfc, 1px -1px 0 #fcfcfc, -1px 1px 0 #fcfcfc;
@@ -1559,6 +1562,18 @@ position:relative;
 }
 .legendary:hover{
 	background-color:#F7EAC5;
+}
+.unique {
+	background-color:#F4C9AE;
+}
+.unique:hover{
+	background-color:#FBE7DB;
+}
+.quest {
+	background-color:#BEE4E4;
+}
+.quest:hover{
+	background-color:#E0F1F1;
 }
 .jinxed {
 	background-color:#E3B5B5;

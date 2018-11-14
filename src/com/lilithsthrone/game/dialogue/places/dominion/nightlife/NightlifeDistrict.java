@@ -467,7 +467,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(Main.game.getJules(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								null,
-								AFTER_JULES_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_START_BLOWJOB")) {
+								null, AFTER_JULES_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_START_BLOWJOB")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suckedJulesCock, true);
@@ -1245,7 +1245,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_DOM", getClubbersPresent()));
+								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_DOM", getClubbersPresent()));
 						
 					} else {
 						return new Response("Sex (dom)",
@@ -1271,7 +1271,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_SUB", getClubbersPresent()));
+								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_SUB", getClubbersPresent()));
 						
 					} else {
 						return new Response("Sex (sub)",
@@ -2594,7 +2594,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
+								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 					}
 					
 				} else if(index==7) {
@@ -2607,7 +2607,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(Main.game.getKalahari(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
+								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
 					}
 					
 				}
@@ -2963,7 +2963,7 @@ public class NightlifeDistrict {
 									Util.newHashMapOfValues(new Value<>(Main.game.getKruger(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 							null,
-							WATERING_HOLE_VIP_KRUGER_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"));
+							null, WATERING_HOLE_VIP_KRUGER_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"));
 				}
 				
 			} else if(index==0) {
@@ -3334,7 +3334,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								WATERING_HOLE_TOILETS_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_SEX", getClubbersPresent()));
+								null, WATERING_HOLE_TOILETS_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_SEX", getClubbersPresent()));
 						
 					} else {
 						return new Response("Stall sex",
@@ -3443,7 +3443,7 @@ public class NightlifeDistrict {
 								Util.newHashMapOfValues(new Value<>(characters.get(0), SexPositionSlot.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE))),
 						null,
-						WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING", characters));
+						null, WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING", characters));
 			}
 			return null;
 		}
@@ -3514,7 +3514,7 @@ public class NightlifeDistrict {
 										new Value<>(characters.get(0), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_ONE),
 										new Value<>(characters.get(1), SexPositionSlot.GLORY_HOLE_RECEIVING_ORAL_TWO))),
 						null,
-						WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING", characters));
+						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING", characters));
 				
 			} else if(index==2) {
 				List<GameCharacter> characters = getGloryHoleCharacters();
@@ -3532,7 +3532,7 @@ public class NightlifeDistrict {
 							}
 						},
 						null,
-						WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
+						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
 			}
 			return null;
 		}
@@ -4628,7 +4628,7 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START", getClubbersPresent()));
+								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START", getClubbersPresent()));
 						
 					} else if(index==4) {
 						return new Response("Refuse (gentle)",
@@ -4693,8 +4693,8 @@ public class NightlifeDistrict {
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START", getClubbersPresent()));
+								null,
+								WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START", getClubbersPresent()));
 						
 					} else if(index==4) {
 						return new Response("Refuse (gentle)",
@@ -4794,12 +4794,17 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("Your Room", "", true) {//TODO Your Room
+	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
 			return 30;
+		}
+
+		@Override
+		public String getLabel() {
+			return UtilText.parse(NightlifeDistrict.getClubbersPresent(), "[npc.NamePos] Apartment");
 		}
 
 		@Override
@@ -4816,29 +4821,31 @@ public class NightlifeDistrict {
 								Util.newHashMapOfValues(new Value<>(NightlifeDistrict.getClubbersPresent().get(0), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX", NightlifeDistrict.getClubbersPresent()));
+						null,
+						WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX", NightlifeDistrict.getClubbersPresent()));
 				
 			} else if(index==4) {
 				return new Response("Refuse",
-						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you dno't really want to have sex in a toilet..."
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you don't really want to go back to [npc.her] place to have sex..."
 								+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
 						WATERING_HOLE_TOILETS) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_GENTLE", NightlifeDistrict.getClubbersPresent()));
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole",
+								"WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
 					}
 				};
 				
 			} else if(index==5) {
 				return new Response("Angrily refuse",
-						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "The's absolutely no way you're having sex in a toilet!"
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "There's absolutely no way you're going back to [npc.namePos] place to have sex!"
 								+ "</br>[style.italicsBad(Removes this character from the game.)]"),
 						WATERING_HOLE_TOILETS) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_RUDE", NightlifeDistrict.getClubbersPresent()));
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole",
+								"WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND_RUDE", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
 					}
 				};
@@ -4849,12 +4856,17 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNodeOld("Your Room", "", true) {
+	public static final DialogueNodeOld WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public int getMinutesPassed(){
 			return 15;
+		}
+
+		@Override
+		public String getLabel() {
+			return UtilText.parse(NightlifeDistrict.getClubbersPresent(), "[npc.NamePos] Apartment");
 		}
 		
 		@Override

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -23,8 +24,11 @@ public enum PerkManager {
 	private StringBuilder treeSB = new StringBuilder();
 	private StringBuilder lineSB = new StringBuilder();
 	private StringBuilder entrySB = new StringBuilder();
+	
 	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, Perk>>>> perkTree;
 	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, Perk>>>> NPCPerkTree;
+	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, Perk>>>> elementalPerkTree;
+	
 	public static final int ROWS = 20;
 	
 	private PerkManager() {
@@ -93,6 +97,7 @@ public enum PerkManager {
 		arcane2 = addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.SPELL_DAMAGE_5, arcane6);
 		
 		arcane1 = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.ARCANE_5, arcane3, arcane2);
+		arcane2 = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CHUUNI, arcane1);
 		
 		// Elementalist tree:
 		
@@ -243,6 +248,166 @@ public enum PerkManager {
 		arcane3 = addPerkEntry(NPCPerkTree, PerkCategory.ARCANE, 11, Perk.ARCANE_5, arcane2);
 		
 		
+
+		// Elemental version of the perk tree:
+		elementalPerkTree = new HashMap<>();
+		
+		// Initialise NPCPerkTree:
+		for(int i = 0; i<ROWS; i++) {
+			elementalPerkTree.put(i, new HashMap<>());
+			for(PerkCategory category : PerkCategory.values()) {
+				elementalPerkTree.get(i).put(category, new ArrayList<>());
+			}
+		}
+
+		// Earth:
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 0, Perk.ELEMENTAL_EARTH_SPELL_1);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 1, Perk.ELEMENTAL_EARTH_SPELL_1_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 2, Perk.ELEMENTAL_EARTH_SPELL_1_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 3, Perk.ELEMENTAL_EARTH_SPELL_1_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 1, Perk.ELEMENTAL_EARTH_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 2, Perk.ELEMENTAL_EARTH_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 3, Perk.ELEMENTAL_EARTH_BOOST_MAJOR, physical1);
+		
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 4, Perk.ELEMENTAL_EARTH_SPELL_2, physical2);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 5, Perk.ELEMENTAL_EARTH_SPELL_2_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 6, Perk.ELEMENTAL_EARTH_SPELL_2_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 7, Perk.ELEMENTAL_EARTH_SPELL_2_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 5, Perk.ELEMENTAL_EARTH_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 6, Perk.ELEMENTAL_EARTH_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 7, Perk.ELEMENTAL_EARTH_BOOST_MAJOR, physical1);
+		
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 8, Perk.ELEMENTAL_EARTH_SPELL_3, physical2);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 9, Perk.ELEMENTAL_EARTH_SPELL_3_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 10, Perk.ELEMENTAL_EARTH_SPELL_3_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 11, Perk.ELEMENTAL_EARTH_SPELL_3_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 9, Perk.ELEMENTAL_EARTH_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 10, Perk.ELEMENTAL_EARTH_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 11, Perk.ELEMENTAL_EARTH_BOOST_MAJOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 12, Perk.ELEMENTAL_EARTH_BOOST_ULTIMATE, physical2);
+
+		// Water:
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 0, Perk.ELEMENTAL_WATER_SPELL_1);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 1, Perk.ELEMENTAL_WATER_SPELL_1_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 2, Perk.ELEMENTAL_WATER_SPELL_1_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 3, Perk.ELEMENTAL_WATER_SPELL_1_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 1, Perk.ELEMENTAL_WATER_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 2, Perk.ELEMENTAL_WATER_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 3, Perk.ELEMENTAL_WATER_BOOST_MAJOR, physical1);
+		
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 4, Perk.ELEMENTAL_WATER_SPELL_2, physical2);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 5, Perk.ELEMENTAL_WATER_SPELL_2_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 6, Perk.ELEMENTAL_WATER_SPELL_2_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 7, Perk.ELEMENTAL_WATER_SPELL_2_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 5, Perk.ELEMENTAL_WATER_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 6, Perk.ELEMENTAL_WATER_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 7, Perk.ELEMENTAL_WATER_BOOST_MAJOR, physical1);
+		
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 8, Perk.ELEMENTAL_WATER_SPELL_3, physical2);
+
+		physical3 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 9, Perk.ELEMENTAL_WATER_SPELL_3_1, physical1);
+		physical4 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 10, Perk.ELEMENTAL_WATER_SPELL_3_2, physical3);
+		addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 11, Perk.ELEMENTAL_WATER_SPELL_3_3, physical4);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 9, Perk.ELEMENTAL_WATER_BOOST_MINOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 10, Perk.ELEMENTAL_WATER_BOOST, physical2);
+		physical2 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 11, Perk.ELEMENTAL_WATER_BOOST_MAJOR, physical1);
+		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 12, Perk.ELEMENTAL_WATER_BOOST_ULTIMATE, physical2);
+		
+		// Arcane:
+		addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 0, Perk.ELEMENTAL_CORE);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 0, Perk.ELEMENTAL_ARCANE_SPELL_1);
+
+		both3 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 1, Perk.ELEMENTAL_ARCANE_SPELL_1_1, both1);
+		both4 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 2, Perk.ELEMENTAL_ARCANE_SPELL_1_2, both3);
+		addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 3, Perk.ELEMENTAL_ARCANE_SPELL_1_3, both4);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 1, Perk.ELEMENTAL_ARCANE_BOOST_MINOR, both1);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 2, Perk.ELEMENTAL_ARCANE_BOOST, both2);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 3, Perk.ELEMENTAL_ARCANE_BOOST_MAJOR, both1);
+		
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 4, Perk.ELEMENTAL_ARCANE_SPELL_2, both2);
+
+		both3 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 5, Perk.ELEMENTAL_ARCANE_SPELL_2_1, both1);
+		both4 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 6, Perk.ELEMENTAL_ARCANE_SPELL_2_2, both3);
+		addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 7, Perk.ELEMENTAL_ARCANE_SPELL_2_3, both4);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 5, Perk.ELEMENTAL_ARCANE_BOOST_MINOR, both1);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 6, Perk.ELEMENTAL_ARCANE_BOOST, both2);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 7, Perk.ELEMENTAL_ARCANE_BOOST_MAJOR, both1);
+		
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 8, Perk.ELEMENTAL_ARCANE_SPELL_3, both2);
+
+		both3 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 9, Perk.ELEMENTAL_ARCANE_SPELL_3_1, both1);
+		both4 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 10, Perk.ELEMENTAL_ARCANE_SPELL_3_2, both3);
+		addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 11, Perk.ELEMENTAL_ARCANE_SPELL_3_3, both4);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 9, Perk.ELEMENTAL_ARCANE_BOOST_MINOR, both1);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 10, Perk.ELEMENTAL_ARCANE_BOOST, both2);
+		both2 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 11, Perk.ELEMENTAL_ARCANE_BOOST_MAJOR, both1);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 12, Perk.ELEMENTAL_ARCANE_BOOST_ULTIMATE, both2);
+		addPerkEntry(elementalPerkTree, PerkCategory.BOTH, 0, Perk.ELEMENTAL_CORRUPTION);
+
+
+		// Fire:
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 0, Perk.ELEMENTAL_FIRE_SPELL_1);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 1, Perk.ELEMENTAL_FIRE_SPELL_1_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 2, Perk.ELEMENTAL_FIRE_SPELL_1_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 3, Perk.ELEMENTAL_FIRE_SPELL_1_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 1, Perk.ELEMENTAL_FIRE_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 2, Perk.ELEMENTAL_FIRE_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 3, Perk.ELEMENTAL_FIRE_BOOST_MAJOR, arcane1);
+		
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 4, Perk.ELEMENTAL_FIRE_SPELL_2, arcane2);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_FIRE_SPELL_2_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 6, Perk.ELEMENTAL_FIRE_SPELL_2_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 7, Perk.ELEMENTAL_FIRE_SPELL_2_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_FIRE_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 6, Perk.ELEMENTAL_FIRE_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 7, Perk.ELEMENTAL_FIRE_BOOST_MAJOR, arcane1);
+		
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 8, Perk.ELEMENTAL_FIRE_SPELL_3, arcane2);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 9, Perk.ELEMENTAL_FIRE_SPELL_3_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 10, Perk.ELEMENTAL_FIRE_SPELL_3_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 11, Perk.ELEMENTAL_FIRE_SPELL_3_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 9, Perk.ELEMENTAL_FIRE_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 10, Perk.ELEMENTAL_FIRE_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 11, Perk.ELEMENTAL_FIRE_BOOST_MAJOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 12, Perk.ELEMENTAL_FIRE_BOOST_ULTIMATE, arcane2);
+		
+		// Air:
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 0, Perk.ELEMENTAL_AIR_SPELL_1);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 1, Perk.ELEMENTAL_AIR_SPELL_1_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 2, Perk.ELEMENTAL_AIR_SPELL_1_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 3, Perk.ELEMENTAL_AIR_SPELL_1_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 1, Perk.ELEMENTAL_AIR_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 2, Perk.ELEMENTAL_AIR_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 3, Perk.ELEMENTAL_AIR_BOOST_MAJOR, arcane1);
+		
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 4, Perk.ELEMENTAL_AIR_SPELL_2, arcane2);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_AIR_SPELL_2_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 6, Perk.ELEMENTAL_AIR_SPELL_2_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 7, Perk.ELEMENTAL_AIR_SPELL_2_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_AIR_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 6, Perk.ELEMENTAL_AIR_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 7, Perk.ELEMENTAL_AIR_BOOST_MAJOR, arcane1);
+		
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 8, Perk.ELEMENTAL_AIR_SPELL_3, arcane2);
+
+		arcane3 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 9, Perk.ELEMENTAL_AIR_SPELL_3_1, arcane1);
+		arcane4 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 10, Perk.ELEMENTAL_AIR_SPELL_3_2, arcane3);
+		addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 11, Perk.ELEMENTAL_AIR_SPELL_3_3, arcane4);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 9, Perk.ELEMENTAL_AIR_BOOST_MINOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 10, Perk.ELEMENTAL_AIR_BOOST, arcane2);
+		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 11, Perk.ELEMENTAL_AIR_BOOST_MAJOR, arcane1);
+		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 12, Perk.ELEMENTAL_AIR_BOOST_ULTIMATE, arcane2);
+		
 	}
 	
 	@SafeVarargs
@@ -257,9 +422,24 @@ public enum PerkManager {
 		return entry;
 	}
 	
+	public boolean isPerkAnywhereInAvailableTree(Perk perk, GameCharacter character) {
+		for(Map<PerkCategory, List<TreeEntry<PerkCategory, Perk>>> entry : getPerkTree(character).values()) {
+			for(List<TreeEntry<PerkCategory, Perk>> treeListEntry : entry.values()) {
+				for(TreeEntry<PerkCategory, Perk> treeEntry : treeListEntry) {
+					if(treeEntry.getEntry()==perk) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, Perk>>>> getPerkTree(GameCharacter character) {
 		if(character.isPlayer()) {
 			return perkTree;
+		} else if(character instanceof Elemental) {
+			return elementalPerkTree;
 		} else {
 			return NPCPerkTree;
 		}
@@ -269,6 +449,15 @@ public enum PerkManager {
 		if(character.isPlayer()) {
 			character.addPerk(Perk.PHYSICAL_BASE);
 			character.addPerk(Perk.ARCANE_BASE);	
+			
+		} else if(character instanceof Elemental) {
+			character.addPerk(Perk.ELEMENTAL_CORE);
+			character.addPerk(Perk.ELEMENTAL_CORRUPTION);
+			character.addPerk(Perk.ELEMENTAL_EARTH_SPELL_1);
+			character.addPerk(Perk.ELEMENTAL_FIRE_SPELL_1);
+			character.addPerk(Perk.ELEMENTAL_ARCANE_SPELL_1);
+			character.addPerk(Perk.ELEMENTAL_WATER_SPELL_1);
+			character.addPerk(Perk.ELEMENTAL_AIR_SPELL_1);
 			
 		} else {
 			character.addPerk(Perk.PHYSICAL_BASE);
@@ -340,12 +529,16 @@ public enum PerkManager {
 		
 		switch(entryCategory) {
 			case ARCANE:
+			case ARCANE_AIR:
+			case ARCANE_FIRE:
 				entryX = 300;
 				break;
 			case BOTH:
 				entryX = 200;
 				break;
 			case PHYSICAL:
+			case PHYSICAL_WATER:
+			case PHYSICAL_EARTH:
 				entryX = 100;
 				break;
 			case JOB:
@@ -353,12 +546,16 @@ public enum PerkManager {
 		}
 		switch(siblingCategory) {
 			case ARCANE:
+			case ARCANE_AIR:
+			case ARCANE_FIRE:
 				siblingX = 300;
 				break;
 			case BOTH:
 				siblingX = 200;
 				break;
 			case PHYSICAL:
+			case PHYSICAL_WATER:
+			case PHYSICAL_EARTH:
 				siblingX = 100;
 				break;
 			case JOB:
@@ -402,7 +599,7 @@ public enum PerkManager {
 							(isPerkOwned(character, perkEntry)
 									?character.hasTraitActivated(perkEntry.getEntry())
 										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
-										:"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
+										:"border-color:"+perkEntry.getEntry().getPerkCategory().getColour().toWebHexString()+";"
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getEntry()+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
 				+ (disabled
@@ -474,7 +671,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && parentOwned
-				?entry.getCategory().getColour()
+				?entry.getEntry().getPerkCategory().getColour()
 				:isPerkAvailable(character, entry)
 					?Colour.BASE_GREY
 					:Colour.TEXT_GREY_DARK;
@@ -493,7 +690,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && childOwned
-				?entry.getCategory().getColour()
+				?entry.getEntry().getPerkCategory().getColour()
 				:childAvailable
 					?Colour.BASE_GREY
 					:Colour.TEXT_GREY_DARK;
@@ -512,7 +709,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && siblingOwned
-				?entry.getCategory().getColour()
+				?entry.getEntry().getPerkCategory().getColour()
 				:siblingAvailable
 					?Colour.BASE_GREY
 					:Colour.TEXT_GREY_DARK;

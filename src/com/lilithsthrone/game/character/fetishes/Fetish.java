@@ -897,7 +897,7 @@ public enum Fetish {
 	
 	FETISH_KINK_RECEIVING(60,
 			"kink curious",
-			"being given new fetishes",
+			"gaining fetishes",
 //			"fetish_transformation_receiving",
 			"fetish_kink_receiving",
 			Fetish.BASE_EXPERIENCE_GAIN,
@@ -1124,6 +1124,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
+					"All dealt <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is increased by 5%",
 					"You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as "
 										+ "<span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>"),
 			null) {

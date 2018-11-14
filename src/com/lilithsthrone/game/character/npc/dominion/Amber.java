@@ -229,7 +229,7 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -389,7 +389,7 @@ public class Amber extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_VICTORY, "<p>"
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household are coming to help her, so you decide to take this opportunity to have a little fun with Amber."
 							+ " Stepping over to where she's leaning against the wall, you reach forwards and take hold of her arm, before pulling her hand out from under her dress."
 							+ " Denied the freedom to get herself off, Amber pitifully looks up into your eyes, and instead of fury, you see them filled with burning lust."
@@ -408,7 +408,7 @@ public class Amber extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_VICTORY, "<p>"
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "Despite her currently-defeated state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's leaning against the wall, and sigh,"
 							+ " [pc.speech('Miss Amber' was it? Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -517,7 +517,7 @@ public class Amber extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						null,
-						AFTER_SEX_DEFEAT, "<p>"
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
 							+ " The sharp slap of her hand across your right cheek causes you to let out a little cry, which is met by the maid's aggressive growl,"
 							+ " [amber.speech(Squeal all you want bitch, <i>you're mine now!</i>)]"

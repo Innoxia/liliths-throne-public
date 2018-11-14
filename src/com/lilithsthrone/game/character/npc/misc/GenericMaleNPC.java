@@ -47,7 +47,7 @@ public class GenericMaleNPC extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		// Not needed
 	}
 	
@@ -63,10 +63,6 @@ public class GenericMaleNPC extends NPC {
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
-	}
-
-	@Override
-	public void endSex() {
 	}
 	
 

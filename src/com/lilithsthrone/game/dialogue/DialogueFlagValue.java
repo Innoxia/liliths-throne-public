@@ -157,14 +157,27 @@ public enum DialogueFlagValue {
 	krugerIntroduced,
 	
 	// Submission:
+	impCitadelEncountered,
+	
+	impFortressAlphaGuardsPacified,
+	impFortressAlphaBossEncountered,
 	impFortressAlphaPacified,
-	impFortressDemonPacified,
-	impFortressFemalesPacified,
-	impFortressMalesPacified,
+	impFortressAlphaDefeated,
 
-	impFortressAlphaEnslaved,
-	impFortressDemonEnslaved,
-	impFortressFemalesEnslaved,
-	impFortressMalesEnslaved,
+	impFortressFemalesGuardsPacified,
+	impFortressFemalesBossEncountered,
+	impFortressFemalesPacified,
+	impFortressFemalesDefeated,
+
+	impFortressMalesGuardsPacified,
+	impFortressMalesBossEncountered,
+	impFortressMalesPacified,
+	impFortressMalesDefeated,
+
+
+	impFortressDemonGuardsPacified,
+	impFortressDemonBossEncountered,
+	impFortressDemonDefeated,
+	impFortressTransformedByGuards,
 	;
 }

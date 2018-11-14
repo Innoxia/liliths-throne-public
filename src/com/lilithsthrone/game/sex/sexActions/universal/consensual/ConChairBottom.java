@@ -1928,10 +1928,12 @@ public class ConChairBottom {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Spread legs";

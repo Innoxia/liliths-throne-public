@@ -136,7 +136,7 @@ public class ZaranixHomeFirstFloor {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX"));
+							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX"));
 					
 				} else if(index==2) {
 					return new ResponseSex("Submit",
@@ -147,7 +147,7 @@ public class ZaranixHomeFirstFloor {
 									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX_SUBMIT"));
+							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX_SUBMIT"));
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
@@ -371,7 +371,7 @@ public class ZaranixHomeFirstFloor {
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
-						AFTER_SEX_THANKING_ZARANIX, "<p>"
+						null, AFTER_SEX_THANKING_ZARANIX, "<p>"
 						+ "</p>");
 			} else {
 				return null;

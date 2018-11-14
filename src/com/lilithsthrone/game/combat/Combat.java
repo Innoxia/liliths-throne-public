@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -94,6 +95,7 @@ public enum Combat {
 		for(NPC enemy : enemies) {
 			Combat.addEnemy(enemy);
 		}
+		enemies.sort((enemy1, enemy2) -> enemy2.getLevel()-enemy1.getLevel());
 		
 		targetedCombatant = enemies.get(0);
 		activeNPC = enemies.get(0);
@@ -242,7 +244,9 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				postCombatStringBuilder.append(ally.incrementExperience(xp, true));
+				if(!(ally instanceof Elemental)) {
+					postCombatStringBuilder.append(ally.incrementExperience(xp, true));
+				}
 			}
 			
 			postCombatStringBuilder.append(Main.game.getPlayer().incrementExperience(xp, true));
@@ -252,10 +256,13 @@ public enum Combat {
 			}
 			
 			// Apply loot drop:
+			Map<AbstractCoreItem, Integer> lootedItemsMap = new HashMap<>();
+			
 			for(NPC enemy : enemies) {
 				if(enemy.getLootItems()!=null) {
 					for(AbstractCoreItem item : enemy.getLootItems()) {
-						postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</div>");
+						lootedItemsMap.putIfAbsent(item, 0);
+						lootedItemsMap.put(item, lootedItemsMap.get(item)+1);
 						if(item instanceof AbstractItem) {
 							Main.game.getPlayer().addItem((AbstractItem) item, false, true);
 						} else if(item instanceof AbstractWeapon) {
@@ -268,9 +275,18 @@ public enum Combat {
 				if(enemy.isElementalSummoned()) {
 					enemy.removeCompanion(enemy.getElemental());
 					enemy.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
+					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(),
+							"<div class='container-full-width' style='text-align:center;'>"
+									+ "[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!"
+							+ "</div>"));
 				}
 			}
+
+			List<String> itemsLooted = new ArrayList<>();
+			for(Entry<AbstractCoreItem, Integer> entry : lootedItemsMap.entrySet()) {
+				itemsLooted.add("<b style='color:"+entry.getKey().getRarity().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b>"+(entry.getValue()>1?" <b>(x"+entry.getValue()+")</b>":""));
+			}
+			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
 
 			// Apply essence drops:
 			boolean essenceDropFound = false;
@@ -339,7 +355,8 @@ public enum Combat {
 			
 			if(!essences.isEmpty()) {
 				for(Entry<TFEssence, Integer> entry : essences.entrySet()) {
-					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>");
+					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>"
+							+ "</br>");
 				}
 			}
 			
@@ -347,7 +364,9 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
+				if(!(enemy instanceof Elemental)) {
+					postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
+				}
 			}
 			
 			int money = Main.game.getPlayer().getMoney();
@@ -406,6 +425,14 @@ public enum Combat {
 	
 	private static boolean isCombatantDefeated(GameCharacter character) {
 		return (character.getHealth() <= 0 || (character.getLust()>=100 && character.isVulnerableToLustLoss()));
+	}
+	
+	public static boolean isOpponent(GameCharacter character, GameCharacter target) {
+		if(allies.contains(character)) {
+			return enemies.contains(target);
+		} else {
+			return allies.contains(character);
+		}
 	}
 	
 	private static boolean isAlliedPartyDefeated() {
@@ -562,50 +589,6 @@ public enum Combat {
 		}
 	};
 
-	public static final DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return getCombatLabel();
-		}
-
-		@Override
-		public String getHeaderContent() {
-			return npcStatus();
-		}
-
-		@Override
-		public String getContent() {
-			return combatContent;
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if (escaped) {
-					return new ResponseEffectsOnly("Escaped!", "You got away!"){
-						@Override
-						public void effects() {
-							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
-						}
-					};
-				} else {
-					return new Response("Escape failed!", "You failed to escape...", ENEMY_ATTACK);
-				}
-				
-			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public DialogueNodeType getDialogueNodeType() {
-			return DialogueNodeType.NORMAL;
-		}
-	};
-
 	public static final DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -663,6 +646,7 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
+							enemies.get(0).applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
@@ -1554,8 +1538,10 @@ public enum Combat {
 					break;
 					
 				case SPELL:
-					List<Spell> spellsAvailable = npc.getSpellsAbleToCast();
-					Spell spell = spellsAvailable.get(Util.random.nextInt(spellsAvailable.size()));
+					Map<Spell, Integer> spellsAvailableMap = npc.getWeightedSpellsAvailable(getTargetedCombatant(npc));
+					
+					Spell spell = Util.getRandomObjectFromWeightedMap(spellsAvailableMap);
+//					System.out.println(spellsAvailable.size());
 					attackSpell(npc, spell);
 					break;
 					

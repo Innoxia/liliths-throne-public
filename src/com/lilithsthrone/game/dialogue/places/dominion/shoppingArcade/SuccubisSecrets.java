@@ -219,7 +219,7 @@ public class SuccubisSecrets {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
 						null,
-						Kate.AFTER_SEX, "<p>"
+						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
 						+ " She glances up at you with big, innocent eyes, and begs, "
@@ -293,7 +293,7 @@ public class SuccubisSecrets {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
 						null,
-						Kate.AFTER_SEX, "<p>"
+						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
 						+ " She glances up at you with big, innocent eyes, and begs, "
@@ -661,7 +661,7 @@ public class SuccubisSecrets {
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getKate(), SexPositionSlot.CHAIR_BOTTOM))),
 					null,
-					Kate.AFTER_SEX_REPEATED, "<p>"
+					null, Kate.AFTER_SEX_REPEATED, "<p>"
 					+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
 					+ " Looking over at the sleeping demon next to you, the words of the caption 'Don't make me do it myself...' echo through your mind."
 					+ "</p>"

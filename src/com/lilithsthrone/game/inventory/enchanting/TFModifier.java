@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.99
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum TFModifier {
@@ -65,24 +65,36 @@ public enum TFModifier {
 			Rarity.LEGENDARY),
 	
 	// Attributes:
+
+	HEALTH_MAXIMUM(AttributeCategory.STRENGTH,
+			Attribute.HEALTH_MAXIMUM,
+			"Applies an effect related to the primary attribute 'Maximum Energy'.",
+			"modifier_circle_health",
+			Rarity.EPIC),
+
+	MANA_MAXIMUM(AttributeCategory.INTELLIGENCE,
+			Attribute.MANA_MAXIMUM,
+			"Applies an effect related to the primary attribute 'Maximum Aura'.",
+			"modifier_circle_mana",
+			Rarity.EPIC),
 	
 	STRENGTH(AttributeCategory.STRENGTH,
 			Attribute.MAJOR_PHYSIQUE,
 			"Applies an effect related to the primary attribute 'Physique'.",
 			"modifier_circle_strength",
-			Rarity.EPIC),
+			Rarity.LEGENDARY),
 	
 	INTELLIGENCE(AttributeCategory.INTELLIGENCE,
 			Attribute.MAJOR_ARCANE,
 			"Applies an effect related to the primary attribute 'Arcane'.",
 			"modifier_circle_intelligence",
-			Rarity.EPIC),
+			Rarity.LEGENDARY),
 	
 	CORRUPTION(AttributeCategory.CORRUPTION,
 			Attribute.MAJOR_CORRUPTION,
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
-			Rarity.EPIC),
+			Rarity.LEGENDARY),
 	
 	
 	FERTILITY(AttributeCategory.CORRUPTION,
@@ -100,20 +112,20 @@ public enum TFModifier {
 	SPELL_COST_MODIFIER(AttributeCategory.INTELLIGENCE,
 			Attribute.SPELL_COST_MODIFIER,
 			"Applies an effect related to the secondary attribute 'Spell cost reduction'.",
-			"modifier_circle",
+			"modifier_circle_spell_efficiency",
 			Rarity.RARE),
 	
 	
 	CRITICAL_CHANCE(AttributeCategory.STRENGTH,
 			Attribute.CRITICAL_CHANCE,
 			"Applies an effect related to the secondary attribute 'Critical chance'.",
-			"modifier_circle",
+			"modifier_circle_critical_chance",
 			Rarity.RARE),
 	
 	CRITICAL_DAMAGE(AttributeCategory.STRENGTH,
 			Attribute.CRITICAL_DAMAGE,
 			"Applies an effect related to the secondary attribute 'Critical damage'.",
-			"modifier_circle",
+			"modifier_circle_critical_damage",
 			Rarity.RARE),
 	
 	
@@ -132,19 +144,19 @@ public enum TFModifier {
 	DAMAGE_UNARMED(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_UNARMED,
 			"Applies an effect related to the secondary attribute 'Unarmed damage'.",
-			"modifier_circle_damage",
+			"modifier_circle_damage_unarmed",
 			Rarity.RARE),
 
 	DAMAGE_MELEE_WEAPON(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_MELEE_WEAPON,
 			"Applies an effect related to the secondary attribute 'Melee weapon damage'.",
-			"modifier_circle_damage",
+			"modifier_circle_damage_melee",
 			Rarity.RARE),
 
 	DAMAGE_RANGED_WEAPON(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_RANGED_WEAPON,
 			"Applies an effect related to the secondary attribute 'Ranged weapon damage'.",
-			"modifier_circle_damage",
+			"modifier_circle_damage_ranged",
 			Rarity.RARE),
 	
 	DAMAGE_PHYSICAL(AttributeCategory.STRENGTH,
@@ -223,10 +235,17 @@ public enum TFModifier {
 	
 	// Clothing parts:
 	
+	CLOTHING_MAJOR_ATTRIBUTE("core attribute",
+			"Applies a modifier to a core attribute.",
+			"attribute",
+			"modifier_circle_attribute_major",
+			Colour.GENERIC_ATTRIBUTE,
+			Rarity.LEGENDARY),
+	
 	CLOTHING_ATTRIBUTE("attribute",
 			"Applies a modifier to an attribute.",
 			"attribute",
-			"modifier_circle_arcane",
+			"modifier_circle_attribute",
 			Colour.GENERIC_ATTRIBUTE,
 			Rarity.UNCOMMON),
 
@@ -451,6 +470,13 @@ public enum TFModifier {
 			"hairy",
 			"modifier_circle_bodyHair",
 			Colour.BASE_TAN,
+			Rarity.COMMON),
+	
+	TF_MOD_STATURE("stature",
+			"Applies an effect to change the user's core stature.",
+			"stature",
+			"modifier_circle_stature",
+			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_INTERNAL("internal",
@@ -1082,11 +1108,13 @@ public enum TFModifier {
 
 	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
+	private static List<TFModifier> clothingMajorAttributeList = new ArrayList<>();
 	
 	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
 
 	private static List<TFModifier> weaponPrimaryList = new ArrayList<>();
 	private static List<TFModifier> weaponAttributeList = new ArrayList<>();
+	private static List<TFModifier> weaponMajorAttributeList = new ArrayList<>();
 	
 	static {
 
@@ -1188,7 +1216,8 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_GIVING);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_RECEIVING);
-		
+
+		clothingPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_SEALING);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ENSLAVEMENT);
@@ -1201,23 +1230,29 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_BREASTS);
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
+
+		clothingMajorAttributeList.add(TFModifier.HEALTH_MAXIMUM);
+		clothingMajorAttributeList.add(TFModifier.MANA_MAXIMUM);
+		clothingMajorAttributeList.add(TFModifier.STRENGTH);
+		clothingMajorAttributeList.add(TFModifier.INTELLIGENCE);
+		clothingMajorAttributeList.add(TFModifier.CORRUPTION);
 		
 		clothingAttributeList.add(TFModifier.FERTILITY);
 		clothingAttributeList.add(TFModifier.VIRILITY);
+		clothingAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		clothingAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		clothingAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
+		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
+		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
+		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
+		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
+		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
+		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);
 		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
-		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
-		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
-		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
-		clothingAttributeList.add(TFModifier.DAMAGE_UNARMED);
-		clothingAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
-		clothingAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
-		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
-		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
-		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
 		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
 		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
@@ -1235,31 +1270,34 @@ public enum TFModifier {
 		tattooPrimaryList.add(TF_VAGINA);
 		
 
+		weaponPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		weaponPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		
 //		weaponAttributeList.add(TFModifier.RESISTANCE_WEAPON);
 //		weaponAttributeList.add(TFModifier.DAMAGE_WEAPON);
 
-		weaponAttributeList.add(TFModifier.STRENGTH);
-		weaponAttributeList.add(TFModifier.INTELLIGENCE);
-		weaponAttributeList.add(TFModifier.CORRUPTION);
+		weaponMajorAttributeList.add(TFModifier.HEALTH_MAXIMUM);
+		weaponMajorAttributeList.add(TFModifier.MANA_MAXIMUM);
+		weaponMajorAttributeList.add(TFModifier.STRENGTH);
+		weaponMajorAttributeList.add(TFModifier.INTELLIGENCE);
+		weaponMajorAttributeList.add(TFModifier.CORRUPTION);
 		
 		weaponAttributeList.add(TFModifier.FERTILITY);
 		weaponAttributeList.add(TFModifier.VIRILITY);
+		weaponAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		weaponAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		weaponAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
+		weaponAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
+		weaponAttributeList.add(TFModifier.DAMAGE_LUST);
+		weaponAttributeList.add(TFModifier.DAMAGE_FIRE);
+		weaponAttributeList.add(TFModifier.DAMAGE_ICE);
+		weaponAttributeList.add(TFModifier.DAMAGE_POISON);
+		weaponAttributeList.add(TFModifier.DAMAGE_SPELLS);
 		weaponAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		weaponAttributeList.add(TFModifier.RESISTANCE_ICE);
 		weaponAttributeList.add(TFModifier.RESISTANCE_LUST);
 		weaponAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		weaponAttributeList.add(TFModifier.RESISTANCE_POISON);
-		weaponAttributeList.add(TFModifier.DAMAGE_FIRE);
-		weaponAttributeList.add(TFModifier.DAMAGE_ICE);
-		weaponAttributeList.add(TFModifier.DAMAGE_LUST);
-		weaponAttributeList.add(TFModifier.DAMAGE_UNARMED);
-		weaponAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
-		weaponAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
-		weaponAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
-		weaponAttributeList.add(TFModifier.DAMAGE_POISON);
-		weaponAttributeList.add(TFModifier.DAMAGE_SPELLS);
 		weaponAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
 		weaponAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		weaponAttributeList.add(TFModifier.CRITICAL_DAMAGE);
@@ -1364,11 +1402,13 @@ public enum TFModifier {
 			case UNCOMMON:
 				return 2;
 			case RARE:
-				return 3;
+				return 4;
 			case EPIC:
-				return 5;
-			case LEGENDARY:
 				return 8;
+			case LEGENDARY:
+				return 12;
+			case QUEST:
+				return 1;
 		}
 		return 1;
 	}
@@ -1449,6 +1489,10 @@ public enum TFModifier {
 		return clothingAttributeList;
 	}
 
+	public static List<TFModifier> getClothingMajorAttributeList() {
+		return clothingMajorAttributeList;
+	}
+
 	public static List<TFModifier> getClothingPrimaryList() {
 		return clothingPrimaryList;
 	}
@@ -1461,6 +1505,10 @@ public enum TFModifier {
 		return weaponPrimaryList;
 	}
 
+	public static List<TFModifier> getWeaponMajorAttributeList() {
+		return weaponMajorAttributeList;
+	}
+	
 	public static List<TFModifier> getWeaponAttributeList() {
 		return weaponAttributeList;
 	}

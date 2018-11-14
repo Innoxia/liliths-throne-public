@@ -192,7 +192,7 @@ public class Arthur extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -224,10 +224,6 @@ public class Arthur extends NPC {
 	@Override
 	public boolean isTrader() {
 		return true; // TODO Wait, what?
-	}
-
-	@Override
-	public void endSex() {
 	}
 
 }

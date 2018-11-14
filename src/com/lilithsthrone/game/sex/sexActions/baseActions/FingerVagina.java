@@ -1025,7 +1025,7 @@ public class FingerVagina {
 					"Eagerly pushing [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] energetically [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+].",
 
-					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] gyrating [npc.namePos] [npc.hips] against [npc2.namePos] [npc2.hand],"
+					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] gyrating [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
 							+ " forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.pussy+].",
 
 					"Enthusiastically thrusting [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
@@ -1173,8 +1173,8 @@ public class FingerVagina {
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.her] [npc.eyes],"
@@ -1251,7 +1251,7 @@ public class FingerVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before telling [npc2.herHim] to stop fingering [npc.herHim].",
 
-							"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent+] before sliding [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.pussy+]."));
+							"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent+] before sliding [npc2.her] [npc2.fingers] out of [npc.her] [npc.pussy+]."));
 					break;
 			}
 			

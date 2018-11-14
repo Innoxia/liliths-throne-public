@@ -613,7 +613,7 @@ public class DicePoker {
 								Util.newHashMapOfValues(new Value<>(gambler, SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						END_LOSS_SEX, UtilText.parse(gambler,"<p>"
+						null, END_LOSS_SEX, UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"

@@ -15,7 +15,7 @@ import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -43,10 +44,14 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -374,7 +379,8 @@ public class UtilText {
 	}
 
 	public static String getCurrencySymbol() {
-		return "&#164";
+		return "&#9679;"; // Circle
+//		return "&#164"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
@@ -424,16 +430,32 @@ public class UtilText {
 	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
 		String tagColour;
-		String moneyString = formatter.format(money);
+		int copper = money%100;
+		int silver = (money%10000)/100;
+		int gold = money/10000;
+		String moneyString = formatter.format(gold);
 		
-		if(amountColour==null ) {
+		if(amountColour==null) {
 			tagColour = Colour.TEXT.getShades(8)[3];
 		} else {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
+		return (gold>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">"
+					:"")
+				+(silver>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_SILVER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + silver + "</" + tag + ">"
+					:"")
+				+(copper>0
+					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_COPPER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+						+ "<" + tag + " style='color:" + tagColour + ";'>" + copper + "</" + tag + ">"
+					:"");
+		
+//		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
@@ -1053,7 +1075,7 @@ public class UtilText {
 				"Returns the name that this character prefers to call the player by."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getPlayerPetName();
+				return character.getPetName(Main.game.getPlayer());
 			}
 		});
 		
@@ -1424,7 +1446,8 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"bitch",
-						"slut"),
+						"slut",
+						"insult"),
 				true,
 				true,
 				"",
@@ -1441,12 +1464,31 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"bitches",
+						"sluts",
+						"insultPlural"),
+				true,
+				true,
+				"",
+				"Returns a random mean pluralised word to describe this person, based on their femininity."){ // R-Rude!
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return UtilText.returnStringAtRandom("bitches", "sluts", "cunts", "whores", "skanks");
+				} else {
+					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"hun",
 						"babe"),
 				true,
 				true,
 				"",
-				"Returns a random mean word to describe this person, based on their femininity."){ // R-Rude!
+				"Returns a random mean word to describe this person, based on their femininity."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(character.isFeminine()) {
@@ -3432,8 +3474,44 @@ public class UtilText {
 				});
 			}
 		}
+
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon",
+						"primaryWeapon"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.getMainWeapon()==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon().getName();
+				}
+			}
+		});
+
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon",
+						"secondaryWeapon"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.getOffhandWeapon()==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon().getName();
+				}
+			}
+		});
 		
 		
 		
@@ -5333,11 +5411,21 @@ public class UtilText {
 			}
 		}
 		engine.put("game", Main.game);
+		engine.put("properties", Main.getProperties());
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
+		for(Perk p : Perk.values()) {
+			engine.put("PERK_"+p.toString(), p);
+		}
+		for(StatusEffect sa : StatusEffect.values()) {
+			engine.put("SA_"+sa.toString(), sa);
+		}
 		for(CoverableArea ca : CoverableArea.values()) {
 			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(InventorySlot is : InventorySlot.values()) {
+			engine.put("IS_"+is.toString(), is);
 		}
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
@@ -5360,6 +5448,22 @@ public class UtilText {
 		for(Femininity femininity : Femininity.values()) {
 			engine.put("FEMININITY_"+femininity.toString(), femininity);
 		}
+		for(FurryPreference furryPreference : FurryPreference.values()) {
+			engine.put("FURRY_PREF_"+furryPreference.toString(), furryPreference);
+		}
+		for(ForcedTFTendency tfTendency : ForcedTFTendency.values()) {
+			engine.put("FORCED_TF_"+tfTendency.toString(), tfTendency);
+		}
+		for(ForcedFetishTendency fetishTendency : ForcedFetishTendency.values()) {
+			engine.put("FORCED_FETISH_"+fetishTendency.toString(), fetishTendency);
+		}
+		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+			engine.put("ORIFICE_"+orifice.toString(), orifice);
+		}
+		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
+			engine.put("PENETRATION_"+penetration.toString(), penetration);
+		}
+		engine.put("RND", Util.random);
 		engine.put("sex", Main.sexEngine); //TODO static methods don't work...
 		
 //		StringBuilder sb = new StringBuilder();
@@ -5373,7 +5477,7 @@ public class UtilText {
 		if(engine==null) {
 			initScriptEngine();
 		}
-		
+//		System.out.println(specialNPC.size());
 		if(!specialNPC.isEmpty()) {
 			for(int i = 0; i<specialNPC.size(); i++) {
 				if(i==0) {
@@ -5768,17 +5872,13 @@ public class UtilText {
 	}
 	
 	private static String getSubspeciesName(Subspecies race) {
-		if(race==null)
+		if(race==null) {
 			return "";
+		}
+		
 		if (character.isFeminine()) {
-			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-girl";
-			}
 			return race.getSingularFemaleName(character);
 		} else {
-			if(character.getRace() == Race.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-boy";
-			}
 			return race.getSingularMaleName(character);
 		}
 	}

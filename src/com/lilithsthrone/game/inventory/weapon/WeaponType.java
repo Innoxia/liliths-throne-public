@@ -33,7 +33,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType(1000,
 			true,
 			false,
-			"it",
+			"an",
 			false,
 			"opaque demonstone",
 			"opaque demonstones",
@@ -43,6 +43,7 @@ public class WeaponType {
 			"meleeCrystal1",
 			"meleeCrystal1",
 			Rarity.RARE,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -107,7 +108,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType(1500,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"misty demonstone",
 			"misty demonstones",
@@ -117,6 +118,7 @@ public class WeaponType {
 			"meleeCrystal2",
 			"meleeCrystal2",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -182,7 +184,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType(2500,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"clear demonstone",
 			"clear demonstones",
@@ -192,6 +194,7 @@ public class WeaponType {
 			"meleeCrystal3",
 			"meleeCrystal3",
 			Rarity.LEGENDARY,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -258,7 +261,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_ZWEIHANDER = new AbstractWeaponType(5000,
 			true,
 			true,
-			"it",
+			"a",
 			false,
 			"Zweih&auml;nder",
 			"Zweih&auml;nders",
@@ -268,6 +271,7 @@ public class WeaponType {
 			"zweihander",
 			"zweihander",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -287,7 +291,9 @@ public class WeaponType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_VICKY,
+					ItemTag.WEAPON_BLADE)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -338,7 +344,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_KNIGHTLY_SWORD = new AbstractWeaponType(2500,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"Knightly Sword",
 			"Knightly Swords",
@@ -348,6 +354,7 @@ public class WeaponType {
 			"knightlySword",
 			"knightlySword",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -365,7 +372,9 @@ public class WeaponType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_VICKY,
+					ItemTag.WEAPON_BLADE)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -416,7 +425,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_BUCKLER = new AbstractWeaponType(1000,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"Buckler",
 			"Bucklers",
@@ -426,6 +435,7 @@ public class WeaponType {
 			"buckler",
 			"buckler",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.FIRE,
 					DamageType.ICE,
@@ -498,7 +508,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
 			false,
 			false,
-			"it",
+			"a",
 			false,
 			"chaos feather",
 			"chaos feathers",
@@ -508,6 +518,7 @@ public class WeaponType {
 			"rangedFeather1",
 			"rangedFeather1",
 			Rarity.RARE,
+			null,
 			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
 			8,
 			0,
@@ -568,7 +579,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType(1500,
 			false,
 			false,
-			"it",
+			"a",
 			false,
 			"chaos feather",
 			"chaos feathers",
@@ -578,6 +589,7 @@ public class WeaponType {
 			"rangedFeather2",
 			"rangedFeather2",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
 			14,
 			0,
@@ -640,7 +652,7 @@ public class WeaponType {
 	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType(25000,
 			false,
 			false,
-			"it",
+			"a",
 			false,
 			"Western KKP",
 			"Western KKPs",
@@ -649,6 +661,7 @@ public class WeaponType {
 			"western_kkp",
 			"western_kkp",
 			Rarity.LEGENDARY,
+			null,
 			Util.newArrayListOfValues(DamageType.PHYSICAL),
 			100000,
 			0,
@@ -687,7 +700,7 @@ public class WeaponType {
 	public static AbstractWeaponType RANGED_MUSKET = new AbstractWeaponType(15000,
 			false,
 			true,
-			"it",
+			"an",
 			false,
 			"Arcane Musket",
 			"Arcane Muskets",
@@ -697,6 +710,7 @@ public class WeaponType {
 			"arcaneMusket",
 			"arcaneMusket",
 			Rarity.LEGENDARY,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL),
 			25,
@@ -767,7 +781,7 @@ public class WeaponType {
 	public static AbstractWeaponType MAIN_WITCH_BROOM = new AbstractWeaponType(5000,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"Witch's Broom",
 			"Witch's Brooms",
@@ -777,6 +791,7 @@ public class WeaponType {
 			"primary_witch_broom",
 			"primary_witch_broom",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -853,7 +868,7 @@ public class WeaponType {
 	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType(250,
 			true,
 			false,
-			"it",
+			"a",
 			false,
 			"feather duster",
 			"feather dusters",
@@ -862,6 +877,7 @@ public class WeaponType {
 			"feather_duster",
 			"feather_duster",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(DamageType.PHYSICAL),
 			2,
 			0,
@@ -944,7 +960,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_BOW_AND_ARROW = new AbstractWeaponType(2500,
 			false,
 			true,
-			"it",
+			"an",
 			false,
 			"Arcane Short Bow",
 			"Arcane Short Bows",
@@ -953,6 +969,7 @@ public class WeaponType {
 			"bowandarrow",
 			"bowandarrow",
 			Rarity.EPIC,
+			null,
 			Util.newArrayListOfValues(
 					DamageType.PHYSICAL,
 					DamageType.FIRE,
@@ -1015,6 +1032,14 @@ public class WeaponType {
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
+	
+	public static AbstractWeaponType getWeaponTypeFromId(String id) {
+		return idToWeaponMap.get(id);
+	}
+	
+	public static String getIdFromWeaponType(AbstractWeaponType weaponType) {
+		return weaponToIdMap.get(weaponType);
+	}
 
 	static {
 		

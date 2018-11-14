@@ -366,7 +366,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return The number of inventory slots currently occupied. This takes into account weapon, clothing, and item stacking.
 	 */
 	public int getInventorySlotsTaken() {
-		return getUniqueWeaponCount() + getUniqueClothingCount() + getUniqueItemCount();
+		return getUniqueWeaponCount() - getUniqueQuestWeaponCount()
+				+ getUniqueClothingCount() - getUniqueQuestClothingCount()
+				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
 	
 	
@@ -398,6 +400,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public int getUniqueItemCount() {
 		return getMapOfDuplicateItems().size();
+	}
+	
+	public int getUniqueQuestItemCount() {
+		int count = 0;
+		for(Entry<AbstractItem, Integer> e : getMapOfDuplicateItems().entrySet()) {
+			if(e.getKey().getRarity()==Rarity.QUEST) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public int getItemCount() {
@@ -461,7 +473,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	public boolean canAddItem(AbstractItem item) {
-		return !isInventoryFull() || hasItem(item);
+		return !isInventoryFull() || hasItem(item) ||  item.getRarity()==Rarity.QUEST;
 	}
 	
 	public boolean removeItem(AbstractItem item) {
@@ -525,6 +537,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			else
 				weaponDuplicates.put(weapon, weaponDuplicates.get(weapon)+1);
 		}
+	}
+	
+	public int getUniqueQuestWeaponCount() {
+		int count = 0;
+		for(Entry<AbstractWeapon, Integer> e : getMapOfDuplicateWeapons().entrySet()) {
+			if(e.getKey().getRarity()==Rarity.QUEST) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public int getUniqueWeaponCount() {
@@ -638,6 +660,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public int getUniqueClothingCount() {
 		return getMapOfDuplicateClothing().size();
+	}
+
+	public int getUniqueQuestClothingCount() {
+		int count = 0;
+		for(Entry<AbstractClothing, Integer> e : getMapOfDuplicateClothing().entrySet()) {
+			if(e.getKey().getRarity()==Rarity.QUEST) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public int getClothingCount(AbstractClothing clothing) {
@@ -1471,7 +1503,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 
 		boolean displacementTypeFound = false;
-		// Check for access needed: TODO check this works
+		// Check for access needed: TODO check this works   // TODO it doesn't... Keeps looping on 1493
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 
 			// Keep iterating through until until we find the displacementType:

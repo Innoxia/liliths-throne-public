@@ -262,15 +262,15 @@ public class PlayerTalk {
 					return(
 							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before softly [npc2.moaning], "
 									+UtilText.returnStringAtRandom(
-											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
-											"[npc2.speech(Of course I'll use your "+areaDescription+"! Come here...)]"));
+											"[npc2.speech(Well, if that's what you really want, I'll use your "+areaDescription+", sure...)]",
+											"[npc2.speech(You want me to use your "+areaDescription+", hmm? Well, if you insist...)]"));
 					
 				case DOM_NORMAL:
 					return(
 							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before [npc2.moaning], "
 									+UtilText.returnStringAtRandom(
-											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
-											"[npc2.speech(Of course I'll use your "+areaDescription+"!)]"));
+											"[npc2.speech(Mmm, if that's what you want, I'll use your "+areaDescription+"!)]",
+											"[npc2.speech(You want me to use your "+areaDescription+", huh?! That's fine with me!)]"));
 					
 				case DOM_ROUGH:
 					return(
@@ -284,7 +284,7 @@ public class PlayerTalk {
 					return(
 							"[npc2.Name] grins as you beg for [npc2.herHim] to use your "+areaDescription+", before [npc2.moaning], "
 									+UtilText.returnStringAtRandom(
-											"[npc2.speech(Sure thing, I'll use your "+areaDescription+"!)]",
+											"[npc2.speech(Mmm, yes, I'll use your "+areaDescription+"...)]",
 											"[npc2.speech(Of course I'll use your "+areaDescription+"!)]"));
 					
 				case SUB_RESISTING:

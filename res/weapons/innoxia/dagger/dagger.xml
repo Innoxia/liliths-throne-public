@@ -3,7 +3,7 @@
 	<coreAttributes>
 	
 		<!-- How much this weapon is worth. -->
-		<value>5000</value> 
+		<value>1500</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>
@@ -53,7 +53,7 @@
 		<imageEquippedName>dagger.svg</imageEquippedName>
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>6</damage> 
+		<damage>12</damage> 
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 
@@ -121,6 +121,7 @@
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_BLADE</tag>
 		</itemTags>
 		
 	</coreAttributes>

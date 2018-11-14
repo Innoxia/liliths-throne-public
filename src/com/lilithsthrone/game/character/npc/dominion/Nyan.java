@@ -273,7 +273,7 @@ public class Nyan extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -490,10 +490,6 @@ public class Nyan extends NPC {
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
 		return item instanceof AbstractClothing;
-	}
-
-	@Override
-	public void endSex() {
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {

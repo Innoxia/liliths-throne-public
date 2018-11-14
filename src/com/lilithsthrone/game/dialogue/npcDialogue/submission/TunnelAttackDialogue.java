@@ -239,8 +239,8 @@ public class TunnelAttackDialogue {
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
+								null,
+								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_OFFER_BODY", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -291,7 +291,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name] .",
+						return new ResponseSex("Sex (dom)", "Take the dominant role and have sex with [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -299,8 +299,8 @@ public class TunnelAttackDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -313,7 +313,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 4) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Sex (sub)", "Offer your body to [npc.name].",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
@@ -321,8 +321,8 @@ public class TunnelAttackDialogue {
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "TUNNEL_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -548,48 +548,6 @@ public class TunnelAttackDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel(){
-			return "Assaulted!";
-		}
-
-		@Override
-		public String getContent() {
-			// Storm attackers are different from alley attackers. They are not saved as persistent NPCs, so don't worry about giving any repeat-encounter descriptions.
-			return UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK", getMugger());
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new ResponseCombat("Fight", "Defend yourself against the unwanted advances of [npc.name]!", getMugger());
-				
-			} else if (index == 2) {
-				return new Response("Offer money",
-						"Due to the ongoing arcane storm, [npc.name] isn't interested in your money, and only wants to have sex! You'll have to either fight [npc.herHim] or give [npc.herHim] what [npc.she] wants!",
-						null);
-				
-			} else if (index == 3) {
-				return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
-						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
-						null, null, null,
-						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null,
-						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
-					
-			} else {
-				return null;
-			}
-		}
-	};
-	
 	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -635,8 +593,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
 					
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
@@ -654,8 +612,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
@@ -673,8 +631,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
@@ -686,8 +644,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
 					
 				} else if (index == 6) {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
@@ -706,7 +664,7 @@ public class TunnelAttackDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -761,8 +719,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
 					
 				} else if (index == 3) {
 					if(!Main.game.isNonConEnabled()) {
@@ -783,8 +741,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
 					if(!Main.game.isNonConEnabled()) {
@@ -805,7 +763,7 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
+							null, AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -829,7 +787,7 @@ public class TunnelAttackDialogue {
 							@Override
 							public void effects() {
 								getMugger().setPlayerKnowsName(true);
-								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(getMugger().setAffection(Main.game.getPlayer(), 10));
 							}
 						};
 					}
@@ -903,7 +861,7 @@ public class TunnelAttackDialogue {
 			}
 			
 			if(getMugger().hasTransformationFetish() && getMugger().isWillingToRape(Main.game.getPlayer()) ) {
-				potion = getMugger().getTransfomativePotion(Main.game.getPlayer(), true);
+				potion = getMugger().getTransformativePotion(Main.game.getPlayer(), true);
 				
 //				System.out.println("Potion Check 1"); 
 //				System.out.println(potion); 
@@ -969,7 +927,7 @@ public class TunnelAttackDialogue {
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = getMugger().getTransfomativePotion(Main.game.getPlayer());
+							Util.Value<String, AbstractItem> potion = getMugger().getTransformativePotion(Main.game.getPlayer());
 							
 //							System.out.println("Potion Check 3"); 
 //							System.out.println(potion.getValue().getName()); 
@@ -998,8 +956,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1017,8 +975,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1036,8 +994,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				}
 				
@@ -1082,8 +1040,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1101,8 +1059,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1120,8 +1078,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else {
 					return null;
@@ -1162,8 +1120,8 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1181,8 +1139,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1200,8 +1158,8 @@ public class TunnelAttackDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/tunnelAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else {
 					return null;
