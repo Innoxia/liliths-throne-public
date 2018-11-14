@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
@@ -70,11 +69,12 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You find yourself standing before Lilaya's home, the size of which is more akin to that of a palace than a normal town-house."
+						+ "Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house."
+						+ " While the surrounding buildings are of an impressive size, you reckon that you could  fit at least two or three of them into the plot which your aunt's dwelling occupies."
 					+ "</p>"
-
 					+ "<p>"
-						+ " You can come and go from here as you please, knowing that Rose will quickly be there to let you in should you knock on the front door."
+						+ "With your demonic aunt happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
+						+ " If you wanted to enter the house right now, all you'd need to do is knock on the front door, and you can be sure that Lilaya's cat-girl maid, Rose, will respond in mere moments."
 					+ "</p>";
 		}
 
@@ -90,11 +90,11 @@ public class LilayaHomeGeneric {
 									+ "You knock on the front door, and after only a brief moment, it swings open."
 								+ "</p>"
 								+ "<p>"
-									+ UtilText.parseNPCSpeech("Welcome back,", Femininity.FEMININE)
-									+ " Rose says, curtsying to you as you step into Lilaya's house."
+									+ "[rose.speech(Welcome back, [pc.name].)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house."
 								+ "</p>"
 								+ "<p>"
-									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
+									+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
+									+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your aunt's laboratory..."
 								+ "</p>");
 						
 						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
@@ -1791,8 +1791,18 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's house."
-						+ " You wonder if you should use it to go upstairs."
+						+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's home."
+						+ " Half-way up the shallow steps, there's a secondary landing area, which is home to a couple of antique-looking cabinets and well looked after house plants."
+						+ " Branching off from the sides of this landing, two slightly-narrower staircases wrap around and lead up to the floor above."
+					+ "</p>"
+					+ "<p>"
+						+ "A huge portrait of two women hangs on the wall of the landing area, overlooking the entire entrance hall."
+						+ " You immediately recognise the half-demon sitting in the chair as Lilaya, and you can only assume that the gorgeous figure standing behind her is her Lilin mother, Lyssieth."
+						+ " Although Lilin can change their appearance at will, Lyssieth has chosen to appear as a beautiful half-demon in her mid-forties,"
+							+ " and you wonder if she did this to make Lilaya feel more comfortable, or whether that's simply the form she prefers to take."
+					+ "</p>"
+					+ "<p>"
+						+ "Remarking one last time upon how beautiful the mother-daughter pair are, you continue on your way..."
 					+ "</p>";
 		}
 
@@ -1823,8 +1833,13 @@ public class LilayaHomeGeneric {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's house."
-					+ " You wonder if you should use it to go back downstairs."
+						+ "Standing at the top of the grand, red-carpeted staircase, you find yourself looking down at the huge portrait of Lilaya and her mother."
+						+ " Although you didn't notice it from the ground floor, you seem to detect a hint of annoyance in Lyssieth's eyes,"
+							+ " giving you the impression that she's trying her best to hide her resentment towards either the artist, or someone who must have been close by."
+					+ "</p>"
+							//TODO met Lyssieth
+					+ "<p>"
+						+ "Wondering if you'll ever get to ask Lilaya, or perhaps even Lyssieth herself, about the circumstances under which this portrait was painted, you look away and continue on your way..."
 					+ "</p>";
 		}
 
@@ -2060,7 +2075,7 @@ public class LilayaHomeGeneric {
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
-						null, Rose.END_HAND_SEX);
+						null, null, Rose.END_HAND_SEX);
 
 			} else {
 				return null;

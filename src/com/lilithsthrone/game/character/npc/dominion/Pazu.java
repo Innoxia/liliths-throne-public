@@ -134,9 +134,5 @@ public class Pazu extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 
 }

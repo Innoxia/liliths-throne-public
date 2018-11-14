@@ -220,10 +220,6 @@ public class HarpyNymphoCompanion extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 	// Combat
 	
 	public int getEscapeChance() {

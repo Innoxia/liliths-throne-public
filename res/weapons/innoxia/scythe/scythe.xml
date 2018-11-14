@@ -68,7 +68,9 @@
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags> 
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
 		
 	</coreAttributes>
 	

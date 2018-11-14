@@ -110,9 +110,14 @@ public class Cell implements Serializable, XMLSaving {
 		cell.setDiscovered(Boolean.valueOf(parentElement.getAttribute("discovered")));
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
 			cell.setTravelledTo(Boolean.valueOf(parentElement.getAttribute("discovered")));
+			
 		} else {
 			try {
-				cell.setTravelledTo(Boolean.valueOf(parentElement.getAttribute("travelledTo")));
+				if(type.isRevealedOnStart()) {
+					cell.setTravelledTo(true);
+				} else {
+					cell.setTravelledTo(Boolean.valueOf(parentElement.getAttribute("travelledTo")));
+				}
 			} catch(Exception ex) {	
 			}
 		}

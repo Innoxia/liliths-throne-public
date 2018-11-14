@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -37,7 +38,8 @@ public class ResponseSex extends Response {
 	private boolean consensual;
 	private boolean subHasEqualControl;
 	private SexManagerInterface sexManager;
-	private List<GameCharacter> spectators;
+	private List<GameCharacter> dominantSpectators;
+	private List<GameCharacter> submissiveSpectators;
 	private DialogueNodeOld postSexDialogue;
 	private String sexStartDescription;
 	
@@ -45,28 +47,30 @@ public class ResponseSex extends Response {
 			String tooltipText,
 			boolean consensual,
 			boolean subHasEqualControl,
-			List<GameCharacter> submissives,
 			List<GameCharacter> dominants,
-			List<GameCharacter> spectators,
+			List<GameCharacter> submissives,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
 			DialogueNodeOld postSexDialogue,
 			String sexStartDescription,
 			ResponseTag... tags) {
 		this(title,
-				 tooltipText,
-				 null,
-				 null,
-				 null,
-				 null,
-				 null,
-				 null,
-				 consensual,
-				 subHasEqualControl,
-				 submissives,
-				 dominants,
-				 spectators,
-				 postSexDialogue,
-				 sexStartDescription,
-				 tags);
+				tooltipText,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				consensual,
+				subHasEqualControl,
+				dominants,
+				submissives,
+				dominantSpectators,
+				submissiveSpectators,
+				postSexDialogue,
+				sexStartDescription,
+				tags);
 	}
 	
 	/**
@@ -82,9 +86,10 @@ public class ResponseSex extends Response {
 	 * @param raceRequired If this action requires the player to be of a certain race.
 	 * @param consensual If this sex scene is consensual or not.
 	 * @param subHasEqualControl If the submissives are able to use actions that start penetrations.
-	 * @param submissives The submissive characters to use in this sex scene.
 	 * @param dominants The dominant characters to use in this sex scene.
-	 * @param spectators The characters spectating this sex scene.
+	 * @param submissives The submissive characters to use in this sex scene.
+	 * @param dominantSpectators The characters spectating this sex scene. (To be displayed in the dominant side of the UI.)
+	 * @param submissiveSpectators The characters spectating this sex scene. (To be displayed in the submissive side of the UI.)
 	 * @param postSexDialogue The DialogueNode to be returned once the sex scene ends.
 	 */
 	public ResponseSex(String title,
@@ -97,72 +102,119 @@ public class ResponseSex extends Response {
 			Race raceRequired,
 			boolean consensual,
 			boolean subHasEqualControl,
-			List<GameCharacter> submissives,
 			List<GameCharacter> dominants,
-			List<GameCharacter> spectators,
+			List<GameCharacter> submissives,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
 			DialogueNodeOld postSexDialogue,
-			String sexStartDescription,
-			ResponseTag... tags) {
+			String sexStartDescription, ResponseTag... tags) {
 		this(title, tooltipText, fetishesForUnlock, fetishesBlocking, corruptionBypass, perksRequired, femininityRequired, raceRequired,
-				consensual, subHasEqualControl, null, spectators, postSexDialogue, sexStartDescription);
+				consensual, subHasEqualControl, null, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription);
 
 		// If size difference with just two participants, return relevant standing position: 
 		if(submissives.size()==1 && dominants.size()==1) {
-			if(Sex.isSizeDifference(Util.mergeLists(submissives, dominants))) {
-				this.sexManager = new SexManagerDefault(
-						SexPositionType.STANDING_SIZE_DIFFERENCE,
-						Util.newHashMapOfValues(new Value<>(dominants.get(0), dominants.get(0).getHeightValue()>submissives.get(0).getHeightValue()?SexPositionSlot.STANDING_SD_TALLER:SexPositionSlot.STANDING_SD_SMALLER)),
-						Util.newHashMapOfValues(new Value<>(submissives.get(0), submissives.get(0).getHeightValue()>dominants.get(0).getHeightValue()?SexPositionSlot.STANDING_SD_TALLER:SexPositionSlot.STANDING_SD_SMALLER))) {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							for(ResponseTag tag : tags) {
-								switch(tag) {
-									case START_PACE_PLAYER_DOM_GENTLE:
-										return SexPace.DOM_GENTLE;
-									case START_PACE_PLAYER_DOM_ROUGH:
-										return SexPace.DOM_ROUGH;
-									case START_PACE_PLAYER_SUB_RESIST:
-										return SexPace.SUB_RESISTING;
-									case START_PACE_PLAYER_SUB_EAGER:
-										return SexPace.SUB_EAGER;
-									case PREFER_ORAL:
-										break;
-								}
-							}
-						}
-						return null;
+			
+			boolean sexManagerSet = false;
+			for(ResponseTag tag : tags) {
+				if(tag!=null) {
+					switch(tag) {
+						case PREFER_ORAL:
+							generateOralPosition(submissives, dominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						case PREFER_MISSIONARY:
+							generateMissionaryPosition(submissives, dominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						case PREFER_DOGGY:
+							generateDoggyPosition(submissives, dominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						default:
+							break;
 					}
-				};
-				
-			} else {
-				this.sexManager = new SMStanding(
-						Util.newHashMapOfValues(new Value<>(dominants.get(0), SexPositionSlot.STANDING_DOMINANT)),
-						Util.newHashMapOfValues(new Value<>(submissives.get(0), SexPositionSlot.STANDING_SUBMISSIVE))) {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							for(ResponseTag tag : tags) {
-								switch(tag) {
-									case START_PACE_PLAYER_DOM_GENTLE:
-										return SexPace.DOM_GENTLE;
-									case START_PACE_PLAYER_DOM_ROUGH:
-										return SexPace.DOM_ROUGH;
-									case START_PACE_PLAYER_SUB_RESIST:
-										return SexPace.SUB_RESISTING;
-									case START_PACE_PLAYER_SUB_EAGER:
-										return SexPace.SUB_EAGER;
-									case PREFER_ORAL:
-										break;
-								}
-							}
-						}
-						return null;
-					}
-				};
+				}
 			}
-		
-		// If group sex, return doggy-style or missionary:
+			
+			if(!sexManagerSet) {
+				if(Sex.isSizeDifference(Util.mergeLists(submissives, dominants))) {
+					this.sexManager = new SexManagerDefault(
+							SexPositionType.STANDING_SIZE_DIFFERENCE,
+							Util.newHashMapOfValues(new Value<>(dominants.get(0), dominants.get(0).getHeightValue()>submissives.get(0).getHeightValue()?SexPositionSlot.STANDING_SD_TALLER:SexPositionSlot.STANDING_SD_SMALLER)),
+							Util.newHashMapOfValues(new Value<>(submissives.get(0), submissives.get(0).getHeightValue()>dominants.get(0).getHeightValue()?SexPositionSlot.STANDING_SD_TALLER:SexPositionSlot.STANDING_SD_SMALLER))) {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								for(ResponseTag tag : tags) {
+									if(tag!=null) {
+										switch(tag) {
+											case START_PACE_PLAYER_DOM_GENTLE:
+												return SexPace.DOM_GENTLE;
+											case START_PACE_PLAYER_DOM_ROUGH:
+												return SexPace.DOM_ROUGH;
+											case START_PACE_PLAYER_SUB_RESIST:
+												return SexPace.SUB_RESISTING;
+											case START_PACE_PLAYER_SUB_EAGER:
+												return SexPace.SUB_EAGER;
+											case PREFER_ORAL:
+											case PREFER_MISSIONARY:
+											case PREFER_DOGGY:
+												break;
+										}
+									}
+								}
+							}
+							return null;
+						}
+						@Override
+						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+							if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+								return ResponseSex.this.exposeAtStartOfSexMap();
+							}
+							return super.exposeAtStartOfSexMap();
+						}
+					};
+					
+				} else {
+					this.sexManager = new SMStanding(
+							Util.newHashMapOfValues(new Value<>(dominants.get(0), SexPositionSlot.STANDING_DOMINANT)),
+							Util.newHashMapOfValues(new Value<>(submissives.get(0), SexPositionSlot.STANDING_SUBMISSIVE))) {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								for(ResponseTag tag : tags) {
+									if(tag!=null) {
+										switch(tag) {
+											case START_PACE_PLAYER_DOM_GENTLE:
+												return SexPace.DOM_GENTLE;
+											case START_PACE_PLAYER_DOM_ROUGH:
+												return SexPace.DOM_ROUGH;
+											case START_PACE_PLAYER_SUB_RESIST:
+												return SexPace.SUB_RESISTING;
+											case START_PACE_PLAYER_SUB_EAGER:
+												return SexPace.SUB_EAGER;
+											case PREFER_ORAL:
+											case PREFER_MISSIONARY:
+											case PREFER_DOGGY:
+												break;
+										}
+									}
+								}
+							}
+							return null;
+						}
+						@Override
+						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+							if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+								return ResponseSex.this.exposeAtStartOfSexMap();
+							}
+							return super.exposeAtStartOfSexMap();
+						}
+					};
+				}
+			}
+			
+		// If group sex:
 		} else {
 
 			// Sort so penis is used in humping/sex:
@@ -172,13 +224,23 @@ public class ResponseSex extends Response {
 			boolean sexManagerSet = false;
 			
 			for(ResponseTag tag : tags) {
-				switch(tag) {
-					case PREFER_ORAL:
-						generateOralPosition(submissives, sortedDominants, spectators, tags);
-						sexManagerSet = true;
-						break;
-					default:
-						break;
+				if(tag!=null) {
+					switch(tag) {
+						case PREFER_ORAL:
+							generateOralPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						case PREFER_MISSIONARY:
+							generateMissionaryPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						case PREFER_DOGGY:
+							generateDoggyPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
+							sexManagerSet = true;
+							break;
+						default:
+							break;
+					}
 				}
 			}
 			
@@ -192,26 +254,26 @@ public class ResponseSex extends Response {
 				
 				if(sortedDominants.size()==1) {
 					if(Math.random()>0.5) {
-						generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
+						generateMissionaryPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 					} else {
-						generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+						generateDoggyPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 					}
 					
 				} else {
 					switch(penisCount) {
 						case 0:
 						case 1:
-							generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
+							generateMissionaryPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 							break;
 						case 2:
 							if(Math.random()>0.5) {
-								generateMissionaryPosition(submissives, sortedDominants, spectators, tags);
+								generateMissionaryPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 							} else {
-								generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+								generateDoggyPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 							}
 							break;
 						default:
-							generateDoggyPosition(submissives, sortedDominants, spectators, tags);
+							generateDoggyPosition(submissives, sortedDominants, dominantSpectators, submissiveSpectators, tags);
 							break;
 					}
 				}
@@ -224,9 +286,10 @@ public class ResponseSex extends Response {
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
-			List<GameCharacter> spectators,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
 			DialogueNodeOld postSexDialogue) {
-		this(title, tooltipText, consensual, subHasEqualControl, sexManager, spectators, postSexDialogue, "");
+		this(title, tooltipText, consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, "");
 	}
 
 	public ResponseSex(String title,
@@ -234,13 +297,14 @@ public class ResponseSex extends Response {
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
-			List<GameCharacter> spectators,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
 			DialogueNodeOld postSexDialogue,
 			String sexStartDescription) {
 		this(title, tooltipText,
 				null, null, null, null,
 				null, null, consensual,
-				subHasEqualControl, sexManager, spectators, postSexDialogue, sexStartDescription);
+				subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription);
 	}
 	
 	public ResponseSex(String title,
@@ -254,7 +318,8 @@ public class ResponseSex extends Response {
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,
-			List<GameCharacter> spectators,
+			List<GameCharacter> dominantSpectators,
+			List<GameCharacter> submissiveSpectators,
 			DialogueNodeOld postSexDialogue,
 			String sexStartDescription) {
 		super(title, tooltipText, null,
@@ -265,11 +330,17 @@ public class ResponseSex extends Response {
 		this.subHasEqualControl = subHasEqualControl;
 		
 		this.sexManager = sexManager;
-		
-		if(spectators==null) {
-			this.spectators = new ArrayList<>();
+
+		if(dominantSpectators==null) {
+			this.dominantSpectators = new ArrayList<>();
 		} else {
-			this.spectators = spectators;
+			this.dominantSpectators = dominantSpectators;
+		}
+		
+		if(submissiveSpectators==null) {
+			this.submissiveSpectators = new ArrayList<>();
+		} else {
+			this.submissiveSpectators = submissiveSpectators;
 		}
 		
 		this.postSexDialogue = postSexDialogue;
@@ -286,11 +357,18 @@ public class ResponseSex extends Response {
 		return false;
 	}
 	
+	/**
+	 * Override for use in automatically-generated sex managers.
+	 */
+	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		return null;
+	}
+	
 	public DialogueNodeOld initSex() {
-		return Main.sexEngine.initialiseSex(consensual, subHasEqualControl, sexManager, spectators, postSexDialogue, sexStartDescription);
+		return Main.sexEngine.initialiseSex(consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription);
 	}
 
-	private void generateOralPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
+	private void generateOralPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {
 		
 		Map<GameCharacter, SexPositionSlot> subMap = new HashMap<>();
 		Map<GameCharacter, SexPositionSlot> domMap = new HashMap<>();
@@ -343,35 +421,41 @@ public class ResponseSex extends Response {
 		
 		this.sexManager = new SMKneeling(domMap, subMap) {
 			@Override
-			public boolean isPositionChangingAllowed(GameCharacter character) {
-				return character.isPlayer() || (submissives.size()+sortedDominants.size()==2); // Only player is allowed to switch in multi-sex scenes
-			} 
-			
-			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {
 					for(ResponseTag tag : tags) {
-						switch(tag) {
-							case START_PACE_PLAYER_DOM_GENTLE:
-								return SexPace.DOM_GENTLE;
-							case START_PACE_PLAYER_DOM_ROUGH:
-								return SexPace.DOM_ROUGH;
-							case START_PACE_PLAYER_SUB_RESIST:
-								return SexPace.SUB_RESISTING;
-							case START_PACE_PLAYER_SUB_EAGER:
-								return SexPace.SUB_EAGER;
-							case PREFER_ORAL:
-								break;
+						if(tag!=null) {
+							switch(tag) {
+								case START_PACE_PLAYER_DOM_GENTLE:
+									return SexPace.DOM_GENTLE;
+								case START_PACE_PLAYER_DOM_ROUGH:
+									return SexPace.DOM_ROUGH;
+								case START_PACE_PLAYER_SUB_RESIST:
+									return SexPace.SUB_RESISTING;
+								case START_PACE_PLAYER_SUB_EAGER:
+									return SexPace.SUB_EAGER;
+								case PREFER_ORAL:
+								case PREFER_MISSIONARY:
+								case PREFER_DOGGY:
+									break;
+							}
 						}
 					}
 				}
 				return null;
 			}
+			@Override
+			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+					return ResponseSex.this.exposeAtStartOfSexMap();
+				}
+				return super.exposeAtStartOfSexMap();
+			}
 		};
 	
 	}
 
-	private void generateMissionaryPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
+	private void generateMissionaryPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {
 		
 		Map<GameCharacter, SexPositionSlot> subMap = Util.newHashMapOfValues(new Value<>(submissives.get(0), SexPositionSlot.MISSIONARY_ON_BACK));
 		Map<GameCharacter, SexPositionSlot> domMap = new HashMap<>();
@@ -490,34 +574,40 @@ public class ResponseSex extends Response {
 		
 		this.sexManager = new SMMissionary(domMap, subMap) {
 			@Override
-			public boolean isPositionChangingAllowed(GameCharacter character) {
-				return character.isPlayer() || (submissives.size()+sortedDominants.size()==2); // Only player is allowed to switch in multi-sex scenes
-			} 
-			
-			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {
 					for(ResponseTag tag : tags) {
-						switch(tag) {
-							case START_PACE_PLAYER_DOM_GENTLE:
-								return SexPace.DOM_GENTLE;
-							case START_PACE_PLAYER_DOM_ROUGH:
-								return SexPace.DOM_ROUGH;
-							case START_PACE_PLAYER_SUB_RESIST:
-								return SexPace.SUB_RESISTING;
-							case START_PACE_PLAYER_SUB_EAGER:
-								return SexPace.SUB_EAGER;
-							case PREFER_ORAL:
-								break;
+						if(tag!=null) {
+							switch(tag) {
+								case START_PACE_PLAYER_DOM_GENTLE:
+									return SexPace.DOM_GENTLE;
+								case START_PACE_PLAYER_DOM_ROUGH:
+									return SexPace.DOM_ROUGH;
+								case START_PACE_PLAYER_SUB_RESIST:
+									return SexPace.SUB_RESISTING;
+								case START_PACE_PLAYER_SUB_EAGER:
+									return SexPace.SUB_EAGER;
+								case PREFER_ORAL:
+								case PREFER_MISSIONARY:
+								case PREFER_DOGGY:
+									break;
+							}
 						}
 					}
 				}
 				return null;
 			}
+			@Override
+			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+					return ResponseSex.this.exposeAtStartOfSexMap();
+				}
+				return super.exposeAtStartOfSexMap();
+			}
 		};
 	}
 	
-	private void generateDoggyPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> spectators, ResponseTag... tags) {
+	private void generateDoggyPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {
 		
 		Map<GameCharacter, SexPositionSlot> subMap = Util.newHashMapOfValues(new Value<>(submissives.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS));
 		Map<GameCharacter, SexPositionSlot> domMap = new HashMap<>();
@@ -627,29 +717,35 @@ public class ResponseSex extends Response {
 		
 		this.sexManager = new SMDoggy(domMap, subMap) {
 			@Override
-			public boolean isPositionChangingAllowed(GameCharacter character) {
-				return character.isPlayer() || (submissives.size()+sortedDominants.size()==2); // Only player is allowed to switch in multi-sex scenes
-			} 
-			
-			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {
 					for(ResponseTag tag : tags) {
-						switch(tag) {
-							case START_PACE_PLAYER_DOM_GENTLE:
-								return SexPace.DOM_GENTLE;
-							case START_PACE_PLAYER_DOM_ROUGH:
-								return SexPace.DOM_ROUGH;
-							case START_PACE_PLAYER_SUB_RESIST:
-								return SexPace.SUB_RESISTING;
-							case START_PACE_PLAYER_SUB_EAGER:
-								return SexPace.SUB_EAGER;
-							case PREFER_ORAL:
-								break;
+						if(tag!=null) {
+							switch(tag) {
+								case START_PACE_PLAYER_DOM_GENTLE:
+									return SexPace.DOM_GENTLE;
+								case START_PACE_PLAYER_DOM_ROUGH:
+									return SexPace.DOM_ROUGH;
+								case START_PACE_PLAYER_SUB_RESIST:
+									return SexPace.SUB_RESISTING;
+								case START_PACE_PLAYER_SUB_EAGER:
+									return SexPace.SUB_EAGER;
+								case PREFER_ORAL:
+								case PREFER_MISSIONARY:
+								case PREFER_DOGGY:
+									break;
+							}
 						}
 					}
 				}
 				return null;
+			}
+			@Override
+			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+					return ResponseSex.this.exposeAtStartOfSexMap();
+				}
+				return super.exposeAtStartOfSexMap();
 			}
 		};
 	}

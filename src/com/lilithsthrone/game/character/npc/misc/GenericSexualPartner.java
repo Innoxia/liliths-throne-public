@@ -255,10 +255,6 @@ public class GenericSexualPartner extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
-	@Override
-	public void endSex() {
-	}
 	
 	private boolean playerRequested = false;
 	

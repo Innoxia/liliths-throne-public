@@ -236,10 +236,6 @@ public class HarpyDominant extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
-	@Override
-	public void endSex() {
-	}
 	
 	@Override
 	public SexPace getSexPaceSubPreference(GameCharacter character){

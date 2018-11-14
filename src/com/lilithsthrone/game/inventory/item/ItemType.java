@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -4334,9 +4335,71 @@ public class ItemType {
 			false,
 			"Imp's Arcane Key",
 			"Imp's Arcane Keys",
-			"An arcane key that you obtained from one of the Imp Fortresses in Submission. It will grant entry to the central Imp Citadel.",
+			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
 			"impArcaneKey",
-			Colour.BASE_GOLD,
+			Colour.CLOTHING_SILVER,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_2 = new AbstractItemType(0,
+			"",
+			false,
+			"Imp's Arcane Key",
+			"Imp's Arcane Keys",
+			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
+			"impArcaneKey2",
+			Colour.CLOTHING_STEEL,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_3 = new AbstractItemType(0,
+			"",
+			false,
+			"Imp's Arcane Key",
+			"Imp's Arcane Keys",
+			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
+			"impArcaneKey3",
+			Colour.CLOTHING_GOLD,
 			Colour.GENERIC_ARCANE,
 			null,
 			Rarity.QUEST,
@@ -4985,13 +5048,20 @@ public class ItemType {
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
-					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
+							&& !(target instanceof Elemental);
 				}
 		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
+						
+					} else if(target instanceof Elemental) {
+						return UtilText.parse(target, "[npc.Name], like all elementals, cannot learn spells from books."
+								+ " Instead, [npc.she] will need to focus on improving [npc.her] understanding of the arcane in order to learn new spells."
+								+ " (Elementals gain new spells via the perk tree.)");
+						
 					} else {
 						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
 					}

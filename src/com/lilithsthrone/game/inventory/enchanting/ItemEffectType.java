@@ -3167,6 +3167,9 @@ public class ItemEffectType {
 					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
 				return TFPotency.getAllPotencies();
 				
+			} else if(primaryModifier == TFModifier.CLOTHING_SEALING) {
+				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
+				
 			} else {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
 			}
@@ -3177,7 +3180,7 @@ public class ItemEffectType {
 			List<String> effectsList = new ArrayList<>();
 			
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overriden in a couple of places ,such as in InventoryTooltipEventListener
+					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overriden in a couple of places, such as in InventoryTooltipEventListener
 				effectsList.add(
 						(potency.getClothingBonusValue()<0
 								?"[style.boldBad("+potency.getClothingBonusValue()+")] "
@@ -3185,10 +3188,21 @@ public class ItemEffectType {
 						+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_SEALING) {
-				effectsList.add("[style.boldArcane(Seals onto wearer)]");
+				if(potency==TFPotency.MINOR_DRAIN) {
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(25)])</b>");
+					
+				} else if(potency==TFPotency.DRAIN) {
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(100)])</b>");
+					
+				} else if(potency==TFPotency.MAJOR_DRAIN) {
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(500)])</b>");
+					
+				} else {
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(5)])</b>");
+				}
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
-				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
+					effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
 				
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {

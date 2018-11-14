@@ -147,7 +147,7 @@ public enum Spell {
 			false,
 			"Flash",
 			"flash",
-			"Crates a blinding flash of light that stuns the target.",
+			"Creates a blinding flash of light that stuns the target.",
 			0,
 			DamageVariance.LOW,
 			60,
@@ -566,7 +566,7 @@ public enum Spell {
 		}
 	},
 
-	SOOTHING_WATERS(true,
+	SOOTHING_WATERS(false,
 			SpellSchool.WATER,
 			SpellType.DEFENSIVE,
 			DamageType.ICE,
@@ -1493,8 +1493,8 @@ public enum Spell {
 					if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 						descriptionSB.append(UtilText.parse(caster, target,
 									"<p>"
-										+ "<b>[npc2.Name] [npc2.verb(take)] " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] [npc2.verb(struggle)] to control [npc2.her] burning desire for sex!</b><br/>"
+										+ "<b>[npc2.Name] [npc2.verb(take)] <b>" + (damage*2) + "</b> <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
+										+ " and <b>"+damage+"</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] [npc2.verb(struggle)] to control [npc2.her] burning desire for sex!</b>"
 									+ "</p>"));
 
 						target.incrementHealth(-damage*2);

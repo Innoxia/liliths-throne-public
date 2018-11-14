@@ -239,8 +239,4 @@ public class Epona extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

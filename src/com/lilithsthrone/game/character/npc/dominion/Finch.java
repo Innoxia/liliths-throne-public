@@ -269,8 +269,4 @@ public class Finch extends NPC {
 		return item instanceof AbstractClothing;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

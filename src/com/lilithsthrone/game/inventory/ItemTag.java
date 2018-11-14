@@ -18,6 +18,8 @@ public enum ItemTag {
 	SOLD_BY_FINCH,
 	SOLD_BY_VICKY,
 	
+	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
+	
 	DRESS, // For helping to generate clothing in CharacterUtils
 
 	SPREADS_FEET, // Prevents double foot actions, like wrap-around footjobs

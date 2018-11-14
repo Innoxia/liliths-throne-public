@@ -836,10 +836,11 @@ public class RalphOral {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedPartnerAction()!=PARTNER_COMMAND_START_ORAL)
+			if(Sex.getLastUsedSexAction(Main.game.getRalph())!=PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
-			else
+			} else {
 				return  SexActionPriority.NORMAL;
+			}
 		}
 
 		@Override
@@ -889,10 +890,11 @@ public class RalphOral {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedPartnerAction()==PARTNER_COMMAND_START_ORAL)
+			if(Sex.getLastUsedSexAction(Main.game.getRalph())==PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
-			else
+			} else {
 				return SexActionPriority.NORMAL;
+			}
 		}
 
 		@Override

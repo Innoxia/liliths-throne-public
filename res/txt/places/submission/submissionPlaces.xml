@@ -665,7 +665,8 @@
 	</htmlContent>
 	
 	<htmlContent tag="IMP_FORTRESS_ENTRY"><![CDATA[
-		 Glancing over at the rudimentary gate that's set in to one side of the wall, you see two alpha-imps standing guard. They seem more interested in talking to one another rather than keeping a close watch, and so haven't spotted you yet. If you were feeling brave enough to try and gain entry to this imp stronghold
+	<p>
+		Glancing over at the rudimentary gate that's set in to one side of the wall, you see two alpha-imps standing guard. They seem more interested in talking to one another rather than keeping a close watch, and so haven't spotted you yet. If you were feeling brave enough to try and gain entry to this imp stronghold
 		#IF pc.isPartyAbleToFly()
 		#THEN
 			, you could approach them and see if you can either talk or fight your way through. Then again, you could simply just fly over the stronghold's outer fence...
@@ -677,13 +678,15 @@
 	</htmlContent>
 	
 	<htmlContent tag="IMP_FORTRESS_ENTRY_PACIFIED"><![CDATA[
-		 Glancing over at the rudimentary gate that's set in to one side of the wall, you see two alpha-imps standing guard. They seem more interested in talking to one another rather than keeping a close watch, and so haven't spotted you yet. As you've already pledged your allegiance to this imp gang, you're able to pass the guards and enter the fortress without any risk of a fight.
+	<p>
+		Glancing over at the rudimentary gate that's set in to one side of the wall, you see two alpha-imps standing guard. They seem more interested in talking to one another rather than keeping a close watch, and so haven't spotted you yet. As you're on friendly terms with the leader of this imp fortress, you're able to pass the guards and enter the fortress without any risk of a fight.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_FORTRESS_ENTRY_DEFEATED"><![CDATA[
-		 Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The alpha-imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that's it's just a matter of time before they gather their courage and lay claim to this fortress once again...
+	<p>
+		Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that's it's just a matter of time before they gather their courage and lay claim to this fortress once again...
 	</p>
 	]]>
 	</htmlContent>
@@ -697,46 +700,33 @@
 	
 	<htmlContent tag="IMP_FORTRESS_ALPHA"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies a black and red flag, which depicts the face of a snarling imp.
+		From the very top of this makeshift fortress flies a black flag, bearing a white icon of a clenched fist in the very middle of it.
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="IMP_FORTRESS_GROUP"><![CDATA[
+	<htmlContent tag="IMP_FORTRESS_FEMALES"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies three flags; one red, one pink, and one blue.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+		From the very top of this makeshift fortress flies a white flag, bearing an icon of a pair of round, pink breasts.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="IMP_FORTRESS_SEDUCERS"><![CDATA[
+	<htmlContent tag="IMP_FORTRESS_MALES"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies a bright pink and white flag, which depicts a pair of huge breasts.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+		From the very top of this makeshift fortress flies a white flag, bearing a red symbol of what looks to be a sheathed katana.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="IMP_FORTRESS_BRAWLERS"><![CDATA[
+	<htmlContent tag="IMP_CITADEL"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies a black and white flag, which depicts a clenched fist.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+		<i>TODO - Will be added in the upcoming hotfix/mini-release!</i>
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_FORTRESS_SLIMES"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies a light pink flag, which doesn't bear any sort of marking or insignia.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+		The tunnels open out into a large cavern, and built up against the far wall, there's a huge stone fortress. Even the gates have been carved from stone, and inscribed into the front, you read: (insert Dark Siren text)
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_FORTRESS_BALANCED"><![CDATA[
 	<p>
-		From the very top of this makeshift fortress flies a red flag, which doesn't bear any sort of marking or insignia.
-		 You catch brief signs of movement through the tower's windows, informing you that the owners are home.
+		There's no way to gain entry to the citadel. You see three keyholes in the massive stone gates. (You can't unlock them in this version!)
 	</p>
 	]]>
 	</htmlContent>

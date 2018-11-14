@@ -226,8 +226,4 @@ public class Arthur extends NPC {
 		return true; // TODO Wait, what?
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

@@ -461,7 +461,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -487,7 +487,6 @@ public class SubmissionGenericPlaces {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -532,53 +531,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Imp Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed(){
-			return 5;
-		}
-		
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
-
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_GROUP")); //TODO
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Will be finished for 0.3!)", null);
-//				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
-//					return new Response("Enter", "Enter the fortress.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
-//						}
-//					};
-//				} else {
-//					return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
-//						}
-//					};
-//				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -649,7 +602,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -720,7 +673,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_5 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Stone Citadel", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -732,9 +685,7 @@ public class SubmissionGenericPlaces {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
-
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_SLIMES"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL"));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -743,28 +694,38 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Approach", "Approach the fortress.", null) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelEncountered, true);
+					}
+				};
+				
 			} else {
 				return null;
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_6 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_DEMON_APPROACH = new DialogueNodeOld("Stone Citadel", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed(){
-			return 5;
+			return 1;
 		}
 		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
 
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_BALANCED"));
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_APPROACH_DEFEATED"));
+			} else if(Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_APPROACH_KEY"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_APPROACH"));
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -773,7 +734,27 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+					return new Response("Enter", "Enter the citadel.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
+						}
+					};
+					
+				} else if(Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)) {
+					return new Response("Enter", "Enter the citadel.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_APPROACH_KEY_ENTRY"));
+							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
+						}
+					};
+					
+				} else {
+					return new Response("Enter", "You don't have a key...", null);
+				}
+				
 			} else {
 				return null;
 			}
