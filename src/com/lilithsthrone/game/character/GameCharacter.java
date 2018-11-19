@@ -5342,7 +5342,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex:
 
 	public String getLostVirginityDescriptor() {
-		return this.getLocationPlace().getPlaceType().getVirgintyLossDescription();
+		return this.getLocationPlace().getPlaceType().getVirginityLossDescription();
 	}
 	
 	public void incrementSexCount(SexType sexType) {
