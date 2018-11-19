@@ -4680,7 +4680,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisGirth",
 						"cockGirth",
-						"dickGrith"),
+						"dickGirth"),
 				true,
 				true,
 				"",
