@@ -526,7 +526,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
-		
 		return generateWeapon(wt, dt, null, null);
 	}
 	

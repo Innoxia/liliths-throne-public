@@ -343,8 +343,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -354,8 +358,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleUnderwear())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleUnderwear()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -365,8 +373,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -376,8 +388,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -387,8 +403,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleLingerie())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleLingerie()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -398,8 +418,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -409,8 +433,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -420,8 +448,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousLingerie())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousLingerie()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -431,8 +463,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -444,6 +480,9 @@ public class ClothingEmporium {
 								Main.game.getNyan().clearNonEquippedInventory();
 		
 								for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials()) {
+									if(Main.game.getNyan().isInventoryFull()) {
+										break;
+									}
 									Main.game.getNyan().addClothing(c, false);
 								}
 							}

@@ -64,7 +64,7 @@
 	
 	<htmlContent tag="ENTRANCE_DESERTED_GUARD_RETURN_WARNING"><![CDATA[
 	<p>
-		[style.italicsBad(If you choose to leave the fortress now, you can be sure that there'll be new guards at the gate when you return!)]
+		[style.italicsBad(If you choose to leave the fortress now, you can be sure that there will be new guards at the gate when you return!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -409,7 +409,7 @@
 		Looking down at the defeated figures before you, you wonder if you should take advantage of them, or simply continue on into the fortress...
 	</p>
 	<p>
-		[style.italicsBad(If you choose to leave the guards behind, you can be sure that there'll have run off into Submission by the time you return!)]
+		[style.italicsBad(If you choose to leave the guards behind, you can be sure that they'll have run off into Submission by the time you return!)]
 	</p>
 	]]>
 	</htmlContent>

@@ -121,6 +121,11 @@ public class FortressDemonLeader extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			setStartingBody(true);
+			equipClothing(true, true, true, true);
+		}
 	}
 	
 	@Override

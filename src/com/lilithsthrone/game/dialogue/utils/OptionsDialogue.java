@@ -1686,7 +1686,14 @@ public class OptionsDialogue {
 				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"AUTO_SEX_CLOTHING_MANAGEMENT",
+							Colour.BASE_BLUE_STEEL,
+							"Post-sex clothing replacement",
+							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"AGE",
 							Colour.AGE_TWENTIES,

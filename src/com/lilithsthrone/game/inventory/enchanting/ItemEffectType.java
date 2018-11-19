@@ -3403,6 +3403,9 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
+//		System.out.println("  set to: "+id);
 		return idToItemEffectTypeMap.get(id);
 	}
 	

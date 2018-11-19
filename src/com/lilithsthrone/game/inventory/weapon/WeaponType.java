@@ -1034,6 +1034,9 @@ public class WeaponType {
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
 	
 	public static AbstractWeaponType getWeaponTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
+//		System.out.println("  set to: "+id);
 		return idToWeaponMap.get(id);
 	}
 	

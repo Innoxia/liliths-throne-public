@@ -140,7 +140,12 @@ public class TunnelImpsDialogue {
 							Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 							null,
 							null,
-							null);
+							null) {
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+					};
 					
 				} else {
 					return null;
@@ -161,7 +166,12 @@ public class TunnelImpsDialogue {
 							Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 							null,
 							null,
-							null);
+							null){
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+					};
 					
 				} else if (index == 4) {
 					GameCharacter companion = getMainCompanion();

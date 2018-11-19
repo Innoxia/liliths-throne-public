@@ -1180,6 +1180,29 @@ public class ImpCitadelDialogue {
 		}
 	};
 
+	public static final DialogueNodeOld LABORATORY = new DialogueNodeOld("Laboratory", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "LABORATORY", getAllCharacters()));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+
 	public static final DialogueNodeOld TREASURY = new DialogueNodeOld("Treasury", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -1249,29 +1272,6 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY_CLOTHES_DOOR = new DialogueNodeOld("Treasury Door", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "TREASURY_CLOTHES_DOOR", getAllCharacters()));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
-		}
-	};
-
 	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -1311,6 +1311,29 @@ public class ImpCitadelDialogue {
 		}
 	};
 
+	public static final DialogueNodeOld KEEP_THRONE_ROOM = new DialogueNodeOld("Throne Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_THRONE_ROOM", getAllCharacters()));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
 	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) { //TODO from here
 		private static final long serialVersionUID = 1L;
 

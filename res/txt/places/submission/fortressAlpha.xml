@@ -323,20 +323,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="KEEP_ALPHA_BRAWLER_SEX_WITH_COMPANION"><![CDATA[
-	<p>
-		You continue to humiliate [npc2.name], dodging her punches and pulling first her jacket off, then her chest wraps. Finally, you trip her to the ground, and tell [npc.name] to rape her...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_ALPHA_BRAWLER_SEX_WITH_BOTH"><![CDATA[
-	<p>
-		You continue to humiliate [npc2.name], dodging her punches and pulling first her jacket off, then her chest wraps. Finally, you trip her to the ground, and tell [npc.name] to join you in raping her...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="KEEP_ALPHA_BRAWLER_SCARED_OFF"><![CDATA[
 	<p>
 		Having dealt with [npc.name], and not wanting to go any further, you stand before [npc.herHim] and declare, [pc.speech(Go on then, get out of here! And don't come back!)]

@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Perk {
@@ -2672,8 +2672,8 @@ public enum Perk {
 			"perks/elemental/water1",
 			Colour.DAMAGE_TYPE_COLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 5)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override

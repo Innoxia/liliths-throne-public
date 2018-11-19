@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingAccess;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
@@ -204,15 +205,17 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		if(parentElement.getElementsByTagName("mainWeapon").item(0)!=null) {
-			inventory.equipMainWeapon(AbstractWeapon.loadFromXML(
-					(Element) ((Element)parentElement.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
-					doc));
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+			if(weapon!=null) {
+				inventory.equipMainWeapon(weapon);
+			}
 		}
 
 		if(parentElement.getElementsByTagName("offhandWeapon").item(0)!=null) {
-			inventory.equipOffhandWeapon(AbstractWeapon.loadFromXML(
-					(Element) ((Element)parentElement.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
-					doc));
+			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)parentElement.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0), doc);
+			if(weapon!=null) {
+				inventory.equipOffhandWeapon(weapon);
+			}
 		}
 		
 		NodeList clothingEquipped = ((Element) parentElement.getElementsByTagName("clothingEquipped").item(0)).getElementsByTagName("clothing");
@@ -266,7 +269,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			Element e = ((Element)weaponElements.item(i));
 
 			for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
-				inventory.addWeapon(AbstractWeapon.loadFromXML(e, doc));
+				AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
+				if(weapon!=null) {
+					inventory.addWeapon(weapon);
+				}
 			}
 		}
 		
@@ -584,7 +590,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	public boolean canAddWeapon(AbstractWeapon weapon) {
-		return !isInventoryFull() || hasWeapon(weapon);
+		return !isInventoryFull() || hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST;
 	}
 	
 	public boolean removeWeapon(AbstractWeapon weapon) {
@@ -717,11 +723,27 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	public boolean canAddClothing(AbstractClothing clothing) {
-		return !isInventoryFull() || hasClothing(clothing);
+		return !isInventoryFull() || hasClothing(clothing) ||  clothing.getRarity()==Rarity.QUEST;
 	}
 	
 	public boolean hasClothing(AbstractClothing clothing) {
 		return clothingInInventory.contains(clothing);
+	}
+	
+	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
+		for(AbstractClothing clothing : this.getClothingInInventory()) {
+			if(clothing.getClothingType().equals(type)) {
+				return true;
+			}
+		}
+		if(includeEquipped) {
+			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+				if(clothing.getClothingType().equals(type)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public boolean dropClothing(AbstractClothing clothing, Vector2i location) {
@@ -1071,9 +1093,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed()) {
 					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."
+							?"<br/>You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."
 							:UtilText.parse(characterClothingOwner,
-									"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."));
+									"<br/>[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."));
 				}
 			}
 			return false;

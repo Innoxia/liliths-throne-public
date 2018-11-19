@@ -720,13 +720,22 @@
 	
 	<htmlContent tag="IMP_CITADEL"><![CDATA[
 	<p>
-		<i>TODO - Will be added in the upcoming hotfix/mini-release!</i>
+		For some time, you've been feeling that the tunnels in this part of Submission have been sloping down towards something, and as the passage suddenly opens up in front of you, you discover that this 'something' is a huge, dark cavern. Unlike the rest of Submission, there are no iron grates set into the ceiling, so, due to the absence of light from sun or moon, numerous arcane-powered lanterns have been hung from long chains fixed to the high ceiling, which cast a dim golden glow over the huge subterranean space before you.
 	</p>
 	<p>
-		The tunnels open out into a large cavern, and built up against the far wall, there's a huge stone fortress. Even the gates have been carved from stone, and inscribed into the front, you read: (insert Dark Siren text)
+		The most remarkable feature of this area, and the one that instantly catches your eye, is that a huge stone citadel, reaching from floor to ceiling, has been built up against the far wall. Although there are slender arrow-slits set into the walls of the adjoining towers, they all appear to be firmly shuttered and bolted from within.
 	</p>
 	<p>
-		There's no way to gain entry to the citadel. You see three keyholes in the massive stone gates. (You can't unlock them in this version!)
+		A worn path leads up to the entrance, and, walking down it, you discover that the citadel's gates are carved from dark black stone. Three small keyholes have been drilled into the very middle of them, and, looking up, you see that there's an inscription on the stonework above, which reads:
+	</p>
+	<p style='text-align:center'><i>
+		In this mighty citadel, resides the Dark Siren; Empress of the arcane, Bearer of cataclysmic terror, She who rends worlds; Those who seek her favour must first prove themselves, and with three keys, then enter.
+	</i></p>
+	<p>
+		From a brief inspection of the citadel's walls, you can see no other way to gain entry. Without these 'three keys' that the inscription refers to, it doesn't look like you're going to be able to get inside...
+	</p>
+	<p>
+		[style.italicsBad(You cannot gain entry in this version, even with the three keys. The citadel content will be added in the next release!)]
 	</p>
 	]]>
 	</htmlContent>

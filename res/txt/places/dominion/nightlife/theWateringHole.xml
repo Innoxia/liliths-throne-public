@@ -1624,7 +1624,7 @@
 		With the [npc.race] in tow, you make your way out of the club, before heading back down Dominion's wide central boulevard towards Lilaya's mansion.
 		#IFgame.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
-			#IFnpc.getRace().isVulnerableToArcaneStorm()
+			#IFnpc.getSubspecies().isVulnerableToArcaneStorm()
 			#THEN Due to the ongoing arcane storm, [npc.name] keeps on trying to pull you to one side and start having sex with you, but you're determined to get back home before starting anything like that, and, pulling [npc.herHim] along, you continue on your way back home.
 			#ELSE Although there's an ongoing arcane storm, [npc.name] is just as unaffected by it as you, and the two of you chat happily with one another as you travel back home.
 			#ENDIF

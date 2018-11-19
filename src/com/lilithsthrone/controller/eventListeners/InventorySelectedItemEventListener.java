@@ -17,7 +17,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.2.11
  * @author Innoxia
  */
 public class InventorySelectedItemEventListener implements EventListener {
@@ -30,7 +30,13 @@ public class InventorySelectedItemEventListener implements EventListener {
 	@Override
 	public void handleEvent(Event event) {
 
-		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
+//		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
+//				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE
+//				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY
+				&& !Main.game.isInSex()
+				&& !Main.game.isInCombat()
+				&& (clothingEquipped!=null || weaponEquipped!=null)) {
 			return;
 		}
 		

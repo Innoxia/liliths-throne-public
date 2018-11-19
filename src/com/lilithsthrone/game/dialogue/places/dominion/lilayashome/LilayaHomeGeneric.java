@@ -261,17 +261,13 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self", "Use this room's spare milking equipment to milk yourself.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
-							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getMilk(), milked);
 							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
-							Main.game.getPlayer().incrementHealth(-25);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -324,9 +320,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
 										+ milked+"ml of [pc.milk] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};
@@ -345,16 +338,12 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self Cum", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self Cum", "Use this room's spare milking equipment to milk your cock.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualCumPerHour(Main.game.getPlayer());
-							room.incrementCumStorage(Main.game.getPlayer().getCum(), milked);
-							Main.game.getPlayer().incrementHealth(-25);
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getCum(), milked);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -412,9 +401,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
 										+ milked+"ml of [pc.cum] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};
@@ -433,16 +419,12 @@ public class LilayaHomeGeneric {
 				} else if(charactersPresent.size()==8) {
 					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
 					
-				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Girlcum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
-					
 				} else {
 					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
 						@Override
 						public void effects() {
 							int milked = MilkingRoom.getActualGirlcumPerHour(Main.game.getPlayer());
-							room.incrementGirlcumStorage(Main.game.getPlayer().getGirlcum(), milked);
-							Main.game.getPlayer().incrementHealth(-25);
+							room.incrementFluidStored(Main.game.getPlayer(), Main.game.getPlayer().getGirlcum(), milked);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 								Main.game.getTextEndStringBuilder().append(
@@ -500,9 +482,6 @@ public class LilayaHomeGeneric {
 								+ "</p>"
 								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
 									+ milked+"ml of [pc.girlcum] added to this room's storage!"
-								+ "</p>"
-								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									+ "Being milked is tiring, and you lose 25 energy!"
 								+ "</p>");
 						}
 					};

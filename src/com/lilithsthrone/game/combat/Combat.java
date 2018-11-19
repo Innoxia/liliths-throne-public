@@ -1226,47 +1226,6 @@ public enum Combat {
 				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
 			}
 			
-		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-			if(attacker.isPlayer()) {
-				attackStringBuilder.append(UtilText.parse(target,
-						"<p>"
-							+ (critical
-									? "Your seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>[npc.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-											+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-				
-			} else if(target.isPlayer()) {
-				attackStringBuilder.append(UtilText.parse(attacker,
-						"<p>"
-							+ (critical
-									? "[npc.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>You take " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-				
-			} else {
-				attackStringBuilder.append(UtilText.parse(attacker, target,
-						"<p>"
-							+ (critical
-									? "[npc1.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>[npc2.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-			}
-
-			target.incrementHealth(-lustDamage*2);
-			target.incrementMana(-lustDamage);
-			
 		} else {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,
@@ -1274,9 +1233,6 @@ public enum Combat {
 							+ (critical
 									? "Your seductive display was [style.boldExcellent(extremely effective)]!<br/>"
 									: "")
-							+ (lustDamage > 0
-									? "<b>[npc.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc.she] tries to resist your seductive display!</b><br/>"
-									: "")
 						+ "</p>"));
 				
 			} else if(target.isPlayer()) {
@@ -1284,9 +1240,6 @@ public enum Combat {
 						"<p>"
 							+ (critical
 									? "[npc.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>You gain " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as you try to resist [npc.her] seductive display!</b><br/>"
 									: "")
 						+ "</p>"));
 				
@@ -1296,13 +1249,10 @@ public enum Combat {
 							+ (critical
 									? "[npc1.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
 									: "")
-							+ (lustDamage > 0
-									? "<b>[npc2.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc2.she] tries to resist [npc1.namePos] seductive display!</b><br/>"
-									: "")
 						+ "</p>"));
 			}
-			
-			target.incrementLust(lustDamage);
+
+			attackStringBuilder.append(target.incrementLust(lustDamage, true));
 		}
 		
 		if(attacker.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)) {

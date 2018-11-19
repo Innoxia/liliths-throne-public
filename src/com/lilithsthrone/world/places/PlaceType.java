@@ -1105,16 +1105,18 @@ public enum PlaceType {
 		}
 	},
 
-	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpCitadelDialogue.ENTRANCE, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.COURTYARD, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_WELL("Well", "submission/impFortress/well", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, ImpCitadelDialogue.WELL, null, false, true, false, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS, null, true, true, true, "in the Demon Imp Fortress"),
-//	FORTRESS_DEMON_CELLS_COMFORTABLE("Comfortable Cells", "submission/impFortress/cellsComfortable", BaseColour.AMBER, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS_COMFORTABLE, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY("Treasury", "submission/impFortress/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.YELLOW, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_CLOTHES("Treasury", "submission/impFortress/treasuryClothes", BaseColour.AQUA, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES, null, true, true, true, "in the Demon Imp Fortress"),
-	FORTRESS_DEMON_TREASURY_CLOTHES_DOOR("Treasury Door", "submission/impFortress/treasuryDoorClothes", BaseColour.TEAL, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES_DOOR, null, true, true, true, "in the Demon Imp Fortress"),
+	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpCitadelDialogue.ENTRANCE, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.COURTYARD, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_WELL("Well", "submission/impFortress/well", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, ImpCitadelDialogue.WELL, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_KEEP_THRONE_ROOM("Throne Room", "submission/impFortress/throneRoom", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP_THRONE_ROOM, null, true, true, true, "in the Dark Siren's citadel"),
+	
+	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS, null, true, true, true, "in the Dark Siren's citadel"),
+	
+	FORTRESS_LAB("Laboratory", "submission/impFortress/laboratory", BaseColour.TEAL, Colour.MAP_BACKGROUND, ImpCitadelDialogue.LABORATORY, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY("Treasury", "submission/impFortress/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.YELLOW, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_DOOR, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY_CLOTHES("Treasury", "submission/impFortress/treasuryClothes", BaseColour.AQUA, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES, null, true, true, true, "in the Dark Siren's citadel"),
 
 	/**This fortress is <b>Female Imp Seducers</b>.*/
 	SUBMISSION_IMP_FORTRESS_FEMALES("Imp Fortress", "submission/impFortress3", BaseColour.PINK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_FEMALES, null, true, true, true, "in Submission") {

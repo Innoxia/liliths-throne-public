@@ -194,7 +194,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	}
 	
 	public static AbstractWeapon loadFromXML(Element parentElement, Document doc) {
-		AbstractWeapon weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+		AbstractWeapon weapon = null;
+		
+		try {
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			return null;
+		}
+		
+		if(weapon==null) {
+			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			return null;
+		}
+		
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
 			try {

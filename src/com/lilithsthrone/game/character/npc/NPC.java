@@ -664,6 +664,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
+				// Spells that should not be used:
+				case DARK_SIREN_BANEFUL_FISSURE:
+					break;
 			}
 		}
 		
@@ -2583,7 +2586,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
 						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
-							this.ingestFluid(partner, partner.getCumType(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue(), partner.getCumModifiers());
+							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue());
 						}
 					}
 					break;

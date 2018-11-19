@@ -962,4 +962,45 @@ public class Util {
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
+	
+	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		int distance = Integer.MAX_VALUE;
+		String closestString = input;
+		for(String choice : choices) {
+			int newDistance = getLevenshteinDistance(input, choice);
+			if(newDistance < distance) {
+				closestString = choice;
+				distance = newDistance;
+			}
+		}
+		return closestString;
+	}
+	
+	public static int getLevenshteinDistance(String inputOne, String inputTwo) {
+		// Don't care about case:
+		inputOne = inputOne.toLowerCase();
+		inputTwo = inputTwo.toLowerCase();
+		
+		// i == 0
+		int[] costs = new int[inputTwo.length() + 1];
+		
+		for (int j = 0; j < costs.length; j++) {
+			costs[j] = j;
+		}
+		for (int i = 1; i <= inputOne.length(); i++) {
+			// j == 0; nw = lev(i - 1, j)
+			costs[0] = i;
+			int nw = i - 1;
+			for (int j = 1; j <= inputTwo.length(); j++) {
+				int cj = Math.min(
+						1 + Math.min(costs[j], costs[j - 1]),
+						inputOne.charAt(i - 1) == inputTwo.charAt(j - 1)
+							? nw
+							: nw + 1);
+				nw = costs[j];
+				costs[j] = cj;
+			}
+		}
+		return costs[inputTwo.length()];
+	}
 }
