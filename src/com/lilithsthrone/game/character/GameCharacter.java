@@ -4300,13 +4300,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return getLevel() * 10;
 	}
 	
-	public String incrementExperience(int increment, boolean withExtaModifiers) {
+	public String incrementExperience(int increment, boolean withExtraModifiers) {
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
 			return "";
 		}
 		
-		int xpIncrement = (int) Math.max(0, increment * (withExtaModifiers&&this.hasTrait(Perk.JOB_WRITER, true)?1.25f:1));
+		int xpIncrement = (int) Math.max(0, increment * (withExtraModifiers&&this.hasTrait(Perk.JOB_WRITER, true)?1.25f:1));
 		
 		experience += xpIncrement;
 		

@@ -275,7 +275,7 @@ public class Elemental extends NPC {
 	}
 
 	@Override
-	public String incrementExperience(int increment, boolean withExtaModifiers) {
+	public String incrementExperience(int increment, boolean withExtraModifiers) {
 		return ""; // Elementals don't gain experience, but instead automatically level up alongside their summoner.
 	}
 	
