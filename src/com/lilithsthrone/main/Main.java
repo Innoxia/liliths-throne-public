@@ -109,6 +109,9 @@ public class Main extends Application {
 			+"<ul>Added FriendlyAlienFriend's Nyan artwork.</ul>"
 			+"<ul>Added Jam's Arthur artwork.</ul>"
 
+			+"<li>Contributors:"
+				+"<ul>Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)"
+		
 			+"<li>Items:</li>"
 			+"<ul>Improved pencil skirt icon.</ul>"
 			+"<ul>Added 'feminine short sleeved shirt' as a replacement for Lilaya's unisex shirt. (Sold by Nyan.)</ul>"

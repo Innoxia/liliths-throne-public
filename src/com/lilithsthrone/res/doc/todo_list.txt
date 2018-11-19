@@ -116,6 +116,9 @@
 	Artwork:
 		Added FriendlyAlienFriend's Nyan artwork.
 		Added Jam's Arthur artwork.
+		
+	Contributors:
+		Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)
 	
 	Items:
 		Improved pencil skirt icon.
