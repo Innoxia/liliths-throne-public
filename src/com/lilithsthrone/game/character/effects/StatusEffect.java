@@ -5671,7 +5671,7 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				return UtilText.parse(target,
-						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakazashi (the little)."
+						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakizashi (the little)."
 						+ " Wearing both of these swords at once marks the wielder as a member of the samurai class.");
 			} else {
 				return "";
@@ -11250,16 +11250,16 @@ public enum StatusEffect {
 			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
 			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
-				for(LubricationType lt : Sex.getWetAreas(owner).get(penetration).get(lubricantProvidor)) {
+			for(GameCharacter lubricantProvider : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(penetration).get(lubricantProvider)) {
 					if(i==0) {
-						lubricants.add(lubricantProvidor==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
-								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
 					} else {
-						lubricants.add(lubricantProvidor==null
-								?lt.getName(lubricantProvidor)
-								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
 					}
 					i++;
 				}
@@ -11296,16 +11296,16 @@ public enum StatusEffect {
 			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
 			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
-				for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType).get(lubricantProvidor)) {
+			for(GameCharacter lubricantProvider : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType).get(lubricantProvider)) {
 					if(i==0) {
-						lubricants.add(lubricantProvidor==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
-								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
 					} else {
-						lubricants.add(lubricantProvidor==null
-								?lt.getName(lubricantProvidor)
-								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
 					}
 					i++;
 				}

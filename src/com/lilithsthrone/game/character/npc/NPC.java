@@ -1615,7 +1615,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						desiredGenders.put(Gender.F_P_TRAP, 2);
 					};
 					
-					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferenes here
+					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferences here
 					if (Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 						desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 4);
 						desiredGenders.put(Gender.M_V_CUNTBOY, 4);

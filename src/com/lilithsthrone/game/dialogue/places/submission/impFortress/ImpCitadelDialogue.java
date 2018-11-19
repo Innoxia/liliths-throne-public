@@ -242,7 +242,7 @@ public class ImpCitadelDialogue {
 	}
 	
 	private static List<GameCharacter> getAllCharacters() {
-		// There's a reason I cna't just add all from getCharactersPresent(), but I forgot. Maybe it was because the Elemental companion gets added?
+		// There's a reason I can't just add all from getCharactersPresent(), but I forgot. Maybe it was because the Elemental companion gets added?
 		List<GameCharacter> allCharacters = new ArrayList<>();
 		
 		if(isCompanionDialogue()) {

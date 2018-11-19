@@ -1085,7 +1085,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns a breif descriptive overview of this character."){
+				"Returns a brief descriptive overview of this character."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getDescription();
@@ -2728,7 +2728,7 @@ public class UtilText {
 							break;
 						case SUB_NORMAL:
 							if(arguments!=null && !arguments.isEmpty()) {
-								return Util.capitaliseSentence(arguments); // Assume start of setnece, so capitalise.
+								return Util.capitaliseSentence(arguments); // Assume start of sentence, so capitalise.
 							} else if(Character.isUpperCase(command.charAt(0))) {
 								descriptors = Util.newArrayListOfValues("happily", "eagerly", "willingly"); // If start of sentence, need descriptor.
 								break;
@@ -4680,7 +4680,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisGirth",
 						"cockGirth",
-						"dickGrith"),
+						"dickGirth"),
 				true,
 				true,
 				"",

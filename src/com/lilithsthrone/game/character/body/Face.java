@@ -201,7 +201,7 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic vulpine muzzle, and [npc.her] tongue flattens and shiifts into a pink fox-like tongue."
+								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic vulpine muzzle, and [npc.her] tongue flattens and shifts into a pink fox-like tongue."
 								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.sheIs] left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldFoxMorph(fox-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldFoxMorph(flat, fox-like tongue)]."
 							+ "</p>"));

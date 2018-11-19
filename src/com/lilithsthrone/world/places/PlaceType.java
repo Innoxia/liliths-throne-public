@@ -1256,7 +1256,7 @@ public enum PlaceType {
 	protected DialogueNodeOld dialogue;
 	private Encounter encounterType;
 	private boolean dangerous, stormImmune, itemsDisappear;
-	private String virgintyLossDescription;
+	private String virginityLossDescription;
 
 	private static Map<String, String> SVGOverrides = new HashMap<>(); 
 	
@@ -1269,7 +1269,7 @@ public enum PlaceType {
 			boolean dangerous,
 			boolean stormImmune,
 			boolean itemsDisappear,
-			String virgintyLossDescription) {
+			String virginityLossDescription) {
 		
 		this.name = name;
 		this.colour = colour;
@@ -1279,7 +1279,7 @@ public enum PlaceType {
 		this.dangerous = dangerous;
 		this.stormImmune = stormImmune;
 		this.itemsDisappear = itemsDisappear;
-		this.virgintyLossDescription = virgintyLossDescription;
+		this.virginityLossDescription = virginityLossDescription;
 		
 		if(SVGPath!=null) {
 			try {
@@ -1466,7 +1466,7 @@ public enum PlaceType {
 		}
 	}
 
-	public String getVirgintyLossDescription() {
-		return virgintyLossDescription;
+	public String getVirginityLossDescription() {
+		return virginityLossDescription;
 	}
 }

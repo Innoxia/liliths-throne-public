@@ -829,11 +829,11 @@ public abstract class GameCharacter implements XMLSaving {
 		Element fetishDesire = doc.createElement("fetishDesire");
 		properties.appendChild(fetishDesire);
 		for(Entry<Fetish, FetishDesire> entry : this.getFetishDesireMap().entrySet()){
-			Element fondenessEntry = doc.createElement("entry");
-			fetishDesire.appendChild(fondenessEntry);
+			Element fondnessEntry = doc.createElement("entry");
+			fetishDesire.appendChild(fondnessEntry);
 			
-			CharacterUtils.addAttribute(doc, fondenessEntry, "fetish", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, fondenessEntry, "desire", entry.getValue().toString());
+			CharacterUtils.addAttribute(doc, fondnessEntry, "fetish", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, fondnessEntry, "desire", entry.getValue().toString());
 		}
 		
 		Element fetishExperience = doc.createElement("fetishExperience");
@@ -983,11 +983,11 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// ************** Companions **************//
 
-		Element companonElement = doc.createElement("companions");
-		properties.appendChild(companonElement);
+		Element companionElement = doc.createElement("companions");
+		properties.appendChild(companionElement);
 		
 		Element companionsFollowing = doc.createElement("companionsFollowing");
-		companonElement.appendChild(companionsFollowing);
+		companionElement.appendChild(companionsFollowing);
 		for(String companion : this.getCompanionsId()) {
 			Element element = doc.createElement("companion");
 			companionsFollowing.appendChild(element);
@@ -995,8 +995,8 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "id", companion);
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, companonElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
-		CharacterUtils.createXMLElementWithValue(doc, companonElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
+		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
+		CharacterUtils.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
 		
 		
 		
@@ -4300,13 +4300,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return getLevel() * 10;
 	}
 	
-	public String incrementExperience(int increment, boolean withExtaModifiers) {
+	public String incrementExperience(int increment, boolean withExtraModifiers) {
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
 			return "";
 		}
 		
-		int xpIncrement = (int) Math.max(0, increment * (withExtaModifiers&&this.hasTrait(Perk.JOB_WRITER, true)?1.25f:1));
+		int xpIncrement = (int) Math.max(0, increment * (withExtraModifiers&&this.hasTrait(Perk.JOB_WRITER, true)?1.25f:1));
 		
 		experience += xpIncrement;
 		
@@ -5342,7 +5342,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex:
 
 	public String getLostVirginityDescriptor() {
-		return this.getLocationPlace().getPlaceType().getVirgintyLossDescription();
+		return this.getLocationPlace().getPlaceType().getVirginityLossDescription();
 	}
 	
 	public void incrementSexCount(SexType sexType) {

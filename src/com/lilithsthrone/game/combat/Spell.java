@@ -535,7 +535,7 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
-											Util.newArrayListOfValues(//TODO chunni three from here
+											Util.newArrayListOfValues(//TODO chuuni three from here
 													"May the heavens burst, and floods sweep the Earth! By the powers manifest within me, I tear open the skies, and deliver unto you your watery grave!"),
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above your own head!",
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above [npc.namePos] head!",

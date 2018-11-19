@@ -1440,7 +1440,7 @@ public class Game implements Serializable, XMLSaving {
 				boolean faceVirgin = npc.isFaceVirgin();
 				boolean nippleVirgin = npc.isNippleVirgin();
 				boolean penisVirgin = npc.isPenisVirgin();
-				boolean ureathreVirgin = npc.isUrethraVirgin();
+				boolean urethraVirgin = npc.isUrethraVirgin();
 				boolean vaginaVirgin = npc.isVaginaVirgin();
 				boolean vaginaUrethraVirgin = npc.isVaginaUrethraVirgin();
 				
@@ -1452,7 +1452,7 @@ public class Game implements Serializable, XMLSaving {
 				npc.setFaceVirgin(faceVirgin);
 				npc.setNippleVirgin(nippleVirgin);
 				npc.setPenisVirgin(penisVirgin);
-				npc.setUrethraVirgin(ureathreVirgin);
+				npc.setUrethraVirgin(urethraVirgin);
 				npc.setVaginaVirgin(vaginaVirgin);
 				npc.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			}

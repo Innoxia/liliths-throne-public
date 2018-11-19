@@ -1948,7 +1948,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void applyMakeup(GameCharacter character, boolean overideExistingMakeup) {
+	public static void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					Colour.COVERING_NONE,

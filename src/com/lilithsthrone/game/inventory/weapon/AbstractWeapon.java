@@ -436,8 +436,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
-		return this.getWeaponType().applyExtraEfects(user, target, isHit);
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
+		return this.getWeaponType().applyExtraEffects(user, target, isHit);
 	}
 	
 
