@@ -11457,7 +11457,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] [npc.verb(take)]"
 							+ " <b>"+(manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!"
 						+ "</p>"))
-						+incrementLust(manaLoss, true);
+						+incrementLust(manaLoss, false);
 				
 				
 				
@@ -11475,7 +11475,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.name] [npc.verb(take)]"
 							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
 						+ "</p>"))
-						+incrementLust(manaLoss, true);
+						+incrementLust(manaLoss, false);
 				
 				
 				
@@ -11591,6 +11591,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String setLust(float lust) {
+		int increment = (int) (lust-this.getLust());
 		if (lust < 0) {
 			setAttribute(Attribute.LUST, 0, false);
 			
@@ -11605,11 +11606,13 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(this.isPlayer()) {
 			return "<p style='text-align:center;'>"
-						+ "You are now feeling <b style='color:"+this.getLustLevel().getColour().toWebHexString()+";'>"+this.getLustLevel().getName()+"</b>."
+						+ "You "+(increment>0?"gained":"lost")+" [style.boldDmgLust("+increment+" lust)], and are now feeling"
+								+ " <b style='color:"+this.getLustLevel().getColour().toWebHexString()+";'>"+this.getLustLevel().getName()+"</b>."
 					+ "</p>";
 		} else {
 			return "<p style='text-align:center;'>"
-					+ UtilText.parse(this, "[npc.Name] is now feeling <b style='color:"+this.getLustLevel().getColour().toWebHexString()+";'>"+this.getLustLevel().getName()+"</b>.")
+					+ UtilText.parse(this, "[npc.Name] "+(increment>0?"gained":"lost")+" [style.boldDmgLust("+increment+" lust)], and is now feeling"
+							+ " <b style='color:"+this.getLustLevel().getColour().toWebHexString()+";'>"+this.getLustLevel().getName()+"</b>.")
 				+ "</p>";
 		}
 	}
@@ -11622,7 +11625,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementLust(float increment, boolean applyMaximumLustDamage) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+		if(this.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX) && applyMaximumLustDamage) {
 			sb.append(UtilText.parse(this,
 						"<p>"
 							+ "<b>[npc.Name] [npc.verb(take)]"

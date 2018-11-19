@@ -1147,9 +1147,9 @@ public class CharacterModificationUtils {
 				contentSB.toString(), false);
 	}
 	
-	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces) {
+	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
 		
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(ArmType arm : ArmType.values()) {
@@ -1242,9 +1242,9 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
-	public static String getSelfTransformLegChoiceDiv(List<Race> availableRaces) {
+	public static String getSelfTransformLegChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
 
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(LegType leg : LegType.values()) {
@@ -1313,8 +1313,8 @@ public class CharacterModificationUtils {
 		}
 	}
 	
-	public static String getSelfTransformFaceChoiceDiv(List<Race> availableRaces) {
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+	public static String getSelfTransformFaceChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(FaceType face : FaceType.values()) {

@@ -172,6 +172,10 @@ public class Main extends Application {
 			+"<ul>'Biojuice Canister' and 'Bubblegum Lollipop' items are now correctly marked as being transformative, meaning that they cannot be used on non-slave unique NPCs.</ul>"
 			+"<ul>Fixed quest clothing having enchantment postfixes automatically appended to the name.</ul>"
 			+"<ul>Fixed issue with quest clothing and weapons not being placed into quest inventory if regular inventory was full.</ul>"
+			+"<ul>Fixed another issue with masochist/sadist fetishes causing freezes in combat.</ul>"
+			+"<ul>Fixed issue with lust damage information not being appended correctly in combat.</ul>"
+			+"<ul>Fixed debug menu's transform options for legs/face/arms being limited.</ul>"
+			+"<ul>Fixed parsing error when using the 'True Nympho' option in Hyorlyss's fortress.</ul>"
 		+ "</list>"
 	;
 	

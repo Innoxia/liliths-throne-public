@@ -718,7 +718,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="IMP_CITADEL"><![CDATA[
+	<htmlContent tag="IMP_CITADEL_BASE"><![CDATA[
 	<p>
 		For some time, you've been feeling that the tunnels in this part of Submission have been sloping down towards something, and as the passage suddenly opens up in front of you, you discover that this 'something' is a huge, dark cavern. Unlike the rest of Submission, there are no iron grates set into the ceiling, so, due to the absence of light from sun or moon, numerous arcane-powered lanterns have been hung from long chains fixed to the high ceiling, which cast a dim golden glow over the huge subterranean space before you.
 	</p>
@@ -731,8 +731,22 @@
 	<p style='text-align:center'><i>
 		In this mighty citadel, resides the Dark Siren; Empress of the arcane, Bearer of cataclysmic terror, She who rends worlds; Those who seek her favour must first prove themselves, and with three keys, then enter.
 	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_NO_KEYS"><![CDATA[
 	<p>
 		From a brief inspection of the citadel's walls, you can see no other way to gain entry. Without these 'three keys' that the inscription refers to, it doesn't look like you're going to be able to get inside...
+	</p>
+	<p>
+		[style.italicsBad(You cannot gain entry in this version, even with the three keys. The citadel content will be added in the next release!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CITADEL_KEYS"><![CDATA[
+	<p>
+		From a brief inspection of the citadel's walls, you can see no other way to gain entry. However, as you have the 'three keys' that the inscription refers to, it looks like opening the gates won't be a problem...
 	</p>
 	<p>
 		[style.italicsBad(You cannot gain entry in this version, even with the three keys. The citadel content will be added in the next release!)]

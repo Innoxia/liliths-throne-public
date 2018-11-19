@@ -180,14 +180,19 @@
 		'Biojuice Canister' and 'Bubblegum Lollipop' items are now correctly marked as being transformative, meaning that they cannot be used on non-slave unique NPCs.
 		Fixed quest clothing having enchantment postfixes automatically appended to the name.
 		Fixed issue with quest clothing and weapons not being placed into quest inventory if regular inventory was full.
-		
-		
-		
+		Fixed another issue with masochist/sadist fetishes causing freezes in combat.
+		Fixed issue with lust damage information not being appended correctly in combat.
+		Fixed debug menu's transform options for legs/face/arms being limited.
+		Fixed parsing error when using the 'True Nympho' option in Hyorlyss's fortress.
 		
 		
 		
 		
 	
+	expand the colour system to define button colour and text colour so that can have dark colours for coverings
+	 
+	Reading "knocked up" no longer changes the dialouge with Lilaya and acts like you have no clue whats going on
+	 
 	Add citadel text
 		Doorway has three intricate keyholes
 			Chuuni writing around it, revealing daughter of Lyssieth

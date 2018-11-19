@@ -2169,6 +2169,7 @@ public class ImpFortressDialogue {
 									KEEP_FEMALES_NYMPHO) {
 								@Override
 								public void effects() {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
 									clearBossGuards();
 									setBossEncountered();
 									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3)) {
@@ -2616,9 +2617,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
