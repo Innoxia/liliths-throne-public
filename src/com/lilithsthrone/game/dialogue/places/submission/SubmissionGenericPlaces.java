@@ -456,7 +456,7 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Knock", "KNock on the palace gates, and wait for one of the servants inside to answer. (Will be added for v0.3!)", null);
+				return new Response("Knock", "Knock on the palace gates, and wait for one of the servants inside to answer. (Will be added for v0.3!)", null);
 			}
 			return null;
 		}

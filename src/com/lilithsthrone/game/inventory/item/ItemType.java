@@ -4294,10 +4294,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You eat the eggplant. The bitter taste of disappointment overwhelmes you.",
-					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelmes you both.");
+					"You eat the eggplant. The bitter taste of disappointment overwhelms you.",
+					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
 		}
 	};
 

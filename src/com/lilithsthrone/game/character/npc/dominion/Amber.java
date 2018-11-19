@@ -507,7 +507,7 @@ public class Amber extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "With that, she suddenly hurls you to the floor, and you let out a cry as you fall down onto all fours."
-						+ " Amber steps around behind you, and as you try to crawl away, she delivers a stingingly-sharp slap to your rear end,"
+						+ " Amber steps around behind you, and as you try to crawl away, she delivers a stinging sharp slap to your rear end,"
 						+ " [amber.speech(Stupid bitch! You've got me all worked up now! Time to teach you a lesson!)]"
 					+ "</p>";
 		}

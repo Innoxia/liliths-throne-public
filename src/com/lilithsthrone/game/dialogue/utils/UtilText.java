@@ -1085,7 +1085,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns a breif descriptive overview of this character."){
+				"Returns a brief descriptive overview of this character."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getDescription();

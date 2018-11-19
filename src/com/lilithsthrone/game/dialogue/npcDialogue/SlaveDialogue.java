@@ -1371,7 +1371,7 @@ public class SlaveDialogue {
 									+ " [npc.speech(I do whatever I'm told to, [npc.pcName]. I'll carry out my duties to the best of my ability, as that's what's expected of me.)]"
 									+ "</p>"
 									+ "<p>"
-									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doens't like you."
+									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doesn't like you."
 									+ " Before you can say anything else, [npc.she] asks,"
 									+ " [npc.speech(What more do you need of me, [npc.pcName]?)]");
 							break;

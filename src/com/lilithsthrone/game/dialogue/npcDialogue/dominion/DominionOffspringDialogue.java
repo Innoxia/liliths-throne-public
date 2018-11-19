@@ -2103,7 +2103,7 @@ public class DominionOffspringDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "From the moment you entered [npc.namePos] apartment, you haven't been able to take your [pc.eyes] off of [npc.herHim]."
-						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmigly")+" at you once more, you can't help but act."
+						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmingly")+" at you once more, you can't help but act."
 					+ "</p>");
 			
 			if(offspring().getHistory()==Occupation.NPC_PROSTITUTE){

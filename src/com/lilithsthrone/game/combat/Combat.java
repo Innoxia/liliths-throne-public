@@ -1337,9 +1337,9 @@ public enum Combat {
 			attacker.addStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
 			
 			if(attacker.isPlayer()) {
-				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudbust!</p>");
+				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudburst!</p>");
 			} else {
-				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudbust!</p>"));
+				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudburst!</p>"));
 			}
 			extraAttackEffectsSB.append(Spell.getBasicStatusEffectApplication(attacker, false, Util.newHashMapOfValues(new Value<>(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6))));
 			

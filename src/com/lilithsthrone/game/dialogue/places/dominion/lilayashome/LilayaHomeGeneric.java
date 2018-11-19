@@ -1147,7 +1147,7 @@ public class LilayaHomeGeneric {
 					+ "</p>"
 					+ "<p>"
 						+ "Arthur hurriedly grabs several pages of notes, before placing them beside the watch on the table in front of you."
-						+ " Before he has any time to explain what his plan is, the door suddenly burts open, and a very angry-looking Lilaya strides into the room."
+						+ " Before he has any time to explain what his plan is, the door suddenly bursts open, and a very angry-looking Lilaya strides into the room."
 						+ " [lilaya.speech(What is it now Arthur?! Oh, [pc.name], you're here too!)]"
 					+ "</p>"
 					+ "<p>"

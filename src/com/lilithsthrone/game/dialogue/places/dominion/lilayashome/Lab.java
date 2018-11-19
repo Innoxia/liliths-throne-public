@@ -874,7 +874,7 @@ public class Lab {
 						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind."
+						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassment is on her mind."
 						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
 					+ "</p>";
 		}
