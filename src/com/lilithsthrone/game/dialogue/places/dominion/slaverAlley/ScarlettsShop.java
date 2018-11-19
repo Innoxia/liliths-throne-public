@@ -196,7 +196,7 @@ public class ScarlettsShop {
 				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "ALEXAS_SHOP"); //TODO expand
 			}
 			
-			// TODO new interior description once rennovated
+			// TODO new interior description once renovated
 		}
 
 		@Override

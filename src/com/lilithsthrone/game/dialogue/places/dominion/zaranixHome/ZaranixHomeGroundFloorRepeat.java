@@ -1994,7 +1994,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						Main.game.getAmber().returnToHome();
 						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
 						Main.game.banishNPC(owner);
-						owner.removeSlave(pet); //To stop issues with banisNPC() TODO fix this
+						owner.removeSlave(pet); //To stop issues with banishNPC() TODO fix this
 						Main.game.banishNPC(pet);
 					}
 				};

@@ -1297,7 +1297,7 @@ public class Sex {
 //		}
 //
 //		@Override
-//		public boolean isDispalysActionTitleOnContinuesDialogue() {
+//		public boolean isDisplaysActionTitleOnContinuesDialogue() {
 //			return false;
 //		}
 //
@@ -2789,7 +2789,7 @@ public class Sex {
 			
 			sexSB.append(penileVirginityLoss);
 			
-		} else { // Pen/pen suff:
+		} else { // Pen/pen stuff:
 			if (penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.PENIS) {
 				if (initialPenetrations.get(characterPenetrated).contains(SexAreaPenetration.PENIS)) {
 					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
@@ -3338,7 +3338,7 @@ public class Sex {
 	}
 	
 	/**
-	 * @return true if the penetrator is using their penetrationTpye on another character.
+	 * @return true if the penetrator is using their penetrationType on another character.
 	 */
 	public static boolean isPenetrationNonSelfOngoingAction(GameCharacter penetrator, SexAreaPenetration penetrationType) {
 		for(GameCharacter target : Sex.allParticipants) {

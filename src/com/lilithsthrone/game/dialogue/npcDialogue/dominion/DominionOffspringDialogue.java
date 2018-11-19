@@ -758,11 +758,11 @@ public class DominionOffspringDialogue {
 									|| (!Main.game.getPlayer().isFeminine() && offspring().getSexualOrientation()==SexualOrientation.ANDROPHILIC)
 									|| (offspring().getSexualOrientation()==SexualOrientation.AMBIPHILIC))
 									|| offspring().hasFetish(Fetish.FETISH_INCEST)) {
-								//Incest fetish and not attracted to player, or attracted to player and no incest fetsh:
+								//Incest fetish and not attracted to player, or attracted to player and no incest fetish:
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -5));
 								
 							} else {
-								//Not attracted to player, and no incest fetsh:
+								//Not attracted to player, and no incest fetish:
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -20));
 							}
 							setOffspringFlags();

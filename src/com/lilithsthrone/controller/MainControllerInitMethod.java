@@ -2465,7 +2465,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				// Vagina elastcity:
+				// Vagina elasticity:
 				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
 					id = "VAGINA_ELASTICITY_"+elasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -2853,7 +2853,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				// Nipple elastcity:
+				// Nipple elasticity:
 				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
 					id = "NIPPLE_ELASTICITY_"+elasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
