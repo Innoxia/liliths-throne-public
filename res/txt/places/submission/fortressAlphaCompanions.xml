@@ -497,7 +497,7 @@
 	<p>
 		Before long, [npc2.name] is panting and sweating from exertion, with each of [npc2.her] strikes becoming easier and easier to dodge. Thinking the time's come to put an end to this, you quickly dart forwards,
 		#IF npc2.isVisiblyPregnant()
-		#THEN and, concious of the fact that [npc2.sheIs] pregnant, you twist [npc2.her] [npc2.arm] behind [npc2.her] back, before carefully, but firmly, forcing [npc2.herHim] to the ground.
+		#THEN and, conscious of the fact that [npc2.sheIs] pregnant, you twist [npc2.her] [npc2.arm] behind [npc2.her] back, before carefully, but firmly, forcing [npc2.herHim] to the ground.
 		#ELSE landing a solid punch to [npc2.her] stomach, before tripping [npc2.herHim] and hurling [npc2.herHim] to the ground.
 		#ENDIF
 	</p>
