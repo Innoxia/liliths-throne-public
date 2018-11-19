@@ -912,16 +912,16 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 					
 					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
 						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
-						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
+						applicableCorruptionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
 					}
 					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null){
