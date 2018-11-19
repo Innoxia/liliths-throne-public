@@ -999,7 +999,7 @@ public enum Combat {
 		}
 		
 		if(attacker.getMainWeapon() != null) {
-			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit));
@@ -1049,7 +1049,7 @@ public enum Combat {
 		}
 		
 		if(attacker.getOffhandWeapon() != null) {
-			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit));
@@ -1102,10 +1102,10 @@ public enum Combat {
 		attackStringBuilder.append(target.incrementHealth(attacker, -(damageMain+damageOffhand)));
 		
 		if(attacker.getMainWeapon() != null) {
-			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 		if(attacker.getOffhandWeapon() != null) {
-			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 		
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit));

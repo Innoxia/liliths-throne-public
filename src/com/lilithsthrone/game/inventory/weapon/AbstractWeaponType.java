@@ -815,7 +815,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
 		if(this.getArcaneCost()>0) {
 			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
 			if(user.isPlayer()) {
