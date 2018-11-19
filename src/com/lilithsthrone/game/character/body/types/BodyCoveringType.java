@@ -439,7 +439,7 @@ public enum BodyCoveringType {
 	
 	// EYES:
 	
-	EYE_HUMAN(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccuring()),
+	EYE_HUMAN(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccurring()),
 
 	EYE_ANGEL(BodyCoveringTemplateFactory.createEyeIrises()),
 
