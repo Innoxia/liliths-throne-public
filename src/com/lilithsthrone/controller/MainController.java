@@ -2124,11 +2124,11 @@ public class MainController implements Initializable {
 	 *            true if move to next world, false if move to previous world
 	 */
 	public void moveGameWorld(WorldType worldType, PlaceType placeType, boolean setDefaultDialogue) {
-		int timeToTranstition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
+		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
 		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
 		
-		Main.game.endTurn(timeToTranstition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
+		Main.game.endTurn(timeToTransition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}
 
 	/**
