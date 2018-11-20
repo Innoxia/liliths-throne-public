@@ -11,8 +11,10 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -321,7 +323,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -368,7 +371,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -415,7 +419,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -462,7 +467,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -511,7 +517,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -560,7 +567,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FELINE_FANCY)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -607,7 +615,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -656,7 +665,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -705,7 +715,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -754,7 +765,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -803,7 +815,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -851,7 +864,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_EGG_NOG)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -899,7 +913,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME)),
 			Util.newArrayListOfValues(
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -947,7 +962,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -994,7 +1010,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1041,7 +1058,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_MINCE_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1091,7 +1109,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1139,7 +1158,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_IMPISH_BREW)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1187,7 +1207,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1283,7 +1304,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1376,7 +1398,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1424,7 +1447,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1471,7 +1495,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1520,7 +1545,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1571,7 +1597,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1620,7 +1647,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1667,7 +1695,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1716,7 +1745,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1763,7 +1793,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1810,7 +1841,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1857,7 +1889,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1903,7 +1936,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1952,7 +1986,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2000,7 +2035,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2048,10 +2084,16 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HARPY;
@@ -2101,6 +2143,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_SLIME;
@@ -2174,7 +2221,7 @@ public class ItemType {
 //		}
 //	};
 	
-	private static String getEssenceAbsorbtionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
+	private static String getEssenceAbsorptionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
 			if (user!=null && user.isPlayer()) {
 				if(target!=null) {
 					if(target.isPlayer()) {
@@ -2304,7 +2351,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.GENERIC_ARCANE, user, target);
+			return getEssenceAbsorptionText(Colour.GENERIC_ARCANE, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2342,7 +2389,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_CAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_CAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2381,7 +2428,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_COW_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_COW_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2419,7 +2466,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DEMON, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DEMON, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2457,11 +2504,11 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_IMP, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_IMP, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.IMP || target.isPlayer();
+			return target.getRace()==Race.DEMON || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
@@ -2495,7 +2542,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
 		}
 	};
 	
@@ -2526,7 +2573,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SQUIRREL_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SQUIRREL_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2564,7 +2611,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2602,7 +2649,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RABBIT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RABBIT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2640,7 +2687,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_BAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_BAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2678,7 +2725,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DOG_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DOG_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2716,7 +2763,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HARPY, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HARPY, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2754,7 +2801,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HORSE_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HORSE_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2792,7 +2839,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_REINDEER_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_REINDEER_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2830,7 +2877,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HUMAN, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HUMAN, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2868,7 +2915,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_WOLF_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_WOLF_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2906,7 +2953,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_FOX_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_FOX_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2944,7 +2991,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SLIME, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SLIME, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -3311,55 +3358,13 @@ public class ItemType {
 			return false;
 		}
 	};
-
-	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
-			"",
-			false,
-			"Arthur's Package",
-			"Arthur's Packages",
-			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
-			"arthursPackage",
-			Colour.ANDROGYNOUS,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			null, null) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getUseName() {
-			return "inspect";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
-		}
-		
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-
-	};
 	
 	public static AbstractItemType ORIENTATION_HYPNO_WATCH = new AbstractItemType(50000,
 			"a",
 			false,
 			"Hypno-Watch",
 			"Hypno-Watches",
-			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of giving them a huge increase in corruption.",
+			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of increasing their corruption...",
 			"hypnoClockBase",
 			Colour.ANDROGYNOUS,
 			null,
@@ -3430,7 +3435,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3469,7 +3475,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3504,7 +3511,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.BAT_CAVERNS_SPAWN)) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3600,7 +3608,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3636,7 +3645,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4277,11 +4287,6 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "eat";
 		}
@@ -4289,13 +4294,177 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You eat the eggplant. The bitter taste of disappointment overwhelmes you.",
-					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelmes you both.");
+					"You eat the eggplant. The bitter taste of disappointment overwhelms you.",
+					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
 		}
 	};
-	
+
+
+	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
+			"",
+			false,
+			"Arthur's Package",
+			"Arthur's Packages",
+			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
+			"arthursPackage",
+			Colour.ANDROGYNOUS,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY = new AbstractItemType(0,
+			"",
+			false,
+			"Fyrsia's Key",
+			"Fyrsia's Keys",
+			"An arcane key that you obtained from Fyrsia, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey",
+			Colour.CLOTHING_SILVER,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_2 = new AbstractItemType(0,
+			"",
+			false,
+			"Jhortrax's Key",
+			"Jhortrax's Keys",
+			"An arcane key that you obtained from Jhortrax, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey2",
+			Colour.CLOTHING_STEEL,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_3 = new AbstractItemType(0,
+			"",
+			false,
+			"Hyorlyss's Key",
+			"Hyorlyss's Keys",
+			"An arcane key that you obtained from Hyorlyss, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey3",
+			Colour.CLOTHING_GOLD,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType LYSSIETHS_RING = new AbstractItemType(0,
+			"",
+			false,
+			"Lyssieth's Trapped Signet Ring",
+			"Lyssieth's Trapped Signet Rings",
+			"Beautifully crafted from rose gold, and encrusted with precious gemstones, this ring has been enchanted to enslave whoever puts it on."
+					+ " If you were able to trick 'The Dark Siren' into wearing it, you could earn an audience with Lyssieth without needing to fight.",
+			"lyssiethsRing",
+			Colour.CLOTHING_ROSE_GOLD,
+			Colour.CLOTHING_RED_DARK,
+			Colour.CLOTHING_ROSE_GOLD,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "The ring feels warm to the touch, revealing the fact that it's carrying a potent enchantment. Maybe once all this is over, Lyssieth will allow you to keep it as a reward...");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	
 	// Standard non-racial transformatives:
@@ -4608,11 +4777,11 @@ public class ItemType {
 		return 1000;
 	}
 	
-	public static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
-	public static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
-	public static List<AbstractItemType> batCavernItems = new ArrayList<>();
-	public static List<AbstractItemType> essences = new ArrayList<>();
-	public static List<AbstractItemType> allItems = new ArrayList<>();
+	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
+	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
+	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> essences = new ArrayList<>();
+	private static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -4620,7 +4789,7 @@ public class ItemType {
 	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+	private static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -4628,7 +4797,7 @@ public class ItemType {
 	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
+	private static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
 	
 	public static AbstractItemType getSpellBookType(Spell s) {
 		return idToItemMap.get("SPELL_BOOK_"+s);
@@ -4724,19 +4893,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_EARTH, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, null);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_WATER, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, null);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_AIR, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, null);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_FIRE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, null);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_ARCANE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, null);
 							
 						}
 					}
@@ -4852,6 +5021,7 @@ public class ItemType {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
+				case DARK_SIREN_BANEFUL_FISSURE:
 					break;
 			}
 			
@@ -4888,13 +5058,20 @@ public class ItemType {
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
-					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
+							&& !(target instanceof Elemental);
 				}
 		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
+						
+					} else if(target instanceof Elemental) {
+						return UtilText.parse(target, "[npc.Name], like all elementals, cannot learn spells from books."
+								+ " Instead, [npc.she] will need to focus on improving [npc.her] understanding of the arcane in order to learn new spells."
+								+ " (Elementals gain new spells via the perk tree.)");
+						
 					} else {
 						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
 					}
@@ -5006,6 +5183,33 @@ public class ItemType {
 			
 			allItems.add(scroll);
 		}
+	}
+
+	public static List<AbstractItemType> getDominionAlleywayItems() {
+		return dominionAlleywayItems;
+	}
+	
+	public static List<AbstractItemType> getSubmissionTunnelItems() {
+		return submissionTunnelItems;
+	}
+	
+	public static List<AbstractItemType> getBatCavernItems() {
+		return batCavernItems;
+	}
+	public static List<AbstractItemType> getEssences() {
+		return essences;
+	}
+	
+	public static List<AbstractItemType> getAllItems() {
+		return allItems;
+	}
+	
+	public static Map<AbstractItemType, String> getItemToIdMap() {
+		return itemToIdMap;
+	}
+	
+	public static Map<String, AbstractItemType> getIdToItemMap() {
+		return idToItemMap;
 	}
 
 }

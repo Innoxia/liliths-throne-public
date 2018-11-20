@@ -581,7 +581,7 @@ public class DicePoker {
 						+ "[pc.speech(Wait!)] you cry out, desperate not to lose your money."
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speech(Huh? What is it?)] [npc.name] asks, narrowing [npc.her] eyes in suspicion as [npc.she] looks up from gathering the money taht's on the table."
+						+ "[npc.speech(Huh? What is it?)] [npc.name] asks, narrowing [npc.her] eyes in suspicion as [npc.she] looks up from gathering the money that's on the table."
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Well... I mean... Is there no way I can get my money back?)] you ask, putting on your most innocent look as you submissively cast your eyes to the floor."
@@ -612,8 +612,8 @@ public class DicePoker {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(gambler, SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						END_LOSS_SEX,
-						UtilText.parse(gambler,"<p>"
+						null,
+						null, END_LOSS_SEX, UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"

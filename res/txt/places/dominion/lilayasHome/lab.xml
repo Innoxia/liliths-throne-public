@@ -117,4 +117,38 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
+	<p>
+		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic aunt and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
+	</p>
+	<p>
+		[lilaya.speech(Mmm, what about them?)] she answers, raising one eyebrow as she peers at you over the top of her glasses.
+	</p>
+	<p>
+		[pc.speech(Well, I've got a friend, you see, and they're in a pretty rough situation. I was wondering if they'd be able to stay here for a while, until they've got back on their feet.)]
+	</p>
+	<p>
+		Lilaya lets out a sigh, and, placing her hands on her hips, asks, [lilaya.speech(Who's going to be the one paying for their food and cleaning bills? I trust your judgement, so I don't mind your friends using the spare rooms, but I'm certainly not going to be the one to foot the bill.)]
+	</p>
+	<p>
+		[pc.speech(I'll pay for their rent and expenses,)] you reply. [pc.speech(I'll be able to afford that, don't worry.)]
+	</p>
+	<p>
+		[lilaya.speech(Mmm, well, ok then. After all, the more people living here, the more opportunities I'll have to run some background tests on arcane aura fluctuations. You see, I'm very interested in finding out if your demon-strength aura has any sort of long-term impact on those around you. I doubt that it will, but as far as I'm aware, nobody's done research into this before!)] your aunt replies, giving you her explicit permission to invite your new friend to come and live here with you.
+	</p>
+	<p>
+		[pc.speech(Thanks, Lilaya! You have no idea how much you're helping them out by doing this,)] you say, smiling fondly at your aunt as she pushes her glasses back up to the bridge of her nose.
+	</p>
+	<p>
+		[lilaya.speech(Y-Yes, well, y-you're welcome,)] Lilaya stutters a little, blushing in response to your heartfelt thanks. [lilaya.speech(Just go to whichever room you'd like to use, then call for Rose to prepare it as a guest bedroom. A-And it's not like I'm doing this just for you or your friend, I-I'm just interested in researching the arcane!)]
+	</p>
+	<p>
+		[pc.speech(Ok, thanks again,)] you reply, not wanting to say too much more out of fear of embarrassing your aunt. Giving her a loving smile, you turn around and head for the lab's exit, determined to return to your friend and invite them to come and live here as soon as possible.
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsGood(You can now invite characters to come and live with you! To do so, you'll need to upgrade one of the empty rooms into a 'Guest Room', before asking the character to move in with you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

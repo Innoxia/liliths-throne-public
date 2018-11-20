@@ -12,11 +12,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Arm implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final int MAXIMUM_ROWS = 3;
 	
 	protected ArmType type;
 	protected int armRows;
@@ -124,33 +126,19 @@ public class Arm implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
-								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true demonic nature.<br/>"
-								+ "You now have [style.boldDemon(demonic arms and hands)], which are covered in [pc.armFullDescription]."
-							+ "</p>");
+							" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+							+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true demonic nature.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(demonic arms and hands)], which are covered in [npc.armFullDescription]."
+						+ "</p>");
+					
 				} else {
 					UtilText.transformationContentSB.append(
-								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
-								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true demonic nature.<br/>"
-								+ "[npc.Name] now has [style.boldDemon(demonic arms and hands)], which are covered in [npc.armFullDescription]."
-							+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
-								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true impish nature.<br/>"
-								+ "You now have [style.boldImp(impish arms and hands)], which are covered in [pc.armFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
-								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true impish nature.<br/>"
-								+ "[npc.Name] now has [style.boldImp(impish arms and hands)], which are covered in [npc.armFullDescription]."
-							+ "</p>");
+							" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+							+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true impish nature.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(impish arms and hands)], which are covered in [npc.armFullDescription]."
+						+ "</p>");
 				}
 				break;
 			case DOG_MORPH:
@@ -415,7 +403,7 @@ public class Arm implements BodyPartInterface, Serializable {
 
 	public String setArmRows(GameCharacter owner, int armRows) {
 		int currentArmRows = getArmRows();
-		armRows = Math.max(1, Math.min(armRows, 3));
+		armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
 		if (armRows == currentArmRows) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

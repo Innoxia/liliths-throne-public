@@ -80,10 +80,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
-	TOES(1, 0, false) {
+	FOOT(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
-			return owner.getLegType().getToesNamePlural(owner);
+			return owner.getLegType().getFeetNameSingular(owner);
 		}
 		@Override
 		public boolean isPlural() {
@@ -95,7 +95,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
-			return CoverableArea.NONE;
+			return CoverableArea.FEET;
 		}
 	},
 	

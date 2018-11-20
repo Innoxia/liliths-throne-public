@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum HipSize {
@@ -51,6 +52,22 @@ public enum HipSize {
 	 * To fit into a sentence: "You have "+getDescriptor()+" hips."
 	 */
 	public String getDescriptor() {
+		if(Main.game.isSillyModeEnabled()) {
+			switch(this) {
+				case FIVE_VERY_WIDE:
+					return "thicc";
+				case SIX_EXTREMELY_WIDE:
+					return "extremely thicc";
+				case SEVEN_ABSURDLY_WIDE:
+					return "absurdly thicc";
+				case ZERO_NO_HIPS:
+				case ONE_VERY_NARROW:
+				case TWO_NARROW:
+				case THREE_GIRLY:
+				case FOUR_WOMANLY:
+					break;
+			}
+		}
 		return descriptor;
 	}
 

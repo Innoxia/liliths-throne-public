@@ -165,7 +165,8 @@ public class MilkingStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MILKING_STALL_FUCKING;
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexPositionSlot.MILKING_STALL_FUCKING;
 		}
 		
 		@Override
@@ -204,8 +205,7 @@ public class MilkingStall {
 						break;
 				}
 			
-				return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-					UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] slapping [npc2.her] [npc2.ass+] in time with [npc.her] powerful thrusts into [npc2.her] [npc2.pussy+].",
@@ -214,7 +214,7 @@ public class MilkingStall {
 								+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] exposed ass cheeks.",
 							
 							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.pussy+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to roughly slap [npc2.her] [npc2.ass+],"
-									+ " growling in glee as [npc2.she] squirms and squeals under [npc.her] stinging blows."));
+									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 				
 			} else if (Sex.getAllContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getCharacterTargetedForSexAction(this).getTailType()) {
@@ -238,8 +238,7 @@ public class MilkingStall {
 						break;
 				}
 			
-				return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-					UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] slapping [npc2.her] [npc2.ass+] in time with [npc.her] powerful thrusts into [npc2.her] [npc2.asshole+].",
@@ -248,7 +247,7 @@ public class MilkingStall {
 								+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] exposed ass cheeks.",
 							
 							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.asshole+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to roughly slap [npc2.her] [npc2.ass+],"
-									+ " growling in glee as [npc2.she] squirms and squeals under [npc.her] stinging blows."));
+									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 			
 			} else {
 				switch(Sex.getCharacterTargetedForSexAction(this).getTailType()) {
@@ -272,8 +271,7 @@ public class MilkingStall {
 						break;
 				}
 			
-				return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-					UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] roughly slapping [npc2.her] [npc2.ass+],"
@@ -283,7 +281,7 @@ public class MilkingStall {
 									+ " and [npc.name] quickly [npc.verb(find)] [npc.herself] grinning in glee as [npc.she] [npc.verb(watch)] [npc2.herHim] squirm and wail beneath [npc.her] relentless blows.",
 							
 							"[npc.Name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place, before starting to aggressively slap [npc2.her] [npc2.ass+],"
-									+ " smirking down at [npc2.her] submissive form as [npc2.she] squeals and cries out beneath [npc.her] relentless blows."));
+									+ " smirking down at [npc2.her] submissive form as [npc2.she] squeals and cries out beneath [npc.her] relentless blows.");
 			}
 		}
 		

@@ -190,6 +190,8 @@ public class Breast implements BodyPartInterface, Serializable {
 		this.type = type;
 		nipples.setType(owner, type.getNippleType());
 		milk.setType(type.getFluidType());
+		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
+		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
 		
 		switch (type) {
 			case HUMAN:
@@ -212,41 +214,23 @@ public class Breast implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with demonic breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with demonic breasts, covered in [npc.breastFullDescriptionColour]."
+							+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
 							+ "<br/>"
-							+ "You now have [style.boldDemon(demonic breasts and [pc.nipples])], and when lactating, you will produce [style.boldDemon(demonic milk)]."
+							+ "[npc.She] now [npc.has] [style.boldDemon(demonic breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldDemon(demonic milk)]."
 							+ "</p>");
+					
 				} else {
 					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with demonic breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldDemon(demonic breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldDemon(demonic milk)]."
-								+ "</p>");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
-							+ " After a few moments, the feeling starts to fade away, leaving you with impish breasts, covered in [pc.breastFullDescriptionColour]."
-							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with impish breasts, covered in [npc.breastFullDescriptionColour]."
+							+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
 							+ "<br/>"
-							+ "You now have [style.boldImp(impish breasts and [pc.nipples])], and when lactating, you will produce [style.boldImp(impish milk)]."
+							+ "[npc.She] now [npc.has] [style.boldImp(impish breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldImp(impish milk)]."
 							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
-								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with impish breasts, covered in [npc.breastFullDescriptionColour]."
-								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
-								+ "<br/>"
-								+ "[npc.She] now has [style.boldImp(impish breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldImp(impish milk)]."
-								+ "</p>");
 				}
 				break;
 			case DOG_MORPH:
@@ -659,6 +643,10 @@ public class Breast implements BodyPartInterface, Serializable {
 		this.milkStored = Math.max(0, (Math.min(milkStored, getRawMilkStorageValue())));
 		float lactationChange = oldStoredMilk - this.milkStored;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		if (lactationChange <= 0) {
 			return "";
 		} else {
@@ -682,7 +670,7 @@ public class Breast implements BodyPartInterface, Serializable {
 										lactationChange+"ml of [npc.milk+] drips out of [npc.namePos] [npc.nipples+].")
 						+ "</i>"
 						+ (this.milkStored==0
-							?"<br/><i>[npc.Name] now has no more [pc.milk] stored in [npc.her] breasts!</i>"
+							?"<br/><i>[npc.Name] now has no more [npc.milk] stored in [npc.her] breasts!</i>"
 							:"")
 						+ "</p>");
 			}

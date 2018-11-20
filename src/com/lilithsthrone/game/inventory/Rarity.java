@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Rarity {
@@ -14,6 +14,7 @@ public enum Rarity {
 	RARE("rare", Colour.RARITY_RARE),
 	EPIC("epic", Colour.RARITY_EPIC),
 	LEGENDARY("legendary", Colour.RARITY_LEGENDARY),
+	QUEST("quest", Colour.RARITY_QUEST),
 	
 	JINXED("jinxed", Colour.RARITY_JINXED);
 

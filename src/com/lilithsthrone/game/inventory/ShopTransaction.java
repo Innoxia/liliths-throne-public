@@ -40,7 +40,7 @@ public class ShopTransaction implements Serializable, XMLSaving {
 	}
 	
 //	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
-//		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+//		return AbstractItemType.generateItem(ItemType.getIdToItemMap().get(parentElement.getAttribute("id")));
 //	}
 
 	public AbstractCoreItem getAbstractItemSold() {

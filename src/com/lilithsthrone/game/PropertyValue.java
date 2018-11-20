@@ -2,11 +2,15 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PropertyValue {
-
+	
+	debugMode(false),
+	mapReveal(false),
+	concealedSlotsReveal(false),
+	
 	artwork(true),
 	thumbnail(true),
 	
@@ -16,7 +20,10 @@ public enum PropertyValue {
 	calendarDisplay(true),
 	twentyFourHourTime(true),
 	tattooRemovalConfirmations(true),
+	sillyMode(false),
 
+	autoSexClothingManagement(true),
+	
 	ageContent(true),
 	furryTailPenetrationContent(false),
 	nonConContent(false),
@@ -34,6 +41,8 @@ public enum PropertyValue {
 	nipplePenContent(true),
 	analContent(true),
 	futanariTesticles(true),
+	voluntaryNTR(false),
+	involuntaryNTR(false),
 
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),

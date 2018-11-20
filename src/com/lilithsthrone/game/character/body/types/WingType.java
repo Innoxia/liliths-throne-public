@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
@@ -20,7 +20,7 @@ public enum WingType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
 
-	IMP(BodyCoveringType.IMP, Race.IMP, true),
+	DEMON_FEATHERED(BodyCoveringType.DEMON_FEATHER, Race.DEMON, true),
 
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true);
 
@@ -32,6 +32,16 @@ public enum WingType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.race = race;
 		this.allowsFlight = allowsFlight;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static WingType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	public boolean allowsFlight() {
@@ -61,25 +71,26 @@ public enum WingType implements BodyPartTypeInterface {
 	public String getDescriptor(GameCharacter gc) {
 		switch(this){
 			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic", "huge", "feathered");
+				return UtilText.returnStringAtRandom("angelic", "feathered");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic", "bat-like");
-			case IMP:
-				return UtilText.returnStringAtRandom("impish", "bat-like");
+			case DEMON_FEATHERED:
+				return UtilText.returnStringAtRandom("demonic", "feathered");
 			case NONE:
 				return "";
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
-				return "angelic";
+				return "angelic feathered";
 			case DEMON_COMMON:
-				return "bat-like";
-			case IMP:
-				return "bat-like";
+				return "demonic bat-like";
+			case DEMON_FEATHERED:
+				return "demonic feathered";
 			case NONE:
 				return "none";
 		}

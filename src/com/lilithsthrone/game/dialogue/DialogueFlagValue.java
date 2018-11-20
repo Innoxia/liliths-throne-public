@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.6
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -67,7 +67,6 @@ public enum DialogueFlagValue {
 	ashleyAttitude,
 	
 	reactedToKatePregnancy,
-	
 	
 	// Lilaya's Home:
 	knowsDate,
@@ -157,6 +156,28 @@ public enum DialogueFlagValue {
 	kalahariWantsSex,
 	krugerIntroduced,
 	
+	// Submission:
+	impCitadelEncountered,
 	
+	impFortressAlphaGuardsPacified,
+	impFortressAlphaBossEncountered,
+	impFortressAlphaPacified,
+	impFortressAlphaDefeated,
+
+	impFortressFemalesGuardsPacified,
+	impFortressFemalesBossEncountered,
+	impFortressFemalesPacified,
+	impFortressFemalesDefeated,
+
+	impFortressMalesGuardsPacified,
+	impFortressMalesBossEncountered,
+	impFortressMalesPacified,
+	impFortressMalesDefeated,
+
+
+	impFortressDemonGuardsPacified,
+	impFortressDemonBossEncountered,
+	impFortressDemonDefeated,
+	impFortressTransformedByGuards,
 	;
 }

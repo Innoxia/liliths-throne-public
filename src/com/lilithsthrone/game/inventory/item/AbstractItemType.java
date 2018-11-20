@@ -168,15 +168,19 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	public String getId() {
-		return ItemType.itemToIdMap.get(this);
+		return ItemType.getItemToIdMap().get(this);
 	}
 	
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
 	
-	public boolean canBeSold() {
-		return true;
+	public boolean isAbleToBeSold() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
+	public boolean isAbleToBeDropped() {
+		return getRarity()!=Rarity.QUEST;
 	}
 	
 	// Enchantments:

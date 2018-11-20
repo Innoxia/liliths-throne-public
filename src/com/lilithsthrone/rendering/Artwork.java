@@ -16,12 +16,11 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Artwork {
 	
-	private String name;
 	private Artist artist;
 	
 	private int index;
@@ -79,8 +78,7 @@ public class Artwork {
 		}
 	}
 	
-	public Artwork(String nameInput, Artist artist) {
-		this.name = nameInput;
+	public Artwork(File folder, Artist artist) {
 		this.artist = artist;
 
 		index = 0;
@@ -89,23 +87,15 @@ public class Artwork {
 		this.partialImages = new ArrayList<>();
 		this.nakedImages = new ArrayList<>();
 
-		// Find artist directory
-		File folder = new File("res/images/characters/" + name + "/" + artist.getFolderName());
-		if (!folder.isDirectory()) return;
-
 		// Add all images to their respective lists
 		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"))) {
-			if (f.getName().startsWith("clothed"))
-				clothedImages.add(f.getAbsolutePath());
-			else if (f.getName().startsWith("partial"))
+			if (f.getName().startsWith("partial"))
 				partialImages.add(f.getAbsolutePath());
 			else if (f.getName().startsWith("naked"))
 				nakedImages.add(f.getAbsolutePath());
+			else
+				clothedImages.add(f.getAbsolutePath());
 		}
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public Artist getArtist() {
@@ -136,16 +126,20 @@ public class Artwork {
 		return index < getClothedImages().size();
 	}
 	
-	public String getCurrentImage() {
+	public File getCurrentImage() {
+		String path;
 		if(index < getClothedImages().size()) {
-			return getClothedImages().get(index);
+			path = getClothedImages().get(index);
 			
 		} else if(index < getClothedImages().size() + getPartialImages().size()){
-			return getPartialImages().get(index - getClothedImages().size());
+			path = getPartialImages().get(index - getClothedImages().size());
 			
 		} else {
-			return getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
+			path = getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
 		}
+
+		if (path.isEmpty()) return null;
+		return new File(path);
 	}
 	
 	public List<String> getClothedImages() {

@@ -192,7 +192,6 @@
 	]]>
 	</htmlContent>
 	
-	
 	<htmlContent tag="WATERING_HOLE_CONTACTS"><![CDATA[
 	<p>
 		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
@@ -267,7 +266,7 @@
 			#ENDIF
 		#ENDIF
 		 After exchanging opinions on the state of the club and how crowded it is, [npc.name] ends up talking a little about
-		#IF npc.getHistory()==HISTORY_UNEMPLOYED_NPC || npc.getHistory()==HISTORY_NPC_UNIVERSITY_STUDENT
+		#IF npc.getHistory()==OCCUPATION_NPC_UNEMPLOYED || npc.getHistory()==OCCUPATION_NPC_UNIVERSITY_STUDENT
 		#THEN [npc.her] friends and some of the things they get up to in Dominion.
 		#ELSE [npc.her] job as [npc.a_jobName].
 		#ENDIF
@@ -808,7 +807,7 @@
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI"><![CDATA[
 	#IFkalahari.isVisiblyPregnant()
 	#THEN
-		#IFkalahari.isReactedToPregnancy()
+		#IFkalahari.isCharacterReactedToPregnancy(pc)
 		#THEN
 			<p>
 				[kalahari.speech(Heya, hun!)] the still-pregnant lioness says, winking at you as she places both hands on the bar's counter. As you return Kalahari's greeting, she reaches down to absent-mindedly stroke her swollen belly, before leaning forwards and flashing you her cleavage. [kalahari.speech(Hey, you think my boobs have got bigger from being knocked up?)]
@@ -1132,7 +1131,7 @@
 		Doing as he instructs, you sit down next to Kruger, who turns towards you and smirks, before growling,
 		#IFpc.isVisiblyPregnant()
 		#THEN
-			#IFkruger.isReactedToPlayerPregnancy()
+			#IFpc.isCharacterReactedToPregnancy(kruger)
 			#THEN [kruger.speech(Still pregnant, I see.)]
 			#ELSE
 				#IFpc.isCharacterPossiblyFather(kruger.getId())
@@ -1186,7 +1185,7 @@
 		Your provocative move instantly returns the result you were hoping for, as the huge lion lets out a deep, rumbling growl, before dominantly taking hold of your head and pressing his lips against yours. As you let out a muffled moan and close your eyes, you feel his tongue pushing its way into your mouth, and you surrender yourself completely to the dominant lion as he passionately makes out with you.
 	</p>
 	<p>
-		After a few minutes, Kruger breaks off the kiss, and you suddenly become aware of the fact that the girls around you are all giggling and gossiping amongst one another. As you lean back against the sofa, one of tye lionesses leans across and addresses Kruger, [genericFemale.speech(Go on, Kruger. Break [pc.herHim] in! We all want to see you fuck [pc.herHim]...)]
+		After a few minutes, Kruger breaks off the kiss, and you suddenly become aware of the fact that the girls around you are all giggling and gossiping amongst one another. As you lean back against the sofa, one of the lionesses leans across and addresses Kruger, [genericFemale.speech(Go on, Kruger. Break [pc.herHim] in! We all want to see you fuck [pc.herHim]...)]
 	</p>
 	<p>
 		Kruger simply lets out an amused growl in response. Although you can tell that he's warming up to that idea, he doesn't seem interested in doing anything without first receiving an indication of consent from you.
@@ -1387,6 +1386,112 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY"><![CDATA[
+	<p>
+		Entering one of the empty stalls adjacent to the one in which strangers service the glory holes, you push the door shut behind you, before turning to face the hole in the wall. As you do this, you hear someone enter the stall on the other side, and after just a moment, you see a flash of movement behind the glory hole.
+	</p>
+	<p>
+		[game.random(
+		[npc.speech(Come on, put your cock through here!)]
+		|[npc.speech(Show me your cock! I need your cum!)]
+		|[npc.speech(Come on babe, give me your cock!)])] a lust-filled voice suddenly calls out through the hole.
+	</p>
+	<p>
+		You wonder if you should do as [npc.name] says, or change your mind and make a hasty exit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING"><![CDATA[
+	<p>
+		#IF pc.hasPenis()
+		#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSE
+			#IF pc.hasVagina()
+			#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.pussy+] licked by the stranger on the other side.
+			#ELSEDoing as [npc.name] says, you step up to the glory hole, preparing to have your genderless mound licked by the stranger on the other side.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As [npc.she] sees your approach through the hole, [npc.name] lets out [npc.a_moan+], before encouraging you to get started, [game.random(
+		[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+		|[npc.speech(Mmm, oh yeah! Let's get started!)]
+		|[npc.speech(Oh yeah babe! I'll show you how much of a slut I am!)])]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of a stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, reaching down to unlock the door of your stall, you open it and step back out into the toilets.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY"><![CDATA[
+	<p>
+		Feeling horny and eager to pleasure some stranger's cocks, you step into the cum-splattered stall. Having seen you enter, someone quickly steps into the stall adjacent to yours, before quickly pushing [npc.her] [npc.a_cock+] through the hole. As you look across at the [npc.cock+], its owner
+		#IFnpc.isFeminine()
+		#THEN barks out a sharp command,
+		#ELSE lets out a deep grunt,
+		#ENDIF
+		 [game.random(
+		[npc.speech(Come on slut, get to work!)]
+		|[npc.speech(Start sucking, slut!)]
+		|[npc.speech(Come on, you dirty slut, get started already!)])]
+	</p>
+	<p>
+		Before you can respond, you hear someone else enter the stall on the other side, and, turning to look at the glory hole behind you, you see [npc2.a_cock+] thrusting forwards. With a buck of [npc2.her] [npc2.hips], this second stranger calls out,
+		 [game.random(
+		[npc2.speech(Come on whore. You can use your mouth, but if you've got a cunt, I want to give that a good fuck too!)]
+		|[npc2.speech(Hurry up, whore! I want to fuck your ass, or even better, your cunt, if you've got one!)]
+		|[npc2.speech(You can start with your mouth, but I want to fuck your ass, whore! Or even better, your slutty cunt, if you've got one!)])]
+	</p>
+	<p>
+		Looking back and forth between the cocks on offer, you wonder if you should do as the strangers say, and get started on servicing them. Then again, you could always change your mind and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC"><![CDATA[
+	<p>
+		Deciding to leave the stall's door open, so that anyone can come and watch you servicing these strangers' cocks, you kneel down on the floor of the toilet. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show everyone what a dirty slut you are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING"><![CDATA[
+	<p>
+		Closing and locking the stall's door, you kneel down on the floor of the toilet, ready to service these strangers' cocks. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show them what a dirty slut you are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX_PUBLIC"><![CDATA[
+	<p>
+		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. The crowd that gathered to watch your slutty display starts to disperse, and as they leave, you start to get your things in order.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, stepping out of your stall, you head back out into the toilets. Glancing back at the stalls that were to either side of yours, you see that the occupants have already departed, leaving you with no clue as to whose cocks you just serviced...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. As you get your things in order, you see flashes of movement through the holes to either side of you, before the creaking of doors announces each of the strangers' exits.
+	</p>
+	<p>
+		Just a moment later, you're ready to continue back out into the club, and, reaching down to unlock the door of your stall, you open it and step back out into the toilets. Glancing back at the stalls that were to either side of yours, you see that the occupants have already departed, leaving you with no clue as to whose cocks you just serviced...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="WATERING_HOLE_TOILETS_SEX"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you lead [npc.herHim] into one of the stalls, before turning and locking the door behind you.
@@ -1519,7 +1624,7 @@
 		With the [npc.race] in tow, you make your way out of the club, before heading back down Dominion's wide central boulevard towards Lilaya's mansion.
 		#IFgame.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
-			#IFnpc.getRace().isVulnerableToArcaneStorm()
+			#IFnpc.getSubspecies().isVulnerableToArcaneStorm()
 			#THEN Due to the ongoing arcane storm, [npc.name] keeps on trying to pull you to one side and start having sex with you, but you're determined to get back home before starting anything like that, and, pulling [npc.herHim] along, you continue on your way back home.
 			#ELSE Although there's an ongoing arcane storm, [npc.name] is just as unaffected by it as you, and the two of you chat happily with one another as you travel back home.
 			#ENDIF
@@ -1576,7 +1681,7 @@
 		Having got [npc.name] back into your room, you suddenly find yourself having second thoughts about the whole thing, and, looking across at [npc.herHim], you bluntly state, [pc.speech(I don't really feel like fucking you after all.)]
 	</p>
 	<p>
-		[npc.speech(Eugh, you could have at least tried to be diplomatic about it,)] [npc.name] snaps, before turnign and walking over to the door.
+		[npc.speech(Eugh, you could have at least tried to be diplomatic about it,)] [npc.name] snaps, before turning and walking over to the door.
 	</p>
 	<p>
 		[pc.speech(Rose can show you out,)] you shout out after [npc.name], tugging on the bell-pull in order to summon the cat-girl maid.
@@ -1657,7 +1762,7 @@
 		[pc.speech(Of course I'll see you again!)] you enthusiastically reply, smiling at [npc.name].
 	</p>
 	<p>
-		[npc.speech(Great! I acn't wait to see you again!)] [npc.she] responds, stepping over towards the door.
+		[npc.speech(Great! I can't wait to see you again!)] [npc.she] responds, stepping over towards the door.
 	</p>
 	<p>
 		You show [npc.name] back down to the front door, and, after saying goodbye and returning to your room, you collapse down onto your bed and let out a deep sigh. You spend the next few minutes lying down and relaxing, before getting back on your [pc.feet] and wondering what to do next...
@@ -1700,6 +1805,1344 @@
 	</p>
 	<p>
 		As [npc.name] storms out of your room, Rose appears to show [npc.herHim] back down to the front door. Stepping back to collapse down onto your bed, you let out a deep sigh, and after lying down for a few minutes, you stand back up, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Dominant partner content -->
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Fuck, it's boiling in here! Come on [pc.babe], I'm thirsty,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the bar.
+			#ELSE [npc.speech(It's really hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Weaving your way through the bustling crowds which fill the club's main floor, both you and [npc.name] soon find yourselves standing before the bar. Thankfully, there's a gap in the crowd that's gathered to order drinks, and you and your partner step forwards to fill it. Leaning against the counter, you wonder what [npc.name] will decide to do now that you're here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Come on [pc.babe], I want to see you shaking that hot body of yours for me,)] [npc.name] says, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the dance floor. [npc.speech(And don't you try dancing off with someone else! You're mine for tonight!)]
+			#ELSE [npc.speech(Hey, [pc.name], let's go and check out the dance floor,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(After all, dancing is what's going to the club's all about!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Weaving your way through the bustling crowds which fill the club's main floor, both you and [npc.name] soon find yourselves stepping forwards onto the edge of the dance floor. As [npc.name] turns to face you, you wonder if [npc.sheIs] going to want to start dancing right away...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our legs a rest for a while!)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(My [npc.legs] are fucking killing me!)] [npc.name] complains, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the nearest seating area. [npc.speech(Come on, I want to sit down for a while!)]
+			#ELSE [npc.speech(Come on, [pc.name], let's go and sit down for a little while,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(My [npc.legs] are aching from standing up for so long!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Weaving your way through the bustling crowds which fill the club's main floor, both you and [npc.name] soon find yourselves stepping into one of the club's many seating areas. The noisy music originating from the central dance floor is a little quieter over here, and as you and [npc.name] sit down in one of the vacant booths, you wonder if [npc.sheIs] going to want to take this opportunity to talk with you for a little while...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_TOILETS"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Sorry, [pc.name], I need to use the toilet,)] [npc.name] apologises. [npc.speech(I'll only be a moment, so you're ok waiting for me over there, right?)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Come on, [pc.babe]! Watching your hot body all night's got me all fired up. The bouncers don't give a shit about people fucking in the toilets, so let's go do it in there,)] [npc.name] crudely states, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the toilets. [npc.speech(I hope you're better than the last fuck I had here!)]
+			#ELSE [npc.speech(Come on, [pc.name], let's go have some fun!)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the toilets. [npc.speech(The bouncers don't care about people fucking in there!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Weaving your way through the bustling crowds which fill the club's main floor, both you and [npc.name] soon find yourselves stepping into the club's toilet. Only the thudding bass from the club's music system can be heard in here, and as [npc.name] leads you inside, you hear some very erotic moans coming from one of the many stalls that run along one side of the wall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE_DOM"><![CDATA[
+	<p>
+		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowd of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
+	</p>
+	<p>
+		#IF npc.isTrusting()
+		#THEN As [npc.she] steps up before you, the [npc.race] throws you a charming smile and introduces [npc.herself], [npc.speech(I couldn't help but notice that you're all alone over here. I'm [npc.name], are you looking for some company for this evening?)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Hey [pc.babe]! You're lookin' awful lonely over here, and I can tell that you're wantin' a real good time. I'm [npc.name], and you can stick with me tonight, alright?)]
+			#ELSE [npc.speech(Hello! I saw you standing all alone over here, and thought you could use some company. I'm [npc.name], by the way, do you want to hang out together?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Yeah, that sounds good,)] you reply, before introducing yourself and confirming that you're here without a partner this evening. You then spend the next few minutes talking with [npc.name], allowing [npc.herHim] to take the lead in conversation. It very quickly becomes apparent that [npc.she] wants to show you a good time this evening, and, leading [npc.herHim] on, you wonder where [npc.she]'ll take you first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_CONTACTS_DOM"><![CDATA[
+	<p>
+		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_FIND_CONTACT_DOM"><![CDATA[
+	<p>
+		Before long, you catch sight of [npc.a_raceFull(true)] standing all alone, and as you approach, you see that it's [npc.name]; just the person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
+	</p>
+	<p>
+		#IF npc.isTrusting()
+		#THEN As [npc.she] steps up before you, [npc.name] throws you a warm smile and greets you, [npc.speech(Hello again, [pc.name], how are you? Are you looking for some company this evening?)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Hey, [pc.babe]! You're lookin' for a good time again, aren't you? Well, you just stick with me again tonight, alright?)]
+			#ELSE [npc.speech(Hi, [pc.name]! I saw you standing all alone, and thought you might want some company. You want to hang out together again?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Yeah, that sounds good,)] you reply, before spending the next few minutes talking with [npc.name], allowing [npc.herHim] to take the lead in conversation. It very quickly becomes apparent that [npc.she] wants to show you a good time this evening, and, leading [npc.herHim] on, you wonder where [npc.she]'ll take you first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_DRINK"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN
+			#IF pc.isFeminine()
+			#THEN [npc.speech(Let me buy you a drink, [pc.name]. Most of the stuff they sell here is pretty potent, but they also offer Feline's Fancy. You like that, right?)] [npc.name] asks, smiling at you as [npc.she] awaits your response.
+			#ELSE [npc.speech(Let me buy you a drink, [pc.name]. Most of the stuff they sell here is pretty potent, but they also offer Canine's Crush. You like that, right?)] [npc.name] asks, smiling at you as [npc.she] awaits your response.
+			#ENDIF
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(I'm gonna get you a drink, [pc.babe]! And none of that weak shit, alright? They sell Black Rat's Rum here, so I'm getting you a glass of that,)] [npc.name] states, before turning and trying to get the attention of one of the zebra-girl barmaids. [npc.speech(Hey, come on! Over here, I'm lookin' to get served!)]
+			#ELSE [npc.speech(Would you like a drink, [pc.name]? They sell Wolf Whiskey here, which is far better than all their other stuff. Here, let me order you a glass,)] [npc.name] says, before turning and trying to get the attention of one of the zebra-girl barmaids.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		You could accept [npc.namePos] offer of a drink, which will surely make [npc.herHim] happy, or tell [npc.herHim] that you're not thirsty, which will undoubtedly disappoint [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY"><![CDATA[
+	<p>
+		[pc.speech(Thanks, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a glass of that!)]
+	</p>
+	<p>
+		Flashing you a smile, [npc.name] quickly calls over one of the barmaids, before placing [npc.her] order. [npc.speech(Yeah, two glasses of Wolf Whiskey, please!)]
+	</p>
+	<p>
+		After just a moment, the zebra-girl is placing the beverages on the counter before you, and, after [npc.name] pays for both of your drinks, the two of you talk with one another while drinking the strong whiskey. [npc.Name] finishes [npc.hers] first, and steps a little closer towards you as [npc.she] teases you in a friendly manner about taking so long to drink yours.
+	</p>
+	<p>
+		Laughing and flirting back with [npc.name], you soon place your empty glass down on the counter before you. Smiling at your partner, you feel the alcohol starting to have an effect, and coyly brush up against [npc.herHim] as you thank [npc.herHim] for the drink.
+	</p>
+	<p>
+		Now that the two of you have quenched your thirsts, you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY"><![CDATA[
+	<p>
+		[pc.speech(Hey, wait!)] you call out, tugging [npc.namePos] [npc.arm] and stopping [npc.herHim] from ordering you a drink. [pc.speech(I don't want to get drunk tonight, ok? Wolf Whiskey is far too much.)]
+	</p>
+	<p>
+		[npc.speech(Huh. Suit yourself,)] [npc.name] bluntly responds, not even trying to hide the annoyance in his voice. [npc.speech(I guess we'll just stick to water, huh?)]
+	</p>
+	<p>
+		[pc.speech(Yeah, water's fine,)] you reply, disappointed that [npc.name] took your refusal so personally.
+	</p>
+	<p>
+		Having confirmed that you're ok having a non-alcoholic beverage, [npc.name] gets the nearest barmaid's attention, before buying two bottles of Vanilla Water. Turning towards you, [npc.she] hands one to you and sighs, [npc.speech(Well, we can find fun stuff to do other than drinking.)]
+	</p>
+	<p>
+		Agreeing with your partner, and eager to make up for the disappointment of refusing the whiskey, you start chatting with [npc.name]. After just a few minutes, [npc.she] seems to have forgotten [npc.her] annoyance of a moment before, and, after the two of you have finished your bottles of water, you wonder what [npc.she] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_FELINES_FANCY"><![CDATA[
+	<p>
+		[pc.speech(Thank you, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a glass of Feline's Fancy!)]
+	</p>
+	<p>
+		Flashing you a charming smile, [npc.name] turns towards the bar, and, after getting the attention of the nearest zebra-girl barmaid, orders
+		#IF npc.isFeminine()
+		#THEN two glasses of the creamy alcoholic beverage.
+		#ELSE one glass of the creamy alcoholic beverage, and one bottle of Canine Crush for [npc.herself].
+		#ENDIF
+	</p>
+	<p>
+		After just a moment, the zebra-girl is placing the beverages on the counter before you, and, after [npc.name] has paid, the two of you start talking with one another while enjoying your drinks. [npc.Name] finishes [npc.hers] first, and continues leading the flow of conversation while [npc.she] calmly waits for you to finish yours.
+	</p>
+	<p>
+		After listening to [npc.name] talk about [npc.herself] for a little while, you soon find yourself placing your empty glass down on the counter before you. Smiling at your partner, you feel the alcohol starting to have an effect, and coyly brush up against [npc.herHim] as you thank [npc.herHim] for the drink.
+	</p>
+	<p>
+		Now that the two of you have quenched your thirsts, you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER"><![CDATA[
+	<p>
+		[pc.speech(Thank you, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a bottle of beer!)]
+	</p>
+	<p>
+		Flashing you a charming smile, [npc.name] turns towards the bar, and, after getting the attention of the nearest zebra-girl barmaid, orders
+		#IF npc.isFeminine()
+		#THEN one bottle of Canine Crush, and one glass of Feline's Fancy for [npc.herself].
+		#ELSE two bottles of Canine Crush.
+		#ENDIF
+	</p>
+	<p>
+		After just a moment, the zebra-girl is placing the beverages on the counter before you, and, after [npc.name] has paid, the two of you start talking with one another while enjoying your drinks. [npc.Name] finishes [npc.hers] first, and continues leading the flow of conversation while [npc.she] calmly waits for you to finish yours.
+	</p>
+	<p>
+		After listening to [npc.name] talk about [npc.herself] for a little while, you soon find yourself placing your empty bottle down on the counter before you. Smiling at your partner, you feel the alcohol starting to have an effect, and coyly brush up against [npc.herHim] as you thank [npc.herHim] for the drink.
+	</p>
+	<p>
+		Now that the two of you have quenched your thirsts, you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_FELINES_FANCY"><![CDATA[
+	<p>
+		[pc.speech(Thank you, but I don't want anything alcoholic,)] you explain. [pc.speech(Just a water would be fine for me.)]
+	</p>
+	<p>
+		[npc.speech(That's fair enough,)] [npc.name] replies, doing [npc.her] best to hide the disappointment in [npc.her] voice. [npc.speech(I'll get us a couple of bottles of water then.)]
+	</p>
+	<p>
+		With that, [npc.name] gets the nearest barmaid's attention, before buying two bottles of Vanilla Water. Turning towards you, [npc.she] hands you your drink, before leaning against the bar and starting to chat with you. After just a few minutes, the two of you have finished your bottles of water, and you wonder what [npc.she] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_BEER"><![CDATA[
+	<p>
+		[pc.speech(Thank you, but I don't want anything alcoholic,)] you explain. [pc.speech(Just a water would be fine for me.)]
+	</p>
+	<p>
+		[npc.speech(That's fair enough,)] [npc.name] replies, doing [npc.her] best to hide the disappointment in [npc.her] voice. [npc.speech(I'll get us a couple of bottles of water then.)]
+	</p>
+	<p>
+		With that, [npc.name] gets the nearest barmaid's attention, before buying two bottles of Vanilla Water. Turning towards you, [npc.she] hands you your drink, before leaning against the bar and starting to chat with you. After just a few minutes, the two of you have finished your bottles of water, and you wonder what [npc.she] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM"><![CDATA[
+	<p>
+		You wait by [npc.namePos] side as [npc.she] orders two glasses of Rum, and after just a moment, the barmaid places the beverages down on the counter in front of you. Paying for your drinks, [npc.name] turns towards you and grins. [npc.speech(Drink it down, [pc.babe]! And you'd better be grateful. This stuff ain't cheap!)]
+	</p>
+	<p>
+		Doing as you're told, you quickly empty the glass of Rum, before smiling at [npc.name] as [npc.she] compliments you on the speed at which you gulped it down. Almost immediately, you start to feel the potent effects of the strong alcohol, and, leaning in against your partner, you let out a flirtatious laugh as you feel [npc.herHim] reach around to squeeze your [pc.ass+].
+	</p>
+	<p>
+		Steadying yourself against the bar's counter, you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_RUM"><![CDATA[
+	<p>
+		[pc.speech(Hey, wait!)] yuo call out, stopping [npc.name] before [npc.she] can place [npc.her] order. [pc.speech(I don't want to get drunk, ok?)]
+	</p>
+	<p>
+		[npc.speech(Eugh, you ungrateful [pc.bitch]!)] [npc.name] snaps, before turning towards the barmaid that stepped forwards to take [npc.her] order. [npc.speech(Forget it, I'm not ordering anything. Go sever someone else.)]
+	</p>
+	<p>
+		You step back from [npc.name], frowning at [npc.herHim] in response to [npc.her] uncalled-for insult. Before you can say anything regarding the matter, [npc.she] moves back up beside you and apologises, [npc.speech(Sorry, [pc.babe]. I shouldn't have said that. Anyway, no harm done, right?)]
+	</p>
+	<p>
+		[pc.speech(I suppose,)] you reply, wondering if you should ditch this rude [npc.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Leaning against the bar's counter, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN Leaning against the bar's counter, [npc.name] starts crudely flirting with you, offering you some very blunt compliments on your body shape and general appearance. While not the most charming, [npc.her] words do seem to be genuine, but before you can offer a response to this blunt style of flirting, [npc.she] quickly moves to initiate physical contact. Placing one [npc.hand] on your [pc.hips+], [npc.she] suddenly moves [npc.her] touch down to squeeze your [pc.ass+], grinning as [npc.she] tells you that [npc.she]'d like to do a lot more than just grope it...
+			#ELSE Leaning against the bar's counter, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] words are a little crude at times, but [npc.her] flattery does seem to be completely genuine, and, as further proof of [npc.her] good intentions, [npc.she] chooses to wait and judge your response before taking things any further...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_ACCEPT"><![CDATA[
+		#IF npc.isTrusting()
+		#THEN
+		<p>
+			Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, and while [npc.name] does [npc.her] best to keep things from going too far, several racy and highly suggestive comments have been made by both parties before the flirting comes to an end.
+		</p>
+		<p>
+			As the two of you smile fondly at one another, you wonder what [npc.name] will want to do next...
+		</p>
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN
+			<p>
+				Blushing at [npc.namePos] indecent remarks, you find yourself getting more than a little turned on by [npc.her] direct comments and physical contact. Pushing your [pc.ass+] back against [npc.her] [npc.hand], you lean in towards [npc.name] and offer [npc.herHim] some very racy and suggestive comments of your own. This quickly leads into your partner making even more blunt, sexual remarks, which are accompanied by yet more squeezing and groping of your [pc.ass+].
+			</p>
+			<p>
+				After a short while, [npc.name] pulls back, putting an end to the flirting. As you smile fondly at the [npc.race], you wonder what [npc.she] will want to do next...
+			</p>
+			#ELSE
+			<p>
+				Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, which quickly escalates into a little more forceful contact from [npc.name], and [npc.she] dominantly slaps you on the ass a couple of times to accompany [npc.her] good-natured teasing.
+			</p>
+			<p>
+				Several racy and highly suggestive comments have been made by both of you before the flirting comes to an end. As the two of you grin mischievously at one another, you wonder what [npc.name] will want to do next...
+			</p>
+			#ENDIF
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_DECLINE"><![CDATA[
+		#IF npc.isTrusting()
+		#THEN
+		<p>
+			You're not really feeling the vibe that [npc.nameIs] giving off, and, pulling away from [npc.herHim] slightly, you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Regretfully accepting your request, [npc.name] leans back against the bar, allowing a heavy silence to fall between the two of you for a moment, before continuing the conversation in a cooler manner than before.
+		</p>
+		<p>
+			As the talk between the two of you starts to dry up, you wonder what [npc.name] will want to do next...
+		</p>
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN
+			<p>
+				You let out a shocked gasp as [npc.name] starts roughly squeezing your [pc.ass+], and, pushing [npc.herHim] away from you, you shout, [pc.speech(What do you think you're doing?! Stop that!)]
+			</p>
+			<p>
+				[npc.Name] lets out a mocking laugh, before replying, [npc.speech(Ah, you're a feisty one, aren't you?! Come on, you know you love the attention!)]
+			</p>
+			<p>
+				Despite [npc.namePos] playful attempt to shrug off your angry response, you can tell from the tone of [npc.her] voice that [npc.sheIs] very annoyed. As further evidence of [npc.her] disgruntlement, [npc.she] turns away form you and leans heavily down against the bar, allowing a heavy silence to fall between the two of you. the flirting.
+			</p>
+			<p>
+				Just as you're considering turning and walking off, [npc.name] pushes off from the bar's counter, before turning to face you once more...
+			</p>
+			#ELSE
+			<p>
+				You're not really feeling the vibe that [npc.nameIs] giving off, and, pulling away from [npc.herHim], you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Clicking [npc.her] [npc.tongue] in annoyance, [npc.she] leans back against the bar, before allowing a heavy silence to fall between the two of you.
+			</p>
+			<p>
+				After a little while, [npc.name] steps back from the bar's counter, before turning to face you once more...
+			</p>
+			#ENDIF
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Feeling an increase in sexual tension between the two of you, [npc.name] steps up beside you, and, with a playful, flirtatious remark, places [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down and around to your [pc.ass+], you wonder if you should play along, and let [npc.herHim] feel you up, or quickly put a stop to this unsolicited contact.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN Suddenly stepping forwards and pressing [npc.herself] against you, [npc.name] quickly places [npc.her] [npc.hands] on your [pc.hips+], before sliding [npc.her] touch down and around to firmly grab your [pc.ass+]. Leaning forwards, [npc.she] [npc.moans], [npc.speech(Mmm, your hot ass belongs to me tonight!)]
+			#ELSE Suddenly stepping forwards and pressing [npc.herself] against you, [npc.name] quickly places [npc.her] [npc.hands] on your [pc.hips+], before starting to slide [npc.her] touch down and around towards your [pc.ass+]. Leaning forwards, [npc.she] [npc.moans], [npc.speech(Mmm, you're so sexy...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE_ACCEPT"><![CDATA[
+	<p>
+		Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
+		#IF pc.hasBreasts()
+		#THEN
+				#IF npc.isTrusting()
+				#THEN As one of [npc.her] [npc.hands] slip around to gently grope your [pc.ass+], [npc.name] lifts [npc.her] other one up to give your [pc.breasts+] a firm squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.name] presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to run [npc.her] [npc.hands] over your body.
+				#ELSE
+					#IF npc.isSelfish()
+					#THEN After a moment of using both of [npc.her] [npc.hands] to greedily grope your [pc.ass+], [npc.name] then shifts [npc.her] focus onto your chest. Letting go of your [pc.ass], [npc.she] quickly reaches up to give your [pc.breasts+] a firm, dominant squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.she] then dominantly presses [npc.her] [npc.lips+] against yours, roughly kissing you while continuing to grope and fondle every part of your body.
+					#ELSE As one of [npc.her] [npc.hands] slip around to greedily grope your [pc.ass+], [npc.name] lifts [npc.her] other one up to give your [pc.breasts+] a firm squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.name] dominantly presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to run [npc.her] [npc.hands] all over your body.
+					#ENDIF
+				#ENDIF
+		#ELSE
+				#IF npc.isTrusting()
+				#THEN Encouraged by your lewd cry, [npc.she] slips both of [npc.her] [npc.hands] around your waist, before moving down to give your [pc.ass+] a firm squeeze. As you start to let out another [pc.moan], [npc.name] presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to grope and squeeze your [pc.ass].
+				#ELSE
+					#IF npc.isSelfish()
+					#THEN Encouraged by your lewd cry, [npc.she] starts roughly squeezing and groping your [pc.ass+]. As you start to let out another [pc.moan], [npc.she] then dominantly presses [npc.her] [npc.lips+] against yours, roughly kissing you while continuing to have fun playing with your [pc.ass].
+					#ELSE Encouraged by your lewd cry, [npc.she] slips both of [npc.her] [npc.hands] around your waist, before moving down to give your [pc.ass+] a firm, dominant squeeze. As you start to let out another [pc.moan], [npc.name] moves to press [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to grope and squeeze your [pc.ass].
+					#ENDIF
+				#ENDIF
+		#ENDIF
+	</p>
+	#IF pc.hasPenis()
+	#THEN
+		<p>
+			#IF npc.isTrusting()
+			#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to stroke and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, grinning at you as [npc.she] teases, [npc.speech(Mmm, getting hard already, are we?)]
+			#ELSE
+				#IF npc.isSelfish()
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start dominantly rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to roughly grope and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, before teasing, [npc.speech(You're getting hard already, huh? You just wait until I'm fucking you...)]
+				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to stroke and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, grinning at you as [npc.she] teases, [npc.speech(Mmm, getting hard already? Perhaps we should head somewhere quiet...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				#IF npc.isTrusting()
+				#THEN Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts gently rubbing at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there too? Perhaps we could go back to my place soon. I'll make sure to take care of all your needs...)]
+				#ELSE
+					#IF npc.isSelfish()
+					#THEN Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts dominantly rubbing at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+					#ELSE Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts firmly rubbing at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+					#ENDIF
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				#IF npc.isTrusting()
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there? Perhaps we could go back to my place soon. I'll make sure to take care of you...)]
+				#ELSE
+					#IF npc.isSelfish()
+					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+					#ENDIF
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				#IF npc.isTrusting()
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your genderless mound. Pulling back a little and biting [npc.her] [npc.lip], [npc.she] sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Perhaps we could go back to my place soon...)]
+				#ELSE
+					#IF npc.isSelfish()
+					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
+					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
+					#ENDIF
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE_DECLINE"><![CDATA[
+	<p>
+		Shocked at [npc.namePos] brazen attempt to start feeling you up right here in front of everyone at the bar, you push [npc.herHim] away from you, before shouting out over the noise of the club, [pc.speech(What do you thin you're doing?! Stop that!)]
+	</p>
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Sorry! I got a little carried away,)] [npc.name] sheepishly apologises, releasing [npc.her] grip on your [pc.hips] and stepping back to give you some space.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Aww, don't be like that, [pc.babe],)] [npc.name] says, keeping [npc.her] tight grip on your [pc.ass+]. Completely shocked by [npc.her] refusal to listen, you end up pushing [npc.herHim] back once again, this time with a considerable amount of force. Thankfully, [npc.name] has to let go of you in order to steady [npc.herself], and you furiously shout at [npc.herHim] not to try anything like that again.
+			#ELSE [npc.speech(Sorry! I thought that's what you wanted,)] [npc.name] tries to explain, releasing [npc.her] grip on your [pc.hips] and stepping back to give you some space.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Not amused in the slightest by [npc.her] attempt to feel you up, you angrily tell [npc.name] to keep [npc.her] [npc.hands] to [npc.herself]. After giving [npc.herHim] a piece of your mind, your outrage quickly fades away, and, letting out a sigh, you tell [npc.name] that you're happy to let [npc.herHim] continue leading the way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_INVITE_HOME"><![CDATA[
+	<p>
+		Leaning forwards, [npc.name] calls out over the noise of the crowd, [npc.speech(Hey, [pc.name], it's pretty loud and hot in here, and I was thinking of heading back home. Would you like to come back to my place?)]
+	</p>
+	<p>
+		After all the flirting you and [npc.name] have done this evening, you're both feeling very turned on, and you know that this invitation is an offer for the two of you to have sex back at [npc.namePos] house. You wonder if you should accept the offer, or turn [npc.herHim] down. If you were to refuse, [npc.name] will leave the club, but depending on the manner in which you say no, you could meet [npc.herHim] here again another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_INVITE_HOME_REFUSE_GENTLE"><![CDATA[
+	<p>
+		[pc.speech(Sorry, [npc.name],)] you reply, [pc.speech(I'm not really feeling up for that this evening. I'd still like to see you here in the club another time, and maybe I'll come back to your place then?)]
+	</p>
+	<p>
+		[npc.speech(That sounds good, I'll catch you here another time then, [pc.name],)] [npc.name] replies, before leaning forwards to give you a quick kiss on the cheek. [npc.speech(I'll head off now, bye!)]
+	</p>
+	<p>
+		You return [npc.her] farewell, watching as [npc.she] heads off into the crowd in the direction of the exit. Turning back towards the bar, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_INVITE_HOME_REFUSE_RUDE"><![CDATA[
+	<p>
+		[pc.speech(Yeah, I don't think so,)] you flatly reply. [pc.speech(This evening's been pretty boring, and I'm thinking you'll be as lousy in bed as have been at showing me a good time. Bye.)]
+	</p>
+	<p>
+		[npc.speech(Huh, well, if that's how you feel, then fine,)] [npc.name] replies, turning [npc.her] back on you and marching off into the crowd in the direction of the exit.
+	</p>
+	<p>
+		Letting out a frustrated sigh, you turn back towards the bar, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+			#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS_ACCEPT"><![CDATA[
+	<p>
+		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
+		#IF npc.isSelfish()
+		#THEN
+			#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, false)
+			#THEN Taking a firm, dominant grip on your [pc.hips+], [npc.name] thrusts [npc.her] [npc.tongue] into your mouth, before starting to greedily make out with you. As [npc.her] [npc.tongue+] slides over yours, you feel [npc.her] [npc.hands] reach around to give your [pc.ass+] a firm squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ELSE As your mouth is blocked, [npc.name] has to make do with kissing your [pc.lips] and face. Taking a firm, dominant grip on your [pc.hips+], [npc.her] [npc.hands] reach around to give your [pc.ass+] a firm squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ENDIF
+		#ELSE
+			#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, false)
+			#THEN Taking a firm grip on your [pc.hips+], [npc.name] slides [npc.her] [npc.tongue] into your mouth, before starting to passionately make out with you. As [npc.her] [npc.tongue+] slides over yours, you feel [npc.her] [npc.hands] reach around to give your [pc.ass+] a gentle squeeze, and, using this grip, [npc.she] firmly pulls you up against [npc.herHim].
+			#ELSE As your mouth is blocked, [npc.name] has to make do with kissing your [pc.lips] and face. Taking a firm grip on your [pc.hips+], [npc.her] [npc.hands] reach around to give your [pc.ass+] a gentle squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		After a few minutes of this, your partner finally pulls back, allowing you to catch your breath as you grin happily at [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS_DECLINE"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Immediately doing as you ask, [npc.she] apologises, [npc.speech(Sorry, [pc.name]! I got a little carried away, and misjudged the mood.)]
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] steps to one side and gives your [pc.ass+] a playful smack, before grinning lustfully at you. [npc.speech(Come on, [pc.name]! You can't fool yourself! You know you want me...)]
+			#ELSE Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] sighs, [npc.speech(Sure thing, [pc.name]. Perhaps you'll be up for some real fun later on tonight...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		With no real harm done, you half-heartedly smile at the [npc.race], wondering what [npc.she] will try next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Leaning against the bar, [npc.name] throws you a charming smile, before attempting to strike up a conversation with you. Spending a couple of minutes talking about
+		#ELSE Leaning against the bar, [npc.name] smiles at you, before attempting to strike up a conversation. Spending a couple of minutes talking about
+		#ENDIF
+		#IF npc.getHistory()==OCCUPATION_NPC_UNEMPLOYED || npc.getHistory()==OCCUPATION_NPC_UNIVERSITY_STUDENT
+		#THEN some of [npc.her] friends and the things they get up to in Dominion, [npc.she] then pauses to offer you a chance to give your input.
+		#ELSE [npc.her] job as [npc.a_jobName], [npc.she] then pauses to offer you a chance to give your input.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK_ACCEPT"><![CDATA[
+	<p>
+		You happily offer your opinion on [npc.namePos] everyday activities, before moving on to discuss several other things with [npc.herHim]. The conversation soon really starts to flow, and before too long, the two of you are chatting away and laughing with one another as though you're old friends.
+	</p>
+	<p>
+		Soon enough, however, the two of you are ready to move on from idle chatter, and you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK_DECLINE"><![CDATA[
+	<p>
+		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
+	</p>
+	<p>
+		Hoping that [npc.she] has something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE"><![CDATA[
+	<p>
+		[npc.Name] takes your [pc.hand] in [npc.hers], before trying to lead you out onto the dance floor. [npc.speech(Come on, [pc.name]! Let's dance together!)]
+	</p>
+	<p>
+		You could allow yourself to be pulled out onto to dance floor, or tell [npc.name] that you're not interested in dancing right now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_ACCEPT"><![CDATA[
+	<p>
+		Happy to have some fun dancing with [npc.name], you allow [npc.herHim] to lead you out onto the dance floor. Quickly finding yourselves in the middle of the noisy crowd of revellers, [npc.name] turns to face you, and, flashing you a smile, starts to dance to the music. You follow [npc.namePos] lead, and, dancing alongside one another, the two of you laugh and share smiles as you join the exuberant crowd in making the most of your evening. 
+	</p>
+	<p>
+		After a short while, the heat and energy of the crowd starts to get a little too much for both of you, and, taking hold of your [pc.hand] once more, [npc.name] leads you back out to the edge of the dance floor, where [npc.she] turns and smiles at you. [npc.speech(That was fun! I think I need a breather now, though.)]
+	</p>
+	<p>
+		Agreeing with [npc.namePos] assessment, you join [npc.herHim] in taking a moment to catch your breath, before wondering what it is that [npc.she]'ll want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_DECLINE"><![CDATA[
+	<p>
+		You really don't feel like dancing, and pull your [pc.hand] away from [npc.namePos]. As [npc.she] turns around to see what's wrong, you shout out over the booming music and tell [npc.herHim] that you're not going to dance.
+	</p>
+	<p>
+		A clear look of disappointment flashes across the [npc.race]'s face, but [npc.she] doesn't kick up a fuss about the fact that you're not interested in dancing with [npc.herHim]. Stepping back out to the edge of the dance floor, you wonder what it is that [npc.she]'ll want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE"><![CDATA[
+	<p>
+		#IF npc.isSelfish()
+		#THEN Using the bustling crowd of dancers as cover, [npc.name] suddenly steps forwards and presses [npc.herself] against you. Quickly placing [npc.her] [npc.hands] on your [pc.hips+], [npc.she] slides [npc.her] touch down and around to firmly grab your [pc.ass+]. Leaning forwards, [npc.she] [npc.moans] into your [pc.ear], [npc.speech(Mmm, your hot ass belongs to me tonight!)]
+		#ELSE Using the bustling crowd of dancers as cover, [npc.name] suddenly steps forwards and presses [npc.herself] against you. Quickly placing [npc.her] [npc.hands] on your [pc.hips+], [npc.she] starts to slide [npc.her] touch down and around towards your [pc.ass+]. Leaning forwards, [npc.she] [npc.moans] into your [pc.ear], [npc.speech(Mmm, you're so sexy...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE_ACCEPT"><![CDATA[
+	<p>
+		Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
+		#IF pc.hasBreasts()
+		#THEN
+			#IF npc.isSelfish()
+			#THEN After a moment of using both of [npc.her] [npc.hands] to greedily grope your [pc.ass+], [npc.name] then shifts [npc.her] focus onto your chest. Letting go of your [pc.ass], [npc.she] quickly reaches up to give your [pc.breasts+] a firm, dominant squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.she] then dominantly presses [npc.her] [npc.lips+] against yours, roughly kissing you while continuing to grope and fondle every part of your body.
+			#ELSE As one of [npc.her] [npc.hands] slip around to greedily grope your [pc.ass+], [npc.name] lifts [npc.her] other one up to give your [pc.breasts+] a firm squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.name] dominantly presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to run [npc.her] [npc.hands] all over your body.
+			#ENDIF
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN Encouraged by your lewd cry, [npc.she] starts roughly squeezing and groping your [pc.ass+]. As you start to let out another [pc.moan], [npc.she] then dominantly presses [npc.her] [npc.lips+] against yours, roughly kissing you while continuing to have fun playing with your [pc.ass].
+			#ELSE Encouraged by your lewd cry, [npc.she] slips both of [npc.her] [npc.hands] around your waist, before moving down to give your [pc.ass+] a firm, dominant squeeze. As you start to let out another [pc.moan], [npc.name] moves to press [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to grope and squeeze your [pc.ass].
+			#ENDIF
+		#ENDIF
+	</p>
+	#IF pc.hasPenis()
+	#THEN
+		<p>
+			#IF npc.isSelfish()
+			#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start dominantly rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to roughly grope and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, before teasing, [npc.speech(You're getting hard already, huh? You just wait until I'm fucking you...)]
+			#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to stroke and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, grinning at you as [npc.she] teases, [npc.speech(Mmm, getting hard already? Perhaps we should head somewhere quiet...)]
+			#ENDIF
+		</p>
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				#IF npc.isSelfish()
+				#THEN Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts dominantly rubbing at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+				#ELSE Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts firmly rubbing at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				#IF npc.isSelfish()
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				#IF npc.isSelfish()
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
+				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE_DECLINE"><![CDATA[
+	<p>
+		Shocked at [npc.namePos] brazen attempt to start feeling you up right here in front of everyone on the dance floor, you push [npc.herHim] away from you, before shouting out over the deafening music, [pc.speech(What do you thin you're doing?! Stop that!)]
+	</p>
+	<p>
+		#IF npc.isSelfish()
+		#THEN [npc.speech(Aww, don't be like that, [pc.babe],)] [npc.name] replies, keeping [npc.her] tight grip on your [pc.ass+]. Completely shocked by [npc.her] refusal to listen, you end up pushing [npc.herHim] back once again, this time with a considerable amount of force. Thankfully, [npc.name] has to let go of you in order to steady [npc.herself], and you furiously shout at [npc.herHim] not to try anything like that again.
+		#ELSE [npc.speech(Sorry! I thought that's what you wanted,)] [npc.name] tries to explain, releasing [npc.her] grip on your [pc.hips] and stepping back to give you some space.
+		#ENDIF
+	</p>
+	<p>
+		Not amused in the slightest by [npc.her] attempt to feel you up, you angrily tell [npc.name] to keep [npc.her] [npc.hands] to [npc.herself]. After giving [npc.herHim] a piece of your mind, your outrage quickly fades away, and, letting out a sigh, you tell [npc.name] that you're happy to let [npc.herHim] continue leading the way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS"><![CDATA[
+	<p>
+		#IF npc.isSelfish()
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS_ACCEPT"><![CDATA[
+	<p>
+		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
+		#IF npc.isSelfish()
+		#THEN
+			#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, false)
+			#THEN Taking a firm, dominant grip on your [pc.hips+], [npc.name] thrusts [npc.her] [npc.tongue] into your mouth, before starting to greedily make out with you. As [npc.her] [npc.tongue+] slides over yours, you feel [npc.her] [npc.hands] reach around to give your [pc.ass+] a firm squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ELSE As your mouth is blocked, [npc.name] has to make do with kissing your [pc.lips] and face. Taking a firm, dominant grip on your [pc.hips+], [npc.her] [npc.hands] reach around to give your [pc.ass+] a firm squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ENDIF
+		#ELSE
+			#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, false)
+			#THEN Taking a firm grip on your [pc.hips+], [npc.name] slides [npc.her] [npc.tongue] into your mouth, before starting to passionately make out with you. As [npc.her] [npc.tongue+] slides over yours, you feel [npc.her] [npc.hands] reach around to give your [pc.ass+] a gentle squeeze, and, using this grip, [npc.she] firmly pulls you up against [npc.herHim].
+			#ELSE As your mouth is blocked, [npc.name] has to make do with kissing your [pc.lips] and face. Taking a firm grip on your [pc.hips+], [npc.her] [npc.hands] reach around to give your [pc.ass+] a gentle squeeze, and, using this grip, [npc.she] roughly pulls you up against [npc.herHim].
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		After a few minutes of this, your partner finally pulls back, allowing you to catch your breath as you grin happily at [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS_DECLINE"><![CDATA[
+	<p>
+		#IF npc.isSelfish()
+		#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] steps to one side and gives your [pc.ass+] a playful smack, before grinning lustfully at you. [npc.speech(Come on, [pc.name]! You can't fool yourself! You know you want me...)]
+		#ELSE Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] sighs, [npc.speech(Sure thing, [pc.name]. Perhaps you'll be up for some real fun later on tonight...)]
+		#ENDIF
+	</p>
+	<p>
+		With no real harm done, you half-heartedly smile at the [npc.race], wondering what [npc.she] will try next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Leaning forwards over the small table, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
+		#ELSE Leaning forwards over the small table, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] words are a little crude at times, but [npc.her] flattery does seem to be completely genuine, and, as further proof of [npc.her] good intentions, [npc.she] chooses to wait and judge your response before taking things any further...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_ACCEPT"><![CDATA[
+		#IF npc.isTrusting()
+		#THEN
+		<p>
+			Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, and while [npc.name] does [npc.her] best to keep things from going too far, several racy and highly suggestive comments have been made by both parties before the flirting comes to an end.
+		</p>
+		<p>
+			As the two of you smile fondly at one another, you wonder what [npc.name] will want to do next...
+		</p>
+		#ELSE
+			<p>
+				Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, which quickly escalates into a little more forceful contact from [npc.name], and [npc.she] dominantly slaps you on the ass a couple of times to accompany [npc.her] good-natured teasing.
+			</p>
+			<p>
+				Several racy and highly suggestive comments have been made by both of you before the flirting comes to an end. As the two of you grin mischievously at one another, you wonder what [npc.name] will want to do next...
+			</p>
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_DECLINE"><![CDATA[
+		#IF npc.isTrusting()
+		#THEN
+			<p>
+				You're not really feeling the vibe that [npc.nameIs] giving off, and, leaning back on your seat, you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Regretfully accepting your request, [npc.name] backs off, allowing a heavy silence to fall between the two of you for a moment, before continuing the conversation in a cooler manner than before.
+			</p>
+			<p>
+				As the talk between the two of you starts to dry up, you wonder what [npc.name] will want to do next...
+			</p>
+		#ELSE
+			<p>
+				You're not really feeling the vibe that [npc.nameIs] giving off, and, pulling away from [npc.herHim], you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Clicking [npc.her] [npc.tongue] in annoyance, [npc.she] leans back on [npc.her] seat, before allowing a heavy silence to fall between the two of you.
+			</p>
+			<p>
+				After a little while, [npc.name] leans forwards once more, and you wonder what [npc.sheIs] going to do now...
+			</p>
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE"><![CDATA[
+	<p>
+		[npc.Name] throws you a playful smile, but before you can ask [npc.herHim] what's on [npc.her] mind, you suddenly feel [npc.her] [npc.foot] rubbing against your [pc.leg]. Your partner playfully laughs as [npc.she] starts to lift [npc.her] [npc.foot] up towards your groin, and you realise that unless you say something, [npc.sheIs] going to press it right into your crotch!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT"><![CDATA[
+	<p>
+		Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
+	</p>
+	<p>
+		Seemingly eager to do as you ask, [npc.name] runs [npc.her] [npc.foot] up the inside of your thigh, but before [npc.she] presses forwards into your groin, [npc.she] suddenly pulls back. Alarmed at [npc.her] sudden change in direction, you let out a pleading [pc.moan], which is exactly what [npc.name] was hoping for, as [npc.she] lets out yet another playful laugh, [npc.speech(Haha! You want me to continue, huh?)]
+	</p>
+	<p>
+		[pc.speech(Yes!)] you instantly reply, the enthusiasm in your voice causing a huge grin to break out over [npc.namePos] face. 
+	</p>
+	<p>
+		[npc.speech(Well, if you insist,)] [npc.she] says, teasing [npc.her] [npc.foot+] up the length of your [npc.leg], before running down the inside of your thigh. Spreading your [pc.legs] a little wider, you again bite your [pc.lip] and plead for [npc.name] to continue. This time, your partner does exactly what you're asking for, and quickly pushes forwards to press [npc.her] [npc.foot] directly into your crotch.
+	</p>
+	#IF pc.hasPenis()
+	#THEN
+		<p>
+			You instantly let out [pc.a_moan+] as you feel the pressure rubbing against your [pc.cock+]. Looking into [npc.namePos] [npc.eyes+], you once again beg for [npc.herHim] to continue, and, eager to draw another of those [pc.moans] from between your [pc.lips], [npc.she] does exactly that.
+		</p>
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				Moving [npc.her] [npc.foot] down beneath your [pc.cock+], [npc.name] suddenly pushes forwards, ramming [npc.her] [npc.toes] up against your [pc.pussy+]. Letting out yet another [pc.moan+], you can't help but blush from the intense stimulation that [npc.namePos] [npc.foot] is applying to your [pc.clit+].
+			</p>
+		#ENDIF
+	#ELSE
+		#IF pc.hasVagina()
+		#THEN
+			<p>
+				You instantly let out [pc.a_moan+] as you feel [npc.her] [npc.toes] pressing firmly in against your [pc.pussy+]. Looking into [npc.namePos] [npc.eyes+], you once again beg for [npc.herHim] to continue, and, eager to draw another of those [pc.moans] from between your [pc.lips], [npc.she] does exactly that.
+			</p>
+		#ELSE
+			<p>
+				You instantly let out [pc.a_moan+] as you feel [npc.her] [npc.toes] pressing firmly in against your genderless mound. Looking into [npc.namePos] [npc.eyes+], you once again beg for [npc.herHim] to continue, and, eager to draw another of those [pc.moans] from between your [pc.lips], [npc.she] does exactly that.
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		This continues for several minutes, all of which are spent with you squirming about and [pc.moaning] from the delightful stimulation that [npc.namePos] [npc.foot+] is applying to your groin. Eventually, however, [npc.she] runs [npc.her] [npc.foot] back down the inside of your thigh, before dropping it to the floor and smiling playfully at you. [npc.speech(You really like that sort of stuff, huh?)]
+	</p>
+	<p>
+		You happily reply in the affirmative, and, panting from the intense stimulation, you push yourself back upright on your seat and prepare yourself for [npc.namePos] next move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_DECLINE"><![CDATA[
+	<p>
+		Not wanting [npc.namePos] [npc.feet] anywhere near your groin, you quickly shuffle away from [npc.her] touch, before angrily frowning at [npc.herHim]. [pc.speech(Hey! Cut that out!)]
+	</p>
+	<p>
+		[npc.speech(Ah, sorry, [pc.name],)] [npc.name] apologises. [npc.speech(I thought you might like that sort of thing...)]
+	</p>
+	<p>
+		You quickly inform [npc.name] that you definitely don't, and, after a few moments of heavy silence between the two of you, [npc.she] seems ready to try something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_INVITE_HOME"><![CDATA[
+	<p>
+		Leaning forwards, [npc.name] suddenly asks, [npc.speech(Hey, [pc.name], it's getting a little late for me, and I was thinking of heading back home. Would you like to come back to my place?)]
+	</p>
+	<p>
+		After all the flirting you and [npc.name] have done this evening, you're both feeling very turned on, and you know that this invitation is an offer for the two of you to have sex back at [npc.her] house. You wonder if you should accept the offer, or turn [npc.herHim] down. If you were to refuse, [npc.name] will leave the club, but depending on the manner in which you say no, you could meet [npc.herHim] here again another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIT_DOWN_INVITE_HOME_REFUSE_GENTLE"><![CDATA[
+	<p>
+		[pc.speech(Sorry, [npc.name],)] you reply, [pc.speech(I'm not really feeling up for that this evening. I'd still like to see you here in the club another time, and maybe I'll come back to your place then?)]
+	</p>
+	<p>
+		[npc.speech(That sounds good, I'll catch you here another time then, [pc.name],)] [npc.name] replies, before shuffling round and leaning forwards to give you a quick kiss on the cheek. [npc.speech(I'll head off now, bye!)]
+	</p>
+	<p>
+		You return [npc.her] farewell, watching as [npc.she] stands up and heads off in the direction of the exit. Waiting until [npc.sheHas] departed, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIT_DOWN_INVITE_HOME_REFUSE_RUDE"><![CDATA[
+	<p>
+		[pc.speech(Yeah, I don't think so,)] you flatly reply. [pc.speech(This evening's been pretty boring, and I'm thinking you'll be as lousy in bed as have been at showing me a good time. Bye.)]
+	</p>
+	<p>
+		[npc.speech(Huh, well, if that's how you feel, then fine,)] [npc.name] replies, before standing up and marching off in the direction of the exit.
+	</p>
+	<p>
+		Letting out a frustrated sigh, you wait until [npc.sheHas] departed, before standing up and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS"><![CDATA[
+	<p>
+		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_ACCEPT"><![CDATA[
+	<p>
+		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
+		#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, false)
+		#THEN Reaching up to take hold of the sides of your head, [npc.name] slides [npc.her] [npc.tongue] into your mouth, before starting to passionately make out with you. As [npc.her] [npc.tongue+] slides over yours, you feel the heat of [npc.her] body pressing against yours, and you can't help but let out a satisfied, and very muffled, sigh.
+		#ELSE As your mouth is blocked, [npc.name] has to make do with kissing your [pc.lips] and face. As [npc.she] reaches up to take hold of the sides of your head, you feel the heat of [npc.her] body pressing against yours, and you can't help but let out a satisfied, and very muffled, sigh.
+		#ENDIF
+	</p>
+	<p>
+		After a few minutes of this, your partner finally pulls back, allowing you to catch your breath as you grin happily at [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_DECLINE"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Immediately doing as you ask, [npc.she] apologises, [npc.speech(Sorry, [pc.name]! I got a little carried away, and misjudged the mood.)]
+		#ELSE Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] sighs, [npc.speech(Sure thing, [pc.name]. Perhaps you'll be up for some real fun later on tonight...)]
+		#ENDIF
+	</p>
+	<p>
+		With no real harm done, you half-heartedly smile at the [npc.race], wondering what [npc.she] will try next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX"><![CDATA[
+	<p>
+		[npc.Name] shuffles up right next to you on the seat, and, leaning in towards you, [npc.she] whispers in a playful tone, [npc.speech(You know, nobody would notice if we had sex right here in this booth. Come on, it'll be so exciting!)]
+	</p>
+	<p>
+		With that, [npc.she] quickly reaches forwards and tries to pull you into [npc.her] lap, clearly desperate to start having sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START"><![CDATA[
+	<p>
+		Letting out a delighted [pc.moan] in response to [npc.namePos] suggestion, you allow yourself to be pulled into [npc.her] lap. Once in this position, [npc.name] quickly leans forwards, before planting a passionate kiss on your [pc.lips+]. Eagerly returning [npc.her] display of affection, the two of you start passionately making out with one another.
+	</p>
+	<p>
+		After a few moments of this, [npc.name] breaks away, before grinning and letting out [npc.a_moan] of [npc.her] own, [npc.speech(Mmm, yeah, now let's have some real fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_REFUSE_GENTLE"><![CDATA[
+	<p>
+		You gently push [npc.name] back, before sighing, [pc.speech(Sorry, [npc.name], I'm not really feeling up for that. I'd still like to see you here in the club another time, but I really don't want sex right now.)]
+	</p>
+	<p>
+		[npc.speech(Alright, that's fair enough. It's getting kind of late for me anyway, so I should get going,)] [npc.name] replies, before leaning forwards to give you a quick kiss on the cheek. [npc.speech(I'll head off now, bye!)]
+	</p>
+	<p>
+		You return [npc.her] farewell, watching as [npc.she] stands up and heads off in the direction of the exit. Waiting until [npc.sheHas] departed, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_REFUSE_RUDE"><![CDATA[
+	<p>
+		You roughly shove [npc.name] away from you, causing [npc.herHim] to fall off [npc.her] seat. With an angry frown on your face, you scowl, [pc.speech(There's no way I'm fucking someone like you! Go on, get out of here!)]
+	</p>
+	<p>
+		[npc.speech(Fucking [pc.bitch],)] [npc.name] snaps, before standing up and marching off in the direction of the exit.
+	</p>
+	<p>
+		Letting out a frustrated sigh, you wait until [npc.sheHas] departed, before standing up and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN Leaning forwards over the table, [npc.name] throws you a charming smile, before attempting to strike up a conversation with you. Spending a couple of minutes talking about
+		#ELSE Leaning forwards over the table, [npc.name] smiles at you, before attempting to strike up a conversation. Spending a couple of minutes talking about
+		#ENDIF
+		#IF npc.getHistory()==OCCUPATION_NPC_UNEMPLOYED || npc.getHistory()==OCCUPATION_NPC_UNIVERSITY_STUDENT
+		#THEN some of [npc.her] friends and the things they get up to in Dominion, [npc.she] then pauses to offer you a chance to give your input.
+		#ELSE [npc.her] job as [npc.a_jobName], [npc.she] then pauses to offer you a chance to give your input.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_ACCEPT"><![CDATA[
+	<p>
+		You happily offer your opinion on [npc.namePos] everyday activities, before moving on to discuss several other things with [npc.herHim]. The conversation soon really starts to flow, and before too long, the two of you are chatting away and laughing with one another as though you're old friends.
+	</p>
+	<p>
+		Soon enough, however, the two of you are ready to move on from idle chatter, and you wonder what [npc.name] will want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_DECLINE"><![CDATA[
+	<p>
+		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
+	</p>
+	<p>
+		Hoping that [npc.she] has something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS"><![CDATA[
+	<p>
+		Firmly holding your [pc.hand] in [npc.hers], [npc.name] tries to pull you into the nearest empty stall, looking back over [npc.her] shoulder and grinning as [npc.she] says, [npc.speech(Come on, [pc.babe]! You've been teasing me all evening, now it's time for a good fuck!)]
+	</p>
+	<p>
+		Several of the people standing at the sinks turn their heads and laugh at [npc.namePos] loud statement, and you find yourself ready to tell your partner what you've been wanting to say all night...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START"><![CDATA[
+	<p>
+		[pc.speech(Ah, yes! Take me, [npc.name]!)] you submissively cry, your heart racing at the thought of having sex with such a dominant [npc.race].
+	</p>
+	<p>
+		[npc.speech(That's what I like to hear!)] [npc.she] growls, pulling you into the stall and locking the door behind you. Before you're able to say anything else, [npc.she] forcefully presses [npc.her] [npc.lips+] against yours, passionately making out with you as one of [npc.her] [npc.hands] drop down to grope your crotch.
+	</p>
+	<p>
+		After just a moment, [npc.she] pulls back, before grinning at you and letting out [npc.a_moan], [npc.speech(Mmm, yeah, let's get down to it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_GENTLE"><![CDATA[
+	<p>
+		[pc.speech(I-I'm not having sex in a toilet!)] you shout, pulling your [pc.hand] away from [npc.name] and standing your ground.
+	</p>
+	<p>
+		[npc.speech(Eugh! Stupid [pc.bitch]!)] [npc.name] snaps, before squaring up to you and growling, [npc.speech(You'd better put out the next time I see you here!)]
+	</p>
+	<p>
+		Before you can respond to [npc.her] outrageous comment, [npc.she] storms off out of the toilets, leaving you standing alone amidst several onlookers, who immediately start whispering and laughing amongst themselves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_RUDE"><![CDATA[
+	<p>
+		[pc.speech(There's no way I'm having sex in a toilet!)] you shout, pulling your [pc.hand] away from [npc.name] and standing your ground.
+	</p>
+	<p>
+		[npc.speech(Eugh! Stupid [pc.bitch]!)] [npc.name] snaps, before squaring up to you and growling, [npc.speech(You'd better put out the next time I see you here!)]
+	</p>
+	<p>
+		#IF pc.isFeminine()
+		#THEN [pc.speech(Fuck off!)] you shout, slapping [npc.name] across the face.
+		#ELSE [pc.speech(Fuck off!)] you shout, roughly pushing [npc.name] away from you.
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(You fucking [pc.bitch]! Don't ever speak to me again!)] [npc.name] shouts in return, before storming off out of the toilets, leaving you standing alone amidst several onlookers, who immediately start whispering and laughing amongst themselves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SAVE_CLUBBER"><![CDATA[
+	<p>
+		Feeling as though you've had enough of [npc.name] for one evening, but not wanting to break all contact with [npc.herHim], you clear your throat and explain, [pc.speech(Hey, [npc.name], sorry, but I'm feeling a little tired. I'm going to have to head off now, but I'll see you here again, right?)]
+	</p>
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Oh, ok. Yeah, I'll catch you around some other time. See you later then, [pc.name],)] [npc.name] responds, smiling at you before turning and taking [npc.her] leave.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Well, if you're gonna be like that, then fine. I hope you're not going to be such a drag the next time we're doing this,)] [npc.name] bluntly responds, before abruptly turning and taking [npc.her] leave.
+			#ELSE [npc.speech(Yeah, sure thing, [pc.name]. I'll catch you around some other time. Take care,)] [npc.name] responds, smiling at you before turning and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LOSE_COMPANY"><![CDATA[
+	<p>
+		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you let out an annoyed sigh, [pc.speech(I've had just about enough of you. I'm leaving. Don't bother to come say hello if you ever see me again, ok?)]
+	</p>
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Well, that was unexpected, but sure, if that's what you want. Bye, [pc.name],)] [npc.name] unhappily responds, before turning and taking [npc.her] leave.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(Well, fuck you too, [pc.bitch]. Have fun getting fucked by one of your other cunt friends,)] [npc.name] rudely responds, before turning and storming off to another part of the club.
+			#ELSE [npc.speech(Well, that was pretty blunt. Whatever. Bye,)] [npc.name] dismissively responds, before turning and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME"><![CDATA[
+	<p>
+		[pc.speech(Sure, that sounds fun,)] you reply, smiling at [npc.name] as [npc.she] takes hold of your [pc.hand], before leading you out of the club.
+	</p>
+	<p>
+		#IF game.getCurrentWeather()==WEATHER_RAIN
+		#THEN As the two of you step out into the street, you're greeted by a thundering torrent of rain. Thankfully, [npc.name] has an umbrella with [npc.herHim], and the two of you walk closely side-by-side beneath its protective canopy as you make your way back to [npc.her] house.
+		#ELSE
+			#IF game.getCurrentWeather()==WEATHER_SNOW
+			#THEN As the two of you step out into the street, you're greeted by the sight of heavy snowfall. Thankfully, [npc.name] has an umbrella with [npc.herHim], and the two of you walk closely side-by-side beneath its protective canopy as you make your way back to [npc.her] house.
+			#ELSE
+				#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
+				#THEN As the two of you step out into the street, you're greeted by the rumbling sound of arcane thunder. [npc.Name] instantly seems to be heavily affected by its arousing effects, and, without warning, pulls you up against [npc.herHim] and plants a passionate kiss on your [pc.lips]. After a moment of making out with one another, you gently push [npc.herHim] back, before reminding [npc.herHim] of your destination. Trying to shake [npc.her] head clear, [npc.she] takes hold of your [pc.hand], and the two of you set off at a run back to [npc.her] house, stopping ever now and then to kiss one another.
+				#ELSE As the two of you step out into the busy street, [npc.name] turns towards you and smiles. Still holding your [pc.hand] in [npc.hers], [npc.she] tells you in what direction [npc.her] house is, and, setting off that way, the two of you make your way to [npc.her] house.
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		It doesn't take too long to get back to [npc.her] home, which turns out to be an apartment in one of the well-kept buildings lining Dominion's main boulevards. After stepping inside, the two of you make your way up a staircase to the second floor, where [npc.name] produces a key and unlocks the door to [npc.her] apartment.
+	</p>
+	<p>
+		From [npc.her] home's expensive decor, as well as it's prime location in one of the most desirable parts of Dominion, you can tell that [npc.name] is very well off. You don't have too much time to appreciate your surroundings, however, because as soon as the door closes behind you, your partner wraps [npc.her] [npc.arms] around you, before pulling you into a passionate kiss.
+	</p>
+	<p>
+		After a moment of making out with one another, [npc.name] takes hold of your [pc.hand] once more, before pulling you along towards one of [npc.her] apartment's interior doors. [npc.speech(Come on, [pc.name], my bedroom's right this way!)]
+	</p>
+	<p>
+		You realise that this is the last chance you'll have to change your mind, so if you were having second thoughts, now's the time to let [npc.name] know...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX"><![CDATA[
+	<p>
+		Desperate to start having sex with [npc.name], you happily let [npc.herHim] lead you into [npc.her] bedroom. Stopping just in front of [npc.her] double-size bed, [npc.name] turns to face you, before passionately kissing you once again.
+	</p>
+	<p>
+		[pc.Moaning] happily into [npc.namePos] mouth, you allow yourself to be pulled in against [npc.her] chest, and, as the two of you prepare to have sex, you find yourself thinking how fortunate you are to have your evening turn out like this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND"><![CDATA[
+	<p>
+		Stopping in your tracks, you shuffle your [pc.feet] a little as you tell [npc.name] what's on your mind, [pc.speech(Sorry, [npc.name], I'm having second thoughts about all this... I don't know if I can carry on.)]
+	</p>
+	<p>
+		Releasing your [pc.hand], [npc.name] turns to face you with a smile. [npc.speech(That's fine, don't worry about it, [pc.name]! I wouldn't want you to do this if you were feeling uncomfortable.)]
+	</p>
+	<p>
+		[pc.speech(Thanks for understanding. Perhaps I'll see you at the club another time?)] you reply.
+	</p>
+	<p>
+		[npc.speech(I hope so, I really enjoyed our time together this evening. Have a safe journey home.)] [npc.name] says, smiling at you once again as [npc.she] leads you to the front door.
+	</p>
+	<p>
+		After saying your goodbyes, [npc.Name] leans forwards and kisses you on the cheek. As the door shuts behind you, you let out a small sigh of relief. You're glad that you had the willpower to say no back there, and as you travel down the stairs and out into the street beyond, you feel happy that you didn't end up having sex with [npc.name]. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND_RUDE"><![CDATA[
+	<p>
+		[pc.speech(You know, on second thoughts, I don't really want to get fucked by someone like you,)] you bluntly state, pulling your [pc.hand] away from [npc.name] and turning towards the door. [pc.speech(I don't know what I was thinking...)]
+	</p>
+	<p>
+		[npc.speech(Oh... Well, bye, I guess,)] [npc.name] responds, clearly a little flustered by your abrupt change in attitude.
+	</p>
+	<p>
+		[pc.speech(Don't bother saying hello if you see me at the club again,)] you call out behind you as you pull open the front door. Before [npc.name] can even respond, you step out and slam it behind you, before making your way down the stairs and out into the street beyond.
+	</p>
+	<p>
+		Happy that you didn't get carried away and have sex with [npc.name], you set off on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX"><![CDATA[
+	<p>
+		The two of you fall back on the bed, panting and sweating as you both stare up at the ceiling. As you're lying there, [npc.name] rolls over next to you, and pulls you into a loving hug.
+	</p>
+	<p>
+		You spend the next ten minutes or so lying in [npc.namePos] embrace, before finally telling [npc.herHim] that you need to be on your way. Standing up and gathering your things, you head to the front door, with your partner walking along beside you.
+	</p>
+	<p>
+		As [npc.she] opens the door for you, [npc.name] asks if [npc.she]'ll see you at the club again, and you turn to give [npc.herHim] your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		The two of you fall back on the bed, panting and sweating as you both stare up at the ceiling. As you're lying there, [npc.name] makes a frustrated whining noise, and, rolling over next to you, [npc.she] complains about you not letting [npc.herHim] orgasm.
+	</p>
+	<p>
+		You spend the next ten minutes or so lying next to [npc.name], before finally telling [npc.herHim] that you need to be on your way. Standing up and gathering your things, you head to the front door, with your partner walking along beside you.
+	</p>
+	<p>
+		As [npc.she] opens the door for you, [npc.name] asks if [npc.she]'ll see you at the club again, and you turn to give [npc.herHim] your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_SEE_AGAIN"><![CDATA[
+	<p>
+		[pc.speech(Sure, I'll see you at the club again,)] you happily reply. [pc.speech(I had a really great time with you tonight.)]
+	</p>
+	<p>
+		[npc.speech(Great, I had a fantastic evening as well,)] [npc.name] responds, before leaning forwards and kissing you on the cheek. [npc.speech(Bye, [pc.name], I'll see you another time!)]
+	</p>
+	<p>
+		After saying farewell, you travel down the stairs and out into the street beyond. With a big smile on your face, you set off on your way... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
+	<p>
+		[pc.speech(Erm, yeah, well, I'm more of a one-night-stand kind of person,)] you reply. [pc.speech(I had a really great time with you tonight, but I don't know if seeing you again is a good idea.)]
+	</p>
+	<p>
+		[npc.speech(Ah,)] [npc.name] responds, sounding more than a little disappointed. [npc.speech(Well, at least we had one great evening together.)]
+	</p>
+	<p>
+		After saying a quick goodbye, you travel down the stairs and out into the street beyond. Letting out a satisfied sigh, you set off on your way... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
+	<p>
+		[pc.speech(I really just wanted a quick fuck,)] you reply. [pc.speech(I knew you'd be good for it, but now that I'm satisfied, there's no way I want to see you again.)]
+	</p>
+	<p>
+		[npc.speech(Oh, well, I didn't expect that,)] [npc.name] responds, sounding more than a little surprised.
+	</p>
+	<p>
+		Before [npc.she] can say anything else, you turn your back on [npc.herHim] and take your leave. Travelling down the stairs and out into the street beyond, you let out a satisfied sigh before setting off on your way... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_PARTNER_DOM_LEAVES"><![CDATA[
+	<p>
+		#IF npc.isTrusting()
+		#THEN [npc.speech(Sorry, [pc.name], I'm not really having a good time. I'm leaving, have a good evening,)] [npc.name] says, half-heartedly smiling at you before turning and heading off into the crowd.
+		#ELSE
+			#IF npc.isSelfish()
+			#THEN [npc.speech(You're just far too much of [pc.a_bitch] to be worth my time. See ya,)] [npc.name] says, before abruptly turning and heading off into the crowd.
+			#ELSE [npc.speech(I'm really not having fun, [pc.name]. I'm off. Perhaps try being less of [pc.a_bitch] in the future,)] [npc.name] says, before abruptly turning and heading off into the crowd.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Finding yourself all alone in the club once again, you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] quickly starts getting [npc.her] clothes back in order, grinning happily at you as [npc.she] does so. [npc.speech(You were a good fuck, slut. You've got no idea how many prudes back out at the last minute when I try to fuck them in here.)]
+	</p>
+	<p>
+		As [npc.name] crudely compliments you, you start getting your own things sorted out, but before you've finished, your partner suddenly opens the stall door, exposing you to the rest of the room. Completely oblivious to what [npc.sheIs] doing, [npc.name] steps out of the stall, and in front of everyone, asks, [npc.speech(You'll come find me in the club if you want another good fuck, won't you [pc.name]?)]
+	</p>
+	<p>
+		Hurriedly getting the last of your things in order, you step forwards and reply...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Putting an end to the sex, you quickly start getting your things back in order, ignoring [npc.name] as [npc.she] complains, [npc.speech(I didn't even orgasm, and you want to stop fucking? For fuck's sake... I would've been better off bringing some other slut back here.)]
+	</p>
+	<p>
+		As [npc.name] continues to blather on, you step past [npc.herHim] and open the stall door, exposing [npc.herHim] to the rest of the room. Quickly getting [npc.her] clothes back in order, [npc.name] follows you as you step out of the stall, and in front of everyone, [npc.she] asks, [npc.speech(You'll come find me in the club if you want a real fuck, won't you [pc.name]? You've got to make it up to me for what you just did back there.)]
+	</p>
+	<p>
+		Turning around to face [npc.name], you give [npc.herHim] your reply...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_SEE_AGAIN"><![CDATA[
+	<p>
+		[pc.speech(Yeah, sure, I'll see you around another time.)]
+	</p>
+	<p>
+		[npc.speech(Good,)] [npc.name] replies. [npc.speech(I had fun tonight, even if you could have put a little more effort into it back there.)]
+	</p>
+	<p>
+		Not even waiting to hear your reply, [npc.name] steps past you and hurries out of the room, leaving you standing alone in the toilets...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
+	<p>
+		[pc.speech(I don't know... I mean, I think doing this once might be enough for me...)]
+	</p>
+	<p>
+		[npc.speech(Fine, whatever,)] [npc.name] dismissively replies. [npc.speech(You were a lousy fuck anyway. I'll find someone better.)]
+	</p>
+	<p>
+		Not even waiting to hear your reply, [npc.name] steps past you and hurries out of the room, leaving you standing alone in the toilets...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
+	<p>
+		[pc.speech(Not likely. There's no way I'm having sex with you again.)]
+	</p>
+	<p>
+		[npc.speech(Well, fuck you too, [pc.bitch],)] [npc.name] snaps. [npc.speech(You were a lousy fuck anyway.)]
+	</p>
+	<p>
+		Not even waiting to hear your reply, [npc.name] steps past you and hurries out of the room, leaving you standing alone in the toilets...
 	</p>
 	]]>
 	</htmlContent>

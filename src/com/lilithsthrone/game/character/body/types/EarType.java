@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum EarType implements BodyPartTypeInterface {
@@ -22,8 +22,6 @@ public enum EarType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	IMP(BodyCoveringType.IMP, Race.IMP),
-	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	DOG_MORPH_POINTED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	DOG_MORPH_FOLDED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
@@ -65,6 +63,16 @@ public enum EarType implements BodyPartTypeInterface {
 		this.race = race;
 	}
 
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static EarType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
+	}
+
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "a pair of";
@@ -98,8 +106,6 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("pointed", "demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("pointed", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "dog-like");
 			case DOG_MORPH_POINTED:
@@ -135,7 +141,8 @@ public enum EarType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
@@ -146,8 +153,6 @@ public enum EarType implements BodyPartTypeInterface {
 				return "tufted feline";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_POINTED:
@@ -157,23 +162,23 @@ public enum EarType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return "bovine";
 			case SQUIRREL_MORPH:
-				return "furry";
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case HARPY:
-				return "avian";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case HUMAN:
 				return "human";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
-				return "vulpine";
+				return "fox";
 			case FOX_MORPH_BIG:
-				return "massive vulpine";
+				return "large fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

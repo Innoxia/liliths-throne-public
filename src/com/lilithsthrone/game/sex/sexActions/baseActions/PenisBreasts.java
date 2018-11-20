@@ -150,7 +150,7 @@ public class PenisBreasts {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()) {
+			if(Sex.getCharacterPerformingAction().isBreastFuckablePaizuri()) {
 				return "Paizuri into mouth";
 			} else {
 				return "Naizuri into mouth";
@@ -183,7 +183,7 @@ public class PenisBreasts {
 									+ " [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Slowly pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -192,7 +192,7 @@ public class PenisBreasts {
 									+ " [npc.name] greedily [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Eagerly pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -200,7 +200,7 @@ public class PenisBreasts {
 									+ " [npc.name] greedily [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] greedily [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -208,7 +208,7 @@ public class PenisBreasts {
 									+ " [npc.name] [npc.verb(part)] [npc.her] [npc.lips+] and [npc.verb(take)] the [npc2.cockHead] into [npc.her] mouth.",
 
 							"Pushing [npc.her] [npc.face] down,"
-									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc.verb(thrust)] up between [npc.her] [npc.breasts+]."));
+									+ " [npc.name] [npc.verb(take)] the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] into [npc.her] mouth as [npc2.she] [npc2.verb(thrust)] up between [npc.her] [npc.breasts+]."));
 					break;
 				case SUB_RESISTING:
 					break;
@@ -1244,15 +1244,15 @@ public class PenisBreasts {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pushing [npc2.name] away,"
-										+ " [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.her] cleavage and [npc.verb(tell)] [npc2.herHim] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+].",
+										+ " [npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.her] cleavage and [npc.verb(tell)] [npc2.herHim] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+].",
 
 								"Roughly pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.herHim] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+]."));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and [npc.verb(tell)] [npc2.name] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+].",
+								"[npc.name] [npc.verb(pull)] [npc.her] [npc.cock+] out from [npc2.namePos] cleavage and [npc.verb(tell)] [npc2.name] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+].",
 
-								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] had enough of fucking [npc2.her] [npc2.breasts+]."));
+								"Pulling [npc.her] [npc.cock+] out from [npc2.namePos] cleavage, [npc.name] [npc.verb(tell)] [npc2.name] that [npc.sheHas] had enough of fucking [npc2.her] [npc2.breasts+]."));
 						break;
 				}
 			} else if(Sex.getCharacterTargetedForSexAction(this).hasBreasts()) {
@@ -1295,13 +1295,13 @@ public class PenisBreasts {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc2.verb(beg)] [npc.herHim] to leave [npc2.herHim] alone.",
+							" [npc2.Name] [npc2.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc2.verb(beg)] [npc.herHim] to leave [npc2.herHim] alone.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(beg)] [npc.herHim] to leave [npc2.herHim] alone, tears welling up in [npc2.her] [npc2.eyes] as [npc2.she] weakly [npc2.verb(try)] to push [npc.herHim] away."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc.verb(let)] out [npc2.a_moan+], betraying [npc2.her] desire for [npc.herHim] to continue.",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], betraying [npc2.her] desire for [npc.herHim] to continue.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(beg)] for [npc.herHim] to keep on using [npc2.herHim]."));
 					break;
@@ -1443,7 +1443,7 @@ public class PenisBreasts {
 				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1463,7 +1463,7 @@ public class PenisBreasts {
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc.verb(beg)] for [npc.herHim] to stop."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to stop."));
 						break;
 					default:
 						break;
@@ -1502,7 +1502,7 @@ public class PenisBreasts {
 				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out a happy little [npc2.moan] in response, gently thrusting into [npc.namePos] chest as [npc2.she] [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1522,7 +1522,7 @@ public class PenisBreasts {
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc.verb(beg)] for [npc.herHim] to stop."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, weakly trying to push [npc.name] away as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to stop."));
 						break;
 					default:
 						break;
@@ -1730,9 +1730,9 @@ public class PenisBreasts {
 								+ " [npc.name] gently [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, softly [npc.moaning] as [npc.she] [npc.verb(use)] [npc.her] cleavage.",
 
 						"Gently wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] slowly [npc.verb(lift)] them up and down,"
-								+ " letting out a soft [npc.moan] as [npc.she] lovingly gives [npc2.herHim] a titfuck.",
+								+ " letting out a soft [npc.moan] as [npc.she] lovingly [npc.verb(give)] [npc2.herHim] a titfuck.",
 
-						"Letting out a soft [npc.moan], [npc.name] [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
+						"Letting out a soft [npc.moan], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a loving titfuck."));
 				
 			} else {
@@ -1744,7 +1744,7 @@ public class PenisBreasts {
 							"Gently pressing [npc.her] [npc.breastSize] [npc.breasts] against the sides of [npc2.namePos] [npc2.cock+], [npc.name] slowly [npc.verb(lift)] them up and down,"
 									+ " letting out a soft [npc.moan] as [npc.she] lovingly [npc.verb(attempt)] to give [npc2.herHim] a titfuck.",
 
-							"Letting out a soft [npc.moan], [npc.name] [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
+							"Letting out a soft [npc.moan], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 									+ " trying [npc.her] best to pleasure [npc2.namePos] [npc2.cock+] with the tiny amount of cleavage [npc.she] [npc.has]."));
 					
 				} else {
@@ -1804,7 +1804,7 @@ public class PenisBreasts {
 								+ " [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] an eager titfuck.",
 
 						"Eagerly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] an enthusiastic titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] happily [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] an eager titfuck."));
@@ -1878,7 +1878,7 @@ public class PenisBreasts {
 								+ " [npc.name] rapidly [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] a dominant titfuck.",
 
 						"Dominantly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] roughly [npc.verb(bounce)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] a forceful titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] a forceful titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] forcefully [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a dominant titfuck."));
@@ -1952,9 +1952,9 @@ public class PenisBreasts {
 								+ " [npc.name] [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] a titfuck.",
 
 						"Wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] a titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] a titfuck.",
 
-						"Letting out [npc.a_moan+], [npc.name] [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
+						"Letting out [npc.a_moan+], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] a titfuck."));
 				
 			} else {
@@ -1966,7 +1966,7 @@ public class PenisBreasts {
 							"Pressing [npc.her] [npc.breastSize] [npc.breasts] against the sides of [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(lift)] them up and down,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(attempt)] to give [npc2.herHim] a titfuck.",
 
-							"Letting out [npc.a_moan+], [npc.name] [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
+							"Letting out [npc.a_moan+], [npc.name] [npc.verb(push)] [npc.her] [npc.breasts+] together,"
 									+ " trying [npc.her] best to pleasure [npc2.namePos] [npc2.cock+] with the tiny amount of cleavage [npc.she] [npc.has]."));
 					
 				} else {
@@ -2026,7 +2026,7 @@ public class PenisBreasts {
 								+ " [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso, [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] cleavage to give [npc2.herHim] an eager titfuck.",
 
 						"Eagerly wrapping [npc.her] [npc.breasts+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] them up and down,"
-								+ " letting out [npc.a_moan+] as [npc.she] gives [npc2.herHim] an enthusiastic titfuck.",
+								+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(give)] [npc2.herHim] an enthusiastic titfuck.",
 
 						"Letting out [npc.a_moan+], [npc.name] happily [npc2.verb(push)] [npc.her] [npc.breasts+] together,"
 								+ " enveloping [npc2.namePos] [npc2.cock+] in [npc.her] pillowy mounds as [npc.she] [npc.verb(give)] [npc2.herHim] an eager titfuck."));
@@ -2201,15 +2201,15 @@ public class PenisBreasts {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc.verb(beg)] [npc.name] to leave [npc2.herHim] alone.",
+							" [npc2.Name] [npc2.verb(continue)] struggling against [npc.herHim], [npc2.moaning+] as [npc2.she] [npc2.verb(beg)] [npc.name] to leave [npc2.herHim] alone.",
 
-							" With [npc2.a_moan+], [npc2.name] [npc.verb(beg)] [npc.name] to leave [npc2.herHim] alone, tears welling up in [npc2.her] [npc2.eyes] as [npc2.she] weakly [npc2.verb(try)] to push [npc.herHim] away."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(beg)] [npc.name] to leave [npc2.herHim] alone, tears welling up in [npc2.her] [npc2.eyes] as [npc2.she] weakly [npc2.verb(try)] to push [npc.herHim] away."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] can't [npc.verb(help)] but [npc.verb(let)] out [npc2.a_moan+], betraying [npc2.her] desire for more of [npc.namePos] attention.",
 
-							" With [npc2.a_moan+], [npc2.she] [npc.verb(beg)] for [npc.name] to keep on using [npc2.herHim]."));
+							" With [npc2.a_moan+], [npc2.she] [npc2.verb(beg)] for [npc.name] to keep on using [npc2.herHim]."));
 					break;
 			}
 			

@@ -174,7 +174,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 10, 30) {
+	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Conclusion";
@@ -193,7 +193,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 10, 30) {
+	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; A room of his own";
@@ -212,10 +212,10 @@ public enum Quest {
 	},
 	
 	
-	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 12, 30) {
+	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
-			return "Into the depths; The world of Submission";
+			return "Into Submission";
 		}
 
 		@Override
@@ -228,7 +228,62 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "This is as far as the main quest goes for now! :3"; //TODO
+			return "Acting on Arthur's advice, you ventured down into Submission and discovered the location of Lyssieth's palace.";
+		}
+	},
+	
+	MAIN_2_B_SIRENS_CALL(QuestType.MAIN, 25, 300) {
+		@Override
+		public String getName() {
+			return "The Siren's Call";
+		}
+
+		@Override
+		public String getDescription() {
+			return "The guards at the gate to Lyssieth's palace told you that she's not receiving any visitors at the moment."
+					+ " The only way to gain an audience with her would be to take care of her troublesome daughter; 'The Dark Siren'."
+					+ " She's currently living in a stone fortress in one of the central tunnels here in Submission, from which she sends out gangs of imps to terrorise innocent citizens.</br>"
+					+ "If you're able to enslave her, either through combat or trickery, you'll have earned an audience with Lyssieth.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to enslave Lyssieth's troublesome daughter, and so earned an audience with her!";
+		}
+	},
+	
+	MAIN_2_C_SIRENS_FALL(QuestType.MAIN, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Siren's Fall";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Return to Lyssieth's palace and report to the guards that you've enslaved 'The Dark Siren'."
+					+ " This should be enough to grant you an audience with Lyssieth.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "For enslaving 'The Dark Siren', the guards at the gate to Lyssieth's palace gave you permission to enter and seek out an audience with her.";
+		}
+	},
+	
+	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
+		@Override
+		public String getName() {
+			return "Meeting A Lilin";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Travel to Lyssieth's throne room and try to finally get some answers about why you're here and how you can return to your old world.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Lyssieth revealed SOME SPOILERS. (These quests will be finished for 0.3)";
 		}
 	},
 
@@ -376,6 +431,27 @@ public enum Quest {
 			return "You presented the letter of recommendation to [finch.name], and, after paying the 500 flame fee, you obtained a slaver license!";
 		}
 	},
+	
+	// Accommodation:
+	
+	SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Lilaya the Landlady";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After getting to know one of the residents of Dominion's alleyways, you'd like to offer them a real home. Lilaya's mansion is full of empty rooms, so you should ask her if you could use one to house your new friend.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Lilaya gave you permission to use the empty rooms to house your friends and family, on the condition that you pay for the expenses that are incurred.";
+		}
+	},
+	
+	// Other:
 	
 	SIDE_HYPNO_WATCH_VICKY(QuestType.SIDE, 1, 10) {
 		@Override
@@ -553,7 +629,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "When you first arrived in Submission, an enforcer informed you of an ongoing situation in the tunnels."
-					+ " Apparently, there are are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
+					+ " Apparently, there are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
 					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a one-thousand flame reward.";
 		}
 

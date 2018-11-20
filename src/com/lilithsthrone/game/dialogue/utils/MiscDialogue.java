@@ -39,11 +39,11 @@ public class MiscDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 6) {
+			if (index == 0) {
 				return new ResponseEffectsOnly("Continue", "Carry on with whatever you were doing."){
 					@Override
 					public void effects() {
-						Main.game.restoreSavedContent();
+						Main.game.restoreSavedContent(false);
 					}
 				};
 			} else {

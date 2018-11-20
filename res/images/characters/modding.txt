@@ -1,23 +1,23 @@
 ----- CUSTOM ARTWORK GUIDE -----
 
-All images must be .png or .jpg!
+All images must be in PNG (.png) or JPEG (.jpg) format and are scaled down internally to at most 600x600.
 
 In order to add your own images to the game, you first need to figure out where to put the files. For unique NPCs, the folder has the same name as the class. For reference, check:
 https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc
 
-For generic (aka dynamically generated) characters, you can create a "generic" folder (without quotation marks) and then create a folder using the in-game name of the character. The game will neither check for duplicates nor update the folder when a character is renamed (either by yourself or by a femininity threshold).
+For generic characters (generated dynamically, e.g. slaves), you can create a "generic" folder (without quotation marks) and then create a subfolder using the in-game name of the character. The game will not check for duplicates, but reload images when you rename a character.
 
-Once you found or created the character's folder, create a new subdirectory called "custom". This is where you put your images. For the image names, there are three prefixes: Image names starting with "clothed" can always be accessed. If the name starts with "partial" or "naked", it can only be seen after having sex with the character. Other prefixes will be ignored.
+Once you found or created the character's folder, create a new subdirectory called "custom". This is where you put your images. For the image names, there are two prefixes: If the name starts with "partial" or "naked", it can only be seen after having sex with the character. All other images can always be accessed.
 
 For example, adding an own image for the unique character Scarlett requires the following:
 1) Go to the "Scarlett" folder and create a folder called "custom" inside it.
 2) Put your .png or .jpg images within that folder.
-3) Rename your images so that they all start with "clothed", "partial" or "naked", e.g. (clothed1.jpg, clothed2.png and naked1.jpg).
+3) Rename your images so that they all start with "clothed", "partial" or "naked", e.g. clothed1.jpg, clothed2.png and naked1.jpg.
 4) Save and reload to apply the changes.
 
 Another example for adding images to a randomized character:
 1) Go inside the "generic" directory (create it if necessary).
-2) Create a folder with the name of the NPC. Remember that automatically generated names aren't unique, so you may want to rename the character in the game.
+2) Create a folder with the name of the NPC. Remember that automatically generated names aren't unique, so you may want to rename the character.
 3) Create a subfolder called "custom".
 4) Put your images inside it and rename them accordingly.
 5) Save and reload to apply the changes. Alternatively, you can rename a slave to update that character only.
@@ -28,3 +28,4 @@ EXCEPTIONS:
 Some unique NPCs have different folders based on their states:
 - Brax has the folders 'Brax', 'Bree', and 'Brandi' based on his femininity (which changes by transforming him).
 - Lilaya has the folders 'LilayaPale', 'LilayaLight', 'LilayaOlive', 'LilayaDark', 'LilayaEbony' for the variations of her skin tone (based on your character's starting skin tone).
+- The folder for the player is called 'PlayerCharacter' and doesn't exist by default. The functionality is identical to NPCs.

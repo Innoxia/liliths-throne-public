@@ -1,19 +1,18 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -21,13 +20,13 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -59,7 +58,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -165,7 +164,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
 					public void effects() {
-						Main.game.restoreSavedContent();
+						Main.game.restoreSavedContent(false);
 					}
 				};
 				
@@ -669,10 +668,10 @@ public class PhoneDialogue {
 	};
 	
 	public static String getBodyStatsPanel(GameCharacter character) {
-		boolean knowsNipples = character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES);
-		boolean knowsPenis = character.getPlayerKnowsAreas().contains(CoverableArea.PENIS);
-		boolean knowsVagina = character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA);
-		boolean knowsAnus = character.getPlayerKnowsAreas().contains(CoverableArea.ANUS);
+		boolean knowsNipples = character.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer());
+		boolean knowsPenis = character.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer());
+		boolean knowsVagina = character.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer());
+		boolean knowsAnus = character.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer());
 		
 		return "<div class='container-full-width'>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; text-align:center;'>Core Attributes</h6>"
@@ -1049,7 +1048,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringFemaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1065,7 +1064,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringMaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1177,7 +1176,9 @@ public class PhoneDialogue {
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
-								+ (pp.getFather().getGender().isFeminine()?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName()))
+								+ (pp.getFather().getGender().isFeminine()
+										?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName(pp.getFather()))
+										:Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName(pp.getFather())))
 								+ "</b><b>) Probability: "));
 					
 					if (pp.getProbability() <= 0) {
@@ -1209,7 +1210,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1218,7 +1219,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
@@ -1251,7 +1252,9 @@ public class PhoneDialogue {
 									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 									:"")
 							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName()))
+							+ (pp.getMother().getGender().isFeminine()
+									?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother()))
+									:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother())))
 							+ "</b><b>)</b>"));
 				
 				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
@@ -1293,7 +1296,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with [npc.name(a)] on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
@@ -1303,7 +1306,7 @@ public class PhoneDialogue {
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "<br/>"
-								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
+								+ "Conceived with someone you can't remember on " + Util.getStringOfLocalDateTime(litter.getConceptionDate()) + ", delivered on " + Util.getStringOfLocalDateTime(litter.getBirthDate()) + "."
 								+ "<br/>"
 								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
@@ -1425,6 +1428,21 @@ public class PhoneDialogue {
 				+ "</div>";
 	}
 
+	private static String getContactEntry(GameCharacter contact) {
+		boolean isOffspring = contact.getMotherId().equals(Main.game.getPlayer().getId()) || contact.getFatherId().equals(Main.game.getPlayer().getId());
+		
+		return UtilText.parse(contact, "<b style='color:"+contact.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"+(isOffspring
+				?(contact.isFeminine()
+						?", your [style.colourFeminine(daughter)]"
+						:", your [style.colourMasculine(son)]")
+				:"")
+				+". [npc.She] is "
+				+ (contact.getRaceStage()==RaceStage.HUMAN || contact.isRaceConcealed()
+					?"[npc.a_race(true)]"
+					:"[npc.a_raceStage(true)] [npc.race(true)]")
+				+", whose current location is: <i>"+contact.getWorldLocation().getName()+", "+contact.getLocationPlace().getPlaceType().getName()+"</i>.");
+	}
+	
 	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1434,46 +1452,10 @@ public class PhoneDialogue {
 			
 			for (int i = 0; i < charactersEncountered.size(); i++) {
 				GameCharacter npc = charactersEncountered.get(i);
-				boolean isOffspring = npc.getMotherId().equals(Main.game.getPlayer().getId()) || npc.getFatherId().equals(Main.game.getPlayer().getId());
 				
 				UtilText.nodeContentSB.append("<p>"
-												+ UtilText.parse(npc, "<b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"+(isOffspring
-														?(npc.isFeminine()
-																?", your [style.colourFeminine(daughter)]"
-																:", your [style.colourMasculine(son)]")
-														:"")
-														+". [npc.She] is "
-														+ (npc.getRaceStage()==RaceStage.HUMAN || npc.isRaceConcealed()
-															?"[npc.a_race(true)]"
-															:"[npc.a_raceStage(true)] [npc.race(true)]")
-														+", whose current location is: <i>"+npc.getWorldLocation().getName()+", "+npc.getLocationPlace().getPlaceType().getName()+"</i>."
-														)
+												+ getContactEntry(npc)
 											+ "</p>");
-//				if(i%4==0) {
-//					if(i!=0) {
-//						UtilText.nodeContentSB.append("</div>");
-//					}
-//					if(i < charactersEncountered.size()-1) {
-//						UtilText.nodeContentSB.append("<div class='container-full-width' style='width:100%; margin:0; padding:0; background:transparent; text-align:center;'>");
-//					}
-//				}
-//				GameCharacter npc = charactersEncountered.get(i);
-//				boolean isOffspring = npc.getMotherId().equals(Main.game.getPlayer().getId()) || npc.getFatherId().equals(Main.game.getPlayer().getId());
-//				UtilText.nodeContentSB.append("<div class='container-half-width' style='width:calc(25% - 16px);'>"
-//													+ UtilText.parse(npc, "<b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"+(isOffspring
-//															?(npc.isFeminine()
-//																	?", your [style.colourFeminine(daughter)]."
-//																	:", your [style.colourMasculine(son)].")
-//															:"")+"<br/>"
-//															+ (npc.getRaceStage()==RaceStage.HUMAN || npc.isRaceConcealed()
-//																?"[npc.A_Race(true)]<br/>"
-//																:"[npc.A_RaceStage(true)]<br/>[npc.Race(true)]")
-//															+"<br/>"
-//															)
-//												+ "</div>");
-//				if(i == charactersEncountered.size()-1 && i%4!=0) {
-//					UtilText.nodeContentSB.append("</div>");
-//				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1491,7 +1473,7 @@ public class PhoneDialogue {
 						UtilText.parse(npc, isOffspring
 								?(npc.isFeminine()?"[style.colourFeminine([npc.Name])]":"[style.colourMasculine([npc.Name])]")
 								:"[npc.Name]"),
-						UtilText.parse(npc, "[npc.Name] is [npc.a_fullRace(true)], whose current location is: '"+npc.getWorldLocation().getName()+", "+npc.getLocationPlace().getPlaceType().getName()+"'."),
+						getContactEntry(npc),
 						CONTACTS_CHARACTER){
 					@Override
 					public void effects() {
@@ -1529,8 +1511,8 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-				if(npc!=null) {
+				try {
+					GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return new Response(Util.capitaliseSentence(npc.getName()),
 							"Take a detailed look at what " + npc.getName("the") + " looks like.",
 							CONTACTS_CHARACTER){
@@ -1540,7 +1522,8 @@ public class PhoneDialogue {
 							
 						}
 					};
-				} else {
+				} catch (Exception e) {
+					System.err.println("Main.game.getNPCById("+Main.game.getPlayer().getCharactersEncountered().get(index - 1)+") returning null in method: CONTACTS_CHARACTER.getResponse()");
 					return null;
 				}
 			
@@ -1624,7 +1607,7 @@ public class PhoneDialogue {
 	
 	static {
 		
-		itemsDiscoveredList.addAll(ItemType.allItems);
+		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 		
 		weaponsDiscoveredList.addAll(WeaponType.allweapons);
@@ -1649,7 +1632,7 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>"
-									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+Util.capitaliseSentence(weapon.getSlot().getName())+")"
+									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+(weapon.isMelee()?"Melee":"Ranged")+")"
 							+ "</div>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>");
 					
@@ -1755,7 +1738,7 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<div class='title-button' id='"+ItemType.itemToIdMap.get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+									+ "<div class='title-button' id='"+ItemType.getItemToIdMap().get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 									+ " <b style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</b>"
 							+ "</div>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
@@ -1804,7 +1787,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	private static List<Race> racesDiscovered = new ArrayList<>();
+	private static List<Subspecies> racesDiscovered = new ArrayList<>();
 	private static String title, content;
 	
 	public static void resetContentForRaces() {
@@ -1813,14 +1796,14 @@ public class PhoneDialogue {
 		
 		racesDiscovered.clear();
 		
-		for (Race r : Race.values()) {
-			if(Main.getProperties().isRaceDiscovered(r)) {
-				racesDiscovered.add(r);
-				contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+		for (Subspecies subspecies : Subspecies.values()) {
+			if(Main.getProperties().isRaceDiscovered(subspecies)) {
+				racesDiscovered.add(subspecies);
+				contentSB.append("<p style='text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>" + Util.capitaliseSentence(subspecies.getName(null)) + "</b></p>");
 			}
 		}
 		
-		racesDiscovered.sort(Comparator.comparing(Race::getName));
+		racesDiscovered.sort((a, b) -> a.getRace().getName().compareTo(b.getRace().getName()));
 		
 		content = contentSB.toString();
 	}
@@ -1845,77 +1828,77 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
 			} else if (index <= racesDiscovered.size()) {
-				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName()),
-						"Take a detailed look at what " + racesDiscovered.get(index - 1).getName() + "s are like.",
+				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName(null)),
+						"Take a detailed look at what " + racesDiscovered.get(index - 1).getNamePlural(null) + " are like.",
 						RACES){
 					@Override
 					public void effects() {
-						Race race = racesDiscovered.get(index - 1);
-						RacialBody racialBody = RacialBody.valueOfRace(race);
+						Subspecies subspecies = racesDiscovered.get(index - 1);
+						Race race = subspecies.getRace();
 						
-						title = Util.capitaliseSentence(race.getName());
+						Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
+						Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspecies, RaceStage.GREATER);
+						
+						title = Util.capitaliseSentence(subspecies.getName(null));
 						raceSB.setLength(0);
-						raceSB.append("<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
-								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b><br/>"
+						
+						raceSB.append(
+							"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
+								+ "<p style='width:100%; text-align:center;'><b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b><br/>"
 										+ "Average stats</p>"
 								+ "<table align='center'>"
 									+ "<tr>"
 										+ "<td>Height (cm)</td>"
-										+ "<td>"+racialBody.getFemaleHeight()+"</td>"
-										+ "<td>"+racialBody.getMaleHeight()+"</td>"
+										+ "<td>"+femaleBody.getHeightValue()+"</td>"
+										+ "<td>"+maleBody.getHeightValue()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Femininity</td>"
-										+ "<td>"+racialBody.getFemaleFemininity()+"</td>"
-										+ "<td>"+racialBody.getMaleFemininity()+"</td>"
+										+ "<td>"+femaleBody.getFemininity()+"</td>"
+										+ "<td>"+maleBody.getFemininity()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Breast size</td>"
-										+ "<td>"+(racialBody.getBreastSize()==0
+										+ "<td>"+(femaleBody.getBreast().getRawSizeValue()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getBreastSize()).getCupSizeName()+"-cup")+"</td>"
-										+ "<td>"+(racialBody.getNoBreastSize()==0
+													:femaleBody.getBreast().getSize()+"-cup")+"</td>"
+										+ "<td>"+(maleBody.getBreast().getRawSizeValue()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getNoBreastSize()).getCupSizeName()+"-cup")+"</td>"
+													:maleBody.getBreast().getSize()+"-cup")+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Penis size (inches)</td>"
 										+ "<td>-</td>"
-										+ "<td>"+racialBody.getPenisSize()+"</td>"
+										+ "<td>"+maleBody.getPenis().getRawSizeValue()+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Vagina capacity</td>"
-										+ "<td>"+Util.capitaliseSentence(Capacity.getCapacityFromValue(racialBody.getVaginaCapacity()).getDescriptor())+"</td>"
+										+ "<td>"+Util.capitaliseSentence(femaleBody.getVagina().getOrificeVagina().getCapacity().getDescriptor())+"</td>"
 										+ "<td>-</td>"
-									+ "</tr>");
+									+ "</tr>"
+								+ "</table>"
+							+ "</div>");
 						
-						
-						raceSB.append("</table>"
-								+ "</div>"
-								+ "<details style='width:calc(60% - 16px); float:left;'>"
-								+ "<summary>Subspecies</summary>");
-						
-						for(Subspecies sub : Subspecies.values()) {
-							if(sub.getRace()==race) {
-								raceSB.append(
-										"<p>"
-											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName())+"</b>"
-											+ "<br/>"
-											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</span>"
-											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</span>)"
-											+ "<br/>"
-											+ sub.getDescription()
-										+ "</p>");
-							}
-						}
+						raceSB.append(
+								"<p>"
+									+ "<b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</b>"
+									+ (Subspecies.getMainSubspeciesOfRace(race)==subspecies
+											?""
+											:" (Subspecies of <span style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</span>)")
+									+ "<br/>"
+									+ "Masculine: <span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularMaleName(null))+"</span>"
+									+ "<br/>"
+									+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getSingularFemaleName(null))+"</span>"
+									+ "<br/><br/>"
+									+ "<i>"+subspecies.getDescription(null)+"</i>"
+								+ "</p>");
 						
 						
 						raceSB.append(
-								"</details>"
-								+ "<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
-									+race.getBasicDescription()
-									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
-										?race.getAdvancedDescription()
+								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
+									+subspecies.getBasicDescription(null)
+									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)
+										?subspecies.getAdvancedDescription(null)
 										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 											+ "Further information can be discovered in books!"
 										+ "</p>"));
@@ -1952,8 +1935,9 @@ public class PhoneDialogue {
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
 					+ "<h6 style='text-align:center;'>Active Traits</h6>");
 
-			UtilText.nodeContentSB.append("<div id='HISTORY_" + Main.game.getPlayer().getHistory().getAssociatedPerk() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-					+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
+			UtilText.nodeContentSB.append(
+					"<div id='OCCUPATION_" + Main.game.getPlayer().getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+						+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
 					+ "</div>");
 			
 			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
@@ -1976,7 +1960,7 @@ public class PhoneDialogue {
 						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay());
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1993,8 +1977,6 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().resetPerksMap();
-						Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPointsAtLevel(Main.game.getPlayer().getLevel()));
-						Main.game.getPlayer().clearTraits();
 					}
 				};
 				
@@ -2059,10 +2041,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "You are already viewing your Arcane spells!", null);
@@ -2157,10 +2139,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2259,10 +2241,10 @@ public class PhoneDialogue {
 				return new Response("Water", "You are already viewing your Water spells!", null);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2361,10 +2343,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "You are already viewing your Air spells!", null);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "You are already viewing your Air spells!", null);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2463,10 +2445,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "You are already viewing your Fire spells!", null);
 				
 			} else if(index==4) {
-				return new Response("Fire", "You are already viewing your Fire spells!", null);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);

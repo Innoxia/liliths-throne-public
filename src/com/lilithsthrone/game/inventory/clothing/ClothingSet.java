@@ -12,14 +12,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum ClothingSet {
 
-	// Hat, gloves, shirt, skirt/shorts, thigh-high boots
 
-  ENFORCER("Commanding Enforcer",
+	ENFORCER("Commanding Enforcer",
 			StatusEffect.SET_ENFORCER,
 			2,
 			Util.newArrayListOfValues(
@@ -113,7 +112,15 @@ public enum ClothingSet {
 			Util.newArrayListOfValues(
 					InventorySlot.TORSO_OVER,
 					InventorySlot.TORSO_UNDER,
+					InventorySlot.LEG,
 					InventorySlot.FOOT),
+			null,
+			null),
+
+	WEAPON_DAISHO("Daisho",
+			StatusEffect.SET_DAISHO,
+			2,
+			null,
 			null,
 			null),
 
@@ -146,6 +153,16 @@ public enum ClothingSet {
 			StatusEffect.SET_RAINBOW,
 			2,
 			null,
+			null,
+			null),
+
+	DARK_SIREN("Dark Siren",
+			StatusEffect.SET_DARK_SIREN,
+			4,
+			Util.newArrayListOfValues(
+					InventorySlot.TORSO_OVER,
+					InventorySlot.NECK,
+					InventorySlot.EYES),
 			null,
 			null);
 
@@ -187,6 +204,16 @@ public enum ClothingSet {
 				setCount++;
 				atLeastOneClothingFound = true;
 			}
+		}
+		
+		if(target.getMainWeapon()!=null && target.getMainWeapon().getWeaponType().getClothingSet() == this) {
+			setCount++;
+			atLeastOneClothingFound = true;
+		}
+		
+		if(target.getOffhandWeapon()!=null && target.getOffhandWeapon().getWeaponType().getClothingSet() == this) {
+			setCount++;
+			atLeastOneClothingFound = true;
 		}
 		
 		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();

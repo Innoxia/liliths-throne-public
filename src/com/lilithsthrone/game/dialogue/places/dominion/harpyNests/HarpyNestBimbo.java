@@ -237,8 +237,8 @@ public class HarpyNestBimbo {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_BIMBO_AFTER_SEX,
-							"<p>"
+							null,
+							null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 							+ "</p>"
@@ -513,8 +513,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -530,7 +530,7 @@ public class HarpyNestBimbo {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and head back down the stairs."
 									+ " You hear [bimboHarpy.name] shouting at the harpies as you leave,"
-									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.sheIs</i> the new leader around here, got it?!)]"
+									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.SheIs]</i> the new leader around here, got it?!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."
@@ -818,8 +818,8 @@ public class HarpyNestBimbo {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+						null,
+						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -835,7 +835,7 @@ public class HarpyNestBimbo {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and head back down the stairs."
 									+ " You hear [bimboHarpy.name] shouting at the harpies as you leave,"
-									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.sheIs</i> the new leader around here, got it?!)]"
+									+ " [bimboHarpy.speechNoEffects(Like, be quiet! <i>[pc.SheIs]</i> the new leader around here, got it?!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."

@@ -18,10 +18,10 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public enum TongueType implements BodyPartTypeInterface {
 
 	HUMAN(BodyCoveringType.TONGUE, Race.HUMAN, 1),
+	
+	ANGEL(BodyCoveringType.TONGUE, Race.ANGEL, 1),
 
 	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON, 1, TongueModifier.BIFURCATED),
-	
-	IMP(BodyCoveringType.TONGUE, Race.IMP, 1, TongueModifier.BIFURCATED),
 
 	DOG_MORPH(BodyCoveringType.TONGUE, Race.DOG_MORPH, 1),
 
@@ -63,6 +63,16 @@ public enum TongueType implements BodyPartTypeInterface {
 		Collections.addAll(this.defaultRacialTongueModifiers, defaultRacialTongueModifiers);
 	}
 
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static TongueType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
+	}
+
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "";
@@ -91,29 +101,29 @@ public enum TongueType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("wide", "strong", "cow-like");
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("wide", "dog-like");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("forked");
+				break;
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("strong", "horse-like");
 			case REINDEER_MORPH:
 				return UtilText.returnStringAtRandom("strong", "reindeer-like");
 			case HUMAN:
-				return UtilText.returnStringAtRandom("");
+				break;
+			case ANGEL:
+				break;
 			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case TENGU:
 				return UtilText.returnStringAtRandom("bird-like");
 			case BAT_MORPH:
-				return UtilText.returnStringAtRandom("");
-			case IMP:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case RAT_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case RABBIT_MORPH:
-				return UtilText.returnStringAtRandom("");
+				break;
 			case WOLF_MORPH:
 				return UtilText.returnStringAtRandom("wide", "wolf-like");
 			case FOX_MORPH:

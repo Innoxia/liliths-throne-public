@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<!-- How much this weapon is worth. -->
+		<value>200</value> 
+		
+		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
+		<melee>true</melee>
+		
+		<!-- Use "true" if this weapon is two-handed, and thus cannot be simultaneously wielded with an offhand weapon, and "false" if it's one-handed. (Without quotation marks.) -->
+		<twoHanded>false</twoHanded>
+		
+		<!-- What's appended before the weapon's name in an instance of "Innoxia was holding X staff", where X is the determiner. This will usually be either "a" or "an", but for other weapons may be different.
+		An example might be: "Innoxia was holding X scissors", where X (the determiner) would now need to be "a pair of". -->
+		<determiner><![CDATA[an]]></determiner>
+		
+		<!-- The name of this weapon. -->
+		<name><![CDATA[imp arcanist's staff]]></name>
+		
+		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
+		<namePlural pluralByDefault="false"><![CDATA[imp arcanist's staffs]]></namePlural> 
+		
+		<!-- The description/lore of this weapon. -->
+		<description><![CDATA[A wooden staff, the crude design of which leads you to believe that it has been re-purposed from a different magical weapon. Although lacking in refinement, it seems powerful enough...]]></description> 
+		
+		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
+		<attackDescriptor>whack</attackDescriptor>
+		
+		<!-- The description that's displayed when hovering over the attack action in combat. Follow the same guidelines as equipText (a couple of entries further down this page).
+		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
+		<attackTooltipDescription>Whack [npc2.name] with your staff.</attackTooltipDescription>
+		
+		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<rarity>RARE</rarity> 
+		
+		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
+		[npc.verb(run)] if npc is player = "run"
+		[npc.verb(run)] if npc is not the player = "runs"
+		Always use the first-person singular verb.
+		The target "npc" OR "npc1" should be used for the character using the weapon. e.g. If the player is the one attacking (and is called Innoxia), then [npc.Name] will return "Innoxia"
+		The target "npc2" should be used for the character being attacked. e.g. If Brax is the one being attacked, then [npc2.Name] will return "Brax"
+		-->
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] staff, and [npc.verb(prepare)] to use it in combat.]]></equipText>
+		
+		<!-- The description that's used when equipping this weapon. Follow the same guidelines as equipText. -->
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] staff away.]]></unequipText>
+		
+		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
+		<imageName>arcanist_staff.svg</imageName> 
+		
+		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
+		<imageEquippedName>arcanist_staff.svg</imageEquippedName>
+		
+		<!-- The base damage that this weapon deals. -->
+		<damage>4</damage> 
+		
+		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
+		<arcaneCost>0</arcaneCost> 
+		
+		<!-- The variance in base damage when this weapon is actually used to attack. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageVariance.java -->
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<!-- The available damage types that this weapon can spawn in with. Values can be found here (MISC should not be used): https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageType.java -->
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<!-- The spells that are unlocked when equipping this weapon. IF you want to add any, use the format:
+		<spells>
+			<spell>FIREBALL</spell>
+		</spells>
+		
+		Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
+		<spells/>
+		
+		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
+		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
+		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
+		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+		</effects>
+		
+		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
+		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff2a2a
+			#ff5555
+			#ff8080
+			#ffaaaa
+			#ffd5d5
+		Orange is used as base colour for changing the PRIMARY colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff7f2a
+			#ff9955
+			#ffb380
+			#ffccaa
+			#ffe6d5
+		Yellow is used as base colour for changing the SECODNARY colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ffd42a
+			#ffdd55
+			#ffe680
+			#ffeeaa
+			#fff6d5
+		As you can see above, weapons differ from clothing in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours" and "secondaryColours" defined below are for recolouring the Orange and Yellow values, respectively.
+			
+		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
+		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		<primaryColours values="JUST_DARK_BROWN"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/> 
+		<secondaryColoursDye/>
+		
+		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Swinging [npc.her] staff, [npc.name] [npc.verb(manage)] to whack [npc2.name] on the [npc2.arm], which causes [npc2.herHim] to let out a surprised yelp!
+		]]></hitText>
+		<hitText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] staff, [npc.name] [npc.verb(manage)] to land a solid hit on [npc2.her] [npc2.arm]!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] staff, whacking the heavy end against [npc2.her] shoulder!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Thrusting out with [npc.her] staff, [npc.name] [npc.verb(attempt)] to whack [npc2.name] on the [npc2.arm], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] staff, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] staff, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

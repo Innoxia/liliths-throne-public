@@ -35,10 +35,15 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
+
+	@Override
+	public boolean isPublicSex() {
+		return true;
+	}
 	
 	@Override
-	public boolean isPartnerWantingToStopSex() {
-		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>0;
+	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+		return Sex.getNumberOfOrgasms(Main.game.getJules())>0;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ package com.lilithsthrone.game.inventory.clothing;
  * The types of possible access you'd need in order to equip a piece of clothing.
  * 
  * @since 0.1.64
- * @version 0.1.64
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum ClothingAccess {
@@ -41,8 +41,11 @@ public enum ClothingAccess {
 	/** Sliding something up your legs, like the holes in a pair of trousers. */
 	LEGS_UP_TO_GROIN("slide up legs"),
 
-	/** Sliding something over your groin, like a pair of panties. */
+	/** Sliding something over your groin, like a pair of panties.*/
 	GROIN("slide over groin"),
+
+	/** Inserting something into your anus, like a butt-plug. */
+	ANUS("insert into anus"),
 
 	/** Sliding something over your calves, like a pair of knee-high socks. */
 	CALVES("slide over calves"),

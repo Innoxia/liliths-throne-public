@@ -399,7 +399,7 @@ public class ConChairTop {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, LubricationType.PLAYER_SALIVA);
+			Sex.addLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, Sex.getCharacterTargetedForSexAction(this), LubricationType.SALIVA);
 		}
 		
 		@Override
@@ -1751,7 +1751,7 @@ public class ConChairTop {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, LubricationType.PARTNER_SALIVA);
+			Sex.addLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, Sex.getCharacterTargetedForSexAction(this), LubricationType.SALIVA);
 		}
 		
 		@Override

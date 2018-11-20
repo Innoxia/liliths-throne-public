@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum AssType implements BodyPartTypeInterface {
@@ -22,8 +22,6 @@ public enum AssType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.ANGEL, AnusType.ANGEL, Race.ANGEL),
 	
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, AnusType.DEMON_COMMON, Race.DEMON),
-	
-	IMP(BodyCoveringType.IMP, AnusType.IMP, Race.IMP),
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, AnusType.DOG_MORPH, Race.DOG_MORPH),
 	
@@ -59,6 +57,16 @@ public enum AssType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.anusType = anusType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static AssType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 	
 	@Override
@@ -124,46 +132,6 @@ public enum AssType implements BodyPartTypeInterface {
 	}
 	public AnusType getAnusType() {
 		return anusType;
-	}
-	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "furry";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "feathered";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case WOLF_MORPH:
-				return "lupine";
-			case FOX_MORPH:
-				return "vulpine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-		}
-		return "";
 	}
 	
 	private static Map<Race, List<AssType>> typesMap = new HashMap<>();

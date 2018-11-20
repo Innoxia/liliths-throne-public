@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum QuestLine {
@@ -36,6 +36,10 @@ public enum QuestLine {
 	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted Slaver License!",
 			QuestType.SIDE,
 			QuestTree.slaveryTree),
+
+	SIDE_ACCOMMODATION("Bed & Board", "Lilaya happily gave you her permission to use the spare rooms to accommodate your friends and family, provided that you pay for the expenses that they incur...",
+			QuestType.SIDE,
+			QuestTree.accommodationTree),
 
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,

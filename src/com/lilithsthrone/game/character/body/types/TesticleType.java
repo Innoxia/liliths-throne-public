@@ -22,8 +22,6 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.PENIS, FluidType.CUM_DEMON, Race.DEMON, false),
 
-	IMP(BodyCoveringType.PENIS, FluidType.CUM_IMP, Race.IMP, false),
-
 	BOVINE(BodyCoveringType.BOVINE_FUR, FluidType.CUM_COW_MORPH, Race.COW_MORPH, false),
 	
 	CANINE(BodyCoveringType.CANINE_FUR, FluidType.CUM_DOG_MORPH, Race.DOG_MORPH, false),
@@ -61,6 +59,16 @@ public enum TesticleType implements BodyPartTypeInterface {
 		this.fluidType = fluidType;
 		this.race = race;
 		this.internal = internal;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static TesticleType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override

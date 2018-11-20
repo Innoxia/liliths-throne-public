@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
@@ -116,7 +117,7 @@ public class GenericActions {
 					+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)
 						?"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] naked groin, you see a large bump start to form beneath [npc2.her] [npc2.skin]."
 								+ " Before you have any time to change your mind, it quickly grows out into a fat demonic cock, and as you stare down at the little wriggling bumps that press out all along its shaft,"
-								+ " a little spurt of precum shoots out onto your stomach."
+								+ " a bead of precum seeps out and drips from the tip."
 						:"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] groin, you see a huge bulge quickly form beneath the fabric of [npc2.her] "
 								+Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"."
 								+ " Before you have any time to change your mind, [npc2.name] lets out [npc2.a_moan+], and you realise that [npc2.sheIs] now got a huge demonic cock hiding beneath [npc2.her] clothing.");
@@ -128,6 +129,7 @@ public class GenericActions {
 			Sex.getActivePartner().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
 			Sex.getActivePartner().fillCumToMaxStorage();
 			Sex.getActivePartner().setTesticleSize(0);
+			Sex.getActivePartner().setPenisGirth(PenisGirth.THREE_THICK);
 			Sex.getActivePartner().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue());
 		}
 	};
@@ -181,7 +183,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(-50);
+			Sex.getActivePartner().incrementLust(-50, false);
 		}
 	};
 	
@@ -230,7 +232,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(50);
+			Sex.getActivePartner().incrementLust(50, false);
 		}
 	};
 	
@@ -348,8 +350,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc2.name] quite still, only releasing [npc2.herHim] once [npc2.sheIs] lost a good portion of [npc2.her] arousal.");
+			return "Taking control of the situation, you hold [npc2.name] quite still, only releasing [npc2.herHim] once [npc2.sheHas] lost a good portion of [npc2.her] arousal.";
 		}
 		
 		@Override
@@ -847,34 +848,35 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getActivePartner())
-					&& !Main.game.getPlayer().getPsychoactiveFluidsIngested().isEmpty()
+					&& !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
 					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
-					&& Main.game.getPlayer().getLust()>LustLevel.ONE_HORNY.getMaximumValue()
+					&& Sex.getCharacterTargetedForSexAction(this).getLust()>LustLevel.ONE_HORNY.getMaximumValue()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Wanting to take advantage of the fact that you're under the strong effect of a psychoactive substance, [npc.name] leans towards you and [npc.moansVerb],"
-					+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You can't help but agree with what [npc.sheIs] saying, and you haltingly answer,"
-					+ " [npc2.speech(Yes... I... I don't know why I'm having sex with you...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Pushing a little further, and driven on by [npc.her] fetish for having non-consensual sex, [npc.name] continues,"
-					+ " [npc2.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "As the hypnotic suggestion sinks into your head, you start to feel a lot more distressed, and cry out,"
-						+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]"
-				+ "</p>";
+			return "<p>"
+					+ "Wanting to take advantage of the fact that [npc2.nameIs] under the strong effect of a psychoactive substance, [npc.name] leans towards [npc2.herHim] and [npc.moansVerb],"
+						+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc2.Name] can't help but agree with what [npc.sheIs] saying, and [npc2.name] haltingly [npc2.verb(answer)],"
+						+ " [npc2.speech(Yes... I... I don't know why I'm having sex with you...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Pushing a little further, and driven on by [npc.her] fetish for having non-consensual sex, [npc.name] continues,"
+						+ " [npc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(start)] to feel a lot more distressed, and [npc2.verb(cry)] out,"
+							+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]"
+					+ "</p>";
 		}
 
 		@Override
 		public void applyEffects() {
-			Main.game.getPlayer().incrementLust(-50);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(-50, false);
 		}
 	};
 	
@@ -899,19 +901,19 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getActivePartner())
-					&& !Main.game.getPlayer().getPsychoactiveFluidsIngested().isEmpty()
+					&& !Sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
 					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
-					&& Main.game.getPlayer().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()
+					&& Sex.getCharacterTargetedForSexAction(this).getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue()
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-				return "Wanting to take advantage of the fact that you're under the strong effect of a psychoactive substance, [npc.name] leans towards you and [npc.moansVerb],"
+				return "Wanting to take advantage of the fact that [npc2.nameIs] under the strong effect of a psychoactive substance, [npc.name] leans towards [npc2.herHim] and [npc.moansVerb],"
 						+ " [npc.speech(You love having sex with me, don't you?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You can't help but agree with what [npc.sheIs] saying, and you haltingly answer,"
+						+ "[npc2.Name] can't help but agree with what [npc.sheIs] saying, and haltingly [npc2.verb(answer)],"
 						+ " [npc2.speech(Yes... I... I love having sex with you...)]"
 					+ "</p>"
 					+ "<p>"
@@ -919,14 +921,14 @@ public class GenericActions {
 						+ " [npc.speech(You love begging for me to fuck you, isn't that right?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As the hypnotic suggestion sinks into your head, you can't help but feel a lot more eager, and [npc2.moan],"
+						+ "As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] can't help but feel a lot more eager, and [npc2.moanVerb],"
 						+ " [npc2.speech(Yes! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
 					+ "</p>";
 		}
 
 		@Override
 		public void applyEffects() {
-			Main.game.getPlayer().incrementLust(50);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(50, false);
 		}
 	};
 	
@@ -949,9 +951,7 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer())
-					&& !Sex.isConsensual()
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -969,46 +969,72 @@ public class GenericActions {
 			
 			if(Sex.getPosition()==SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned back against the wall.",
-						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed back against the wall.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you push [npc.herHim] back against the wall.");
+						"[npc.Name] slaps, hits, and kicks [npc2.name] as [npc.she] desperately tries to struggle out of [npc2.her] grip,"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.she] easily [npc2.verb(keep)] [npc.herHim] pinned back against the wall.",
+						
+						"Struggling against [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of [npc2.her] grasp,"
+								+ " but [npc2.her] grip is too strong for [npc.herHim], and [npc2.name] easily [npc2.verb(keep)] [npc.herHim] pushed back against the wall.",
+						
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately struggles against [npc2.herHim],"
+								+ " [npc.sobbing] in distress as [npc2.she] [npc2.verb(push)] [npc.herHim] back against the wall.");
 				
 			} else if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] lets out [npc.a_sob+] as [npc.she] tries to crawl away from you, but [npc.her] efforts prove to be in vain as you grab [npc.her] [npc.hips] and pull [npc.her] [npc.ass] back into your groin.",
-						"Trying to crawl away from you on all fours, [npc.name] lets out [npc.a_sob+] as you grasp [npc.her] [npc.hips], before pulling [npc.herHim] back into position.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately tries to crawl away from you, [npc.sobbing] in distress as you take hold of [npc.her] [npc.hips] and pull [npc.herHim] back into you.");
+						"[npc.Name] lets out [npc.a_sob+] as [npc.she] tries to crawl away from [npc2.name],"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.name] [npc2.verb(grab)] [npc.her] [npc.hips] and pull [npc.her] [npc.ass] back into [npc2.her] groin.",
+						
+						"Trying to crawl away from [npc2.name] on all fours, [npc.name] lets out [npc.a_sob+] as [npc2.she] [npc2.verb(grasp)] [npc.her] [npc.hips], before pulling [npc.herHim] back into position.",
+						
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately tries to crawl away from [npc2.herHim],"
+								+ " [npc.sobbing] in distress as [npc2.she] [npc2.verb(take)] hold of [npc.her] [npc.hips] and pull [npc.herHim] back into [npc2.herHim].");
 				
 			} else if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned up against the wall.",
-						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed up against the wall.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you push [npc.herHim] up against the wall.");
+						"[npc.Name] slaps, hits, and kicks [npc2.name] as [npc.she] desperately tries to struggle out of [npc2.her] grip,"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.name] easily [npc2.verb(keep)] [npc.herHim] pinned up against the wall.",
+						
+						"Struggling against [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of [npc2.her] grasp,"
+								+ " but [npc2.her] grip is too strong for [npc.herHim], and [npc2.she] easily [npc2.verb(keep)] [npc.herHim] pushed up against the wall.",
+						
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately struggles against [npc2.herHim],"
+								+ " [npc.sobbing] in distress as [npc2.she] [npc2.verb(push)] [npc.herHim] up against the wall.");
 				
 			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] tries to push your groin away from [npc.her] [npc.face], but [npc.her] efforts prove to be in vain as you grab hold of [npc.her] head and pull [npc.herHim] back into your crotch.",
-						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to pull [npc.her] [npc.face] away from your groin,"
-								+ " but your grasp on [npc.her] head is too strong, and you quickly force [npc.herHim] back into position.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you pull [npc.her] [npc.face] back into your groin.");
+						"[npc.Name] tries to push [npc2.namePos] groin away from [npc.her] [npc.face],"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.name] [npc2.verb(grab)] hold of [npc.her] head and [npc2.verb(pull)] [npc.herHim] back into [npc2.her] crotch.",
+						
+						"Struggling against [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to pull [npc.her] [npc.face] away from [npc2.her] groin,"
+								+ " but [npc2.namePos] grasp on [npc.her] head is too strong, and [npc2.she] quickly [npc2.verb(force)] [npc.herHim] back into position.",
+								
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately struggles against [npc2.herHim],"
+								+ " [npc.sobbing] in distress as [npc2.she] [npc2.verb(pull)] [npc.her] [npc.face] back into [npc2.her] groin.");
 				
 			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] tries to push you off of [npc.herHim] as [npc.she] desperately tries to wriggle out from under you, but [npc.her] efforts prove to be in vain as you easily pin [npc.herHim] to the floor.",
-						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out from under you, but you press your body down onto [npc.hers], preventing [npc.herHim] from getting away.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you use your body to pin [npc.herHim] to the floor.");
+						"[npc.Name] tries to push [npc2.name] off of [npc.herHim] as [npc.she] desperately tries to wriggle out from under [npc2.herHim],"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.name] easily [npc2.verb(pin)] [npc.herHim] to the floor.",
+						
+						"Struggling against [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out from under [npc2.herHim],"
+								+ " but [npc2.name] [npc2.verb(press)] [npc2.her] body down onto [npc.hers], preventing [npc.herHim] from getting away.",
+						
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately struggles against [npc2.herHim],"
+								+ " [npc.sobbing] in distress as [npc2.she] [npc2.verb(use)] [npc2.her] body to pin [npc.herHim] to the floor.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily continue restraining [npc.herHim].",
-						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp.",
-						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you easily hold [npc.herHim] in place.");
+						"[npc.Name] slaps, hits, and kicks [npc2.name] as [npc.she] desperately tries to struggle out of [npc2.her] grip,"
+								+ " but [npc.her] efforts prove to be in vain as [npc2.she] easily [npc2.verb(continue)] restraining [npc.herHim].",
+								
+						"Struggling against [npc2.name], [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of [npc2.her] grasp.",
+						
+						"Begging for [npc2.name] to leave [npc.herHim] alone, [npc.name] desperately struggles against [npc2.herHim], [npc.sobbing] in distress as [npc2.she] easily [npc2.verb(hold)] [npc.herHim] in place.");
 			}
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			if(character.isPlayer()) {
+			if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 			} else {
 				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
@@ -1036,9 +1062,9 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isCharacterSelfOngoingActionHappening(Main.game.getPlayer())
+			return Sex.isCharacterSelfOngoingActionHappening(Sex.getCharacterTargetedForSexAction(this))
 					&& !Sex.isAnyNonSelfOngoingActionHappening()
-					&& (Sex.isDom(Main.game.getPlayer())?Sex.isSubHasEqualControl():true)
+					&& (Sex.isDom(Sex.getCharacterPerformingAction()) || Sex.isSubHasEqualControl())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1046,33 +1072,33 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=null) {
-				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(Main.game.getPlayer())) {
-					UtilText.nodeContentSB.append("[npc.Name] lets out an angry growl as [npc.she] forces you to stop stimulating your [npc2.pussy+].");
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Sex.getCharacterTargetedForSexAction(this))) {
+					UtilText.nodeContentSB.append("[npc.Name] lets out an angry growl as [npc.she] forces [npc2.name] to stop stimulating [npc2.her] [npc2.pussy+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null) {
-				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(Main.game.getPlayer())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
-					UtilText.nodeContentSB.append("As [npc.name] puts an end to your self-stimulation of your [npc2.asshole], [npc.she] growls menacingly at you.");
+					UtilText.nodeContentSB.append("As [npc.name] puts an end to [npc2.namePos] self-stimulation of [npc2.her] [npc2.asshole], [npc.she] growls menacingly at [npc2.herHim].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE)!=null) {
-				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(Main.game.getPlayer())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
-					UtilText.nodeContentSB.append("[npc.Name] frowns at you as [npc.she] forces you to stop stimulating your [npc2.nipples+].");
+					UtilText.nodeContentSB.append("[npc.Name] frowns at [npc2.name] as [npc.she] forces [npc2.herHim] to stop stimulating [npc2.her] [npc2.nipples+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
-				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(Main.game.getPlayer())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
-					UtilText.nodeContentSB.append("[npc.Name] makes a disapproving clicking noise with [npc.her] [npc.tongue] as [npc.she] forces you to stop using your mouth.");
+					UtilText.nodeContentSB.append("[npc.Name] makes a disapproving clicking noise with [npc.her] [npc.tongue] as [npc.she] forces [npc2.name] to stop using [npc2.her] mouth.");
 				}
 			}
 			
@@ -1081,7 +1107,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.stopAllOngoingActions(Main.game.getPlayer(), Main.game.getPlayer());
+			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
@@ -1125,7 +1151,7 @@ public class GenericActions {
 		
 		@Override
 		public String getDescription() {
-			return "With an annoyed sigh, [npc.name] disentangles [npc.herself] from your clutches,"
+			return "With an annoyed sigh, [npc.name] disentangles [npc.herself] from [npc2.namePos] clutches,"
 					+ " [npc.speechNoEffects(Eugh... I'm not really feeling this right now, ok?)]";
 		}
 		
@@ -1155,7 +1181,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isPartnerWantingToStopSex()
+			return Sex.getSexManager().isPartnerWantingToStopSex(Sex.getCharacterPerformingAction())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -1166,7 +1192,12 @@ public class GenericActions {
 		
 		@Override
 		public String getDescription() {
-			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from your clutches, before stating that [npc.sheIs] had enough for now.";
+			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from [npc2.namePos] clutches, before stating that [npc.sheHas] had enough for now.";
+		}
+		
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
 		}
 		
 		@Override
@@ -1209,6 +1240,12 @@ public class GenericActions {
 					?"Deciding that you've had enough, you put an end to your masturbation session."
 					:"Deciding that you've had enough, you step back from [npc2.name].";
 		}
+		
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
+		}
+		
 		@Override
 		public boolean endsSex() {
 			return true;

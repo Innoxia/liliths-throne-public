@@ -19,7 +19,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -33,19 +33,17 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.79
- * @version 0.2.4
+ * @version 0.2.11
  * @author Kumiko
  */
 public class Pazu extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Pazu() {
 		this(false);
 	}
 	
 	public Pazu(boolean isImported) {
-		super(new NameTriplet("Pazu"),
+		super(isImported, new NameTriplet("Pazu"),
 				"Pazu is a harpy matriarch, and a particularly gorgeous one at that. She is new to the job and needs your help in whipping her flock into shape.",
 				/* TODO (Once quest advances)
 				 *  Pazu is a harpy matriarch, and a particularly gorgeous one at that. Despite this, he is actually a male harpy, a fact that he keeps hidden from everyone else for obvious reasons.
@@ -58,7 +56,7 @@ public class Pazu extends NPC {
 				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping arcade." at the end)
 				 */
 				25, Month.JUNE, 1, //TODO
-				1, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
+				1, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(1), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
 		
 		this.setPersonality(Util.newHashMapOfValues(
@@ -104,6 +102,16 @@ public class Pazu extends NPC {
 	}
 
 	@Override
+	public void setStartingBody(boolean setPersona) {
+		// TODO
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		// TODO
+	}
+
+	@Override
 	public boolean isUnique() {
 		return true;
 	}
@@ -124,10 +132,6 @@ public class Pazu extends NPC {
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
-	}
-
-	@Override
-	public void endSex() {
 	}
 
 

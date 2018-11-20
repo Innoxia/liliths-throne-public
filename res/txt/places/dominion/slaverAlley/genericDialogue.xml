@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="MARKET_STALL_FEMALE"><![CDATA[
+	<p>
+		In the far right corner of Slaver Alley's main square, sits the slaver shop, 'A Woman's Touch'. The delicate pink lettering which proudly displays this establishment's name is painted over the dark purple silhouette of an hourglass-shaped woman.
+	</p>
+	<p>
+		Just like all the other slaver stores, large glass windows are set into the frontage, allowing passers-by to check out what goods are on offer as they walk past. As you find yourself approaching the entrance, a very delicate-looking cat-girl, who you assume to be one of the shop assistants, steps out in front of you and curtsies. [genericFemale.speech(Please excuse me, [pc.Sir], but would you be interested in browsing our stock? We have new slaves finishing our training regimen every day, who are then ready for purchasing. You won't find girls anywhere else who are as well-trained and obedient as the ones we offer.)]
+	</p>
+	#IF pc.isHasSlaverLicense()
+	#THEN
+		<p>
+			[pc.speech(Alright,)] you reply, [pc.speech(I can take a look around.)]
+		</p>
+		<p>
+			Smiling at you in delight, the cat-girl leads you inside the store, and as you're shown around, you notice a few slaves on offer that you might be interested in...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Can anyone buy these slaves, then?)] you ask.
+		</p>
+		<p>
+			[genericFemale.speech(Oh, please forgive me, [pc.Sir]! I assumed you had a slaver license. Please do come back if you were ever to obtain one,)] the cat-girl hastily explains, curtsying once more before disappearing back into the shop.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_MALE"><![CDATA[
+	<p>
+		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Steel & Iron', burnt into the framework.
+	</p>
+	<p>
+		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky cow-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
+	</p>
+	#IF pc.isHasSlaverLicense()
+	#THEN
+		<p>
+			[pc.speech(Maybe a quick look,)] you reply, stepping forwards alongside the smiling cow-boy into the store...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I don't have a licence, I'm afraid,)] you reply, continuing on past the salesman.
+		</p>
+		<p>
+			[genericMale.speech(Well, if you ever get one, then you know where to visit for the best male slaves in the city!)] the cow-boy shouts after you, before disappearing back into his shop.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_ANAL"><![CDATA[
+	<p>
+		On one of the three sides of the square, a shop proudly displays an ass-shaped sign bearing the words, 'The Rear Entrance'. Knowing exactly what sort of slaves must be sold in there, you take a look through the large glass windows as you pass. Sure enough, you see that the slaves on display are all making sure to show off their asses, each of which is decorated by either a plain or jewelled butt-plug.
+	</p>
+	<p>
+		As you walk past the front door, a short cat-boy darts out to block your path, before placing his hands on his hips and grinning cheekily at you. [genericMale.speech(You like butts, right?! Come on inside! We've got the best asses in all of Dominion, and each and every one of our slaves have been specially trained to love anal sex!)]
+	</p>
+	#IF pc.isHasSlaverLicense()
+	#THEN
+		<p>
+			[pc.speech(Ok,)] you reply, stepping forwards alongside the diminutive cat-boy into his store...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I don't have a licence, I'm afraid,)] you reply, continuing on past the salesman.
+		</p>
+		<p>
+			[genericMale.speech(Well, you know where to visit as soon as you get one!)] the cat-boy squeaks, before rushing back into his shop.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_VAGINAL"><![CDATA[
+	<p>
+		On the far side of the square, a slave shop has had its frontage painted all in white, and in flowing pink lettering, the name 'White Lilies' is painted beside an artistic depiction of a bunch of the very same flowers. It's quite clear from the feminine decor, as well as the fact that all of the naked slaves in the windows are showing off their well-kept pussies, that this particular store specialises in slaves who are in possession of female genitals.
+	</p>
+	<p>
+		As you walk past the front door, a beautiful white-furred rabbit-girl steps out to greet you, [genericFemale.speech(Why hello there. Would you be interested at all in browsing some of my wares? I can assure you that all of the slaves sold in my establishment have undergone specialist training so as to love nothing more than having their feminine sex used by their owners.)]
+	</p>
+	#IF pc.isHasSlaverLicense()
+	#THEN
+		<p>
+			[pc.speech(I've got a few minutes to spare,)] you reply, stepping forwards alongside the regal rabbit-girl into her store...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I don't have a licence, I'm afraid,)] you reply, continuing on past the salesman.
+		</p>
+		<p>
+			[genericFemale.speech(Ah, that is a shame. Well, if you ever do acquire one, then please visit us again,)] the rabbit-girl says, smiling politely at you before stepping back into her shop.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_ORAL"><![CDATA[
+	<p>
+		On one side of the square, a rather shabby-looking slave store bears a mouth-shaped sign displaying the words, 'Viva Voce'. Beneath this, someone's scrawled some graffiti, and as you step forwards to take a closer look, you see that whoever wrote it wasn't the best at spelling, as it reads: 'It meens speakin fanci'.
+	</p>
+	<p>
+		Having satisfied your curiosity, you turn to leave, but find that a very shady-looking rat-boy is blocking your path. Before you can say anything, he grins and steps forwards, before nodding at the sign. [genericMale.speech(It's Latin, ain't it? I kinda inherited this place from me old man, an' he was the one who gave it that name. He was real smart, see, an' I kept on forgettin' what it meant, so I 'ad to leave meself that note there!)]
+	</p>
+	<p>
+		[pc.speech(Ah, so you're the owner,)] you say, but before you can continue, the rat-boy laughs and steps over towards the door.
+	</p>
+	<p>
+		[genericMale.speech(Yeah, tha's me! I kinda wanted to keep me old man's vision goin', see, so all me slaves fer sale 'ave been trained to love kissin', sucking cocks, eatin' girls out, all that kinda' stuff. We even 'ave a deal with some shady demon guy who give us these potions wot makes their lips all big and juicy! You comin' in to take a looksie? Y'won't regret it!)]
+	</p>
+	#IF pc.isHasSlaverLicense()
+	#THEN
+		<p>
+			[pc.speech(Ok, sure, why not)] you reply, stepping forwards into the rat-boy's store...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I don't have a licence,)] you reply. [pc.speech(Maybe another time.)]
+		</p>
+		<p>
+			[genericMale.speech(Ah, yeah, no worries. You jus' make sure to come 'ere once ya got one, alright?)] the rat-boy replies, letting out a cackling laugh as he steps back into the shadows.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
+	<p>
+		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a female fallen angel.
+	</p>
+	<p>
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+	</p>
+	<p>
+		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
+	</p>
+	<p>
+		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Ouza, princess of angels; Look upon my form, ye enemies of Lilith, and despair.'
+	</p>
+	<p>
+		Nobody in the square seems to be paying much attention to the statue, and you doubt that there's anybody here who would know of the creator or what this piece of their art is meant to represent, other than what's apparent from the words inscribed upon the base. Letting out a sigh, you take one last look at the vivid visage of the fallen angel before you, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_EXCLUSIVE"><![CDATA[
+	<p>
+		Deciding that you'd like to take a look inside one of the many shops that fill Slaver Alley, you approach the entrance to the nearest building. In order to display yet more slaves to passing customers, you see that a series of large glass windows have been installed into the walls before you. As you walk up to the entrance, some of the slaves standing behind these windows glance your way; no doubt wondering if you'll be their next owner.
+	</p>
+	<p>
+		Pushing open the door, you step inside the shop, and find that the interior is surprisingly clean, well-lit, and airy. Yet more slaves line the walls around you, and in the middle of the room, the shop's owner calls out to you from behind a circular wooden desk, [genericMale.speech(Hey! You a member of the Zaibatsu Exchange?)]
+	</p>
+	<p>
+		After answering in the negative, the shop owner insists that you need to leave. Apparently, this shop, like most of the ones in Slaver Alley, is owned by a powerful slaving conglomerate, which only does business with registered members of their organisation.
+	</p>
+	<p>
+		Stepping back out into the street, you wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_BULK"><![CDATA[
+	<p>
+		Near the entrance of Slaver Alley, a pair of huge warehouse-like buildings take up the entirety of one side of the street. Looking up at the large lettering that's printed across the front of each of them, you see that these warehouses are owned by the 'Royal Dominion Company'.
+	</p>
+	<p>
+		The premises don't appear to be open to the public, and you assume that they must deal with large-scale bulk transfers of slaves between companies. With nothing more to be gained by hanging around near here, you step back out into the street, before wondering where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_CAFE"><![CDATA[
+	<p>
+		Scattered around Slaver Alley, there appear to be several cozy-looking cafes. Wondering if you could enter one of these to get a drink, you step up to the front door, but your entrance is barred by a muscular-looking wolf-girl, who snarls, [genericFemale.speech(You're not a member of the Zaibatsu Exchange, are you, punk?!)]
+	</p>
+	<p>
+		Realising that this is definitely going to be more trouble than it's worth, you turn your back on the wolf-girl and step back out into the street, before wondering where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>
