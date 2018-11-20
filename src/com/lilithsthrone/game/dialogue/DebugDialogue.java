@@ -8,24 +8,11 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
@@ -54,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -153,7 +140,10 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if (index == 6) {
+				} else if(index==5 && Main.DEBUG) {
+					return new Response("All items", "View icons of all the clothing, weapon, and items in the game. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
+					
+				}  else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 					
 				} else if (index == 7) {
@@ -344,7 +334,7 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCumType(), SexAreaOrifice.VAGINA, 1000, Main.game.getBrax().getCumModifiers());
+							Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
 					
@@ -559,445 +549,91 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BODY_PART = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
+	public static final DialogueNodeOld ALL_ITEMS_VIEW = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getHeaderContent() {
+			inventorySB.setLength(0);
+			
+			inventorySB.append(
+					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
+						+ (activeSlot==null ?
+								"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
+								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
+									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
+									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"))
+					+"</p>");
+			
+			int count=0;
+			inventorySB.append("<div class='inventory-not-equipped'>");
+			for(AbstractItemType itemType : itemsTotal) {
+				if((itemTag==null
+						&& (!itemType.getItemTags().contains(ItemTag.BOOK)
+						&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
+						&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
+						&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
+						|| (itemTag!=null
+							&& (itemType.getItemTags().contains(itemTag)
+									|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+					inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:5%'>"
+											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+										+ "</div>");
+				}
+				count++;
+			}
+			
+			for(AbstractWeaponType weaponType : weaponsTotal) {
+				inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:5%'>"
+										+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+												weaponType.getAvailableDamageTypes().get(0),
+												weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
+												weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+										+"</div>"
+										+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+									+ "</div>");
+				count++;
+			}
+			
+			System.out.println(clothingTotal.size());
+			for(AbstractClothingType clothingType : clothingTotal) {
+				inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:5%'>"
+										+ "<div class='inventory-icon-content'>"
+											+clothingType.getSVGImage(
+												Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+												clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+												clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+												null, null, null, null)
+										+"</div>"
+										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+									+ "</div>");
+				count++;
+			}
+			
+			// Fill space:
+			for (int i = count; i <48; i++) {
+				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
+			}
+			inventorySB.append("</div>");
+			
+			
+			return inventorySB.toString();
+		}
+
+		@Override
 		public String getContent() {
-			return "Choose a body part.";
+			return "";
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Face choices", "", BODY_PART_FACE);
-				
-			} else if (index == 2) {
-				return new Response("Skin choices", "", BODY_PART_SKIN);
-				
-			} else if (index == 3) {
-				return new Response("Arm choices", "", BODY_PART_ARM);
-				
-			} else if (index == 4) {
-				return new Response("Leg choices", "", BODY_PART_LEG);
-				
-			} else if (index == 5) {
-				return new Response("Hair choices", "", BODY_PART_HAIR);
-				
-			} else if (index == 6) {
-				return new Response("Eye choices", "", BODY_PART_EYE);
-				
-			} else if (index == 7) {
-				return new Response("Ear choices", "", BODY_PART_EAR);
-				
-			} else if (index == 8) {
-				return new Response("Horn choices", "", BODY_PART_HORN);
-				
-			} else if (index == 9) {
-				return new Response("Tail choices", "", BODY_PART_TAIL);
-				
-			} else if (index == 10) {
-				return new Response("Wing choices", "", BODY_PART_WING);
-				
-			} else if (index == 11) {
-				return new Response("Penis choices", "", BODY_PART_PENIS);
-				
-			} else if (index == 12) {
-				return new Response("Vagina choices", "", BODY_PART_VAGINA);
-				
-			} else if (index == 13) {
-				return new Response("Breast choices", "", BODY_PART_BREAST);
-				
-			} else if (index == 14) {
-				return new Response("Ass choices", "", BODY_PART_ASS);
-				
-			} else if (index == 15) {
-				return new Response("Material choices", "", BODY_PART_MATERIAL);
-				
-			} else if (index == 0) {
-				return new Response("Back", "", DEBUG_MENU);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_FACE = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a face type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < FaceType.values().length+1) {
-				return new Response(FaceType.values()[index - 1].getTransformName(), "", BODY_PART_FACE){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setFaceType(FaceType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_SKIN = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a skin type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < Race.values().length+1) {
-				return new Response(RacialBody.valueOfRace(Race.values()[index - 1]).getSkinType().getTransformName(), "", BODY_PART_SKIN){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setSkinType(RacialBody.valueOfRace(Race.values()[index - 1]).getSkinType()));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_ARM = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose an arm type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < ArmType.values().length+1) {
-				return new Response(ArmType.values()[index - 1].getTransformName(), "", BODY_PART_ARM){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setArmType(ArmType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_LEG = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a leg type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < LegType.values().length+1) {
-				return new Response(LegType.values()[index - 1].getTransformName(), "", BODY_PART_LEG){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setLegType(LegType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_HAIR = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a hair type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < Race.values().length+1) {
-				return new Response(RacialBody.valueOfRace(Race.values()[index - 1]).getHairType().getTransformName(), "", BODY_PART_HAIR){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setHairType(RacialBody.valueOfRace(Race.values()[index - 1]).getHairType()));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_EYE = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose an eye type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < Race.values().length+1) {
-				return new Response(RacialBody.valueOfRace(Race.values()[index - 1]).getEyeType().getTransformName(), "", BODY_PART_EYE){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setEyeType(RacialBody.valueOfRace(Race.values()[index - 1]).getEyeType()));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_EAR = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose an ear type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < EarType.values().length+1) {
-				return new Response(EarType.values()[index - 1].getTransformName(), "", BODY_PART_EAR){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setEarType(EarType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_HORN = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a horn type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < HornType.values().length+1) {
-				return new Response(HornType.values()[index - 1].getRace()!=null?HornType.values()[index - 1].getTransformName():"None", "", BODY_PART_HORN){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setHornType(HornType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_TAIL = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a tail type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < TailType.values().length+1) {
-				return new Response(TailType.values()[index - 1].getRace()!=null?TailType.values()[index - 1].getTransformName():"None", "", BODY_PART_TAIL){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setTailType(TailType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_WING = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a wing type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < WingType.values().length+1) {
-				return new Response(WingType.values()[index - 1].getRace()!=null?WingType.values()[index - 1].getTransformName():"None", "", BODY_PART_WING){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setWingType(WingType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_PENIS = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a penis type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < PenisType.values().length+1) {
-				return new Response(PenisType.values()[index - 1].getRace()!=null?PenisType.values()[index - 1].getTransformName():"None", "", BODY_PART_PENIS){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setPenisType(PenisType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_VAGINA = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a vagina type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < VaginaType.values().length+1) {
-				return new Response(VaginaType.values()[index - 1].getRace()!=null?VaginaType.values()[index - 1].getTransformName():"None", "", BODY_PART_VAGINA){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setVaginaType(VaginaType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_BREAST = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose a breast type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < BreastType.values().length+1) {
-				return new Response(BreastType.values()[index - 1].getTransformName(), "", BODY_PART_BREAST){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setBreastType(BreastType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld BODY_PART_ASS = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Choose an ass type.";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < AssType.values().length+1) {
-				return new Response(AssType.values()[index - 1].getTransformName(), "", BODY_PART_ASS){
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setAssType(AssType.values()[index - 1]));
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", BODY_PART);
-				
-			} else {
-				return null;
-			}
+			return DEBUG_MENU.getResponse(responseTab, index);
 		}
 	};
 	

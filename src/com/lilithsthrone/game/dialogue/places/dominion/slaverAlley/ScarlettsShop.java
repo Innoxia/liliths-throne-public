@@ -196,7 +196,7 @@ public class ScarlettsShop {
 				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "ALEXAS_SHOP"); //TODO expand
 			}
 			
-			// TODO new interior description once rennovated
+			// TODO new interior description once renovated
 		}
 
 		@Override
@@ -215,13 +215,14 @@ public class ScarlettsShop {
 					
 				} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_G_SLAVERY) {
 					if(!Main.game.getPlayer().isHasSlaverLicense()) {
-						return new Response("Buy Scarlett (" + UtilText.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You need to obtain a slaver license from the Slavery Administration before you can buy Scarlett!", null);
+						return new Response("Buy Scarlett (" + UtilText.formatAsMoneyUncoloured(Main.game.getDialogueFlags().scarlettPrice, "span")+")",
+								"You need to obtain a slaver license from the Slavery Administration before you can buy Scarlett!", null);
 						
 					} else if(Main.game.getPlayer().getMoney() < Main.game.getDialogueFlags().scarlettPrice) {
-						return new Response("Buy Scarlett (" + UtilText.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You don't have enough money to buy Scarlett.", null);
+						return new Response("Buy Scarlett (" +UtilText.formatAsMoneyUncoloured(Main.game.getDialogueFlags().scarlettPrice, "span")+")", "You don't have enough money to buy Scarlett.", null);
 						
 					} else {
-						return new Response("Buy Scarlett (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+Main.game.getDialogueFlags().scarlettPrice+")"
+						return new Response("Buy Scarlett ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().scarlettPrice, "span")+")"
 								, "Buy Scarlett for "+Main.game.getDialogueFlags().scarlettPrice+" flames.", ALEXAS_SHOP_BUYING_SCARLETT) {
 							@Override
 							public void effects() {

@@ -196,17 +196,17 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -262,12 +262,12 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(demonRace, debugMenu)
 							+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(demonRace, debugMenu)
 						+"</div>"
 
 						+"<div style='clear:left;'>"
@@ -323,17 +323,17 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
 					+"</div>"
 
 					+"<div style='clear:left;'>"

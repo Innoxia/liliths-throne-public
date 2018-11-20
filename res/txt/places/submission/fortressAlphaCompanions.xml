@@ -497,7 +497,7 @@
 	<p>
 		Before long, [npc2.name] is panting and sweating from exertion, with each of [npc2.her] strikes becoming easier and easier to dodge. Thinking the time's come to put an end to this, you quickly dart forwards,
 		#IF npc2.isVisiblyPregnant()
-		#THEN and, concious of the fact that [npc2.sheIs] pregnant, you twist [npc2.her] [npc2.arm] behind [npc2.her] back, before carefully, but firmly, forcing [npc2.herHim] to the ground.
+		#THEN and, conscious of the fact that [npc2.sheIs] pregnant, you twist [npc2.her] [npc2.arm] behind [npc2.her] back, before carefully, but firmly, forcing [npc2.herHim] to the ground.
 		#ELSE landing a solid punch to [npc2.her] stomach, before tripping [npc2.herHim] and hurling [npc2.herHim] to the ground.
 		#ENDIF
 	</p>
@@ -935,7 +935,7 @@
 		You let out a relived sigh as [npc2.name] and [npc2.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc2.race] and ask, [pc.speech(Why do you do this? Getting all those imps to attack people in Submission, I mean.)]
 	</p>
 	<p>
-		[npc2.speech(She told us to...)] [npc2.name] pants. [npc2.speech(Our leader, the Dark Siren... She said we need to assert dominance... You've probably already seen it, seeing as you're here... That citadel in the middle of Submission's tunnels. That's where she is...)]
+		[npc2.speech(She told us to...)] [npc2.name] pants [npc2.speech(Our leader, the Dark Siren... She said we need to assert dominance... You've probably already seen it, seeing as you're here... That citadel in the middle of Submission's tunnels. That's where she is...)]
 	</p>
 	<p>
 		[pc.speech(I see. So you're just following orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.

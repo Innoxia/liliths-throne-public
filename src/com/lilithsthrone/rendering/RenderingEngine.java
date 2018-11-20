@@ -1069,13 +1069,13 @@ public enum RenderingEngine {
 	public void renderAttributesPanelRight() {
 		uiAttributeSB.setLength(0);
 		
-			uiAttributeSB.append(
-					"<body onLoad='scrollEventLogToBottom()'>"
-						+ " <script>"
-							+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
-						+ "</script>");
+		uiAttributeSB.append(
+				"<body onLoad='scrollEventLogToBottom()'>"
+					+ " <script>"
+						+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
+					+ "</script>");
 			
-			if(isRenderingCharactersRightPanel()) {
+		if(isRenderingCharactersRightPanel()) {
 			
 			if(Main.game.isInSex()) {
 				// Name box:

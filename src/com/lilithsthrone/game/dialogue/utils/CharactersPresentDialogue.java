@@ -327,12 +327,12 @@ public class CharactersPresentDialogue {
 					
 				} else if(index==5) {
 					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 						
 					} else {
 						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
-							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
+							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispel":"Go Home",
+									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
 								@Override
 								public void effects() {
 									if(characterViewed.isElementalSummoned()) {
@@ -345,8 +345,8 @@ public class CharactersPresentDialogue {
 								}
 							};
 						} else {
-							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+							return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home",
+									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
 									MENU){
 								@Override
 								public void effects() {
@@ -372,14 +372,14 @@ public class CharactersPresentDialogue {
 					
 				} else if(index==10) {
 					if(!characterViewed.isElementalSummoned()) {
-						return new Response("Dispell Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
+						return new Response("Dispel Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
 						
 					} else {
 						if(!Main.game.isSavedDialogueNeutral()) {
-							return new Response("Dispell Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+							return new Response("Dispel Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 							
 						} else {
-							return new Response("Dispell Elemental", "Tell [npc.name] to dispell [npc.her] elemental.", MENU){
+							return new Response("Dispel Elemental", "Tell [npc.name] to dispel [npc.her] elemental.", MENU){
 								@Override
 								public void effects() {
 									characterViewed.removeCompanion(characterViewed.getElemental());

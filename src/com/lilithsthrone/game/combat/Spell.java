@@ -535,7 +535,7 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
-											Util.newArrayListOfValues(//TODO chunni three from here
+											Util.newArrayListOfValues(//TODO chuuni three from here
 													"May the heavens burst, and floods sweep the Earth! By the powers manifest within me, I tear open the skies, and deliver unto you your watery grave!"),
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above your own head!",
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above [npc.namePos] head!",
@@ -1490,20 +1490,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(damage>0) {
-					if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-						descriptionSB.append(UtilText.parse(caster, target,
-									"<p>"
-										+ "<b>[npc2.Name] [npc2.verb(take)] <b>" + (damage*2) + "</b> <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and <b>"+damage+"</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] [npc2.verb(struggle)] to control [npc2.her] burning desire for sex!</b>"
-									+ "</p>"));
-
-						target.incrementHealth(-damage*2);
-						target.incrementMana(-damage);
-						
-					} else {
-						descriptionSB.append(target.incrementLust(damage));
-					}
-					
+					descriptionSB.append(target.incrementLust(damage, true));
 				}
 				
 				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
@@ -2355,6 +2342,68 @@ public enum Spell {
 			if(isHit) {
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
+			caster.incrementMana(-cost);
+			
+			return descriptionSB.toString();
+		}
+	},
+	
+
+	
+	DARK_SIREN_BANEFUL_FISSURE(false,
+			SpellSchool.AIR,
+			SpellType.OFFENSIVE,
+			DamageType.PHYSICAL,
+			false,
+			"Baneful Fissure",
+			"dark_siren_baneful_fissure",
+			"Creates a long-lasting fissure in the ground, from which poisonous vapours rise to choke and stifle all nearby enemies.",
+			10,
+			DamageVariance.NONE,
+			200,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BANEFUL_FISSURE, 10)),
+			null,
+			null,
+			Util.newArrayListOfValues(
+					"<b>25</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(10 turns)]",
+					"Affects [style.colourExcellent(all enemies)]")) {
+		
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			descriptionSB.setLength(0);
+
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append("<p>"
+									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Powers beneath the earth, obey your [npc.master]'s command! Rend unto the end of time a chasm of darkness, from which the suffocating miasma of toxic dimensions may pour forth!"),
+										"",
+										"Concentrating on the immense arcane power within your scythe, you smite down into the ground beneath [npc.namePos] [npc.feet], splitting the earth and summoning forth poison fumes!",
+										"",
+										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath your [pc.feet], splitting the earth and summoning forth poison fumes!",
+										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath [npc2.namePos] [npc2.feet], splitting the earth and summoning forth poison fumes!")
+								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, damage, true, isCritical));
+			
+			if(Combat.getEnemies().contains(target)) {
+				for(NPC combatant : Combat.getEnemies()) {
+					applyStatusEffects(caster, combatant, isCritical);
+					descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+				}
+			} else {
+				applyStatusEffects(caster, Main.game.getPlayer(), isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, Main.game.getPlayer(), isHit, isCritical));
+				for(NPC combatant : Combat.getAllies()) {
+					applyStatusEffects(caster, combatant, isCritical);
+					descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+				}
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));

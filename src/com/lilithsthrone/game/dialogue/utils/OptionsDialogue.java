@@ -1669,16 +1669,23 @@ public class OptionsDialogue {
 				if (!artist.getName().equals("Custom")) {
 					UtilText.nodeContentSB.append(
 							(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:75%; text-align:center; float:right;'>"
 									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
 									+ "</div>"
-									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:75%; text-align:center; float:right;'>"
 									+ "[style.boldDisabled("+artist.getName()+")]"
 									+ "</div>"));
 				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"AUTO_SEX_CLOTHING_MANAGEMENT",
+							Colour.BASE_BLUE_STEEL,
+							"Post-sex clothing replacement",
+							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"AGE",
 							Colour.AGE_TWENTIES,

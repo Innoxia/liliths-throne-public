@@ -2090,6 +2090,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HARPY;
 		}
@@ -2138,6 +2143,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_SLIME;
@@ -2211,7 +2221,7 @@ public class ItemType {
 //		}
 //	};
 	
-	private static String getEssenceAbsorbtionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
+	private static String getEssenceAbsorptionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
 			if (user!=null && user.isPlayer()) {
 				if(target!=null) {
 					if(target.isPlayer()) {
@@ -2341,7 +2351,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.GENERIC_ARCANE, user, target);
+			return getEssenceAbsorptionText(Colour.GENERIC_ARCANE, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2379,7 +2389,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_CAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_CAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2418,7 +2428,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_COW_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_COW_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2456,7 +2466,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DEMON, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DEMON, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2494,7 +2504,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_IMP, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_IMP, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2532,7 +2542,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
 		}
 	};
 	
@@ -2563,7 +2573,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SQUIRREL_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SQUIRREL_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2601,7 +2611,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2639,7 +2649,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RABBIT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RABBIT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2677,7 +2687,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_BAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_BAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2715,7 +2725,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DOG_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DOG_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2753,7 +2763,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HARPY, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HARPY, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2791,7 +2801,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HORSE_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HORSE_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2829,7 +2839,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_REINDEER_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_REINDEER_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2867,7 +2877,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HUMAN, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HUMAN, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2905,7 +2915,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_WOLF_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_WOLF_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2943,7 +2953,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_FOX_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_FOX_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2981,7 +2991,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SLIME, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SLIME, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -4284,10 +4294,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You eat the eggplant. The bitter taste of disappointment overwhelmes you.",
-					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelmes you both.");
+					"You eat the eggplant. The bitter taste of disappointment overwhelms you.",
+					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
 		}
 	};
 
@@ -4332,9 +4342,9 @@ public class ItemType {
 	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY = new AbstractItemType(0,
 			"",
 			false,
-			"Imp's Arcane Key",
-			"Imp's Arcane Keys",
-			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
+			"Fyrsia's Key",
+			"Fyrsia's Keys",
+			"An arcane key that you obtained from Fyrsia, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey",
 			Colour.CLOTHING_SILVER,
 			Colour.GENERIC_ARCANE,
@@ -4363,9 +4373,9 @@ public class ItemType {
 	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_2 = new AbstractItemType(0,
 			"",
 			false,
-			"Imp's Arcane Key",
-			"Imp's Arcane Keys",
-			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
+			"Jhortrax's Key",
+			"Jhortrax's Keys",
+			"An arcane key that you obtained from Jhortrax, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey2",
 			Colour.CLOTHING_STEEL,
 			Colour.GENERIC_ARCANE,
@@ -4394,9 +4404,9 @@ public class ItemType {
 	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_3 = new AbstractItemType(0,
 			"",
 			false,
-			"Imp's Arcane Key",
-			"Imp's Arcane Keys",
-			"An arcane key that you obtained from one of the Imp Fortresses in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central Imp Citadel.",
+			"Hyorlyss's Key",
+			"Hyorlyss's Keys",
+			"An arcane key that you obtained from Hyorlyss, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey3",
 			Colour.CLOTHING_GOLD,
 			Colour.GENERIC_ARCANE,
@@ -5011,6 +5021,7 @@ public class ItemType {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
+				case DARK_SIREN_BANEFUL_FISSURE:
 					break;
 			}
 			

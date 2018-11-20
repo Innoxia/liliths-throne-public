@@ -777,6 +777,8 @@ public enum Colour {
 			Colour.COVERING_PINK_LIGHT,
 			Colour.COVERING_RAINBOW
 			);
+	
+	public static List<Colour> allMakeupColours = Util.mergeLists(Util.newArrayListOfValues(Colour.COVERING_CLEAR), allCoveringColours);
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,

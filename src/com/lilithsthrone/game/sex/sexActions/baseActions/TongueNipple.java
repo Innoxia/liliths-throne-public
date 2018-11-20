@@ -137,10 +137,9 @@ public class TongueNipple {
 		public String applyEffectsString() {
 			return Sex.getCharacterPerformingAction().ingestFluid(
 						Sex.getCharacterTargetedForSexAction(this),
-						Sex.getCharacterTargetedForSexAction(this).getMilkType(),
+						Sex.getCharacterTargetedForSexAction(this).getMilk(),
 						SexAreaOrifice.MOUTH,
-						Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5,
-						Sex.getCharacterTargetedForSexAction(this).getMilk().getFluidModifiers())
+						Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5)
 					+ Sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5);
 		}
 	};
@@ -268,10 +267,9 @@ public class TongueNipple {
 		public String applyEffectsString() {
 			return Sex.getCharacterTargetedForSexAction(this).ingestFluid(
 					Sex.getCharacterPerformingAction(),
-					Sex.getCharacterPerformingAction().getMilkType(),
+					Sex.getCharacterPerformingAction().getMilk(),
 					SexAreaOrifice.MOUTH,
-					Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5,
-					Sex.getCharacterPerformingAction().getMilk().getFluidModifiers())
+					Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5)
 				+ Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5);
 		}
 		

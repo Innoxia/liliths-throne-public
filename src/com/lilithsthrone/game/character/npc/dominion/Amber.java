@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -112,6 +113,9 @@ public class Amber extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(28);
+		}
+		if(this.getBodyMaterial()!=BodyMaterial.FLESH) {
+			this.setBodyMaterial(BodyMaterial.FLESH);
 		}
 	}
 	
@@ -503,7 +507,7 @@ public class Amber extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "With that, she suddenly hurls you to the floor, and you let out a cry as you fall down onto all fours."
-						+ " Amber steps around behind you, and as you try to crawl away, she delivers a stingingly-sharp slap to your rear end,"
+						+ " Amber steps around behind you, and as you try to crawl away, she delivers a stinging sharp slap to your rear end,"
 						+ " [amber.speech(Stupid bitch! You've got me all worked up now! Time to teach you a lesson!)]"
 					+ "</p>";
 		}

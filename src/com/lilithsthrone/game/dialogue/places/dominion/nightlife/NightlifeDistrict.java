@@ -4822,7 +4822,8 @@ public class NightlifeDistrict {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
 						null,
-						WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX", NightlifeDistrict.getClubbersPresent()));
+						WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX", NightlifeDistrict.getClubbersPresent()));
 				
 			} else if(index==4) {
 				return new Response("Refuse",

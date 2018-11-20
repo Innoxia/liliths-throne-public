@@ -136,7 +136,7 @@ public class RentalMommyDialogue {
 						Main.game.getPlayer().incrementMoney(-500);
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilkType(), SexAreaOrifice.MOUTH, 500, Main.game.getActiveNPC().getMilk().getFluidModifiers());
+						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				
@@ -155,7 +155,7 @@ public class RentalMommyDialogue {
 						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_LACTATION_OTHERS, 25);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_EXHIBITIONIST, 10);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilkType(), SexAreaOrifice.MOUTH, 500, Main.game.getActiveNPC().getMilk().getFluidModifiers());
+						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				

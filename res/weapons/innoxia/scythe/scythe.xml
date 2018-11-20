@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>7500</value> 
+		<value>100000</value> 
 		
 		<melee>true</melee>
 		
@@ -42,7 +42,9 @@
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
-		<spells/>
+		<spells>
+			<spell>DARK_SIREN_BANEFUL_FISSURE</spell>
+		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>
 		

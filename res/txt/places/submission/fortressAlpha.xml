@@ -244,7 +244,7 @@
 	<p>
 		Before long, [npc.name] is panting and sweating from exertion, with each of [npc.her] strikes becoming easier and easier to dodge. Thinking the time's come to put an end to this, you quickly dart forwards,
 		#IF npc.isVisiblyPregnant()
-		#THEN and, concious of the fact that [npc.sheIs] pregnant, you twist [npc.her] [npc.arm] behind [npc.her] back, before carefully, but firmly, forcing [npc.herHim] to the ground.
+		#THEN and, conscious of the fact that [npc.sheIs] pregnant, you twist [npc.her] [npc.arm] behind [npc.her] back, before carefully, but firmly, forcing [npc.herHim] to the ground.
 		#ELSE landing a solid punch to [npc.her] stomach, before tripping [npc.herHim] and hurling [npc.herHim] to the ground.
 		#ENDIF
 	</p>
@@ -319,20 +319,6 @@
 	</p>
 	<p>
 		Ignoring [npc.namePos] cries and protestations, you prepare to have your fun with [npc.herHim]...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_ALPHA_BRAWLER_SEX_WITH_COMPANION"><![CDATA[
-	<p>
-		You continue to humiliate [npc2.name], dodging her punches and pulling first her jacket off, then her chest wraps. Finally, you trip her to the ground, and tell [npc.name] to rape her...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_ALPHA_BRAWLER_SEX_WITH_BOTH"><![CDATA[
-	<p>
-		You continue to humiliate [npc2.name], dodging her punches and pulling first her jacket off, then her chest wraps. Finally, you trip her to the ground, and tell [npc.name] to join you in raping her...
 	</p>
 	]]>
 	</htmlContent>
