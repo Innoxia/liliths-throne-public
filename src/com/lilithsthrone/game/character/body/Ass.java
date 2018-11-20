@@ -410,26 +410,26 @@ public class Ass implements BodyPartInterface, Serializable {
 		String styledSizeDescriptor = "[style.boldSex("+ getHipSize().getDescriptor() + " hips)]";
 		if (sizeChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You inhale sharply in surprise as you feel your hips reshape themselves, pushing out and [style.boldGrow(growing wider)].<br/>"
 							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips reshape themselves, pushing out and [style.boldGrow(growing wider)].<br/>"
 							+ "[npc.She] now has " + styledSizeDescriptor + "!"
 						+ "</p>");
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You inhale sharply in surprise as you feel your hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
 							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[pc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
 							+ "[npc.She] now has " + styledSizeDescriptor + "!"
 						+ "</p>");

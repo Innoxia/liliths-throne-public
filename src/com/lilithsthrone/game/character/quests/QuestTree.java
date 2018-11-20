@@ -42,6 +42,12 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
 		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
+		node1.addChild(node2);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 

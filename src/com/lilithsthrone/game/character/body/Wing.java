@@ -158,6 +158,12 @@ public class Wing implements BodyPartInterface, Serializable {
 	}
 	
 	public String setSize(GameCharacter owner, int wingSize) {
+		if(owner==null) {
+			int effectiveSize = Math.max(0, Math.min(wingSize, WingSize.getLargest()));
+			this.size = effectiveSize;
+			return "";
+		}
+		
 		if(owner.getWingType()==WingType.NONE) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You don't have any wings, so nothing happens...)]</p>";

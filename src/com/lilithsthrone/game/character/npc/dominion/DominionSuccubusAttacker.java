@@ -66,6 +66,7 @@ public class DominionSuccubusAttacker extends NPC {
 			
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setHomeLocation();
 			
 			// BODY RANDOMISATION:
 			addFetish(Fetish.FETISH_DEFLOWERING);
@@ -98,7 +99,7 @@ public class DominionSuccubusAttacker extends NPC {
 			
 			// CLOTHING:
 			
-			this.equipClothing(true, true, true);
+			this.equipClothing(true, true, true, true);
 			
 			CharacterUtils.applyMakeup(this, true);
 			
@@ -130,7 +131,7 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
@@ -354,7 +355,7 @@ public class DominionSuccubusAttacker extends NPC {
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
 				"You tear open the packet and roll the condom down the length of your [pc.penis].",
 				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);

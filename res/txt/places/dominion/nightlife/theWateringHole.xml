@@ -1185,7 +1185,7 @@
 		Your provocative move instantly returns the result you were hoping for, as the huge lion lets out a deep, rumbling growl, before dominantly taking hold of your head and pressing his lips against yours. As you let out a muffled moan and close your eyes, you feel his tongue pushing its way into your mouth, and you surrender yourself completely to the dominant lion as he passionately makes out with you.
 	</p>
 	<p>
-		After a few minutes, Kruger breaks off the kiss, and you suddenly become aware of the fact that the girls around you are all giggling and gossiping amongst one another. As you lean back against the sofa, one of tye lionesses leans across and addresses Kruger, [genericFemale.speech(Go on, Kruger. Break [pc.herHim] in! We all want to see you fuck [pc.herHim]...)]
+		After a few minutes, Kruger breaks off the kiss, and you suddenly become aware of the fact that the girls around you are all giggling and gossiping amongst one another. As you lean back against the sofa, one of the lionesses leans across and addresses Kruger, [genericFemale.speech(Go on, Kruger. Break [pc.herHim] in! We all want to see you fuck [pc.herHim]...)]
 	</p>
 	<p>
 		Kruger simply lets out an amused growl in response. Although you can tell that he's warming up to that idea, he doesn't seem interested in doing anything without first receiving an indication of consent from you.
@@ -1624,7 +1624,7 @@
 		With the [npc.race] in tow, you make your way out of the club, before heading back down Dominion's wide central boulevard towards Lilaya's mansion.
 		#IFgame.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
-			#IFnpc.getRace().isVulnerableToArcaneStorm()
+			#IFnpc.getSubspecies().isVulnerableToArcaneStorm()
 			#THEN Due to the ongoing arcane storm, [npc.name] keeps on trying to pull you to one side and start having sex with you, but you're determined to get back home before starting anything like that, and, pulling [npc.herHim] along, you continue on your way back home.
 			#ELSE Although there's an ongoing arcane storm, [npc.name] is just as unaffected by it as you, and the two of you chat happily with one another as you travel back home.
 			#ENDIF
@@ -1681,7 +1681,7 @@
 		Having got [npc.name] back into your room, you suddenly find yourself having second thoughts about the whole thing, and, looking across at [npc.herHim], you bluntly state, [pc.speech(I don't really feel like fucking you after all.)]
 	</p>
 	<p>
-		[npc.speech(Eugh, you could have at least tried to be diplomatic about it,)] [npc.name] snaps, before turnign and walking over to the door.
+		[npc.speech(Eugh, you could have at least tried to be diplomatic about it,)] [npc.name] snaps, before turning and walking over to the door.
 	</p>
 	<p>
 		[pc.speech(Rose can show you out,)] you shout out after [npc.name], tugging on the bell-pull in order to summon the cat-girl maid.
@@ -3087,7 +3087,7 @@
 		Having had [npc.her] fun, [npc.name] quickly starts getting [npc.her] clothes back in order, grinning happily at you as [npc.she] does so. [npc.speech(You were a good fuck, slut. You've got no idea how many prudes back out at the last minute when I try to fuck them in here.)]
 	</p>
 	<p>
-		As [npc.name] crudely compliments you, you start getting your own things sorted out, but before you've finished, your parter suddenly opens the stall door, exposing you to the rest of the room. Completely oblivious to what [npc.sheIs] doing, [npc.name] steps out of the stall, and in front of everyone, asks, [npc.speech(You'll come find me in the club if you want another good fuck, won't you [pc.name]?)]
+		As [npc.name] crudely compliments you, you start getting your own things sorted out, but before you've finished, your partner suddenly opens the stall door, exposing you to the rest of the room. Completely oblivious to what [npc.sheIs] doing, [npc.name] steps out of the stall, and in front of everyone, asks, [npc.speech(You'll come find me in the club if you want another good fuck, won't you [pc.name]?)]
 	</p>
 	<p>
 		Hurriedly getting the last of your things in order, you step forwards and reply...

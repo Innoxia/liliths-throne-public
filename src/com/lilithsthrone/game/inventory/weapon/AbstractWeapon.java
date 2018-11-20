@@ -194,7 +194,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	}
 	
 	public static AbstractWeapon loadFromXML(Element parentElement, Document doc) {
-		AbstractWeapon weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+		AbstractWeapon weapon = null;
+		
+		try {
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			return null;
+		}
+		
+		if(weapon==null) {
+			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			return null;
+		}
+		
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
 			try {
@@ -317,6 +330,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
 
+		if (getWeaponType().getClothingSet() != null) {
+			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"
+					+ getWeaponType().getClothingSet().getName() + "</b> set." + "</p>");
+		}
+		
 		return descriptionSB.toString();
 	}
 
@@ -345,6 +363,14 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		if (attributeModifiers != null) {
 			for (Integer i : attributeModifiers.values()) {
 				attributeBonuses += i * 5;
+			}
+		}
+
+		if (getWeaponType().getClothingSet() != null) {
+			if (getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
+				for (Float f : getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
+					attributeBonuses += f * 15;
+				}
 			}
 		}
 		
@@ -410,8 +436,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
-		return this.getWeaponType().applyExtraEfects(user, target, isHit);
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
+		return this.getWeaponType().applyExtraEffects(user, target, isHit);
 	}
 	
 
@@ -433,7 +459,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
 				} else {

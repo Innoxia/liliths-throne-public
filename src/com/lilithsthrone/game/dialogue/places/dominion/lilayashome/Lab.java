@@ -404,7 +404,7 @@ public class Lab {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								Lilaya.AUNT_END_SEX, "<p>"
+								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -432,7 +432,7 @@ public class Lab {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 								null,
-								Lilaya.AUNT_END_SEX, "<p>"
+								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -874,7 +874,7 @@ public class Lab {
 						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind."
+						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassment is on her mind."
 						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
 					+ "</p>";
 		}
@@ -889,7 +889,7 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+						null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
@@ -911,7 +911,7 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-								Lilaya.AUNT_END_SEX_GEISHA, "<p>"
+								null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 								+ "</p>"
@@ -936,12 +936,7 @@ public class Lab {
 						
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 						
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothing(true, true, true, true);
 						
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
@@ -1875,7 +1870,7 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 						null,
-						Lilaya.AUNT_END_SEX, "<p>"
+						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -2120,7 +2115,7 @@ public class Lab {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
 						null,
-						Lilaya.AUNT_END_SEX, "<p>"
+						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."

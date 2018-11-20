@@ -359,8 +359,8 @@ public class OccupantDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX,
-								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
+								null,
+								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -381,8 +381,8 @@ public class OccupantDialogue {
 										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX,
-								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
+								null,
+								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -408,8 +408,8 @@ public class OccupantDialogue {
 													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 									null,
-									AFTER_SEX,
-									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
+									null,
+									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -437,8 +437,8 @@ public class OccupantDialogue {
 													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 									null,
-									AFTER_SEX,
-									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
+									null,
+									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -1041,8 +1041,8 @@ public class OccupantDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								APARTMENT_AFTER_SEX,
-								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
+								null,
+								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1063,8 +1063,8 @@ public class OccupantDialogue {
 										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								APARTMENT_AFTER_SEX,
-								UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
+								null,
+								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1090,8 +1090,8 @@ public class OccupantDialogue {
 													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 									null,
-									APARTMENT_AFTER_SEX,
-									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
+									null,
+									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -1119,8 +1119,8 @@ public class OccupantDialogue {
 													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 									null,
-									APARTMENT_AFTER_SEX,
-									UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
+									null,
+									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
 								@Override
 								public void effects() {
 									applyReactionReset();
@@ -1457,7 +1457,7 @@ public class OccupantDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display: inline-block; padding:0 auto; margin:0 auto;vertical-align:middle;width:100%;'>"
 							+ "<p style='float:left; padding:0; margin:0; height:32px; line-height:32px;'>[npc.Name] will call you: </p>"
-							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInput' value='"+ UtilText.parseForHTMLDisplay(occupant().getPlayerPetName())+ "'></form>"
+							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInput' value='"+ UtilText.parseForHTMLDisplay(occupant().getPetName(Main.game.getPlayer()))+ "'></form>"
 							+ " <div class='SM-button' id='"+occupant().getId()+"_PET_NAME' style='float:left; width:auto; height:28px;'>"
 								+ "Rename"
 							+ "</div>"

@@ -197,7 +197,7 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 
@@ -313,9 +313,7 @@ public class Ralph extends NPC {
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType().canBeSold()) {
-				return true;
-			}
+			return true;
 		}
 		if(item instanceof AbstractClothing) {
 			return ((AbstractClothing)item).getClothingType().equals(ClothingType.PENIS_CONDOM);
@@ -389,7 +387,7 @@ public class Ralph extends NPC {
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
 				"You tear open the packet and roll the condom down the length of your [pc.penis].",
 				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);

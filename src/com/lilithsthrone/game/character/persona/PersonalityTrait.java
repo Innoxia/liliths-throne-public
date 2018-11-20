@@ -58,7 +58,7 @@ public enum PersonalityTrait {
 			"Extroverted", "[npc.Name] loves being in social situations, and always seeks to be the life of the party.",
 			"Introverted", "You are not very sociable, and feel awkward and shy when in the company of others.",
 			"Average", "You enjoy the company of others, but you don't seek to be the life of the party.",
-			"Extroverted", "You love being in social situations, and always seeks to be the life of the party."),
+			"Extroverted", "You love being in social situations, and always seek to be the life of the party."),
 
 	/**How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.<br/>
 	 * Confident -> Average -> Neurotic*/
@@ -68,7 +68,7 @@ public enum PersonalityTrait {
 			"Confident", "[npc.Name] is very emotionally stable, and always feels calm and in control.",
 			"Average", "[npc.Name] has [npc.her] emotions under control, for the most part.",
 			"Neurotic", "[npc.Name] has a tendency to interpret situations in the worst possible manner, and often feels anxious, frustrated, and worried.",
-			"Confident", "You are very emotionally stable, and always feels calm and in control.",
+			"Confident", "You are very emotionally stable, and always feel calm and in control.",
 			"Average", "You have your emotions under control, for the most part.",
 			"Neurotic", "You have a tendency to interpret situations in the worst possible manner, and often feel anxious, frustrated, and worried.");
 	

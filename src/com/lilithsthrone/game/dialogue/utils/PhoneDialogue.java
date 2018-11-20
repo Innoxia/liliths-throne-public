@@ -1837,8 +1837,8 @@ public class PhoneDialogue {
 						Subspecies subspecies = racesDiscovered.get(index - 1);
 						Race race = subspecies.getRace();
 						
-						Body femaleBody = CharacterUtils.generateBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
-						Body maleBody = CharacterUtils.generateBody(Gender.M_P_MALE, subspecies, RaceStage.GREATER);
+						Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER);
+						Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspecies, RaceStage.GREATER);
 						
 						title = Util.capitaliseSentence(subspecies.getName(null));
 						raceSB.setLength(0);
@@ -1978,8 +1978,6 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().resetPerksMap();
-						Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPointsAtLevel(Main.game.getPlayer().getLevel()));
-						Main.game.getPlayer().clearTraits();
 					}
 				};
 				
@@ -2044,10 +2042,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "You are already viewing your Arcane spells!", null);
@@ -2142,10 +2140,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2244,10 +2242,10 @@ public class PhoneDialogue {
 				return new Response("Water", "You are already viewing your Water spells!", null);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2346,10 +2344,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "You are already viewing your Air spells!", null);
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
 				
 			} else if(index==4) {
-				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				return new Response("Air", "You are already viewing your Air spells!", null);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
@@ -2448,10 +2446,10 @@ public class PhoneDialogue {
 				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
 				
 			} else if(index==3) {
-				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				return new Response("Fire", "You are already viewing your Fire spells!", null);
 				
 			} else if(index==4) {
-				return new Response("Fire", "You are already viewing your Fire spells!", null);
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
 				
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);

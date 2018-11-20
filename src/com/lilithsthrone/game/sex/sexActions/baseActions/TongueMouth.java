@@ -638,9 +638,9 @@ public class TongueMouth {
 					"Feeling tears welling up in [npc.her] eyes, [npc.name] [npc.verb(let)] out [npc.a_sob+], trying to [npc.verb(push)] back against [npc2.name] in response to [npc2.her] unwanted kisses.",
 					
 					"With [npc2.namePos] [npc2.scent+] overwhelming [npc.her] senses, [npc.name] [npc.verb(let)] out a muffled [npc.sob],"
-							+ " before desperately trying to [npc.verb(push)] [npc2.name] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
+							+ " before desperately trying to [npc.verb(push)] [npc2.herHim] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
 					
-					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.name] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
+					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.she] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
 			
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
@@ -1014,9 +1014,9 @@ public class TongueMouth {
 					"Feeling tears welling up in [npc.her] eyes, [npc.name] [npc.verb(let)] out [npc.a_sob+], trying to [npc.verb(push)] back against [npc2.name] in response to [npc2.her] unwanted kisses.",
 					
 					"With [npc2.namePos] [npc2.scent+] overwhelming [npc.her] senses, [npc.name] [npc.verb(let)] out a muffled [npc.sob],"
-							+ " before desperately trying to [npc.verb(push)] [npc2.name] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
+							+ " before desperately trying to [npc.verb(push)] [npc2.herHim] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
 					
-					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.name] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
+					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.she] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
 			
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
