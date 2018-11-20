@@ -123,14 +123,14 @@ public class HarpyNestNympho {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCum(), SexAreaOrifice.VAGINA, 250);
 							}
 						};
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCum(), SexAreaOrifice.VAGINA, 250);
 							}
 						};
 					}
@@ -271,7 +271,7 @@ public class HarpyNestNympho {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+							null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
 								+ "Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 							+ "</p>"
@@ -557,7 +557,7 @@ public class HarpyNestNympho {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+						null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
 							+ "Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"
@@ -868,7 +868,7 @@ public class HarpyNestNympho {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+						null, HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
 							+ "Eager to show this nest who's in charge, you reach down and grab [harpyNympho.namePos] wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"

@@ -144,6 +144,9 @@ public class Util {
 	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
 		
+		// Fixes issue of SVG icons overflowing:
+		s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
+		
 		for (int i = 0; i <= 14; i++) {
 			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
 			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
@@ -314,6 +317,10 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param lists The lists to merge.
+	 * @return A new ArrayList which contains all the elements from both lists.
+	 */
 	public static <U> ArrayList<U> mergeLists(List<U>... lists) {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
@@ -951,8 +958,49 @@ public class Util {
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
-	
+
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
+	}
+	
+	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		int distance = Integer.MAX_VALUE;
+		String closestString = input;
+		for(String choice : choices) {
+			int newDistance = getLevenshteinDistance(input, choice);
+			if(newDistance < distance) {
+				closestString = choice;
+				distance = newDistance;
+			}
+		}
+		return closestString;
+	}
+	
+	public static int getLevenshteinDistance(String inputOne, String inputTwo) {
+		// Don't care about case:
+		inputOne = inputOne.toLowerCase();
+		inputTwo = inputTwo.toLowerCase();
+		
+		// i == 0
+		int[] costs = new int[inputTwo.length() + 1];
+		
+		for (int j = 0; j < costs.length; j++) {
+			costs[j] = j;
+		}
+		for (int i = 1; i <= inputOne.length(); i++) {
+			// j == 0; nw = lev(i - 1, j)
+			costs[0] = i;
+			int nw = i - 1;
+			for (int j = 1; j <= inputTwo.length(); j++) {
+				int cj = Math.min(
+						1 + Math.min(costs[j], costs[j - 1]),
+						inputOne.charAt(i - 1) == inputTwo.charAt(j - 1)
+							? nw
+							: nw + 1);
+				nw = costs[j];
+				costs[j] = cj;
+			}
+		}
+		return costs[inputTwo.length()];
 	}
 }

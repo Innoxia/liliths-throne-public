@@ -11,8 +11,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -29,6 +31,7 @@ import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -55,7 +58,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Encounter {
@@ -586,18 +589,11 @@ public enum Encounter {
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			
 			if (node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
-				
-				// Prioritise re-encountering the NPC on this tile:
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
-					return Main.game.getActiveNPC().getEncounterDialogue();
-				}
-				
-				
-				List<String> impAdjectives = Util.newArrayListOfValues("cheeky", "excitable", "energetic", "cunning", "rude");
-				
+
+				List<String> impAdjectives = new ArrayList<>();
 				// If non-pacified imp tunnel, imp attack:
-				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified)) {
+				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA
+						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 					
 					// Alpha imps: Encounters are 2 imp alphas + 2 imps
 					List<GameCharacter> impGroup = new ArrayList<>();
@@ -606,33 +602,37 @@ public enum Encounter {
 						// Leader (alpha imp):
 						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
 						imp.setGenericName("alpha-imp leader");
-						imp.setLevel(10);
+						imp.setLevel(8+Util.random.nextInt(5)); // 8-12
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
+						imp.equipMainWeaponFromNowhere(pipe);
+						imp.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield"), pipe.getDamageType()));
 						
 						// Alpha imp:
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
-						imp.setLevel(8);
+						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
+						Main.game.addNPC(imp, false);
+						impGroup.add(imp);
+						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
+
+						// Normal imp:
+						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						String adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-
-						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
-						Main.game.addNPC(imp, false);
-						impGroup.add(imp);
+						
+						for(GameCharacter impGangMember : impGroup) {
+							((NPC) impGangMember).equipClothing(true, true, true, true);
+						}
 						
 					} catch (Exception e) {
 					}
@@ -640,7 +640,8 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonPacified)) {
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_DEMON
+						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 					
 					// Demon-led imps: Encounters are 3 imps with an arcane imp leader
 					List<GameCharacter> impGroup = new ArrayList<>();
@@ -648,42 +649,40 @@ public enum Encounter {
 					try {
 						// Leader (arcane alpha imp):
 						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.getGenderFromUserPreferences(false, false), false);
-						imp.setGenericName("alpha-imp "+(imp.isFeminine()?"witch":"wizard"));
+						imp.setGenericName("alpha-imp arcanist");
 						imp.setAttribute(Attribute.MAJOR_ARCANE, 50);
 						imp.addSpell(Spell.ARCANE_AROUSAL);
 						imp.addSpell(Spell.FIREBALL);
 						imp.addSpell(Spell.ICE_SHARD);
 						imp.addSpell(Spell.TELEKENETIC_SHOWER);
-						imp.setLevel(15);
+						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						String adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(6+Util.random.nextInt(4)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						
+						for(GameCharacter impGangMember : impGroup) {
+							((NPC) impGangMember).equipClothing(true, true, true, true);
+						}
 						
 					} catch (Exception e) {
 					}
@@ -691,45 +690,45 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified)) {
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES
+						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 					
 					// Imp seducers: Encounters are 4 female imps
 					List<GameCharacter> impGroup = new ArrayList<>();
 
 					try {
-						// Leader (Normal imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						imp.setGenericName("imp leader");
-						imp.setLevel(8);
+						// Leader (Alpha imp):
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE, false);
+						imp.setGenericName("alpha-imp leader");
+						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						imp.setBreastSize(CupSize.M);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						String adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(7);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(6);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						
+						for(GameCharacter impGangMember : impGroup) {
+							((NPC) impGangMember).equipClothing(true, true, true, true);
+						}
 						
 					} catch (Exception e) {
 					}
@@ -737,45 +736,50 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
-				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified)) {
+				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_TUNNELS_MALES
+						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 					
 					// Imp brawlers: Encounters are 4 male imps
 					List<GameCharacter> impGroup = new ArrayList<>();
 
 					try {
-						// Leader (Normal imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						imp.setGenericName("imp leader");
-						imp.setLevel(8);
+						// Leader (Alpha imp):
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+						imp.setGenericName("alpha-imp leader");
+						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
+						imp.equipMainWeaponFromNowhere(pipe);
+						imp.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield"), pipe.getDamageType()));
 						
-						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						String adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(7);
+						// Alpha imp:
+						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(6);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						adjective = Util.randomItemFrom(impAdjectives);
-						imp.setGenericName(adjective+" imp");
-						impAdjectives.remove(adjective);
-						imp.setLevel(5);
+						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
+						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
+						
+						for(GameCharacter impGangMember : impGroup) {
+							((NPC) impGangMember).equipClothing(true, true, true, true);
+						}
 						
 					} catch (Exception e) {
 					}
@@ -783,6 +787,12 @@ public enum Encounter {
 					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
+				}
+
+				// Prioritise re-encountering the NPC on this tile:
+				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {

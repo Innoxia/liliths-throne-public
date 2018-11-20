@@ -59,8 +59,10 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.sexActions.dominion.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -99,8 +101,11 @@ public class Lilaya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(24);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(32);
+			this.equipClothing(true, true, true, true);
+			this.setStartingBody(true);
+			this.setLegType(LegType.HUMAN);
 		}
 	}
 	
@@ -132,16 +137,15 @@ public class Lilaya extends NPC {
 		// Body:
 
 		// Core:
-		this.setAgeAppearanceDifferenceToAppearAsAge(24);
-		this.setLegType(LegType.DEMON_COMMON);
+		this.setAgeAppearanceDifferenceToAppearAsAge(32);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.ZERO_TINY.getValue());
+		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
 
 		this.setHeight(180);
 		this.setFemininity(85);
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
@@ -158,6 +162,7 @@ public class Lilaya extends NPC {
 		this.setHairStyle(HairStyle.LOOSE);
 		
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FIVE_UNKEMPT);
@@ -217,17 +222,23 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 		
 		this.unequipAllClothingIntoVoid(true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), Colour.CLOTHING_WHITE, Colour.CLOTHING_GREY, Colour.CLOTHING_GREY, false), true, this);
+		
+		AbstractClothing labCoat = AbstractClothingType.generateClothing(ClothingType.SCIENTIST_TORSO_OVER_LAB_COAT, Colour.CLOTHING_WHITE, false);
+		this.equipClothingFromNowhere(labCoat, true, this);
+		this.isAbleToBeDisplaced(labCoat, DisplacementType.UNBUTTONS, true, true, this);
+		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
+		
 
 	}
 
@@ -298,8 +309,6 @@ public class Lilaya extends NPC {
 	@Override
 	public void endSex() {
 		setPenisType(PenisType.NONE);
-		
-		this.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true); //TODO is this needed?
 	}
 	
 	@Override
@@ -379,6 +388,9 @@ public class Lilaya extends NPC {
 							}
 							Main.game.getLilaya().washAllOrifices();
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							
+							Main.game.getLilaya().equipClothing(true, true, true, true);
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 					
@@ -388,6 +400,9 @@ public class Lilaya extends NPC {
 						public void effects() {
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 							Main.game.getLilaya().washAllOrifices();
+							
+							Main.game.getLilaya().equipClothing(true, true, true, true);
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 				}
@@ -460,6 +475,9 @@ public class Lilaya extends NPC {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
 							Main.game.getLilaya().washAllOrifices();
+
+							Main.game.getLilaya().equipClothing(true, true, true, true);
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 					
@@ -469,6 +487,9 @@ public class Lilaya extends NPC {
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 							Main.game.getLilaya().washAllOrifices();
+							
+							Main.game.getLilaya().equipClothing(true, true, true, true);
+							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 				}

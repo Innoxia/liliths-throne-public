@@ -554,13 +554,13 @@ public class FingerPenis {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+], [npc.name] gives [npc2.her] [npc2.cockHead] one last rough squeeze as [npc.she] stops giving [npc2.herHim] a handjob.",
+							"Taking [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(give)] [npc2.her] [npc2.cockHead] one last rough squeeze as [npc.she] stops giving [npc2.herHim] a handjob.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before taking [npc.her] [npc.fingers] away from [npc2.her] [npc2.cock+]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+], [npc.name] gives [npc2.her] [npc2.cockHead] one last stroke as [npc.she] stops giving [npc2.herHim] a handjob.",
+							"Taking [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(give)] [npc2.her] [npc2.cockHead] one last stroke as [npc.she] stops giving [npc2.herHim] a handjob.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before taking [npc.her] [npc.fingers] away from [npc2.her] [npc2.cock+]."));
 					break;
@@ -909,7 +909,7 @@ public class FingerPenis {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
-							+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.hips] and [npc.cock_] away from [npc2.namePos] [npc2.hand].",
+							+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.hips] and [npc.cock] away from [npc2.namePos] [npc2.hand].",
 
 					"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.cock+] away from [npc2.namePos] [npc2.hand].",
 

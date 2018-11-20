@@ -15,13 +15,13 @@ public enum SlavePermissionSetting {
 	SEX_MASTURBATE("Masturbation", "Allow this slave to masturbate.", false),
 	SEX_INITIATE_SLAVES("Initiate Sex", "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled.", false),
 	SEX_INITIATE_PLAYER("Use You", "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time.", false),
-	SEX_RECEIVE_SLAVES("Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' enabled.", false),
+	SEX_RECEIVE_SLAVES("Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled.", false),
 	SEX_IMPREGNATED("Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled.", false),
 	SEX_IMPREGNATE("Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events.", false),
 	
 	PREGNANCY_PROMISCUITY_PILLS("Promiscuity Pills", "Keep this slave on Promiscuity Pills, ensuring that they won't get pregnant.", false),
 	PREGNANCY_NO_PILLS("No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant.", true),
-	PREGNANCY_VIXENS_VIRILITY("Vixen's Virility", "Keep this slave on Vixen's Virility, greatly increasing the chances of them getting pregnant.", false),
+	PREGNANCY_VIXENS_VIRILITY("Vixen's Virility", "Keep this slave on Vixen's Virility, greatly increasing both their fertility and virility.", false),
 
 	FOOD_DIET_EXTREME("One meal", "Severely limit the amount of food available to this slave, which will result in a large daily reduction to their body size.", false),
 	FOOD_DIET("Two meals", "Restrict the amount of food available to this slave, which will result in a daily reduction to their body size.", false),

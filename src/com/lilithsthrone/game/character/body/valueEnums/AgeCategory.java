@@ -99,7 +99,12 @@ public enum AgeCategory {
 	}
 	
 	public static int getAgeFromPreferences(Gender gender) {
-		AgeCategory category = Util.getRandomObjectFromWeightedMap(Main.getProperties().agePreferencesMap.get(gender.getType()));
+		AgeCategory category;
+		try {
+			category = Util.getRandomObjectFromWeightedMap(Main.getProperties().agePreferencesMap.get(gender.getType()));
+		} catch(Exception ex) {
+			category = AgeCategory.TWENTIES_MIDDLE;
+		}
 		int lowerBound = category.getMinimumValue();
 		int upperBound = category.getMaximumValue();
 		return lowerBound + Util.random.nextInt(upperBound-lowerBound);

@@ -86,7 +86,7 @@ public class NPCOffspring extends NPC {
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.equipClothing(this, true, false);
+		equipClothing(true, true, true, true);
 		
 		CharacterUtils.applyMakeup(this, true);
 
@@ -125,8 +125,8 @@ public class NPCOffspring extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
-		// Not needed
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override
@@ -135,13 +135,15 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public String getPlayerPetName() {
-		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
+	public String getPetName(GameCharacter character) {
+		String playerPetName = getPetNameMap().get(Main.game.getPlayer().getId());
+		if(playerPetName==null || playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
 			if(Main.game.getPlayer().isFeminine()) {
 				return "Mom";
 			} else {
 				return "Dad";
 			}
+			
 		} else if (playerPetName.equalsIgnoreCase("Mommy") || playerPetName.equalsIgnoreCase("Daddy")) {
 			if(Main.game.getPlayer().isFeminine()) {
 				return "Mommy";

@@ -182,7 +182,7 @@ public class CharactersPresentDialogue {
 											}
 										},
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 										+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 										+ " [npc.speech(No! Stop!)]"
@@ -224,7 +224,7 @@ public class CharactersPresentDialogue {
 											}
 										},
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 										+ " [npc.She] desperately leans into you, [npc.moaning],"
 										+ " [npc.speech(~Mmm!~ Yes!)]"
@@ -265,7 +265,7 @@ public class CharactersPresentDialogue {
 											}
 										},
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 										+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 										+ " [npc.speech(Looking for some fun, hmm?)]"
@@ -327,12 +327,12 @@ public class CharactersPresentDialogue {
 					
 				} else if(index==5) {
 					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 						
 					} else {
 						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
-							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
+							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispel":"Go Home",
+									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
 								@Override
 								public void effects() {
 									if(characterViewed.isElementalSummoned()) {
@@ -345,8 +345,8 @@ public class CharactersPresentDialogue {
 								}
 							};
 						} else {
-							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
-									characterViewed instanceof Elemental?"Dispell [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+							return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home",
+									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
 									MENU){
 								@Override
 								public void effects() {
@@ -372,14 +372,14 @@ public class CharactersPresentDialogue {
 					
 				} else if(index==10) {
 					if(!characterViewed.isElementalSummoned()) {
-						return new Response("Dispell Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
+						return new Response("Dispel Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
 						
 					} else {
 						if(!Main.game.isSavedDialogueNeutral()) {
-							return new Response("Dispell Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+							return new Response("Dispel Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
 							
 						} else {
-							return new Response("Dispell Elemental", "Tell [npc.name] to dispell [npc.her] elemental.", MENU){
+							return new Response("Dispel Elemental", "Tell [npc.name] to dispel [npc.her] elemental.", MENU){
 								@Override
 								public void effects() {
 									characterViewed.removeCompanion(characterViewed.getElemental());
@@ -500,10 +500,13 @@ public class CharactersPresentDialogue {
 					
 				}
 			}
-			UtilText.nodeContentSB.append("</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
-					+ "</div>");
+			UtilText.nodeContentSB.append("</div>");
+			
+			if(!(characterViewed instanceof Elemental)) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
+							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
+						+ "</div>");
+			}
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed));
 			
@@ -520,8 +523,6 @@ public class CharactersPresentDialogue {
 					@Override
 					public void effects() {
 						characterViewed.resetPerksMap();
-						characterViewed.setPerkPoints(characterViewed.getPerkPointsAtLevel(characterViewed.getLevel()));
-						characterViewed.clearTraits();
 					}
 				};
 			}

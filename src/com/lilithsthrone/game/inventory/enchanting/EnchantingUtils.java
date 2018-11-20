@@ -215,7 +215,22 @@ public class EnchantingUtils {
 		
 		int cost = 0;
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
+			int costIncrement = entry.getKey().getCost() * Math.abs(entry.getValue());
+			
+			if(entry.getKey().getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+				switch(entry.getKey().getPotency()) {
+					case MAJOR_BOOST:
+						costIncrement*=4;
+						break;
+					case BOOST:
+						costIncrement*=2;
+						break;
+					default:
+						break;
+				}
+			}
+			
+			cost += costIncrement;
 		}
 		
 		return applyDiscountsForPerksAndFetishes(ingredient, cost);
@@ -260,12 +275,14 @@ public class EnchantingUtils {
 				break;
 			}
 		}
+
+		s = Util.colourReplacement(((AbstractItem)ingredient).getItemType().getId(), colour, null, null, s);
 		
-		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-		s = s.replaceAll("#ff5555", colour.getShades()[1]);
-		s = s.replaceAll("#ff8080", colour.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+//		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+//		s = s.replaceAll("#ff5555", colour.getShades()[1]);
+//		s = s.replaceAll("#ff8080", colour.getShades()[2]);
+//		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+//		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 		SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+s+"</div>");
 		
 		for(ItemEffect ie : effects) {

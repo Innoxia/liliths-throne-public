@@ -108,9 +108,9 @@ public class Properties implements Serializable {
 	private Map<Subspecies, SubspeciesPreference> subspeciesMasculinePreferencesMap;
 	
 	// Transformation Settings
-	public FurryPreference forcedTFPreference;
-	public ForcedTFTendency forcedTFTendency;
-	public ForcedFetishTendency forcedFetishTendency;
+	private FurryPreference forcedTFPreference;
+	private ForcedTFTendency forcedTFTendency;
+	private ForcedFetishTendency forcedFetishTendency;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -151,13 +151,7 @@ public class Properties implements Serializable {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
 		}
 		
-		agePreferencesMap = new HashMap<>();
-		for(PronounType pronoun : PronounType.values()) {
-			agePreferencesMap.put(pronoun, new HashMap<>());
-			for(AgeCategory ageCat : AgeCategory.values()) {
-				agePreferencesMap.get(pronoun).put(ageCat, ageCat.getAgePreferenceDefault().getValue());
-			}
-		}
+		resetAgePreferences();
 		
 		forcedTFPreference = FurryPreference.NORMAL;
 		forcedTFTendency = ForcedTFTendency.NEUTRAL;
@@ -531,6 +525,9 @@ public class Properties implements Serializable {
 					}
 					if(Main.isVersionOlderThan(versionNumber, "0.2.7.6")) {
 						values.add(PropertyValue.ageContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.2.12")) {
+						values.add(PropertyValue.autoSexClothingManagement);
 					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
@@ -954,5 +951,39 @@ public class Properties implements Serializable {
 
 	public Map<Subspecies, SubspeciesPreference> getSubspeciesMasculinePreferencesMap() {
 		return subspeciesMasculinePreferencesMap;
+	}
+	
+	public void resetAgePreferences() {
+		agePreferencesMap = new HashMap<>();
+		for(PronounType pronoun : PronounType.values()) {
+			agePreferencesMap.put(pronoun, new HashMap<>());
+			for(AgeCategory ageCat : AgeCategory.values()) {
+				agePreferencesMap.get(pronoun).put(ageCat, ageCat.getAgePreferenceDefault().getValue());
+			}
+		}
+	}
+
+	public FurryPreference getForcedTFPreference() {
+		return forcedTFPreference;
+	}
+
+	public void setForcedTFPreference(FurryPreference forcedTFPreference) {
+		this.forcedTFPreference = forcedTFPreference;
+	}
+
+	public ForcedTFTendency getForcedTFTendency() {
+		return forcedTFTendency;
+	}
+
+	public void setForcedTFTendency(ForcedTFTendency forcedTFTendency) {
+		this.forcedTFTendency = forcedTFTendency;
+	}
+
+	public ForcedFetishTendency getForcedFetishTendency() {
+		return forcedFetishTendency;
+	}
+
+	public void setForcedFetishTendency(ForcedFetishTendency forcedFetishTendency) {
+		this.forcedFetishTendency = forcedFetishTendency;
 	}
 }

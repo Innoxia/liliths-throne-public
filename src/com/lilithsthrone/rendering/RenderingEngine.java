@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -51,6 +52,10 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -62,7 +67,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.9
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -516,11 +521,15 @@ public enum RenderingEngine {
 		int totalUniques = 0;
 		String pageIdMod = "";
 		int currentPage = 0;
+		boolean renderQuestTab = false;
+		boolean hasQuestItems = false;
 		if(charactersInventoryToRender == null) {
 			totalUniques = Main.game.getPlayerCell().getInventory().getUniqueItemCount() + Main.game.getPlayerCell().getInventory().getUniqueClothingCount() + Main.game.getPlayerCell().getInventory().getUniqueWeaponCount();
 			pageIdMod = "INV_PAGE_RIGHT_";
 			currentPage = pageRight;
 		} else {
+			renderQuestTab = charactersInventoryToRender.isPlayer();
+			hasQuestItems = Main.game.getPlayer().isCarryingQuestItems();
 			totalUniques = charactersInventoryToRender.getUniqueItemCount() + charactersInventoryToRender.getUniqueClothingCount() + charactersInventoryToRender.getUniqueWeaponCount();
 			pageIdMod = (charactersInventoryToRender.isPlayer()?"INV_PAGE_LEFT_":"INV_PAGE_RIGHT_");
 			currentPage = (charactersInventoryToRender.isPlayer()?pageLeft:pageRight);
@@ -560,7 +569,15 @@ public enum RenderingEngine {
 						+ (totalUniques>4*ITEMS_PER_PAGE
 								?"<div class='overlay' "+(currentPage==4?"":"id='"+pageIdMod+"4'")+"></div>"
 								:"<div class='overlay disabled'></div>")
-				+ "</div>"
+					+ "</div>"
+					+ (renderQuestTab
+							?"<div class='square-button max"+(currentPage==5?" selected":"")+"'>"
+								+ "<div style='width:100%;height:100%;position:absolute;left:0; bottom:0;'>"+(hasQuestItems?SVGImages.SVG_IMAGE_PROVIDER.getQuestInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getQuestInventoryIconDisabled())+"</div>"
+								+ (hasQuestItems
+									?"<div class='overlay' id='"+pageIdMod+"5'></div>"
+									:"<div class='overlay disabled' id='"+pageIdMod+"5'></div>")
+							+ "</div>"
+							:"")
 				+ "</div>");
 		
 		inventorySB.append("<div class='container-full-width' style='width:85%; margin:0;'>");
@@ -678,30 +695,66 @@ public enum RenderingEngine {
 			}
 			
 		} else {
-			for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+			if(page==5) { // Quest:
+				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount < ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+						}
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
-			}
-			
-			for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+				
+				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount < ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+						}
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
-			}
-			
-			for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+				
+				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount < ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+						}
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
+				
+			} else {
+				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getMapOfDuplicateWeapons().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+						}
+						uniqueItemCount++;
+					}
+				}
+				
+				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getMapOfDuplicateClothing().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+						}
+						uniqueItemCount++;
+					}
+				}
+				
+				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getMapOfDuplicateItems().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+						}
+						uniqueItemCount++;
+					}
+				}
 			}
 		}
 		
 		// Fill space:
-		for (int i = uniqueItemCount - page*ITEMS_PER_PAGE ; i < ITEMS_PER_PAGE; i++) {
+		for (int i = uniqueItemCount - (page==5?0:page)*ITEMS_PER_PAGE ; i < ITEMS_PER_PAGE; i++) {
 			pageSB.append("<div class='inventory-item-slot'></div>");
 		}
 		
@@ -1016,13 +1069,13 @@ public enum RenderingEngine {
 	public void renderAttributesPanelRight() {
 		uiAttributeSB.setLength(0);
 		
-			uiAttributeSB.append(
-					"<body onLoad='scrollEventLogToBottom()'>"
-						+ " <script>"
-							+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
-						+ "</script>");
+		uiAttributeSB.append(
+				"<body onLoad='scrollEventLogToBottom()'>"
+					+ " <script>"
+						+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
+					+ "</script>");
 			
-			if(isRenderingCharactersRightPanel()) {
+		if(isRenderingCharactersRightPanel()) {
 			
 			if(Main.game.isInSex()) {
 				// Name box:
@@ -1319,14 +1372,18 @@ public enum RenderingEngine {
 		mapSB.setLength(0);
 		
 		if(withFastTravelAndIcons) {
-			boolean isAbleToTeleport = Main.game.getPlayer().isAbleToTeleport()
-					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer());
+			boolean isAbleToTeleport = (Main.game.getPlayer().isAbleToTeleport() || Main.game.isDebugMode())
+						&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
+					;
 			
-			if(Main.game.getPlayer().hasSpell(Spell.TELEPORT)) {
+			if(Main.game.getPlayer().hasSpell(Spell.TELEPORT) || Main.game.isDebugMode()) {
 				mapSB.append("<div class='container-full-width'>"
 						+ (isAbleToTeleport
-								?"[style.boldArcane(Teleport:)] You are currently able to teleport! This will cost <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"."
+								?"[style.boldArcane(Teleport:)] You are currently able to teleport to locations you've previously visited!"
+										+ (Main.game.isDebugMode()
+												?" [style.italicsOrange(As debug mode is on, this costs nothing, and you can teleport you and your party anywhere.)]"
+												:" This will cost <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+".")
 								:"[style.boldBad(Teleport:)] Teleport is unavailable! You need to:"
 									+(!Main.game.getPlayer().getCompanions().isEmpty() && !Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPORT_2)
 										?"<br/><b>-</b> Either learn the upgrade '"+SpellUpgrade.TELEPORT_2.getName()+"', or dismiss your party members."
@@ -1374,8 +1431,15 @@ public enum RenderingEngine {
 					
 					mapSB.append(
 							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"'"
-									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" "+(Main.game.getPlayer().isAbleToTeleport() && c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE?"cursor:pointer;":"")+"'" 
-									+ " id='MAP_NODE_" + i + "_" + j + "'>"
+									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" "
+										+(c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE
+												&& ((Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
+														&& c.isTravelledTo()
+														&& Main.game.getPlayer().isAbleToTeleport())
+													|| Main.game.isDebugMode())
+											?"cursor:pointer;"
+											:"")
+									+"' id='MAP_NODE_" + i + "_" + j + "'>"
 								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
 									?getPlayerIcon(dangerousTile)
 									:"")
@@ -1390,6 +1454,7 @@ public enum RenderingEngine {
 					if(withFastTravelAndIcons) {
 						appendNPCIcon(Main.game.getWorlds().get(world), j, i);
 					}
+					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
 					mapSB.append("</div>");
 				}
@@ -1473,6 +1538,7 @@ public enum RenderingEngine {
 								
 								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
+								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
 								mapSB.append("</div>");
@@ -1501,6 +1567,7 @@ public enum RenderingEngine {
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
+								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
 								mapSB.append("</div>");
@@ -1529,6 +1596,7 @@ public enum RenderingEngine {
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
+								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
 								mapSB.append("</div>");
@@ -1557,6 +1625,7 @@ public enum RenderingEngine {
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
+								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
 								mapSB.append("</div>");
@@ -1600,6 +1669,7 @@ public enum RenderingEngine {
 								
 								appendNPCIcon(Main.game.getActiveWorld(), x, y);
 								appendItemsInAreaIcon(x, y);
+								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 
 								// Close the tile's div:
 								mapSB.append("</div>");
@@ -1644,8 +1714,9 @@ public enum RenderingEngine {
 			mapIcons.add(gc.getMapIcon());
 		}
 		
-		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y))) {
-			if(!charactersPresent.contains(gc) && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
+		List<NPC> charactersHome = Main.game.getCharactersTreatingCellAsHome(world.getCell(x, y));
+		for(NPC gc : charactersHome) {
+			if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {// && ((gc.isSlave() && gc.getOwner().isPlayer()) || Main.game.getPlayer().getFriendlyOccupants().contains(gc.getId()))) {
 				mapIcons.add(gc.getHomeMapIcon());
 			}
 		}
@@ -1656,8 +1727,17 @@ public enum RenderingEngine {
 	}
 	
 	private void appendItemsInAreaIcon(int x, int y) {
-		if(Main.game.getActiveWorld().getCell(x, y).getInventory().getInventorySlotsTaken() != 0) {
+		if(Main.game.getActiveWorld().getCell(x, y).getInventory().getInventorySlotsTaken()>0
+				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestWeaponCount()>0
+				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestClothingCount()>0
+				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestItemCount()>0) {
 			mapSB.append("<div class='item-icon'>"+SVGImages.SVG_IMAGE_PROVIDER.getItemsOnFloorIcon()+"</div>");
+		}
+	}
+	
+	private void appendNotVisitedLayer(World world, int x, int y) {
+		if(!world.getCell(x, y).isTravelledTo()) {
+			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:#000;opacity:0.5;border-radius:5px;'></div>");
 		}
 	}
 
@@ -1730,6 +1810,7 @@ public enum RenderingEngine {
 				+ (rarity == Rarity.RARE ? " rare" : "")
 				+ (rarity == Rarity.EPIC ? " epic" : "")
 				+ (rarity == Rarity.LEGENDARY ? " legendary" : "")
+				+ (rarity == Rarity.QUEST ? " quest" : "")
 				+ (rarity == Rarity.JINXED ? " jinxed" : "");
 	}
 	
@@ -2037,7 +2118,11 @@ public enum RenderingEngine {
 		StringBuilder panelSB = new StringBuilder();
 		
 		panelSB.append(
-				"<div class='attribute-container' style='"+ (Sex.getActivePartner()!=null && Sex.getActivePartner().equals(character)?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")+ "'>"
+				"<div class='attribute-container' style='"
+						+ (Sex.getActivePartner()!=null && Sex.getActivePartner().equals(character)
+							?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";"
+							:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
+						+ "'>"
 					+ "<div class='full-width-container' style='margin-bottom:4px;'>"
 						+ "<div class='icon' style='width:12%'>"
 							+ "<div class='icon-content'>"
@@ -2052,7 +2137,9 @@ public enum RenderingEngine {
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
-									+ " - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>"
+									+ (Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+										?""
+										:" - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>")
 							+"</div>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
 								+ (character.getLevel() != GameCharacter.LEVEL_CAP
@@ -2062,100 +2149,150 @@ public enum RenderingEngine {
 							+"</div>"
 							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
 						+"</div>"
-						+"<div class='full-width-container' style='text-align:center;'>"
-							+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName())
-						+ "</div>"
+						+(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING
+							?""
+							:"<div class='full-width-container' style='text-align:center;'>"
+								+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))
+							+ "</div>")
 					+"</div>");
 		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
-		
-		panelSB.append(
-				getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_CORRUPTION.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
-						100,
-						idPrefix + Attribute.MAJOR_CORRUPTION.getName())
-				
-				+getAttributeBarHalf(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_LUST,
-						character.getLust(),
-						100,
-						idPrefix + Attribute.LUST.getName())
-				
-				+getAttributeBar(ArousalLevel.getArousalLevelFromValue(character.getAttributeValue(Attribute.AROUSAL)).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_AROUSAL,
-						character.getArousal(),
-						100,
-						idPrefix + Attribute.AROUSAL.getName()));
-
-		
-		// Status effects:
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>"
-				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
-
-//		// Traits:
-//		for (Perk trait : character.getTraits()) {
-//			panelSB.append(
-//					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
-//							+ "<div class='icon-content'>"
-//								+ trait.getSVGString()
-//								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
-//							+ "</div>"
-//					+ "</div>");
-//		}
-		
-		// Infinite duration:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel()) {
-				panelSB.append(
-						"<div class='icon effect'>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
-						+ "</div>");
-			}
-		}
-		// Timed:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
-				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
-
-				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
-				
-				if(timerHeight>100) {
-					timerHeight=100;
-					timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
-				} else if(timerHeight<15) {
-					timerColour = Colour.STATUS_EFFECT_TIME_LOW;
-				} else if (timerHeight<50) {
-					timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+		if(Sex.getSexPositionSlot(character)==SexPositionSlot.MISC_WATCHING) {
+			panelSB.append("<p style='padding:0;margin:auto 0;text-align:center;color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))+"</p>");
+			panelSB.append("</div>");
+			
+		} else {
+			panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
+			
+			panelSB.append(
+					getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
+							Attribute.MAJOR_CORRUPTION.getColour(),
+							character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
+							100,
+							idPrefix + Attribute.MAJOR_CORRUPTION.getName())
+					
+					+getAttributeBarHalf(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
+							Colour.ATTRIBUTE_LUST,
+							character.getLust(),
+							100,
+							idPrefix + Attribute.LUST.getName())
+					
+					+getAttributeBar(ArousalLevel.getArousalLevelFromValue(character.getAttributeValue(Attribute.AROUSAL)).getRelatedStatusEffect().getSVGString(character),
+							Colour.ATTRIBUTE_AROUSAL,
+							character.getArousal(),
+							100,
+							idPrefix + Attribute.AROUSAL.getName()));
+	
+			
+			// Status effects:
+			panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>"
+					+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
+	
+	//		// Traits:
+	//		for (Perk trait : character.getTraits()) {
+	//			panelSB.append(
+	//					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
+	//							+ "<div class='icon-content'>"
+	//								+ trait.getSVGString()
+	//								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
+	//							+ "</div>"
+	//					+ "</div>");
+	//		}
+			
+			// Infinite duration:
+			for (StatusEffect se : character.getStatusEffects()) {
+				boolean pointer = false;
+				SexAreaInterface si = null;
+				switch(se) {
+					case PENIS_STATUS:
+						si = SexAreaPenetration.PENIS;
+						break;
+					case ANUS_STATUS:
+						si = SexAreaOrifice.ANUS;
+						break;
+					case ASS_STATUS:
+						si = SexAreaOrifice.ASS;
+						break;
+					case MOUTH_STATUS:
+						si = SexAreaOrifice.MOUTH;
+						break;
+					case BREAST_STATUS:
+						si = SexAreaOrifice.BREAST;
+						break;
+					case NIPPLE_STATUS:
+						si = SexAreaOrifice.NIPPLE;
+						break;
+					case THIGH_STATUS:
+						si = SexAreaOrifice.THIGHS;
+						break;
+					case URETHRA_PENIS_STATUS:
+						si = SexAreaOrifice.URETHRA_PENIS;
+						break;
+					case URETHRA_VAGINA_STATUS:
+						si = SexAreaOrifice.URETHRA_VAGINA;
+						break;
+					case VAGINA_STATUS:
+						si = SexAreaOrifice.VAGINA;
+						break;
+					default:
+						break;
+				}
+				if(Main.game.isInSex() && si!=null) {
+					if(!Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()) {
+						pointer = true;
+					}
 				}
 				
-				panelSB.append(
+				if (se.isSexEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel()) {
+					panelSB.append(
+							"<div class='icon effect' "+(pointer?"style='cursor:pointer;'":"")+">"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+				}
+			}
+			// Timed:
+			for (StatusEffect se : character.getStatusEffects()) {
+				if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+	
+					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
+					
+					if(timerHeight>100) {
+						timerHeight=100;
+						timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
+					} else if(timerHeight<15) {
+						timerColour = Colour.STATUS_EFFECT_TIME_LOW;
+					} else if (timerHeight<50) {
+						timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+					}
+					
+					panelSB.append(
+							"<div class='icon effect'>"
+									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+				}
+			}
+			
+			if(!character.isPlayer()) {
+				for (Fetish f : character.getFetishes()) {
+					panelSB.append(
 						"<div class='icon effect'>"
-								+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
+							+ "<div class='icon-content'>"
+									+ f.getSVGString()
+									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+							+ "</div>"
 						+ "</div>");
+				}
 			}
+			
+			panelSB.append("</div></div>");
 		}
-		
-		if(!character.isPlayer()) {
-			for (Fetish f : character.getFetishes()) {
-				panelSB.append(
-					"<div class='icon effect'>"
-						+ "<div class='icon-content'>"
-								+ f.getSVGString()
-								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-						+ "</div>"
-					+ "</div>");
-			}
-		}
-		
-		panelSB.append("</div></div>");
 		
 		return panelSB.toString();
 	}

@@ -174,6 +174,7 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.STOCKS_LOCKED_IN_STOCKS
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexPositionSlot.STOCKS_FUCKING;
 		}
 		
@@ -222,7 +223,7 @@ public class StocksSex {
 								+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] exposed ass cheeks.",
 							
 							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.pussy+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to roughly slap [npc2.her] [npc2.ass+],"
-									+ " growling in glee as [npc2.she] squirms and squeals under [npc.her] stinging blows.");
+									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 				
 			} else if (Sex.getAllContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				switch(Sex.getCharacterTargetedForSexAction(this).getTailType()) {
@@ -255,7 +256,7 @@ public class StocksSex {
 								+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] exposed ass cheeks.",
 							
 							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.asshole+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to roughly slap [npc2.her] [npc2.ass+],"
-									+ " growling in glee as [npc2.she] squirms and squeals under [npc.her] stinging blows.");
+									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 			
 			} else {
 				switch(Sex.getCharacterTargetedForSexAction(this).getTailType()) {

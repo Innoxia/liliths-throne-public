@@ -135,7 +135,11 @@ public class OccupancyUtil implements XMLSaving {
 				if(Math.random()<0.1) {
 					List<Occupation> occupations = new ArrayList<>();
 					for(Occupation occ : Occupation.values()) {
-						if(!occ.isAvailableToPlayer() && !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES) && occ.isAvailable(occupant) && occ!=Occupation.NPC_UNEMPLOYED) {
+						if(!occ.isAvailableToPlayer()
+								&& !occ.getOccupationTags().contains(OccupationTag.HAS_PREREQUISITES)
+								&& occ.isAvailable(occupant)
+								&& occ!=Occupation.NPC_UNEMPLOYED
+								&& !occ.isLowlife()) {
 							occupations.add(occ);
 						}
 					}
@@ -444,7 +448,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 								
 							} else {
-								room.incrementMilkStorage(slave.getMilk(), milked);
+								room.incrementFluidStored(slave, slave.getMilk(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
@@ -471,7 +475,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementCumStorage(slave.getCum(), milked);
+								room.incrementFluidStored(slave, slave.getCum(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
@@ -498,7 +502,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
+								room.incrementFluidStored(slave, slave.getGirlcum(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
@@ -1003,13 +1007,13 @@ public class OccupancyUtil implements XMLSaving {
 						
 						// Apply sex effects:
 						if(canImpregnate) {
-							npc.ingestFluid(slave, slave.getCumType(), SexAreaOrifice.VAGINA, slave.getPenisRawOrgasmCumQuantity(), slave.getCum().getFluidModifiers());
+							npc.ingestFluid(slave, slave.getCum(), SexAreaOrifice.VAGINA, slave.getPenisRawOrgasmCumQuantity());
 							slave.applyOrgasmCumEffect();
 							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
-							slave.ingestFluid(npc, npc.getCumType(), SexAreaOrifice.VAGINA, npc.getPenisRawOrgasmCumQuantity(), npc.getCum().getFluidModifiers());
+							slave.ingestFluid(npc, npc.getCum(), SexAreaOrifice.VAGINA, npc.getPenisRawOrgasmCumQuantity());
 							npc.applyOrgasmCumEffect();
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
@@ -1176,7 +1180,7 @@ public class OccupancyUtil implements XMLSaving {
 		for(int i=0; i< grid.length; i++) {
 			for(int j=0; j< grid[0].length; j++) {
 				Cell c = grid[i][j];
-				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersPresent(c).isEmpty()) {
+				if(c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM) && Main.game.getCharactersTreatingCellAsHome(c).isEmpty()) {
 					return c;
 				}
 			}

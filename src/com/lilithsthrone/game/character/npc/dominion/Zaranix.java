@@ -185,7 +185,7 @@ public class Zaranix extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 
@@ -340,7 +340,7 @@ public class Zaranix extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_VICTORY, "<p>"
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
 							+ " you say, stepping towards the exhausted [zaranix.race],"
 							+ " [pc.speech(I think you owe me an apology...)]"
@@ -363,7 +363,7 @@ public class Zaranix extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_VICTORY, "<p>"
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and, feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house,"
 								+ " you decide to try and make it up to [zaranix.herHim]."
 							+ " Looking down at [zaranix.her] crotch and biting your [pc.lip], you let out a pleading little whine,"
@@ -527,7 +527,7 @@ public class Zaranix extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
-						AFTER_SEX_DEFEAT, "<p>"
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
 							+ " Collapsing down in a nearby chair, he pulls you forwards on your knees as he spreads his legs, bringing your face right up against his crotch and booming,"
 							+ " [zaranix.speech(You're going to love my cock, slut!)]"
@@ -579,7 +579,7 @@ public class Zaranix extends NPC {
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						null,
-						AFTER_SEX_DEFEAT, "<p>"
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
 							+ " Spreading his legs, he grins down at you,"
 							+ " [zaranix.speech(I bet you want to put those new lips of yours to use, don't you, my little cock-sucker?)]"

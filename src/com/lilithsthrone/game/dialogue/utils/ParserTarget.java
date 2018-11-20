@@ -50,7 +50,7 @@ public enum ParserTarget {
 			+ "If in <b>sex</b>, it returns your partner.<br/>"
 			+ "<b>Otherwise</b>, it returns the most important NPC in the scene.") {
 				@Override
-				public GameCharacter getCharacter(String tag) {
+				public GameCharacter getCharacter(String tag) throws NullPointerException {
 					if(!UtilText.getSpecialNPCList().isEmpty()) {
 						if(tag.equalsIgnoreCase("npc")) {
 							return UtilText.getSpecialNPCList().get(0);
@@ -656,6 +656,50 @@ public enum ParserTarget {
 			return Main.game.getKalahari();
 		}
 	},
+	
+	IMP_FORTRESS_ALPHA_LEADER(Util.newArrayListOfValues("impAlphaLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressAlphaLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressAlphaLeader();
+		}
+	},
+	
+	IMP_FORTRESS_FEMALES_LEADER(Util.newArrayListOfValues("impFemalesLeader", "impFemaleLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressFemalesLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressFemalesLeader();
+		}
+	},
+	
+	IMP_FORTRESS_MALES_LEADER(Util.newArrayListOfValues("impMalesLeader", "impMaleLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressMalesLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressMalesLeader();
+		}
+	},
+	
+	DARK_SIREN(Util.newArrayListOfValues("darkSiren"), "") {
+		public String getDescription() {
+			return Main.game.getFortressDemonLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressDemonLeader();
+		}
+	},
 	;
 	
 	
@@ -675,5 +719,5 @@ public enum ParserTarget {
 		return description;
 	}
 	
-	public abstract GameCharacter getCharacter(String tag);
+	public abstract GameCharacter getCharacter(String tag) throws NullPointerException;
 }

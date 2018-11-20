@@ -184,7 +184,7 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos) {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
 
 		this.unequipAllClothingIntoVoid(true);
 		
@@ -286,10 +286,6 @@ public class Ashley extends NPC {
 	@Override
 	public boolean isTrader() {
 		return true;
-	}
-
-	@Override
-	public void endSex() {
 	}
 
 }

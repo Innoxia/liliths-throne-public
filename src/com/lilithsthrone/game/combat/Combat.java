@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -94,6 +95,7 @@ public enum Combat {
 		for(NPC enemy : enemies) {
 			Combat.addEnemy(enemy);
 		}
+		enemies.sort((enemy1, enemy2) -> enemy2.getLevel()-enemy1.getLevel());
 		
 		targetedCombatant = enemies.get(0);
 		activeNPC = enemies.get(0);
@@ -242,7 +244,9 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				postCombatStringBuilder.append(ally.incrementExperience(xp, true));
+				if(!(ally instanceof Elemental)) {
+					postCombatStringBuilder.append(ally.incrementExperience(xp, true));
+				}
 			}
 			
 			postCombatStringBuilder.append(Main.game.getPlayer().incrementExperience(xp, true));
@@ -252,10 +256,13 @@ public enum Combat {
 			}
 			
 			// Apply loot drop:
+			Map<AbstractCoreItem, Integer> lootedItemsMap = new HashMap<>();
+			
 			for(NPC enemy : enemies) {
 				if(enemy.getLootItems()!=null) {
 					for(AbstractCoreItem item : enemy.getLootItems()) {
-						postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</div>");
+						lootedItemsMap.putIfAbsent(item, 0);
+						lootedItemsMap.put(item, lootedItemsMap.get(item)+1);
 						if(item instanceof AbstractItem) {
 							Main.game.getPlayer().addItem((AbstractItem) item, false, true);
 						} else if(item instanceof AbstractWeapon) {
@@ -268,9 +275,18 @@ public enum Combat {
 				if(enemy.isElementalSummoned()) {
 					enemy.removeCompanion(enemy.getElemental());
 					enemy.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
+					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(),
+							"<div class='container-full-width' style='text-align:center;'>"
+									+ "[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!"
+							+ "</div>"));
 				}
 			}
+
+			List<String> itemsLooted = new ArrayList<>();
+			for(Entry<AbstractCoreItem, Integer> entry : lootedItemsMap.entrySet()) {
+				itemsLooted.add("<b style='color:"+entry.getKey().getRarity().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b>"+(entry.getValue()>1?" <b>(x"+entry.getValue()+")</b>":""));
+			}
+			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
 
 			// Apply essence drops:
 			boolean essenceDropFound = false;
@@ -339,7 +355,8 @@ public enum Combat {
 			
 			if(!essences.isEmpty()) {
 				for(Entry<TFEssence, Integer> entry : essences.entrySet()) {
-					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>");
+					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>"
+							+ "</br>");
 				}
 			}
 			
@@ -347,7 +364,9 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
+				if(!(enemy instanceof Elemental)) {
+					postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
+				}
 			}
 			
 			int money = Main.game.getPlayer().getMoney();
@@ -406,6 +425,14 @@ public enum Combat {
 	
 	private static boolean isCombatantDefeated(GameCharacter character) {
 		return (character.getHealth() <= 0 || (character.getLust()>=100 && character.isVulnerableToLustLoss()));
+	}
+	
+	public static boolean isOpponent(GameCharacter character, GameCharacter target) {
+		if(allies.contains(character)) {
+			return enemies.contains(target);
+		} else {
+			return allies.contains(character);
+		}
 	}
 	
 	private static boolean isAlliedPartyDefeated() {
@@ -562,50 +589,6 @@ public enum Combat {
 		}
 	};
 
-	public static final DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return getCombatLabel();
-		}
-
-		@Override
-		public String getHeaderContent() {
-			return npcStatus();
-		}
-
-		@Override
-		public String getContent() {
-			return combatContent;
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if (escaped) {
-					return new ResponseEffectsOnly("Escaped!", "You got away!"){
-						@Override
-						public void effects() {
-							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
-						}
-					};
-				} else {
-					return new Response("Escape failed!", "You failed to escape...", ENEMY_ATTACK);
-				}
-				
-			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public DialogueNodeType getDialogueNodeType() {
-			return DialogueNodeType.NORMAL;
-		}
-	};
-
 	public static final DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -663,6 +646,7 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
+							enemies.get(0).applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
@@ -1015,7 +999,7 @@ public enum Combat {
 		}
 		
 		if(attacker.getMainWeapon() != null) {
-			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit));
@@ -1065,7 +1049,7 @@ public enum Combat {
 		}
 		
 		if(attacker.getOffhandWeapon() != null) {
-			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit));
@@ -1118,10 +1102,10 @@ public enum Combat {
 		attackStringBuilder.append(target.incrementHealth(attacker, -(damageMain+damageOffhand)));
 		
 		if(attacker.getMainWeapon() != null) {
-			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 		if(attacker.getOffhandWeapon() != null) {
-			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEfects(attacker, target, isHit));
+			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEffects(attacker, target, isHit));
 		}
 		
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit));
@@ -1242,47 +1226,6 @@ public enum Combat {
 				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
 			}
 			
-		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-			if(attacker.isPlayer()) {
-				attackStringBuilder.append(UtilText.parse(target,
-						"<p>"
-							+ (critical
-									? "Your seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>[npc.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-											+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-				
-			} else if(target.isPlayer()) {
-				attackStringBuilder.append(UtilText.parse(attacker,
-						"<p>"
-							+ (critical
-									? "[npc.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>You take " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-				
-			} else {
-				attackStringBuilder.append(UtilText.parse(attacker, target,
-						"<p>"
-							+ (critical
-									? "[npc1.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>[npc2.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b><br/>"
-									: "")
-						+ "</p>"));
-			}
-
-			target.incrementHealth(-lustDamage*2);
-			target.incrementMana(-lustDamage);
-			
 		} else {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,
@@ -1290,9 +1233,6 @@ public enum Combat {
 							+ (critical
 									? "Your seductive display was [style.boldExcellent(extremely effective)]!<br/>"
 									: "")
-							+ (lustDamage > 0
-									? "<b>[npc.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc.she] tries to resist your seductive display!</b><br/>"
-									: "")
 						+ "</p>"));
 				
 			} else if(target.isPlayer()) {
@@ -1300,9 +1240,6 @@ public enum Combat {
 						"<p>"
 							+ (critical
 									? "[npc.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
-									: "")
-							+ (lustDamage > 0
-									? "<b>You gain " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as you try to resist [npc.her] seductive display!</b><br/>"
 									: "")
 						+ "</p>"));
 				
@@ -1312,13 +1249,10 @@ public enum Combat {
 							+ (critical
 									? "[npc1.Her] seductive display was [style.boldExcellent(extremely effective)]!<br/>"
 									: "")
-							+ (lustDamage > 0
-									? "<b>[npc2.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc2.she] tries to resist [npc1.namePos] seductive display!</b><br/>"
-									: "")
 						+ "</p>"));
 			}
-			
-			target.incrementLust(lustDamage);
+
+			attackStringBuilder.append(target.incrementLust(lustDamage, true));
 		}
 		
 		if(attacker.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)) {
@@ -1403,9 +1337,9 @@ public enum Combat {
 			attacker.addStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
 			
 			if(attacker.isPlayer()) {
-				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudbust!</p>");
+				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudburst!</p>");
 			} else {
-				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudbust!</p>"));
+				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudburst!</p>"));
 			}
 			extraAttackEffectsSB.append(Spell.getBasicStatusEffectApplication(attacker, false, Util.newHashMapOfValues(new Value<>(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6))));
 			
@@ -1554,8 +1488,10 @@ public enum Combat {
 					break;
 					
 				case SPELL:
-					List<Spell> spellsAvailable = npc.getSpellsAbleToCast();
-					Spell spell = spellsAvailable.get(Util.random.nextInt(spellsAvailable.size()));
+					Map<Spell, Integer> spellsAvailableMap = npc.getWeightedSpellsAvailable(getTargetedCombatant(npc));
+					
+					Spell spell = Util.getRandomObjectFromWeightedMap(spellsAvailableMap);
+//					System.out.println(spellsAvailable.size());
 					attackSpell(npc, spell);
 					break;
 					

@@ -439,7 +439,7 @@ public enum FluidType implements BodyPartTypeInterface {
 			value = "GIRL_CUM_DEMON";
 			
 		} else if(value.equals("MILK_IMP")) {
-			value = "MIKL_DEMON_COMMON";
+			value = "MILK_DEMON_COMMON";
 		}
 		return valueOf(value);
 	}
