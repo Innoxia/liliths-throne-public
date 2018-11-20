@@ -1797,9 +1797,19 @@ public class CharacterCreation {
 						Main.game.getPlayer().setMoney(5000);
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
-						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						if (Main.game.getPlayer().getBirthMonth().getValue() == 1||Main.game.getPlayer().getBirthMonth().getValue() == 5||Main.game.getPlayer().getBirthMonth().getValue() == 9) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.SLAM));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
-						
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 2||Main.game.getPlayer().getBirthMonth().getValue() == 6||Main.game.getPlayer().getBirthMonth().getValue() == 10) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 3||Main.game.getPlayer().getBirthMonth().getValue() == 7||Main.game.getPlayer().getBirthMonth().getValue() == 11) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 4||Main.game.getPlayer().getBirthMonth().getValue() == 8||Main.game.getPlayer().getBirthMonth().getValue() == 12) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						};
 						applyGameStart();
 						applySkipPrologueStart();
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
@@ -1948,9 +1958,19 @@ public class CharacterCreation {
 						
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
-						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						if (Main.game.getPlayer().getBirthMonth().getValue() == 1||Main.game.getPlayer().getBirthMonth().getValue() == 5||Main.game.getPlayer().getBirthMonth().getValue() == 9) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.SLAM));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
-						
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 2||Main.game.getPlayer().getBirthMonth().getValue() == 6||Main.game.getPlayer().getBirthMonth().getValue() == 10) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 3||Main.game.getPlayer().getBirthMonth().getValue() == 7||Main.game.getPlayer().getBirthMonth().getValue() == 11) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 4||Main.game.getPlayer().getBirthMonth().getValue() == 8||Main.game.getPlayer().getBirthMonth().getValue() == 12) {
+							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						};
 						applyGameStart();
 						applySkipPrologueStart();
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
