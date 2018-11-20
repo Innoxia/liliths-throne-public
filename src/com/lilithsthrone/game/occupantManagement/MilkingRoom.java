@@ -3,6 +3,7 @@ package com.lilithsthrone.game.occupantManagement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,10 +22,6 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -349,7 +346,7 @@ public class MilkingRoom implements XMLSaving {
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-								+ "[style.colourExcellent("+fluid.getMillilitres()+"ml)]"
+								+ "[style.colourExcellent("+Units.fluid(fluid.getMillilitres())+")]"
 							+ "</div>");
 				
 					milkyMilknessSB.append(
@@ -428,8 +425,8 @@ public class MilkingRoom implements XMLSaving {
 	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(millilitres<=0) {
-			sb.append("There needs to be at least one millilitre of fluid for [npc.name] to ingest it!<br/>");
+		if(millilitres<500) {
+			sb.append("There needs to be at least "+Units.fluid(500)+" of fluid for [npc.name] to ingest it!<br/>");
 		}
 		
 		switch(area) {
