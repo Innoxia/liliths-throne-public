@@ -157,6 +157,8 @@ public enum DialogueFlagValue {
 	krugerIntroduced,
 	
 	// Submission:
+	impCitadelEncountered,
+	
 	impFortressAlphaGuardsPacified,
 	impFortressAlphaBossEncountered,
 	impFortressAlphaPacified,

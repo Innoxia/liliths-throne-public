@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +53,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -126,11 +128,11 @@ public class Vicky extends NPC {
 				case STONE_SHELL:
 				case PROTECTIVE_GUSTS:
 				case CLOAK_OF_FLAMES:
+				case SOOTHING_WATERS:
 					availableSpellBooks.add(ItemType.getSpellBookType(s));
 					break;
 				case CLEANSE:
 				case STEAL:
-				case SOOTHING_WATERS: // Special quest spells
 					break;
 					
 				// Tier 4:
@@ -149,6 +151,7 @@ public class Vicky extends NPC {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
+				case DARK_SIREN_BANEFUL_FISSURE:
 					break;
 			}
 		}
@@ -177,6 +180,9 @@ public class Vicky extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			setStartingBody(false);
 		}
 	}
 	
@@ -223,7 +229,7 @@ public class Vicky extends NPC {
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -308,28 +314,55 @@ public class Vicky extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
+
+		int requiredRoomForMiscItems = ItemType.getEssences().size()+SpellSchool.values().length+availableSpellBooks.size()+10;
+		
+		List<AbstractCoreType> types = new ArrayList<>();
 		
 		for(AbstractWeaponType wt : WeaponType.allweapons) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
-				for(int i=0; i<1+Util.random.nextInt(3); i++){
-					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
-				}
+				types.add(wt);
+//				for(int i=0; i<1+Util.random.nextInt(3); i++){
+//					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
+//				}
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+				types.add(item);
+//				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
 				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
-					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
+					types.add(clothing);
+//					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
 				} 
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
+		Collections.shuffle(types);
+		int count=0;
+		for(AbstractCoreType type : types) {
+			if(type instanceof AbstractWeaponType) {
+				for(int i=0; i<1+Util.random.nextInt(3); i++){
+					this.addWeapon(AbstractWeaponType.generateWeapon((AbstractWeaponType) type), false);
+				}
+				
+			} else if(type instanceof AbstractItemType) {
+				this.addItem(AbstractItemType.generateItem((AbstractItemType) type), false);
+				
+			} else if(type instanceof AbstractClothingType) {
+				this.addClothing(AbstractClothingType.generateClothing((AbstractClothingType) type, false), false);
+			}
+			count++;
+			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {
+				break;
+			}
+		}
+		
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));

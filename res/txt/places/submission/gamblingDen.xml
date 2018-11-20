@@ -807,7 +807,7 @@
 		[epona.speech(Aww, I'm sorry! You didn't get it right this time,)] Epona says, before leaning forwards and giving you a big hug.
 	</p>
 	<p>
-		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolidatory hug.
+		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolatory hug.
 	</p>
 	<p>
 		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know who won. You stay here for a moment, and after they've gone, we'll go back to the main counter.)]
@@ -826,7 +826,7 @@
 		[epona.speech(Aww, I'm sorry! It looks like you're not having kids this time,)] Epona says, before leaning forwards and giving you a big hug.
 	</p>
 	<p>
-		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolidatory hug.
+		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolatory hug.
 	</p>
 	<p>
 		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know that they all lost. You stay here for a moment, and after they've gone, we'll go back to the main counter.)]

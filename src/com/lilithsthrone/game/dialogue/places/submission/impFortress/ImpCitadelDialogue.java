@@ -199,7 +199,7 @@ public class ImpCitadelDialogue {
 			}
 		}
 		
-		bossGroup.sort((imp1, imp2) -> imp1.getLevel()-imp2.getLevel());
+		bossGroup.sort((imp1, imp2) -> imp2.getLevel()-imp1.getLevel());
 		return bossGroup;
 	}
 
@@ -213,7 +213,7 @@ public class ImpCitadelDialogue {
 			}
 		}
 		
-		impGuards.sort((imp1, imp2) -> imp1.getLevel()-imp2.getLevel());
+		impGuards.sort((imp1, imp2) -> imp2.getLevel()-imp1.getLevel());
 		return impGuards;
 	}
 
@@ -242,7 +242,7 @@ public class ImpCitadelDialogue {
 	}
 	
 	private static List<GameCharacter> getAllCharacters() {
-		// There's a reason I cna't just add all from getCharactersPresent(), but I forgot. Maybe it was because the Elemental companion gets added?
+		// There's a reason I can't just add all from getCharactersPresent(), but I forgot. Maybe it was because the Elemental companion gets added?
 		List<GameCharacter> allCharacters = new ArrayList<>();
 		
 		if(isCompanionDialogue()) {
@@ -382,11 +382,11 @@ public class ImpCitadelDialogue {
 									:"Offer to have sex with the imps.",
 								true,
 								false,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGuards(),
-								isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
-										GUARDS_AFTER_SEX_CONSENSUAL,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_GIVE_SEX_PACIFIED", getAllCharacters())) {
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+										isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
+								GUARDS_AFTER_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_GIVE_SEX_PACIFIED", getAllCharacters())) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonGuardsPacified, true);
@@ -403,11 +403,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(getMainCompanion(), "Tell the imps that both you and [npc.name] want to have sex with them."),
 									true,
 									false,
-									Main.game.getPlayer().getParty(),
 									getImpGuards(),
+									Main.game.getPlayer().getParty(),
 									null,
-									GUARDS_AFTER_SEX_CONSENSUAL_WITH_COMPANION,
-									UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_GIVE_SEX_WITH_COMPANION_PACIFIED", getAllCharacters())) {
+									null,
+									GUARDS_AFTER_SEX_CONSENSUAL_WITH_COMPANION, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_GIVE_SEX_WITH_COMPANION_PACIFIED", getAllCharacters())) {
 								@Override
 								public void effects() {
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonGuardsPacified, true);
@@ -708,35 +708,35 @@ public class ImpCitadelDialogue {
 								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
-								getImpGuards(),
 								Main.game.getPlayer().getParty(),
+								getImpGuards(),
 								null,
-								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX", getAllCharacters()));
+								null,
+								GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
 								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 								true,
 								false,
-								getImpGuards(),
 								Main.game.getPlayer().getParty(),
+								getImpGuards(),
+								null,
 								null,
 								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
 								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 								true,
 								false,
-								getImpGuards(),
 								Main.game.getPlayer().getParty(),
+								getImpGuards(),
+								null,
 								null,
 								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Submit",
@@ -749,11 +749,11 @@ public class ImpCitadelDialogue {
 								null,
 								true,
 								false,
-								Main.game.getPlayer().getParty(),
 								getImpGuards(),
+								Main.game.getPlayer().getParty(),
 								null,
-								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								null,
+								GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -805,35 +805,35 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps."),
 								true,
 								false,
-								getImpGuards(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpGuards(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX", getAllCharacters()));
+								GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
 								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the gentle pace.)"),
 								true,
 								false,
-								getImpGuards(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpGuards(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
 								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the rough pace.)"),
 								true,
 								false,
-								getImpGuards(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpGuards(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								GUARDS_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -846,11 +846,11 @@ public class ImpCitadelDialogue {
 								null,
 								true,
 								false,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpGuards(),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								GUARDS_AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								GUARDS_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -864,11 +864,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, "Have dominant sex with the imps, and get [npc.name] to join in with the fun."),
 									true,
 									false,
-									getImpGuards(),
 									Main.game.getPlayer().getParty(),
+									getImpGuards(),
 									null,
-									GUARDS_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									null,
+									GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
 						}
 						
 					} else if (index == 7) {
@@ -883,11 +883,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, "Get [npc.name] to join you in submitting to the imps, allowing them to have dominant sex with the two of you."),
 									true,
 									false,
-									Main.game.getPlayer().getParty(),
 									getImpGuards(),
+									Main.game.getPlayer().getParty(),
 									null,
-									GUARDS_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									null,
+									GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
 						}
 						
 					} else if (index == 8) {
@@ -902,11 +902,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, "Tell [npc.name] that [npc.she] can have some fun with the imps while you watch."),
 									false,
 									false,
-									getImpGuards(),
 									Util.newArrayListOfValues(getMainCompanion()),
+									getImpGuards(),
+									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									GUARDS_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -922,11 +922,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, "Hand [npc.name] over to the imps, and watch as they have sex with [npc.herHim]."),
 									true,
 									false,
-									Util.newArrayListOfValues(getMainCompanion()),
 									getImpGuards(),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									GUARDS_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									GUARDS_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "GUARDS_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpGuardLeader()) && Main.game.isNonConEnabled()) {
@@ -996,35 +996,35 @@ public class ImpCitadelDialogue {
 						"Allow the imps to move you into position...",
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpGuards(),
+						Main.game.getPlayer().getParty(),
 						null,
-						GUARDS_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
+						null,
+						GUARDS_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 				
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"Eagerly allow yourself to be moved into position by the gang of imps...",
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpGuards(),
+						Main.game.getPlayer().getParty(),
+						null,
 						null,
 						GUARDS_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()),
-						ResponseTag.START_PACE_PLAYER_SUB_EAGER);
+						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_EAGER);
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"Try to resist as the gang of imps move you into position...",
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpGuards(),
+						Main.game.getPlayer().getParty(),
+						null,
 						null,
 						GUARDS_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()),
-						ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "GUARDS_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESIST);
 			} else {
 				return null;
 			}
@@ -1180,6 +1180,29 @@ public class ImpCitadelDialogue {
 		}
 	};
 
+	public static final DialogueNodeOld LABORATORY = new DialogueNodeOld("Laboratory", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "LABORATORY", getAllCharacters()));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+
 	public static final DialogueNodeOld TREASURY = new DialogueNodeOld("Treasury", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -1249,29 +1272,6 @@ public class ImpCitadelDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld TREASURY_CLOTHES_DOOR = new DialogueNodeOld("Treasury Door", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "TREASURY_CLOTHES_DOOR", getAllCharacters()));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
-		}
-	};
-
 	public static final DialogueNodeOld KEEP = new DialogueNodeOld("Keep", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -1311,6 +1311,29 @@ public class ImpCitadelDialogue {
 		}
 	};
 
+	public static final DialogueNodeOld KEEP_THRONE_ROOM = new DialogueNodeOld("Throne Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_THRONE_ROOM", getAllCharacters()));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
 	public static final DialogueNodeOld KEEP_ENTRY = new DialogueNodeOld("Keep", ".", true) { //TODO from here
 		private static final long serialVersionUID = 1L;
 
@@ -1337,7 +1360,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().hasTraitActivated(Perk.CHUUNI)) {
-					return new Response("Challenge", UtilText.parse(getBoss(), "Challenge [npc.name] to a duel between the two greatest arcane-users in the world."), KEEP_CHALLENGE);
+					return new Response("Challenge", UtilText.parse(getBoss(), "Challenge [npc.name] to a duel between the two greatest arcane-users in the world!"), KEEP_CHALLENGE);
 				} else {
 					return new Response("Challenge", "You can't bring yourself to engage in the same level of dialogue as this embarrassing succubus. Perhaps if you were a chuuni as well, things would be different...", null);
 				}
@@ -1353,22 +1376,22 @@ public class ImpCitadelDialogue {
 							:UtilText.parse(getBoss(), "Surrender your body to [npc.name] and [npc.her] imps in exchange for being allowed to leave without a fight."),
 						true,
 						false,
-						Util.newArrayListOfValues(Main.game.getPlayer()),
 						getImpBossGroup(),
+						Util.newArrayListOfValues(Main.game.getPlayer()),
+						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
-						KEEP_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_OFFER_ORAL", getAllCharacters()));
+						KEEP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_OFFER_ORAL", getAllCharacters()));
 				
 			} else if(index==4 && isCompanionDialogue()) {
 				return new ResponseSex("Surrender (both)",
 						UtilText.parse(getMainCompanion(), getBoss(), "Surrender both yourself and [npc.name] to [npc2.name], allowing [npc2.herHim] and [npc.2her] imps to do what they please with you."),
 						true,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpBossGroup(),
+						Main.game.getPlayer().getParty(),
 						null,
-						KEEP_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_OFFER_ORAL_WITH_COMPANION", getAllCharacters()));
+						null,
+						KEEP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "ENTRANCE_OFFER_ORAL_WITH_COMPANION", getAllCharacters()));
 				
 			} else {
 				return null;
@@ -1515,35 +1538,35 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
-								getImpBossGroup(),
 								Main.game.getPlayer().getParty(),
+								getImpBossGroup(),
 								null,
-								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								null,
+								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
 								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'gentle' pace.)"),
 								true,
 								false,
-								getImpBossGroup(),
 								Main.game.getPlayer().getParty(),
+								getImpBossGroup(),
+								null,
 								null,
 								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
 								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'rough' pace.)"),
 								true,
 								false,
-								getImpBossGroup(),
 								Main.game.getPlayer().getParty(),
+								getImpBossGroup(),
+								null,
 								null,
 								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Submit",
@@ -1556,11 +1579,11 @@ public class ImpCitadelDialogue {
 								null,
 								true,
 								false,
-								Main.game.getPlayer().getParty(),
 								getImpBossGroup(),
+								Main.game.getPlayer().getParty(),
 								null,
-								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								null,
+								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -1614,35 +1637,35 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getMainCompanion(), getBoss(), "Tell [npc.name] to stand to one side and watch as you have sex with [npc2.name] and [npc2.her] imp gang."),
 								true,
 								false,
-								getImpBossGroup(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpBossGroup(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX", getAllCharacters()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
 								UtilText.parse(getMainCompanion(), getBoss(), "Tell [npc.name] to stand to one side and watch as you have sex with [npc2.name] and [npc2.her] imp gang. (Start sex in the 'gentle' pace.)"),
 								true,
 								false,
-								getImpBossGroup(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpBossGroup(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
 								UtilText.parse(getMainCompanion(), getBoss(), "Tell [npc.name] to stand to one side and watch as you have sex with [npc2.name] and [npc2.her] imp gang. (Start sex in the 'rough' pace.)"),
 								true,
 								false,
-								getImpBossGroup(),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
+								getImpBossGroup(),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
 								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()),
-								ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -1656,11 +1679,11 @@ public class ImpCitadelDialogue {
 								null,
 								true,
 								false,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
 								getImpBossGroup(),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								KEEP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -1675,11 +1698,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, getBoss(), "Have dominant sex with [npc2.name] and [npc2.her] imps, and get [npc.name] to join in with the fun."),
 									true,
 									false,
-									getImpBossGroup(),
 									Main.game.getPlayer().getParty(),
+									getImpBossGroup(),
 									null,
-									KEEP_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									null,
+									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
 						}
 						
 					} else if (index == 7) {
@@ -1694,11 +1717,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, getBoss(), "Get [npc.name] to join you in submitting to [npc2.name] and [npc2.her] imps, allowing them to have dominant sex with the two of you."),
 									true,
 									false,
-									Main.game.getPlayer().getParty(),
 									getImpBossGroup(),
+									Main.game.getPlayer().getParty(),
 									null,
-									KEEP_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									null,
+									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
 						}
 						
 					} else if (index == 8) {
@@ -1713,11 +1736,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, getBoss(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] and [npc2.her] imps while you watch."),
 									false,
 									false,
-									getImpBossGroup(),
 									Util.newArrayListOfValues(getMainCompanion()),
+									getImpBossGroup(),
+									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									KEEP_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -1734,11 +1757,11 @@ public class ImpCitadelDialogue {
 									UtilText.parse(companion, getBoss(), "Hand [npc.name] over to [npc2.name] and [npc2.her] imps, and watch as they have sex with [npc.herHim], before making them flee their fortress."),
 									true,
 									false,
-									Util.newArrayListOfValues(getMainCompanion()),
 									getImpBossGroup(),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									KEEP_AFTER_SEX_VICTORY,
-									UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortressDemonCompanions", "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getBoss()) && Main.game.isNonConEnabled()) {
@@ -1811,11 +1834,11 @@ public class ImpCitadelDialogue {
 							:UtilText.parse(getBoss(), "Allow [npc.name] and [npc.her] imps to move you and [npc.name] into position..."),
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpBossGroup(),
+						Main.game.getPlayer().getParty(),
 						null,
-						KEEP_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
+						null,
+						KEEP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 				
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
@@ -1824,12 +1847,12 @@ public class ImpCitadelDialogue {
 							:UtilText.parse(getBoss(), "Eagerly help [npc.name] and [npc.her] imps to move you into position..."),
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpBossGroup(),
+						Main.game.getPlayer().getParty(),
+						null,
 						null,
 						KEEP_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()),
-						ResponseTag.START_PACE_PLAYER_SUB_EAGER);
+						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_EAGER);
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
@@ -1838,12 +1861,12 @@ public class ImpCitadelDialogue {
 							:UtilText.parse(getBoss(), "Try to resist as [npc.name] and [npc.her] imps start to move you into position..."),
 						false,
 						false,
-						Main.game.getPlayer().getParty(),
 						getImpBossGroup(),
+						Main.game.getPlayer().getParty(),
+						null,
 						null,
 						KEEP_AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()),
-						ResponseTag.START_PACE_PLAYER_SUB_RESIST);
+						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()), ResponseTag.START_PACE_PLAYER_SUB_RESIST);
 			} else {
 				return null;
 			}

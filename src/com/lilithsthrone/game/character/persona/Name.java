@@ -339,19 +339,19 @@ public enum Name {
 	}
 	
 	private static NameTriplet getDemonName() {
-		String[] preixFem = new String[] {"Aella", "Bella", "Cae", "Deva", "Ella", "Fae", "Hela", "Isa", "Katha", "Loe", "Nysa", "Oella", "Rae", "Sytha", "Vixxa", "Wynna"};
-		String[] preixMas = new String[] {"Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"};
+		String[] prefixFem = new String[] {"Aella", "Bella", "Cae", "Deva", "Ella", "Fae", "Hela", "Isa", "Katha", "Loe", "Nysa", "Oella", "Rae", "Sytha", "Vixxa", "Wynna"};
+		String[] prefixMas = new String[] {"Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"};
 		
 		String[] postfixFem = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
 		String[] postfixMas = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
 		
-		String femName = preixFem[Util.random.nextInt(preixFem.length)] + postfixFem[Util.random.nextInt(postfixFem.length)];
+		String femName = prefixFem[Util.random.nextInt(prefixFem.length)] + postfixFem[Util.random.nextInt(postfixFem.length)];
 		char startingChar = femName.charAt(0);
 
-		String masName = preixMas[Util.random.nextInt(preixMas.length)] + postfixMas[Util.random.nextInt(postfixMas.length)];
+		String masName = prefixMas[Util.random.nextInt(prefixMas.length)] + postfixMas[Util.random.nextInt(postfixMas.length)];
 		
 		List<String> masculineNames = new ArrayList<>();
-		for(String s : preixMas) {
+		for(String s : prefixMas) {
 			if(s.charAt(0) == startingChar) {
 				masculineNames.add(s);
 			}

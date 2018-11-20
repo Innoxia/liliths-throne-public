@@ -2,7 +2,7 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAtributes>
-		<value>5</value> 
+		<value>750</value> 
 		
 		<determiner><![CDATA[a]]></determiner>
 		
@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[Tied at the waist and falling approximately to the ankles, hakama, such as this one, are meant to be worn over a kimono.]]></description> 
 		
-		<physicalResistance>0</physicalResistance> 
+		<physicalResistance>2</physicalResistance> 
 		
 		<femininity>MASCULINE</femininity> 
 		

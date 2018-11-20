@@ -50,7 +50,7 @@ div {
 	margin: 8px auto 8px auto;
 	overflow-x:hidden;
 	width:100%;
-	max-width:1000px;
+	max-width:1200px;
 	padding:16px;
 	
 	display: flex;
@@ -61,11 +61,11 @@ div {
 }
 .inner-text-content{
 	margin:8px auto 8px auto;
-	max-width:1000px;
+	max-width:1200px;
 }
 .content-title{
 	width:100%;
-	max-width:1000px;
+	max-width:1200px;
 	-webkit-box-sizing: border-box;
 	height:56px;
 	padding:8px;
@@ -627,6 +627,9 @@ position:relative;
 	min-width:100px;
 	margin:4px;
 	padding:4px;
+	border:1px;
+	border-style:solid;
+	border-color:#ccc;
 	
 	background: -webkit-gradient(
 		linear, left top, left bottom,
@@ -1023,7 +1026,7 @@ position:relative;
 	line-height:14px;
 	position:absolute;
 	text-align: right;
-	left:2px;
+	right:2px;
 	bottom:0;
 	pointer-events: none;
 	text-shadow: 2px 0 0 #fcfcfc, -2px 0 0 #fcfcfc, 0 2px 0 #fcfcfc, 0 -2px 0 #fcfcfc, 1px 1px #fcfcfc, -1px -1px 0 #fcfcfc, 1px -1px 0 #fcfcfc, -1px 1px 0 #fcfcfc;
@@ -2071,7 +2074,7 @@ border-radius:5px;
 	margin:0 auto 0 auto;
 	border-radius: 5px;
 	width:100%;
-	max-width:1000px;
+	max-width:1200px;
 	overflow:hidden;
 	-webkit-user-select: none;
 }

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
+import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Mouth;
 import com.lilithsthrone.game.character.body.Nipples;
 import com.lilithsthrone.game.character.body.Penis;
@@ -154,7 +155,8 @@ public class BodyChanging {
 						&& !(bp instanceof Ass)
 						&& !(bp instanceof Nipples)
 						&& !(bp instanceof Breast)
-						&& !(bp instanceof Penis)) {
+						&& !(bp instanceof Penis)
+						&& !(bp instanceof Horn)) {
 					
 					String name = bp.getName(getTarget());
 					if(bp instanceof Skin) {
@@ -194,17 +196,17 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -260,12 +262,12 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(demonRace, debugMenu)
 							+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(demonRace, debugMenu)
 						+"</div>"
 
 						+"<div style='clear:left;'>"
@@ -321,17 +323,17 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getFullFemininityChoiceDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(slimeRaces)
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(slimeRaces, debugMenu)
 						+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(slimeRaces, debugMenu)
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -385,7 +387,7 @@ public class BodyChanging {
 				}
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-						true, 
+						false, 
 						bct,
 						title,
 						description,

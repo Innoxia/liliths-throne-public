@@ -690,7 +690,7 @@ public class SlaveDialogue {
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MILKING_STALL_FUCKING)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ "As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]."
 										+ " Letting out [npc.a_sob+], [npc.she] pleads,"
 										+ " [npc.speech(No! Please! Just leave me alone!)]"
@@ -713,7 +713,7 @@ public class SlaveDialogue {
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MILKING_STALL_FUCKING)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ "As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]."
 										+ " Letting out [npc.a_moan+], [npc.she] pleads,"
 										+ " [npc.speech(~Mmm!~ Yes! Fuck me!)]"
@@ -739,7 +739,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees,"
 												+ " ready to fuck [npc.herHim] in the doggy-style position."
 											+ " Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb],"
@@ -768,7 +768,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 											+ " [npc.speech(No! Stop!)]"
@@ -793,7 +793,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees,"
 												+ " ready to fuck [npc.herHim] in the doggy-style position."
 											+ " Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb],"
@@ -813,7 +813,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 											+ " [npc.She] desperately leans into you, [npc.moaning],"
 											+ " [npc.speech(~Mmm!~ Yes!)]"
@@ -837,7 +837,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_BEHIND)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply dropping down onto all fours in front of [npc.herHim], presenting your [pc.ass+] as you [pc.moanVerb],"
 											+ " [pc.speech(~Mmm!~ Take me!)]"
 										+ "</p>"
@@ -860,7 +860,7 @@ public class SlaveDialogue {
 												Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
 											+ " [npc.speech(Looking for some fun, hmm?)]"
@@ -899,7 +899,7 @@ public class SlaveDialogue {
 														new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_BEHIND)),
 												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 										null,
-										AFTER_SEX, "<p>"
+										null, AFTER_SEX, "<p>"
 											+ ""//TODO
 										+ "</p>") {
 									@Override
@@ -924,7 +924,7 @@ public class SlaveDialogue {
 													new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 													new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 									null,
-									AFTER_SEX, "<p>"
+									null, AFTER_SEX, "<p>"
 										+ ""//TODO
 									+ "</p>") {
 								@Override
@@ -1371,7 +1371,7 @@ public class SlaveDialogue {
 									+ " [npc.speech(I do whatever I'm told to, [npc.pcName]. I'll carry out my duties to the best of my ability, as that's what's expected of me.)]"
 									+ "</p>"
 									+ "<p>"
-									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doens't like you."
+									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doesn't like you."
 									+ " Before you can say anything else, [npc.she] asks,"
 									+ " [npc.speech(What more do you need of me, [npc.pcName]?)]");
 							break;
@@ -2785,7 +2785,7 @@ public class SlaveDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						SLAVE_USES_YOU_POST_SEX, "<p>"
+						null, SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -2806,7 +2806,7 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX, "<p>"
+						null, SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
@@ -2827,7 +2827,7 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX, "<p>"
+						null, SLAVE_USES_YOU_POST_SEX, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -2927,8 +2927,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_STREETS,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -2953,8 +2953,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_STREETS,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
@@ -2979,8 +2979,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_STREETS,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_STREETS, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -3104,8 +3104,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -3130,8 +3130,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
@@ -3156,8 +3156,8 @@ public class SlaveDialogue {
 							}
 						},
 						null,
-						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
-						"<p>"
+						null,
+						SLAVE_USES_YOU_POST_SEX_ALLEYWAY, "<p>"
 							+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."

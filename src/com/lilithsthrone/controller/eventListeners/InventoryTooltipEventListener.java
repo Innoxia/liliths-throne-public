@@ -507,8 +507,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									scarTooltip(equippedToCharacter.getScarInSlot(invSlot));
 									
 								} else {
-									Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-									Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + "</div>"));
+									setEmptyInventorySlotTooltipContent();
 								}
 							}
 						}
@@ -522,8 +521,7 @@ public class InventoryTooltipEventListener implements EventListener {
 					}
 					
 				} else {
-					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-					Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + "</div>"));
+					setEmptyInventorySlotTooltipContent();
 				}
 			}
 			
@@ -559,10 +557,36 @@ public class InventoryTooltipEventListener implements EventListener {
 	}
 
 	private void setBlockedTooltipContent(String description){
+		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 164);
-		Main.mainController.setTooltipContent(UtilText.parse(
-				"<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span></div>"
-				+ "<div class='description'>" + UtilText.parse(description) + "</div>"));
+		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter,
+				"<div class='title'>"
+						+ Util.capitaliseSentence(invSlot.getName())+ ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span>"
+				+ "</div>"
+				+"<div class='description' style='text-align:center;'>"
+					+ (dirty
+						?"[npc.NamePos] "+invSlot.getName()+" "+(invSlot.isPlural()?"are":"is")
+								+ " <span style='color:"+Colour.CUM.toWebHexString()+";'>dirty</span>!<br/>"
+						:"")
+					 + UtilText.parse(description)
+				 +"</div>"));
+	}
+	
+
+
+	private void setEmptyInventorySlotTooltipContent(){
+		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60+(dirty?64:0));
+		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter,
+				"<div class='title'>"
+						+ Util.capitaliseSentence(invSlot.getName())
+				+ "</div>"
+				+ (dirty
+					?"<div class='description' style='height:48px; text-align:center;'>"
+							+ "[npc.NamePos] "+invSlot.getName()+" "+(invSlot.isPlural()?"have":"has")
+							+ " been <span style='color:"+Colour.CUM.toWebHexString()+";'>dirtied</span> by sexual fluids!"
+						+ "</div>"
+					:"")));
 	}
 	
 	

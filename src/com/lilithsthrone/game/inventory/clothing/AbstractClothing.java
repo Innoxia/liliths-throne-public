@@ -99,7 +99,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			
 			if (chance <= 25) { // Jinxed:
 				
-				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.BOOST, 0));
+				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0));
 				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedNegativePotency(), 0));
 				if(chance <10) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedNegativePotency(), 0));
@@ -141,8 +141,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		patternTertiaryColour = Colour.CLOTHING_BLACK;
 		
 		displacedList = new ArrayList<>();
-
-		this.effects = effects;
+		if(effects!=null) {
+			this.effects = new ArrayList<>(effects);
+		} else {
+			this.effects = new ArrayList<>();
+		}
 
 		enchantmentKnown = false;
 	}
@@ -658,7 +661,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName())
-				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
+				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.QUEST && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");
 	}
@@ -1078,12 +1081,34 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setSealed(boolean sealed) {
 		if(sealed) {
-			this.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.BOOST, 0));
+			this.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.MINOR_BOOST, 0));
 		} else {
 			this.getEffects().removeIf(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_SEALING);
 		}
 	}
-
+	
+	public int getJinxRemovalCost() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+				switch(effect.getPotency()) {
+					case BOOST:
+						break;
+					case DRAIN:
+						return ItemEffect.SEALED_COST_DRAIN;
+					case MAJOR_BOOST:
+						break;
+					case MAJOR_DRAIN:
+						return ItemEffect.SEALED_COST_MAJOR_DRAIN;
+					case MINOR_BOOST:
+						return ItemEffect.SEALED_COST_MINOR_BOOST;
+					case MINOR_DRAIN:
+						return ItemEffect.SEALED_COST_MINOR_DRAIN;
+				}
+			}
+		}
+		return ItemEffect.SEALED_COST_MINOR_BOOST;
+	}
+	
 	public boolean isDirty() {
 		return cummedIn;
 	}
@@ -1197,6 +1222,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void addEffect(ItemEffect effect) {
 		effects.add(effect);
+	}
+
+	public void removeEffect(ItemEffect effect) {
+		effects.remove(effect);
 	}
 	
 	@Override

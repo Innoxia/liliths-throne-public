@@ -863,7 +863,7 @@ public class PenisMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.KNEELING_RECEIVING_ORAL
 					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.CHAIR_ORAL_SITTING) {
 				
-				for(PenetrationModifier pm : Sex.getCharacterTargetedForSexAction(this).getPenisModifiers()) {
+				for(PenetrationModifier pm : Sex.getCharacterPerformingAction().getPenisModifiers()) {
 					switch(pm) {
 						case BARBED:
 							descriptions.add("With a sudden, violent thrust forwards, [npc.name] [npc.verb(bury)] [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
@@ -916,10 +916,10 @@ public class PenisMouth {
 				
 			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
-				for(PenetrationModifier pm : Sex.getCharacterTargetedForSexAction(this).getPenisModifiers()) {
+				for(PenetrationModifier pm : Sex.getCharacterPerformingAction().getPenisModifiers()) {
 					switch(pm) {
 						case BARBED:
-							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc2.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
+							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
 												+ " Grinding the base against [npc2.her] [npc2.lips+] for moment, [npc.she] then [npc.verb(proceed)] to start roughly fucking [npc2.her] face,"
 												+ " causing [npc2.name] to let out a muffled [npc2.moan] as [npc2.she] [npc2.verb(struggle)] to breathe,"
 												+ " and, squirming about beneath [npc.name], [npc2.she] [npc2.verb(feel)] [npc2.her] throat being raked by the series of barbs that line the sides of [npc.her] [npc.cock+].");
@@ -927,13 +927,13 @@ public class PenisMouth {
 						case BLUNT:
 							break;
 						case FLARED:
-							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc2.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
+							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
 												+ " Grinding the base against [npc2.her] [npc2.lips+] for moment, [npc.she] then [npc.verb(proceed)] to start roughly fucking [npc2.her] face,"
 												+ " causing [npc2.name] to let out a muffled [npc2.moan] as [npc2.she] [npc2.verb(struggle)] to breathe,"
 												+ " and, squirming about beneath [npc.name], [npc2.she] [npc2.verb(feel)] [npc2.her] throat being stretched out by the wide, flared head of [npc.her] [npc.cock+].");
 							break;
 						case KNOTTED:
-							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc2.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
+							descriptions.add("Spreading [npc.her] knees out on either side of [npc2.namePos] head, [npc.name] violently [npc.verb(thrust)] downwards, burying [npc.her] [npc.cock+] deep down [npc2.namePos] throat."
 												+ " Grinding the base against [npc2.her] [npc2.lips+] for moment, [npc.she] then [npc.verb(proceed)] to start roughly fucking [npc2.her] face,"
 												+ " causing [npc2.name] to let out a muffled [npc2.moan] as [npc2.she] [npc2.verb(struggle)] to breathe,"
 												+ " and, squirming about beneath [npc.name], [npc2.she] [npc2.verb(feel)] [npc2.her] [npc2.lips+] being repeatedly battered by the fat knot at the base of [npc.her] [npc.cock+].");

@@ -374,15 +374,15 @@ public enum SexPositionSlot {
 	
 	KNEELING_RECEIVING_ORAL("Standing", true),
 	
-	KNEELING_RECEIVING_ORAL_TWO("Standing (second)", true),
+	KNEELING_RECEIVING_ORAL_TWO("Standing", true),
 	
-	KNEELING_RECEIVING_ORAL_THREE("Standing (third)", true),
+	KNEELING_RECEIVING_ORAL_THREE("Standing", true),
 	
-	KNEELING_RECEIVING_ORAL_SECOND("Standing (fourth)", true),
+	KNEELING_RECEIVING_ORAL_SECOND("Standing", true),
 	
-	KNEELING_RECEIVING_ORAL_SECOND_TWO("Standing (fifth)", true),
+	KNEELING_RECEIVING_ORAL_SECOND_TWO("Standing", true),
 	
-	KNEELING_RECEIVING_ORAL_SECOND_THREE("Standing (sixth)", true),
+	KNEELING_RECEIVING_ORAL_SECOND_THREE("Standing", true),
 	
 	KNEELING_PERFORMING_ORAL("Kneeling", false) {
 		@Override

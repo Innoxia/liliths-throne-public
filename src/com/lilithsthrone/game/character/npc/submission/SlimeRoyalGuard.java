@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -90,6 +91,9 @@ public class SlimeRoyalGuard extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this.getBody())!=Subspecies.HUMAN) {
+			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
 	}
 	
@@ -285,7 +289,7 @@ public class SlimeRoyalGuard extends NPC {
 	
 	@Override
 	public Attack attackType() {
-		boolean canCastASpell = !getSpellsAbleToCast().isEmpty();
+		boolean canCastASpell = !getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
 		
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
 		

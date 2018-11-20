@@ -34,6 +34,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
@@ -791,8 +792,11 @@ public class TooltipInformationEventListener implements EventListener {
 											:"[npc.Name]"))
 							+ "</div>"
 						
-						+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
-								+ (10 * owner.getLevel()) + " xp</div>"
+						+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>| "
+							+ (owner instanceof Elemental
+									?"Elementals share their summoner's level</span>"
+									:"</span>"+owner.getExperience() + " / "+ (10 * owner.getLevel()) + " xp")
+						+ "</div>"
 				
 						+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
 						+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)

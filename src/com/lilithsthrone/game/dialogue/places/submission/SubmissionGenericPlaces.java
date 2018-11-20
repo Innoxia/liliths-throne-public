@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -455,13 +456,13 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Knock", "KNock on the palace gates, and wait for one of the servants inside to answer. (Will be added for v0.3!)", null);
+				return new Response("Knock", "Knock on the palace gates, and wait for one of the servants inside to answer. (Will be added for v0.3!)", null);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_ALPHA = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -488,37 +489,44 @@ public class SubmissionGenericPlaces {
 			return UtilText.nodeContentSB.toString();
 		}
 
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean canEnter = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified);
+			
 			if(index==1) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)
-						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified)) {
-					return new Response("Enter", "Enter the fortress.", PlaceType.FORTRESS_ALPHA_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
+				return new Response(canEnter?"Enter":"Approach",
+						canEnter?"Enter the fortress.":"Approach the guards at the entrance to the fortress.",
+								PlaceType.FORTRESS_ALPHA_ENTRANCE.getDialogue(false)) {
+					@Override
+					public void effects() {
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).isEmpty()) {
+								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
+							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_ALPHA).isEmpty()) {
+								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_ALPHA);
+							}
 						}
-					};
-				} else {
-					return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_ALPHA_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
-						}
-					};
-				}
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_ENTRANCE);
+					}
+				};
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().isPartyAbleToFly()) {
 					return new Response("Fly",
-							(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)
-									|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaPacified))
+							canEnter
 								?"As you're able to simply walk through the front gate, there's no need to do this unless you were just trying to show off..."
 								:"Fly over the wall of the fortress, thereby avoiding a confrontation with the imp guards at the gate.",
 							PlaceType.FORTRESS_ALPHA_COURTYARD.getDialogue(false)) {
 						@Override
 						public void effects() {
+							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_ALPHA, false).isEmpty()) {
+									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
+								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_ALPHA).isEmpty()) {
+									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_ALPHA);
+								}
+							}
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_FLY_ENTRY"));
 							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_COURTYARD);
 						}
@@ -532,53 +540,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Imp Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed(){
-			return 5;
-		}
-		
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
-
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_GROUP")); //TODO
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Will be finished for 0.3!)", null);
-//				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
-//					return new Response("Enter", "Enter the fortress.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
-//						}
-//					};
-//				} else {
-//					return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
-//						}
-//					};
-//				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_FEMALES = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -608,34 +570,42 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean canEnter = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified);
+			
 			if(index==1) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)
-						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified)) {
-					return new Response("Enter", "Enter the fortress.", PlaceType.FORTRESS_FEMALES_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
+				return new Response(canEnter?"Enter":"Approach",
+						canEnter?"Enter the fortress.":"Approach the guards at the entrance to the fortress.",
+								PlaceType.FORTRESS_FEMALES_ENTRANCE.getDialogue(false)) {
+					@Override
+					public void effects() {
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).isEmpty()) {
+								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
+							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_FEMALES).isEmpty()) {
+								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_FEMALES);
+							}
 						}
-					};
-				} else {
-					return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_FEMALES_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
-						}
-					};
-				}
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_ENTRANCE);
+					}
+				};
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().isPartyAbleToFly()) {
 					return new Response("Fly",
-							(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)
-									|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesPacified))
+							canEnter
 								?"As you're able to simply walk through the front gate, there's no need to do this unless you were just trying to show off..."
 								:"Fly over the wall of the fortress, thereby avoiding a confrontation with the imp guards at the gate.",
 							PlaceType.FORTRESS_FEMALES_COURTYARD.getDialogue(false)) {
 						@Override
 						public void effects() {
+							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_FEMALES, false).isEmpty()) {
+									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
+								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_FEMALES).isEmpty()) {
+									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_FEMALES);
+								}
+							}
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_FLY_ENTRY"));
 							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_COURTYARD);
 						}
@@ -649,7 +619,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_MALES = new DialogueNodeOld("Crude Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -679,34 +649,42 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean canEnter = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified);
+			
 			if(index==1) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)
-						|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified)) {
-					return new Response("Enter", "Enter the fortress.", PlaceType.FORTRESS_MALES_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
+				return new Response(canEnter?"Enter":"Approach",
+						canEnter?"Enter the fortress.":"Approach the guards at the entrance to the fortress.",
+								PlaceType.FORTRESS_MALES_ENTRANCE.getDialogue(false)) {
+					@Override
+					public void effects() {
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+							if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).isEmpty()) {
+								ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
+							} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_MALES).isEmpty()) {
+								ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_MALES);
+							}
 						}
-					};
-				} else {
-					return new Response("Approach", "Approach the fortress.", PlaceType.FORTRESS_MALES_ENTRANCE.getDialogue(false)) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
-						}
-					};
-				}
+						Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_ENTRANCE);
+					}
+				};
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().isPartyAbleToFly()) {
 					return new Response("Fly",
-							(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)
-									|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesPacified))
+							canEnter
 								?"As you're able to simply walk through the front gate, there's no need to do this unless you were just trying to show off..."
 								:"Fly over the wall of the fortress, thereby avoiding a confrontation with the imp guards at the gate.",
 							PlaceType.FORTRESS_MALES_COURTYARD.getDialogue(false)) {
 						@Override
 						public void effects() {
+							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+								if(ImpFortressDialogue.getImpBossGroup(WorldType.IMP_FORTRESS_MALES, false).isEmpty()) {
+									ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
+								} else if(ImpFortressDialogue.getImpGuards(WorldType.IMP_FORTRESS_MALES).isEmpty()) {
+									ImpFortressDialogue.resetGuards(WorldType.IMP_FORTRESS_MALES);
+								}
+							}
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_FLY_ENTRY"));
 							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_COURTYARD);
 						}
@@ -720,7 +698,7 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld IMP_FORTRESS_5 = new DialogueNodeOld("Imp Fortress", "", false) {
+	public static final DialogueNodeOld IMP_FORTRESS_DEMON = new DialogueNodeOld("Stone Citadel", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -730,41 +708,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelEncountered, true);
+			
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_BASE"));
 
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_SLIMES"));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_DEFEATED"));
+				
+			} else if((Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)
+							&& Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2)
+							&& Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3))
+						|| Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_KEYS"));
+				
 			} else {
-				return null;
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_NO_KEYS"));
 			}
-		}
-	};
-	
-	public static final DialogueNodeOld IMP_FORTRESS_6 = new DialogueNodeOld("Imp Fortress", "", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed(){
-			return 5;
-		}
-		
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
-
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_BALANCED"));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -773,7 +733,38 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+				return new Response("Enter", "<i>This will be in the next version, I promise!</i>", null);
+//				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+//					return new Response("Enter", "Enter the ruins of the Dark Siren's citadel.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
+//						@Override
+//						public void effects() {
+//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
+//						}
+//					};
+//					
+//				} else if((Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY)
+//								&& Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2)
+//								&& Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3))
+//							|| Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
+//					return new Response("Enter", "Enter the citadel.", PlaceType.FORTRESS_DEMON_ENTRANCE.getDialogue(false)) {
+//						@Override
+//						public void effects() {
+//							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_KEY_ENTRY"));
+//							Main.game.getPlayer().setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_ENTRANCE);
+//
+//							if(!Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
+//								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain")), false));
+//								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
+//								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
+//								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
+//							}
+//						}
+//					};
+//					
+//				} else {
+//					return new Response("Enter", "You don't have a key...", null);
+//				}
+				
 			} else {
 				return null;
 			}

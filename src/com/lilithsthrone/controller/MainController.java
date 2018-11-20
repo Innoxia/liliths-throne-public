@@ -268,7 +268,11 @@ public class MainController implements Initializable {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
-			openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
+			if(Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer()) {
+				openInventory(Combat.getEnemies().get(0), InventoryInteraction.COMBAT);
+			} else {
+				openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
+			}
 			
 		} else if(Main.game.isInSex()) {
 			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
@@ -293,11 +297,6 @@ public class MainController implements Initializable {
 		InventoryDialogue.setInventoryNPC(npc);
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
-		// Why did I do this? BlobHyperThink
-//		if(npc!=null) {
-//			npc.setPendingClothingDressing(true);
-//		}
-		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
 			Main.game.restoreSavedContent(
 					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null
@@ -312,8 +311,6 @@ public class MainController implements Initializable {
 			
 			Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 		}
-
-		// processNewDialogue();
 	}
 
 	public void openCharactersPresent() {
@@ -1209,15 +1206,22 @@ public class MainController implements Initializable {
 		addEventListener(document, id, "mouseenter", el2, false);
 		
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-			if(Main.game.getPlayer().isAbleToTeleport()
-					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-					&& c.isTravelledTo()) {
+			if(((Main.game.getPlayer().isAbleToTeleport()
+						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
+						&& c.isTravelledTo())
+					|| Main.game.isDebugMode())
+				&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
 				Main.mainController.openPhone();
-				Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
+				if(!Main.game.isDebugMode()) {
+					Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
+				}
 				Main.game.getPlayer().setLocation(new Vector2i(j, i));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.getTextStartStringBuilder().append("<p>You teleport! :3</p>");
+				Main.game.getTextStartStringBuilder().append(
+						"<p>" //TODO improve
+							+ "Having knowledge of one of the most powerful arcane spells to exist, you're able to instantaneously teleport to any location you've previously visited."
+							+ " Wanting to make use of this arcane power, you recall what your destination looked like the last time you were there, and then, with a quick upwards movement of your [pc.hand], you instantly appear there!"
+						+ "</p>");
 				Main.game.setContent(new Response("", "", dn));
 			}
 		}, false);
@@ -2120,11 +2124,11 @@ public class MainController implements Initializable {
 	 *            true if move to next world, false if move to previous world
 	 */
 	public void moveGameWorld(WorldType worldType, PlaceType placeType, boolean setDefaultDialogue) {
-		int timeToTranstition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
+		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
 		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
 		
-		Main.game.endTurn(timeToTranstition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
+		Main.game.endTurn(timeToTransition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}
 
 	/**

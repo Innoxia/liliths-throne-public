@@ -361,12 +361,14 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
 					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
 					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
-//					new Value<>(new Color(0x0000ff), PlaceType.FORTRESS_DEMON_CELLS_COMFORTABLE),
+					new Value<>(new Color(0x808000), PlaceType.FORTRESS_DEMON_KEEP_THRONE_ROOM),
 					new Value<>(new Color(0x8000ff), PlaceType.FORTRESS_DEMON_CELLS),
-					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY),
+					
+					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_LAB),
 					new Value<>(new Color(0xff80ff), PlaceType.FORTRESS_DEMON_TREASURY_DOOR),
-					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_DEMON_TREASURY_CLOTHES),
-					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_DEMON_TREASURY_CLOTHES_DOOR))),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_DEMON_TREASURY_CLOTHES))),
 
 	IMP_FORTRESS_FEMALES("Imp Fortress",
 			Colour.BASE_PINK,

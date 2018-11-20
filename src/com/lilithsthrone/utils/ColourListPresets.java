@@ -137,6 +137,7 @@ public enum ColourListPresets {
 	ALL_METAL(Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK_STEEL,
 			Colour.CLOTHING_STEEL,
+			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,
 			Colour.CLOTHING_SILVER,
 			Colour.CLOTHING_ROSE_GOLD,
@@ -229,6 +230,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PINK_LIGHT,
 			Colour.CLOTHING_BLACK_STEEL,
 			Colour.CLOTHING_STEEL,
+			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,
 			Colour.CLOTHING_SILVER,
 			Colour.CLOTHING_ROSE_GOLD,

@@ -252,8 +252,8 @@ public class AlleywayDemonDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null, AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_OFFER_BODY", getDemon())){
+								null, null,
+								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_OFFER_BODY", getDemon())){
 							@Override
 							public void effects() {
 								Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -316,8 +316,8 @@ public class AlleywayDemonDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getDemon())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getDemon())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -338,8 +338,8 @@ public class AlleywayDemonDialogue {
 										Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getDemon())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getDemon())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -610,8 +610,8 @@ public class AlleywayDemonDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX", getDemon()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX", getDemon()));
 					
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
@@ -629,8 +629,8 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getDemon()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getDemon()));
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
@@ -648,8 +648,8 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getDemon()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getDemon()));
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
@@ -662,8 +662,8 @@ public class AlleywayDemonDialogue {
 									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon())) {
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon())) {
 						@Override
 						public void effects() {
 							getDemon().setPenisType(PenisType.DEMON_COMMON);
@@ -752,8 +752,8 @@ public class AlleywayDemonDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE", getDemon()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE", getDemon()));
 					
 				} else if (index == 3) {
 					if(!Main.game.isNonConEnabled()) {
@@ -774,8 +774,8 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getDemon()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getDemon()));
 					
 				} else if (index == 4) {
 					if(!Main.game.isNonConEnabled()) {
@@ -796,7 +796,7 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getDemon()));
+							null, AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getDemon()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -1263,8 +1263,8 @@ public class AlleywayDemonDialogue {
 									Util.newHashMapOfValues(new Value<>(getDemon(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX", getDemon())){
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX", getDemon())){
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -1291,8 +1291,8 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getDemon())){
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getDemon())){
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -1319,8 +1319,8 @@ public class AlleywayDemonDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getDemon())){
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getDemon())){
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);

@@ -236,9 +236,5 @@ public class Angel extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 
 }

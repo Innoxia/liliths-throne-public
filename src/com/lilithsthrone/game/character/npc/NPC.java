@@ -139,17 +139,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		NPCFlagValues = new HashSet<>();
 		
+		if(!isImported) {
+			setStartingBody(true);
+			equipClothing(true, true, true, true);
+		}
+		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
 					this.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 				}
 			}
-		}
-		
-		if(!isImported) {
-			setStartingBody(true);
-			equipClothing(true, true, true, true);
 		}
 		
 		loadImages();
@@ -504,7 +504,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	// Combat:
 	
-	public List<Spell> getSpellsAbleToCast() {
+	private List<Spell> getSpellsAbleToCast() {
 		List<Spell> spellsAbleToCast = new ArrayList<>();
 		
 		for(Spell spell : this.getAllSpells()) {
@@ -527,6 +527,152 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return spellsAbleToCast;
 	}
 	
+	/**
+	 * @param target The character that his character is targeting in combat.
+	 * @return A weighted map of spell -> weight.
+	 */
+	public Map<Spell, Integer> getWeightedSpellsAvailable(GameCharacter target) {
+		Map<Spell, Integer> weightedSpellMap = new HashMap<>();
+		
+		for(Spell spell : getSpellsAbleToCast()) {
+			switch(spell) {
+				// Basic offensive spells:
+				case ARCANE_AROUSAL:
+				case FIREBALL:
+				case ICE_SHARD:
+				case POISON_VAPOURS:
+				case SLAM:
+				case VACUUM:
+					if(Combat.isOpponent(this, target)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+					
+				// Spells that are based on applying status-effects:
+				case ARCANE_CLOUD:
+					if(Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.ARCANE_CLOUD)
+							&& !target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING)
+							&& !target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER)
+							&& !target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case CLOAK_OF_FLAMES:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)
+							&& !target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
+							&& !target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
+							&& !target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case PROTECTIVE_GUSTS:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.PROTECTIVE_GUSTS)
+							&& !target.hasStatusEffect(StatusEffect.PROTECTIVE_GUSTS_FOCUSED_BLAST)
+							&& !target.hasStatusEffect(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case RAIN_CLOUD:
+					if(Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.RAIN_CLOUD)
+							&& !target.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST)
+							&& !target.hasStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL)
+							&& !target.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR)
+							&& !target.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case SOOTHING_WATERS:
+					if(!Combat.isOpponent(this, target) && target.getHealthPercentage()<0.8f) {
+						weightedSpellMap.put(spell, (int) (1-(target.getHealthPercentage()*10))/2);
+					}
+					break;
+				case STONE_SHELL:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.STONE_SHELL)
+							&& !target.hasStatusEffect(StatusEffect.STONE_SHELL_EXPLOSIVE_FINISH)
+							&& !target.hasStatusEffect(StatusEffect.STONE_SHELL_HARDENED_CARAPACE)
+							&& !target.hasStatusEffect(StatusEffect.STONE_SHELL_SHIFTING_SANDS)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case TELEKENETIC_SHOWER:
+					if(Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.TELEKENETIC_SHOWER)
+							&& !target.hasStatusEffect(StatusEffect.TELEKENETIC_SHOWER_PRECISION_STRIKES)
+							&& !target.hasStatusEffect(StatusEffect.TELEKENETIC_SHOWER_UNSEEN_FORCE)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case TELEPATHIC_COMMUNICATION:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
+							&& !target.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+							&& !target.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED)
+							&& !target.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case TELEPORT:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.TELEPORT)
+							&& !target.hasStatusEffect(StatusEffect.TELEPORT_ARCANE_ARRIVAL)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case WITCH_CHARM:
+					if(!Combat.isOpponent(this, target)
+							&& !target.hasStatusEffect(StatusEffect.WITCH_CHARM)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+					
+				// Stuns:
+				case FLASH:
+				case WITCH_SEAL:
+					if(Combat.isOpponent(this, target) && !target.isStunned()) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+					
+				// Special condition spells:
+				case CLEANSE:
+					//TODO need to check for enemy & positive SEs, or ally & negative SEs
+//					if(Combat.isOpponent(this, target)) {
+//						
+//					}
+					break;
+				case LILITHS_COMMAND:
+					// TODO
+					weightedSpellMap.put(spell, 1);
+					break;
+				case STEAL:
+					// TODO
+					weightedSpellMap.put(spell, 1);
+					break;
+					
+				// Elementals:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+					if(!(this instanceof Elemental) && !this.isElementalSummoned()) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				// Spells that should not be used:
+				case DARK_SIREN_BANEFUL_FISSURE:
+					break;
+			}
+		}
+		
+		return weightedSpellMap;
+	}
+	
 	public List<SpecialAttack> getSpecialAttacksAbleToUse() {
 		List<SpecialAttack> specialAttacksAbleToUse = new ArrayList<>();
 		
@@ -544,7 +690,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public Attack attackType() {
-		boolean canCastASpell = !getSpellsAbleToCast().isEmpty();
+		boolean canCastASpell = !this.getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
 		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
 		
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
@@ -1469,7 +1615,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						desiredGenders.put(Gender.F_P_TRAP, 2);
 					};
 					
-					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferenes here
+					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferences here
 					if (Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 						desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 4);
 						desiredGenders.put(Gender.M_V_CUNTBOY, 4);
@@ -2440,7 +2586,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
 						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
-							this.ingestFluid(partner, partner.getCumType(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue(), partner.getCumModifiers());
+							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue());
 						}
 					}
 					break;
@@ -3232,6 +3378,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public List<Class<?>> getUniqueSexClasses() {
 		return new ArrayList<>();
+	}
+	
+	/**
+	 * Override this to set a preferred target for this character in sex. If there is an orgasm happening, and the returned character is not an orgasming character, this preference will be ignored.
+	 */
+	public GameCharacter getPreferredSexTarget() {
+		return null;
 	}
 
 	/**

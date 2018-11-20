@@ -215,7 +215,22 @@ public class EnchantingUtils {
 		
 		int cost = 0;
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
+			int costIncrement = entry.getKey().getCost() * Math.abs(entry.getValue());
+			
+			if(entry.getKey().getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+				switch(entry.getKey().getPotency()) {
+					case MAJOR_BOOST:
+						costIncrement*=4;
+						break;
+					case BOOST:
+						costIncrement*=2;
+						break;
+					default:
+						break;
+				}
+			}
+			
+			cost += costIncrement;
 		}
 		
 		return applyDiscountsForPerksAndFetishes(ingredient, cost);

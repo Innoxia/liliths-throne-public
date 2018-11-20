@@ -1,27 +1,50 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -53,8 +76,11 @@ public class Elemental extends NPC {
 			setLevel(summoner.getLevel());
 			
 			this.setSummoner(summoner);
+			this.setStartingBody(true);
 			
 			this.setLegType(LegType.DEMON_COMMON);
+			
+			this.setHistory(Occupation.ELEMENTAL_ARCANE);
 			
 			// RACE & NAME:
 			
@@ -68,6 +94,10 @@ public class Elemental extends NPC {
 			resetInventory(true);
 			
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -92,11 +122,118 @@ public class Elemental extends NPC {
 
 		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("elementalSpecial").item(0);
 		this.setSummoner(((Element)npcSpecificElement.getElementsByTagName("summoner").item(0)).getAttribute("value"));
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.6")) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
+			this.resetPerksMap();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			this.setElementalSchool(this.getCurrentSchool());
+		}
 	}
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		// Not needed
+		GameCharacter summoner = this.getSummoner();
+		if(summoner==null) {
+			return;
+		}
+		
+		// Body:
+		this.setAgeAppearanceDifferenceToAppearAsAge(summoner.getAppearsAsAgeValue());
+		this.setTailType(TailType.DEMON_COMMON);
+		this.setWingType(WingType.DEMON_COMMON);
+		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setLegType(LegType.DEMON_COMMON);
+		if(summoner.getHornType()==HornType.NONE || summoner.getHornType().getRace()==Race.DEMON) {
+			this.setHornType(summoner.getHornType());
+		} else if(this.isFeminine()) {
+			this.setHornType(HornType.SWEPT_BACK);
+		} else {
+			this.setHornType(HornType.STRAIGHT);
+		}
+
+		// Core:
+		this.setHeight(summoner.getHeightValue());
+		this.setFemininity(75);
+		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+			
+		// Coverings:
+//		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_RED));
+//		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PALE), true);
+//		
+//		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_WHITE), false);
+//
+//		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BROWN_DARK), true);
+//		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+//		this.setHairStyle(HairStyle.LOOSE);
+//		
+//		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+//		this.setUnderarmHair(BodyHair.ZERO_NONE);
+//		this.setAssHair(BodyHair.ZERO_NONE);
+//		this.setPubicHair(BodyHair.ZERO_NONE);
+//		this.setFacialHair(BodyHair.ZERO_NONE);
+//
+//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE));
+//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE));
+//				this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
+//				this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//				this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+			
+			// Face:
+			this.setFaceVirgin(true);
+			this.setLipSize(LipSize.TWO_FULL);
+			this.setFaceCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+			// Throat settings and modifiers
+			this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+			// Tongue modifiers
+			
+			// Chest:
+			this.setNippleVirgin(true);
+			if(summoner.hasBreasts()) {
+				this.setBreastSize(summoner.getBreastSize());
+				this.setBreastShape(summoner.getBreastShape());
+				this.setNippleSize(summoner.getNippleSize());
+				this.setAreolaeSize(summoner.getAreolaeSize());
+			} else {
+				this.setBreastSize(CupSize.F.getMeasurement());
+				this.setBreastShape(BreastShape.ROUND);
+				this.setNippleSize(NippleSize.THREE_LARGE);
+				this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+			}
+			// Nipple settings and modifiers
+			
+			// Ass:
+			this.setAssVirgin(true);
+			this.setAssBleached(false);
+			this.setAssSize(AssSize.FOUR_LARGE);
+			this.setHipSize(HipSize.FOUR_WOMANLY);
+			// Anus settings and modifiers
+			
+			// Penis:
+//				this.setPenisVirgin(false);
+//				this.setPenisGirth(PenisGirth.TWO_AVERAGE);
+//				this.setPenisSize(8);
+//				this.setTesticleSize(TesticleSize.TWO_AVERAGE);
+//				this.setPenisCumStorage(100);
+//				this.fillCumToMaxStorage();
+			
+			// Vagina:
+			this.setVaginaVirgin(true);
+			this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+			this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+			this.setVaginaSquirter(true);
+			this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+			this.setVaginaWetness(Wetness.THREE_WET);
+			this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
+			this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+			
+			// Feet:
+			// Foot shape
 	}
 
 	@Override
@@ -130,10 +267,6 @@ public class Elemental extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
-	@Override
-	public void endSex() {
-	}
 	
 	@Override
 	public String rollForPregnancy(GameCharacter partner, int cum) {
@@ -141,6 +274,48 @@ public class Elemental extends NPC {
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
 
+	@Override
+	public String incrementExperience(int increment, boolean withExtraModifiers) {
+		return ""; // Elementals don't gain experience, but instead automatically level up alongside their summoner.
+	}
+	
+	@Override
+	public boolean addPerk(int row, Perk perk) {
+		perks.putIfAbsent(row, new HashSet<>());
+		
+		if (perks.get(row).contains(perk)) {
+			return false;
+		}
+		
+		perks.get(row).add(perk);
+		
+		if(!perk.isEquippableTrait()) {
+			applyPerkGainEffects(perk);
+		}
+
+		calculateSpells(getCurrentSchool());
+		
+		return true;
+	}
+	
+	private void calculateSpells(SpellSchool school) {
+		this.resetSpells();
+		
+		// Add spells:
+		for(Set<Perk> perkSet : this.getPerksMap().values()) {
+			for(Perk p : perkSet) {
+				if(p.getSchool()==school) {
+					if(p.getSpellUpgrade()!=null) {
+						this.addSpellUpgrade(p.getSpellUpgrade());
+					} else {
+						this.addSpell(p.getSpell());
+						
+					}
+				}
+			}
+		}
+	}
+	
 	public SpellSchool getCurrentSchool() {
 		switch(this.getBodyMaterial()) {
 			case AIR:
@@ -165,92 +340,44 @@ public class Elemental extends NPC {
 	public void setElementalSchool(SpellSchool school) {
 		setElementalSchool(school, null);
 	}
+	
 	public void setElementalSchool(SpellSchool school, BodyMaterial preferredMaterial) {
-		this.setAttribute(Attribute.MAJOR_ARCANE, 60);
-		this.resetSpells();
 		
 		switch(school) {
 			case AIR:
-				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 30);
-				this.setAttribute(Attribute.MAJOR_ARCANE, 70);
 				this.setBodyMaterial(BodyMaterial.AIR);
-				
-				this.addSpell(Spell.POISON_VAPOURS);
-				this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
-				this.addSpell(Spell.PROTECTIVE_GUSTS);
-				this.addSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_1);
-				this.addSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_2);
-				this.addSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_3);
-				this.addSpell(Spell.VACUUM);
+				this.setHistory(Occupation.ELEMENTAL_AIR);
 				break;
 				
 			case ARCANE:
-				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
-				this.setAttribute(Attribute.MAJOR_ARCANE, 90);
 				this.setBodyMaterial(BodyMaterial.ARCANE);
-
-				this.addSpell(Spell.ARCANE_AROUSAL);
-				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1);
-				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2);
-				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_3);
-				this.addSpell(Spell.ARCANE_CLOUD);
-				this.addSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_1);
-				this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
-				this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
-				this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+				this.setHistory(Occupation.ELEMENTAL_ARCANE);
 				break;
 				
 			case EARTH:
-				this.setAttribute(Attribute.MAJOR_ARCANE, 40);
 				if(preferredMaterial==BodyMaterial.RUBBER) {
-					this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
 					this.setBodyMaterial(BodyMaterial.RUBBER);
 				} else {
-					this.setAttribute(Attribute.MAJOR_PHYSIQUE, 80);
 					this.setBodyMaterial(BodyMaterial.STONE);
 				}
-				
-				this.addSpell(Spell.SLAM);
-				this.addSpellUpgrade(SpellUpgrade.SLAM_1);
-				this.addSpellUpgrade(SpellUpgrade.SLAM_2);
-				this.addSpell(Spell.TELEKENETIC_SHOWER);
-				this.addSpell(Spell.STONE_SHELL);
-				this.addSpellUpgrade(SpellUpgrade.STONE_SHELL_1);
-				this.addSpellUpgrade(SpellUpgrade.STONE_SHELL_2);
+				this.setHistory(Occupation.ELEMENTAL_EARTH);
 				break;
 				
 			case FIRE:
-				this.setAttribute(Attribute.MAJOR_ARCANE, 50);
-				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
 				this.setBodyMaterial(BodyMaterial.FIRE);
-				
-				this.addSpell(Spell.FIREBALL);
-				this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
-				this.addSpell(Spell.CLOAK_OF_FLAMES);
-				this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
-				this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_2);
-				this.addSpell(Spell.FLASH);
+				this.setHistory(Occupation.ELEMENTAL_FIRE);
 				break;
 				
 			case WATER:
-				this.setAttribute(Attribute.MAJOR_ARCANE, 60);
-				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
 				if(preferredMaterial==BodyMaterial.ICE) {
 					this.setBodyMaterial(BodyMaterial.ICE);
 				} else {
 					this.setBodyMaterial(BodyMaterial.WATER);
 				}
-				
-				this.addSpell(Spell.ICE_SHARD);
-				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
-				this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
-				this.addSpell(Spell.RAIN_CLOUD);
-				this.addSpellUpgrade(SpellUpgrade.RAIN_CLOUD_1);
-				this.addSpellUpgrade(SpellUpgrade.RAIN_CLOUD_2);
-				this.addSpellUpgrade(SpellUpgrade.RAIN_CLOUD_3);
-				this.addSpell(Spell.SOOTHING_WATERS);
+				this.setHistory(Occupation.ELEMENTAL_WATER);
 				break;
 		}
+		calculateSpells(school);
 	}
 	
 	public GameCharacter getSummoner() {

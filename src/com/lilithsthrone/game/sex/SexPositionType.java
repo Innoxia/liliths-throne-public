@@ -3662,7 +3662,7 @@ public enum SexPositionType {
 	}
 	
 	public SexActionInteractions getSexInteractions(SexPositionSlot performer, SexPositionSlot target) {
-		if(slotTargets.get(performer).containsKey(target)) {
+		if(slotTargets.containsKey(performer) && slotTargets.get(performer).containsKey(target)) {
 			return slotTargets.get(performer).get(target);
 		}
 		

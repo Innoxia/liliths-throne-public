@@ -100,25 +100,37 @@ public interface SexActionInterface {
 	}
 	
 	/**
-	 * @param character The character to check for virginity losses.
-	 * @return true if the character can lose virginity from this action.
+	 * @return true if any character can lose virginity from this action.
 	 */
-	public default boolean isTakesVirginity(GameCharacter character) {
-		if(character.equals(Sex.getCharacterPerformingAction())) {
-			for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
-				if(sArea.isTakesVirginity()) {
-					return true;
-				}
-			}
-			
-		} else if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
-			for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
-				if(sArea.isTakesVirginity()) {
-					return true;
-				}
+	public default boolean isTakesVirginity(boolean includeForeplayOrifices) {
+		
+		boolean penetrationTakesVirginity = false;
+		boolean orificeHasVirginity = false;
+		for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
+			if(sArea.isTakesVirginity()) {
+				penetrationTakesVirginity = true;
 			}
 		}
-		return false;
+		for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
+			if(sArea.isInternalOrifice() && (includeForeplayOrifices || sArea!=SexAreaOrifice.MOUTH)) {
+				orificeHasVirginity = true;
+			}
+		}
+		if(penetrationTakesVirginity && orificeHasVirginity) {
+			return true;
+		}
+		
+		for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
+			if(sArea.isTakesVirginity()) {
+				penetrationTakesVirginity = true;
+			}
+		}
+		for(SexAreaOrifice sArea : this.getPerformingCharacterOrifices()) {
+			if(sArea.isInternalOrifice() && (includeForeplayOrifices || sArea!=SexAreaOrifice.MOUTH)) {
+				orificeHasVirginity = true;
+			}
+		}
+		return penetrationTakesVirginity && orificeHasVirginity;
 	}
 	
 	public abstract SexParticipantType getParticipantType();
@@ -210,6 +222,7 @@ public interface SexActionInterface {
 					|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
 					|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop if dom or equal control
+					|| this.getParticipantType()==SexParticipantType.SELF
 					|| Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()
 					|| Sex.isSubHasEqualControl())
 				&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.MISC_WATCHING
@@ -237,6 +250,9 @@ public interface SexActionInterface {
 	 * @return true If performer is able to free up orifices in order to perform this action.
 	 */
 	public default boolean isAbleToAccessParts(GameCharacter performer) {
+		if(!this.isPhysicallyPossible()) {
+			return false;
+		}
 		boolean canAccessSelfParts = true;
 		for(SexAreaOrifice orifice : this.getPerformingCharacterOrifices()) {
 			if(!orifice.isFree(performer)) {
@@ -416,7 +432,9 @@ public interface SexActionInterface {
 						
 						boolean canStartPenetration = Sex.isSubHasEqualControl() || Sex.isDom(Sex.getCharacterPerformingAction()) || !Sex.isDom(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
 						
-						if(!canStartPenetration && Sex.getCharacterPerformingAction().isPlayer()) {
+						if(!canStartPenetration
+								&& Sex.getSexPace(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))!=SexPace.DOM_ROUGH
+								&& Sex.getCharacterPerformingAction().isPlayer()) {
 							if(this.getTargetedCharacterOrifices().isEmpty()) {
 								canStartPenetration = true; // Can start submissive penetrations (getting penetrated, not doing the penetrating) when player is a sub with restricted control.
 							} else {
@@ -674,6 +692,11 @@ public interface SexActionInterface {
 	
 	public default Response convertToResponse() {
 		if(getCategory() != SexActionCategory.CHARACTER_SWITCH) {
+			
+//			if(getActionDescription()==null) {
+//				System.out.println(this.getClass().getName());
+//			}
+			
 			return new Response(
 					this.endsSex()
 						?getActionTitle()

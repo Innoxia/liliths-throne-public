@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>0</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[key-chain necklace]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[key-chain necklaces]]></namePlural>
+		<description><![CDATA[A necklace made out of the three keys you acquired from the imp fortresses in Submission.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>NECK</slot>
+		<rarity>QUEST</rarity>
+		<clothingSet/>
+		<imageName>key_chain.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>15</enchantmentLimit>
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_UNARMED" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_SILVER</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GOLD</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+	
+		<itemTags/>
+	</coreAtributes>
+
+	
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the key-chain around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] key-chain, before lifting it up and over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of the key-chain, before lifting it up and over [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(grab)] the key-chain, before yanking it up and over [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+	
+</clothing>

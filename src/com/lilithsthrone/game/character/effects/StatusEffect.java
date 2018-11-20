@@ -360,7 +360,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "You are a less adept at harnessing the arcane than you were when first entering this world, but are nevertheless still far more adept than the vast majority of the population.";
+				return "You are a less adept at harnessing the arcane than you were when first entering this world, but are nevertheless still far more powerful than the vast majority of the population.";
 			} else {
 				return UtilText.parse(target, "[npc.Name] has a small amount of ability with the arcane; equal to that of a common race who's undergone extensive training.");
 			}
@@ -1525,15 +1525,15 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above you."
-						+ " Although resistant to most of its arousing power, you're not completely unaffected, and you find yourself feeling hornier than usual.";
+						+ " Although resistant to most of its arousing power, you're not completely unaffected, and you find yourself feeling a little hornier than usual.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] seems to be just as resistant to the ongoing arcane storm as you are!");
+				return UtilText.parse(target, "[npc.NamePos] affinity with the arcane has rendered [npc.herHim] all but immune to the arousing effects of arcane storms!");
 			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if((target.isPlayer() || !target.isVulnerableToArcaneStorm()) && !target.getLocationPlace().isStormImmune()) {
+			if(!target.isVulnerableToArcaneStorm() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 				
 			} else {
@@ -1563,13 +1563,34 @@ public enum StatusEffect {
 					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
+				return "<p>"
+							+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
+							+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
+						+ "</p>"
+						+ "<p>"
+							+ "Within moments, a ghostly series of lewd moans and ecstatic screams start echoing throughout the city."
+							+ " Although you entered this world with a high enough arcane affinity to be rendered immune to the storm's effects, you've ended up losing most of your power,"
+								+ " and you can't help but let out a desperate [pc.moan] as you start to feel incredibly turned on."
+						+ "</p>"
+						+ "<p>"
+							+ "As you continue on your way, you find yourself hoping that you'll run into someone willing to give you a good fuck..."
+						+ "</p>";
+			} else {
+				return "";
+			}
+		}
+		
+		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.Name] is being heavily affected by the ongoing arcane storm.");
+			return UtilText.parse(target, "[npc.NameIsFull] being heavily affected by the ongoing arcane storm, and can think of nothing but sex...");
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.isVulnerableToArcaneStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
+			if(target.isVulnerableToArcaneStorm() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 			} else {
 				return false;
@@ -1646,7 +1667,7 @@ public enum StatusEffect {
 	PURE_HUMAN_PROLOGUE(
 			1000,
 			"human",
-			"race/raceHuman",
+			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			null,
@@ -1665,6 +1686,11 @@ public enum StatusEffect {
 			return target.getRace() == Race.HUMAN
 					&& target.getRaceStage() == RaceStage.HUMAN
 					&& !Main.game.isInNewWorld();
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
@@ -2280,7 +2306,7 @@ public enum StatusEffect {
 								+ "With a gasp, you suddenly snap out of the hallucination."
 								+ " Blushing, you feel a needy heat spreading throughout your groin..."
 							+ "</p>"
-							+target.incrementLust(25);
+							+target.incrementLust(25, false);
 				} else {
 					List<FluidType> list = new ArrayList<>(target.getPsychoactiveFluidsIngested());
 					FluidType fluid = list.get(Util.random.nextInt(list.size()));
@@ -2306,7 +2332,7 @@ public enum StatusEffect {
 										+ "With a gasp, you suddenly snap out of the hallucination."
 										+ " Blushing, you feel a needy heat spreading throughout your groin..."
 									+ "</p>"
-									+target.incrementLust(25);
+									+target.incrementLust(25, false);
 						case GIRLCUM:
 							return "<p>"
 										+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
@@ -2327,7 +2353,7 @@ public enum StatusEffect {
 										+ "With a gasp, you suddenly snap out of the hallucination."
 										+ " Blushing, you feel a needy heat spreading throughout your groin..."
 									+ "</p>"
-									+target.incrementLust(25);
+									+target.incrementLust(25, false);
 						case MILK:
 							return "<p>"
 										+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
@@ -2348,7 +2374,7 @@ public enum StatusEffect {
 										+ "With a gasp, you suddenly snap out of the hallucination."
 										+ " Blushing, you feel a needy heat spreading throughout your groin..."
 									+ "</p>"
-									+target.incrementLust(25);
+									+target.incrementLust(25, false);
 					}
 				}
 				return "";
@@ -3418,7 +3444,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "After consuming a Vixen's Virility pill, your body's fertility and virility have been temporarily boosted.";
+			return UtilText.parse(target, "After consuming a Vixen's Virility pill, [npc.namePos] fertility and virility have been temporarily boosted.");
 		}
 
 		
@@ -3442,8 +3468,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "After consuming a Promiscuity Pill, your body's fertility and virility has been temporarily reduced."
-					+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex you had before taking the pill!";
+			return UtilText.parse(target,
+					"After consuming a Promiscuity Pill, [npc.namePos] fertility and virility has been temporarily reduced."
+							+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex [npc.she] had before taking the pill!");
 		}
 
 		
@@ -4423,8 +4450,8 @@ public enum StatusEffect {
 		@Override
 		public String getName(GameCharacter target) {
 			return target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
-					?"Cummy Meal"
-					:"Yummy Meal";
+					?"Cummy meal"
+					:"Yummy meal";
 		}
 		
 		@Override
@@ -4461,14 +4488,16 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			int lossPerMinute = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target);
+			
 			return UtilText.parse(target, 
 					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
-					?"[npc.NamePos] recently swallowed a load of cum.<br/>"
+					?"[npc.NameHasFull] recently swallowed a load of cum.<br/>"
 						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-2ml/minute)"
-					:"[npc.NamePos] recently swallowed some sexual fluids.<br/>"
+						+ "(-"+lossPerMinute+"ml/minute)"
+					:"[npc.NameHasFull] recently swallowed some sexual fluids.<br/>"
 						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
-						+ "(-2ml/minute)");
+						+ "(-"+lossPerMinute+"ml/minute)");
 		}
 		
 		@Override
@@ -4816,8 +4845,6 @@ public enum StatusEffect {
 		public String extraRemovalEffects(GameCharacter target) {
 			return "";
 		}
-
-		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5644,7 +5671,7 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				return UtilText.parse(target,
-						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakazashi (the little)."
+						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakizashi (the little)."
 						+ " Wearing both of these swords at once marks the wielder as a member of the samurai class.");
 			} else {
 				return "";
@@ -6460,6 +6487,48 @@ public enum StatusEffect {
 				return true;
 			}
 		},
+	
+	BANEFUL_FISSURE(
+			10,
+			"Fissure's Fumes",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			null,
+			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(25 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"The fissure continues to spew forth poison fumes, causing [npc.name] to cough and splutter each time [npc.she] [npc.verb(breathe)] in.");
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.DARK_SIREN_BANEFUL_FISSURE.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
 
 	MELEE_FIRE(10,
 			"Fire Strikes",
@@ -8882,14 +8951,7 @@ public enum StatusEffect {
 			if (damage < 1) {
 				damage = 1;
 			}
-			target.incrementLust(damage);
-
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
-			}
+			return target.incrementLust(damage, true);
 		}
 		
 		@Override
@@ -8929,14 +8991,7 @@ public enum StatusEffect {
 			if (damage < 1) {
 				damage = 1;
 			}
-			target.incrementLust(damage);
-
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
-			}
+			return target.incrementLust(damage, true);
 		}
 		
 		@Override
@@ -8979,8 +9034,8 @@ public enum StatusEffect {
 					if (damage < 1) {
 						damage = 1;
 					}
-					combatant.incrementLust(damage);
-					sb.append(UtilText.parse(combatant, (Combat.getEnemies().size()>1?"<br/>":"")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+					
+					sb.append(combatant.incrementLust(damage, true));
 				}
 				
 			} else {
@@ -8988,16 +9043,14 @@ public enum StatusEffect {
 				if (damage < 1) {
 					damage = 1;
 				}
-				Main.game.getPlayer().incrementLust(damage);
-				sb.append((Combat.getAllies().size()>=1?"<br/>":"")+"You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+				sb.append(Main.game.getPlayer().incrementLust(damage, true));
 				
 				for(NPC combatant : Combat.getAllies()) {
 					damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
 					if (damage < 1) {
 						damage = 1;
 					}
-					combatant.incrementLust(damage);
-					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+					sb.append(combatant.incrementLust(damage, true));
 				}
 			}
 			
@@ -9353,14 +9406,7 @@ public enum StatusEffect {
 			if (damage < 1) {
 				damage = 1;
 			}
-			randomEnemy.incrementLust(damage);
-
-			if (randomEnemy.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
-				
-			} else {
-				return UtilText.parse(randomEnemy, "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
-			}
+			return randomEnemy.incrementLust(damage, true);
 		}
 		
 		@Override
@@ -9451,7 +9497,9 @@ public enum StatusEffect {
 				GameCharacter targetedCharacter = Sex.getTargetedPartner(target);
 				SexType preference = Sex.isInForeplay()?((NPC)target).getForeplayPreference(targetedCharacter):((NPC)target).getMainSexPreference(targetedCharacter);
 				return UtilText.parse(target, targetedCharacter,
-						"Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+						(Main.game.isInNewWorld()
+								?"Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+								:"Somehow, you're able to instinctively tell what [npc.namePos] non-neutral preferences towards sexual actions are.")
 						+ "<br/>"
 						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
 						+ (preference!=null
@@ -9460,7 +9508,10 @@ public enum StatusEffect {
 						+ "</i>");
 				
 			} else {
-				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+				return UtilText.parse(target,
+						(Main.game.isInNewWorld()
+								?"Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
+								:"Somehow, you're able to instinctively tell what [npc.namePos] non-neutral preferences towards sexual actions are.")
 						+ "<br/>"
 						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
 								+ "You can detect what areas [npc.name] wants to use when in sex..."
@@ -11199,16 +11250,16 @@ public enum StatusEffect {
 			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
 			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
-				for(LubricationType lt : Sex.getWetAreas(owner).get(penetration).get(lubricantProvidor)) {
+			for(GameCharacter lubricantProvider : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(penetration).get(lubricantProvider)) {
 					if(i==0) {
-						lubricants.add(lubricantProvidor==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
-								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
 					} else {
-						lubricants.add(lubricantProvidor==null
-								?lt.getName(lubricantProvidor)
-								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
 					}
 					i++;
 				}
@@ -11245,16 +11296,16 @@ public enum StatusEffect {
 			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
 			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvidor : Sex.getAllParticipants()) {
-				for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType).get(lubricantProvidor)) {
+			for(GameCharacter lubricantProvider : Sex.getAllParticipants()) {
+				for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType).get(lubricantProvider)) {
 					if(i==0) {
-						lubricants.add(lubricantProvidor==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvidor))
-								:UtilText.parse(lubricantProvidor, "[npc.NamePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
 					} else {
-						lubricants.add(lubricantProvidor==null
-								?lt.getName(lubricantProvidor)
-								:UtilText.parse(lubricantProvidor, "[npc.namePos] "+lt.getName(lubricantProvidor)));
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
 					}
 					i++;
 				}

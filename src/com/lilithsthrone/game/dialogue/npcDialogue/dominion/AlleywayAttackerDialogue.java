@@ -257,8 +257,8 @@ public class AlleywayAttackerDialogue {
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_OFFER_BODY", getMugger())) {
+								null,
+								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_OFFER_BODY", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -317,8 +317,8 @@ public class AlleywayAttackerDialogue {
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -339,8 +339,8 @@ public class AlleywayAttackerDialogue {
 										Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 								null,
-								AFTER_SEX_PEACEFUL,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
+								null,
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getMugger())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -599,8 +599,8 @@ public class AlleywayAttackerDialogue {
 								Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						null,
-						AFTER_SEX_DEFEAT,
-						UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
+						null,
+						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "STORM_ATTACK_OFFER_BODY", getMugger()));
 					
 			} else {
 				return null;
@@ -653,8 +653,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX", getMugger()));
 					
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
@@ -672,8 +672,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
@@ -691,8 +691,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
@@ -704,8 +704,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getMugger()));
 					
 				} else if (index == 6) {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
@@ -779,8 +779,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE", getMugger()));
 					
 				} else if (index == 3) {
 					if(!Main.game.isNonConEnabled()) {
@@ -801,8 +801,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
+							null,
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getMugger()));
 					
 				} else if (index == 4) {
 					if(!Main.game.isNonConEnabled()) {
@@ -823,7 +823,7 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
+							null, AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getMugger()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -972,16 +972,16 @@ public class AlleywayAttackerDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 					
 					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
 						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
-						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
+						applicableCorruptionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
 					}
 					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null){
@@ -1016,8 +1016,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1035,8 +1035,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1054,8 +1054,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				}
 				
@@ -1100,8 +1100,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1119,8 +1119,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1138,8 +1138,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else {
 					return null;
@@ -1180,8 +1180,8 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(getMugger(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
@@ -1199,8 +1199,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getMugger()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
@@ -1218,8 +1218,8 @@ public class AlleywayAttackerDialogue {
 								}
 							},
 							null,
-							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
+							null,
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getMugger()));
 					
 				} else {
 					return null;

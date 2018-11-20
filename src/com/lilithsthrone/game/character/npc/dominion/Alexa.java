@@ -250,8 +250,4 @@ public class Alexa extends NPC {
 		return null;
 	}
 
-	@Override
-	public void endSex() {
-	}
-
 }

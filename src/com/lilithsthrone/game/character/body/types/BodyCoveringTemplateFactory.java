@@ -162,7 +162,7 @@ public class BodyCoveringTemplateFactory {
 		return createEyeIrisesWithCustomColors(Colour.naturalIrisColours, Colour.dyeIrisColours, true);
 	}
 	
-	public static BodyCoveringTemplate createEyeIrisesHeterochromiaNaturallyOccuring() {
+	public static BodyCoveringTemplate createEyeIrisesHeterochromiaNaturallyOccurring() {
 		return createEyeIrisesWithCustomColors(Colour.naturalIrisColours, Colour.dyeIrisColours, false);
 	}
 }

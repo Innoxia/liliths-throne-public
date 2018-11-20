@@ -29,7 +29,7 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
-    <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1200.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />

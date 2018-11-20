@@ -1,21 +1,28 @@
 package com.lilithsthrone.game.occupantManagement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
+import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
@@ -24,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public class MilkingRoom implements XMLSaving {
@@ -36,9 +43,9 @@ public class MilkingRoom implements XMLSaving {
 	private WorldType worldType;
 	private Vector2i location;
 	
-	private Map<FluidMilk, Float> milkStorage;
-	private Map<FluidCum, Float> cumStorage;
-	private Map<FluidGirlCum, Float> girlcumStorage;
+	private List<FluidStored> fluidsStored;
+	
+	public static final int INGESTION_AMOUNT = 100;
 	
 	public MilkingRoom(WorldType worldType, Vector2i location) {
 		autoSellMilk = false;
@@ -47,9 +54,7 @@ public class MilkingRoom implements XMLSaving {
 		this.worldType = worldType;
 		this.location = new Vector2i(location.getX(), location.getY());
 		
-		this.milkStorage = new HashMap<>();
-		this.cumStorage = new HashMap<>();
-		this.girlcumStorage = new HashMap<>();
+		this.fluidsStored = new ArrayList<>();
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -63,29 +68,9 @@ public class MilkingRoom implements XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "autoSellMilk", String.valueOf(this.isAutoSellMilk()));
 		CharacterUtils.addAttribute(doc, element, "autoSellCum", String.valueOf(this.isAutoSellCum()));
 		CharacterUtils.addAttribute(doc, element, "autoSellGirlcum", String.valueOf(this.isAutoSellGirlcum()));
-		
-		for(Entry<FluidMilk, Float> entry : milkStorage.entrySet()) {
-			Element milkElement = doc.createElement("milkStorage");
-			element.appendChild(milkElement);
 
-			CharacterUtils.addAttribute(doc, milkElement, "milkQuantity", entry.getValue().toString());
-			entry.getKey().saveAsXML(milkElement, doc);
-		}
-		
-		for(Entry<FluidCum, Float> entry : cumStorage.entrySet()) {
-			Element cumElement = doc.createElement("cumStorage");
-			element.appendChild(cumElement);
-
-			CharacterUtils.addAttribute(doc, cumElement, "cumQuantity", entry.getValue().toString());
-			entry.getKey().saveAsXML(cumElement, doc);
-		}
-
-		for(Entry<FluidGirlCum, Float> entry : girlcumStorage.entrySet()) {
-			Element cumElement = doc.createElement("girlcumStorage");
-			element.appendChild(cumElement);
-
-			CharacterUtils.addAttribute(doc, cumElement, "girlcumQuantity", entry.getValue().toString());
-			entry.getKey().saveAsXML(cumElement, doc);
+		for(FluidStored fluid : fluidsStored) {
+			fluid.saveAsXML(element, doc);
 		}
 		
 		return element;
@@ -93,7 +78,6 @@ public class MilkingRoom implements XMLSaving {
 	
 	public static MilkingRoom loadFromXML(Element parentElement, Document doc) {
 		try {
-			
 			MilkingRoom room = new MilkingRoom(
 					WorldType.valueOf(parentElement.getAttribute("worldType")),
 					new Vector2i(
@@ -107,28 +91,13 @@ public class MilkingRoom implements XMLSaving {
 			} catch(Exception ex) {
 			}
 
-			NodeList milkStorageElements = parentElement.getElementsByTagName("milkStorage");
-			for(int i=0; i<milkStorageElements.getLength(); i++){
-				Element milkStorageElement = (Element)milkStorageElements.item(i);
-				Float quantity = Float.valueOf(milkStorageElement.getAttribute("milkQuantity"));
-				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc);
-				room.incrementMilkStorage(milk, quantity);
-			}
-
-			NodeList cumStorageElements = parentElement.getElementsByTagName("cumStorage");
-			for(int i=0; i<cumStorageElements.getLength(); i++){
-				Element cumStorageElement = (Element)cumStorageElements.item(i);
-				Float quantity = Float.valueOf(cumStorageElement.getAttribute("cumQuantity"));
-				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc);
-				room.incrementCumStorage(cum, quantity);
-			}
-
-			NodeList girlCumStorageElements = parentElement.getElementsByTagName("girlcumStorage");
-			for(int i=0; i<girlCumStorageElements.getLength(); i++){
-				Element cumStorageElement = (Element)girlCumStorageElements.item(i);
-				Float quantity = Float.valueOf(cumStorageElement.getAttribute("girlcumQuantity"));
-				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc);
-				room.incrementGirlcumStorage(cum, quantity);
+			try {
+				NodeList fluidStoredElements = parentElement.getElementsByTagName("fluidStored");
+				for(int i=0; i<fluidStoredElements.getLength(); i++){
+					Element fluidElement = (Element)fluidStoredElements.item(i);
+					room.getFluidsStored().add(FluidStored.loadFromXML(null, fluidElement, doc));
+				}
+			} catch(Exception ex) {
 			}
 			
 			return room;
@@ -144,7 +113,7 @@ public class MilkingRoom implements XMLSaving {
 		
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-		
+			
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
 			
 			if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL)
@@ -290,40 +259,205 @@ public class MilkingRoom implements XMLSaving {
 		return location;
 	}
 
-	public Map<FluidMilk, Float> getMilkStorage() {
-		return milkStorage;
-	}
-	
-	public void incrementMilkStorage(FluidMilk milk, float quantity) {
-		milkStorage.putIfAbsent(milk, 0f);
-		milkStorage.put(milk, milkStorage.get(milk)+quantity);
-		if(milkStorage.get(milk)==0) {
-			milkStorage.remove(milk);
-		}
-	}
-	
-	public Map<FluidCum, Float> getCumStorage() {
-		return cumStorage;
+	public List<FluidStored> getFluidsStored() {
+		return fluidsStored;
 	}
 
-	public void incrementCumStorage(FluidCum cum, float quantity) {
-		cumStorage.putIfAbsent(cum, 0f);
-		cumStorage.put(cum, cumStorage.get(cum)+quantity);
-		if(cumStorage.get(cum)==0) {
-			cumStorage.remove(cum);
-		}
-	}
-	
-	public Map<FluidGirlCum, Float> getGirlcumStorage() {
-		return girlcumStorage;
+	public List<FluidStored> getMilkFluidsStored() {
+		List<FluidStored> milkFluids = new ArrayList<>(fluidsStored);
+		milkFluids.removeIf((fluid)->!fluid.isMilk());
+		return milkFluids;
 	}
 
-	public void incrementGirlcumStorage(FluidGirlCum girlcum, float quantity) {
-		girlcumStorage.putIfAbsent(girlcum, 0f);
-		girlcumStorage.put(girlcum, girlcumStorage.get(girlcum)+quantity);
-		if(girlcumStorage.get(girlcum)==0) {
-			girlcumStorage.remove(girlcum);
+	public List<FluidStored> getCumFluidsStored() {
+		List<FluidStored> cumFluids = new ArrayList<>(fluidsStored);
+		cumFluids.removeIf((fluid)->!fluid.isCum());
+		return cumFluids;
+	}
+
+	public List<FluidStored> getGirlcumFluidsStored() {
+		List<FluidStored> girlcumFluids = new ArrayList<>(fluidsStored);
+		girlcumFluids.removeIf((fluid)->!fluid.isGirlCum());
+		return girlcumFluids;
+	}
+	
+	public void incrementFluidStored(GameCharacter character, FluidInterface fluidToStore, float quantity) {
+		boolean fluidIncremented = false;
+		for(FluidStored fluid : getFluidsStored()) {
+			if(fluid.getCharactersFluidID().equals(character.getId()) && fluid.getFluid().equals(fluidToStore)) {
+				fluid.incrementMillilitres((int) quantity);
+				fluidIncremented = true;
+				break;
+			}
 		}
+		if(!fluidIncremented) {
+			switch(fluidToStore.getType().getBaseType()) {
+				case CUM:
+					getFluidsStored().add(new FluidStored(character.getId(), character.getSubspecies(), (FluidCum) fluidToStore, (int) quantity));
+					break;
+				case MILK:
+					getFluidsStored().add(new FluidStored(character.getId(), (FluidMilk) fluidToStore, (int) quantity));
+					break;
+				case GIRLCUM:
+					getFluidsStored().add(new FluidStored(character.getId(), (FluidGirlCum) fluidToStore, (int) quantity));
+					break;
+			}
+		}
+		
+		getFluidsStored().removeIf((fs) -> fs.getMillilitres()<=0);
+	}
+	
+	public String getRoomDescription() {
+		StringBuilder milkyMilknessSB = new StringBuilder();
+		
+		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), Colour.MILK, "Milk Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), Colour.CUM, "Cum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), Colour.GIRLCUM, "Girlcum Stored"));
+		
+		return milkyMilknessSB.toString();
+	}
+	
+	private String getFluidEntries(List<FluidStored> fluids, Colour colour, String title) {
+		StringBuilder milkyMilknessSB = new StringBuilder();
+		
+		
+		boolean fluidsFound = false;
+
+		milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center;'><b style='color:"+colour.toWebHexString()+";'>"+title+"</b>");
+		
+			for(FluidStored fluid : fluids) {
+				
+				String idModifier = "";
+				FluidType type = null;
+				
+				if(fluid.isMilk()) {
+					idModifier = "MILK";
+					type = ((FluidMilk) fluid.getFluid()).getType();
+					
+				} else if(fluid.isCum()) {
+					idModifier = "CUM";
+					type = ((FluidCum) fluid.getFluid()).getType();
+					
+				} else if(fluid.isGirlCum()) {
+					idModifier = "GIRLCUM";
+					type = ((FluidGirlCum) fluid.getFluid()).getType();
+				}
+				
+				fluidsFound = true;
+				
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+				
+					milkyMilknessSB.append(
+							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
+								+ "[style.colourExcellent("+fluid.getMillilitres()+"ml)]"
+							+ "</div>");
+				
+					milkyMilknessSB.append(
+							"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
+								+ (fluid.getFluidCharacter()==null
+									?"[style.colourDisabled(Unknown's)]"
+									:UtilText.parse(fluid.getFluidCharacter(), "<span style='color:"+fluid.getFluidCharacter().getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</span>"))
+								+ "<br/>"
+								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(type.getRace().getName())+" "+type.getName(fluid.getFluidCharacter())+"</span>"
+							+ "</div>");
+	
+					milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+					FluidFlavour flavour = fluid.getFluid().getFlavour();
+					milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
+						if(!fluid.getFluid().getFluidModifiers().isEmpty()) {
+							int i=0;
+							for(FluidModifier mod : fluid.getFluid().getFluidModifiers()) {
+								if(i>0) {
+									milkyMilknessSB.append(", ");
+								}
+								milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
+								i++;
+							}
+							milkyMilknessSB.append(".");
+							
+						} else {
+							milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
+						}
+					milkyMilknessSB.append("</div>");
+	
+					milkyMilknessSB.append(
+							"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
+								+ UtilText.formatAsMoney((int)(fluid.getMillilitres()*fluid.getFluid().getValuePerMl()), "span")
+							+ "</div>");
+					
+					milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
+							+ "<div id='"+idModifier+"_"+CoverableArea.MOUTH+"_"+fluid.getFluid().hashCode()+"' "
+									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.MOUTH, fluid.getMillilitres())
+											?"class='square-button big'"
+											:"class='square-button big disabled'")+">"
+									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div></div>");
+					
+					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.VAGINA+"_"+fluid.getFluid().hashCode()+"' "
+									+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.VAGINA, fluid.getMillilitres())
+											?"class='square-button big'"
+											:"class='square-button big disabled'")+">"
+									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div></div>");
+					
+					milkyMilknessSB.append("<div id='"+idModifier+"_"+CoverableArea.ANUS+"_"+fluid.getFluid().hashCode()+"' "
+								+(isAbleToIngestThroughArea(Main.game.getPlayer(), CoverableArea.ANUS, fluid.getMillilitres())
+											?"class='square-button big'"
+											:"class='square-button big disabled'")+">"
+									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div></div>");
+					
+					milkyMilknessSB.append("<div id='"+idModifier+"_SELL_"+fluid.getFluid().hashCode()+"' class='square-button big'>"
+									+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+					
+					milkyMilknessSB.append("</div>");
+					
+				milkyMilknessSB.append("</div>");
+			}
+			
+			if(!fluidsFound) {
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+			}
+
+		milkyMilknessSB.append("</div>");
+		
+		return milkyMilknessSB.toString();
+	}
+	
+	public boolean isAbleToIngestThroughArea(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+		return getAreaIngestionBlockedDescription(ingestingCharacter, area, millilitres).isEmpty();
+	}
+	
+	public String getAreaIngestionBlockedDescription(GameCharacter ingestingCharacter, CoverableArea area, int millilitres) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(millilitres<=0) {
+			sb.append("There needs to be at least one millilitre of fluid for [npc.name] to ingest it!<br/>");
+		}
+		
+		switch(area) {
+			case ANUS:
+				if(!ingestingCharacter.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+					sb.append("[npc.NameIsFull] not able to access [npc.her] asshole!");
+				}
+				break;
+			case MOUTH:
+				if(!ingestingCharacter.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					sb.append("[npc.NameIsFull] not able to access [npc.her] mouth!");
+				}
+				break;
+			case VAGINA:
+				if(!ingestingCharacter.hasVagina()) {
+					sb.append("[npc.Name] [npc.does] not have a vagina!");
+					
+				} else if(!ingestingCharacter.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					sb.append("[npc.NameIsFull] not able to access [npc.her] pussy!");
+				}
+				break;
+			default:
+				break;
+		}
+		if(sb.length()==0) {
+			return "";
+		}
+		return UtilText.parse(ingestingCharacter, sb.toString());
 	}
 	
 }

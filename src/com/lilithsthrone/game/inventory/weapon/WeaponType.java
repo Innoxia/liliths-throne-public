@@ -291,7 +291,9 @@ public class WeaponType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_VICKY,
+					ItemTag.WEAPON_BLADE)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -370,7 +372,9 @@ public class WeaponType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_VICKY,
+					ItemTag.WEAPON_BLADE)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -1030,6 +1034,9 @@ public class WeaponType {
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
 	
 	public static AbstractWeaponType getWeaponTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
+//		System.out.println("  set to: "+id);
 		return idToWeaponMap.get(id);
 	}
 	
