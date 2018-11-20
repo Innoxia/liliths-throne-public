@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Attribute {
@@ -28,8 +28,9 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "How much physical energy you have. You will be defeated in combat if this reaches 0.<br/><br/>"
-								+ "<b>Stamina = " + GameCharacter.HEALTH_CALCULATION + "</b>";
+						return "How much physical energy you have. You will be defeated in combat if this reaches 0.<br/>"
+								+ "Extra energy is added to the 'bonus' value from:<br/>"
+								+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
 								"How much physical energy [npc.name] has. [npc.She] will be defeated in combat if this reaches 0.");
@@ -47,8 +48,9 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "A measure of the amount of arcane energy in your aura.<br/><br/>"
-								+ "<b>Aura = " + GameCharacter.MANA_CALCULATION + "</b>";
+						return "A measure of the amount of arcane energy in your aura.<br/>"
+								+ "Extra aura is added to the 'bonus' value from:<br/>"
+								+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
 								"How much arcane energy [npc.name] has in [npc.her] aura.");

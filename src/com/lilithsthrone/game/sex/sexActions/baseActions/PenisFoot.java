@@ -620,7 +620,7 @@ public class PenisFoot {
 				case PAWS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] [npc.foot+] down against [npc2.namePos] [npc2.cock+],"
-									+ " before [npc.eagerly] rubbing [npc.her] sole up and down the length [npc2.her] shaft.",
+									+ " before [npc.eagerly] rubbing [npc.her] sole up and down the length of [npc2.her] shaft.",
 
 							"Bringing [npc.her] [npc.foot+] down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] sole down against [npc2.her] [npc2.cock+],"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
@@ -645,7 +645,7 @@ public class PenisFoot {
 				case HOOFS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] hard hoof down against [npc2.namePos] [npc2.cock+],"
-									+ " before carefully [npc.eagerly] rubbing it up and down the length [npc2.her] shaft.",
+									+ " before carefully [npc.eagerly] rubbing it up and down the length of [npc2.her] shaft.",
 
 							"Bringing [npc.her] hard hoof down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] it down against [npc2.her] [npc2.cock+],"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));

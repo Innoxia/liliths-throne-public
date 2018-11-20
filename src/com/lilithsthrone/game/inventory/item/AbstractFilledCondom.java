@@ -149,13 +149,13 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
 						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers()));
+					+ target.ingestFluid(getCumProvidor(), cum, SexAreaOrifice.MOUTH, millilitresStored));
 		} else {
 			return "<p>"
 						+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
 						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
+					+ target.ingestFluid(getCumProvidor(), cum, SexAreaOrifice.MOUTH, millilitresStored);
 		}
 		
 	}

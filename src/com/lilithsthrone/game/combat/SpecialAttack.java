@@ -387,6 +387,10 @@ public enum SpecialAttack {
 							"Come on [npc2.sis]! I just want to show you how much I love you!");
 					break;
 				default:
+					dialogue = UtilText.returnStringAtRandom(
+							"Let [npc.mommy] take care of you!",
+							"Don't worry sweetie, [npc.mommy]'s going to take good care of you!",
+							"[npc.Mommy] just wants to show you how much [npc.she] loves you!");
 					break;
 			}
 			
@@ -2226,74 +2230,6 @@ public enum SpecialAttack {
 				descriptionSB.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
 			}
 			
-		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-			if(caster.isPlayer()) {
-				if(critical) {
-					descriptionSB.append(
-							UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
-								+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
-								+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!<br/><br/>"
-								+ "<b>[npc.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] burning desire for sex!</b>"
-							+ "</p>"));
-				} else {
-					descriptionSB.append(
-							UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...<br/><br/>"
-								+ "<b>[npc.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] burning desire for sex!</b>"
-							+ "</p>"));
-				}
-				
-			} else if(target.isPlayer()){
-				if(critical) {
-					descriptionSB.append(
-							UtilText.parse(caster,
-							"<p>"
-								+ "Because you have "
-								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " you find yourself unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
-								+ "<b>You take " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b>"
-							+ "</p>"));
-				} else {
-					descriptionSB.append(
-							UtilText.parse(caster,
-							"<p>"
-								+ "[npc.NamePos] display is quite arousing...<br/><br/>"
-								+ "<b>You take " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b>"
-							+ "</p>"));
-				}
-				
-			} else {
-				if(critical) {
-					descriptionSB.append(
-							UtilText.parse(caster, target,
-							"<p>"
-								+ "Because [npc2.name] has "
-								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
-								+ "<b>[npc2.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b>"
-							+ "</p>"));
-				} else {
-					descriptionSB.append(
-							UtilText.parse(caster, target,
-							"<p>"
-								+ "[npc2.Name] finds [npc.namePos] display to be quite arousing...<br/><br/>"
-								+ "<b>[npc2.Name] takes " + (damage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
-								+ " and "+damage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b>"
-							+ "</p>"));
-				}	
-			}
-			
-			target.incrementHealth(-damage*2);
-			target.incrementMana(-damage);
-			
 		} else {
 			if(caster.isPlayer()) {
 				if(critical) {
@@ -2302,15 +2238,13 @@ public enum SpecialAttack {
 							"<p>"
 								+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
 								+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
-								+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!<br/><br/>"
-								+ "<b>[npc.She] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>!"
+								+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!"
 							+ "</p>"));
 				} else {
 					descriptionSB.append(
 							UtilText.parse(target,
 							"<p>"
-								+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...<br/><br/>"
-								+ "<b>[npc.She] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>."
+								+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack..."
 							+ "</p>"));
 				}
 				
@@ -2321,15 +2255,13 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because you have "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " you find yourself unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!<br/><br/>"
-								+ "<b>You gain " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>!"
+								+ " you find yourself unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!"
 							+ "</p>"));
 				} else {
 					descriptionSB.append(
 							UtilText.parse(caster,
 							"<p>"
-								+ "[npc.NamePos] display is quite arousing...<br/><br/>"
-								+ "<b>You gain " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>."
+								+ "[npc.NamePos] display is quite arousing..."
 							+ "</p>"));
 				}
 				
@@ -2340,20 +2272,18 @@ public enum SpecialAttack {
 							"<p>"
 								+ "Because [npc2.name] has "
 								+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!<br/><br/>"
-								+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>!"
+								+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.namePos] enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!"
 							+ "</p>"));
 				} else {
 					descriptionSB.append(
 							UtilText.parse(caster, target,
 							"<p>"
-								+ "[npc2.Name] finds [npc.namePos] display to be quite arousing...<br/><br/>"
-								+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b>."
+								+ "[npc2.Name] finds [npc.namePos] display to be quite arousing..."
 							+ "</p>"));
 				}	
 			}
-			
-			target.incrementLust(damage);
+
+			descriptionSB.append(target.incrementLust(damage, true));
 		}
 		
 		

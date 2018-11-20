@@ -3179,7 +3179,7 @@ public class ItemEffectType {
 			List<String> effectsList = new ArrayList<>();
 			
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overriden in a couple of places, such as in InventoryTooltipEventListener
+					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overridden in a couple of places, such as in InventoryTooltipEventListener
 				effectsList.add(
 						(potency.getClothingBonusValue()<0
 								?"[style.boldBad("+potency.getClothingBonusValue()+")] "
@@ -3296,7 +3296,7 @@ public class ItemEffectType {
 			List<String> effectsList = new ArrayList<>();
 			
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overriden in a couple of places ,such as in InventoryTooltipEventListener
+					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) { //This is overridden in a couple of places, such as in InventoryTooltipEventListener
 				effectsList.add(
 						(potency.getClothingBonusValue()<0
 								?"[style.boldBad("+potency.getClothingBonusValue()+")] "
@@ -3403,6 +3403,9 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
+//		System.out.println("  set to: "+id);
 		return idToItemEffectTypeMap.get(id);
 	}
 	

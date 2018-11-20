@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum Perk {
@@ -612,7 +612,7 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You're quite competent at fighting using the arcane. You gain a bonus to your spell damage and effeciency.";
+			return "You're quite competent at fighting using the arcane. You gain a bonus to your spell damage and efficiency.";
 		}
 	},
 	
@@ -1160,8 +1160,8 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Roughly translated from Japanese as 'Middle School 2nd Year Syndrome', those with 'chuuibyou' believe and act as though they possess special powers."
-					+ " While chunnis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
+			return UtilText.parse(owner, "Roughly translated from Japanese as 'Middle School 2nd Year Syndrome', those with 'chuunibyou' believe and act as though they possess special powers."
+					+ " While chuunis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
 		}
 	},
 	
@@ -2672,8 +2672,8 @@ public enum Perk {
 			"perks/elemental/water1",
 			Colour.DAMAGE_TYPE_COLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 5)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override

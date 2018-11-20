@@ -381,6 +381,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								displacementDescriptions.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("otherRough").item(0).getTextContent());
 							} catch(Exception ex) {
 							}
+							if(displacementDescriptions.get(type).isEmpty()) {
+								displacementDescriptions.remove(type);
+							}
 							
 						} catch(Exception ex) {
 							System.err.println("AbstractClothingType loading failed. Cause: 'replacementText' element unable to be parsed.");
@@ -440,6 +443,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							try {
 								displacementDescriptions.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("otherRough").item(0).getTextContent());
 							} catch(Exception ex) {
+							}
+							if(displacementDescriptions.get(type).isEmpty()) {
+								displacementDescriptions.remove(type);
 							}
 							
 						} catch(Exception ex) {

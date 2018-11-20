@@ -140,7 +140,12 @@ public class TunnelImpsDialogue {
 							Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 							null,
 							null,
-							null);
+							null) {
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+					};
 					
 				} else {
 					return null;
@@ -161,7 +166,12 @@ public class TunnelImpsDialogue {
 							Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 							null,
 							null,
-							null);
+							null){
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+					};
 					
 				} else if (index == 4) {
 					GameCharacter companion = getMainCompanion();
@@ -243,7 +253,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 
 					Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
 					
@@ -253,7 +263,7 @@ public class TunnelImpsDialogue {
 								:"Swallow the potion, which, if the imps are to be believed, causes the drinker to grow both a penis and vagina...",
 							AFTER_COMBAT_TRANSFORMATION_SOLO,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null) {
@@ -330,7 +340,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 	
 						return new Response("Order swallow",
 								UtilText.parse(getMainCompanion(),
@@ -342,7 +352,7 @@ public class TunnelImpsDialogue {
 											:"")),
 								AFTER_OFFER_COMPANION_TRANSFORMATION,
 								applicableFetishes,
-								applicableCorrutionLevel,
+								applicableCorruptionLevel,
 								null,
 								null,
 								null) {
@@ -438,7 +448,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 					
 					return new Response("Swallow",
 							UtilText.parse(getMainCompanion(),
@@ -448,7 +458,7 @@ public class TunnelImpsDialogue {
 								+ " ([npc.Name] will decide whether to spit or swallow [npc.her] own potion [npc.herself].)"),
 							AFTER_COMBAT_TRANSFORMATION,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null) {
@@ -534,7 +544,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 7) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 
 						return new Response("Swallow (both)",
 								UtilText.parse(getMainCompanion(),
@@ -546,7 +556,7 @@ public class TunnelImpsDialogue {
 											:" Once swallowed, tell [npc.name] to do the same...")),
 								AFTER_COMBAT_TRANSFORMATION,
 								applicableFetishes,
-								applicableCorrutionLevel,
+								applicableCorruptionLevel,
 								null,
 								null,
 								null) {
@@ -615,7 +625,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 					
 					return new Response("Swallow",
 							(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE || Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY)
@@ -623,7 +633,7 @@ public class TunnelImpsDialogue {
 								:"Swallow the potion, which, if the imps are to be believed, causes the drinker to grow both a penis and vagina...",
 							AFTER_COMBAT_TRANSFORMATION,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null) {
@@ -697,7 +707,7 @@ public class TunnelImpsDialogue {
 					
 				} else if (index == 7) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 	
 						return new Response("Order swallow",
 								UtilText.parse(getMainCompanion(),
@@ -709,7 +719,7 @@ public class TunnelImpsDialogue {
 											:"")),
 								AFTER_COMBAT_TRANSFORMATION,
 								applicableFetishes,
-								applicableCorrutionLevel,
+								applicableCorruptionLevel,
 								null,
 								null,
 								null) {

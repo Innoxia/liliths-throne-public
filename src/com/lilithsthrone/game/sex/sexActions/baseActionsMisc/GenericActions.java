@@ -183,7 +183,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(-50);
+			Sex.getActivePartner().incrementLust(-50, false);
 		}
 	};
 	
@@ -232,7 +232,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(50);
+			Sex.getActivePartner().incrementLust(50, false);
 		}
 	};
 	
@@ -876,7 +876,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getCharacterTargetedForSexAction(this).incrementLust(-50);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(-50, false);
 		}
 	};
 	
@@ -928,7 +928,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getCharacterTargetedForSexAction(this).incrementLust(50);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(50, false);
 		}
 	};
 	

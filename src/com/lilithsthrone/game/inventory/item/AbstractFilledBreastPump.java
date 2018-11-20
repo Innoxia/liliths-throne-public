@@ -141,7 +141,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
-		return target.ingestFluid(getMilkProvidor(), milk.getType(), SexAreaOrifice.MOUTH, millilitresStored, milk.getFluidModifiers())
+		return target.ingestFluid(getMilkProvidor(), milk, SexAreaOrifice.MOUTH, millilitresStored)
 				+ target.addItem(AbstractItemType.generateItem(ItemType.MOO_MILKER_EMPTY), false);
 	}
 	
