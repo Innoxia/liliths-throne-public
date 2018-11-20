@@ -4888,8 +4888,9 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
+										String title = "Unequip " + clothing.getName();
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + clothing.getName(), owner.getUnequipDescription());
+										Combat.appendTurnText(Main.game.getPlayer(), title, owner.getUnequipDescription());
 										resetPostAction();
 										Combat.endCombatTurn();
 										Combat.setPreviousAction(Attack.NONE);

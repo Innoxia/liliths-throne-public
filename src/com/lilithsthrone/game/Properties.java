@@ -515,6 +515,9 @@ public class Properties implements Serializable {
 					if(Main.isVersionOlderThan(versionNumber, "0.2.7.6")) {
 						values.add(PropertyValue.ageContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.2.12")) {
+						values.add(PropertyValue.autoSexClothingManagement);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

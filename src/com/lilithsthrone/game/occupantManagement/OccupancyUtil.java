@@ -445,7 +445,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 								
 							} else {
-								room.incrementMilkStorage(slave.getMilk(), milked);
+								room.incrementFluidStored(slave, slave.getMilk(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
@@ -472,7 +472,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementCumStorage(slave.getCum(), milked);
+								room.incrementFluidStored(slave, slave.getCum(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
@@ -499,7 +499,7 @@ public class OccupancyUtil implements XMLSaving {
 										true));
 							
 							} else {
-								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
+								room.incrementFluidStored(slave, slave.getGirlcum(), milked);
 								
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
@@ -1004,13 +1004,13 @@ public class OccupancyUtil implements XMLSaving {
 						
 						// Apply sex effects:
 						if(canImpregnate) {
-							npc.ingestFluid(slave, slave.getCumType(), SexAreaOrifice.VAGINA, slave.getPenisRawOrgasmCumQuantity(), slave.getCum().getFluidModifiers());
+							npc.ingestFluid(slave, slave.getCum(), SexAreaOrifice.VAGINA, slave.getPenisRawOrgasmCumQuantity());
 							slave.applyOrgasmCumEffect();
 							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
-							slave.ingestFluid(npc, npc.getCumType(), SexAreaOrifice.VAGINA, npc.getPenisRawOrgasmCumQuantity(), npc.getCum().getFluidModifiers());
+							slave.ingestFluid(npc, npc.getCum(), SexAreaOrifice.VAGINA, npc.getPenisRawOrgasmCumQuantity());
 							npc.applyOrgasmCumEffect();
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;

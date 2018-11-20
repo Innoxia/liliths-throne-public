@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
@@ -73,6 +74,7 @@ public class UtilText {
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
+	private static List<ParserTag> parserTags;
 	
 	private static ScriptEngine engine;
 
@@ -381,8 +383,8 @@ public class UtilText {
 	}
 
 	public static String getCurrencySymbol() {
-		return "&#9679;"; // Circle
-//		return "&#164"; // 'Generic' currency symbol
+//		return "&#9679;"; // Circle
+		return "&#164"; // 'Generic' currency symbol
 	}
 	
 	public static String getPentagramSymbol() {
@@ -422,9 +424,9 @@ public class UtilText {
 	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
 		String tagColour;
-		int copper = money%100;
-		int silver = (money%10000)/100;
-		int gold = money/10000;
+//		int copper = Math.abs(money%100);
+//		int silver = Math.abs((money%10000)/100);
+//		int gold = Math.abs(money/10000);
 		
 		if(amountColour==null) {
 			tagColour = Colour.TEXT.getShades(8)[3];
@@ -432,21 +434,22 @@ public class UtilText {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return (gold>0
-					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-						+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(gold) + "</" + tag + ">"
-					:"")
-				+(silver>0
-					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_SILVER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-						+ "<" + tag + " style='color:" + tagColour + ";'>" + silver + "</" + tag + ">"
-					:"")
-				+(copper>0
-					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_COPPER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-						+ "<" + tag + " style='color:" + tagColour + ";'>" + copper + "</" + tag + ">"
-					:"");
+//		return (money<0?"<b style='color:" + tagColour + ";'>-</b>":"")
+//				+(gold!=0
+//					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(moneyString) + "</" + tag + ">"
+//					:"")
+//				+(silver!=0
+//					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_SILVER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + silver + "</" + tag + ">"
+//					:"")
+//				+(copper!=0 || money==0
+//					?"<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_COPPER.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + copper + "</" + tag + ">"
+//					:"");
 		
-//		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
+		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + Units.number(money) + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
@@ -561,29 +564,25 @@ public class UtilText {
 		}
 	}
 	
-	public static String parse(String input) {
-		return parse(new ArrayList<>(), input);
+	public static String parse(String input, ParserTag... tags) {
+		return parse(new ArrayList<>(), input, tags);
 	}
 	
-	public static String parse(GameCharacter specialNPC, String input) {
-		return parse(Util.newArrayListOfValues(specialNPC), input);
+	public static String parse(GameCharacter specialNPC, String input, ParserTag... tags) {
+		return parse(Util.newArrayListOfValues(specialNPC), input, tags);
 	}
 	
-	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input) {
-		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input);
+	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input, ParserTag... tags) {
+		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input, tags);
 	}
 	
-	enum ParseMode {
-		UNKNOWN,
-		CONDITIONAL,
-		REGULAR,
-		REGULAR_SCRIPT;
-	}
 	
 	/**
 	 * Parses supplied text.
 	 */
-	public static String parse(List<GameCharacter> specialNPC, String input) {
+	public static String parse(List<GameCharacter> specialNPC, String input, ParserTag... tags) {
+		
+		parserTags = Arrays.asList(tags);
 		
 		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
 			input = input.replaceAll("\u200b", "");
@@ -1077,7 +1076,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns a breif descriptive overview of this character."){
+				"Returns a brief descriptive overview of this character."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getDescription();
@@ -1363,6 +1362,7 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"miss",
+						"ma'am",
 						"sir"),
 				true,
 				true,
@@ -1371,7 +1371,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(character.isFeminine()) {
-					return "miss";
+					return "ma'am";
 				} else {
 					return "sir";
 				}
@@ -2259,6 +2259,26 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"speechFeminineStrong",
+						"dialogueFeminineStrong",
+						"talkFeminineStrong",
+						"sayFeminineStrong"),
+				false,
+				false,
+				"(speech content)",
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return parseNPCSpeech(arguments, Femininity.FEMININE_STRONG);
+				} else {
+					return parseNPCSpeech("...", Femininity.FEMININE_STRONG);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"speechNoEffects",
 						"dialogueNoEffects",
 						"talkNoEffects",
@@ -2672,7 +2692,7 @@ public class UtilText {
 							break;
 						case SUB_NORMAL:
 							if(arguments!=null && !arguments.isEmpty()) {
-								return Util.capitaliseSentence(arguments); // Assume start of setnece, so capitalise.
+								return Util.capitaliseSentence(arguments); // Assume start of sentence, so capitalise.
 							} else if(Character.isUpperCase(command.charAt(0))) {
 								descriptors = Util.newArrayListOfValues("happily", "eagerly", "willingly"); // If start of sentence, need descriptor.
 								break;
@@ -4375,6 +4395,20 @@ public class UtilText {
 				BodyPartType.LEG){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+										?"footwear"
+										:clothing.getName()+"-clad-"+character.getLegType().getFeetNameSingular(character),
+									clothing.getName(),
+									clothing.getName());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return character.getLegType().getFeetNameSingular(character);
 			}
 		});
@@ -4390,6 +4424,20 @@ public class UtilText {
 				BodyPartType.LEG){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+									?"footwear"
+									:clothing.getName()+"-clad-"+character.getLegType().getFeetNameSingular(character),
+									clothing.getName(),
+									clothing.getName());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return applyDescriptor(character.getLegType().getFeetDescriptor(character), character.getLegType().getFeetNameSingular(character));
 			}
 		});
@@ -4404,6 +4452,20 @@ public class UtilText {
 				BodyPartType.LEG){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+										?"footwear"
+										:clothing.getName()+"-clad-"+character.getLegType().getFeetNamePlural(character),
+									clothing.getNamePlural(),
+									clothing.getNamePlural());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return character.getLegType().getFeetNamePlural(character);
 			}
 		});
@@ -4419,6 +4481,20 @@ public class UtilText {
 				BodyPartType.LEG){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+										?"footwear"
+										:clothing.getName()+"-clad-"+character.getLegType().getFeetNamePlural(character),
+									clothing.getNamePlural(),
+									clothing.getNamePlural());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return applyDescriptor(character.getLegType().getFeetDescriptor(character), character.getLegType().getFeetNamePlural(character));
 			}
 		});
@@ -4641,7 +4717,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisGirth",
 						"cockGirth",
-						"dickGrith"),
+						"dickGirth"),
 				true,
 				true,
 				"",
@@ -5353,7 +5429,7 @@ public class UtilText {
 			character = parserTarget.getCharacter(target.toLowerCase());
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: parserTarget.getCharacter() not found!</i>";
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: parserTarget.getCharacter() not found! ("+target+")</i>";
 		}
 		
 		// Commands with arguments:
@@ -5472,6 +5548,8 @@ public class UtilText {
 		}
 		engine.put("RND", Util.random);
 		engine.put("sex", Main.sexEngine); //TODO static methods don't work...
+
+//		engine.put("Packages.com.lilithsthrone.utils.Util");
 		
 //		StringBuilder sb = new StringBuilder();
 //		for(Entry<String, Object> entry : engine.getBindings(ScriptContext.ENGINE_SCOPE).entrySet()) {

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -95,7 +96,6 @@ public class Nyan extends NPC {
 				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
-		
 		
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
@@ -493,42 +493,52 @@ public class Nyan extends NPC {
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {
+		Collections.shuffle(commonFemaleClothing);
 		return commonFemaleClothing;
 	}
 
 	public List<AbstractClothing> getCommonFemaleUnderwear() {
+		Collections.shuffle(commonFemaleUnderwear);
 		return commonFemaleUnderwear;
 	}
 
 	public List<AbstractClothing> getCommonFemaleAccessories() {
+		Collections.shuffle(commonFemaleAccessories);
 		return commonFemaleAccessories;
 	}
 
 	public List<AbstractClothing> getCommonMaleClothing() {
+		Collections.shuffle(commonMaleClothing);
 		return commonMaleClothing;
 	}
 
 	public List<AbstractClothing> getCommonAndrogynousClothing() {
+		Collections.shuffle(commonAndrogynousClothing);
 		return commonAndrogynousClothing;
 	}
 
 	public List<AbstractClothing> getCommonMaleLingerie() {
+		Collections.shuffle(commonMaleLingerie);
 		return commonMaleLingerie;
 	}
 
 	public List<AbstractClothing> getCommonMaleAccessories() {
+		Collections.shuffle(commonMaleAccessories);
 		return commonMaleAccessories;
 	}
 
 	public List<AbstractClothing> getCommonAndrogynousLingerie() {
+		Collections.shuffle(commonAndrogynousLingerie);
 		return commonAndrogynousLingerie;
 	}
 
 	public List<AbstractClothing> getCommonAndrogynousAccessories() {
+		Collections.shuffle(commonAndrogynousAccessories);
 		return commonAndrogynousAccessories;
 	}
 
 	public List<AbstractClothing> getSpecials() {
+		Collections.shuffle(specials);
 		return specials;
 	}
 

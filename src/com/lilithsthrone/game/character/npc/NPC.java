@@ -664,6 +664,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
+				// Spells that should not be used:
+				case DARK_SIREN_BANEFUL_FISSURE:
+					break;
 			}
 		}
 		
@@ -1612,7 +1615,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						desiredGenders.put(Gender.F_P_TRAP, 2);
 					};
 					
-					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferenes here
+					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferences here
 					if (Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 						desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 4);
 						desiredGenders.put(Gender.M_V_CUNTBOY, 4);
@@ -2583,7 +2586,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
 						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
-							this.ingestFluid(partner, partner.getCumType(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue(), partner.getCumModifiers());
+							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawCumStorageValue());
 						}
 					}
 					break;

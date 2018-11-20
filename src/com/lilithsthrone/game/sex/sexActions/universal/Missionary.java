@@ -50,6 +50,8 @@ public class Missionary {
 							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_SECOND
 							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_THIRD
 							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.MISSIONARY_ON_BACK_FOURTH)
+					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS
+						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)
 					&& !Sex.isMasturbation();
 		}
 

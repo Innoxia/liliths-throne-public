@@ -1570,7 +1570,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=0; i<roll-1; i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCum(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity());
 						}
 					}
 				};
@@ -1596,7 +1596,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=roll-1; i<breeders.size(); i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCum(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity());
 						}
 					}
 				};

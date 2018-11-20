@@ -298,11 +298,6 @@ public class MainController implements Initializable {
 		InventoryDialogue.setInventoryNPC(npc);
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
-		// Why did I do this? BlobHyperThink
-//		if(npc!=null) {
-//			npc.setPendingClothingDressing(true);
-//		}
-		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
 			Main.game.restoreSavedContent(
 					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null
@@ -317,8 +312,6 @@ public class MainController implements Initializable {
 			
 			Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 		}
-
-		// processNewDialogue();
 	}
 
 	public void openCharactersPresent() {
@@ -2127,11 +2120,11 @@ public class MainController implements Initializable {
 	 *            true if move to next world, false if move to previous world
 	 */
 	public void moveGameWorld(WorldType worldType, PlaceType placeType, boolean setDefaultDialogue) {
-		int timeToTranstition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
+		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
 		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
 		
-		Main.game.endTurn(timeToTranstition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
+		Main.game.endTurn(timeToTransition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}
 
 	/**

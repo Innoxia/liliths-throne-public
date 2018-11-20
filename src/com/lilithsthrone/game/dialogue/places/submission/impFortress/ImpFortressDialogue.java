@@ -10,6 +10,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -36,8 +37,13 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -127,7 +133,7 @@ public class ImpFortressDialogue {
 	}
 	
 	private static boolean isGuardsPacifiedBySex() {
-		return isGuardsPacified() && Main.game.getPlayer().getTotalTimesHadSex(getImpGuards().get(0))>0;
+		return isGuardsPacified() && !getImpGuards().isEmpty() && Main.game.getPlayer().getTotalTimesHadSex(getImpGuards().get(0))>0;
 	}
 	
 	private static boolean isPacified() {
@@ -586,7 +592,17 @@ public class ImpFortressDialogue {
 			allCharacters.addAll(getImpBossGroup(Main.game.getPlayer().getWorldLocation(), true));
 		}
 
-		Collections.sort(allCharacters, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
+		if(Main.game.getPlayer().getCompanions().size()>1) {
+			Collections.sort(allCharacters, (c1, c2) ->
+				c1 instanceof Elemental
+					?(c2 instanceof Elemental
+							?c2.getLevel()-c1.getLevel()
+							:1)
+					:(c2 instanceof Elemental
+							?-1
+							:c2.getLevel()-c1.getLevel()));
+		}
+		
 		return allCharacters;
 	}
 	
@@ -1008,7 +1024,13 @@ public class ImpFortressDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(isGuardsPacifiedBySex()) {
+			if(isGuardsDefeated()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DESERTED", getAllCharacters()));
+				if(!isDefeated()) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DESERTED_GUARD_RETURN_WARNING", getAllCharacters()));
+				}
+				
+			} else if(isGuardsPacifiedBySex()) {
 				if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX_DEMON", getAllCharacters()));
 				} else {
@@ -1020,12 +1042,6 @@ public class ImpFortressDialogue {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED", getAllCharacters()));
-				}
-				
-			} else if(isGuardsDefeated()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DESERTED", getAllCharacters()));
-				if(!isDefeated()) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DESERTED_GUARD_RETURN_WARNING", getAllCharacters()));
 				}
 				
 			} else if(Main.game.getPlayer().getSubspecies()==Subspecies.DEMON) {
@@ -1048,7 +1064,7 @@ public class ImpFortressDialogue {
 					return new Response("Leave", "Head back out into the tunnels.", getSubmissionFortress().getDialogue(false)) {
 						@Override
 						public void effects() {
-							if(isGuardsDefeated()) {
+							if(isGuardsDefeated() && !isDefeated()) {
 								resetGuards(Main.game.getPlayer().getWorldLocation());
 							}
 							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, getSubmissionFortress());
@@ -1810,7 +1826,7 @@ public class ImpFortressDialogue {
 							getSubmissionFortress().getDialogue(false)) {
 						@Override
 						public void effects() {
-							if(isGuardsDefeated()) {
+							if(isGuardsDefeated() && !isDefeated()) {
 								resetGuards(Main.game.getPlayer().getWorldLocation());
 							}
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "IMP_FORTRESS_FLY_EXIT"));
@@ -2008,9 +2024,7 @@ public class ImpFortressDialogue {
 							UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX", getAllCharacters())){
 						@Override
 						public void effects() {
-							getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-							getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-							getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 						}
 					};
 					
@@ -2100,9 +2114,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED_REPEAT_SEX_WITH_COMPANION", getAllCharacters())){
 							@Override
 							public void effects() {
-								getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-								getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-								getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 							}
 						};
 					}
@@ -2157,6 +2169,7 @@ public class ImpFortressDialogue {
 									KEEP_FEMALES_NYMPHO) {
 								@Override
 								public void effects() {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
 									clearBossGuards();
 									setBossEncountered();
 									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3)) {
@@ -2352,9 +2365,7 @@ public class ImpFortressDialogue {
 								:UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ENTRY_OFFER_SEX", getAllCharacters())) {
 						@Override
 						public void effects() {
-							getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-							getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-							getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 								
 							setBossEncountered();
 						}
@@ -2390,6 +2401,7 @@ public class ImpFortressDialogue {
 						KEEP_ALPHA_BRAWLER_SCARED_OFF) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ALPHA_BRAWLER_SCARED_OFF", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2404,7 +2416,7 @@ public class ImpFortressDialogue {
 								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								if(getDominants().containsKey(getBoss())) {
+								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
@@ -2433,7 +2445,7 @@ public class ImpFortressDialogue {
 					}
 				};
 				
-			} else if(index==3 && Main.game.isNonConEnabled()) {
+			} else if(index==3 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
 				if(!((NPC) getMainCompanion()).isWillingToRape(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Rape (companion)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
@@ -2447,7 +2459,7 @@ public class ImpFortressDialogue {
 								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								if(getDominants().containsKey(getBoss())) {
+								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
@@ -2476,7 +2488,7 @@ public class ImpFortressDialogue {
 					}
 				};
 				
-			} else if(index==4 && Main.game.isNonConEnabled()) {
+			} else if(index==4 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
 				if(!((NPC) getMainCompanion()).isWillingToRape(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Rape (both)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
@@ -2492,7 +2504,7 @@ public class ImpFortressDialogue {
 								Util.newHashMapOfValues(new Value<>(getBoss(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								if(getDominants().containsKey(getBoss())) {
+								if(getSubmissives().containsKey(getBoss())) {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 									map.put(Main.game.getFortressAlphaLeader(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.ASS, CoverableArea.VAGINA));
 									return map;
@@ -2535,9 +2547,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ALPHA_BRAWLER_SCARED_OFF", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2569,6 +2579,7 @@ public class ImpFortressDialogue {
 						KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2587,9 +2598,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_ALPHA_FORCED_SCARED_OFF", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2608,9 +2617,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2621,6 +2628,7 @@ public class ImpFortressDialogue {
 						KEEP_FEMALES_NYMPHO_SCARED_OFF) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SCARED_OFF", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2638,7 +2646,7 @@ public class ImpFortressDialogue {
 						KEEP_AFTER_SEX_FEMALES_NYMPHO,
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SEX", getAllCharacters()));
 				
-			} else if(index==3 && Main.game.isNonConEnabled()) {
+			} else if(index==3 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
 				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Sex (companion)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in having sex with [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
@@ -2655,7 +2663,7 @@ public class ImpFortressDialogue {
 						KEEP_AFTER_SEX_FEMALES_NYMPHO,
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SEX_WITH_COMPANION", getAllCharacters()));
 				
-			} else if(index==4 && Main.game.isNonConEnabled()) {
+			} else if(index==4 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
 				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Sex (both)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in having sex with [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
@@ -2688,9 +2696,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SCARED_OFF", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2722,6 +2728,7 @@ public class ImpFortressDialogue {
 						KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2740,9 +2747,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_FEMALES_NYMPHO_SCARED_OFF", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2772,6 +2777,7 @@ public class ImpFortressDialogue {
 						KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2804,6 +2810,7 @@ public class ImpFortressDialogue {
 						KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE", getAllCharacters()));
 						clearFortress();
 					}
 				};
@@ -2825,9 +2832,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE", getAllCharacters()));
-			return UtilText.nodeContentSB.toString();
+			return "";
 		}
 
 		@Override
@@ -2949,24 +2954,22 @@ public class ImpFortressDialogue {
 							:UtilText.parse(getBoss(), "Decide to do as [npc.name] demands, and submit to [npc.herHim]..."),
 						true,
 						false,
-							new SMMissionary(
-								Util.newHashMapOfValues(
-										new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-										new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-										new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
-										new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
-							null,
-							Main.game.getPlayer().getCompanions(),
-							KEEP_AFTER_SEX_AUDIENCE,
-							UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AUDIENCE_SEX", getAllCharacters())) {
+						new SMMissionary(
+							Util.newHashMapOfValues(
+									new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
+									new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
+									new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
+									new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+							Util.newHashMapOfValues(
+									new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+						null,
+						Main.game.getPlayer().getCompanions(),
+						KEEP_AFTER_SEX_AUDIENCE,
+						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AUDIENCE_SEX", getAllCharacters())) {
 						@Override
 						public void effects() {
 							setPacified();
-							getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-							getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-							getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+							((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 						}
 					};
 					
@@ -3041,9 +3044,7 @@ public class ImpFortressDialogue {
 					@Override
 					public void effects() {
 						setPacified();
-						getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-						getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-						getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 					}
 				};
 				
@@ -3244,9 +3245,7 @@ public class ImpFortressDialogue {
 								UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-								getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-								getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 							}
 						};
 					}
@@ -3397,9 +3396,7 @@ public class ImpFortressDialogue {
 								KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters())){
 							@Override
 							public void effects() {
-								getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-								getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-								getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+								((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 							}
 						};
 						
@@ -3493,9 +3490,7 @@ public class ImpFortressDialogue {
 									UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters())){
 								@Override
 								public void effects() {
-									getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-									getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-									getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 								}
 							};
 						}
@@ -3578,9 +3573,7 @@ public class ImpFortressDialogue {
 									KEEP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
 								@Override
 								public void effects() {
-										getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-										getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-										getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+									((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 										
 									if(!companion.isAttractedTo(getBoss()) && Main.game.isNonConEnabled()) {
 										Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
@@ -3770,24 +3763,31 @@ public class ImpFortressDialogue {
 						description,
 						false,
 						false,
-						new SMMissionary(
-								Util.newHashMapOfValues(
-										new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
-										new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
-										new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
-										new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
-										new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND))),
-						getImpBossGroup(false),
+						isCompanionDialogue()
+							?new SMMissionary(
+									Util.newHashMapOfValues(
+											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND),
+											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_FACE_SITTING_SECOND)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK),
+											new Value<>(getMainCompanion(), SexPositionSlot.MISSIONARY_ON_BACK_SECOND)))
+							:new SMMissionary(
+									Util.newHashMapOfValues(
+											new Value<>(getBoss(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS),
+											new Value<>(getImpBossGroup(false).get(0), SexPositionSlot.MISSIONARY_FACE_SITTING),
+											new Value<>(getImpBossGroup(false).get(1), SexPositionSlot.MISSIONARY_KNEELING_BESIDE),
+											new Value<>(getImpBossGroup(false).get(2), SexPositionSlot.MISSIONARY_KNEELING_BESIDE_TWO)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
+						null,
 						null,
 						KEEP_AFTER_SEX_DEFEAT,
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_COMBAT_DEFEAT_SEX"+appendPace, getAllCharacters())){
 					@Override
 					public void effects() {
-						getBoss().unequipClothingIntoVoid(getBoss().getClothingInSlot(InventorySlot.GROIN), true, getBoss());
-						getBoss().displaceClothingForAccess(CoverableArea.PENIS);
-						getBoss().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, getBoss());
+						((FortressFemalesLeader) Main.game.getFortressFemalesLeader()).equipStrapon();
 					}
 				};
 				
@@ -3848,9 +3848,10 @@ public class ImpFortressDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==0) {
 				if (index == 1) {
-					return new Response("Scare off", UtilText.parse(getBoss(), "Tell [npc.name] and [npc.her] imps to get out of here, and not come back."), Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Scare off", UtilText.parse(getBoss(), "Tell [npc.name] and [npc.her] imps to get out of here, and not come back."), KEEP_AFTER_SEX_VICTORY_SCARE_OFF) {
 						@Override
 						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_VICTORY_SCARE_OFF", getAllCharacters()));
 							clearFortress();
 						}
 					};
@@ -3869,7 +3870,7 @@ public class ImpFortressDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_VICTORY_SCARE_OFF", getAllCharacters());
+			return "";
 		}
 
 		@Override
@@ -3899,7 +3900,92 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					@Override
+					public void effects() {
+						if(isAlphaFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA) {
+							List<ItemEffect> effects = Util.newArrayListOfValues(
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ORAL_GIVING, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DOMINANT, TFPotency.DRAIN, 0));
+							
+							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getFortressAlphaLeader();
+							
+							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
+								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_GOLD, Colour.CLOTHING_WHITE, Colour.CLOTHING_GOLD, effects);
+								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
+								Main.game.getPlayer().equipClothingFromNowhere(ringGag, true, boss);
+							}
+							
+							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+									&& (boss).isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
+								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_STEEL, Colour.CLOTHING_BROWN_DARK, Colour.CLOTHING_BLACK_STEEL, effects);
+								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
+								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, boss);
+							}
+							
+						} else if(isFemalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES) {
+							List<ItemEffect> effects = Util.newArrayListOfValues(
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_MASTURBATION, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_EXHIBITIONIST, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_ASS, TFPotency.BOOST, 0));
+
+							FortressFemalesLeader boss = (FortressFemalesLeader) Main.game.getFortressFemalesLeader();
+							
+							if(boss.isAbleToEquipButtPlug(Main.game.getPlayer())) {
+								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
+										Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_LIGHT, effects);
+								buttPlug.setName(UtilText.parse(boss,"[npc.NamePos] 'Public Playtoy' Butt plug"));
+								Main.game.getPlayer().equipClothingFromNowhere(buttPlug, true, boss);
+							}
+							
+							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+									&& boss.isAbleToEquipButtPlug(ImpFortressDialogue.getMainCompanion())) {
+								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
+										Colour.CLOTHING_SILVER, Colour.CLOTHING_PERIWINKLE, Colour.CLOTHING_PERIWINKLE, effects);
+								buttPlug.setName(UtilText.parse(boss,"[npc.NamePos] 'Public Playtoy' Butt plug"));
+								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(buttPlug, true, boss);
+							}
+							
+						} else if(isMalesFortress() || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SUBMISSION_IMP_FORTRESS_MALES) {
+							List<ItemEffect> effects = Util.newArrayListOfValues(
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, HipSize.FIVE_VERY_WIDE.getValue()),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+									new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+
+							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getFortressMalesLeader();
+							
+							if(boss.isAbleToEquipThong(Main.game.getPlayer())) {
+								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, effects);
+								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
+								Main.game.getPlayer().equipClothingFromNowhere(thong, true, boss);
+							}
+							if(boss.isAbleToEquipDildo(Main.game.getPlayer())) {
+								AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_BLACK,
+										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
+								Main.game.getPlayer().equipClothingFromNowhere(dildo, true, boss);
+							}
+							
+							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+									&& boss.isAbleToEquipThong(ImpFortressDialogue.getMainCompanion())) {
+								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK_LIGHT, effects);
+								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
+								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(thong, true, boss);
+							}
+							if(ImpFortressDialogue.getMainCompanion()!=null && boss.isAbleToEquipDildo(ImpFortressDialogue.getMainCompanion())) {
+								AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_WHITE,
+										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
+								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(dildo, true, boss);
+							}
+						}
+					}
+				};
 				
 			} else {
 				return null;

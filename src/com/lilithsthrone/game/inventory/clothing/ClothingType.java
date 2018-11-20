@@ -2767,6 +2767,13 @@ public class ClothingType {
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList()),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -2811,24 +2818,44 @@ public class ClothingType {
 
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull up the skirt of your skater dress.",
-					"You pull up the skirt of [npc.namePos] skater dress.",
-					null,
-					"[npc.Name] pulls up the skirt of [npc.her] skater dress.",
-					"[npc.Name] pulls up the skirt of your skater dress.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the skirt of your skater dress.",
+						"You pull up the skirt of [npc.namePos] skater dress.",
+						null,
+						"[npc.Name] pulls up the skirt of [npc.her] skater dress.",
+						"[npc.Name] pulls up the skirt of your skater dress.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You shrug off the shoulder straps of your skater dress, before tugging it down to reveal your chest.",
+						"You slide the straps of [npc.namePos] skater dress down off [npc.her] shoulders, before tugging it down to reveal [npc.her] chest.",
+						null,
+						"[npc.Name] shrugs off the shoulder straps of [npc.her] skater dress, before tugging it down to reveal [npc.her] chest.",
+						"[npc.Name] slides the straps of your skater dress down off your shoulders, before tugging it down to reveal your chest.",
+						null, null, null);
+			}
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull your skater dress back down into its proper position.",
-					"You pull [npc.namePos] skater dress back down into its proper position.",
-					null,
-					"[npc.Name] pulls [npc.her] skater dress back down into its proper position.",
-					"[npc.Name] your skater dress back down into its proper position.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull your skater dress back down into its proper position.",
+						"You pull [npc.namePos] skater dress back down into its proper position.",
+						null,
+						"[npc.Name] pulls [npc.her] skater dress back down into its proper position.",
+						"[npc.Name] your skater dress back down into its proper position.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the top of your skater dress, before placing the straps over your shoulders.",
+						"You pull up the top of [npc.namePos] skater dress, before placing the straps over [npc.her] shoulders.",
+						null,
+						"[npc.Name] pulls up the top of [npc.her] skater dress, before placing the straps over [npc.her] shoulders.",
+						"[npc.Name] pulls up the top of your skater dress, before placing the straps over your shoulders.",
+						null, null, null);
+			}
 		}
 	};
 	
@@ -2982,6 +3009,13 @@ public class ClothingType {
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList()),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE.getPresetInventorySlotList()),
 					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -3026,24 +3060,44 @@ public class ClothingType {
 
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull up the lower half of your slip dress.",
-					"You pull up the lower half of [npc.namePos] slip dress.",
-					null,
-					"[npc.Name] pulls up the lower half of [npc.her] slip dress.",
-					"[npc.Name] pulls up the lower half of your slip dress.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the lower half of your slip dress.",
+						"You pull up the lower half of [npc.namePos] slip dress.",
+						null,
+						"[npc.Name] pulls up the lower half of [npc.her] slip dress.",
+						"[npc.Name] pulls up the lower half of your slip dress.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You shrug off the shoulder straps of your slip dress, before tugging it down to reveal your chest.",
+						"You slide the straps of [npc.namePos] slip dress down off [npc.her] shoulders, before tugging it down to reveal [npc.her] chest.",
+						null,
+						"[npc.Name] shrugs off the shoulder straps of [npc.her] slip dress, before tugging it down to reveal [npc.her] chest.",
+						"[npc.Name] slides the straps of your slip dress down off your shoulders, before tugging it down to reveal your chest.",
+						null, null, null);
+			}
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull your slip dress back down into its proper position.",
-					"You pull [npc.namePos] slip dress back down into its proper position.",
-					null,
-					"[npc.Name] pulls [npc.her] slip dress back down into its proper position.",
-					"[npc.Name] your slip dress back down into its proper position.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull your slip dress back down into its proper position.",
+						"You pull [npc.namePos] slip dress back down into its proper position.",
+						null,
+						"[npc.Name] pulls [npc.her] slip dress back down into its proper position.",
+						"[npc.Name] your slip dress back down into its proper position.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the top of your slip dress, before placing the straps over your shoulders.",
+						"You pull up the top of [npc.namePos] slip dress, before placing the straps over [npc.her] shoulders.",
+						null,
+						"[npc.Name] pulls up the top of [npc.her] slip dress, before placing the straps over [npc.her] shoulders.",
+						"[npc.Name] pulls up the top of your slip dress, before placing the straps over your shoulders.",
+						null, null, null);
+			}
 		}
 	};
 
@@ -3072,6 +3126,13 @@ public class ClothingType {
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
 							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList()),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE.getPresetInventorySlotList()),
 					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
@@ -3115,24 +3176,44 @@ public class ClothingType {
 
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull up the lower half of your plunge dress.",
-					"You pull up the lower half of [npc.namePos] plunge dress.",
-					null,
-					"[npc.Name] pulls up the lower half of [npc.her] plunge dress.",
-					"[npc.Name] pulls up the lower half of your plunge dress.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the lower half of your plunge dress.",
+						"You pull up the lower half of [npc.namePos] plunge dress.",
+						null,
+						"[npc.Name] pulls up the lower half of [npc.her] plunge dress.",
+						"[npc.Name] pulls up the lower half of your plunge dress.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You shrug off the shoulder straps of your plunge dress, before tugging it down to reveal your chest.",
+						"You slide the straps of [npc.namePos] plunge dress down off [npc.her] shoulders, before tugging it down to reveal [npc.her] chest.",
+						null,
+						"[npc.Name] shrugs off the shoulder straps of [npc.her] plunge dress, before tugging it down to reveal [npc.her] chest.",
+						"[npc.Name] slides the straps of your plunge dress down off your shoulders, before tugging it down to reveal your chest.",
+						null, null, null);
+			}
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull your plunge dress back down into its proper position.",
-					"You pull [npc.namePos] plunge dress back down into its proper position.",
-					null,
-					"[npc.Name] pulls [npc.her] plunge dress back down into its proper position.",
-					"[npc.Name] your plunge dress back down into its proper position.",
-					null, null, null);
+			if(dt==DisplacementType.PULLS_UP) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull your plunge dress back down into its proper position.",
+						"You pull [npc.namePos] plunge dress back down into its proper position.",
+						null,
+						"[npc.Name] pulls [npc.her] plunge dress back down into its proper position.",
+						"[npc.Name] your plunge dress back down into its proper position.",
+						null, null, null);
+			} else {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull up the top of your plunge dress, before placing the straps over your shoulders.",
+						"You pull up the top of [npc.namePos] plunge dress, before placing the straps over [npc.her] shoulders.",
+						null,
+						"[npc.Name] pulls up the top of [npc.her] plunge dress, before placing the straps over [npc.her] shoulders.",
+						"[npc.Name] pulls up the top of your plunge dress, before placing the straps over your shoulders.",
+						null, null, null);
+			}
 		}
 	};
 	
@@ -6060,7 +6141,6 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									ClothingAccess.FEET,
 									ClothingAccess.LEGS_UP_TO_GROIN),
 							null,
 							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
@@ -8495,7 +8575,7 @@ public class ClothingType {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You tear open the packet and roll the condom down the length of your [pc.penis].",
 					"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-					"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
+					"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
 					"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 					"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 					"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
@@ -11204,7 +11284,6 @@ public class ClothingType {
 									CoverableArea.VAGINA,
 									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									
 									ClothingAccess.GROIN,
 									ClothingAccess.ANUS,
 									ClothingAccess.CHEST,
@@ -11867,6 +11946,9 @@ public class ClothingType {
 	private static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
 	
 	public static AbstractClothingType getClothingTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToClothingMap.keySet());
+//		System.out.println("  set to: "+id);
 		if(id.equals("EYES_SAFETY_GOGGLES")) {
 			return ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES;
 		}

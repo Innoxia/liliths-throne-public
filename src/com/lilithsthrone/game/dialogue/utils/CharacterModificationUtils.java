@@ -1091,9 +1091,9 @@ public class CharacterModificationUtils {
 				contentSB.toString(), false);
 	}
 	
-	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces) {
+	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
 		
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(ArmType arm : ArmType.values()) {
@@ -1186,9 +1186,9 @@ public class CharacterModificationUtils {
 				contentSB.toString(), true);
 	}
 	
-	public static String getSelfTransformLegChoiceDiv(List<Race> availableRaces) {
+	public static String getSelfTransformLegChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
 
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(LegType leg : LegType.values()) {
@@ -1257,8 +1257,8 @@ public class CharacterModificationUtils {
 		}
 	}
 	
-	public static String getSelfTransformFaceChoiceDiv(List<Race> availableRaces) {
-		if(BodyChanging.getTarget().getRace()==Race.SLIME) {
+	public static String getSelfTransformFaceChoiceDiv(List<Race> availableRaces, boolean fromDebug) {
+		if(BodyChanging.getTarget().getRace()==Race.SLIME || fromDebug) {
 			contentSB.setLength(0);
 			
 			for(FaceType face : FaceType.values()) {
@@ -2058,6 +2058,7 @@ public class CharacterModificationUtils {
 					c = vagina.getRace().getColour();
 				}
 				
+				
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
@@ -2066,16 +2067,18 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_VAGINA_"+vagina+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())+"</span>"
+							"<div "+(BodyChanging.getTarget().isPregnant()?"":"id='CHANGE_VAGINA_"+vagina+"'")+" class='cosmetics-button"+(BodyChanging.getTarget().isPregnant()?" disabled":"")+"'>"
+								+ "<span style='color:"+(BodyChanging.getTarget().isPregnant()?Colour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
+									+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())
+								+"</span>"
 							+ "</div>");
 				}
 			}
 		}
 
 		return applyWrapper("Vagina",
-				(BodyChanging.getTarget().isPlayer()
-					?"Change your vagina type."
+				(BodyChanging.getTarget().isPregnant()
+					?UtilText.parse(BodyChanging.getTarget(), "[style.italicsBad(Vagina type cannot be changed while [npc.nameIsFull] pregnant!)]")
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type.")),
 				contentSB.toString(), true);
 	}
@@ -3744,15 +3747,13 @@ public class CharacterModificationUtils {
 			} else {
 				if(activeCovering.isPrimaryGlowing()) {
 					contentSB.append(
-							"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
+							"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Arcane Glow)]"
 							+ "</div>");
 				} else {
 					contentSB.append(
-							"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-									:"[style.colourDisabled(Glowing)]")
+							"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
 							+ "</div>");
 				}
 			}
@@ -3810,15 +3811,13 @@ public class CharacterModificationUtils {
 			} else {
 				if(activeCovering.isSecondaryGlowing()) {
 					contentSB.append(
-							"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
+							"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Arcane Glow)]"
 							+ "</div>");
 				} else {
 					contentSB.append(
-							"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-									:"[style.colourDisabled(Glowing)]")
+							"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
 							+ "</div>");
 				}
 			}
@@ -4203,12 +4202,12 @@ public class CharacterModificationUtils {
 					} else if(tattoo.isGlowing()) {
 						contentSB.append(
 								"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-									+ "[style.boldArcane(Glow)]"
+									+ "[style.boldArcane(Arcane Glow)]"
 								+ "</div>");
 					} else {
 						contentSB.append(
 								"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
 								+ "</div>");
 					}
 				contentSB.append("</div>");
@@ -4249,12 +4248,12 @@ public class CharacterModificationUtils {
 					if(tattoo.getWriting().isGlow()) {
 						contentSB.append(
 								"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-									+ "[style.boldArcane(Glow)]"
+									+ "[style.boldArcane(Arcane Glow)]"
 								+ "</div>");
 					} else {
 						contentSB.append(
 								"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
 								+ "</div>");
 					}
 				}
@@ -4290,12 +4289,12 @@ public class CharacterModificationUtils {
 					if(tattoo.getCounter().isGlow()) {
 						contentSB.append(
 								"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-									+ "[style.boldArcane(Glow)]"
+									+ "[style.boldArcane(Arcane Glow)]"
 								+ "</div>");
 					} else {
 						contentSB.append(
 								"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
 								+ "</div>");
 					}
 					

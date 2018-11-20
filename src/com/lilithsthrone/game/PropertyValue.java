@@ -24,6 +24,8 @@ public enum PropertyValue {
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
 
+	autoSexClothingManagement(true),
+	
 	ageContent(true),
 	furryTailPenetrationContent(false),
 	nonConContent(false),

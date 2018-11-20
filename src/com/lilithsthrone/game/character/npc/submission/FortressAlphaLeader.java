@@ -67,10 +67,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -120,6 +116,15 @@ public class FortressAlphaLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.8")) {
 			setStartingBody(true);
 			equipClothing(true, true, true, true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			AbstractClothing jacket = this.getClothingInSlot(InventorySlot.TORSO_OVER);
+			if(jacket!=null) {
+				try {
+					this.isAbleToBeDisplaced(jacket, DisplacementType.UNZIPS, true, true, this);
+				} catch(Exception ex) {
+				}
+			}
 		}
 	}
 	
@@ -347,7 +352,7 @@ public class FortressAlphaLeader extends NPC {
 	public void endSex() {
 		
 		if(Sex.getPostSexDialogue().equals(ImpFortressDialogue.KEEP_AFTER_SEX_DEFEAT)) {
-			if(Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())) {
+			if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())) {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_SEX_DEFEAT_WITH_COMPANION", ImpFortressDialogue.getAllCharacters()));
 			} else {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_SEX_DEFEAT", ImpFortressDialogue.getAllCharacters()));
@@ -356,28 +361,6 @@ public class FortressAlphaLeader extends NPC {
 				ImpFortressDialogue.resetGuards(Main.game.getPlayer().getWorldLocation());
 			}
 			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA);
-		}
-		
-		if(Sex.getPostSexDialogue().equals(ImpFortressDialogue.KEEP_AFTER_SEX_DEFEAT)) {
-			
-			List<ItemEffect> effects = Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ORAL_GIVING, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DOMINANT, TFPotency.DRAIN, 0));
-			
-			if(isAbleToEquipGag(Main.game.getPlayer())) {
-				AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_GOLD, Colour.CLOTHING_WHITE, Colour.CLOTHING_GOLD, effects);
-				ringGag.setName(UtilText.parse(this,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
-				Main.game.getPlayer().equipClothingFromNowhere(ringGag, true, this);
-			}
-			
-			if(Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion()) && isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
-				AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_STEEL, Colour.CLOTHING_BROWN_DARK, Colour.CLOTHING_BLACK_STEEL, effects);
-				ringGag.setName(UtilText.parse(this,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
-				ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, this);
-			}
 		}
 	}
 	

@@ -222,6 +222,7 @@ public interface SexActionInterface {
 					|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
 					|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop if dom or equal control
+					|| this.getParticipantType()==SexParticipantType.SELF
 					|| Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom()
 					|| Sex.isSubHasEqualControl())
 				&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.MISC_WATCHING

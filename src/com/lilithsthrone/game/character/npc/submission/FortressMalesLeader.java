@@ -52,10 +52,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -105,6 +101,9 @@ public class FortressMalesLeader extends NPC {
 			setStartingBody(true);
 			equipClothing(true, true, true, true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
+		}
 	}
 	
 	@Override
@@ -114,7 +113,7 @@ public class FortressMalesLeader extends NPC {
 		
 		if(setPersona) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 10);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			this.setAttribute(Attribute.VIRILITY, 100);
 			this.setAttribute(Attribute.DAMAGE_MELEE_WEAPON, 75);
@@ -284,7 +283,7 @@ public class FortressMalesLeader extends NPC {
 	public void endSex() {
 		
 		if(Sex.getPostSexDialogue().equals(ImpFortressDialogue.KEEP_AFTER_SEX_DEFEAT)) {
-			if(Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())) {
+			if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())) {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_SEX_DEFEAT_WITH_COMPANION", ImpFortressDialogue.getAllCharacters()));
 			} else {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_SEX_DEFEAT", ImpFortressDialogue.getAllCharacters()));
@@ -293,37 +292,6 @@ public class FortressMalesLeader extends NPC {
 				ImpFortressDialogue.resetGuards(Main.game.getPlayer().getWorldLocation());
 			}
 			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_MALES);
-		}
-		
-		if(Sex.getPostSexDialogue().equals(ImpFortressDialogue.KEEP_AFTER_SEX_DEFEAT)) {
-			List<ItemEffect> effects = Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, HipSize.FIVE_VERY_WIDE.getValue()),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
-			
-			if(isAbleToEquipThong(Main.game.getPlayer())) {
-				AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, effects);
-				thong.setName(UtilText.parse(this,"[npc.NamePos] 'Breeder' Crotchless thong"));
-				Main.game.getPlayer().equipClothingFromNowhere(thong, true, this);
-			}
-			if(isAbleToEquipDildo(Main.game.getPlayer())) {
-				AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_BLACK,
-						Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
-				Main.game.getPlayer().equipClothingFromNowhere(dildo, true, this);
-			}
-			
-			if(Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion()) && isAbleToEquipThong(ImpFortressDialogue.getMainCompanion())) {
-				AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK_LIGHT, effects);
-				thong.setName(UtilText.parse(this,"[npc.NamePos] 'Breeder' Crotchless thong"));
-				ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(thong, true, this);
-			}
-			if(isAbleToEquipDildo(ImpFortressDialogue.getMainCompanion())) {
-				AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_WHITE,
-						Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)));
-				ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(dildo, true, this);
-			}
 		}
 	}
 	

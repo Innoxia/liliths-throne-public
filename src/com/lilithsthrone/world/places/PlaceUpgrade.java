@@ -2,20 +2,11 @@ package com.lilithsthrone.world.places;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
-
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidGirlCum;
-import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -23,7 +14,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.85
- * @version 0.2.10
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PlaceUpgrade {
@@ -253,173 +244,7 @@ public enum PlaceUpgrade {
 		public String getRoomDescription(Cell c) {
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			
-			StringBuilder milkyMilknessSB = new StringBuilder();
-			milkyMilknessSB.append(roomDescription);
-
-			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.MILK.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Milk Stored:</b>");
-				if(!room.getMilkStorage().isEmpty()) {
-					for(Entry<FluidMilk, Float> entry : room.getMilkStorage().entrySet()) {
-						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+ Units.fluid((entry.getValue()*1))+")]"
-									+ "</div>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
-										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" milk</span>"
-									+ "</div>");
-	
-							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
-							FluidFlavour flavour = entry.getKey().getFlavour();
-							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
-								if(!entry.getKey().getFluidModifiers().isEmpty()) {
-									int i=0;
-									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
-										if(i>0) {
-											milkyMilknessSB.append(", ");
-										}
-										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
-										i++;
-									}
-									milkyMilknessSB.append(".");
-									
-								} else {
-									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
-								}
-							milkyMilknessSB.append("</div>");
-	
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
-										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
-									+ "</div>");
-							
-							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='MILK_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
-									+ "<div id='MILK_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
-									+ "<div id='MILK_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
-							milkyMilknessSB.append("</div>");
-	
-						milkyMilknessSB.append("</div>");
-					}
-				} else {
-					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
-				}
-			milkyMilknessSB.append("</div>");
-			
-			
-			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.CUM.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Cum Stored:</b>");
-				if(!room.getCumStorage().isEmpty()) {
-					for(Entry<FluidCum, Float> entry : room.getCumStorage().entrySet()) {
-						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+Units.fluid((entry.getValue()*1))+")]"
-									+ "</div>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
-										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" cum</span>"
-									+ "</div>");
-	
-							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
-							FluidFlavour flavour = entry.getKey().getFlavour();
-							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
-								if(!entry.getKey().getFluidModifiers().isEmpty()) {
-									int i=0;
-									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
-										if(i>0) {
-											milkyMilknessSB.append(", ");
-										}
-										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
-										i++;
-									}
-									milkyMilknessSB.append(".");
-									
-								} else {
-									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
-								}
-							milkyMilknessSB.append("</div>");
-	
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
-										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
-									+ "</div>");
-	
-							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='CUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
-									+ "<div id='CUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
-									+ "<div id='CUM_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
-							milkyMilknessSB.append("</div>");
-	
-						milkyMilknessSB.append("</div>");
-					}
-				} else {
-					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
-				}
-			milkyMilknessSB.append("</div>");
-			
-			milkyMilknessSB.append("<div class='container-full-width' style='color:"+Colour.GIRLCUM.toWebHexString()+"; margin-bottom:2px; text-align:center;'><b>Girlcum Stored:</b>");
-				if(!room.getGirlcumStorage().isEmpty()) {
-					for(Entry<FluidGirlCum, Float> entry : room.getGirlcumStorage().entrySet()) {
-						milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
-										+ "[style.colourExcellent("+Units.fluid((entry.getValue()*1))+")]"
-									+ "</div>");
-						
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:25%; background:transparent;'>"
-										+ "<span style='color:"+entry.getKey().getType().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getType().getRace().getName())+" girlcum</span>"
-									+ "</div>");
-	
-							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
-							FluidFlavour flavour = entry.getKey().getFlavour();
-							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
-								if(!entry.getKey().getFluidModifiers().isEmpty()) {
-									int i=0;
-									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
-										if(i>0) {
-											milkyMilknessSB.append(", ");
-										}
-										milkyMilknessSB.append(Util.capitaliseSentence(mod.getName()));
-										i++;
-									}
-									milkyMilknessSB.append(".");
-									
-								} else {
-									milkyMilknessSB.append("[style.colourDisabled(No Modifiers)]");
-								}
-							milkyMilknessSB.append("</div>");
-	
-							milkyMilknessSB.append(
-									"<div class='container-half-width' style='margin:0; padding:2px; width:10%; background:transparent;'>"
-										+ UtilText.formatAsMoney((int)(entry.getValue()*entry.getKey().getValuePerMl()), "span")
-									+ "</div>");
-	
-							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='GIRLCUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
-									+ "<div id='GIRLCUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
-											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
-									+ "<div id='GIRLCUM_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
-							milkyMilknessSB.append("</div>");
-	
-						milkyMilknessSB.append("</div>");
-					}
-				} else {
-					milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
-				}
-			milkyMilknessSB.append("</div>");
-			
-			return milkyMilknessSB.toString();
+			return room.getRoomDescription();
 		}
 		
 		@Override

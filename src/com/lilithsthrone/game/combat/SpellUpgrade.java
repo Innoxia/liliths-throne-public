@@ -235,7 +235,7 @@ public enum SpellUpgrade {
 			SpellSchool.WATER,
 			"elemental_water_calm_waters",
 			"Calm Waters",
-			"The Water elemental projects the image of calm, steady waters into the mind of any ally who starts to get turned on, helping them to control ther lust.",
+			"The Water elemental projects the image of calm, steady waters into the mind of any ally who starts to get turned on, helping them to control their lust.",
 			null, Util.newArrayListOfValues(
 					"[style.colourExcellent(All allies gain)] +20 "+Attribute.RESISTANCE_LUST.getColouredName("b"))),
 	ELEMENTAL_WATER_3A(5,
@@ -290,7 +290,7 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"poison_vapours_choking_haze",
 			"Choking Haze",
-			"The clouds of Poison Vapours become far thicker, becoming a stifling, choking haze that causes the target to occasisoanlly miss their attacks.",
+			"The clouds of Poison Vapours become far thicker, becoming a stifling, choking haze that causes the target to occasionally miss their attacks.",
 			null, Util.newArrayListOfValues(
 					"Poison Vapours additionally applies <b>+10</b> "+Attribute.MISS_CHANCE.getColouredName("b"))),
 	POISON_VAPOURS_2(5,

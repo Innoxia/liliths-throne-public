@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.6
@@ -65,6 +66,9 @@ public class TattooType {
 	private static Map<String, AbstractTattooType> idToTattooMap = new HashMap<>();
 	
 	public static AbstractTattooType getTattooTypeFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToTattooMap.keySet());
+//		System.out.println("  set to: "+id);
 		return idToTattooMap.get(id);
 	}
 	

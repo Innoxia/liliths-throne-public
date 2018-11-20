@@ -1319,6 +1319,7 @@ public class CharacterUtils {
 		
 		// Body:
 		int height = character.getHeightValue()-15 + Util.random.nextInt(30) +1;
+		
 		if(character.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 			character.setHeight(Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height)));
 			
@@ -1947,7 +1948,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void applyMakeup(GameCharacter character, boolean overideExistingMakeup) {
+	public static void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					Colour.COVERING_NONE,

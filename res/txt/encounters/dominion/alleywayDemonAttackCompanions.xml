@@ -691,7 +691,7 @@
 		Having had enough of this joke of a friendship between you and [npc.name], you step forwards and sneer, [pc.speech(You know, I never really expected much of you, being the worthless trash that you are, yet somehow I'm still disappointed by how pathetic you are.)]
 	</p>
 	<p>
-		#IF pc.hasFetish(FETISH_SADISTIC)
+		#IF pc.hasFetish(FETISH_SADIST)
 		#THEN You see tears start to well up in [npc.namePos] [npc.eyes] as you deliver the crushing insult, and, feeling particularly sadistic today, you continue, [pc.speech(Aww, what's the matter? Going to cry? You disgust me. To think that the citizens of Dominion put up with the likes of you skulking around in their city. All you're really good for is being a slave. At least then someone could make use of you as a cock-sleeve.)]
 		#ELSE You see tears start to well up in [npc.namePos] [npc.eyes] as you deliver the crushing insult, and you continue, [pc.speech(Knock it off. You don't get to play the victim here, having attacked and mugged countless innocent people!)]
 		#ENDIF
@@ -1367,7 +1367,7 @@
 		[npc.speech(W-Why did you do this?!)] [npc.she] asks, not even bothering to wait to hear your answer before continuing, [npc.speech(I thought you were different, but you just wanted to hurt me, like all the others! J-Just give me your money!)]
 	</p>
 	<p>
-		Pulling you to your feet, [npc.name] roughly pushes you against a nearby wall, [npc.her] sorrow quickly turning to anger as [npc.she] violently forces you hand over some of your cash. Having taken your moeny, [npc.she] then roughly pushes you to the floor once more.
+		Pulling you to your feet, [npc.name] roughly pushes you against a nearby wall, [npc.her] sorrow quickly turning to anger as [npc.she] violently forces you hand over some of your cash. Having taken your money, [npc.she] then roughly pushes you to the floor once more.
 	</p>
 	<p>
 		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
