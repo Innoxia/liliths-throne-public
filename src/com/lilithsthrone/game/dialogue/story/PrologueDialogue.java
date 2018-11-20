@@ -697,16 +697,16 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(5000);
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
-						if (Main.game.getPlayer().getBirthMonth().getValue() == 1||Main.game.getPlayer().getBirthMonth().getValue() == 5||Main.game.getPlayer().getBirthMonth().getValue() == 9) {
+						if (Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
 							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.SLAM));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
-						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 2||Main.game.getPlayer().getBirthMonth().getValue() == 6||Main.game.getPlayer().getBirthMonth().getValue() == 10) {
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
 							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
-						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 3||Main.game.getPlayer().getBirthMonth().getValue() == 7||Main.game.getPlayer().getBirthMonth().getValue() == 11) {
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() % 4 == 3) {
 							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
-						} else if (Main.game.getPlayer().getBirthMonth().getValue() == 4||Main.game.getPlayer().getBirthMonth().getValue() == 8||Main.game.getPlayer().getBirthMonth().getValue() == 12) {
+						} else if (Main.game.getPlayer().getBirthMonth().getValue() % 4 == 0) {
 							AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>[style.boldExcellent("+spellBook.getName()+")] added to your room's storage!</p>");
