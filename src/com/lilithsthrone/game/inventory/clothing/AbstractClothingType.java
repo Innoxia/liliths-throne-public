@@ -286,7 +286,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'effects' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'effects' element unable to be parsed.");
 				}
 				
 				List<BlockedParts> defaultBlockedParts = new ArrayList<>();
@@ -297,7 +297,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						defaultBlockedParts.add(BlockedParts.loadFromXML(e, doc));
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'blockedPartsList' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'blockedPartsList' element unable to be parsed.");
 				}
 				
 				List<InventorySlot> defaultIncompatibleSlots = new ArrayList<>();
@@ -308,7 +308,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						defaultIncompatibleSlots.add(InventorySlot.valueOf(e.getTextContent()));
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'incompatibleSlots' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'incompatibleSlots' element unable to be parsed.");
 				}
 				
 				List<ItemTag> defaultItemTags = new ArrayList<>();
@@ -319,7 +319,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						defaultItemTags.add(ItemTag.valueOf(e.getTextContent()));
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'itemTags' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'itemTags' element unable to be parsed.");
 				}
 				
 				//TODO
@@ -386,7 +386,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							
 						} catch(Exception ex) {
-							System.err.println("AbstractClothingType loading failed. Cause: 'replacementText' element unable to be parsed.");
+							System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'replacementText' element unable to be parsed.");
 						}
 					}
 				}
@@ -449,7 +449,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							
 						} catch(Exception ex) {
-							System.err.println("AbstractClothingType loading failed. Cause: 'displacementText' element unable to be parsed.");
+							System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'displacementText' element unable to be parsed.");
 						}
 					}
 				}
@@ -506,7 +506,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColours' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'primaryColours' element unable to be parsed.");
 				}
 
 				List<Colour> importedPrimaryColoursDye = new ArrayList<>();
@@ -522,7 +522,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						importedPrimaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColoursDye' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'primaryColoursDye' element unable to be parsed.");
 				}
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
@@ -540,7 +540,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'secondaryColours' element unable to be parsed.");
 				}
 
 				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
@@ -558,7 +558,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
 				}
 
 				List<Colour> importedTertiaryColours = new ArrayList<>();
@@ -576,7 +576,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'tertiaryColours' element unable to be parsed.");
 				}
 
 				List<Colour> importedTertiaryColoursDye = new ArrayList<>();
@@ -594,7 +594,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColoursDye' element unable to be parsed.");
+					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'tertiaryColoursDye' element unable to be parsed.");
 				}
 				
 				setUpColours(
