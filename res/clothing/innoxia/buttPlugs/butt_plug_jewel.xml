@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>200</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[jewelled butt plug]]></name>
@@ -45,7 +45,7 @@
 		  <tag>SOLD_BY_FINCH</tag>
 		  <tag>PLUGS_ANUS</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <displacementText type="REMOVE_OR_EQUIP">

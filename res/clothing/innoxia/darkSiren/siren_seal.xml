@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>500</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Seal]]></name>
@@ -54,7 +54,7 @@
 		<tertiaryColoursDye/>
 	
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <replacementText type="REMOVE_OR_EQUIP">

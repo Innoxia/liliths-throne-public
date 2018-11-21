@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>150</value>
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[leather belt]]></name>
@@ -46,7 +46,7 @@
       <tag>SOLD_BY_NYAN</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>
