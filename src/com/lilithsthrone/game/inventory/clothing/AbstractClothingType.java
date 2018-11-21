@@ -257,13 +257,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		try{
 			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
-			Element coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+			Element coreAttributes = null;
+			try {
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+			} catch (XMLMissingTagException ex) {
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAttributes");
+			}
 
 			this.effects = coreAttributes
 				.getMandatoryFirstOf("effects") 
 				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
-				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(),e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
 				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
 			
 			if(debug) {
@@ -273,7 +278,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.blockedPartsList = coreAttributes
 				.getMandatoryFirstOf("blockedPartsList")
 				.getAllOf("blockedParts").stream()
-				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument()))
+				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument(), clothingXMLFile.getAbsolutePath()))
 				.collect(Collectors.toList());
 
 			this.incompatibleSlots = coreAttributes
