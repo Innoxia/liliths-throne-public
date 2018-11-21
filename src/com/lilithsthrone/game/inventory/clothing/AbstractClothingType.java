@@ -294,7 +294,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					Element blockedPartsElement = (Element)coreAttributes.getElementsByTagName("blockedPartsList").item(0);
 					for(int i=0; i<blockedPartsElement.getElementsByTagName("blockedParts").getLength(); i++){
 						Element e = ((Element)blockedPartsElement.getElementsByTagName("blockedParts").item(i));
-						defaultBlockedParts.add(BlockedParts.loadFromXML(e, doc));
+						defaultBlockedParts.add(BlockedParts.loadFromXML(e, doc, clothingXMLFile.getAbsolutePath()));
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading from file ("+clothingXMLFile.getAbsolutePath()+") failed. Cause: 'blockedPartsList' element unable to be parsed.");

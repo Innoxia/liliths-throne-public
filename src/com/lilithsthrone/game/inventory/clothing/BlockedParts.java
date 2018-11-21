@@ -110,7 +110,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 		return blockedParts;
 	}
 	
-	public static BlockedParts loadFromXML(Element parentElement, Document doc) {
+	public static BlockedParts loadFromXML(Element parentElement, Document doc, String contextForErrors) {
 
 		DisplacementType displacementType = DisplacementType.valueOf(parentElement.getElementsByTagName("displacementType").item(0).getTextContent());
 		
@@ -130,7 +130,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessRequired.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed for "+errorCode+". Code 1");
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 1 (clothingAccessRequired -> clothingAccess); Context: "+contextForErrors);
 			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
@@ -142,7 +142,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts.add(CoverableArea.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed for "+errorCode+". Code 2");
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 2 (blockedBodyParts -> bodyPart); Context: "+contextForErrors);
 			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
@@ -154,7 +154,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessBlocked.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed for "+errorCode+". Code 3");
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 3 (clothingAccessBlocked -> clothingAccess); Context: "+contextForErrors);
 			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
@@ -164,7 +164,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 			try {
 				loadedConcealedSlots = PresetConcealmentLists.valueOf(concealedSlotsElement.getAttribute("values")).getPresetInventorySlotList();
 			} catch(Exception ex) {
-				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4a");
+				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4a (concealedSlots.values); Context: "+contextForErrors);
 				printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 			}
 		} else {
@@ -174,7 +174,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 					loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
 				}
 			} catch(Exception ex) {
-				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4b");
+				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4b (concealedSlots -> slot); Context: "+contextForErrors);
 				printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 			}
 		}
