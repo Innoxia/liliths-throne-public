@@ -1,8 +1,7 @@
 package com.lilithsthrone.game.inventory.clothing;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -131,7 +130,8 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessRequired.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 1 " + errorCode);
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 1");
+			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
 		List<CoverableArea> loadedBlockedBodyParts = new ArrayList<>();
@@ -142,7 +142,8 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts.add(CoverableArea.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 2 "+ errorCode);
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 2");
+			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
 		List<ClothingAccess> loadedClothingAccessBlocked = new ArrayList<>();
@@ -153,13 +154,19 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessBlocked.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 3 "+ errorCode);
+			System.err.println("BlockedParts loading failed for "+errorCode+". Code 3");
+			printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 		}
 		
 		List<InventorySlot> loadedConcealedSlots = new ArrayList<>();
 		Element concealedSlotsElement = (Element)parentElement.getElementsByTagName("concealedSlots").item(0);
 		if(!concealedSlotsElement.getAttribute("values").isEmpty()) {
-			loadedConcealedSlots = PresetConcealmentLists.valueOf(concealedSlotsElement.getAttribute("values")).getPresetInventorySlotList();
+			try {
+				loadedConcealedSlots = PresetConcealmentLists.valueOf(concealedSlotsElement.getAttribute("values")).getPresetInventorySlotList();
+			} catch(Exception ex) {
+				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4a");
+				printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
+			}
 		} else {
 			try {
 				for(int i=0; i<concealedSlotsElement.getElementsByTagName("slot").getLength(); i++){
@@ -167,7 +174,8 @@ public class BlockedParts implements Serializable, XMLSaving {
 					loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
 				}
 			} catch(Exception ex) {
-				System.err.println("BlockedParts loading failed. Code 4"+ errorCode);
+				System.err.println("BlockedParts loading failed for "+errorCode+". Code 4b");
+				printHelpfulErrorForEnumValueMismatches(ex, getPossibleEnumValues());
 			}
 		}
 		
@@ -176,5 +184,28 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts,
 				loadedClothingAccessBlocked,
 				loadedConcealedSlots);
+	}
+
+	private static Map<Class, Object[]> getPossibleEnumValues() {
+		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ClothingAccess.class, ClothingAccess.values());
+		possibleEnumValues.put(InventorySlot.class, InventorySlot.values());
+		possibleEnumValues.put(CoverableArea.class, CoverableArea.values());
+		possibleEnumValues.put(PresetConcealmentLists.class, PresetConcealmentLists.values());
+		return possibleEnumValues;
+	}
+
+	private static void printHelpfulErrorForEnumValueMismatches(Exception ex, Map<Class, Object[]> possibleEnumValues) {
+		String exMessage = ex.getMessage();
+		if (exMessage.startsWith("No enum constant")){
+			for (Map.Entry<Class, Object[]> possibleMatch : possibleEnumValues.entrySet()) {
+				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
+					StringJoiner valueLister = new StringJoiner(",");
+					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
+					System.err.println(ex.getMessage());
+					System.err.println("Possible values for "+possibleMatch.getKey().getSimpleName()+" are " + valueLister.toString());
+				}
+			}
+		}
 	}
 }
