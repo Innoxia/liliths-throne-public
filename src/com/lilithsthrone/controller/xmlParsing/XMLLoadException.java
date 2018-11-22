@@ -1,5 +1,7 @@
 package com.lilithsthrone.controller.xmlParsing;
 
+import java.io.File;
+
 /**
  * @author BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
  * @since 0.2.5.8
@@ -14,6 +16,10 @@ public class XMLLoadException extends Exception {
 	 * @param cause Actual exception that was thrown, for example SAXException or XMLMissingTagException.
 	 */
 	public XMLLoadException(Throwable cause){	
-		super("XML file failed to load. Cause: " + cause.getClass().getSimpleName(), cause);
+		super("XML file failed to load. Cause: " + cause.getMessage(), cause);
+	}
+
+	public XMLLoadException(Throwable cause, File causedByFile){
+		super("XML file ("+causedByFile.getAbsolutePath()+") failed to load. Cause: " + cause.getMessage(), cause);
 	}
 }
