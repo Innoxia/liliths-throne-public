@@ -63,8 +63,8 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
- * @author Innoxia, Pimvgd
+ * @version 0.2.12
+ * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
 

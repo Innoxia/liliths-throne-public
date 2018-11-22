@@ -157,8 +157,8 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
- * @author Innoxia
+ * @version 0.2.12
+ * @author Innoxia, AlacoGit
  */
 public class Game implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
@@ -715,7 +715,8 @@ public class Game implements Serializable, XMLSaving {
 				int totalNpcCount = npcs.getLength();
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
-							if(!Main.game.NPCMap.containsKey(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
+							String id = ((Element)e.getElementsByTagName("id").item(0)).getAttribute("value");
+							if(!Main.game.NPCMap.containsKey(id)) {
 								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
 								if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
 									int lastIndex = className.lastIndexOf('.');
@@ -749,7 +750,7 @@ public class Game implements Serializable, XMLSaving {
 									}
 
 								} else {
-									System.err.println("LOADNPC returned null");
+									System.err.println("LOADNPC returned null: "+id);
 									System.err.println("CLASS: " + className);
 								}
 							} else {
@@ -1009,23 +1010,30 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static NPC loadNPC(Document doc, Element e, String className, 
-			Map<String, Class<? extends NPC>> classMap, Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
+	private static NPC loadNPC(Document doc,
+			Element e,
+			String className, 
+			Map<String, Class<? extends NPC>> classMap,
+			Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
 			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
 		
 		try {
 			Class<? extends NPC> npcClass = classMap.get(className);
+			// I tried this, but it didn't fix it:
+//			Class<? extends NPC> npcClass = classMap.computeIfPresent(className, (key, oldValue) -> classMap.get(className));
+			
+			// I also changed all of the put() methods to putIfAbsent(), but again, this didn't fix it.
 			if (npcClass == null) {
 				npcClass = (Class<? extends NPC>) Class.forName(className);
-				classMap.put(className, npcClass);
+				classMap.putIfAbsent(className, npcClass);
 				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-				loadFromXMLMethodMap.put(npcClass, m);
+				loadFromXMLMethodMap.putIfAbsent(npcClass, m);
 
 				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-				constructorMap.put(npcClass, declaredConstructor);
+				constructorMap.putIfAbsent(npcClass, declaredConstructor);
 			}
 			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-			NPC npc = declaredConstructor.newInstance(true);
+			NPC npc = declaredConstructor.newInstance(true); // This line is where it's going wrong.
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
 			return npc;
 		} catch(ClassNotFoundException cnfe) {
