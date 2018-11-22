@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>800</value>
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[strapless strap-on]]></name>
@@ -54,7 +54,7 @@
       <tag>DILDO_LARGE</tag>
     </itemTags>
 
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>

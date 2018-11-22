@@ -119,6 +119,12 @@
 		Added sexual orientation preferences. (#766 by GalacticOtter)
 		Added condom durability code. (#903 by picobyte)
 		Fixed bug where occupants who have moved out get duplicated descriptions on Harpy Nest tiles. (#934 by KittenBarrage)
+		Improved mod error descriptions, and fixed support for core attributes. (#969 by Pimgd, #945 by CognitiveMist)
+		Corrected misspelled instances of 'coreAtributes' in clothing xml files. (#967 by Pimgd)
+		Deduplicated code in the Pregnancy Stats screen, and added a percentage of offspring encountered readout at the top. (#917 by uglybeard)
+		Added font support for non-windows systems. (#919 by DJ4ddi)
+		Typo fixes in weapon files. (#965 by Pimgd)
+		Made improvements to NPC loading method, so games now load faster. (#949 by AlacoGit)
 	
 	Other:
 		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 
@@ -141,7 +147,6 @@
 		Fixed issue with oral actions not being available in face sitting position is the one doing the sitting was interacting with their partner's groin in any way.
 		Fixed arcane elemental being described as being bound to air.
 		Fixed 'initial penetration' text when starting a footjob not taking into account any shoes/socks being worn.
-	
 	
 	
 	
@@ -180,8 +185,16 @@
 	
 	
 	
+	picking up clothing from floor tooltip uses clothing type class name
 	
 	Make belt unisex
+	
+	limit NPC-on-NPC affection displays
+
+	Requesting oral causes them to make you kneel instead, despite them agreeing.
+		You mean "offer oral"
+		I meant "request oral"
+	
 	
 	Sometimes when I remove the fetish for being raped. They will continue to have the resist pace as if they still have the fetish. Alexia here is also at maxed affection
 	
@@ -204,6 +217,7 @@
 	This has probably already been reported, but randomly during sex, the partner will seemingly stop allowing any sex actions (any started sex action will be stopped by them immediately) until the sex scene is over. It doesn't seem linked to their desires or sex pace.
 	
 	I will be adding a way to assign slaves to sleep with you in your room very soon.
+		need date rape in club and sleep sex for these slaves
 	 
 	Add citadel text
 		Doorway has three intricate keyholes

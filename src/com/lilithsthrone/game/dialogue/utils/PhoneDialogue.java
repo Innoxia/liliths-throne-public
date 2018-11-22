@@ -992,11 +992,61 @@ public class PhoneDialogue {
 	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
+		private void OffspringHeaderDisplay(StringBuilder output, String word_one, String word_two, String color, int count) {
+			output.append("<div class='extraAttribute-quarter'>");
+			output.append(word_one);
+			output.append("<br/>");
+			output.append("<b style='color:").append(color).append(";'>");
+			  output.append(word_two);
+			output.append("</b>");
+			output.append("<br/>");
+			output.append(count);
+			output.append("</div>");
+		}
+
+		private boolean ChildMet(NPC npc) {
+			return Main.game.getPlayer().getCharactersEncountered().contains(npc.getId());
+		}
+
+		private void OffspringTableLine(StringBuilder output, NPC npc) {
+			boolean female = npc.isFeminine();
+			String color = female ? Colour.FEMININE.toWebHexString() : Colour.MASCULINE.toWebHexString();
+			String child_name = ChildMet(npc) ? npc.getName() : "Unknown";
+			String race_color = npc.getRace().getColour().toWebHexString();
+			String species_name = female ? npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc) :
+						       npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc);
+			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "You" : npc.getMother().getName());
+			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer()?"You":npc.getFather().getName());
+			output.append("<tr>");
+                          output.append("<td style='min-width:100px;'>");
+			    output.append("<b style='color:").append(color).append(";'>");
+			      output.append(child_name);
+			    output.append("</b>");
+                          output.append("</td>");
+                          output.append("<td style='min-width:100px;'>");
+			    output.append("<b style='color:").append(race_color).append(";'>");
+			      output.append(species_name);
+			    output.append("</b>");
+			  output.append("</td>");
+			  output.append("<td style='min-width:100px;'>");
+   			    output.append("<b>");
+			      output.append(mother);
+			    output.append("</b>");
+                          output.append("</td>");
+                          output.append("<td style='min-width:100px;'>");
+   			    output.append("<b>");
+			      output.append(father);
+			    output.append("</b>");
+                          output.append("</td>");
+			output.append("</tr>");
+		}
+
 		@Override
 		public String getContent() {
 			
 			int sonsBirthed=0, daughtersBirthed=0,
 					sonsFathered=0, daughtersFathered=0;
+			int childrenMet = 0;
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
@@ -1007,21 +1057,20 @@ public class PhoneDialogue {
 			}
 			
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append("<div class='extraAttribute-quarter'>"
-						+ "Mothered<br/><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b><br/>" + sonsBirthed
-					+ "</div>"
-					+ "<div class='extraAttribute-quarter'>"
-						+ "Mothered<br/><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b><br/>" + daughtersBirthed
-					+ "</div>"
-					
-					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered<br/><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b><br/>" + sonsFathered
-					+ "</div>"
-					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered<br/><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b><br/>" + daughtersFathered
-					+ "</div>"
-					+"<div class='subTitle'>Total offspring: "+(sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered)+"</div>"
+
+			OffspringHeaderDisplay(UtilText.nodeContentSB, "Mothered", "Sons", Colour.MASCULINE.toWebHexString(), sonsBirthed);
+			OffspringHeaderDisplay(UtilText.nodeContentSB, "Mothered", "Daughters", Colour.FEMININE.toWebHexString(), daughtersBirthed);
+			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", Colour.MASCULINE.toWebHexString(), sonsFathered);
+			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", Colour.FEMININE.toWebHexString(), daughtersFathered);
+
+			for (NPC npc : Main.game.getOffspring()) {
+				childrenMet += ChildMet(npc) ? 1 : 0;
+			}
+			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
+			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
+
+			UtilText.nodeContentSB.append(
+					"<div class='subTitle'>Total offspring: "+ totalChildren+" (Children met: "+ percentageMet +"%)</div>"
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					
@@ -1036,39 +1085,7 @@ public class PhoneDialogue {
 					+ "<tr style='height:8px;'></tr>");
 			
 			for(NPC npc : Main.game.getOffspring()) {
-				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(
-							"<tr>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularFemaleName(npc)+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
-								+ "</td>"
-							+ "</tr>");
-				} else {
-					UtilText.nodeContentSB.append(
-							"<tr>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringSubspecies().getSingularMaleName(npc)+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
-								+ "</td>"
-								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
-								+ "</td>"
-							+ "</tr>");
-				}
+				OffspringTableLine(UtilText.nodeContentSB, npc);
 			}
 			
 			UtilText.nodeContentSB.append("</table></div>");

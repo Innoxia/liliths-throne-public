@@ -131,7 +131,7 @@ public class AbstractTattooType extends AbstractCoreType {
 						slotAvailability = standardInventorySlots;
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				this.slotAvailability = slotAvailability;
 				
@@ -145,27 +145,28 @@ public class AbstractTattooType extends AbstractCoreType {
 				try {
 					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
 				} catch(Exception ex) {
+					System.err.println("AbstractTattooType loading failed. Cause: 'enchantmentLimit' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
 				try {
 					importedPrimaryColours = readColoursFromElement(coreAttributes, "primaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'primaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'primaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
 				try {
 					importedSecondaryColours = readColoursFromElement(coreAttributes, "secondaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'secondaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedTertiaryColours = new ArrayList<>();
 				try {
 					importedTertiaryColours = readColoursFromElement(coreAttributes, "tertiaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'tertiaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				this.availablePrimaryColours = new ArrayList<>(importedPrimaryColours);
@@ -177,7 +178,7 @@ public class AbstractTattooType extends AbstractCoreType {
 				SVGStringMap = new HashMap<>();
 
 			} catch(Exception ex) {
-				System.err.println("TattooType was unable to be loaded from file!");
+				System.err.println("TattooType was unable to be loaded from file! (" + tattooXMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}

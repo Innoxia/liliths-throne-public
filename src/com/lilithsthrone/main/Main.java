@@ -1,13 +1,5 @@
 package com.lilithsthrone.main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.Game;
@@ -34,7 +26,6 @@ import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,12 +33,22 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @since 0.1.0
@@ -445,6 +446,8 @@ public class Main extends Application {
 		Main.primaryStage.getIcons().add(WINDOW_IMAGE);
 
 		Main.primaryStage.setTitle("Lilith's Throne " + VERSION_NUMBER + " " + VERSION_DESCRIPTION+(DEBUG?" (Debug Mode)":""));
+
+		loadFonts();
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
 
@@ -511,6 +514,44 @@ public class Main extends Application {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Attempts to load fallback fonts to make sure that they are available later. The size doesn't actually matter as
+	 * the WebEngine will reload other sizes as required. The files referenced must persist until application shutdown.
+	 *
+	 * Do not call Font.getFamilies() prior to this as additional fonts must be loaded before the list is cached.
+	 */
+	protected void loadFonts() {
+		// Load fallback for Calibri
+		if (Font.loadFont(toUri("res/fonts/Carlito/Carlito-Regular.ttf"), 11) != null) {
+			// Load variants
+			Font.loadFont(toUri("res/fonts/Carlito/Carlito-Bold.ttf"), 11);
+			Font.loadFont(toUri("res/fonts/Carlito/Carlito-BoldItalic.ttf"), 11);
+			Font.loadFont(toUri("res/fonts/Carlito/Carlito-Italic.ttf"), 11);
+		} else {
+			System.err.println("Carlito font could not be loaded.");
+		}
+
+		// Load fallback for Verdana
+		if (Font.loadFont(toUri("res/fonts/DejaVu Sans/DejaVuSans.ttf"), 12) != null) {
+			// Load variants
+			Font.loadFont(toUri("res/fonts/DejaVu Sans/DejaVuSans-Bold.ttf"), 12);
+			Font.loadFont(toUri("res/fonts/DejaVu Sans/DejaVuSans-BoldOblique.ttf"), 12);
+			Font.loadFont(toUri("res/fonts/DejaVu Sans/DejaVuSans-ExtraLight.ttf"), 12);
+			Font.loadFont(toUri("res/fonts/DejaVu Sans/DejaVuSans-Oblique.ttf"), 12);
+		} else {
+			System.err.println("DejaVu Sans font could not be loaded.");
+		}
+	}
+
+	/**
+	 * Creates a URI string with spaces. The given path can be absolute or relative to the current working directory.
+	 * @param path The path to convert
+	 * @return A string containing a URI
+	 */
+	public static String toUri(String path) {
+		return Paths.get(path).toUri().toString().replaceAll("%20", " ");
 	}
 
 	public static void main(String[] args) {
