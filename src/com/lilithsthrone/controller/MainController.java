@@ -1992,8 +1992,7 @@ public class MainController implements Initializable {
 	private boolean useJavascriptToSetContent = true;
 	
 	private void setWebEngineContent(WebEngine engine, String content) {
-		content=content.replaceAll("\r", "");
-		content=content.replaceAll("\n", "");
+		content=content.replaceAll("[\r\n]", "");
 		content=content.replaceAll("\"", "'");
 		
 		engine.executeScript(

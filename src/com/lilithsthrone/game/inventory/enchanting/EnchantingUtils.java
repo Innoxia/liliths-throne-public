@@ -336,9 +336,9 @@ public class EnchantingUtils {
 		}
 		
 		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-		s = s.replaceAll("#ff5555", colour.getShades()[1]);
+		s = s.replaceAll("#ff5555|#f55", colour.getShades()[1]);
 		s = s.replaceAll("#ff8080", colour.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+		s = s.replaceAll("#ffaaaa|#faa", colour.getShades()[3]);
 		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 		SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+s+"</div>");
 		

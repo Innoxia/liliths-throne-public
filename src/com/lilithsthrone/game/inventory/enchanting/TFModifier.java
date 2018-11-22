@@ -1335,9 +1335,9 @@ public enum TFModifier {
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
+			s = s.replaceAll("#ff5555|#f55", this.colour.getShades()[1]);
 			s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
+			s = s.replaceAll("#ffaaaa|#faa", this.colour.getShades()[3]);
 			s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
 			this.SVGString = s;
 
@@ -1369,9 +1369,9 @@ public enum TFModifier {
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
+			s = s.replaceAll("#ff5555|#f55", this.colour.getShades()[1]);
 			s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
+			s = s.replaceAll("#ffaaaa|#faa", this.colour.getShades()[3]);
 			s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
 			this.SVGString = s;
 

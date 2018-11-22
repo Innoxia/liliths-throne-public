@@ -1291,9 +1291,9 @@ public enum PlaceType {
 				
 				if(colour!=null) {
 					s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
+					s = s.replaceAll("#ff5555|#f55", this.colour.getShades()[1]);
 					s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
+					s = s.replaceAll("#ffaaaa|#faa", this.colour.getShades()[3]);
 					s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
 				}
 				SVGString = s;
@@ -1370,9 +1370,9 @@ public enum PlaceType {
 				
 				if(colour!=null) {
 					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", colour.getShades()[1]);
+					s = s.replaceAll("#ff5555|#f55", colour.getShades()[1]);
 					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+					s = s.replaceAll("#ffaaaa|#faa", colour.getShades()[3]);
 					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 				}
 				SVGOverrides.put(pathName+colour, s);

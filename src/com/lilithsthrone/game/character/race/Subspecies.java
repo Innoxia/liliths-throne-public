@@ -1820,9 +1820,9 @@ public enum Subspecies {
 //				SVGStringDesaturated = Util.inputStreamToString(is);
 //	
 //				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555|#f55", Colour.BASE_GREY.getShades()[1]);
 //				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+//				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa|#faa", Colour.BASE_GREY.getShades()[3]);
 //				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
 //	
 //				is.close();

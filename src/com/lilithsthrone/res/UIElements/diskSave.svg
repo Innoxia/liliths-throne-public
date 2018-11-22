@@ -1,80 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="diskSave.svg">
-  <defs
-     id="defs4313" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="7.9999996"
-     inkscape:cx="49.928449"
-     inkscape:cy="35.426535"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer3"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Stage3"
-     style="display:inline">
-    <path
-       style="fill:#e6e6e6;fill-rule:evenodd;stroke:#000000;stroke-width:0.91256618px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 18.516053,6.1062793 46.833111,6.214444 47.276148,25.626642 17.845887,24.999253 Z"
-       id="path4156"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="fill:#ff8080;fill-rule:evenodd;stroke:#000000;stroke-width:0.91256618;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 7.8925898,55.284494 c -0.00502,1.367404 0.8419108,2.685783 2.1679182,2.682999 l 44.030526,-0.09243 c 1.609411,-0.0034 2.892552,-1.110461 2.89051,-2.523751 L 56.918776,11.925079 51.06315,6.260131 45.936537,6.1982024 46.06934,23.615918 19.188523,23.753615 19.083398,6.0890264 10.619474,6.1960077 C 8.9567338,6.2170241 8.0647998,7.9919374 8.0604816,9.1778838 Z"
-       id="path4152"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ssssccccccsss" />
-    <path
-       style="fill:#e6e6e6;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="m 14.653201,28.366932 35.924032,0.005 c 0.661595,9.4e-5 0.670216,0.137815 0.670667,0.736178 l 0.01745,23.154055 c 5.59e-4,0.74279 0.02248,0.969572 -0.752424,0.968392 l -36.174742,-0.05502 c -0.443115,-6.75e-4 -0.541247,-0.24664 -0.540239,-0.685214 l 0.05352,-23.281356 c 0.0016,-0.672629 0.100694,-0.844332 0.801735,-0.842055 z"
-       id="path4154"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csssssssc" />
-    <path
-       style="fill:#ff8080;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.91256618px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="m 35.070574,7.8886353 -0.05703,12.9470337 5.817611,0 0.11407,-12.8899982 z"
-       id="path4158"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <g fill-rule="evenodd" stroke="#000">
+        <path fill="#e6e6e6" stroke-width=".913" d="M18.516 6.106l28.317.108.443 19.413-29.43-.628z"/>
+        <path fill="#ff8080" stroke-linecap="round" stroke-linejoin="round" stroke-width=".913" d="M7.893 55.284c-.005 1.368.842 2.686 2.168 2.683l44.03-.092c1.61-.003 2.893-1.11 2.89-2.524l-.062-43.426-5.856-5.665-5.126-.062.132 17.418-26.88.138-.106-17.665-8.464.107c-1.662.021-2.554 1.796-2.559 2.982z"/>
+        <path fill="#e6e6e6" stroke-linejoin="round" d="M14.653 28.367l35.924.005c.662 0 .67.138.67.736l.018 23.154c0 .743.023.97-.752.969l-36.175-.055c-.443-.001-.541-.247-.54-.686l.053-23.281c.002-.673.101-.844.802-.842z"/>
+        <path fill="#ff8080" stroke-linejoin="round" stroke-width=".913" d="M35.07 7.889l-.056 12.947h5.817l.114-12.89z"/>
+    </g>
 </svg>

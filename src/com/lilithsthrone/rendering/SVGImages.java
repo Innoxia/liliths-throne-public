@@ -815,9 +815,9 @@ public enum SVGImages {
 	private String setColour(String stringSVG, Colour colourShade) {
 		String s = stringSVG;
 		s = s.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-		s = s.replaceAll("#ff5555", colourShade.getShades()[1]);
+		s = s.replaceAll("#ff5555|#f55", colourShade.getShades()[1]);
 		s = s.replaceAll("#ff8080", colourShade.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colourShade.getShades()[3]);
+		s = s.replaceAll("#ffaaaa|#faa", colourShade.getShades()[3]);
 		s = s.replaceAll("#ffd5d5", colourShade.getShades()[4]);
 		return s;
 	}

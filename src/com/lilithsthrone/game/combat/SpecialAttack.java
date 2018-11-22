@@ -2155,9 +2155,9 @@ public enum SpecialAttack {
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", colourShade.getShades()[1]);
+			SVGString = SVGString.replaceAll("#ff5555|#f55", colourShade.getShades()[1]);
 			SVGString = SVGString.replaceAll("#ff8080", colourShade.getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", colourShade.getShades()[3]);
+			SVGString = SVGString.replaceAll("#ffaaaa|#faa", colourShade.getShades()[3]);
 			SVGString = SVGString.replaceAll("#ffd5d5", colourShade.getShades()[4]);
 
 			is.close();
