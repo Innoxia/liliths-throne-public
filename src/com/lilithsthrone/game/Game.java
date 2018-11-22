@@ -760,6 +760,7 @@ public class Game implements Serializable, XMLSaving {
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
+
 				
 				// Add in new NPCS:
 				
@@ -1019,27 +1020,30 @@ public class Game implements Serializable, XMLSaving {
 		
 		try {
 			Class<? extends NPC> npcClass = classMap.get(className);
-			// I tried this, but it didn't fix it:
-//			Class<? extends NPC> npcClass = classMap.computeIfPresent(className, (key, oldValue) -> classMap.get(className));
-			
-			// I also changed all of the put() methods to putIfAbsent(), but again, this didn't fix it.
 			if (npcClass == null) {
 				npcClass = (Class<? extends NPC>) Class.forName(className);
-				classMap.putIfAbsent(className, npcClass);
-				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-				loadFromXMLMethodMap.putIfAbsent(npcClass, m);
+				synchronized (npcClass) {
+					if(classMap.containsKey(className)){
+						npcClass = classMap.get(className);
+					} else {
+						classMap.putIfAbsent(className, npcClass);
+						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+						loadFromXMLMethodMap.put(npcClass, m);
 
-				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-				constructorMap.putIfAbsent(npcClass, declaredConstructor);
+						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+						constructorMap.put(npcClass, declaredConstructor);
+					}
+				}
 			}
 			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-			NPC npc = declaredConstructor.newInstance(true); // This line is where it's going wrong.
+			if (declaredConstructor == null) {
+				synchronized (npcClass) {
+					declaredConstructor = constructorMap.get(npcClass);
+				}
+			}
+			NPC npc = declaredConstructor.newInstance(true);
 			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
 			return npc;
-		} catch(ClassNotFoundException cnfe) {
-			System.err.println("No Class found for: " + className);
-			cnfe.printStackTrace();
-			return null;
 		} catch(NoSuchMethodException nsme) {
 			System.err.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
 			nsme.printStackTrace();
