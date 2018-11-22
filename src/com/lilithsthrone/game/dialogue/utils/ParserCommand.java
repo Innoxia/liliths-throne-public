@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.utils.Colour;
 
@@ -62,7 +63,7 @@ public abstract class ParserCommand {
 				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
 	}
 	
-	public abstract String parse(String command, String arguments, String target);
+	public abstract String parse(String command, String arguments, String target, GameCharacter character);
 	
 	/**
 	 * Some methods might return a null or empty string for a descriptor. This method accounts for that, applying a descriptor if one is available and then returning the descriptor + name combination.
