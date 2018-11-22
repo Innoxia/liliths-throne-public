@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>10000</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Cloak]]></name>
@@ -61,8 +61,8 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 	
 		<itemTags/>
-	</coreAtributes>
-	
+	</coreAttributes>
+
 	
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
@@ -75,7 +75,7 @@
       <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the strap around [npc2.her] neck.]]>
     </otherRough>
   </replacementText>
-	
+
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the strap around [npc.her] neck, before taking off [npc.her] cloak.]]>
@@ -87,5 +87,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the strap around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
     </otherRough>
   </displacementText>
-  
+
 </clothing>

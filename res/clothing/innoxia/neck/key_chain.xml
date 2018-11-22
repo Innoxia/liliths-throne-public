@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>0</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[key-chain necklace]]></name>
@@ -47,7 +47,7 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 	
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <replacementText type="REMOVE_OR_EQUIP">

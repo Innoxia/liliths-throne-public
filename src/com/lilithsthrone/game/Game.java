@@ -29,8 +29,8 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
-import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.*;
 import com.lilithsthrone.game.dialogue.utils.*;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -70,16 +70,18 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
- * @author Innoxia
+ * @version 0.2.12
+ * @author Innoxia, AlacoGit
  */
 public class Game implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
@@ -97,7 +99,9 @@ public class Game implements Serializable, XMLSaving {
 	
 	// NPCs:
 	private NPC activeNPC;
-	private int npcTally = 0;
+	private AtomicInteger npcTally = new AtomicInteger(0);
+
+	//Note : this is a ConcurrentHashMap
 	private Map<String, NPC> NPCMap;
 	
 	private Map<WorldType, World> worlds;
@@ -160,7 +164,7 @@ public class Game implements Serializable, XMLSaving {
 		started = false;
 		prologueFinished = true;
 
-		NPCMap = new HashMap<>();
+		NPCMap = new ConcurrentHashMap<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -626,69 +630,61 @@ public class Game implements Serializable, XMLSaving {
 				if(debug) {
 					System.out.println("Player finished");
 				}
-				
-				List<String> addedIds = new ArrayList<>();
-				List<NPC> slaveImports = new ArrayList<>();
+
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
-				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
-				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
-				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
+				Map<String, Class<? extends NPC>> npcClasses = new ConcurrentHashMap<>();
+				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new ConcurrentHashMap<>();
+				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new ConcurrentHashMap<>();
 				int totalNpcCount = npcs.getLength();
-				for(int i=0; i < totalNpcCount; i++) {
-					Element e = (Element) npcs.item(i);
-					
-					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
-						String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
-						if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
-							int lastIndex = className.lastIndexOf('.');
-							if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
-								className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
-//								System.out.println(className);
-							}
-						}
-						
-						NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-						if(npc!=null)  {
-							if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-									|| (npc.getClass()!=FortressDemonLeader.class
-										&& npc.getClass()!=FortressAlphaLeader.class
-										&& npc.getClass()!=FortressMalesLeader.class
-										&& npc.getClass()!=FortressFemalesLeader.class)) {
-								Main.game.addNPC(npc, true);
-								addedIds.add(npc.getId());
-							}
-							
-							// To fix issues with older versions hair length:
-							if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
-								npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
-							}
-	
-							// Generate desires in non-unique NPCs:
-							if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-								CharacterUtils.generateDesires(npc);
-							}
-							
-							if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
-								npc.clearFetishDesires();
-								CharacterUtils.generateDesires(npc);
-							}
-							
-							if(npc instanceof SlaveImport) {
-								slaveImports.add(npc);
-							}
-						}
-					} else {
-						System.err.println("duplicate character attempted to be imported");
-					}
-					if(debug) {
-						System.out.println("NPC: "+i);
-					}
-				}
+				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
+						.forEach(e ->{
+							String id = ((Element)e.getElementsByTagName("id").item(0)).getAttribute("value");
+							if(!Main.game.NPCMap.containsKey(id)) {
+								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
+								if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
+									int lastIndex = className.lastIndexOf('.');
+									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
+										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
+									}
+								}
 
+								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
+								if(npc!=null)  {
+									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
+											|| (npc.getClass()!=FortressDemonLeader.class
+											&& npc.getClass()!=FortressAlphaLeader.class
+											&& npc.getClass()!=FortressMalesLeader.class
+											&& npc.getClass()!=FortressFemalesLeader.class)) {
+										Main.game.safeAddNPC(npc, true);
+									}
+
+									// To fix issues with older versions hair length:
+									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
+										npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
+									}
+									// Generate desires in non-unique NPCs:
+									if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
+										CharacterUtils.generateDesires(npc);
+									}
+
+									if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
+										npc.clearFetishDesires();
+										CharacterUtils.generateDesires(npc);
+									}
+
+								} else {
+									System.err.println("LOADNPC returned null: "+id);
+									System.err.println("CLASS: " + className);
+								}
+							} else {
+								System.err.println("duplicate character attempted to be imported");
+							}
+						});
 				if(debug) {
 					System.out.println("NPCs finished");
 				}
+
 				
 				// Add in new NPCS:
 				
@@ -939,30 +935,43 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static NPC loadNPC(Document doc, Element e, String className, 
-			Map<String, Class<? extends NPC>> classMap, Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
-			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap) throws ClassNotFoundException,
-			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	private static NPC loadNPC(Document doc,
+			Element e,
+			String className, 
+			Map<String, Class<? extends NPC>> classMap,
+			Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
+			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
 		
 		try {
 			Class<? extends NPC> npcClass = classMap.get(className);
 			if (npcClass == null) {
 				npcClass = (Class<? extends NPC>) Class.forName(className);
-				classMap.put(className, npcClass);
-				Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-				loadFromXMLMethodMap.put(npcClass, m);
-				
-				Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-				constructorMap.put(npcClass, declaredConstructor);
-				NPC npc = declaredConstructor.newInstance(true);
-				m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-				return npc;
-			} else {
-				Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-				NPC npc = declaredConstructor.newInstance(true);
-				loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
-				return npc;
+				synchronized (npcClass) {
+					if(classMap.containsKey(className)){
+						npcClass = classMap.get(className);
+					} else {
+						classMap.putIfAbsent(className, npcClass);
+						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+						loadFromXMLMethodMap.put(npcClass, m);
+
+						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+						constructorMap.put(npcClass, declaredConstructor);
+					}
+				}
 			}
+			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
+			if (declaredConstructor == null) {
+				synchronized (npcClass) {
+					declaredConstructor = constructorMap.get(npcClass);
+				}
+			}
+			NPC npc = declaredConstructor.newInstance(true);
+			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
+			return npc;
+		} catch(NoSuchMethodException nsme) {
+			System.err.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
+			nsme.printStackTrace();
+			return null;
 		} catch(Exception ex) {
 			System.err.println("Failed to load NPC class: "+className);
 			ex.printStackTrace();
@@ -3388,36 +3397,46 @@ public class Game implements Serializable, XMLSaving {
 	public String getUniqueNPCId(Class<? extends NPC> c) {
 		return "-1"+","+c.getSimpleName();
 	}
-	
+
 	public String getNPCId(Class<? extends NPC> c) {
-		return npcTally+","+c.getSimpleName();
+		return npcTally.get()+","+c.getSimpleName();
 	}
 	
 	public String getNextNPCId(Class<? extends NPC> c) {
-		return (npcTally+1)+","+c.getSimpleName();
+		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
-	
+
+	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
+	public String safeAddNPC(final NPC npc, boolean isImported) {
+		String id = "";
+		try{
+			id = addNPC(npc,isImported);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return id;
+	}
 	public String addNPC(NPC npc, boolean isImported) throws Exception {
 		
 		if(isImported) {
-			int tallyCount = 0;
+			int tallyCount;
+			String rawId = npc.getId();
 			// Support old versions (in the format "Stan-Stan-Stan-49"):
-			String[] split = npc.getId().split("-");
-			try{
+			if(rawId.contains("-") && !rawId.contains(",")){
+				String[] split = rawId.split("-");
 				tallyCount = Integer.parseInt(split[split.length-1]);
-			}catch(NumberFormatException ex) {
-				tallyCount = Integer.parseInt(npc.getId().split(",")[0]);
+			} else {
+				tallyCount = Integer.parseInt(rawId.split(",")[0]);
 			}
-			if(tallyCount>npcTally) {
-				npcTally = tallyCount;
-			}
+
+			npcTally.updateAndGet(x -> Math.max(x, tallyCount));
 			
 		} else {
 			if(npc.isUnique()) {
 				npc.setId(getUniqueNPCId(npc.getClass()));
 			} else {
-				npcTally++;
-				npc.setId(getNPCId(npc.getClass()));
+				int id = npcTally.incrementAndGet();
+				npc.setId(id+","+(npc.getClass().getSimpleName()));
 			}
 		}
 		
@@ -3712,7 +3731,7 @@ public class Game implements Serializable, XMLSaving {
 	
 
 	public int getNpcTally() {
-		return npcTally;
+		return npcTally.get();
 	}
 
 	public OccupancyUtil getOccupancyUtil() {
