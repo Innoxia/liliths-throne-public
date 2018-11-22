@@ -144,12 +144,48 @@
 	
 	
 	
+	Make belt unisex
+	
+	Condoms:
+		track cum
+		inseminate action
+			Filled condoms keep track of the type of cum that they're holding, and can now be used to artificially inseminate characters.
+			The offspring of any resulting pregnancy will have traits based on the the cum's stored body values.
+			E.g. Obtaining a filled condom from a dog-boy, and then transforming him into a cat-girl, then impregnating her with the filled condom, will result in offspring inheriting traits from her old dog-boy body, as well as her new cat-girl one.
+		
+	
+	So, while riding cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum
+	
+	Also you never re-added the manual insemination option
+	
+	And there's the self impreg with used condoms thing that I hear people mention occasionally.
+	
+	Also there's a minor problem with removing the condom when you're having sex.
+	When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed,
+	 but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
+	
+	
+	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
+	
+	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
+	Please let us avoid fights with slimes using used condoms
+	- I will be adding a way to assign slaves to sleep with you in your room very soon. :3
+- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working).
+ I am planning on having two brands of condom. One that will be more expensive, but immune to breaking, and then one that will be cheaper, with a chance to break based on cum production. It will be possible to purposefully sabotage both of these types
+	
+	NPCs to use condoms
+	Need to refuse condoms if impregnation/pregnancy fetishes
+	Broken condom
+	
+	
+	
 	
 	
 	
 	
 	Suggestion: Have shower sex with people in your party so Rose can wash their clothes too.
 	
+	i tried to extract 5,599 arcane essences and my game almost crashed
 	
 	switch knuckle dusters & demonstones to unarmed
 	
@@ -609,10 +645,6 @@
 	
 	Expand slavery content. (Jobs, permissions, and management improvements.)
 	
-	NPCs to use condoms
-	Need to refuse condoms if impregnation/pregnancy fetishes
-	Broken condom
-	
 	foot content
 		Footjobs, foot worship, foot smothering, cum on soles as a pull out option
 	
@@ -1070,12 +1102,8 @@ my character is a guy, so this is super confusing lol
 	And some slaves are stuck on the stats sheet as being ready for birthing
 		I think that they were both PCs I imported
 	
-	NPCs using condoms on self/player
-	
 	Add masturbation to most areas
 	
-	broken condom content
-		
 	adding a hide/show button for status effects
 		
 	Fix NPCs not being deleted
@@ -1216,10 +1244,6 @@ my character is a guy, so this is super confusing lol
 	
 	I'm planning on adding a special orgasm denial action, which I'll then allow NPCs with the denial fetish to use (I might split up the fetish into 'being denied' and 'denying others' variants).
 	
-	
-- I will be adding a way to assign slaves to sleep with you in your room very soon. :3
-- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working).
- I am planning on having two brands of condom. One that will be more expensive, but immune to breaking, and then one that will be cheaper, with a chance to break based on cum production. It will be possible to purposefully sabotage both of these types
 	
 	Brax weapon - has 0 arcane but can use arcane
 		Brax weapon & descriptions
@@ -1513,8 +1537,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	slime tails
 	
-	condom breaking
-
 	In Succubi's Secrets, there's an extra line of the basic skin colors. Only the top row can be used.
 	
 	after arthur reunite with liliya. you have to get arthur a room to proceed right?
@@ -1778,8 +1800,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	NPCs !!!STILL!!! making you stop penetration just before climax!!! (Stopped me eating her out)
 	
-	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
-	Please let us avoid fights with slimes using used condoms
 	
 	The special dialog with Lilaya about pregnancy when she is the on that impregnated you is missing. Plus the dialogue is missing where you got pregnant from someone else and went to Lilaya after you had sex with her.
 	
@@ -1794,7 +1814,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	(far in the future)There could be alchemist perk like there is Arcane weaver perk, and Transformation fetish would then instead offer you a stat boost for 1 hr or 2 whenever you transform someone (perhaps something like + 10~20% exp gain)
 	Similar buffs could then come for Orgasm denier[Bonuses to physical damage for few hours] and Self denial fetish[Seduction damage bonus]
 	
-	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
 	
 	since there is an option to be a squirter if you have a vagina, maybe you could add an option to squirt milk from nipples when reaching orgasm. It would be possible if the character is lactating and the ejaculation would decrease the amount of milk stored in the breasts.
 	
@@ -3713,11 +3732,6 @@ BlobHyperSweats1
 	Tattoos and slave customisation at Kate's place
 	
 	
-	I encountered a succubus, had my way with her after selecting preferences, then i clasped a slave collar onto her. she was sent to the slaver, but her and my stats on the right and left side remained. Also my and her items still remain visible. So it doesn't return you to the 'world view' screen after doing so
-	had a saved game right after defeating her, so i loaded that up, no sex this time, clasped slave collar and no problem. I'll see if I can try and get it to act up again.
-[05:52] GrimWaltz: I've narrowed the problem down. It seems that after choosing having sex with the succubus after defeating her and turning her into a slave, the game gets the problem. If you don't have sex with her but turn her into a slave there's no problem.
-[05:57] GrimWaltz: Also there's a minor problem with removing the condom when you're having sex. When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed, but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
-	
 	satisfying a slave's addiction should raise their affection
 	
 	is the unwilling fucktoy fetish supposed to make NPCs resist?
@@ -4220,8 +4234,7 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	
 	Lilaya sex behind incest
 	
-	: Also you never re-added the manual insemination option
-	And there's the self impreg with used condoms thing that I hear people mention occasionally.
+	
 	
 	Will we be able to change our tongue color at some point
 	
@@ -4286,8 +4299,6 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	When asking Lilaya about essences, the PC speaks about how "A piece of someone's essence broke off and shot into me", but you don't have to have actually seen this, since that conversation is now unlocked by Lilaya's "Tests".
 	
 	When using transformative on a slave in Slavery Administration some transformation descriptions mention Finch instead of target npc.
-	
-	Having 6/7+ (definately 7+) used condoms in inventory (with or without condom belt) and then talking with Ralph locks you into his intro, the only option that works is 'discount' and then that locks there without being able to refuse or proceed.
 	
 	big lag when it comes to buying and selling items en mass
 	
@@ -4466,8 +4477,6 @@ If I can give a suggestion, in these situations they could perform some frotting
 	
 	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
 	
-	 Just want to let you know that the condom belt bug still exists in 1.88.1 Once the player acquires more than 8 used condoms, the player's clothing inventory screen stops displaying. Consuming one to bring the number to 8 or lower allows the worn items to be seen again. This is not the worn inventory showing all blank boxes, but rather the worn not showing at all, and just showing like the default map.
-	
 	In the newest version, requesting a position your partner doesn't want usually causes them to break and do nothing for a while.
 	
 	in the latest version after clicking resume it resets all "my" fetishes
@@ -4563,10 +4572,6 @@ I'll add descriptions for tasting the lubrication types on your fingers; great i
 	
 	No options sometimes
 	
-	Have an interesting bug where all of my equipped items have disappeared. One moment they were there, now every slot is empty except for my on hand off hand weapons. Was using the condom belt and have 9 in inventory so far, but no item overflow occured.  
-I am pretty sure i didn't hit unequip all and then walk away from it, because there are none of my old items in my basic inventory.  
-Okay, just purchased and equipped a new condom belt, it vaporizes into the aether.  Drinking a condom made just the belt reappear, but adding a new condom this time caused the entire inventory (clothing equipped) to not show when i press the inventory button.
-	
 	need to get individual hand lubrications sorted
 	
 	I'll look into adding multiple types of horns for each race
@@ -4615,9 +4620,6 @@ Okay, just purchased and equipped a new condom belt, it vaporizes into the aethe
 	
 	Got a bug, when i was sucking a witches cock she said "Put out i don't want to taste your cum "
 	
-	So, while riding my son's cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum :stuck_out_tongue:
-	Also, condom belts when removed during sex are called microskirts
-	it was fixed by removing an item of clothing
 	
 	Add orgasm/pullout actions & cum-soaked effects
 	One of the annoying things NPCs can do is to pull away when they orgasm while being roughly fucked. This is merely text related but I don't want to be pulled out, I want them to deal with it without "pushing my hips away"
@@ -5240,13 +5242,7 @@ It lacks something before the period.
 	
 	Incest Content still says Not Implemented when selecting the fetish.
 		
-	
-	Condoms:
-		track cum
-		inseminate action
-			Filled condoms keep track of the type of cum that they're holding, and can now be used to artificially inseminate characters.
-			The offspring of any resulting pregnancy will have traits based on the the cum's stored body values.
-			E.g. Obtaining a filled condom from a dog-boy, and then transforming him into a cat-girl, then impregnating her with the filled condom, will result in offspring inheriting traits from her old dog-boy body, as well as her new cat-girl one.
+		
 		
 	Condense essences into just arcane essences
 	Use essences to unjinx something
