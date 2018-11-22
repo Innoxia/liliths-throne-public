@@ -4439,6 +4439,9 @@ public class Body implements Serializable, XMLSaving {
 							case ALCOHOLIC:
 								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 								break;
+							case MINERAL_OIL:
+								descriptionSB.append(" It contains mineral oils that deteriorate latex.");
+								break;
 						}
 					}
 				}
@@ -4643,6 +4646,8 @@ public class Body implements Serializable, XMLSaving {
 								case ALCOHOLIC:
 									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 									break;
+								case MINERAL_OIL:
+									descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
 							}
 						}
 					}
@@ -5282,6 +5287,9 @@ public class Body implements Serializable, XMLSaving {
 							break;
 						case ALCOHOLIC:
 							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+							break;
+						case MINERAL_OIL:
+							descriptionSB.append(" It contains mineral oils that deteriorate latex.");
 							break;
 					}
 				}

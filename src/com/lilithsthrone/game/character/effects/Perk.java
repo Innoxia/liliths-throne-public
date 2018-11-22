@@ -1242,7 +1242,7 @@ public enum Perk {
 
 	ELEMENTAL_BOUND_ARCANE(20,
 			true,
-			"Bound to Air",
+			"Bound to Arcane",
 			PerkCategory.JOB,
 			"combat/spell/elemental_arcane",
 			Colour.SPELL_SCHOOL_AIR,

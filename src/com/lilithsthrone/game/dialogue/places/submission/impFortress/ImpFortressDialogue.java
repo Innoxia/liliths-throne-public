@@ -1128,7 +1128,7 @@ public class ImpFortressDialogue {
 						}
 						
 					} else if(isCompanionDialogue()?index==4:index==3) {
-						return new ResponseCombat("Attack", "Change your mind about not wanting to fight the imps, and decide to teach them a lesson!", getImpGuards(), null);
+						return new ResponseCombat("Attack", "Change your mind about not wanting to fight the imps, and decide to teach them a lesson!", getImpGuardLeader(), getImpGuards(), null);
 					}
 				}
 				return null;
@@ -1190,7 +1190,7 @@ public class ImpFortressDialogue {
 					}
 					
 				} else if(index==3) {
-					return new ResponseCombat("Attack", "Defend yourself against the imps!", getImpGuards(), null);
+					return new ResponseCombat("Attack", "Defend yourself against the imps!", getImpGuardLeader(), getImpGuards(), null);
 					
 				} else if(index==4) {
 					if(!isOralAvailable()) {
@@ -2137,8 +2137,6 @@ public class ImpFortressDialogue {
 									KEEP_ALPHA_BRAWLER) {
 								@Override
 								public void effects() {
-									clearBossGuards();
-									setBossEncountered();
 									try {
 										getBoss().unequipClothingOntoFloor(getBoss().getClothingInSlot(InventorySlot.TORSO_OVER), true, getBoss());
 									} catch(Exception ex) {
@@ -2151,6 +2149,8 @@ public class ImpFortressDialogue {
 									} else {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_ALPHA_BRAWLER_DEFEATED_DS_DEALT_WITH", getAllCharacters()));
 									}
+									clearBossGuards();
+									setBossEncountered();
 								}
 							};
 							
@@ -2170,8 +2170,6 @@ public class ImpFortressDialogue {
 								@Override
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO", getAllCharacters()));
-									clearBossGuards();
-									setBossEncountered();
 									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_3)) {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_KEY", getAllCharacters()));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3), false));
@@ -2180,6 +2178,8 @@ public class ImpFortressDialogue {
 									} else {
 										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_DEFEATED_DS_DEALT_WITH", getAllCharacters()));
 									}
+									clearBossGuards();
+									setBossEncountered();
 								}
 							};
 							
@@ -2259,7 +2259,9 @@ public class ImpFortressDialogue {
 					};
 
 				} else if(darkSirenActionAvailable?index==3:index==2) {
-					return new ResponseCombat("Attack", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"), getImpBossGroup(true), null) {
+					return new ResponseCombat("Attack", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"),
+							(NPC) getBoss(),
+							getImpBossGroup(true), null) {
 						@Override
 						public void effects() {
 							setBossEncountered();
@@ -2783,7 +2785,9 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"), getImpBossGroup(true), null);
+				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"),
+						(NPC) getBoss(),
+						getImpBossGroup(true), null);
 			}
 			return null;
 		}
@@ -2816,7 +2820,9 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"), getImpBossGroup(true), null);
+				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"),
+						(NPC) getBoss(),
+						getImpBossGroup(true), null);
 			}
 			return null;
 		}
@@ -2907,7 +2913,9 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Refuse", UtilText.parse(getBoss(), "You aren't prepared to go that far! Tell [npc.name] as such, and prepare to defend yourself!"), getImpBossGroup(true), null);
+				return new ResponseCombat("Refuse", UtilText.parse(getBoss(), "You aren't prepared to go that far! Tell [npc.name] as such, and prepare to defend yourself!"),
+						(NPC) getBoss(),
+						getImpBossGroup(true), null);
 				
 			} else if(index==2) {
 				if(isAlphaFortress()) {

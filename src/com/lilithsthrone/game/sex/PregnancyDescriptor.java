@@ -265,4 +265,18 @@ public enum PregnancyDescriptor {
 	}
 	
 	public abstract String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum);
+	
+	public static PregnancyDescriptor getPregnancyDescriptorBasedOnProbability(float probability) {
+		if (probability <= 0) {
+			return PregnancyDescriptor.NO_CHANCE;
+		} else if (probability <= 0.15f) {
+			return PregnancyDescriptor.LOW_CHANCE;
+		} else if (probability <= 0.3f) {
+			return PregnancyDescriptor.AVERAGE_CHANCE;
+		} else if (probability < 1) {
+			return PregnancyDescriptor.HIGH_CHANCE;
+		} else {
+			return PregnancyDescriptor.CERTAINTY;
+		}
+	}
 }

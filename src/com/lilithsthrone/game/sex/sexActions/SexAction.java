@@ -185,7 +185,7 @@ public abstract class SexAction implements SexActionInterface {
 	/**
 	 * To be overridden to add extra fetishes on top of the automatically-generated ones in getFetishes() and getFetishesForTargetedPartner().
 	 */
-	public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
+	public List<Fetish> getExtraFetishes(GameCharacter character) {
 		return null;
 	}
 	
@@ -202,6 +202,11 @@ public abstract class SexAction implements SexActionInterface {
 			if(getExtraFetishes(characterPerformingAction)!=null) {
 				for(Fetish f : getExtraFetishes(characterPerformingAction)) {
 					characterFetishes.get(characterPerformingAction).add(f);
+				}
+			}
+			if(getExtraFetishes(characterTarget)!=null) {
+				for(Fetish f : getExtraFetishes(characterTarget)) {
+					characterFetishesForPartner.get(characterPerformingAction).add(f);
 				}
 			}
 			

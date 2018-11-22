@@ -19,6 +19,7 @@ import com.lilithsthrone.main.Main;
 public class ResponseCombat extends Response {
 
 	private List<NPC> allies;
+	private NPC enemyLeader;
 	private List<NPC> enemies;
 	
 	private Map<GameCharacter, String> openingDescriptions;
@@ -30,6 +31,9 @@ public class ResponseCombat extends Response {
 		{
 			this.allies.add((NPC) companion);
 		}
+		
+		this.enemyLeader = opponent;
+		
 		this.enemies = new ArrayList<>();
 		this.enemies.add(opponent);
 		for(GameCharacter companion : opponent.getCompanions()) {
@@ -46,6 +50,9 @@ public class ResponseCombat extends Response {
 		{
 			this.allies.add((NPC) companion);
 		}
+		
+		this.enemyLeader = opponent;
+		
 		this.enemies = new ArrayList<>();
 		this.enemies.add(opponent);
 		for(GameCharacter companion : opponent.getCompanions())
@@ -58,17 +65,17 @@ public class ResponseCombat extends Response {
 		}
 	}
 	
-	public ResponseCombat(String title, String tooltipText, List<GameCharacter> enemies, Map<GameCharacter, String> openingDescriptions) {
+	public ResponseCombat(String title, String tooltipText, NPC enemyLeader, List<GameCharacter> enemies, Map<GameCharacter, String> openingDescriptions) {
 		super(title, tooltipText, null);
 		this.allies = new ArrayList<>();
 		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
 		
+		this.enemyLeader = enemyLeader;
+
 		// Irbynx's note:
 		// Assuming this function overload is used for very specific combat instances in mind. To add companions to equation, just pass them mixed in with the lists
-		// Innoxia's note:
-		// Ok... I changed it a little... BlobSweats
 		this.enemies = new ArrayList<>();
 		for(GameCharacter enemy : enemies) {
 			this.enemies.add((NPC) enemy);
@@ -85,7 +92,7 @@ public class ResponseCombat extends Response {
 	}
 
 	public DialogueNodeOld initCombat() {
-		Combat.COMBAT.initialiseCombat(allies, enemies, openingDescriptions);
+		Combat.COMBAT.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
 		return Combat.COMBAT.startCombat();
 	}
 	

@@ -62,9 +62,9 @@
 	
 		<itemTags/>
 	</coreAtributes>
-
 	
-  <displacementText type="REMOVE_OR_EQUIP">
+	
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before fastening the strap around [npc.her] neck.]]>
     </self>
@@ -74,9 +74,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the strap around [npc2.her] neck.]]>
     </otherRough>
-  </displacementText>
-
-  <replacementText type="REMOVE_OR_EQUIP">
+  </replacementText>
+	
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the strap around [npc.her] neck, before taking off [npc.her] cloak.]]>
     </self>
@@ -86,6 +86,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the strap around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
     </otherRough>
-  </replacementText>
-	
+  </displacementText>
+  
 </clothing>

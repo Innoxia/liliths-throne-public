@@ -51,6 +51,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -132,7 +133,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 
@@ -178,55 +179,10 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 	
-//	IMP(Util.newHashMapOfValues(
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(1, 10)),
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(5, 10)),
-//				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(90, 100))),
-//			AntennaType.NONE,
-//			ArmType.IMP, 1,
-//			AssType.IMP, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-//			BreastType.IMP,
-//			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-//			CupSize.F, 1, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
-//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-//			Height.NEGATIVE_TWO_MIMIMUM.getMedianValue(), 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-//			EarType.IMP,
-//			EyeType.IMP,
-//			FaceType.IMP, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
-//			HairType.IMP, HairLength.TWO_SHORT, HairLength.FIVE_ABOVE_ASS,
-//			LegType.IMP,
-//			SkinType.IMP, BodyMaterial.FLESH,
-//			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-//				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
-//			PenisType.IMP, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
-//			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
-//			TesticleSize.THREE_LARGE, 4, CumProduction.SIX_EXTREME,
-//			TailType.IMP,
-//			TentacleType.NONE,
-//			VaginaType.IMP, Wetness.SEVEN_DROOLING, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FIVE_STRETCHY, OrificePlasticity.FIVE_YIELDING,
-//			WingType.IMP, WingSize.TWO_AVERAGE, WingSize.TWO_AVERAGE,
-//			GenitalArrangement.NORMAL) {
-//		
-//		@Override
-//		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-//			return Util.newHashMapOfValues(
-//					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-//					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
-//					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-//					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-//					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
-//		}
-//		
-//		@Override
-//		public SexualOrientation getSexualOrientation(Gender gender) {
-//			return SexualOrientation.AMBIPHILIC;
-//		}
-//	},
-
 	// BOVINES:
 	COW_MORPH(
 			Util.newHashMapOfValues(
@@ -670,13 +626,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			double chance = Math.random();
-			
-			if(chance<0.95f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
 		}
 	};
 
@@ -940,25 +890,10 @@ public enum RacialBody {
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
-		double chance = Math.random();
-		
 		if(gender.isFeminine()) {
-			if(chance<0.15f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
-			
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(15, 50, 35);
 		} else {
-			if(chance<0.10f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(40, 50, 10);
 		}
 	}
 	
