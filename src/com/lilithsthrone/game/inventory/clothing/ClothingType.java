@@ -12047,6 +12047,8 @@ public class ClothingType {
 											idToClothingMap.put(id, ct);
 										} catch(Exception ex) {
 											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
+											System.err.println("Actual exception: ");
+											ex.printStackTrace(System.err);
 										}
 									}
 								}
