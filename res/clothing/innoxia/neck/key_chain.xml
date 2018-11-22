@@ -50,7 +50,7 @@
 	</coreAtributes>
 
 	
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc.her] neck.]]>
     </self>
@@ -60,9 +60,9 @@
     <otherRough>
       <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the key-chain around [npc2.her] neck.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] key-chain, before lifting it up and over [npc.her] head.]]>
     </self>
@@ -72,6 +72,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(grab)] the key-chain, before yanking it up and over [npc2.namePos] head.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

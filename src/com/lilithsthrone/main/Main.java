@@ -109,8 +109,8 @@ public class Main extends Application {
 			+"<ul>Added FriendlyAlienFriend's Nyan artwork.</ul>"
 			+"<ul>Added Jam's Arthur artwork.</ul>"
 
-			+"<li>Contributors:"
-				+"<ul>Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)"
+			+"<li>Contributors:</li>"
+				+"<ul>Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)</ul>"
 		
 			+"<li>Items:</li>"
 			+"<ul>Improved pencil skirt icon.</ul>"

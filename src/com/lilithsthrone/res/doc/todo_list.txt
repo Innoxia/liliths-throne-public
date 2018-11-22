@@ -113,92 +113,57 @@
 	
 	Patch notes:
 	
-	Artwork:
-		Added FriendlyAlienFriend's Nyan artwork.
-		Added Jam's Arthur artwork.
-		
-	Contributors:
-		Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)
-	
-	Items:
-		Improved pencil skirt icon.
-		Added 'feminine short sleeved shirt' as a replacement for Lilaya's unisex shirt. (Sold by Nyan.)
-	
 	Other:
-		<b>Reverted</b> currency display to the single 'flames' value. (It was a little too messy in many screens with the gold/silver/copper.)
-		Newly summoned elementals now share many appearance values with their summoner, and additionally spawn with wings large enough for them to fly.
-		Added 'pull down' displacements for skater, slip, and plunge dresses, where you shrug off the shoulder straps and pull the top down to reveal the chest area.
-		Cargo trousers can now be equipped/removed over shoes.
-		Slightly adjusted Lilaya's appearance, increasing her 'appears as' age to 32, her wing size from tiny to average, reduced her muscle from 'muscular' to 'lightly muscled', and fixed her legs to be human instead of demonic.
-		Removed Lilaya's headband (as I thought it would be uncomfortable for her to wear with her horns), gave her a watch, and she now wears an unbuttoned lab coat while in her lab.
-		Made minor changes to the prologue to reflect Lilaya's changes.
-		Increased maximum width of the UI's centre pane from 1000px to 1200px.
-		Increased starting money from 500 to 5000 flames.
-		Added metallic colours to all makeup. Disabled glowing makeup in character creation.
-		Added indication in transform menu that vagina cannot be transformed while pregnant.
-		Removed the 25 energy cost of milking yourself in a milking room.
-		Added options to pump fluids in slave's milking room into your vagina & anus. This can be used for self-insemination. There might be bugs if you remove your slave before self-impregnating with their cum.
-		Footjobs can now be given/received even if the feet are covered. Foot names are replaced with the name of the clothing touching the target's penis.
+		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 
 	
 	Bugs:
-		<b>Fixed</b> stored fluids in slave milking rooms not saving details about whose milk/cum/girlcum it was. <b>All saved fluids in slave milking rooms will be deleted when you load into this version</b> as a result of this fix, so please sell/drink all stored fluids before loading into this version.
-		Fixed issue where you couldn't stop self actions if you were a submissive partner in some sex scenes.
-		Fixed issue where after defeating an imp fortress's guards, you'd be unable to re-enter the fortress's 'entrance' tile.
-		Fixed background error being thrown when slaves were having sex with one another while you were in an unrelated sex scene.
-		Fixed clothing not being replaced after sex, but also added an option to turn on/off this behaviour in the content settings. (Clothing replacement is on by default.)
-		Fixed issue in one of the fortress sex scenes where the imps were being treated as both participants and spectators.
-		Fyrsia's groin is now correctly exposed at the start of the post-'brawler' scene's sex.
-		Fixed money formatting to correctly display negative values.
-		Fixed elemental perk tree's 'chill' perk applying +5/+5 ice damage/resistance instead of the intended +1/+1.
-		Fixed issue with Jhortrax's post-sex 'Collapse' button sometimes not responding.
-		Fixed issue where character imports would break if they were exported while in possession of a modded weapon that is no longer in your mods folder.
-		Fixed issue with inventory management where sometimes clicking on clothing in the bottom-right of the game would cause major bugs. (Most noticeable in slavery management.) 
-		Fixed parser errors in several of the 'generic NPC' dialogues.
-		Fixed major bug where attacking sadists and masochists who had full lust would cause the game to crash.
-		Fixed a bug where some special tease attacks would not work.
-		Fixed major issue where maximum energy and aura never reflected increases & decreases from enchanted clothing being worn or potions being consumed. Also changed energy/aura gained from physique/arcane and levels to apply to the 'bonus' value.
-		Fixed a cause of the issue where combat would keep repeating after beating Hyorlyss.
-		Fixed major issues with all imp fortress parsing if you cleared them with an elemental as your main companion.
-		Fixed a large amount of parsing errors in imp fortresses, mostly in the 'scare off' scenes after clearing the fortress through non-combat means.
-		Fixed more parser errors in imp fortresses, which were related to pacifying the guards, then clearing the fortress.
-		Imp fortress guards no longer respawn if the leader is already defeated.
-		Fixed issue where imp gate and boss guards would not spawn in fortresses until you'd entered and left once already. (If you didn't do the enter/leave, it was causing numerous parsing and background logic errors.)
-		Fixed some typos and grammatical errors.
-		Fixed errors occurring if you didn't have a companion with you when you used the non-combat bypass options in Fyrsia's and Hyorlyss's fortresses.
-		Elementals loaded in from versions prior to 0.2.11.9 will no longer have a non-elemental job perk. (Which was causing their physique to be 0.)
-		Fixed combat loss sex scenes with Hyorlyss not working.
-		Fixed issue with Hyorlyss's dominant sex scenes not starting if she couldn't get access to her groin.
-		Jinxed clothing equips after imp fortress combat-defeat sex has been moved to be applied when you click to 'Continue', so that the jinxed effect isn't prematurely displayed.
-		Lilaya will now correctly return to wearing her usual lab clothes after her geisha scenes.
-		Fixed some issues with status effects while in the character creation.
-		Fixed clothing mods that use the old equip/unequip description format having their equip/unequip text defaulting to the generic ones.
-		Fixed Jhortrax only having 10 arcane. (He now has 35.)
-		Fixed issue with the 'arcane cloud' spell not applying damage to targets who have the 'Desperate for sex' debuff.
-		Fixed lust damage from masochist and sadist fetishes not taking into account lust resistance.
-		Fixed 'seductive look' not being available for dominant partners in doggy style sex.
-		Fixed being able to use the 'Spread legs' action in missionary when targeting someone other than the character between your legs. 
-		Fixed incorrect display of slave's daily earnings when assigned to be milked.
-		Fixed shop overflow dropping on the floor, which was caused by too many modded weapons/clothing being used. (Available items are randomly chosen to be stocked, so if you don't see some of your mods, try again the next day.)
-		Fixed incorrect condom equip descriptions in sex.
-		'Biojuice Canister' and 'Bubblegum Lollipop' items are now correctly marked as being transformative, meaning that they cannot be used on non-slave unique NPCs.
-		Fixed quest clothing having enchantment postfixes automatically appended to the name.
-		Fixed issue with quest clothing and weapons not being placed into quest inventory if regular inventory was full.
-		Fixed another issue with masochist/sadist fetishes causing freezes in combat.
-		Fixed issue with lust damage information not being appended correctly in combat.
-		Fixed debug menu's transform options for legs/face/arms being limited.
-		Fixed parsing error when using the 'True Nympho' option in Hyorlyss's fortress.
-		
-		
-		
-		
+		Fixed parsing error in Hyorlyss's fortress.
+		Fixed issue with button tooltips when managing NPCs clothing in the inventory screen.
+		Fixed issue where if you had the sadist fetish, dealing damage would softlock combat.
+		Fixed issue with 'kneeling oral' position having incorrect description at start of sex.
+		Fixed background errors when saving a game after removing modding clothing/weapons from your mod folders.
+		Fixed reindeer overseers' interaction menu being available on their 'home' tile, but not the tile they're actually in. (Fixed by moving their home tile to always be the tile they're in.)
+		Fixed katherine and Kelly getting stuck on the stairs in Zaranix's home. (They move around the area after you're cleared that part of the main quest.)
+		Fixed some minor inconsistent descriptions, typos, and parsing errors.
+		Fixed issue where spectators would join the sex scene when switching to the doggy style position.
+		Fixed issue where combat in the imp fortresses would never end if you were playing on higher difficulties. Also fixed bug where post-combat sex could sometimes result in a never-ending masturbation scene.
+		Fixed fluids not being described correctly when you gained an addiction for them.
+		Fixed incorrect equip/unequip descriptions for all of the Siren's clothing, distressed jeans, hakama, gothic boots, and striped gloves.
+		Added correct association with oral fetishes to the 'Thrust into mouth' and 'Take into mouth' actions during paizuri.
+		Fixed incorrect title for the stop paizuri action.
+		Fixed issue with oral actions not being available in face sitting position is the one doing the sitting was interacting with their partner's groin in any way.
+		Fixed arcane elemental being described as being bound to air.
+		Fixed 'initial penetration' text when starting a footjob not taking into account any shoes/socks being worn.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	switch knuckle dusters & demonstones to unarmed
+	
+	Maybe if item rarity effected how many enchanting slots an item had, and not just what it was pre-enchanted with?
+	
+	When the witches won when I was male they only hotdogged me and then stopped hotdogging me, they never removed any of my clothes
+	
+	split hymen/virginity
 	
 	expand the colour system to define button colour and text colour so that can have dark colours for coverings
 	 
 	Reading "knocked up" no longer changes the dialouge with Lilaya and acts like you have no clue whats going on
 	 
+	 
+	 
 	Add citadel text
 		Doorway has three intricate keyholes
 			Chuuni writing around it, revealing daughter of Lyssieth
+	
+	Add IMP_CITADEL_DEFEATED
 	
 	Chuuni + 3 leaders battle
 	
@@ -242,6 +207,8 @@
 	
 	
 	
+	
+	
 	all options disappeared except repeats during sex - due to spectator orgasming?
 		Need more testing to make sure it's fixed
 		
@@ -271,6 +238,8 @@
 	BDSM equips should append text saying you have something equipped now
 	
 	maps
+	
+	the dildo (discrete one it should) removes the 'exposed' flag for the vagina (Realistic one should be even more 'embarrasing' as it can be seen) and likewise anal plugs do as well.
 	
 	Stored cum should save all details needed to generate offspring
 	

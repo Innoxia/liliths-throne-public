@@ -68,7 +68,7 @@
 		</itemTags>
 	</coreAtributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the boots, before zipping them up.]]>
     </self>
@@ -78,9 +78,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the boots, before zipping them up.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unzip)] [npc.her] boots, before taking them off.]]>
     </self>
@@ -90,6 +90,6 @@
     <otherRough>
       <![CDATA[[npc.Name] quickly [npc.verb(unzip)] [npc2.namePos] boots, before roughly tugging them off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

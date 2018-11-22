@@ -70,7 +70,7 @@
 		</itemTags>
 	</coreAtributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(put)] on the hakama, before tying it up at [npc.her] waist.]]>
     </self>
@@ -80,9 +80,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(put)] on the hakama on [npc2.name], before firmly tying it up at [npc2.her] waist.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] hakama, before taking it off.]]>
     </self>
@@ -92,6 +92,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(untie)] [npc2.namePos] hakama, before yanking it off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

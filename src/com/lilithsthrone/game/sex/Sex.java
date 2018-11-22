@@ -3172,6 +3172,10 @@ public class Sex {
 	public static List<GameCharacter> getSubmissiveSpectators() {
 		return submissiveSpectators;
 	}
+	
+	public static boolean isSpectator(GameCharacter character) {
+		return dominantSpectators.contains(character) || submissiveSpectators.contains(character);
+	}
 
 	private static PlayerCharacter player() {
 		return Main.game.getPlayer();

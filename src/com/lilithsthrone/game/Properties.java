@@ -410,35 +410,51 @@ public class Properties implements Serializable {
 			Element itemsDiscovered = doc.createElement("itemsDiscovered");
 			properties.appendChild(itemsDiscovered);
 			for (AbstractItemType itemType : this.itemsDiscovered) {
-				Element element = doc.createElement("itemType");
-				itemsDiscovered.appendChild(element);
-				
-				Attr hash = doc.createAttribute("id");
-				hash.setValue(itemType.getId());
-				element.setAttributeNode(hash);
+				try {
+					if(itemType!=null) {
+						Element element = doc.createElement("itemType");
+						itemsDiscovered.appendChild(element);
+						
+						Attr hash = doc.createAttribute("id");
+						hash.setValue(itemType.getId());
+					}
+				} catch(Exception ex) {
+					// Catch errors from modded items being removed
+				}
 			}
 			
 			Element weaponsDiscovered = doc.createElement("weaponsDiscovered");
 			properties.appendChild(weaponsDiscovered);
 			for (AbstractWeaponType weaponType : this.weaponsDiscovered) {
-				Element element = doc.createElement("weaponType");
-				weaponsDiscovered.appendChild(element);
-				
-				Attr hash = doc.createAttribute("id");
-				hash.setValue(weaponType.getId());
-				element.setAttributeNode(hash);
+				try {
+					if(weaponType!=null) {
+						Element element = doc.createElement("weaponType");
+						weaponsDiscovered.appendChild(element);
+						
+						Attr hash = doc.createAttribute("id");
+						hash.setValue(weaponType.getId());
+						element.setAttributeNode(hash);
+					}
+				} catch(Exception ex) {
+					// Catch errors from modded weapons being removed
+				}
 			}
 			
 			Element clothingDiscovered = doc.createElement("clothingDiscovered");
 			properties.appendChild(clothingDiscovered);
 			for (AbstractClothingType clothingType : this.clothingDiscovered) {
-				Element element = doc.createElement("clothingType");
-				clothingDiscovered.appendChild(element);
-				
-				Attr hash = doc.createAttribute("id");
-				if(clothingType != null)
-					hash.setValue(clothingType.getId());
-				element.setAttributeNode(hash);
+				try {
+					if(clothingType!=null) {
+						Element element = doc.createElement("clothingType");
+						clothingDiscovered.appendChild(element);
+						
+						Attr hash = doc.createAttribute("id");
+						hash.setValue(clothingType.getId());
+						element.setAttributeNode(hash);
+					}
+				} catch(Exception ex) {
+					// Catch errors from modded items being removed
+				}
 			}
 			
 			Element racesDiscovered = doc.createElement("racesDiscovered");

@@ -2176,14 +2176,14 @@ public enum SpecialAttack {
 			descriptionSB.append("<p>"
 					+ (isHit 
 							? "<b>[npc.Name] <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> [npc.verb(hit)] for " + damage
-								+ " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+								+ " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + " damage</b>" + "!</b>"
 							: "<b>[npc.Name] missed!</b>")
 					+ "</p>");
 		} else {
 			descriptionSB.append(
 					"<p>"
 						+ (isHit
-								? "<b>[npc.Name] [npc.verb(hit)] for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>"
+								? "<b>[npc.Name] [npc.verb(hit)] for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + " damage</b>" + "!</b>"
 								: "<b>[npc.Name] missed!</b>")
 					+ "</p>");
 		}
