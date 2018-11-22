@@ -17,8 +17,8 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.6?
- * @version 0.2.7
- * @author Innoxia
+ * @version 0.2.12
+ * @author Innoxia, Pimgd
  */
 public class BlockedParts implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
@@ -196,6 +196,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedConcealedSlots);
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static Map<Class, Object[]> getPossibleEnumValues() {
 		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
 		possibleEnumValues.put(ClothingAccess.class, ClothingAccess.values());
@@ -205,6 +206,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 		return possibleEnumValues;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static void printHelpfulErrorForEnumValueMismatches(Exception ex, Map<Class, Object[]> possibleEnumValues) {
 		String exMessage = ex.getMessage();
 		if (exMessage.startsWith("No enum constant")){

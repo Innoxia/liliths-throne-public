@@ -46,7 +46,7 @@ import java.util.function.Consumer;
 /**
  * @since 0.1.84
  * @version 0.2.12
- * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
+ * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
 
@@ -544,6 +544,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
 		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
 		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.values());
