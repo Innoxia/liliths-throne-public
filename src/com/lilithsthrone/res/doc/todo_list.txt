@@ -113,6 +113,9 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Simplified getting data from XML. Refactored clothing mod loading from file. Fixed mod loading issue, so that when XML file is found invalid, the loading of it is halted, error logged and program continues trying loading other mods. (#657 by BlazingMagpie)
+	
 	Other:
 		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 
 	
@@ -143,6 +146,7 @@
 	
 	
 	
+	Suggestion: Have shower sex with people in your party so Rose can wash their clothes too.
 	
 	
 	switch knuckle dusters & demonstones to unarmed

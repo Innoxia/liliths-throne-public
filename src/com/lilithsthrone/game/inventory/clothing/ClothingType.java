@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.clothing;
 
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12000,15 +12001,16 @@ public class ClothingType {
 								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
-										try {
+										try{
 											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
 											moddedClothingList.add(ct);
 											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//											System.out.println(id);
 											clothingToIdMap.put(ct, id);
 											idToClothingMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded clothing failed at 'ClothingType' Code 1. File path: "+innerChild.getAbsolutePath());
+											
+										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
+											System.err.println(ex);
+											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
 										}
 									}
 								}

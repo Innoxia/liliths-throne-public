@@ -2327,6 +2327,7 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
 					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
+
 					NodeList sexPartnerEntries = e.getElementsByTagName("entry");
 					for(int j = 0; j < sexPartnerEntries.getLength(); j++){
 						Element e2 = ((Element)sexPartnerEntries.item(j));
