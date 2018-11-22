@@ -119,6 +119,7 @@
 		Added sexual orientation preferences. (#766 by GalacticOtter)
 		Added condom durability code. (#903 by picobyte)
 		Fixed bug where occupants who have moved out get duplicated descriptions on Harpy Nest tiles. (#934 by KittenBarrage)
+		Improved mod error descriptions, and fixed support for core attributes. (#969 by Pimgd, #945 by CognitiveMist)
 	
 	Other:
 		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 

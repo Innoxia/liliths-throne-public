@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -44,7 +46,7 @@ import java.util.function.Consumer;
 /**
  * @since 0.1.84
  * @version 0.2.12
- * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
+ * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
 
@@ -257,13 +259,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		try{
 			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
-			Element coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+			Element coreAttributes = null;
+			try {
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+			} catch (XMLMissingTagException ex) {
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAttributes");
+			}
 
 			this.effects = coreAttributes
 				.getMandatoryFirstOf("effects") 
 				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
-				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(),e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
 				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
 			
 			if(debug) {
@@ -273,7 +280,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.blockedPartsList = coreAttributes
 				.getMandatoryFirstOf("blockedPartsList")
 				.getAllOf("blockedParts").stream()
-				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument()))
+				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument(), clothingXMLFile.getAbsolutePath()))
 				.collect(Collectors.toList());
 
 			this.incompatibleSlots = coreAttributes
@@ -393,14 +400,20 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.orElse(null);
 
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
-				if(colorsElement.getAttribute("values").isEmpty()){
-					return colorsElement.getAllOf("colour").stream()
-						.map(Element::getTextContent).map(Colour::valueOf)
-						.collect(Collectors.toList());
-				}
-				else{
-				return ColourListPresets.valueOf(colorsElement.getAttribute("values"))
-					.getPresetColourList();
+				String values = colorsElement.getAttribute("values");
+				try {
+					if (values.isEmpty()){
+						return colorsElement.getAllOf("colour").stream()
+								.map(Element::getTextContent).map(Colour::valueOf)
+								.collect(Collectors.toList());
+					}
+					else{
+						return ColourListPresets.valueOf(values)
+								.getPresetColourList();
+					}
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
 				}
 			};
 
@@ -411,7 +424,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
 				.map(getColoursFromElement::apply)
-				.orElseGet(ArrayList::new); // ArrayList::new doesn't work here	
+				.orElseGet(ArrayList::new);
 			List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
 				.map(getColoursFromElement::apply)
 				.orElseGet(ArrayList::new);
@@ -435,11 +448,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			finalSetUp();
 		}
 		catch(XMLMissingTagException ex){
-			throw new XMLLoadException(ex);
+			throw new XMLLoadException(ex, clothingXMLFile);
 		}
 		catch(Exception e){
 			System.out.println(e);
-			throw new XMLLoadException(e);
+			throw new XMLLoadException(e, clothingXMLFile);
 		}
 	}
 	
@@ -529,6 +542,22 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		this.allAvailableTertiaryColours.addAll(colourSet);
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
+		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.values());
+		String exMessage = ex.getMessage();
+		if (exMessage.startsWith("No enum constant")){
+			for (Map.Entry<Class, Object[]> possibleMatch : possibleEnumValues.entrySet()) {
+				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
+					StringJoiner valueLister = new StringJoiner(",");
+					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
+					System.err.println("Possible values for "+possibleMatch.getKey().getSimpleName()+" are " + valueLister.toString());
+				}
+			}
+		}
 	}
 	
 	private void finalSetUp() {
