@@ -146,7 +146,6 @@
 	
 	
 	
-	
 	use picobyte's condom code and run through all condom todos:
 	
 	track cum
@@ -180,8 +179,16 @@
 	
 	
 	
+	picking up clothing from floor tooltip uses clothing type class name
 	
 	Make belt unisex
+	
+	limit NPC-on-NPC affection displays
+
+	Requesting oral causes them to make you kneel instead, despite them agreeing.
+		You mean "offer oral"
+		I meant "request oral"
+	
 	
 	Sometimes when I remove the fetish for being raped. They will continue to have the resist pace as if they still have the fetish. Alexia here is also at maxed affection
 	
@@ -204,6 +211,7 @@
 	This has probably already been reported, but randomly during sex, the partner will seemingly stop allowing any sex actions (any started sex action will be stopped by them immediately) until the sex scene is over. It doesn't seem linked to their desires or sex pace.
 	
 	I will be adding a way to assign slaves to sleep with you in your room very soon.
+		need date rape in club and sleep sex for these slaves
 	 
 	Add citadel text
 		Doorway has three intricate keyholes
