@@ -7,7 +7,7 @@
 	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
 	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
 	
-	<coreAtributes>
+	<coreAttributes>
 		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
 		<value>150</value> 
 		
@@ -177,7 +177,7 @@
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	

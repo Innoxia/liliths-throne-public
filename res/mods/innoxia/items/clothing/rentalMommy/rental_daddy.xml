@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- For a version with comments, see "rental_mommy.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Rental-Daddy T-shirt]]></name>
@@ -65,7 +65,7 @@
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<playerSelf><![CDATA[

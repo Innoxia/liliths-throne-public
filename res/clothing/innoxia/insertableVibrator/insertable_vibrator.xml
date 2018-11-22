@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[insertable dildo]]></name>
@@ -52,7 +52,7 @@
 			<tag>REQUIRES_VAGINA</tag>
 			<tag>PLUGS_VAGINA</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <displacementText type="REMOVE_OR_EQUIP">

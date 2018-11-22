@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>10000</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Amulet]]></name>
@@ -64,7 +64,7 @@
 		<tertiaryColoursDye values="ALL"/>
 	
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <replacementText type="REMOVE_OR_EQUIP">
