@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.combat.*;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import org.w3c.dom.events.Event;
@@ -36,11 +37,6 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -72,6 +68,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private Attribute attribute;
 	private InventorySlot concealedSlot;
 	private LoadedEnchantment loadedEnchantment;
+	private CombatMove move;
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
 	
@@ -276,6 +273,37 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 			}
 			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+
+		} else if (move != null) {
+
+			Main.mainController.setTooltipSize(360, 352);
+
+			// Title:
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(move.getName()) + "</div>");
+
+			tooltipSB.append("<div class='subTitle' style='color:"+move.getType().getColour().toWebHexString()+";'>"+move.getType().getName()+"</div>");
+
+			// Picture:
+			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
+
+			// Description:
+			tooltipSB.append("<div class='subTitle-picture'>" + owner.getMoveAvailableReason(move.getIdentifier()) + "</div>");
+
+			// Description:
+			tooltipSB.append("<div class='description'>" + move.getDescription() + "</div>");
+
+			if(owner.getEquippedMoves().contains(move)) {
+				tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
+			} else {
+				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum moves activated.</div>");
+				} else {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+				}
+			}
+
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (desire != null) { // Desire:
@@ -1141,6 +1169,15 @@ public class TooltipInformationEventListener implements EventListener {
 
 		return this;
 	}
+
+	public TooltipInformationEventListener setCombatMove(CombatMove move, GameCharacter owner)
+	{
+		resetFields();
+		this.owner = owner;
+		this.move = move;
+
+		return this;
+	}
 	
 	private void resetFields() {
 		extraAttributes = false;
@@ -1162,5 +1199,6 @@ public class TooltipInformationEventListener implements EventListener {
 		copyInformation=false;
 		concealedSlot=null;
 		loadedEnchantment=null;
+		move=null;
 	}
 }

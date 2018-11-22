@@ -83,8 +83,10 @@ public class Properties implements Serializable {
 	public int pregnancyLactationLimit = 1000;
 	
 	public Set<PropertyValue> values;
-	
+
+	// Difficulty settings
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
+	public float AIblunderRate = 0.0f; /// The amount of times the AI will use random weight selection for an action instead of the proper one. 1.0 means every time, 0.0 means never.
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
@@ -248,6 +250,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
+			createXMLElementWithValue(doc, settings, "AIblunderRate", String.valueOf(AIblunderRate));
 			
 			
 			
@@ -634,6 +637,10 @@ public class Properties implements Serializable {
 				
 				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
 					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));
+				}
+
+				if(element.getElementsByTagName("AIblunderRate").item(0)!=null) {
+					AIblunderRate = Float.valueOf(((Element)element.getElementsByTagName("AIblunderRate").item(0)).getAttribute("value"));
 				}
 				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {

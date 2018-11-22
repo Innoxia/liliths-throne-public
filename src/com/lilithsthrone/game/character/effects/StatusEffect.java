@@ -181,8 +181,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
 			null) {
 		
 		@Override
@@ -216,8 +215,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
 			null) {
 		
 		@Override
@@ -251,8 +249,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null) {
 		
 		@Override
@@ -422,8 +419,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
 			null) {
 		
 		@Override
@@ -461,8 +457,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f)),
 			null) {
 		
 		@Override
@@ -501,8 +496,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
 			null) {
 		
 		@Override
@@ -6648,32 +6642,34 @@ public enum StatusEffect {
 			return true;
 		}
 	},
-	
+
 	CLOAK_OF_FLAMES(10,
 			"Cloak of Flames",
 			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
-			null) {
-		
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Unarmed attacks deal 50% more damage!",
+					"Unarmed attacks have [style.boldFire(Fire Damage) type!",
+					"Unarmed attacks cause [style.boldBad(25% of their normal damage to burn) user's aura.")) {
+
+
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances.";
+				return "You have been shrouded in a cloak of arcane flames that improve your unarmed attacks at a cost of burning your aura proportionally.";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances.");
+						"[npc.Name] has been shrouded in a cloak of arcane flames that improve [npc.her] unarmed attacks at a cost of burning [npc.her] aura proportionally.");
 			}
 		}
-		
+
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return Spell.CLOAK_OF_FLAMES.getSVGString();
+			return SpellUpgrade.CLOAK_OF_FLAMES_1.getSVGString();
 		}
-		
+
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -6685,18 +6681,20 @@ public enum StatusEffect {
 			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
-			Util.newArrayListOfValues("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]")) {
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Unarmed attacks deal 50% more damage!",
+					"Unarmed attacks have [style.boldFire(Fire Damage) type!",
+					"Unarmed attacks cause [style.boldBad(25% of their normal damage to burn) user's aura.")) {
+
 		
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances. You are also dealing extra fire damage each time you attack.";
+				return "You have been shrouded in a cloak of arcane flames that improve your unarmed attacks at a cost of burning your aura proportionally.";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances. [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
+						"[npc.Name] has been shrouded in a cloak of arcane flames that improve [npc.her] unarmed attacks at a cost of burning [npc.her] aura proportionally.");
 			}
 		}
 		

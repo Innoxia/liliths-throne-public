@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -298,7 +299,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 
 	@Override
-	public String getSeductionDescription() {
+	public String getSeductionDescription(GameCharacter target) {
 		return "<p>"
 				+ UtilText.returnStringAtRandom(
 						"Kelly pulls the bottom of her maid's dress up a little, moaning, [kelly.speech(If you beat me, there'd be nothing stopping you from ravishing me!)]",

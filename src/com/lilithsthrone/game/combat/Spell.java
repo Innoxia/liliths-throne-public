@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.effects.TreeEntry;
@@ -43,7 +45,7 @@ public enum Spell {
 			"Summons a ball of arcane flames that can be launched at a target.",
 			15,
 			DamageVariance.LOW,
-			50,
+			75,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.FIREBALL_1,
@@ -69,7 +71,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
@@ -134,8 +136,6 @@ public enum Spell {
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			
-			caster.incrementMana(-cost);
-			
 			return descriptionSB.toString();
 		}
 	},
@@ -150,7 +150,7 @@ public enum Spell {
 			"Creates a blinding flash of light that stuns the target.",
 			0,
 			DamageVariance.LOW,
-			60,
+			75,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FLASH, 1)),
 			Util.newArrayListOfValues(
 					SpellUpgrade.FLASH_1,
@@ -177,7 +177,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			
 			float cost = getModifiedCost(caster);
 			
@@ -236,7 +236,6 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -252,7 +251,7 @@ public enum Spell {
 			"Shrouds the target in a protective cloak of arcane flames, granting them improved fire and ice resistance.",
 			0,
 			DamageVariance.LOW,
-			40,
+			50,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3)),
 			Util.newArrayListOfValues(
 					SpellUpgrade.CLOAK_OF_FLAMES_1,
@@ -279,7 +278,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -311,8 +310,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -337,7 +335,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolFire(Fire)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -394,7 +392,6 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -412,7 +409,7 @@ public enum Spell {
 			"Summons a shard of ice that can be launched at a target.",
 			15,
 			DamageVariance.LOW,
-			50,
+			33,
 			null, Util.newArrayListOfValues(
 							SpellUpgrade.ICE_SHARD_1,
 							SpellUpgrade.ICE_SHARD_2,
@@ -435,7 +432,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
@@ -482,8 +479,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -498,7 +494,7 @@ public enum Spell {
 			"Summons a small cloud of arcane-enchanted rain above the target's head, which saps their ability to cast spells.",
 			0,
 			DamageVariance.LOW,
-			30,
+			33,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.RAIN_CLOUD_1,
@@ -527,7 +523,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -560,8 +556,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -585,7 +580,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth(energy)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -608,8 +603,7 @@ public enum Spell {
 			descriptionSB.append("</p>");
 			
 			
-			caster.incrementMana(-cost);
-			
+
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_3)) {
@@ -717,7 +711,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolWater(Water)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -774,8 +768,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -820,7 +813,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -852,8 +845,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -897,7 +889,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
@@ -931,8 +923,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -977,7 +968,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -1007,8 +998,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1033,7 +1023,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolAir(Air)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1089,8 +1079,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1128,7 +1117,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
@@ -1187,8 +1176,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1231,7 +1219,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1262,8 +1250,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1307,7 +1294,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1338,8 +1325,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1364,7 +1350,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourSchoolEarth(Earth)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1420,8 +1406,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1467,7 +1452,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
@@ -1504,8 +1489,7 @@ public enum Spell {
 			
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1549,7 +1533,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -1579,8 +1563,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1624,7 +1607,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1655,8 +1638,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1722,7 +1704,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -1774,8 +1756,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -1800,7 +1781,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("[style.colourExcellent(Steals)] a random item from the target's inventory")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -1979,8 +1960,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 		
@@ -2030,7 +2010,7 @@ public enum Spell {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -2074,8 +2054,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2099,7 +2078,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("[style.colourGood(25%)] chance for target to [style.colourExcellent(instantly submit)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -2164,8 +2143,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2190,7 +2168,7 @@ public enum Spell {
 			null, Util.newArrayListOfValues("Summons [style.colourArcane(Elemental)] in form of [style.colourArcane(Arcane)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			float cost = getModifiedCost(caster);
 			
@@ -2246,8 +2224,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2272,7 +2249,7 @@ public enum Spell {
 					"Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
 			
@@ -2297,8 +2274,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2320,7 +2296,7 @@ public enum Spell {
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
 			
@@ -2345,8 +2321,7 @@ public enum Spell {
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-			caster.incrementMana(-cost);
-			
+
 			return descriptionSB.toString();
 		}
 	},
@@ -2372,7 +2347,7 @@ public enum Spell {
 					"Affects [style.colourExcellent(all enemies)]")) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
 
@@ -2470,7 +2445,8 @@ public enum Spell {
 	private HashMap<Attribute, Integer> attributeModifiers;
 	private List<String> extraEffects;
 	private List<String> modifiersList;
-	
+
+	private String pathName;
 	private String SVGString;
 
 	private Spell(boolean forbiddenSpell,
@@ -2486,7 +2462,8 @@ public enum Spell {
 			int spellCost,
 			Map<StatusEffect, Integer> statusEffects,
 			List<SpellUpgrade> upgradeList,
-			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+			HashMap<Attribute, Integer> attributeModifiers,
+			List<String> extraEffects) {
 		
 		this.forbiddenSpell = forbiddenSpell;
 		
@@ -2529,6 +2506,7 @@ public enum Spell {
 		
 		
 		// SVG:
+		this.pathName = pathName;
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell/" + pathName + ".svg");
 			if(is==null) {
@@ -2566,7 +2544,12 @@ public enum Spell {
 		}
 	}
 
-	public abstract String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical);
+	public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical)
+	{
+		return applyEffect(caster, target, null, null, isHit, isCritical);
+	}
+
+	public abstract String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical);
 
 	public List<String> getModifiersAsStringList() {
 		return modifiersList;
@@ -2646,6 +2629,10 @@ public enum Spell {
 	
 	public String getSVGString() {
 		return SVGString;
+	}
+
+	public String getPathName() {
+		return pathName;
 	}
 	
 	protected void applyStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -3050,5 +3037,129 @@ public enum Spell {
 				:siblingAvailable
 					?Colour.BASE_GREY
 					:Colour.TEXT_GREY_DARK;
+	}
+
+	// Combat maneuver compatibility
+	// These functions are almost identical to the ones in CombatMove class,  with modifications to fit spells as necessary. Refer to CombatMove class for information.
+
+	public int getAPCost()
+	{
+		return 1; // Normally just 1 AP.
+	}
+
+	public int getCooldown()
+	{
+		return 0; // Normally no CD.
+	}
+
+	public boolean isCanTargetEnemies()
+	{
+		return true;
+	}
+
+	public boolean isCanTargetAllies()
+	{
+		return true;
+	}
+
+	public boolean isCanTargetSelf()
+	{
+		return true;
+	}
+
+	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		if(isCanTargetAllies() && allies.isEmpty())
+		{
+			return 0.0f;
+		}
+		return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(CombatMoveType.SPELL);
+	}
+
+	public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		if(isCanTargetEnemies())
+		{
+			if(CombatMove.shouldBlunder())
+			{
+				return enemies.get(Util.random.nextInt(enemies.size()));
+			}
+			else
+			{
+				float lowestHP = -1;
+				GameCharacter potentialCharacter = null;
+				for(GameCharacter character : enemies)
+				{
+					if(lowestHP == -1 || character.getHealth() < lowestHP)
+					{
+						potentialCharacter = character;
+						lowestHP = character.getHealth();
+					}
+				}
+				return potentialCharacter;
+			}
+		}
+		if(isCanTargetAllies() && !allies.isEmpty())
+		{
+			if(CombatMove.shouldBlunder())
+			{
+				return allies.get(Util.random.nextInt(allies.size()));
+			}
+			else
+			{
+				float lowestHP = -1;
+				GameCharacter potentialCharacter = null;
+				for(GameCharacter character : allies)
+				{
+					if(lowestHP == -1 || character.getHealth() < lowestHP)
+					{
+						potentialCharacter = character;
+						lowestHP = character.getHealth();
+					}
+				}
+				return potentialCharacter;
+			}
+		}
+		return source;
+	}
+
+	public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		return "Cast "
+				+ "<span style='color:" + getSpellSchool().getColour().toWebHexString() + ";'>"
+				+ getName() + "</span>" + " spell.";
+	}
+
+	public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		return this.applyEffect(source, target, enemies, allies, true, canCrit(source, target, enemies, allies));
+	}
+
+	// Applies mana cost effects here. If overriden, don't forget to call it unless it's a free spell.
+	public void performOnSelection(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		if(getSpellSchool() == SpellSchool.FIRE)
+		{
+			source.burnMana(getModifiedCost(source));
+		}
+		else
+		{
+			source.incrementMana(-getModifiedCost(source));
+		}
+	}
+
+	public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		// Override. Note that disrupted spells don't disrupt their mana.
+	}
+
+	//Differs from normal version; spells have special crit requirements.
+	public boolean canCrit(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
+	{
+		if(this.getSpellSchool() == SpellSchool.FIRE && source.getHealth() == 1) // Fire school spells crit on 1 health.
+		{
+			return true;
+		}
+		return false;
 	}
 }

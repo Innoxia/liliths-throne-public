@@ -940,6 +940,25 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] is the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.");
 		}
 	},
+	UNARMED_TRAINING(20,
+			true,
+			"unarmed training",
+			PerkCategory.PHYSICAL,
+			"perks/fitness_runner_2",
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Base unarmed damage value is 8.</span>")) {
+		@Override
+		public String getName(GameCharacter character) {
+			return "Unarmed Training";
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner)
+		{
+			return "You have a formal knowledge of the unarmed combat and know how to do a good hit with just your body even if you aren't the strongest fighter in the world.";
+		}
+	},
 	FEMALE_ATTRACTION(60,
 			true,
 			"ladykiller",

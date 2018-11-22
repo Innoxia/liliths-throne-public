@@ -29,10 +29,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.*;
 import com.lilithsthrone.game.dialogue.*;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
@@ -4104,6 +4101,31 @@ public class MainControllerInitMethod {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
+				}
+			}
+
+
+			for(CombatMove move : CombatMove.allCombatMoves) {
+
+				GameCharacter character = CombatMovesSetup.getTarget();
+
+				id = "MOVE_"+move.getIdentifier();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setCombatMove(move, character), false);
+
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+						if(character.getEquippedMoves().contains(move))
+						{
+							character.unequipMove(move.getIdentifier());
+						}
+						else if(character.getEquippedMoves().size() < GameCharacter.MAX_COMBAT_MOVES)
+						{
+							character.equipMove(move.getIdentifier());
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
 				}
 			}
 			
