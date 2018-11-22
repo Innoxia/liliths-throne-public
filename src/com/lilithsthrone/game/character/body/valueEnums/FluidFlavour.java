@@ -76,7 +76,7 @@ public enum FluidFlavour {
 	}
 	
 	/**
-	 * To go into: "You can't get the rich strawberry taste out of your mouth."</br>
+	 * To go into: "You can't get the rich strawberry taste out of your mouth."<br/>
 	 * Or: "Strawberry-flavoured"
 	 */
 	public String getName() {

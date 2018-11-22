@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.53
- * @version 0.2.1
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PerkCategory {
@@ -15,7 +15,13 @@ public enum PerkCategory {
 	
 	BOTH(Colour.ATTRIBUTE_CORRUPTION),
 	
-	ARCANE(Colour.ATTRIBUTE_ARCANE);
+	ARCANE(Colour.ATTRIBUTE_ARCANE),
+	
+	// Just for colouring:
+	PHYSICAL_EARTH(Colour.SPELL_SCHOOL_EARTH),
+	PHYSICAL_WATER(Colour.SPELL_SCHOOL_WATER),
+	ARCANE_FIRE(Colour.SPELL_SCHOOL_FIRE),
+	ARCANE_AIR(Colour.SPELL_SCHOOL_AIR);
 
 	private Colour colour;
 

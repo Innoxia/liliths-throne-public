@@ -141,8 +141,8 @@ public class ArcaneArts {
 								new SMVickyOverDesk(
 										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-								VICKY_POST_SEX,
-									"<p>"
+								null,
+									null, VICKY_POST_SEX, "<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
 									+ "</p>"
@@ -153,7 +153,7 @@ public class ArcaneArts {
 									+ "</p>"
 									+ "<p>"
 										+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-										+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+										+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 										+ " [vicky.speech(I hope you like it rough!)]"
 									+ "</p>");
 					} else {
@@ -180,8 +180,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE,
-							"<p>"
+							null,
+							null, VICKY_POST_SEX_RAPE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -200,7 +200,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -288,8 +288,8 @@ public class ArcaneArts {
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX_PACKAGE,
-								"<p>"
+							null,
+								null, VICKY_POST_SEX_PACKAGE, "<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
 								+ "</p>"
@@ -300,7 +300,7 @@ public class ArcaneArts {
 								+ "</p>"
 								+ "<p>"
 									+ "Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top."
-									+ " Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+									+ " Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 									+ " [vicky.speech(I hope you like it rough!)]"
 								+ "</p>");
 				} else {
@@ -326,8 +326,8 @@ public class ArcaneArts {
 									return null;
 								}
 							},
-							VICKY_POST_SEX_RAPE_PACKAGE,
-							"<p>"
+							null,
+							null, VICKY_POST_SEX_RAPE_PACKAGE, "<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
 							+ "</p>"
@@ -345,7 +345,7 @@ public class ArcaneArts {
 								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
 							+ "</p>"
 							+ "<p>"
-								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ "Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
 							+ "</p>");
 					
@@ -485,7 +485,7 @@ public class ArcaneArts {
 				+ "</p>"
 				+ "<p>"
 					+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
-					+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+					+ " You quickly finish gathering your things, and prepare to make your next move."
 					+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
 				+ "</p>";
 		}

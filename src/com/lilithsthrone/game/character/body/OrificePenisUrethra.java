@@ -60,7 +60,7 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your precum production doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name]'s precum production doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.NamePos] precum production doesn't change...)]</p>");
 			}
 		}
 		
@@ -68,13 +68,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		if (wetnessChange > 0) {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "Your [pc.eyes] widen as you feel your [pc.cock+] suddenly grow hard, and you let out [pc.a_moan+] as you feel a slick stream of precum oozing out of the tip as its production [style.boldGrow(increases)].</br>"
+							+ "Your [pc.eyes] widen as you feel your [pc.cock+] suddenly grow hard, and you let out [pc.a_moan+] as you feel a slick stream of precum oozing out of the tip as its production [style.boldGrow(increases)].<br/>"
 							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name]'s [npc.eyes] widen as [npc.she] feels [npc.her] [npc.cock+] suddenly grow hard, and [npc.she] lets out [npc.a_moan+] as a slick stream of precum oozes out of the tip as its production [style.boldGrow(increases)].</br>"
+							+ "[npc.NamePos] [npc.eyes] widen as [npc.she] feels [npc.her] [npc.cock+] suddenly grow hard, and [npc.she] lets out [npc.a_moan+] as a slick stream of precum oozes out of the tip as its production [style.boldGrow(increases)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -82,13 +82,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You shift about uncomfortably and let out a frustrated groan as you feel your precum production [style.boldShrink(decrease)].</br>"
+							+ "You shift about uncomfortably and let out a frustrated groan as you feel your precum production [style.boldShrink(decrease)].<br/>"
 							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] shifts about uncomfortably and lets out a frustrated groan as [npc.she] feels [npc.her] precum production [style.boldShrink(decrease)].</br>"
+							+ "[npc.Name] shifts about uncomfortably and lets out a frustrated groan as [npc.she] feels [npc.her] precum production [style.boldShrink(decrease)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -127,7 +127,7 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's capacity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s urethra doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] urethra doesn't change...)]</p>");
 			}
 		}
 		
@@ -135,13 +135,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		if (capacityChange > 0) {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a shocked gasp as you feel your urethra dilate and stretch out as its internal [style.boldGrow(capacity increases)].</br>"
+							+ "You let out a shocked gasp as you feel your urethra dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a shocked gasp as [npc.she] feels [npc.her] urethra dilate and stretch out as its internal [style.boldGrow(capacity increases)].</br>"
+							+ "[npc.Name] lets out a shocked gasp as [npc.she] feels [npc.her] urethra dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -149,13 +149,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a cry as you feel your urethra uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
+							+ "You let out a cry as you feel your urethra uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] urethra uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
+							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] urethra uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -189,7 +189,7 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's elasticity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.name]'s urethra doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] urethra doesn't change...)]</p>");
 			}
 		}
 		
@@ -197,13 +197,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		if (elasticityChange > 0) {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your [pc.cock] as your urethra's [style.boldGrow(elasticity increases)].</br>"
+							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your [pc.cock] as your urethra's [style.boldGrow(elasticity increases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldGrow(elasticity increases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldGrow(elasticity increases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -211,13 +211,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your [pc.cock] as your urethra's [style.boldShrink(elasticity decreases)].</br>"
+							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your [pc.cock] as your urethra's [style.boldShrink(elasticity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldShrink(elasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldShrink(elasticity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -239,7 +239,7 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's plasticity doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.name]'s urethra doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] urethra doesn't change...)]</p>");
 			}
 		}
 		
@@ -247,13 +247,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		if (plasticityChange > 0) {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your [pc.cock] as your urethra's [style.boldGrow(plasticity increases)].</br>"
+							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your [pc.cock] as your urethra's [style.boldGrow(plasticity increases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldGrow(plasticity increases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldGrow(plasticity increases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -261,13 +261,13 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.cock] as your urethra's [style.boldShrink(plasticity decreases)].</br>"
+							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.cock] as your urethra's [style.boldShrink(plasticity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " urethra)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldShrink(plasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.cock] as [npc.her] urethra's [style.boldShrink(plasticity decreases)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " urethra)]!"
 						+ "</p>");
 			}
@@ -302,55 +302,55 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " With an experimental clench, you discover that the interior of your urethra is now lined with [style.boldGrow(muscles)], which you can use to expertly grip and squeeze down on any penetrating object.</br>"
+								+ " With an experimental clench, you discover that the interior of your urethra is now lined with [style.boldGrow(muscles)], which you can use to expertly grip and squeeze down on any penetrating object.<br/>"
 								+ "[style.boldSex(Your urethra is now lined with an intricate series of muscles!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra is now lined with [style.boldGrow(muscles)], which [npc.she] can use to expertly grip and squeeze down on any penetrating object.</br>"
-								+ "[style.boldSex([npc.Name]'s urethra is now lined with an intricate series of muscles!)]"
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra is now lined with [style.boldGrow(muscles)], which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ "[style.boldSex([npc.NamePos] urethra is now lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " Shifting your [pc.cock] around a little, you feel that the inside of your urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)], which provide extreme pleasure when stimulated.</br>"
+								+ " Shifting your [pc.cock] around a little, you feel that the inside of your urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)], which provide extreme pleasure when stimulated.<br/>"
 								+ "[style.boldSex(Your urethra is now lined with fleshy, pleasure-inducing ribs!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
 							+ " Shifting [npc.her] [npc.cock] around a little, [npc.she] discovers that the inside of [npc.her] urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
-								+ " which provide extreme pleasure when stimulated.</br>"
-							+ "[style.boldSex([npc.Name]'s urethra is now lined with fleshy, pleasure-inducing ribs!)]"
+								+ " which provide extreme pleasure when stimulated.<br/>"
+							+ "[style.boldSex([npc.NamePos] urethra is now lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " A surprised cry bursts out from your mouth as you feel that the inside of your urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.</br>"
+								+ " A surprised cry bursts out from your mouth as you feel that the inside of your urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.<br/>"
 								+ "[style.boldSex(The inside of your urethra is now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.</br>"
-								+ "[style.boldSex(The inside of [npc.name]'s urethra is now filled with little tentacles, which wriggle with a mind of their own!)]"
+								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+								+ "[style.boldSex(The inside of [npc.namePos] urethra is now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
 			case PUFFY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.cock], and you let out a little cry as you feel the rim of your urethra [style.boldGrow(puff up)] into a doughnut-like ring.</br>"
+								+ "You feel a tingling sensation running over your [pc.cock], and you let out a little cry as you feel the rim of your urethra [style.boldGrow(puff up)] into a doughnut-like ring.<br/>"
 								+ "[style.boldSex(The rim of your urethra is now swollen and puffy!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.cock], before the rim of [npc.her] urethra [style.boldGrow(puffs up)] into a doughnut-like ring.</br>"
-								+ "[style.boldSex(The rim of [npc.name]'s urethra is now swollen and puffy!)]"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.cock], before the rim of [npc.her] urethra [style.boldGrow(puffs up)] into a doughnut-like ring.<br/>"
+								+ "[style.boldSex(The rim of [npc.namePos] urethra is now swollen and puffy!)]"
 							+ "</p>";
 				}
 		}
@@ -372,55 +372,55 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " With an experimental clench, you discover that the interior of your urethra has lost its [style.boldShrink(extra muscles)].</br>"
+								+ " With an experimental clench, you discover that the interior of your urethra has lost its [style.boldShrink(extra muscles)].<br/>"
 								+ "[style.boldSex(Your urethra is no longer lined with an intricate series of muscles!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra has lost its [style.boldShrink(extra muscles)].</br>"
-								+ "[style.boldSex([npc.Name]'s urethra is no longer lined with an intricate series of muscles!)]"
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra has lost its [style.boldShrink(extra muscles)].<br/>"
+								+ "[style.boldSex([npc.NamePos] urethra is no longer lined with an intricate series of muscles!)]"
 							+ "</p>";
 				}
 			case RIBBED:
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " Shifting your [pc.cock] around a little, you feel that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined your urethra have vanished.</br>"
+								+ " Shifting your [pc.cock] around a little, you feel that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined your urethra have vanished.<br/>"
 								+ "[style.boldSex(Your urethra is no longer lined with fleshy, pleasure-inducing ribs!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] [npc.cock] around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] urethra have vanished.</br>"
-							+ "[style.boldSex([npc.Name]'s urethra is no longer lined with fleshy, pleasure-inducing ribs!)]"
+							+ " Shifting [npc.her] [npc.cock] around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] urethra have vanished.<br/>"
+							+ "[style.boldSex([npc.NamePos] urethra is no longer lined with fleshy, pleasure-inducing ribs!)]"
 						+ "</p>";
 				}
 			case TENTACLED:
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel an intense pressure swelling up deep within your [pc.cock], but before you have any chance to react, the feeling suddenly fades away."
-								+ " A surprised cry bursts out from your mouth as you feel that the [style.boldShrink(series of little wriggling tentacles)] within your urethra have all disappeared.</br>"
+								+ " A surprised cry bursts out from your mouth as you feel that the [style.boldShrink(series of little wriggling tentacles)] within your urethra have all disappeared.<br/>"
 								+ "[style.boldSex(The inside of your urethra is no longer filled with little tentacles!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.cock], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] urethra have all disappeared.</br>"
-								+ "[style.boldSex(The inside of [npc.name]'s urethra is no longer filled with little tentacles!)]"
+								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] urethra have all disappeared.<br/>"
+								+ "[style.boldSex(The inside of [npc.namePos] urethra is no longer filled with little tentacles!)]"
 							+ "</p>";
 				}
 			case PUFFY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.cock], and you let out a little cry as you feel the puffy rim of your urethra [style.boldGrow(deflate)] into a more normal-looking shape.</br>"
+								+ "You feel a tingling sensation running over your [pc.cock], and you let out a little cry as you feel the puffy rim of your urethra [style.boldGrow(deflate)] into a more normal-looking shape.<br/>"
 								+ "[style.boldSex(The rim of your urethra is no longer swollen and puffy!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.cock],"
-									+ " before the puffy rim of [npc.her] urethra [style.boldShrink(deflates)] into a more normal-looking shape.</br>"
-								+ "[style.boldSex(The rim of [npc.name]'s urethra is no longer swollen and puffy!)]"
+									+ " before the puffy rim of [npc.her] urethra [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
+								+ "[style.boldSex(The rim of [npc.namePos] urethra is no longer swollen and puffy!)]"
 							+ "</p>";
 				}
 		}

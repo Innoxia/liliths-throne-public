@@ -11,7 +11,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
 import com.lilithsthrone.main.Main;
@@ -234,8 +233,8 @@ public class RalphsSnacks {
 						new SexManagerRalphDiscount(
 								Util.newHashMapOfValues(new Value<>(Main.game.getRalph(), SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH))),
-						Ralph.AFTER_SEX,
-						"<p>"
+						null,
+						null, Ralph.AFTER_SEX, "<p>"
 							+ UtilText.parsePlayerSpeech("Ok, I'll do it,") + " you say, looking up at Ralph to see his smile grow even wider." + "</p>" + "<p>"
 							+ "He leans in, and you half-expect him to try and kiss you, but instead, he simply grabs your " + Main.game.getPlayer().getArmNameSingular() + " and starts to drag you back to his desk."
 							+ " As he walks, he starts instructing you on what's about to happen."
@@ -271,11 +270,8 @@ public class RalphsSnacks {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getRalph().getPlayerKnowsAreas().add(CoverableArea.PENIS);
-						if(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
-							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
-							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());
-						}
+						Main.game.getRalph().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
+						Main.game.getRalph().displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				

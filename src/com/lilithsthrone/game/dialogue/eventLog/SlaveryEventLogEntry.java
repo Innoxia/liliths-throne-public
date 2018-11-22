@@ -12,14 +12,14 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.slavery.SlaveEvent;
-import com.lilithsthrone.game.slavery.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.SlaveEventTag;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.87
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlaveryEventLogEntry implements Serializable, XMLSaving {
@@ -110,8 +110,9 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		Element tagNode = (Element) nodes.item(0);
 		if(tagNode != null) {
 			loadedTags = new ArrayList<>();
-			for(int i=0; i<tagNode.getElementsByTagName("tag").getLength(); i++){
-				Element e = ((Element)tagNode.getElementsByTagName("tag").item(i));
+			NodeList tagElements = tagNode.getElementsByTagName("tag");
+			for(int i=0; i<tagElements.getLength(); i++){
+				Element e = ((Element)tagElements.item(i));
 
 				try {
 					String value = e.getAttribute("value");
@@ -131,9 +132,11 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("extraEffects");
 		Element extraEffectNode = (Element) nodes.item(0);
 		if(extraEffectNode != null) {
-			loadedExtraEffects = new ArrayList<>();
-			for(int i=0; i<extraEffectNode.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)extraEffectNode.getElementsByTagName("entry").item(i));
+			NodeList extraEffectElements = extraEffectNode.getElementsByTagName("entry");
+			loadedExtraEffects = new ArrayList<>(extraEffectElements.getLength());
+			
+			for(int i=0; i<extraEffectElements.getLength(); i++){
+				Element e = ((Element)extraEffectElements.item(i));
 				
 				try {
 					loadedExtraEffects.add(e.getAttribute("value"));
@@ -170,7 +173,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(tags!=null) {
 			for(SlaveEventTag tag : tags) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(tag.getDescription());
 			}
@@ -179,26 +182,30 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(extraEffects!=null) {
 			for(String s : extraEffects) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(s);
 			}
 		}
 		
-		GameCharacter slave = Main.game.getNPCById(slaveID);
-		if(slave!=null) {
-			return UtilText.parse(Main.game.getNPCById(slaveID), descriptionSB.toString());
-		} else {
+		try {
+			GameCharacter slave = Main.game.getNPCById(slaveID);
+			return UtilText.parse(slave, descriptionSB.toString());
+
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getDescription()");
 			return descriptionSB.toString();
 		}
 	}
 	
 	public String getSlaveName() {
-		GameCharacter slave = Main.game.getNPCById(slaveID);
-		if(slave==null) {
-			return "<b>Slave</b>";
-		} else {
+		try {
+			GameCharacter slave = Main.game.getNPCById(slaveID);
 			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b>";
+		
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getSlaveName()");
+			return "<b>Slave</b>";
 		}
 	}
 	

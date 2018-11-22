@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -40,6 +40,10 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+
+	roxyIntroduced,
+	axelIntroduced,
+	eponaIntroduced,
 	
 	
 	// Red-light district:
@@ -63,7 +67,6 @@ public enum DialogueFlagValue {
 	ashleyAttitude,
 	
 	reactedToKatePregnancy,
-	
 	
 	// Lilaya's Home:
 	knowsDate,
@@ -137,7 +140,44 @@ public enum DialogueFlagValue {
 	slimeRoyalGuardDefeated,
 	slimeQueenHelped,
 	slimeQueenConvinced,
-	slimeQueenForced
+	slimeQueenForced,
 	
+	// Gambling Den:
+	axelToldAboutVengar,
+	roxyAddicted,
+	playedPregnancyRouletteAsMother,
+	playedPregnancyRouletteAsBreeder,
+	
+	// Nightlife:
+	julesIntroduced,
+	suckedJulesCock,
+	passedJules,
+	kalahariIntroduced,
+	kalahariWantsSex,
+	krugerIntroduced,
+	
+	// Submission:
+	impCitadelEncountered,
+	
+	impFortressAlphaGuardsPacified,
+	impFortressAlphaBossEncountered,
+	impFortressAlphaPacified,
+	impFortressAlphaDefeated,
+
+	impFortressFemalesGuardsPacified,
+	impFortressFemalesBossEncountered,
+	impFortressFemalesPacified,
+	impFortressFemalesDefeated,
+
+	impFortressMalesGuardsPacified,
+	impFortressMalesBossEncountered,
+	impFortressMalesPacified,
+	impFortressMalesDefeated,
+
+
+	impFortressDemonGuardsPacified,
+	impFortressDemonBossEncountered,
+	impFortressDemonDefeated,
+	impFortressTransformedByGuards,
 	;
 }

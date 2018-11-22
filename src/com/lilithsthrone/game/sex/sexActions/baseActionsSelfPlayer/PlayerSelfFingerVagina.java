@@ -3,36 +3,38 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.1.97
+ * @version 0.2.11
  * @author Innoxia
  */
 public class PlayerSelfFingerVagina {
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_SPREAD_PUSSY = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -47,37 +49,58 @@ public class PlayerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					|| (Sex.getPosition()==SexPositionType.DOGGY_AMBER && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER)) {
-				return (UtilText.returnStringAtRandom(
-						"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
-						"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
-						"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
-						"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+			if(Sex.isMasturbation()) {
+				if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)) {
+					return UtilText.returnStringAtRandom(
+							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your [pc.labia+].",
+							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] in order to present yourself.",
+							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
+							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration.");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your [pc.labia+].",
+							"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",
+							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you use your digits to spread out your pussy lips.",
+							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration.");
+				}
+				
 			} else {
-				return (UtilText.returnStringAtRandom(
-						"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia.",
-						"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",
-						"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you use your digits to spread out your pussy lips.",
-						"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+				if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)) {
+					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+							UtilText.returnStringAtRandom(
+							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
+							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
+							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
+							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+				} else {
+					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+							UtilText.returnStringAtRandom(
+							"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia.",
+							"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",
+							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you use your digits to spread out your pussy lips.",
+							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+				}
 			}
 		}
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+			Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -104,15 +127,17 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF,
-			SexPace.DOM_GENTLE,
-			null) {
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -144,15 +169,17 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF,
-			SexPace.DOM_NORMAL,
-			null) {
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -184,15 +211,17 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -224,15 +253,17 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF,
-			SexPace.SUB_NORMAL,
-			null) {
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -264,15 +295,17 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF,
-			SexPace.SUB_EAGER,
-			null) {
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -304,13 +337,16 @@ public class PlayerSelfFingerVagina {
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_STOP_PENETRATION = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {

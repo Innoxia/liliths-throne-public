@@ -303,6 +303,7 @@ h6{
 	border-radius:5px;
 	background-color:#8f8f8f;
 	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 .map-tile:after {
   content: "";
@@ -442,6 +443,9 @@ h6{
 	-webkit-user-select: none;
 }
 
+.inventory-item-slot.secondary{
+	width:14.67%;
+}
 .inventory-item-slot.piercing{
 	width:40%;
 	margin:5%;
@@ -491,6 +495,9 @@ h6{
 	border-radius:5px;
 	cursor:pointer;
 }
+.overlay-inventory.no-pointer{
+	cursor:default;
+}
 
 .femininityIcon{
 	position:absolute;
@@ -526,11 +533,11 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
-.jinxedIcon{
+.scarIcon{
 	position:absolute;
 	width:40%;
 	height:40%;
-	left:0;
+	right:0;
 	pointer-events: none;
 	-webkit-user-select: none;
 }
@@ -589,6 +596,12 @@ h6{
 }
 .legendary:hover{
 	background-color:#F7EAC5;
+}
+.quest {
+	background-color:#BEE4E4;
+}
+.quest:hover{
+	background-color:#E0F1F1;
 }
 .jinxed {
 	background-color:#E3B5B5;

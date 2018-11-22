@@ -14,7 +14,7 @@
    viewBox="0 0 64.000001 64.000001"
    id="svg4311"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="penetrationTypeTongue.svg">
   <defs
      id="defs4313">
@@ -22,7 +22,7 @@
        effect="powerstroke"
        id="path-effect4296"
        is_visible="true"
-       offset_points="0,0.24127334"
+       offset_points="0,0.48254668"
        sort_points="true"
        interpolator_type="Linear"
        interpolator_beta="0.2"
@@ -182,9 +182,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.828427"
-     inkscape:cx="-5.1150332"
-     inkscape:cy="49.1371"
+     inkscape:zoom="5.656854"
+     inkscape:cx="20.170177"
+     inkscape:cy="40.693289"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -212,19 +212,23 @@
      id="layer1"
      transform="translate(0,-988.36216)"
      style="display:inline">
-    <path
-       style="display:inline;fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.23368797;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 52.264787,1033.3111 c -1.965859,-0.3622 -5.92322,-4.446 -10.412556,0.038 -0.782616,0.7817 -1.541561,1.5313 -2.019876,2.4242 -1.654243,3.0883 -3.88515,11.7315 -0.04956,14.1665 3.182433,2.0201 9.079909,-1.4446 13.896744,-4.5506 4.684471,-3.0206 8.755358,-5.9384 8.246484,-8.3121 -1.666333,-7.7728 -7.016444,-3.279 -9.661236,-3.766 z"
-       id="path4218-4"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="sssssss" />
-    <path
-       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 52.069685,1033.2618 c 0.0045,-0.023 0.02534,-0.023 -0.02777,0.053 -0.04113,0.059 -0.10972,0.1358 -0.204989,0.2284 -0.190221,0.1848 -0.468763,0.4162 -0.81091,0.6899 -0.682212,0.5456 -1.603687,1.2484 -2.545339,2.0657 -1.886559,1.6375 -3.849168,3.7316 -4.17828,5.9558 0.405352,-2.1924 2.415942,-4.2126 4.333471,-5.771 0.961002,-0.781 1.898897,-1.446 2.609626,-1.9628 0.352751,-0.2565 0.656258,-0.4813 0.873866,-0.6638 0.108481,-0.091 0.203641,-0.178 0.274539,-0.258 0.06229,-0.07 0.141798,-0.1741 0.156632,-0.2968 z"
-       id="path4294"
-       inkscape:path-effect="#path-effect4296"
-       inkscape:original-d="m 52.310106,1033.2821 c -0.06278,0.7447 -7.272883,4.5559 -8.007713,8.9727"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
+    <g
+       id="g837"
+       transform="matrix(1.21,0,0,1.21,-5.7170161,-217.50151)">
+      <path
+         sodipodi:nodetypes="sssssss"
+         inkscape:connector-curvature="0"
+         id="path4218-4"
+         d="m 36.327165,1008.7446 c -3.931718,-0.7244 -11.84644,-8.89196 -20.825112,0.076 -1.565232,1.5634 -3.083122,3.0626 -4.039752,4.8484 -3.3084861,6.1766 -7.7703001,23.463 -0.09912,28.333 6.364866,4.0402 18.159818,-2.8892 27.793488,-9.1012 9.368942,-6.0412 17.510716,-11.8768 16.492968,-16.6242 -3.332666,-15.5456 -14.032888,-6.558 -19.322472,-7.532 z"
+         style="display:inline;fill:#808080;fill-rule:evenodd;stroke:#000000;stroke-width:0.46737593;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         inkscape:original-d="m 36.417803,1008.6866 c -0.12556,1.4894 -14.545766,9.1118 -16.015426,17.9454"
+         inkscape:path-effect="#path-effect4296"
+         id="path4294"
+         d="m 36.417803,1008.6866 -0.480841,-0.04 c 0.0044,-0.023 0.02895,-0.068 0.0152,-0.021 -0.0074,0.025 -0.0302,0.069 -0.07075,0.1276 -0.08226,0.1184 -0.21944,0.2717 -0.409978,0.4568 -0.380442,0.3697 -0.937527,0.8325 -1.62182,1.3798 -1.364425,1.0913 -3.207376,2.497 -5.09068,4.1316 -1.884049,1.6352 -3.809374,3.5002 -5.34654,5.5156 -1.538569,2.0173 -2.681724,4.1772 -3.010019,6.3959 0.406395,-2.1981 1.617169,-4.3036 3.199515,-6.2465 1.58385,-1.9448 3.547062,-3.7348 5.467426,-5.2955 1.922004,-1.5621 3.797795,-2.892 5.219253,-3.9256 0.705501,-0.5129 1.312516,-0.9626 1.747733,-1.3275 0.216961,-0.182 0.407282,-0.3561 0.549076,-0.5162 0.07135,-0.081 0.1388,-0.1668 0.192428,-0.2573 0.05217,-0.088 0.104652,-0.2023 0.120836,-0.3363 z"
+         style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

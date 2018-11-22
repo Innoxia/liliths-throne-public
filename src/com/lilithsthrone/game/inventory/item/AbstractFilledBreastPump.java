@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -104,7 +104,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 
 	public static AbstractFilledBreastPump loadFromXML(Element parentElement, Document doc) {
 		return new AbstractFilledBreastPump(
-				ItemType.idToItemMap.get(parentElement.getAttribute("id")),
+				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
 				parentElement.getAttribute("milkProvidor"),
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
@@ -141,7 +141,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
-		return target.ingestFluid(getMilkProvidor(), milk.getType(), OrificeType.MOUTH, millilitresStored, milk.getFluidModifiers())
+		return target.ingestFluid(getMilkProvidor(), milk, SexAreaOrifice.MOUTH, millilitresStored)
 				+ target.addItem(AbstractItemType.generateItem(ItemType.MOO_MILKER_EMPTY), false);
 	}
 	
@@ -150,7 +150,12 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	}
 	
 	public GameCharacter getMilkProvidor() {
-		return Main.game.getNPCById(milkProvidor);
+		try {
+			return Main.game.getNPCById(milkProvidor);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+milkProvidor+") returning null in method: getMilkProvidor()");
+			return null;
+		}
 	}
 
 	public FluidMilk getMilk() {

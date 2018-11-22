@@ -2,7 +2,9 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.Weather;
@@ -15,6 +17,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
@@ -37,6 +40,134 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class CityPlaces {
 
+	private static String getExtraStreetFeatures() {
+		StringBuilder mommySB = new StringBuilder();
+		StringBuilder occupantSB = new StringBuilder();
+		StringBuilder cultistSB = new StringBuilder();
+		StringBuilder reindeerSB = new StringBuilder();
+		
+		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
+		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+		
+		for(NPC npc : characters) {
+
+			if(npc instanceof RentalMommy) {
+				mommySB.append(
+						UtilText.parse(npc,
+								"<p>"
+									+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Mommy's House:</b><br/>"
+									+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+										?"Mommy's house is located down this street, but due to the ongoing arcane storm, her usual bench is currently unoccupied."
+												+ " If you wanted to interact with her, you'd better come back after the storm has passed..."
+										:"Mommy's house is located down this street, and as you look over towards it, you see her sitting on her usual bench outside."
+											+ " Still wearing her 'Rental Mommy' t-shirt, she's quite clearly still open for business as usual...")
+								+ "</p>"));
+				break;
+			}
+			
+			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+				occupantSB.append(
+						UtilText.parse(npc,
+								"<p>"
+									+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
+									+ "[npc.Name], the [npc.race] that you rescued from a life of crime, lives in an apartment building nearby."
+									+ " If you wanted to, you could pay [npc.herHim] a visit..."
+								+ "</p>"));
+				break;
+			}
+			
+			if(npc instanceof Cultist) {
+				cultistSB.append(
+						"<p>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
+							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and, if you were so inclined, you could easily find it again...")
+						+ "</p>");
+				break;
+			}
+			
+			if(npc instanceof ReindeerOverseer) {
+				reindeerSB.append(
+						"<p>"
+							+ "<b style='color:"+Colour.RACE_REINDEER_MORPH.toWebHexString()+";'>Reindeer Workers:</b><br/>"
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+								?UtilText.parse(npc, "The reindeer-morphs have all taken shelter from the ongoing arcane storm."
+										+ " If you wanted to speak with their overseer, you'd need to come back after the storm has passed.")
+								:UtilText.parse(npc, "A large group of reindeer-morphs are hard at work shovelling snow."
+										+ " Their leader, [npc.a_race], is shouting out orders and travelling to-and-fro between the workers to make sure that the job is being done to [npc.her] satisfaction."
+										+ " Although the workers look to be far too busy to stop and talk, you'd probably be able to catch a word with the overseer if you wanted to."))
+						+ "</p>");
+				break;
+			}
+		}
+		
+		return mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString()).toString();
+	}
+	
+	private static List<Response> getExtraStreetResponses() {
+		List<Response> mommyResponses = new ArrayList<>();
+		List<Response> occupantResponses = new ArrayList<>();
+		List<Response> cultistResponses = new ArrayList<>();
+		List<Response> reindeerResponses = new ArrayList<>();
+
+		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
+		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+		
+		for(NPC npc : characters) {
+			
+			if(npc instanceof RentalMommy) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
+				}
+				mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(npc);	
+					}
+				});
+			}
+			
+			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+				occupantResponses.add(new Response(UtilText.parse(npc, "[npc.Name]"), UtilText.parse(npc, "Head over to [npc.namePos] apartment building and pay [npc.herHim] a visit."), OccupantDialogue.OCCUPANT_APARTMENT) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(npc);
+					}
+				});
+			}
+			
+			if(npc instanceof Cultist) {
+				cultistResponses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.namePos] chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
+						@Override
+						public void effects() {
+							Main.game.setActiveNPC(npc);
+						}
+					});
+			}
+			
+			if(npc instanceof ReindeerOverseer) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					reindeerResponses.add(new Response("Overseer",
+							"The reindeer-morph workers are currently sheltering from the ongoing arcane storm. You'll have to come back later if you wanted to speak to the overseer.",
+							null));
+				} else {
+					reindeerResponses.add(new Response("Overseer", UtilText.parse(npc, "Walk up to [npc.name] and say hello."), ReindeerOverseerDialogue.ENCOUNTER_START) {
+							@Override
+							public void effects() {
+								Main.game.setActiveNPC(npc);
+								npc.setPlayerKnowsName(true);
+							}
+						});
+				}
+			}
+		}
+		
+		mommyResponses.addAll(cultistResponses);
+		mommyResponses.addAll(occupantResponses);
+		mommyResponses.addAll(reindeerResponses);
+		
+		return mommyResponses;
+	}
+	
 	public static final DialogueNodeOld STREET = new DialogueNodeOld("Dominion Streets", "", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -193,7 +324,7 @@ public class CityPlaces {
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b></br>"
+						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
 						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
 						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
 					+ "</p>");
@@ -201,69 +332,20 @@ public class CityPlaces {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b></br>"
+						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
 			
-			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-				if(npc instanceof Cultist) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b></br>"
-								+ UtilText.parse(npc, "You remember that [npc.name]'s chapel is near here, and, if you were so inclined, you could easily find it again...")
-							+ "</p>");
-					break;
-				}
-				
-				if(npc instanceof ReindeerOverseer) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "<b style='color:"+Colour.RACE_REINDEER_MORPH.toWebHexString()+";'>Reindeer Workers:</b></br>"
-								+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
-									?UtilText.parse(npc, "The reindeer-morphs have all taken shelter from the ongoing arcane storm."
-											+ " If you wanted to speak with their overseer, you'd need to come back after the storm has passed.")
-									:UtilText.parse(npc, "A large group of reindeer-morphs are hard at work shovelling snow."
-											+ " Their leader, [npc.a_race], is shouting out orders and travelling to-and-fro between the workers to make sure that the job is being done to [npc.her] satisfaction."
-											+ " Although the workers look to be far too busy to stop and talk, you'd probably be able to catch a word with the overseer if you wanted to."))
-							+ "</p>");
-					break;
-				}
-			}
+			UtilText.nodeContentSB.append(getExtraStreetFeatures());
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<Response> responses = new ArrayList<>();
-			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-				if(npc instanceof Cultist) {
-					responses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.name]'s chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
-							@Override
-							public void effects() {
-								Main.game.setActiveNPC(npc);
-							}
-						});
-				}
-				
-				if(npc instanceof ReindeerOverseer) {
-					if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-						responses.add(new Response("Overseer",
-								"The reindeer-morph workers are currently sheltering from the ongoing arcane storm. You'll have to come back later if you wanted to speak to the overseer.",
-								null));
-					} else {
-						responses.add(new Response("Overseer", UtilText.parse(npc, "Walk up to [npc.name] and say hello."), ReindeerOverseerDialogue.ENCOUNTER_START) {
-								@Override
-								public void effects() {
-									Main.game.setActiveNPC(npc);
-									npc.setPlayerKnowsName(true);
-								}
-							});
-					}
-				}
-			}
+			List<Response> responses = getExtraStreetResponses();
 			
 			if(index == 0) {
 				return null;
@@ -453,7 +535,7 @@ public class CityPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down the all-but-deserted boulevard."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -479,7 +561,7 @@ public class CityPlaces {
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b></br>"
+						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
 						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
 						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
 					+ "</p>");
@@ -487,32 +569,28 @@ public class CityPlaces {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b></br>"
+						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
+			
+			UtilText.nodeContentSB.append(getExtraStreetFeatures());
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					if(npc instanceof RentalMommy) {
-						if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-							return new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null);
-						}
-						return new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
-							@Override
-							public void effects() {
-								Main.game.setActiveNPC(npc);	
-							}
-						};
-					}
-				}
+			List<Response> responses = getExtraStreetResponses();
+			
+			if(index == 0) {
+				return null;
+				
+			} else if(index-1 < responses.size()) {
+				return responses.get(index-1);
 			}
+			
 			return null;
 		}
 	};
@@ -535,7 +613,7 @@ public class CityPlaces {
 						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
 					+ "</p>"
 					+ "<p>"
-						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished while marble, reside within this large area."
+						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
 						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
 						+ " On top of a plinth of at least thirty metres in height, stands a gigantic marble statue of Lilith herself;"
 							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
@@ -545,7 +623,7 @@ public class CityPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -585,8 +663,8 @@ public class CityPlaces {
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
 									possibleSubspecies.add(Subspecies.WOLF_MORPH);
 									
-									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
-									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
+									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName(null);
+									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName(null);
 									
 									Main.game.getTextEndStringBuilder().append("<p>"
 											+UtilText.returnStringAtRandom(
@@ -708,9 +786,9 @@ public class CityPlaces {
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
 					+ "<i>"
-						+ "<b>William's Rose Garden</b></br>"
+						+ "<b>William's Rose Garden</b><br/>"
 						+ "Please feel free to help yourself to these roses!"
-						+ " I hope you or your partner gets as much happiness out of them as I do from growing them.</br>"
+						+ " I hope you or your partner gets as much happiness out of them as I do from growing them.<br/>"
 						+ "- William"
 					+ "</i>"
 				+ "</p>"
@@ -742,14 +820,24 @@ public class CityPlaces {
 		public String getContent() {
 			return STREET.getContent()
 					+ "<p>"
-						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b></br>"
+						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b><br/>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
 						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
-					+ "</p>";
+					+ "</p>"
+					+ getExtraStreetFeatures();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			List<Response> responses = getExtraStreetResponses();
+			
+			if(index == 0) {
+				return null;
+				
+			} else if(index-1 < responses.size()) {
+				return responses.get(index-1);
+			}
+			
 			return null;
 		}
 	};
@@ -821,7 +909,19 @@ public class CityPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if (index == 1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+			} else {
+				return null;
+			}
 		}
 	};
 

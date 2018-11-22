@@ -21,7 +21,7 @@ public class InventoryWeaponComparator implements Comparator<AbstractWeapon>, Se
 			return result;
 			
 		} else {
-			result = first.getWeaponType().toString().compareTo(second.getName());
+			result = first.getWeaponType().toString().compareTo(second.getWeaponType().toString());
 			
 			if(result!=0) {
 				return result;

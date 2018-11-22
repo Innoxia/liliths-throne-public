@@ -23,6 +23,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -35,16 +36,16 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.11
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -63,12 +64,7 @@ public class InventoryDialogue {
 
 	private static StringBuilder inventorySB = new StringBuilder(), responseSB = new StringBuilder();
 
-//	private static List<AbstractClothing> jinxedClothing = new ArrayList<>();
-//	private static List<AbstractClothing> jinxedNPCClothing = new ArrayList<>();
-
-	private static boolean 
-//	jinxRemovalFromFloor,
-	buyback;
+	private static boolean buyback;
 
 	private static int buyBackPrice, buyBackIndex;
 
@@ -328,17 +324,19 @@ public class InventoryDialogue {
 							
 						} else {
 							if(inventoryNPC.getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
-								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.name]'s inventory."), null);
+								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.namePos] inventory."), null);
 								
 							} else {
-								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.name]'s inventory."), INVENTORY_MENU){
+								return new Response("Take all", UtilText.parse(inventoryNPC, "Take everything from [npc.namePos] inventory."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										//TODO if this starts printing it will complain about the player's inventory being full
 										//TODO optimize (what if someone stores a thousand panties somewhere?)
 										int i = inventoryNPC.getAllItemsInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasItem(inventoryNPC.getAllItemsInInventory().get(i-1))
+													|| inventoryNPC.getAllItemsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
 												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
 											}
@@ -347,7 +345,9 @@ public class InventoryDialogue {
 										
 										i = inventoryNPC.getAllClothingInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))
+													|| inventoryNPC.getAllClothingInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addClothing(inventoryNPC.getAllClothingInInventory().get(i-1), true);
 												inventoryNPC.removeClothing(inventoryNPC.getAllClothingInInventory().get(i-1));
 											}
@@ -356,7 +356,9 @@ public class InventoryDialogue {
 										
 										i = inventoryNPC.getAllWeaponsInInventory().size();
 										while(i > 0) {
-											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))) {
+											if(!Main.game.getPlayer().isInventoryFull()
+													|| Main.game.getPlayer().hasWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1))
+													|| inventoryNPC.getAllWeaponsInInventory().get(i-1).getRarity()==Rarity.QUEST) {
 												Main.game.getPlayer().addWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1), true);
 												inventoryNPC.removeWeapon(inventoryNPC.getAllWeaponsInInventory().get(i-1));
 											}
@@ -461,7 +463,7 @@ public class InventoryDialogue {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
 							
 						} else {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
 								@Override
 								public void effects(){
 									for(AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
@@ -481,7 +483,7 @@ public class InventoryDialogue {
 							return new Response("Replace all (them)",  UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to replace!"), null);
 							
 						} else {
-							return new Response("Replace all (them)", UtilText.parse(inventoryNPC, "Replace as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+							return new Response("Replace all (them)", UtilText.parse(inventoryNPC, "Replace as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
 								@Override
 								public void effects(){
 									
@@ -505,7 +507,7 @@ public class InventoryDialogue {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
 							
 						} else {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
 								@Override
 								public void effects(){
 									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
@@ -746,13 +748,13 @@ public class InventoryDialogue {
 							
 					} else if (index == 6 && inventoryNPC != null) {
 						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.name]'s clothing in this sex scene!"), null);
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.namePos] clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
 							
 						} else {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.name]'s clothing as possible."), Sex.SEX_DIALOGUE){
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
@@ -779,13 +781,13 @@ public class InventoryDialogue {
 						
 					} else if (index == 8 && inventoryNPC != null) {
 						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.name]'s clothing in this sex scene!"), null);
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
 							
 						} else {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.name]'s clothing as possible."), Sex.SEX_DIALOGUE){
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
@@ -847,7 +849,7 @@ public class InventoryDialogue {
 					+ item.getExtraDescription(owner, owner)
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(item)
+									? inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
 											? "<p>"
 												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
 											+ "</p>" 
@@ -881,7 +883,9 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop (1)", "Drop your " + item.getName() + ".", INVENTORY_MENU){
@@ -892,7 +896,9 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + item.getName() + " in this area.", INVENTORY_MENU){
@@ -909,6 +915,9 @@ public class InventoryDialogue {
 							if(owner.getItemCount(item) < 5) {
 								return new Response("Drop (5)", "You don't have five " + item.getNamePlural() + " to give!", null);
 								
+							} else if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + item.getName() + "!", null);
+								
 							} else if(areaFull) {
 								return new Response("Drop (5)", "This area is full, so you can't drop your " + item.getNamePlural() + " here!", null);
 								
@@ -923,6 +932,9 @@ public class InventoryDialogue {
 						} else {
 							if(owner.getItemCount(item) < 5) {
 								return new Response("Store (5)", "You don't have five " + item.getNamePlural() + " to give!", null);
+								
+							} else if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + item.getName() + "!", null);
 								
 							} else if(areaFull) {
 								return new Response("Store (5)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
@@ -939,7 +951,9 @@ public class InventoryDialogue {
 						
 					} else if(index == 3) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Drop (All)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + item.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Drop (All)", "Drop all of your " + item.getNamePlural() + ".", INVENTORY_MENU){
@@ -950,7 +964,9 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!item.getItemType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + item.getName() + "!", null);
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + item.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -1013,7 +1029,7 @@ public class InventoryDialogue {
 							
 						} else {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1156,10 +1172,12 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasItem(item);
 							
 							if(index == 1) {
-								if(inventoryFull) {
-									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
+									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + item.getItemType().getDeterminer() + " " + item.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + item.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(Main.game.getPlayer(), inventoryNPC, item, 1);
@@ -1167,8 +1185,10 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
-									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
+									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getItemCount(item) >= 5) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "Give [npc.name] five of your " + item.getNamePlural() + "."), INVENTORY_MENU){
@@ -1182,8 +1202,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
-									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!item.getItemType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + item.getName() + "!", null);
+								} else if(inventoryFull) {
+									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + item.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
@@ -1243,7 +1265,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1276,7 +1298,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1291,7 +1313,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1302,7 +1324,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1327,7 +1349,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1345,7 +1367,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1359,7 +1381,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1398,7 +1420,7 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), Main.game.getPlayer()));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1433,7 +1455,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1451,7 +1473,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1464,7 +1486,7 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1482,7 +1504,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(item)) {
+								if(!item.getItemType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + item.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(item)) {
 									int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -1496,7 +1521,10 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								if(Main.game.getPlayer().getItemCount(item) >= 5) {
-									if (inventoryNPC.willBuy(item)) {
+									if(!item.getItemType().isAbleToBeSold()) {
+										return new Response("Sell (5)", "You cannot sell the " + item.getName() + "!", null);
+										
+									} else if (inventoryNPC.willBuy(item)) {
 										int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + item.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
@@ -1513,7 +1541,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(item)) {
+								if(!item.getItemType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + item.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(item)) {
 									int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getItemCount(item), "span") + ")",
 											"Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getItemCount(item)) + ".", INVENTORY_MENU){
@@ -1578,7 +1609,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1613,7 +1644,7 @@ public class InventoryDialogue {
 			} else {
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item) && item.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
@@ -1682,7 +1713,7 @@ public class InventoryDialogue {
 							
 						} else {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in this area.", INVENTORY_MENU){
+									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in this area.", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
@@ -1697,15 +1728,7 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					}
-//					else if(index == 11) {
-//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-//						
-//					} else if(index == 11) {
-//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-//						
-//					}
-					else {
+					} else {
 						return null;
 					}
 					
@@ -1746,13 +1769,13 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT:  case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item) && item.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + item.getItemType().getDeterminer() + " " + item.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + item.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(inventoryNPC, Main.game.getPlayer(), item, 1);
@@ -1764,7 +1787,7 @@ public class InventoryDialogue {
 									return new Response("Take (5)", "Your inventory is already full!", null);
 								}
 								if(inventoryNPC.getItemCount(item) >= 5) {
-									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + item.getNamePlural() + "."), INVENTORY_MENU){
+									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.namePos] " + item.getNamePlural() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											transferItems(inventoryNPC, Main.game.getPlayer(), item, 5);
@@ -1778,7 +1801,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + item.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getItemCount(item))+" of  [npc.namePos] " + item.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(inventoryNPC, Main.game.getPlayer(), item, inventoryNPC.getItemCount(item));
@@ -1815,7 +1838,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.name]'s inventory."), INVENTORY_MENU){
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.namePos] inventory."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
@@ -1848,7 +1871,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1863,7 +1886,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1873,7 +1896,7 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											resetPostAction();
 										}
 									};
@@ -1888,7 +1911,7 @@ public class InventoryDialogue {
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1899,14 +1922,14 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
 									};
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1917,7 +1940,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
@@ -1925,13 +1948,13 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC) + "</p>");
 											}
 											resetPostAction();
 										}
@@ -1971,7 +1994,7 @@ public class InventoryDialogue {
 //											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, Main.game.getPlayer()));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, Main.game.getPlayer()));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2008,7 +2031,7 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2026,7 +2049,7 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2039,7 +2062,7 @@ public class InventoryDialogue {
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
 //											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -2056,7 +2079,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item)  && item.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():item.getPrice(inventoryNPC.getSellModifier());
@@ -2129,10 +2152,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the items that [npc.she]'s trying to sell!"), null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the items that [npc.sheIs] trying to sell!"), null);
 								
 							} else if(index == 12) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the items that [npc.she]'s trying to sell!"), null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the items that [npc.sheIs] trying to sell!"), null);
 								
 							} else {
 								return null;
@@ -2210,8 +2233,12 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
+								
 							} else {
 								return new Response("Drop (1)", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
 									@Override
@@ -2221,7 +2248,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -2235,8 +2265,11 @@ public class InventoryDialogue {
 						
 					} else if(index == 2) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(owner.getWeaponCount(weapon) < 5) {
-								return new Response("Drop (5)", "You don't have five " + weapon.getNamePlural() + " to give!", null);
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(owner.getWeaponCount(weapon) < 5) {
+								return new Response("Drop (5)", "You don't have five " + weapon.getNamePlural() + " to drop!", null);
 								
 							} else if(areaFull) {
 								return new Response("Drop (5)", "This area is full, so you can't drop your " + weapon.getNamePlural() + " here!", null);
@@ -2250,8 +2283,11 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(owner.getWeaponCount(weapon) < 5) {
-								return new Response("Store (5)", "You don't have five " + weapon.getNamePlural() + " to give!", null);
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(owner.getWeaponCount(weapon) < 5) {
+								return new Response("Store (5)", "You don't have five " + weapon.getNamePlural() + " to drop!", null);
 								
 							} else if(areaFull) {
 								return new Response("Store (5)", "This area is full, so you can't store your " + weapon.getNamePlural() + " here!", null);
@@ -2267,7 +2303,10 @@ public class InventoryDialogue {
 						}
 						
 					} else if(index == 3) {
-						if(owner.getLocationPlace().isItemsDisappear()) {
+						if(!weapon.getWeaponType().isAbleToBeDropped()) {
+							return new Response("Drop (All)", "You cannot drop the " + weapon.getName() + "!", null);
+							
+						} else if(owner.getLocationPlace().isItemsDisappear()) {
 							if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + weapon.getNamePlural() + " here!", null);
 							} else {
@@ -2279,7 +2318,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!weapon.getWeaponType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + weapon.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + weapon.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + weapon.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -2293,7 +2335,7 @@ public class InventoryDialogue {
 						
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
@@ -2340,18 +2382,32 @@ public class InventoryDialogue {
 						return null;
 						
 					} else if(index == 6) {
-							return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+							return new Response("Equip Main (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-										+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-											?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-											:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
+									Main.game.getTextEndStringBuilder().append(
+										"<p style='text-align:center;'>"
+											+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 										+ "</p>");
 									resetPostAction();
 								}
 							};
 							
+					} else if(index == 7) {
+						if(weapon.getWeaponType().isTwoHanded()) {
+							return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+						}
+						return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+							@Override
+							public void effects(){
+								Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+									+ "</p>");
+								resetPostAction();
+							}
+						};
+						
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
@@ -2385,13 +2441,28 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons while fighting someone!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
+								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
 										Combat.appendTurnText(Main.game.getPlayer(), "Equip weapon", "<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-												?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-												:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
+												+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+											+ "</p>");
+										resetPostAction();
+										Combat.endCombatTurn();
+										Combat.setPreviousAction(Attack.NONE);
+										Main.mainController.openInventory();
+									}
+								};
+									
+							} else if(index == 7) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", Combat.ENEMY_ATTACK){
+									@Override
+									public void effects(){
+										Combat.appendTurnText(Main.game.getPlayer(), "Equip weapon", "<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
 											+ "</p>");
 										resetPostAction();
 										Combat.endCombatTurn();
@@ -2414,10 +2485,13 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasWeapon(weapon);
 							
 							if(index == 1) {
-								if(inventoryFull) {
-									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] one " + weapon.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(Main.game.getPlayer(), inventoryNPC, weapon, 1);
@@ -2425,8 +2499,11 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
-									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getWeaponCount(weapon) >= 5) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "Give [npc.name] five of your " + weapon.getNamePlural() + "."), INVENTORY_MENU){
@@ -2440,8 +2517,11 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
-									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + weapon.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + weapon.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
@@ -2452,7 +2532,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -2498,30 +2578,54 @@ public class InventoryDialogue {
 								
 								return null;
 								
-							}  else if(index == 6) {
-								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+							} else if(index == 6) {
+								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-														?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-														:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
+													+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 												+ "</p>");
 											resetPostAction();
 										}
 									};
 									
+							} else if(index == 7) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+											+ "</p>");
+										resetPostAction();
+									}
+								};
+								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+"!"), INVENTORY_MENU){
+								return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-												?inventoryNPC.equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-												:inventoryNPC.equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
+											+ inventoryNPC.equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+											+ "</p>");
+										resetPostAction();
+									}
+								};
+							
+							} else if(index == 12) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand ([npc.Name])", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+											+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
 											+ "</p>");
 										resetPostAction();
 									}
@@ -2562,7 +2666,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(weapon)) {
+								if(!weapon.getWeaponType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + weapon.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(weapon)) {
 									int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -2576,7 +2683,10 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								if(Main.game.getPlayer().getWeaponCount(weapon) >= 5) {
-									if (inventoryNPC.willBuy(weapon)) {
+									if(!weapon.getWeaponType().isAbleToBeSold()) {
+										return new Response("Sell (5)", "You cannot sell the " + weapon.getName() + "!", null);
+										
+									} else if (inventoryNPC.willBuy(weapon)) {
 										int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + weapon.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
@@ -2593,7 +2703,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(weapon)) {
+								if(!weapon.getWeaponType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + weapon.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(weapon)) {
 									int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getWeaponCount(weapon), "span") + ")",
 											"Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getWeaponCount(weapon)) + ".", INVENTORY_MENU){
@@ -2608,7 +2721,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && weapon.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -2655,18 +2768,32 @@ public class InventoryDialogue {
 								return null;
 								
 							} else if(index == 6) {
-								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
-										@Override
-										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-													?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-													:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
-												+ "</p>");
-											resetPostAction();
-										}
-									};
+								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append(
+											"<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+											+ "</p>");
+										resetPostAction();
+									}
+								};
 									
+							} else if(index == 7) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append(
+											"<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+											+ "</p>");
+										resetPostAction();
+									}
+								};
+								
 							} else if (index == 9) {
 								return getBuybackResponse();
 								
@@ -2674,7 +2801,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] doesn't want to use your weapons."), null);
+								return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] doesn't want to use your weapons."), null);
+								
+							} else if(index == 12) {
+								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] doesn't want to use your weapons."), null);
 								
 							} else {
 								return null;
@@ -2687,13 +2817,13 @@ public class InventoryDialogue {
 			} else {
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + weapon.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpWeapons(Main.game.getPlayer(), weapon, 1);
@@ -2753,13 +2883,25 @@ public class InventoryDialogue {
 						return new Response("Enchant", "You can't enchant weapons on the ground!", null);
 						
 					} else if(index == 6) {
-						return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+						return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-										?Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
-										:Main.game.getPlayer().equipOffhandWeaponFromFloor(weapon))
+									+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
+									+ "</p>");
+								resetPostAction();
+							}
+						};
+							
+					} else if(index == 7) {
+						if(weapon.getWeaponType().isTwoHanded()) {
+							return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+						}
+						return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+							@Override
+							public void effects(){
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+									+ Main.game.getPlayer().equipOffhandWeaponFromFloor(weapon)
 									+ "</p>");
 								resetPostAction();
 							}
@@ -2811,13 +2953,13 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT:  case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + weapon.getWeaponType().getDeterminer() + " " + weapon.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take one " + weapon.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(inventoryNPC, Main.game.getPlayer(), weapon, 1);
@@ -2829,7 +2971,7 @@ public class InventoryDialogue {
 									return new Response("Take (5)", "Your inventory is already full!", null);
 								}
 								if(inventoryNPC.getWeaponCount(weapon) >= 5) {
-									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + weapon.getNamePlural() + "."), INVENTORY_MENU){
+									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.namePos] " + weapon.getNamePlural() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											transferWeapons(inventoryNPC, Main.game.getPlayer(), weapon, 5);
@@ -2843,7 +2985,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + weapon.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getWeaponCount(weapon))+" of  [npc.namePos] " + weapon.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(inventoryNPC, Main.game.getPlayer(), weapon, inventoryNPC.getWeaponCount(weapon));
@@ -2867,23 +3009,35 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is full, so you can't dye this weapon."), null);
+										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is full, so you can't dye this weapon."), null);
 									}
 								} else {
-									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.name]'s weapons."), null);
+									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.namePos] weapons."), null);
 								}
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant weapons owned by someone else!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
 									@Override
 									public void effects(){
 										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-												?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, inventoryNPC)
-												:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, inventoryNPC))
+											+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, inventoryNPC)
+											+ "</p>");
+										resetPostAction();
+									}
+								};
+								
+							} else if(index == 7) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+											+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, inventoryNPC)
 											+ "</p>");
 										resetPostAction();
 									}
@@ -2893,13 +3047,25 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + "."), INVENTORY_MENU){
+								return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-												?inventoryNPC.equipMainWeaponFromInventory(weapon, inventoryNPC)
-												:inventoryNPC.equipOffhandWeaponFromInventory(weapon, inventoryNPC))
+											+ inventoryNPC.equipMainWeaponFromInventory(weapon, inventoryNPC)
+											+ "</p>");
+										resetPostAction();
+									}
+								};
+								
+							} else if(index == 12) {
+								if(weapon.getWeaponType().isTwoHanded()) {
+									return new Response("Equip Offhand ([npc.Name])", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+								}
+								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+											+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, inventoryNPC)
 											+ "</p>");
 										resetPostAction();
 									}
@@ -2939,7 +3105,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon) && weapon.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():weapon.getPrice(inventoryNPC.getSellModifier());
@@ -2997,7 +3163,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 4) {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to let you dye the weapon that [npc.she]'s trying to sell!"), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to let you dye the weapon that [npc.sheIs] trying to sell!"), null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant someone else's weapon!", null);
@@ -3012,7 +3178,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] isn't going to equip the weapons that [npc.she]'s trying to sell!"), null);
+								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] isn't going to equip the weapons that [npc.sheIs] trying to sell!"), null);
 								
 							} else {
 								return null;
@@ -3094,7 +3260,10 @@ public class InventoryDialogue {
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (1)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (1)", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 							} else {
 								return new Response("Drop (1)", "Drop your " + clothing.getName() + ".", INVENTORY_MENU){
@@ -3105,7 +3274,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (1)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (1)", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 							} else {
 								return new Response("Store (1)", "Store the " + clothing.getName() + " in this area.", INVENTORY_MENU){
@@ -3119,7 +3291,10 @@ public class InventoryDialogue {
 						
 					} else if(index == 2) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(owner.getClothingCount(clothing) < 5) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (5)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(owner.getClothingCount(clothing) < 5) {
 								return new Response("Drop (5)", "You don't have five " + clothing.getNamePlural() + " to give!", null);
 								
 							} else if(areaFull) {
@@ -3134,7 +3309,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(owner.getClothingCount(clothing) < 5) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (5)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(owner.getClothingCount(clothing) < 5) {
 								return new Response("Store (5)", "You don't have five " + clothing.getNamePlural() + " to give!", null);
 								
 							} else if(areaFull) {
@@ -3152,7 +3330,10 @@ public class InventoryDialogue {
 						
 					} else if(index == 3) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Drop (All)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Drop (All)", "This area is full, so you can't drop your " + clothing.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Drop (All)", "Drop all of your " + clothing.getNamePlural() + ".", INVENTORY_MENU){
@@ -3163,7 +3344,10 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(areaFull) {
+							if(!clothing.getClothingType().isAbleToBeDropped()) {
+								return new Response("Store (All)", "You cannot drop the " + clothing.getName() + "!", null);
+								
+							} else if(areaFull) {
 								return new Response("Store (All)", "This area is full, so you can't store your " + clothing.getNamePlural() + " here!", null);
 							} else {
 								return new Response("Store (All)", "Store all of your " + clothing.getNamePlural() + " in this area.", INVENTORY_MENU){
@@ -3177,7 +3361,7 @@ public class InventoryDialogue {
 						
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
 							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
@@ -3299,10 +3483,13 @@ public class InventoryDialogue {
 							boolean inventoryFull = inventoryNPC.isInventoryFull() && !inventoryNPC.hasClothing(clothing);
 							
 							if(index == 1) {
-								if(inventoryFull) {
-									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (1)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] the " + clothing.getClothingType() + " " + clothing.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(Main.game.getPlayer(), inventoryNPC, clothing, 1);
@@ -3310,8 +3497,11 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 2) {
-								if(inventoryFull) {
-									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (5)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (5)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
 									return new Response("Give (5)", UtilText.parse(inventoryNPC, "Give [npc.name] five of your " + clothing.getNamePlural() + "."), INVENTORY_MENU){
@@ -3325,8 +3515,11 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if(inventoryFull) {
-									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is already full!"), null);
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Give (All)", "You cannot give away the " + clothing.getName() + "!", null);
+									
+								} else if(inventoryFull) {
+									return new Response("Give (All)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
 								return new Response("Give (All)", UtilText.parse(inventoryNPC, "Give [npc.name] all of your " + clothing.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
@@ -3404,17 +3597,27 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
-									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
 											public DialogueNodeOld getNextDialogue() {
-												return inventoryNPC.getEnslavementDialogue(clothing);
+												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+													return inventoryNPC.getEnslavementDialogue(clothing);
+													
+												} else {
+													return INVENTORY_MENU;
+												}
 											}
 											@Override
 											public void effects(){
-												Main.game.getPlayer().addSlave(inventoryNPC);
-												inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
+												if(!inventoryNPC.isAbleToBeEnslaved()) {
+													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
+												} else {
+													if(inventoryNPC.isSlave()) {
+														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													}
+													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
+												}
 											}
 										};
 										
@@ -3508,7 +3711,10 @@ public class InventoryDialogue {
 							
 						case TRADING:
 							if(index == 1) {
-								if (inventoryNPC.willBuy(clothing)) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (1)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(clothing)) {
 									int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 										@Override
@@ -3521,7 +3727,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 2) {
-								if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (5)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
 									if (inventoryNPC.willBuy(clothing)) {
 										int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + clothing.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
@@ -3539,7 +3748,10 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 3) {
-								if (inventoryNPC.willBuy(clothing)) {
+								if(!clothing.getClothingType().isAbleToBeSold()) {
+									return new Response("Sell (All)", "You cannot sell the " + clothing.getName() + "!", null);
+									
+								} else if (inventoryNPC.willBuy(clothing)) {
 									int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
 									return new Response("Sell (All) (" + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getClothingCount(clothing), "span") + ")",
 											"Sell the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*Main.game.getPlayer().getClothingCount(clothing)) + ".", INVENTORY_MENU){
@@ -3554,7 +3766,7 @@ public class InventoryDialogue {
 								
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
-									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull() && clothing.getRarity()!=Rarity.QUEST;
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
@@ -3703,13 +3915,13 @@ public class InventoryDialogue {
 						}
 					}
 					
-					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+					boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 					
 					if(index == 1) {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + clothing.getClothingType() + " " + clothing.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpClothing(Main.game.getPlayer(), clothing, 1);
@@ -3822,13 +4034,13 @@ public class InventoryDialogue {
 							}
 							
 						case FULL_MANAGEMENT: case CHARACTER_CREATION:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 						
 							if(index == 1) {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take " + clothing.getClothingType().getDeterminer() + " " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take the " + clothing.getClothingType() + " " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, 1);
@@ -3840,7 +4052,7 @@ public class InventoryDialogue {
 									return new Response("Take (5)", "Your inventory is already full!", null);
 								}
 								if(inventoryNPC.getClothingCount(clothing) >= 5) {
-									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + clothing.getNamePlural() + "."), INVENTORY_MENU){
+									return new Response("Take (5)", UtilText.parse(inventoryNPC, "Take five of  [npc.namePos] " + clothing.getNamePlural() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, 5);
@@ -3854,7 +4066,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + clothing.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getClothingCount(clothing))+" of  [npc.namePos] " + clothing.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, inventoryNPC.getClothingCount(clothing));
@@ -3864,7 +4076,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = inventoryNPC.isInventoryFull();
-									boolean isDyeingStackItem = inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
+									boolean isDyeingStackItem = clothing!=null && inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -3878,10 +4090,10 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is full, so you can't dye this item of clothing."), null);
+										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is full, so you can't dye this item of clothing."), null);
 									}
 								} else {
-									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.name]'s clothes."), null);
+									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.namePos] clothes."), null);
 								}
 								
 							} else if(index == 5) {
@@ -3904,17 +4116,27 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								if(clothing.isCanBeEquipped(inventoryNPC)) {
-									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+									if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing()) {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 											@Override
 											public DialogueNodeOld getNextDialogue() {
-												return inventoryNPC.getEnslavementDialogue(clothing);
+												if(inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+													return inventoryNPC.getEnslavementDialogue(clothing);
+													
+												} else {
+													return INVENTORY_MENU;
+												}
 											}
 											@Override
 											public void effects(){
-												Main.game.getPlayer().addSlave(inventoryNPC);
-												inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
+												if(!inventoryNPC.isAbleToBeEnslaved()) {
+													Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
+												} else {
+													if(inventoryNPC.isSlave()) {
+														Main.game.getTextEndStringBuilder().append(inventoryNPC.getEnslavementDialogue(clothing).getContent());
+													}
+													equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
+												}
 											}
 										};
 										
@@ -4007,7 +4229,7 @@ public class InventoryDialogue {
 							}
 							
 						case TRADING:
-							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
+							inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
 							
 							if(index == 1) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():clothing.getPrice(inventoryNPC.getSellModifier());
@@ -4065,7 +4287,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 4) {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to let you dye the clothing that [npc.she]'s trying to sell!"), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to let you dye the clothing that [npc.sheIs] trying to sell!"), null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant someone else's clothing!", null);
@@ -4080,7 +4302,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the clothing that [npc.she]'s trying to sell!"), null);
+								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] isn't going to use the clothing that [npc.sheIs] trying to sell!"), null);
 								
 							} else {
 								return null;
@@ -4118,7 +4340,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return getItemDisplayPanel(weapon.getSVGString(),
+			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
 					weapon.getDisplayName(true),
 					 weapon.getDescription());
 		}
@@ -4146,7 +4368,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + weapon.getName(),
 											"<p style='text-align:center;'>"
-													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 														?Main.game.getPlayer().unequipMainWeapon(false)
 														:Main.game.getPlayer().unequipOffhandWeapon(false))
 												+ "</p>");
@@ -4160,7 +4382,10 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
@@ -4168,7 +4393,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), "Drop " + weapon.getName(),
 													"<p style='text-align:center;'>"
-															+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+															+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 																?Main.game.getPlayer().unequipMainWeapon(true)
 																:Main.game.getPlayer().unequipOffhandWeapon(true))
 														+ "</p>");
@@ -4181,7 +4406,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Combat.ENEMY_ATTACK){
@@ -4189,7 +4417,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Combat.appendTurnText(Main.game.getPlayer(), "Store " + weapon.getName(),
 													"<p style='text-align:center;'>"
-															+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+															+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 																?Main.game.getPlayer().unequipMainWeapon(true)
 																:Main.game.getPlayer().unequipOffhandWeapon(true))
 														+ "</p>");
@@ -4222,7 +4450,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(false)
 													:Main.game.getPlayer().unequipOffhandWeapon(false))
 											+ "</p>");
@@ -4233,7 +4461,10 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
@@ -4241,7 +4472,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4251,7 +4482,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -4259,7 +4493,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4301,7 +4535,7 @@ public class InventoryDialogue {
 								@Override
 								public void effects(){
 									Sex.setUnequipClothingText("<p style='text-align:center;'>"
-											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+											+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 											?Main.game.getPlayer().unequipMainWeapon(false)
 											:Main.game.getPlayer().unequipOffhandWeapon(false))
 									+ "</p>");
@@ -4315,14 +4549,17 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
@@ -4335,14 +4572,17 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
+									
+								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+													+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
@@ -4395,12 +4635,12 @@ public class InventoryDialogue {
 						
 					case FULL_MANAGEMENT:  case CHARACTER_CREATION:
 						if(index == 1) {
-							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", INVENTORY_MENU){
+							return new Response("Unequip", UtilText.parse(inventoryNPC, "Get [npc.name] to unequip [npc.her] " + weapon.getName() + "."), INVENTORY_MENU){
 								@Override
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+												+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 													?inventoryNPC.unequipMainWeapon(false)
 													:inventoryNPC.unequipOffhandWeapon(false))
 											+ "</p>");
@@ -4411,15 +4651,18 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
-									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "[npc.Name] cannot drop [npc.her] " + weapon.getName() + "!"), null);
+									
+								} else if(areaFull) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so [npc.name] can't drop [npc.her] " + weapon.getName() + " here!"), null);
 								} else {
-									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
+									return new Response("Drop", UtilText.parse(inventoryNPC, "Get [npc.name] to drop [npc.her] " + weapon.getName() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4429,15 +4672,18 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull) {
-									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
+								if(!weapon.getWeaponType().isAbleToBeDropped()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "[npc.Name] cannot drop [npc.her] " + weapon.getName() + "!"), null);
+									
+								} else if(areaFull) {
+									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so [npc.name] can't store [npc.her] " + weapon.getName() + " here!"), null);
 								} else {
-									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
+									return new Response("Store", UtilText.parse(inventoryNPC, "Get [npc.name] to store [npc.her] " + weapon.getName() + " in this area."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
@@ -4461,7 +4707,7 @@ public class InventoryDialogue {
 								};
 								
 							} else {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.name]'s weapons."), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.namePos] weapons."), null);
 							}
 							
 						} else if(index == 5) {
@@ -4482,7 +4728,7 @@ public class InventoryDialogue {
 							return new Response("Drop", "You can't unequip someone's weapon while having sex with them!", null);
 							
 						} else if (index==4) {
-							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s weapons in sex!"), null);
+							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] weapons in sex!"), null);
 						
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
@@ -4502,7 +4748,7 @@ public class InventoryDialogue {
 							return new Response("Drop", "You can't make someone drop their weapon!", null);
 							
 						} else if (index==4) {
-							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s weapons!"), null);
+							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] weapons!"), null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant someone else's equipped weapon!", null);
@@ -4575,7 +4821,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
@@ -4596,7 +4845,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
@@ -4623,7 +4875,7 @@ public class InventoryDialogue {
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									return new Response("Unjinx (<b>5 Essences</b>)", "You can't unjinx clothing in combat!", null);
+									return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You can't unjinx clothing in combat!", null);
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
 								}
@@ -4636,8 +4888,9 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
+										String title = "Unequip " + clothing.getName();
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + clothing.getName(), owner.getUnequipDescription());
+										Combat.appendTurnText(Main.game.getPlayer(), title, owner.getUnequipDescription());
 										resetPostAction();
 										Combat.endCombatTurn();
 										Combat.setPreviousAction(Attack.NONE);
@@ -4713,7 +4966,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
@@ -4729,7 +4985,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
@@ -4764,23 +5023,24 @@ public class InventoryDialogue {
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 5) {
-										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
+									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
+										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+clothing.getJinxRemovalCost()+" Essences</b>)",
+												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
 												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(
 														"<p>"
 															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
 														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad(5)] [style.boldArcane(Arcane Essences)]!"
+															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>");
 											}
 										};
 									} else {
-										return new Response("Unjinx (<b>5 Essences</b>)", "You need at least 5 arcane essences in order to unjinx a piece of clothing!", null);
+										return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
@@ -4871,7 +5131,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
@@ -4895,7 +5158,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
@@ -4925,20 +5191,20 @@ public class InventoryDialogue {
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 5) {
-										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)",
-												"Spend 5 arcane essences on removing the jinx from this piece of clothing.",
+									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
+										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+clothing.getJinxRemovalCost()+" Essences</b>)",
+												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.",
 												Sex.SEX_DIALOGUE) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
 												clothing.setSealed(false);
 												Sex.setUnequipClothingText(
 														"<p>"
 															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
 														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad(5)] [style.boldArcane(Arcane Essences)]!"
+															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>");
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4946,7 +5212,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Unjinx (<b>5 Essences</b>)", "You need at least 5 arcane essences in order to unjinx a piece of clothing!", null);
+										return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx a piece of clothing!", null);
 									}
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
@@ -5035,7 +5301,7 @@ public class InventoryDialogue {
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									return new Response("Unjinx (<b>5 Essences</b>)", "You can't unjinx someone's clothing while fighting them!", null);
+									return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You can't unjinx someone's clothing while fighting them!", null);
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
 								}
@@ -5065,16 +5331,21 @@ public class InventoryDialogue {
 						}
 						
 					case FULL_MANAGEMENT: case CHARACTER_CREATION:
+						boolean inventoryFull = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing) && clothing.getRarity()!=Rarity.QUEST;
+						
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.name]'s " + clothing.getName() + " here!"), null);
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.namePos] " + clothing.getName() + " here!"), null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
 											(clothing.getClothingType().isDiscardedOnUnequip()
-													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
-													:UtilText.parse(inventoryNPC, "Drop [npc.name]'s " + clothing.getName() + ".")),
+													?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
+													:UtilText.parse(inventoryNPC, "Drop [npc.namePos] " + clothing.getName() + ".")),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -5084,13 +5355,16 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.name]'s " + clothing.getName() + " here!"), null);
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.namePos] " + clothing.getName() + " here!"), null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
 											(clothing.getClothingType().isDiscardedOnUnequip()
-													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
-													:UtilText.parse(inventoryNPC, "Store [npc.name]'s " + clothing.getName() + " in this area.")),
+													?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
+													:UtilText.parse(inventoryNPC, "Store [npc.namePos] " + clothing.getName() + " in this area.")),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -5101,7 +5375,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index==2) {
-							if(Main.game.getPlayer().isInventoryFull()) {
+							if(inventoryFull) {
 								return new Response("Take", "Your inventory is full, so you can't take this!", null);
 								
 							} else if(clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -5109,7 +5383,7 @@ public class InventoryDialogue {
 								
 							} else {
 								return new Response("Take",
-										UtilText.parse(inventoryNPC, "Take [npc.name]'s " + clothing.getName() + " and add it to your inventory."),
+										UtilText.parse(inventoryNPC, "Take [npc.namePos] " + clothing.getName() + " and add it to your inventory."),
 										INVENTORY_MENU){
 									@Override
 									public void effects(){
@@ -5135,29 +5409,30 @@ public class InventoryDialogue {
 								};
 								
 							} else {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.name]'s clothes."), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.namePos] clothes."), null);
 							}
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 5) {
-										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
+									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
+										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+clothing.getJinxRemovalCost()+" Essences</b>)",
+												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
 												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(UtilText.parse(inventoryNPC,
 														"<p>"
-															+ "You channel the power of your arcane essences into [npc.name]'s "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
+															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
 														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad(5)] [style.boldArcane(Arcane Essences)]!"
+															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>"));
 											}
 										};
 									} else {
-										return new Response("Unjinx (<b>5 Essences</b>)", "You need at least 5 arcane essences in order to unjinx a piece of clothing!", null);
+										return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
@@ -5212,18 +5487,21 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.name]'s " + clothing.getName() + " here!"), null);
+									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.namePos] " + clothing.getName() + " here!"), null);
 									
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
 										return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
 											(clothing.getClothingType().isDiscardedOnUnequip()
-													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
-													:UtilText.parse(inventoryNPC, "Drop [npc.name]'s " + clothing.getName() + ".")),
+													?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
+													:UtilText.parse(inventoryNPC, "Drop [npc.namePos] " + clothing.getName() + ".")),
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
@@ -5240,17 +5518,20 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
+								if(!clothing.getClothingType().isAbleToBeDropped()) {
+									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
+									
+								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.name]'s " + clothing.getName() + " here!"), null);
+									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.namePos] " + clothing.getName() + " here!"), null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
 										return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
 												(clothing.getClothingType().isDiscardedOnUnequip()
-														?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
-														:UtilText.parse(inventoryNPC, "Store [npc.name]'s " + clothing.getName() + " in this area.")),
+														?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
+														:UtilText.parse(inventoryNPC, "Store [npc.namePos] " + clothing.getName() + " in this area.")),
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
@@ -5268,23 +5549,24 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s clothes in sex!"), null);
+							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] clothes in sex!"), null);
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 5) {
-										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", Sex.SEX_DIALOGUE) {
+									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
+										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+clothing.getJinxRemovalCost()+" Essences</b>)",
+												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", Sex.SEX_DIALOGUE) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
 												clothing.setSealed(false);
 												Sex.setUnequipClothingText(UtilText.parse(inventoryNPC,
 														"<p>"
-																+ "You channel the power of your arcane essences into [npc.name]'s "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
+																+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 														+ "</p>"
 														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad(5)] [style.boldArcane(Arcane Essences)]!"
+															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>"));
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -5292,7 +5574,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Unjinx (<b>5 Essences</b>)", "You need at least 5 arcane essences in order to unjinx a piece of clothing!", null);
+										return new Response("Unjinx (<b>"+clothing.getJinxRemovalCost()+" Essences</b>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
 								} else {
 									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
@@ -5367,16 +5649,16 @@ public class InventoryDialogue {
 						
 						case TRADING:
 							if (index == 1) {
-								return new Response("Drop", UtilText.parse("You can't make [npc.name] drop [npc.her] clothing!"), null);
+								return new Response("Drop", UtilText.parse(inventoryNPC, "You can't make [npc.name] drop [npc.her] clothing!"), null);
 								
 							} else if (index==4) {
-								return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s clothes!"), null);
+								return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.namePos] clothes!"), null);
 								
 							}  else if(index == 5) {
-								return new Response("Enchant", UtilText.parse("You can't enchant [npc.name]'s clothing!"), null);
+								return new Response("Enchant", UtilText.parse(inventoryNPC, "You can't enchant [npc.namePos] clothing!"), null);
 								
 							} else if(index == 6) {
-								return new Response("Unequip", UtilText.parse("You can't unequip [npc.name]'s clothing!"), null);
+								return new Response("Unequip", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing!"), null);
 								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
@@ -5410,11 +5692,19 @@ public class InventoryDialogue {
 	public static Colour dyePreviewPrimary;
 	public static Colour dyePreviewSecondary;
 	public static Colour dyePreviewTertiary;
+	public static String dyePreviewPattern;
+	public static Colour dyePreviewPatternPrimary;
+	public static Colour dyePreviewPatternSecondary;
+	public static Colour dyePreviewPatternTertiary;
 	
 	private static void resetClothingDyeColours() {
 		dyePreviewPrimary = clothing.getColour();
 		dyePreviewSecondary = clothing.getSecondaryColour();
 		dyePreviewTertiary = clothing.getTertiaryColour();
+		dyePreviewPattern = clothing.getPattern();
+		dyePreviewPatternPrimary = clothing.getPatternColour();
+		dyePreviewPatternSecondary = clothing.getPatternSecondaryColour();
+		dyePreviewPatternTertiary = clothing.getPatternTertiaryColour();
 	}
 
 	private static void resetWeaponDyeColours() {
@@ -5435,16 +5725,18 @@ public class InventoryDialogue {
 						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
 					+ "</p>"
 				+ "</div>"
-				+ "</br>"
+					
+				+ "<br/>"
+				
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
-							+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+							+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern, dyePreviewPatternPrimary, dyePreviewPatternSecondary, dyePreviewPatternTertiary)
 						+ "</div>"
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-					+ "<div class='container-quarter-width'>"
-					+ "Primary:</br>");
+					+ "<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Primary Colour:<br/>");
 
 		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
 			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
@@ -5456,8 +5748,8 @@ public class InventoryDialogue {
 		inventorySB.append("</div>");
 		
 		if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Secondary:</br>");
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Secondary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5468,8 +5760,8 @@ public class InventoryDialogue {
 		}
 
 		if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Tertiary:</br>");
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Tertiary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5477,6 +5769,66 @@ public class InventoryDialogue {
 					+ "</div>");
 			}
 			inventorySB.append("</div>");
+		}
+		
+		if(clothing.getClothingType().isPatternAvailable()){
+			inventorySB.append(
+					"<br/>"
+					+ "<div class='container-full-width'>"
+					+ "Pattern:<br/>");
+	 
+			for (Pattern pattern : Pattern.getAllPatterns().values()) {
+				if (dyePreviewPattern.equals(pattern.getName())) {
+					inventorySB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+							+ "</div>");
+				} else {
+					inventorySB.append(
+							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+							+ "</div>");
+				}
+			}
+			inventorySB.append("</div>");
+
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Primary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Secondary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Tertiary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
 		}
 		inventorySB.append("</div>");
 		
@@ -5496,7 +5848,7 @@ public class InventoryDialogue {
 						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new weapon will look, press the 'Dye' option at the bottom of the screen to apply your changes."
 					+ "</p>"
 				+ "</div>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
@@ -5510,9 +5862,9 @@ public class InventoryDialogue {
 				+ "<b>Damage type:</b>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
 			if(weapon.getDamageType()==dt) {
-				inventorySB.append("</br><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
+				inventorySB.append("<br/><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
 			} else {
-				inventorySB.append("</br>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
+				inventorySB.append("<br/>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
 			}
 		}
 		inventorySB.append("</div>");
@@ -5521,7 +5873,7 @@ public class InventoryDialogue {
 		if(!weapon.getWeaponType().getAllAvailablePrimaryColours().isEmpty()) {
 			colourOptions = true;
 			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Primary:</br>");
+					+ "Primary:<br/>");
 			
 			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
@@ -5536,7 +5888,7 @@ public class InventoryDialogue {
 		if(!weapon.getWeaponType().getAllAvailableSecondaryColours().isEmpty()) {
 			colourOptions = true;
 			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Secondary:</br>");
+					+ "Secondary:<br/>");
 			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5571,7 +5923,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5613,6 +5971,10 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							owner.addClothing(clothing, false);
 
 						} else {
@@ -5620,6 +5982,10 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							Main.game.getPlayerCell().getInventory().addClothing(clothing);
 						}
 					}
@@ -5649,7 +6015,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5689,6 +6061,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
@@ -5717,7 +6093,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5732,6 +6108,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 						Main.game.getPlayerCell().getInventory().addClothing(clothing);
 					}
 				};
@@ -5760,7 +6140,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5774,6 +6154,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
@@ -5840,13 +6224,13 @@ public class InventoryDialogue {
 						 
 						if(owner!=null) {
 							owner.removeWeapon(weapon);
-							weapon.setColour(dyePreviewPrimary);
+							weapon.setPrimaryColour(dyePreviewPrimary);
 							weapon.setSecondaryColour(dyePreviewSecondary);
 							owner.addWeapon(weapon, false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
-							weapon.setColour(dyePreviewPrimary);
+							weapon.setPrimaryColour(dyePreviewPrimary);
 							weapon.setSecondaryColour(dyePreviewSecondary);
 							Main.game.getPlayerCell().getInventory().addWeapon(weapon);
 						}
@@ -5914,7 +6298,7 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						weapon.setColour(dyePreviewPrimary);
+						weapon.setPrimaryColour(dyePreviewPrimary);
 						weapon.setSecondaryColour(dyePreviewSecondary);
 					}
 				};
@@ -6003,7 +6387,7 @@ public class InventoryDialogue {
 		
 //		if (Main.game.getDialogueFlags().quickTrade) {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!<br/>"
 //							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 //				
 //				@Override
@@ -6019,7 +6403,7 @@ public class InventoryDialogue {
 //			
 //		} else {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.<br/>"
 //							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 //
 //				@Override
@@ -6044,7 +6428,7 @@ public class InventoryDialogue {
 	// Items:
 	
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
-		if (!to.isInventoryFull() || to.hasItem(item)) {
+		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractItem> items = from.getAllItemsInInventory().stream()
 				.filter(item::equals)
@@ -6074,7 +6458,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
+		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractItem> items = Main.game.getPlayerCell().getInventory().getAllItemsInInventory().stream()
 				.filter(item::equals)
@@ -6088,7 +6472,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
-		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item)) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
@@ -6124,7 +6508,7 @@ public class InventoryDialogue {
 	// Weapons:
 	
 	private static void transferWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count) {
-		if (!to.isInventoryFull() || to.hasWeapon(weapon)) {
+		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
@@ -6154,7 +6538,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpWeapons(GameCharacter to, AbstractWeapon weapon, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
+		if (!to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractWeapon> weapons = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
@@ -6168,7 +6552,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
-		if (to.isPlayer()?(!to.isInventoryFull() || to.hasWeapon(weapon)):true) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
@@ -6204,7 +6588,7 @@ public class InventoryDialogue {
 	// Clothing:
 	
 	private static void transferClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count) {
-		if (!to.isInventoryFull() || to.hasClothing(clothing)) {
+		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
 				.filter(clothing::equals)
@@ -6290,7 +6674,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
-		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
+		if (!to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			List<AbstractClothing> clothings = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().stream()
 				.filter(clothing::equals)
@@ -6306,7 +6690,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
-		if (to.isPlayer()?(!to.isInventoryFull() || to.hasClothing(clothing)):true) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);

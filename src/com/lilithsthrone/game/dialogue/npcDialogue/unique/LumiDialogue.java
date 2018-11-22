@@ -1,13 +1,18 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.unique;
 
+import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -15,7 +20,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.2.6
  * @author Nnxx, Innoxia
  */
 public class LumiDialogue {
@@ -255,16 +260,59 @@ public class LumiDialogue {
 					}
 				};
 				
-			} else if (index == 2) {
-				return new Response("Take advantage", "Now that she's been subdued, it's time to have some fun with this helpless wolf-girl!", COMBAT_PLAYER_WIN_TAKE_ADVANTAGE) {
+			} else if (index == 2 && Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+				return new ResponseSex("Take advantage",
+						"Now that she's been subdued, it's time to have some fun with this helpless wolf-girl!",
+						false, false,
+						new SMMissionary(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLumi(), SexPositionSlot.MISSIONARY_ON_BACK))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_ROUGH;
+								}
+								return SexPace.SUB_RESISTING;
+							}
+						},
+						null,
+						null, AFTER_SEX, UtilText.parseFromXMLFile("characters/dominion/lumi", "COMBAT_PLAYER_WIN_TAKE_ADVANTAGE")) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementMoney(moneyStolen);
+						Main.game.getPlayer().incrementKarma(-1000);
 					}
-					
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Alleyways", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor() {
+			return "Nnxx";
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("characters/dominion/lumi", "AFTER_SEX");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Continue", "Carry on your way...", null){
 					@Override
-					public Colour getHighlightColour() {
-						return Colour.GENERIC_SEX;
+					public DialogueNodeOld getNextDialogue() {
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+					@Override
+					public void effects() {
+						Main.game.getLumi().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
 					}
 				};
 				

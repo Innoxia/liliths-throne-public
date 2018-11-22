@@ -8,7 +8,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -94,8 +94,8 @@ public class RentalMommyDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_MOMMY_AS_DOM,
-						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
+						null,
+						null, AFTER_SEX_MOMMY_AS_DOM, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_SUB")) {
 					@Override
@@ -106,15 +106,15 @@ public class RentalMommyDialogue {
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().getMoney()<2000) {
-					return new Response("Dominant Sex "+UtilText.formatAsMoneyUncoloured(1000, "span"), "You don't have enough money for this!", null);
+					return new Response("Dominant Sex "+UtilText.formatAsMoneyUncoloured(2000, "span"), "You don't have enough money for this!", null);
 				}
 				return new ResponseSex("Dominant Sex "+UtilText.formatAsMoney(2000, "span"), "Follow Mommy into her house, before taking the dominant role and having sex with her.",
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_MOMMY_AS_SUB,
-						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
+						null,
+						null, AFTER_SEX_MOMMY_AS_SUB, UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_DOM")) {
 					@Override
@@ -134,9 +134,9 @@ public class RentalMommyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(-500);
-						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
-						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilkType(), OrificeType.MOUTH, 500, Main.game.getActiveNPC().getMilk().getFluidModifiers());
+						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
+						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				
@@ -151,11 +151,11 @@ public class RentalMommyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(-1000);
-						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
-						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
+						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer(), true);
+						Main.game.getActiveNPC().setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_LACTATION_OTHERS, 25);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_EXHIBITIONIST, 10);
-						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilkType(), OrificeType.MOUTH, 500, Main.game.getActiveNPC().getMilk().getFluidModifiers());
+						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilk(), SexAreaOrifice.MOUTH, 500);
 					}
 				};
 				

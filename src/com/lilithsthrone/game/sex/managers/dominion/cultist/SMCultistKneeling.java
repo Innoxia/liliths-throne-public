@@ -9,7 +9,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
  * @since 0.1.69
- * @version 0.1.97
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SMCultistKneeling extends SexManagerDefault {
@@ -22,6 +22,16 @@ public class SMCultistKneeling extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
+
+	@Override
+	public boolean isPositionChangingAllowed(GameCharacter character) {
+		return false;
+	}
+	
+	@Override
+	public boolean isPlayerAbleToStopSex() {
 		return false;
 	}
 }

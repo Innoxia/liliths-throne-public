@@ -6,7 +6,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! You went and got me all pregnant!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! You went and got me all pregnant!)]
 	</p>
 	<p>
 		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
@@ -22,7 +22,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! I'm still pregnant with our kids!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! I'm still pregnant with our kids!)]
 	</p>
 	<p>
 		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
@@ -38,7 +38,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
@@ -48,10 +48,10 @@
 	
 	<htmlContent tag="ATTACK"><![CDATA[
 	<p>
-		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
+		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
@@ -81,10 +81,31 @@
 		[npc.speech(Uh-huh. Just give me your flames already! I need to go buy more 'shrooms!)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands].
 	</p>
 	<p>
-		You do as [npc.she] asks, and, after you've handed over two-hundred and fifty flames, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
+		You do as [npc.she] asks, and, after you've handed over two-hundred and fifty flames, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence [npc.she] came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_OFFER_BODY"><![CDATA[
+	<p>
+		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. 
+		 [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]
+	</p>
+	<p>
+		[npc.speech(Oh really?)]
+		 [npc.name] replies, stepping forwards in an intimidating manner.
+		 You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief.
+	</p>
+	<p>
+		Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace.
+		 Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,
+		 [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]
+	</p>
+	<p>
+		Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory...
 	</p>
 	]]>
 	</htmlContent>
@@ -97,7 +118,7 @@
 		[npc.speech(W-What?! You have 'shrooms?)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(Give them to me!)]
 	</p>
 	<p>
-		You do as [npc.she] asks, and, after you've handed over one of your Glowing Mushrooms, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
+		You do as [npc.she] asks, and, after you've handed over one of your Glowing Mushrooms, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence [npc.she] came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
@@ -123,7 +144,7 @@
 		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperate look of regret in [npc.her] eyes. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions might be.
 	</p>
 	<p>
-		[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing some flames at your feet.
+		[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing some flames at your feet.
 	</p>
 	<p>
 		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...

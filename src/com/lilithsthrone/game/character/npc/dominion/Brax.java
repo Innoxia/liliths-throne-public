@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 
@@ -30,26 +29,40 @@ import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -69,17 +82,16 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.Artist;
-import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -88,98 +100,31 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.2.4
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Brax extends NPC {
-
-	private static final long serialVersionUID = 1L;
-
-	private static List<Artwork> braxArtwork = new ArrayList<>();
-	private static List<Artwork> breeArtwork = new ArrayList<>();
-	private static List<Artwork> brandiArtwork = new ArrayList<>();
-	
-	static {
-		String artworkFolderName = "Brax";
-				
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					braxArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-		
-		artworkFolderName = "Bree";
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					breeArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-		
-		artworkFolderName = "Brandi";
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					brandiArtwork.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
-	}
 	
 	public Brax() {
 		this(false);
 	}
 	
 	public Brax(boolean isImported) {
-		super(new NameTriplet("Brax", "Bree", "Brandi"),
-				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
-				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
+		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"),
+				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.",
+				30, Month.NOVEMBER, 27,
+				3, Gender.M_P_MALE,
+				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
-		
-		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-	
-			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-			this.setPenisVirgin(false);
-	
-			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
-			
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
-	
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
-			
-			this.addFetish(Fetish.FETISH_DOMINANT);
-		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(!this.isSlave() && Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
 		
 		this.setPenisVirgin(false);
 
@@ -191,58 +136,106 @@ public class Brax extends NPC {
 			}
 		}
 	}
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
 
-	@Override
-	public List<Artwork> getArtworkList() {
-		if(this.getName().equalsIgnoreCase("Brax")) {
-			return braxArtwork;
-			
-		} else if(this.getName().equalsIgnoreCase("Bree")) {
-			return breeArtwork;
-			
-		} else {
-			return brandiArtwork;
-		}
-	}
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 5);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 37);
 	
-	@Override
-	public boolean isUnique() {
-		return true;
-	}
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
 	
-	public void setBraxsPostQuestStatus() {
-		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
-		Main.game.getBrax().setPendingClothingDressing(true);
-		Main.game.getCandi().addSlave(Main.game.getBrax());
-	}
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_HIGH_RANKING_ENFORCER);
 	
-	@Override
-	public String getDescription() {
-		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-			return "The one-time 'Chief of Dominion Operations', [brax.name] is now completely unrecognisable from [brax.her] former self."
-					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
-			
-		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-			return "The one-time 'Chief of Dominion Operations', [brax.name] is almost unrecognisable from [brax.her] former self."
-					+ " With some help from Candi, you've transformed [brax.herHim] into a wolf-girl."
-					+ " Where once [brax.she] was muscular and dominant, [brax.she]'s now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
-			
-		} else {
-			return "The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.";
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+			this.addFetish(Fetish.FETISH_DOMINANT);
 		}
 		
+		// Body:
+
+		// Core:
+		this.setHeight(183);
+		this.setFemininity(25);
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		
+		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
+		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_GREY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_GREY), true);
+		this.setHairLength(HairLength.ZERO_BALD);
+		this.setHairStyle(HairStyle.LOOSE);
+
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+		
+		// Face:
+		this.setFaceVirgin(true);
+		this.setLipSize(LipSize.ONE_AVERAGE);
+		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		this.setNippleVirgin(true);
+		this.setBreastSize(CupSize.FLAT.getMeasurement());
+		this.setBreastShape(BreastShape.POINTY);
+		this.setNippleSize(NippleSize.ZERO_TINY);
+		this.setAreolaeSize(AreolaeSize.ZERO_TINY);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		this.setAssVirgin(true);
+		this.setAssBleached(false);
+		this.setAssSize(AssSize.TWO_SMALL);
+		this.setHipSize(HipSize.TWO_NARROW);
+		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
+		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		// Leave cum as normal value
+		
+		// Vagina:
+		// No vagina
+		
+		// Feet:
+		// Foot shape
 	}
 	
 	@Override
-	public void endSex(boolean applyEffects) {
-		if(applyEffects) {
-			setPendingClothingDressing(true);
-		}
-	}
-	
-	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		deleteAllEquippedClothing();
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+
+		this.unequipAllClothingIntoVoid(true);
 		
 		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
 			AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, false);
@@ -286,15 +279,57 @@ public class Brax extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
+			
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
+				
 			} else {
+				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
+				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
+				
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
 			}
 		}
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		return this.getNameIgnoresPlayerKnowledge();
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	public void setBraxsPostQuestStatus() {
+		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
+		Main.game.getBrax().setPendingClothingDressing(true);
+		Main.game.getCandi().addSlave(Main.game.getBrax());
+	}
+	
+	@Override
+	public String getDescription() {
+		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+			return "The one-time 'Chief of Dominion Operations', [brax.name] is now completely unrecognisable from [brax.her] former self."
+					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
+			
+		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+			return "The one-time 'Chief of Dominion Operations', [brax.name] is almost unrecognisable from [brax.her] former self."
+					+ " With some help from Candi, you've transformed [brax.herHim] into a wolf-girl."
+					+ " Where once [brax.she] was muscular and dominant, [brax.sheIs] now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
+			
+		} else {
+			return "The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.";
+		}
 		
+	}
+	
+	@Override
+	public void endSex() {
+		setPendingClothingDressing(true);
 	}
 	
 	@Override
@@ -316,12 +351,7 @@ public class Brax extends NPC {
 			return SexPace.SUB_NORMAL;
 			
 		} else {
-			if(Main.game.isNonConEnabled()) {
-				return SexPace.SUB_RESISTING;
-				
-			} else {
-				return SexPace.SUB_NORMAL;
-			}
+			return SexPace.SUB_NORMAL;
 		}
 	}
 
@@ -427,11 +457,11 @@ public class Brax extends NPC {
 					+ "<h5 style='text-align:center;'>RECORD OF SLAVE TRANSFER</h5>"
 					+ "<p style='text-align:center;'>The person of <i>Arthur Fairbanks</i>, having being found guilty of <i>treason</i>, has, according to law, been enslaved."
 					+ " Following standard procedure, the slave's ownership has been transferred from the Dominion Enforcer Department to a registered slave trader, who has been chosen by random lottery."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Officer in charge of transferring slave ownership: <i>Brax</i>"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Slave trader taking ownership: <i>Scarlett</i>"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Contact address: <i>Scarlett's shop, Slaver Alley</i></p>"
 					+ "</p>"
 					+ "<p>"
@@ -579,8 +609,8 @@ public class Brax extends NPC {
 						new SMKneeling(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
-						AFTER_DOMINANT_SEX,
-						"<p>"
+						null,
+						null, AFTER_DOMINANT_SEX, "<p>"
 							+ "With a forceful push, you shove Brax down onto his knees before you."
 							+ " His meek, submissive look couldn't be further from the aggressive snarl that he greeted you with when you entered his office, and you grin down at him as you prepare to make him your bitch."
 						+ "</p>");
@@ -632,11 +662,11 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.",
 						false, true,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SUBMISSIVE_SEX,
-						"<p>"
+						null,
+						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
 								?" You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock."
@@ -765,7 +795,7 @@ public class Brax extends NPC {
 							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
 						}
 						
-						switch(Main.getProperties().forcedTFPreference) {
+						switch(Main.getProperties().getForcedTFPreference()) {
 							case HUMAN:
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								if(!Main.game.getPlayer().hasVagina()) {
@@ -891,11 +921,11 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...",
 						false, false,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SUBMISSIVE_SEX,
-						"<p>"
+						null,
+						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "Brax spins you around, and with a forceful shove, pushes you down to the ground."
 							+ " You land on all-fours, with your ass raised up towards the dominant wolf-boy."
 							+ " Hearing him let out a deep growl, you make a pitiful little whining noise in response as you realise that you're perfectly presented for Brax to take you, doggy-style."
@@ -941,7 +971,7 @@ public class Brax extends NPC {
 						+ " You hear Brax let out a laugh as he notices that you're trying to find out what he's done to you, and, with a powerful grip, he grabs your shoulders and spins you around to face a mirror hanging on one wall."
 					+ "</p>");
 
-			switch(Main.getProperties().forcedTFPreference) {
+			switch(Main.getProperties().getForcedTFPreference()) {
 				case HUMAN:
 					descriptionSB.append(
 							"<p>"
@@ -1004,11 +1034,11 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.",
 						false, false,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SUBMISSIVE_SEX,
-						"<p>"
+						null,
+						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
 								?" You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock."
@@ -1088,11 +1118,6 @@ public class Brax extends NPC {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public int getMinutesPassed() {
-			return 15;
-		}
-
-		@Override
 		public String getContent() {
 			return "<p>"
 						+ "Brax is completely exhausted, and collapses harmlessly to the floor as he passes out."
@@ -1142,48 +1167,48 @@ public class Brax extends NPC {
 
 	// Penetrations
 	@Override
-	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
 		if(Math.random()>0.3) {
 			if(Sex.getSexManager() instanceof SMCowgirl){
-				if(orifice == OrificeType.VAGINA) {
-					if(penetrationType == PenetrationType.PENIS && characterPenetrated.equals(this)) {
+				if(orifice == SexAreaOrifice.VAGINA) {
+					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.pussy+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
-								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.name]'s [npc.penis+].");
-					} else if(penetrationType == PenetrationType.TONGUE && characterPenetrated.isPlayer()) {
+								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.pussy+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.namePos] [npc.penis+].");
+					} else if(penetrationType == SexAreaPenetration.TONGUE && characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.name]'s head, moaning softly as he carries on eating you out.",
-								"With a little giggle, you grind your [pc.pussy+] down on [brax.name]'s wolf-like muzzle.",
-								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.pussy+].",
-								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
+								"You hold the top of [brax.namePos] head, moaning softly as he carries on eating you out.",
+								"With a little giggle, you grind your [pc.pussy+] down on [brax.namePos] wolf-like muzzle.",
+								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.pussy+].",
+								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
 					}
 				}
 				
-				if(orifice == OrificeType.ANUS) {
-					if(penetrationType == PenetrationType.PENIS && characterPenetrated.equals(this)) {
+				if(orifice == SexAreaOrifice.ANUS) {
+					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.asshole+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
-								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.name]'s [npc.penis+].");
+								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.asshole+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.namePos] [npc.penis+].");
 						
 					} else if(characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.name]'s head, moaning softly as he carries on licking your [pc.asshole+].",
-								"With a little giggle, you grind your [pc.asshole+] down on [brax.name]'s wolf-like muzzle.",
-								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.asshole+].",
-								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
+								"You hold the top of [brax.namePos] head, moaning softly as he carries on licking your [pc.asshole+].",
+								"With a little giggle, you grind your [pc.asshole+] down on [brax.namePos] wolf-like muzzle.",
+								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.asshole+].",
+								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
 					}
 				}
 			}
 			
-			if(penetrationType == PenetrationType.PENIS && orifice == OrificeType.ANUS && characterPenetrated.equals(this)) {
+			if(penetrationType == SexAreaPenetration.PENIS && orifice == SexAreaOrifice.ANUS && characterPenetrated.equals(this)) {
 				return UtilText.returnStringAtRandom(
-						"You carry on slamming your [pc.penis+] into [brax.name]'s [npc.asshole+].",
-						"Holding his hips, you carry on fucking [brax.name]'s [npc.asshole+].",
-						"You feel [brax.name]'s [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
+						"You carry on slamming your [pc.penis+] into [brax.namePos] [npc.asshole+].",
+						"Holding his hips, you carry on fucking [brax.namePos] [npc.asshole+].",
+						"You feel [brax.namePos] [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
 						"[brax.name] gasps and groans as you carry on spearing your [pc.penis+] into his [npc.asshole+].");
 			}
 		}

@@ -84,17 +84,17 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		}
 
 		if (colourPrimary == null) {
-			this.colourPrimary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourPrimary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourPrimary = colourPrimary;
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourSecondary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourSecondary = colourSecondary;
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourTertiary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourTertiary = colourTertiary;
 		}
@@ -117,35 +117,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		String s = inputString;
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-			
-		}
-		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-		s = s.replaceAll("#ff5555", colour.getShades()[1]);
-		s = s.replaceAll("#ff8080", colour.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-		
-		if(colourSecondary!=null) {
-			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
-			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
-			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
-			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
-			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
-		}
-		
-		if(colourTertiary!=null) {
-			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
-			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
-			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
-			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
-			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
-		}
-		
-		return s;
+		return Util.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
 	}
 	
 	@Override
@@ -183,8 +155,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
-	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, character.getPenisRawCumProductionValue()) {
+	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {
 			private static final long serialVersionUID = 1L;
 		};
 	}
@@ -196,15 +168,19 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	public String getId() {
-		return ItemType.itemToIdMap.get(this);
+		return ItemType.getItemToIdMap().get(this);
 	}
 	
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
 	
-	public boolean canBeSold() {
-		return true;
+	public boolean isAbleToBeSold() {
+		return getRarity()!=Rarity.QUEST;
+	}
+	
+	public boolean isAbleToBeDropped() {
+		return getRarity()!=Rarity.QUEST;
 	}
 	
 	// Enchantments:

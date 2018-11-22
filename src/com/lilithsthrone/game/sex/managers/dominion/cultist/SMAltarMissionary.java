@@ -10,12 +10,12 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
+import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
- * @version 0.1.97
+ * @version 0.2.9
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
@@ -34,7 +34,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 		}
 		
 		if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
-			return SASpecialCultist.PARTNER_SEALED;
+			return CultistSexActions.SEALED;
 			
 		} else {
 			return super.getPartnerSexAction(sexActionPlayer);

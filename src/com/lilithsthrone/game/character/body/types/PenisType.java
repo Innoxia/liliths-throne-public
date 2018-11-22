@@ -7,7 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
@@ -28,47 +28,57 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.PENIS, TesticleType.ANGEL, Race.ANGEL),
 
-	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenisModifier.TAPERED, PenisModifier.VEINY, PenisModifier.SHEATHED),
+	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenetrationModifier.TAPERED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
 
-	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
-
-	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
+	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenetrationModifier.RIBBED, PenetrationModifier.TENTACLED, PenetrationModifier.PREHENSILE),
 	
-	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
+	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
 	
-	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
-
-	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
-
-	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenisModifier.BLUNT),
-
-	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
-
-	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenisModifier.FLARED, PenisModifier.SHEATHED),
-
-	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenisModifier.SHEATHED),
+	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
 	
-	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenisModifier.SHEATHED),
+	VULPINE(BodyCoveringType.PENIS, TesticleType.FOX_MORPH, Race.FOX_MORPH, PenetrationModifier.KNOTTED, PenetrationModifier.SHEATHED, PenetrationModifier.TAPERED),
+
+	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenetrationModifier.BARBED, PenetrationModifier.SHEATHED),
+
+	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenetrationModifier.BLUNT),
+
+	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenetrationModifier.FLARED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
+
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.FLARED, PenetrationModifier.SHEATHED),
+
+	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenetrationModifier.SHEATHED),
 	
-	RAT_MORPH(BodyCoveringType.PENIS, TesticleType.RAT_MORPH, Race.RAT_MORPH, PenisModifier.SHEATHED),
+	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenetrationModifier.SHEATHED),
 	
-	RABBIT_MORPH(BodyCoveringType.PENIS, TesticleType.RABBIT_MORPH, Race.RABBIT_MORPH, PenisModifier.SHEATHED),
+	RAT_MORPH(BodyCoveringType.PENIS, TesticleType.RAT_MORPH, Race.RAT_MORPH, PenetrationModifier.SHEATHED),
 	
-	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenisModifier.SHEATHED);
+	RABBIT_MORPH(BodyCoveringType.PENIS, TesticleType.RABBIT_MORPH, Race.RABBIT_MORPH, PenetrationModifier.SHEATHED),
+	
+	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenetrationModifier.SHEATHED);
 
 	
 	private BodyCoveringType skinType;
 	private TesticleType testicleType;
 	private Race race;
-	private List<PenisModifier> defaultPenisModifiers;
+	private List<PenetrationModifier> defaultPenisModifiers;
 
-	private PenisType(BodyCoveringType skinType, TesticleType testicleType, Race race, PenisModifier... defaultPenisModifiers) {
+	private PenisType(BodyCoveringType skinType, TesticleType testicleType, Race race, PenetrationModifier... defaultPenisModifiers) {
 		this.skinType = skinType;
 		this.race = race;
 		this.testicleType=testicleType;
 		
 		this.defaultPenisModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultPenisModifiers, defaultPenisModifiers);
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static PenisType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -115,8 +125,6 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("canine", "dog-", "dog-like", "bestial");
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("demonic", "demon-");
-					case IMP:
-						return UtilText.returnStringAtRandom("impish", "imp-");
 					case EQUINE:
 						return UtilText.returnStringAtRandom("equine", "horse-", "horse-like", "bestial");
 					case REINDEER_MORPH:
@@ -133,6 +141,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("rodent", "squirrel-", "squirrel-like");
 					case LUPINE:
 						return UtilText.returnStringAtRandom("lupine", "wolf-", "wolf-like", "bestial");
+					case VULPINE:
+						return UtilText.returnStringAtRandom("vulpine", "fox-", "fox-like", "bestial");
 					case BAT_MORPH:
 						return UtilText.returnStringAtRandom("bat-", "bat-like");
 					case RAT_MORPH:
@@ -158,25 +168,24 @@ public enum PenisType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
 				return "angelic";
 			case AVIAN:
-				return "avian";
+				return "harpy";
 			case BOVINE:
 				return "bovine";
 			case CANINE:
 				return "canine";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case EQUINE:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case FELINE:
 				return "feline";
 			case HUMAN:
@@ -188,7 +197,9 @@ public enum PenisType implements BodyPartTypeInterface {
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case LUPINE:
-				return "lupine";
+				return "wolf";
+			case VULPINE:
+				return "fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:
@@ -217,8 +228,8 @@ public enum PenisType implements BodyPartTypeInterface {
 	}
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
-		for(PenisModifier mod : PenisModifier.values()) {
-			if(gc.getPenisModifiers().contains(PenisModifier.BLUNT)) {
+		for(PenetrationModifier mod : PenetrationModifier.values()) {
+			if(gc.getPenisModifiers().contains(PenetrationModifier.BLUNT)) {
 				switch(mod) {
 					case BLUNT:
 						return UtilText.returnStringAtRandom("blunt");
@@ -274,11 +285,11 @@ public enum PenisType implements BodyPartTypeInterface {
 				break;
 			case HUMAN:
 				break;
-			case IMP:
-				prefix = UtilText.returnStringAtRandom("imp-");
-				break;
 			case LUPINE:
 				prefix = UtilText.returnStringAtRandom("wolf-", "lupine-");
+				break;
+			case VULPINE:
+				prefix = UtilText.returnStringAtRandom("fox-", "vulpine-");
 				break;
 			case RAT_MORPH:
 				prefix = UtilText.returnStringAtRandom("rat-", "rodent-");
@@ -305,7 +316,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getCumDescriptor() {
 		switch(this){
-			case DEMON_COMMON: case IMP:
+			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "thick", "hot");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
@@ -319,7 +330,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		return testicleType;
 	}
 
-	public List<PenisModifier> getDefaultPenisModifiers() {
+	public List<PenetrationModifier> getDefaultPenisModifiers() {
 		return defaultPenisModifiers;
 	}
 

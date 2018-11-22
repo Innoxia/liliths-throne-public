@@ -12,11 +12,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public static final int MAXIMUM_PAIRS = 4;
 	
 	protected EyeType type;
 	protected int eyePairs;
@@ -81,65 +83,55 @@ public class Eye implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.append(
 					"<p>"
-						+ "[npc.Name]'s [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively scrunches them up tight as [npc.she] reaches up to rub at them.");
+						+ "[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively scrunches them up tight as [npc.she] reaches up to rub at them.");
 		}
 
 		// Parse existing content before transformation:
 		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
 		UtilText.transformationContentSB.setLength(0);
 		UtilText.transformationContentSB.append(s);
+		
 		this.type = type;
+		irisShape = type.getIrisShape();
+		pupilShape = type.getPupilShape();
 		
 		switch (type) {
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into human eyes, with normally-proportioned irises and pupils."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldHuman(human eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into human eyes, with normally-proportioned irises and pupils."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldHuman(human eyes)]");
 				}
 				break;
 			case DEMON_COMMON:
-				if (owner.isPlayer()) {
+				if (!owner.isShortStature()) {
 					UtilText.transformationContentSB.append(
-								" By the time you hesitantly open them again, they've changed into demonic eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
-								+ "You now have [style.boldDemon(demonic eyes)]");
+							" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into demonic eyes, with vertical pupils and large irises."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(demonic eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
-								" By the time [npc.she] hesitantly opens them again, they've changed into demonic eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
-								+ "[npc.Name] now has [style.boldDemon(demonic eyes)]");
-				}
-				break;
-			case IMP:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" By the time you hesitantly open them again, they've changed into impish eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
-								+ "You now have [style.boldImp(impish eyes)]");
-				} else {
-					UtilText.transformationContentSB.append(
-								" By the time [npc.she] hesitantly opens them again, they've changed into impish eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
-								+ "[npc.Name] now has [style.boldImp(impish eyes)]");
+							" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into impish eyes, with vertical pupils and large irises."
+							+ "<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldImp(impish eyes)]");
 				}
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into cow-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldCowMorph(cow-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into cow-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldCowMorph(cow-like eyes)]");
 				}
 				break;
@@ -147,25 +139,38 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into dog-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldDogMorph(dog-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into dog-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldDogMorph(dog-like eyes)]");
+				}
+				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into fox-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "You now have [style.boldFoxMorph(fox-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into fox-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldFoxMorph(fox-like eyes)]");
 				}
 				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into wolf-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldWolfMorph(wolf-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into wolf-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldWolfMorph(wolf-like eyes)]");
 				}
 				break;
@@ -173,12 +178,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 						UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into cat-like eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldCatMorph(cat-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into cat-like eyes, with smaller-than-average pupils and large irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldCatMorph(cat-like eyes)]");
 				}
 				break;
@@ -186,12 +191,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into squirrel-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldSquirrelMorph(squirrel-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into squirrel-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldSquirrelMorph(squirrel-like eyes)]");
 				}
 				break;
@@ -199,12 +204,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldRatMorph(rat-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldRatMorph(rat-like eyes)]");
 				}
 				break;
@@ -212,12 +217,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldRabbitMorph(rabbit-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldRabbitMorph(rabbit-like eyes)]");
 				}
 				break;
@@ -225,12 +230,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldBatMorph(bat-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldBatMorph(bat-like eyes)]");
 				}
 				break;
@@ -238,12 +243,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldGatorMorph(alligator-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldGatorMorph(alligator-like eyes)]");
 				}
 				break;
@@ -251,12 +256,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into horse-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldHorseMorph(horse-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into horse-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldHorseMorph(horse-like eyes)]");
 				}
 				break;
@@ -264,12 +269,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into reindeer-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldReindeerMorph(reindeer-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into reindeer-like eyes, with larger-than-average pupils and irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldReindeerMorph(reindeer-like eyes)]");
 				}
 				break;
@@ -277,12 +282,12 @@ public class Eye implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into bird-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldHarpy(harpy eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
 								" By the time [npc.she] hesitantly opens them again, they've changed into bird-like eyes, with larger-than-average pupils and small irises."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldHarpy(harpy eyes)]");
 				}
 				break;
@@ -290,13 +295,8 @@ public class Eye implements BodyPartInterface, Serializable {
 				break;
 		}
 		
-		if(owner.isPlayer()) {
-			UtilText.transformationContentSB.append(", with [pc.irisFullDescription(true)] and [pc.pupilFullDescription(true)]."
-					+ "</p>");
-		} else {
-			UtilText.transformationContentSB.append(", with [npc.irisFullDescription(true)] and [npc.pupilFullDescription(true)]."
-				+ "</p>");
-		}
+		UtilText.transformationContentSB.append(", with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)]."
+			+ "</p>");
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"
@@ -309,7 +309,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 
 	public String setEyePairs(GameCharacter owner, int eyePairs) {
-		eyePairs = Math.max(1, Math.min(eyePairs, 4));
+		eyePairs = Math.max(1, Math.min(eyePairs, MAXIMUM_PAIRS));
 		
 		if(owner.getEyePairs() == eyePairs) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -322,15 +322,15 @@ public class Eye implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p>"
 							+ "A tingling feeling spreads over your [pc.face], before moving up and concentrating into your [pc.eyes]."
-							+ " You scrunch them shut and let out a little cry as you feel some of them [style.boldShrink(disappearing)] back into the [pc.faceSkin] above your main pair.</br>"
+							+ " You scrunch them shut and let out a little cry as you feel some of them [style.boldShrink(disappearing)] back into the [pc.faceSkin] above your main pair.<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_eyes])]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
-							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels some of them [style.boldShrink(disappearing)] into the [npc.faceSkin] above [npc.her] main pair.</br>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
+							+ "A tingling feeling spreads over [npc.namePos] [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels some of them [style.boldShrink(disappearing)] into the [npc.faceSkin] above [npc.her] main pair.<br/>"
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
 			}
 			
@@ -338,15 +338,15 @@ public class Eye implements BodyPartInterface, Serializable {
 			if(owner.isPlayer()) {
 				return "<p>"
 							+ "A tingling feeling spreads over your [pc.face], before moving up and concentrating into your [pc.eyes]."
-							+ " You scrunch them shut and let out a little cry as you feel the strange sensation of new [pc.eyes] [style.boldGrow(growing)] out of the [pc.faceSkin] above your main pair.</br>"
+							+ " You scrunch them shut and let out a little cry as you feel the strange sensation of new [pc.eyes] [style.boldGrow(growing)] out of the [pc.faceSkin] above your main pair.<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_eyes])]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
-							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels the strange sensation of new [npc.eyes] [style.boldGrow(growing)] out of the [npc.faceSkin] above [npc.her] main pair.</br>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
+							+ "A tingling feeling spreads over [npc.namePos] [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels the strange sensation of new [npc.eyes] [style.boldGrow(growing)] out of the [npc.faceSkin] above [npc.her] main pair.<br/>"
+							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
 			}
 		}
@@ -366,13 +366,13 @@ public class Eye implements BodyPartInterface, Serializable {
 		if(owner.isPlayer()) {
 			return UtilText.parse(owner, 
 					"<p>"
-						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
+						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.<br/>"
 						+ "You now have [style.boldTfGeneric([pc.irisShape] irises)]!"
 					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "An irritable itchy feeling rises up into [npc.name]'s [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.she]'s able to reach up and rub at them.</br>"
+						+ "An irritable itchy feeling rises up into [npc.namePos] [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.irisShape] irises)]!"
 					+ "</p>");
 		}
@@ -392,13 +392,13 @@ public class Eye implements BodyPartInterface, Serializable {
 		if(owner.isPlayer()) {
 			return UtilText.parse(owner, 
 					"<p>"
-						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
+						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.<br/>"
 						+ "You now have [style.boldTfGeneric([pc.pupilShape] pupils)]!"
 					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "An irritable itchy feeling rises up into [npc.name]'s [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.she]'s able to reach up and rub at them.</br>"
+						+ "An irritable itchy feeling rises up into [npc.namePos] [npc.eyes], but, much to [npc.her] relief, it passes even before [npc.sheIs] able to reach up and rub at them.<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.pupilShape] pupils)]!"
 					+ "</p>");
 		}
@@ -418,7 +418,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		if (owner.isPlayer()) {
 			UtilText.transformationContentSB.append(
 					"<p>"
-						+ "Your vision goes blurry for a moment as your [pc.eyes] shift and change colour.</br>"
+						+ "Your vision goes blurry for a moment as your [pc.eyes] shift and change colour.<br/>"
 						+ "You now have ");
 			
 			if(covering.getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
@@ -440,7 +440,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.append(
 					"<p>"
-						+ "[npc.Name] blinks a few times as [npc.her] [npc.eyes] shift and change colour.</br>"
+						+ "[npc.Name] blinks a few times as [npc.her] [npc.eyes] shift and change colour.<br/>"
 						+ "[npc.She] now has ");
 		
 			if(covering.getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {

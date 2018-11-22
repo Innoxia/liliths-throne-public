@@ -70,7 +70,7 @@ public class TunnelSlimeDialogue {
 						return new ResponseCombat("Fight",
 								"You aren't going to stand for [npc.name] transforming people into slimes. Teach [npc.herHim] a lesson!", Main.game.getActiveNPC(),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), "[pc.speech(You aren't going to be stalking these tunnels on my watch!)] You shout, launching into an attack!"),
+										new Value<>(Main.game.getPlayer(), "[pc.speech(You aren't going to be stalking these tunnels on my watch!)] you shout, launching into an attack!"),
 										new Value<>(slime(), "[npc.speech(Traitor! You'll pay for this!)] [npc.Name] cries out as [npc.she] prepares to defend [npc.herself].")));
 						
 					} else if (index == 2) {
@@ -104,8 +104,8 @@ public class TunnelSlimeDialogue {
 									new SMStanding(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 											Util.newHashMapOfValues(new Value<>(slime(), SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SLIME_SEX_AS_DOM,
-									UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
+									null,
+									null, AFTER_SLIME_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
 						}
 						
 					} else if (index == 4) {
@@ -123,8 +123,8 @@ public class TunnelSlimeDialogue {
 									new SMStanding(
 											Util.newHashMapOfValues(new Value<>(slime(), SexPositionSlot.STANDING_DOMINANT)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SLIME_SEX_AS_SUB,
-									UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
+									null,
+									null, AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
 						}
 						
 					} else {
@@ -150,7 +150,13 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
+								
+								if(slime().isAttractedTo(Main.game.getPlayer())) {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
+								} else {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
+								}
 							}
 						};
 						
@@ -188,8 +194,8 @@ public class TunnelSlimeDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(slime(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SLIME_SEX_AS_SUB,
-								UtilText.parseFromXMLFile("places/submission/tunnelSlime", "OFFER_BODY"));
+								null,
+								null, AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "OFFER_BODY"));
 					} else {
 						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 					}
@@ -272,11 +278,6 @@ public class TunnelSlimeDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
 		}
@@ -354,19 +355,7 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED"));
-			
-			UtilText.nodeContentSB.append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
-			
-			if(slime().isAttractedTo(Main.game.getPlayer())) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
-			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
-			}
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED");
 		}
 
 		@Override
@@ -400,8 +389,8 @@ public class TunnelSlimeDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(slime(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_SEX_AS_DOM,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
+							null,
+							null, AFTER_SLIME_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_DOM"));
 				}
 				
 			} else if (index == 3) {
@@ -419,8 +408,8 @@ public class TunnelSlimeDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(slime(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_SEX_AS_SUB,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/tunnelSlime", "SLIME_SEX_AS_SUB"));
 				}
 				
 			} else {
@@ -462,8 +451,8 @@ public class TunnelSlimeDialogue {
 							new SMMissionary(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))),
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You surrender yourself to [npc.name], lying back and offering no resistance as [npc.she] tongue-fucks your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Good bitch! You know your place already! Now be a good [pc.girl] and try to enjoy this...)]"
@@ -484,8 +473,8 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You eagerly surrender yourself to [npc.name], raising your head to help [npc.herHim] tongue-fuck your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Good bitch! You know your place already! Now be a good [pc.girl] and try to enjoy this...)]"
@@ -506,8 +495,8 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You try to turn your face away, but [npc.name] simply reaches up to grip both sides of your head, holding you still as [npc.she] tongue-fucks your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Stupid bitch! You can resist as much as you want! I'm not going to stop until I'm satisfied!)]"
@@ -602,7 +591,7 @@ public class TunnelSlimeDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
@@ -619,7 +608,7 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
@@ -636,31 +625,31 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY);
+							null, null, AFTER_SEX_VICTORY);
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
 							+ "</p>"
 							+ "<p>"
-								+ "For a moment, a look of confusion crosses over [npc.name]'s face, but, as [npc.she] sees that you're genuinely troubled by what you've just done, an evil grin crosses [npc.her] face."
+								+ "For a moment, a look of confusion crosses over [npc.namePos] face, but, as [npc.she] sees that you're genuinely troubled by what you've just done, an evil grin crosses [npc.her] face."
 								+ " [npc.She] stands up, and, grabbing you by the [pc.arm], roughly pulls you into [npc.her] as [npc.she] growls,"
 								+ " [npc.speech(How about you start by apologising properly?!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
+								+ "[npc.NamePos] strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
 								+ " [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]"
 							+ "</p>"
 							+ "<p>"
@@ -713,9 +702,9 @@ public class TunnelSlimeDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
-								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
+								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
 							+ "</p>");
 					
@@ -734,9 +723,9 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY,
-							"<p>"
-								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
+								+ "Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>");
 					
@@ -755,9 +744,9 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY,
-							"<p>"
-								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
+								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>");
 					
@@ -817,7 +806,7 @@ public class TunnelSlimeDialogue {
 				if(slime().isAttractedTo(Main.game.getPlayer()) && slime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_RAPE"));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT__RAPE"));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_NO_RAPE"));
 				}
 			}
 			
@@ -834,7 +823,7 @@ public class TunnelSlimeDialogue {
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to resist!",
 								null);
 					} else {
-						return new Response("Resist", "Knock the strange fluid out of [npc.name]'s hands.", RESIST_TRANSFORMED);
+						return new Response("Resist", "Knock the strange fluid out of [npc.namePos] hands.", RESIST_TRANSFORMED);
 					}
 					
 				} else if (index == 2) {
@@ -861,8 +850,8 @@ public class TunnelSlimeDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You surrender yourself to [npc.name], lying back and offering no resistance as [npc.she] tongue-fucks your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Good bitch! You know your place already! Now be a good [pc.girl] and try to enjoy this...)]"
@@ -883,8 +872,8 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You eagerly surrender yourself to [npc.name], raising your head to help [npc.herHim] tongue-fuck your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Good bitch! You know your place already! Now be a good [pc.girl] and try to enjoy this...)]"
@@ -905,8 +894,8 @@ public class TunnelSlimeDialogue {
 									return null;
 								}
 							},
-							AFTER_SLIME_SEX_AS_SUB,
-							"<p>"
+							null,
+							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You try to turn your face away, but [npc.name] simply reaches up to grip both sides of your head, holding you still as [npc.she] tongue-fucks your throat."
 								+ " After a moment, [npc.she] sits back up, leaving a wet pool of slime all over your [pc.lips]."
 								+ " [npc.speech(Stupid bitch! You can resist as much as you want! I'm not going to stop until I'm satisfied!)]"
@@ -936,11 +925,6 @@ public class TunnelSlimeDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
-		}
-		
-		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
 		}
@@ -965,7 +949,7 @@ public class TunnelSlimeDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.namePos] clothing and items..."){
 					@Override
 					public void effects() {
 						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);

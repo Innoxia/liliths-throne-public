@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>450</value> 
+		
+		<determiner><![CDATA[a pair of]]></determiner>
+		
+		<name><![CDATA[Butler's Trousers]]></name>
+		
+		<namePlural pluralByDefault="true"><![CDATA[Butler's Trousers]]></namePlural> 
+		
+		<description><![CDATA[A pair of very smart trousers.]]></description> 
+		
+		<physicalResistance>1</physicalResistance> 
+		
+		<femininity>MASCULINE</femininity> 
+		
+		<slot>LEG</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>BUTLER</clothingSet> 
+		
+		<imageName>butler_trousers.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+		
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts/>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_ANKLES_FROM_TROUSERS"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_UNZIPS_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You take off your trousers.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull off [npc.name]'s trousers.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You grab hold of [npc.name]'s trousers and roughly pull them off.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] takes [npc.her] trousers off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls your trousers off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your trousers and roughly pulls them off.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls [npc2.name]'s trousers off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s trousers and roughly pulls them off.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You pull on the trousers.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You guide [npc.name]'s [npc.legs] into the trousers.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force the trousers onto [npc.herHim].
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls on the trousers.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] guides your [pc.legs] into the trousers.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces the trousers onto your [pc.feet].
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] guides [npc2.name]'s [npc2.legs] into the trousers.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the trousers onto [npc2.herHim].
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>

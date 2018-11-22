@@ -2,60 +2,19 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.98
- * @version 0.1.98
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum SexParticipantType {
 
-	MISC {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return false;
-		}
+//	MISC,
 
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return false;
-		}
-	},
+	/**Partner-interaction actions which can only occur in non-masturbation scenes. */
+	NORMAL,
 	
-	PITCHER {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return true;
-		}
+//	/**Self-actions which can only occur in non-masturbation scenes. They act like NORMAL in all ways except they are found under the 'self' tab. */
+//	SELF_WITH_PARTNER,
 
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return false;
-		}
-	},
-	
-	CATCHER {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return false;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return true;
-		}
-	},
-	
-	SELF {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return true;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return true;
-		}
-	};
-	
-
-	public abstract boolean isUsingSelfPenetrationType();
-	public abstract boolean isUsingSelfOrificeType();
+	/**Self-actions which can occur in any scene. */
+	SELF;
 }

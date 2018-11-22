@@ -135,19 +135,19 @@ public class ZaranixHomeFirstFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKelly.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX"));
+							null,
+							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX"));
 					
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKelly.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX_SUBMIT"));
+							null,
+							null, ZaranixMaidKelly.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloor", "CORRIDOR_MAID_KELLY_SEX_SUBMIT"));
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
@@ -368,10 +368,10 @@ public class ZaranixHomeFirstFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
-						AFTER_SEX_THANKING_ZARANIX,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+						null,
+						null, AFTER_SEX_THANKING_ZARANIX, "<p>"
 						+ "</p>");
 			} else {
 				return null;

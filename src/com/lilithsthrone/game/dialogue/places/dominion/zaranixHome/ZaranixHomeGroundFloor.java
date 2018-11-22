@@ -19,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
@@ -32,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.89
- * @version 0.2.3
+ * @version 0.2.11
  * @author Innoxia
  */
 public class ZaranixHomeGroundFloor {
@@ -45,10 +44,10 @@ public class ZaranixHomeGroundFloor {
 		
 		Main.game.getAmber().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
-		((Zaranix)Main.game.getZaranix()).resetBody();
-		((Amber)Main.game.getAmber()).resetBody();
-		((ZaranixMaidKatherine)Main.game.getKatherine()).resetBody();
-		((ZaranixMaidKelly)Main.game.getKelly()).resetBody();
+		((Zaranix)Main.game.getZaranix()).setStartingBody(false);
+		((Amber)Main.game.getAmber()).setStartingBody(false);
+		((ZaranixMaidKatherine)Main.game.getKatherine()).setStartingBody(false);
+		((ZaranixMaidKelly)Main.game.getKelly()).setStartingBody(false);
 	}
 	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", true) {
@@ -285,7 +284,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 1) {
 				return new Response("Reluctant lick", "If this is what it's going to take to finally meet Arthur, you suppose that you'll do it, even though you're quite reluctant about the whole thing.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.TWO_HORNY, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.TWO_HORNY, null, null, null) {
 					@Override
 					public void effects() {
 						Main.game.getAmber().setPlayerKnowsName(true);
@@ -295,7 +294,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 2) {
 				return new Response("Eager lick", "Immediately drop down onto all fours and enthusiastically lick the maid's shoes.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
 					@Override
 					public void effects() {
 						Main.game.getAmber().setPlayerKnowsName(true);
@@ -366,7 +365,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 2) {
 				return new Response("Lick soles", "Don't let Amber get away just yet! You still haven't cleaned the soles of her shoes!",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK_SOLES,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.FIVE_CORRUPT, null, null, null);
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FIVE_CORRUPT, null, null, null);
 
 			} else {
 				return null;
@@ -592,8 +591,7 @@ public class ZaranixHomeGroundFloor {
 						}
 						@Override
 						public void effects() {
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.LEG), DisplacementType.PULLS_DOWN, true, true, Main.game.getAmber());
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.GROIN), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getAmber());
+							Main.game.getZaranix().displaceClothingForAccess(CoverableArea.PENIS);
 							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -645,10 +643,10 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
-						AFTER_SEX_THANKING_ZARANIX,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+						null,
+						null, AFTER_SEX_THANKING_ZARANIX, "<p>"
 						+ "</p>");
 			} else {
 				return null;
@@ -675,10 +673,10 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Lift ass", "Do as Amber commands and lift your ass towards her.",
 						true, true,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
-						AFTER_SEX_THANKING_AMBER,
-						"<p>"
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						null,
+						null, AFTER_SEX_THANKING_AMBER, "<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"
 							+ " [amber.speech(Squeal all you want, bitch, <i>you're mine now!</i>)]"
 						+ "</p>");
@@ -832,19 +830,19 @@ public class ZaranixHomeGroundFloor {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Amber.AFTER_SEX_VICTORY,
-						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX"));
+						null,
+						null, Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX"));
 				
 			} else if(index==3 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						true, true,
+						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Amber.AFTER_SEX_VICTORY,
-						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX_SUBMIT"));
+						null,
+						null, Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "ENTRANCE_AMBER_SEX_SUBMIT"));
 				
 			} else if (index == 4 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new Response("Transformations",
@@ -1089,19 +1087,19 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX"));
+							null,
+							null, ZaranixMaidKatherine.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX"));
 					
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX_SUBMIT"));
+							null,
+							null, ZaranixMaidKatherine.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SEX_SUBMIT"));
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
@@ -1213,20 +1211,20 @@ public class ZaranixHomeGroundFloor {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							Amber.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX")
+							null,
+							null, Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX")
 							);
 					
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							true, true,
+							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							Amber.AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX_SUBMIT")
+							null,
+							null, Amber.AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "LOUNGE_AMBER_SEX_SUBMIT")
 							);
 					
 				} else if (index == 3) {

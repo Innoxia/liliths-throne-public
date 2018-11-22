@@ -11,8 +11,10 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -321,7 +323,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -345,7 +348,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Unscrewing the lid, you bring the bottle of 'Equine Cider' to your lips before tilting your head back and quickly gulping down the golden liquid."
 						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the sweet liquid, which lingers for some time as a slightly unpleasant aftertaste.",
-					"Unscrewing the lid, you bring the bottle of 'Equine Cider' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the golden liquid.",
+					"Unscrewing the lid, you bring the bottle of 'Equine Cider' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the golden liquid.",
 					"[npc.Name] pulls out a bottle of 'Equine Cider', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Equine Cider', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the golden liquid."
 						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the sweet liquid, which lingers for some time as a slightly unpleasant aftertaste.");
@@ -368,7 +371,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -392,7 +396,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Unscrewing the cap, you bring the bottle of Bubble Milk up to your [pc.lips+], before tilting your head back and quickly gulping down the creamy liquid."
 						+ " Despite its name and the appearance of being carbonated, the mellow taste lacks any sort of fizz, and, after draining the entire bottle, a soft, pleasant aftertaste lingers in your mouth.",
-					"Unscrewing the cap, you bring the bottle of 'Bubble Milk' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the creamy liquid.",
+					"Unscrewing the cap, you bring the bottle of 'Bubble Milk' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the creamy liquid.",
 					"[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the creamy liquid."
 						+ " Despite its name and the appearance of being carbonated, the mellow taste lacks any sort of fizz, and, after draining the entire bottle, a soft, pleasant aftertaste lingers in your mouth.");
@@ -403,9 +407,9 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Wolf Whiskey",
-			"Wolf Whiskeys",
-			"Although labelled as a whiskey, the liquid inside the glass bottle looks more like a thick cream."
-					+ " The label on the front shows a greater wolf-boy ejaculating into a bottle just like this one, making it quite clear what this 'whiskey' really is.",
+			"Wolf Whiskies",
+			"Filled with a strong, alcoholic whiskey, this glass bottle has a label on the front which depicts a greater wolf-boy having sex with a trio of female humans."
+					+ " A slogan written above this reads: 'Wolf Whiskey; For a real alpha!'",
 			"attributeWolfMorphDrink",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			null,
@@ -415,7 +419,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)), 
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -439,9 +444,9 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' up to your lips."
 						+ " A thick, musky scent rises from the opening, and with a gulp, you start downing the liquid, discovering that the liquid's taste is almost identical to its pungent aroma.",
-					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the thick liquid.",
+					"Popping off the cap, you bring the bottle of 'Wolf Whiskey' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the alcoholic liquid.",
 					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
-					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the thick liquid."
+					"[npc.Name] pulls out a bottle of 'Wolf Whiskey', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the alcoholic liquid."
 						+ " You soon discover that the musky, pungent aroma rising from the bottle's opening is almost identical to the whiskey's rather unpleasant taste.");
 		}
 	};
@@ -462,7 +467,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -487,7 +493,7 @@ public class ItemType {
 					"Pulling out the stopper, you take a large swig of 'Swamp Water'."
 						+ " Thankfully, the liquid within isn't a literal version of its label, and turns out to be a strong liquor, which burns your throat a little as you gulp it down."
 						+ " The intense alcoholic taste is very different to anything you've ever tried before, and you can't help but greedily gulp down the entire bottle, leaving a strange, tangy aftertaste lingering on your tongue.",
-					"Pulling out the stopper, you bring the bottle of 'Swamp Water' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the alcoholic liquid.",
+					"Pulling out the stopper, you bring the bottle of 'Swamp Water' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the alcoholic liquid.",
 					"[npc.Name] pulls out a bottle of 'Swamp Water', and, after quickly pulling out the stopper, [npc.she] promptly gulps downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Swamp Water', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " Thankfully, the liquid within isn't a literal version of its label, and turns out to be a strong liquor, which burns your throat a little as you gulp it down."
@@ -511,7 +517,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)), 
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -535,7 +542,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Unscrewing the lid, you bring the bottle of 'Black Rat's Rum' to your lips before tilting your head back and quickly gulping down the golden liquid."
 						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the alcoholic liquid, which lingers for some time as a slightly unpleasant aftertaste.",
-					"Unscrewing the lid, you bring the bottle of 'Black Rat's Rum' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the golden liquid.",
+					"Unscrewing the lid, you bring the bottle of 'Black Rat's Rum' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the golden liquid.",
 					"[npc.Name] pulls out a bottle of 'Black Rat's Rum', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Black Rat's Rum', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the golden liquid."
 						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the alcoholic liquid, which lingers for some time as a slightly unpleasant aftertaste.");
@@ -550,7 +557,7 @@ public class ItemType {
 			"Feline's Fancy",
 			"Feline's Fancies",
 			"A delicate glass bottle filled with a thick, cream-like liquid."
-				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's thighs.",
+				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's legs.",
 			"attributeCatMorphDrink",
 			Colour.ATTRIBUTE_ARCANE,
 			null,
@@ -560,7 +567,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FELINE_FANCY)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -584,10 +592,58 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Opening the bottle of 'Feline's Fancy', you eagerly bring it up to your waiting lips."
 						+ " A rich, creamy smell rises from the opening, and as you greedily drink down the cool liquid, you're delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.",
-					"Unscrewing the cap, you bring the bottle of 'Feline's Fancy' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the creamy liquid.",
+					"Unscrewing the cap, you bring the bottle of 'Feline's Fancy' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the creamy liquid.",
 					"[npc.Name] pulls out a bottle of 'Feline's Fancy', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Feline's Fancy', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " A rich, creamy smell rises from the opening, and as you greedily drink down the cool liquid, you're delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.");
+		}
+	};
+	
+	public static AbstractItemType INT_INGREDIENT_GRAPE_JUICE = new AbstractItemType(150,
+			"a bottle of",
+			false,
+			"Vulpine's Vineyard",
+			"Vulpine's Vineyards",
+			"A delicate glass bottle filled with red wine."
+				+ " A bunch of grapes is painted onto the front of the label, and on the bottom of the bottle itself, the image of a snickering fox-morph is burned into the glass.",
+			"attributeFoxMorphDrink",
+			Colour.ATTRIBUTE_ARCANE,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_ARCANE;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the bottle of 'Vulpine's Vineyard', you eagerly bring it up to your waiting lips."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on your tongue well after you've had your fill.",
+					"Removing the stopper from the bottle, you bring the bottle of 'Vulpine's Vineyard' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the wine within.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on your tongue well after you've had your fill.");
 		}
 	};
 	
@@ -609,7 +665,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -633,7 +690,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"After first unscrewing the cap, you bring the plastic bottle of 'Vanilla Water' up to your [pc.mouth]."
 						+ " A faint smell of vanilla informs you that this isn't any ordinary water, and as you tilt your head back and start drinking the cool liquid, the taste of vanilla overwhelms your senses.",
-					"Unscrewing the cap, you bring the bottle of 'Vanilla Water' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"Unscrewing the cap, you bring the bottle of 'Vanilla Water' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a bottle of 'Vanilla Water', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Vanilla Water', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " A faint smell of vanilla informs you that this isn't any ordinary water, and as you tilt your head back and start drinking the cool liquid, the taste of vanilla overwhelms your senses.");
@@ -658,7 +715,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -681,12 +739,12 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pop off the cap and start drinking the bottle of 'Canine Crush'."
-						+ " It doesn't taste anything like any other beer you've ever drank, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
+						+ " It doesn't taste anything like any other beer you've ever had, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
 						+ " As the last few drops slide down your throat, a strange, musky aftertaste lingers on your tongue.",
-					"Popping off the cap, you bring the bottle of 'Canine Crush' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"Popping off the cap, you bring the bottle of 'Canine Crush' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a bottle of 'Canine Crush', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Canine Crush', and, after quickly popping off the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-						+ " It doesn't taste anything like any other beer you've ever drank, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
+						+ " It doesn't taste anything like any other beer you've ever had, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
 							+ " As the last few drops slide down your throat, a strange, musky aftertaste lingers on your tongue.");
 		}
 	};
@@ -707,7 +765,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -732,7 +791,7 @@ public class ItemType {
 					"You unscrew the cap and start drinking the bottle of 'Squirrel Java'."
 						+ " The taste is quite unlike that of any other coffee you've ever drunk, and it reminds you more of a sugary energy drink rather than any caffeinated beverage."
 						+ " As the last few drops slide down your throat, a strange, sweet aftertaste lingers on your tongue.",
-					"Unscrewing the cap, you bring the bottle of 'Squirrel Java' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"Unscrewing the cap, you bring the bottle of 'Squirrel Java' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a bottle of 'Squirrel Java', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Squirrel Java', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " The taste is quite unlike that of any other coffee you've ever drunk, and it reminds you more of a sugary energy drink rather than any caffeinated beverage."
@@ -756,7 +815,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -780,7 +840,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Tearing the attached straw from the front of the orange-flavoured carton, you use it to pierce the little foil circle on the top, before wrapping your [pc.lips] around it and starting to drink."
 						+ " The liquid that enters your mouth has a very strong orange flavour, and, after quickly finishing it, you drink down the other carton, finding that the taste of apples is every bit as intense as orange one was.",
-					"Tearing the attached straw from the front of the orange-flavoured carton, you use it to pierce the little foil circle on the top, before bringing it to [npc.name]'s lips and forcing [npc.herHim] to quickly gulp down the liquid within."
+					"Tearing the attached straw from the front of the orange-flavoured carton, you use it to pierce the little foil circle on the top, before bringing it to [npc.namePos] lips and forcing [npc.herHim] to quickly gulp down the liquid within."
 						+ " You then do the same with the apple-flavoured one, smiling as [npc.she] gulps down every drop.",
 					"[npc.Name] pulls out a pair of cartons of 'Fruit Bat's Squash', and, using the attached straws on each one, quickly gulps down the liquid within.",
 					"[npc.Name] pulls out a pair of cartons of 'Fruit Bat's Squash', and, using the attached straws on each one, forces you to drink down the contents."
@@ -804,7 +864,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_EGG_NOG)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -829,7 +890,7 @@ public class ItemType {
 					"You open the carton and start drinking the bottle of 'Rudolph's Egg Nog'."
 						+ " Although the creamy, sweet taste is similar to that of the egg nog you remember drinking in your old world,"
 						+ " as you finish gulping down the last of the carton's contents, you find that a strange, slightly salty aftertaste lingers on your tongue.",
-					"Opening the carton, you bring the bottle of 'Rudolph's Egg Nog' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"Opening the carton, you bring the bottle of 'Rudolph's Egg Nog' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a carton of 'Rudolph's Egg Nog', and, after quickly opening it, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a carton of 'Rudolph's Egg Nog', and, after quickly opening it, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " Although the creamy, sweet taste is similar to that of the egg nog you remember drinking in your old world,"
@@ -852,7 +913,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME)),
 			Util.newArrayListOfValues(
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -876,7 +938,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You take in a deep breath of an intoxicating feminine scent as you spray a little squirt of the 'Harpy Perfume' onto your neck."
 						+ " Looking down at the curiously now-empty bottle of perfume, you feel a bubbly wave of excitement running through you, and without thinking, you find yourself letting out a very girly giggle.",
-					"You spray a little squirt of the 'Harpy Perfume' onto [npc.name]'s neck.",
+					"You spray a little squirt of the 'Harpy Perfume' onto [npc.namePos] neck.",
 					"[npc.Name] pulls out a bottle of 'Harpy Perfume', and, after quickly popping off the cap, [npc.she] promptly sprays a little squirt onto [npc.her] neck.",
 					"[npc.Name] pulls out a bottle of 'Harpy Perfume', and, after quickly popping off the cap, [npc.she] sprays a little squirt onto your neck."
 						+ " You instantly feel a bubbly wave of excitement running through you, and without thinking, you find yourself letting out a very girly giggle.");
@@ -900,7 +962,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -924,10 +987,10 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You pop off the cap and start drinking the bottle of 'Slime Quencher'."
 						+ " The recognisable taste of a sugary energy drink fills your mouth, and you greedily gulp down the all of the glowing liquid in a matter of seconds.",
-					"Popping off the cap, you bring the bottle of 'Slime Quencher' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"Popping off the cap, you bring the bottle of 'Slime Quencher' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
 					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-						+ " The recognisable taste of a sugary energy drink fills your mouth, and, with [npc.name]'s help, you greedily gulp down the all of the glowing liquid in a matter of seconds.");
+						+ " The recognisable taste of a sugary energy drink fills your mouth, and, with [npc.namePos] help, you greedily gulp down the all of the glowing liquid in a matter of seconds.");
 		}
 	};
 	
@@ -947,7 +1010,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -971,7 +1035,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You unscrew the cap and start drinking the bottle of 'Bunny Juice'."
 						+ " An intense taste of carrots instantly fills your mouth, and as you swallow the delicious liquid, you discover that it has an unusually sweet aftertaste.",
-					"Unscrewing the cap, you bring the bottle of 'Bunny Juice' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the orange liquid.",
+					"Unscrewing the cap, you bring the bottle of 'Bunny Juice' to [npc.namePos] lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the orange liquid.",
 					"[npc.Name] pulls out a bottle of 'Bunny Juice', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Bunny Juice', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " An intense taste of carrots instantly fills your mouth, and as you swallow the delicious liquid, you discover that it has an unusually sweet aftertaste.");
@@ -994,7 +1058,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_MINCE_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1018,7 +1083,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You bring the enchanted mince pie up to your mouth, before taking an experimental bite."
 						+ " The warm, spiced fruit filling is absolutely delicious, leading you to greedily wolf down the entire pie.",
-					"You bring the enchanted mince pie up to [npc.name]'s mouth, before feeding it to [npc.herHim].",
+					"You bring the enchanted mince pie up to [npc.namePos] mouth, before feeding it to [npc.herHim].",
 					"[npc.Name] pulls out a mince pie, and promptly wolfs it down.",
 					"[npc.Name] brings an enchanted mince pie up to your mouth, before starting to feed it to you."
 						+ " The warm, spiced fruit filling is absolutely delicious, and you greedily wolf down the entire pie.");
@@ -1044,7 +1109,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1068,7 +1134,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"The moment you pull the stopper out from the top of the bottle of 'Lilith's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
 							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
-					"You pull the stopper out from the top of the bottle of 'Lilith's Gift', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You pull the stopper out from the top of the bottle of 'Lilith's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Lilith's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Lilith's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
@@ -1092,7 +1158,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_IMPISH_BREW)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1116,7 +1183,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"As you unscrew the cap, your senses are immediately assaulted by the musky, potent smell of the liquid within."
 							+ " Bringing the dirty bottle to your lips, you take a tentative sip, discovering that the drink isn't quite as bad you thought it would be.",
-					"You unscrew the cap from the bottle 'Impish Brew', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You unscrew the cap from the bottle 'Impish Brew', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Impish Brew', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Impish Brew', and, after quickly after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the musky contents.");
 		}
@@ -1140,7 +1207,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1163,7 +1231,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the stopper out from the top of the bottle of 'Mystery Kink', before bringing it to your lips and gulping down the thick pink liquid that's contained within.",
-					"You pull the stopper out from the top of the bottle of 'Mystery Kink', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You pull the stopper out from the top of the bottle of 'Mystery Kink', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Mystery Kink', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Mystery Kink', and, after quickly pulling out the stopper,"
 							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the thick pink liquid that's contained within.");
@@ -1211,7 +1279,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the stopper out from the top of the glass vial of 'Fetish Endowment', before bringing it to your lips and gulping down the sickly sweet liquid that's contained within.",
-					"You pull the stopper out from the top of the glass vial of 'Fetish Endowment', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You pull the stopper out from the top of the glass vial of 'Fetish Endowment', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a glass vial of 'Fetish Endowment', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a glass vial of 'Fetish Endowment', and, after quickly pulling out the stopper,"
 							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the sickly sweet liquid that's contained within.");
@@ -1236,7 +1304,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1259,7 +1328,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the crystal stopper out from the top of the bottle of 'Angel's Nectar', before bringing it to your lips and gulping down the tasteless liquid that's contained within.",
-					"You pull the crystal stopper out from the top of the bottle of 'Angel's Nectar', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You pull the crystal stopper out from the top of the bottle of 'Angel's Nectar', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper,"
 							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the tasteless liquid that's contained within.");
@@ -1304,7 +1373,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pop the small cluster of glowing mushrooms into your mouth, and as you chew and swallow them down, you discover that they have a refreshing, minty taste.",
-					"You pop the small cluster of glowing mushrooms into [npc.name]'s mouth, before making sure that [npc.she] chews and swallows them down.",
+					"You pop the small cluster of glowing mushrooms into [npc.namePos] mouth, before making sure that [npc.she] chews and swallows them down.",
 					"[npc.Name] pops a small cluster of glowing mushrooms into [npc.her] mouth, before chewing and swallowing them down.",
 					"[npc.Name] pops a small cluster of glowing mushrooms into your mouth, and as [npc.she] makes you chew and swallow them down, you discover that they have a refreshing, minty taste.");
 		}
@@ -1329,7 +1398,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1353,7 +1423,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
 							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
-					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.name]'s lips and forcing [npc.herHim] to drink down the liquid within.",
+					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
@@ -1377,7 +1447,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1401,7 +1472,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You pull out the little glass stopper and bring the vial of 'Angel's Tears' to your lips."
 							+ " The faint scent of roses rises up from the opening, and you find yourself letting out a gentle sigh as you tilt back your head before drinking down the cool liquid.",
-					"You pull out the little glass stopper and bring the vial of 'Angel's Tears' to [npc.name]'s lips, before forcing [npc.herHim] to drink down the liquid within.",
+					"You pull out the little glass stopper and bring the vial of 'Angel's Tears' to [npc.namePos] lips, before forcing [npc.herHim] to drink down the liquid within.",
 					"[npc.Name] pulls out a bottle of 'Angel's Tears', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Angel's Tears', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " The faint scent of roses rises up from the opening, and you find yourself letting out a gentle sigh as you drink down the cool liquid.");
@@ -1424,7 +1495,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1473,7 +1545,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1524,7 +1597,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1573,7 +1647,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1620,7 +1695,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1646,7 +1722,7 @@ public class ItemType {
 							+ " Bringing it up to your mouth, you take a big bite, and discover that it's absolutely delicious."
 							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
 					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
-							+ " Bringing it up to [npc.name]'s mouth, you force [npc.herHim] to eat the entire burger.",
+							+ " Bringing it up to [npc.namePos] mouth, you force [npc.herHim] to eat the entire burger.",
 					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, quickly wolfs down the contents.",
 					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, forces you to eat the contents."
 							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
@@ -1669,7 +1745,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1693,7 +1770,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Tearing off the little plastic wrapper, you pop the small slice of carrot cake into your mouth."
 							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.",
-					"Unwrapping the little plastic wrapper, you pop the small slice of carrot cake into [npc.name]'s mouth, before making [npc.herHim] swallow it all down.",
+					"Unwrapping the little plastic wrapper, you pop the small slice of carrot cake into [npc.namePos] mouth, before making [npc.herHim] swallow it all down.",
 					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, quickly wolfs down the cake in one go.",
 					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, forces the small slice of cake into your mouth."
 							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.");
@@ -1716,7 +1793,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1746,6 +1824,54 @@ public class ItemType {
 						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty.");
 		}
 	};
+	
+	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Chicken Pot Pie",
+			"Chicken Pot Pies",
+			"A tin containing a pie with a mix of vegetables and meat."
+					+ " While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.",
+			"raceFoxMorphPie",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_FOX_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You bring the chicken pot pie up to your mouth, before taking a bite."
+						+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.",
+					"You bring the chicken pot pie up to [npc.namePos] mouth, before feeding it to [npc.herHim].",
+					"[npc.Name] pulls out a chicken pot pie, and promptly wolfs it down.",
+					"[npc.Name] brings a chicken pot pie up to your mouth, before starting to feed it to you."
+							+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.");
+		}
+	};
 
 	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(250,
 			"a",
@@ -1763,7 +1889,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1809,7 +1936,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1858,7 +1986,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1906,7 +2035,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1954,10 +2084,16 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					ItemTag.RACIAL_TF_ITEM)) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HARPY;
@@ -2008,6 +2144,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_SLIME;
 		}
@@ -2037,7 +2178,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
 							+ " The glowing pink liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
-					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
+					"You unseal one end of the canister and bring it up to [npc.namePos] [npc.lips]."
 							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing pink liquid...",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
@@ -2080,7 +2221,7 @@ public class ItemType {
 //		}
 //	};
 	
-	private static String getEssenceAbsorbtionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
+	private static String getEssenceAbsorptionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
 			if (user!=null && user.isPlayer()) {
 				if(target!=null) {
 					if(target.isPlayer()) {
@@ -2121,7 +2262,7 @@ public class ItemType {
 						return UtilText.parse(target,
 								"<p>"
 									+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
-									+ " Drawn towards [npc.name]'s powerful arcane aura, the essence immediately darts towards [npc.herHim], and with a little "
+									+ " Drawn towards [npc.namePos] powerful arcane aura, the essence immediately darts towards [npc.herHim], and with a little "
 										+essenceColour.getName()+" flash, it disappears from sight as it's absorbed into [npc.her] aura."
 								+ "</p>");
 					}
@@ -2210,7 +2351,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.GENERIC_ARCANE, user, target);
+			return getEssenceAbsorptionText(Colour.GENERIC_ARCANE, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2248,7 +2389,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_CAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_CAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2287,7 +2428,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_COW_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_COW_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2325,7 +2466,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DEMON, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DEMON, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2363,11 +2504,11 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_IMP, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_IMP, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getRace()==Race.IMP || target.isPlayer();
+			return target.getRace()==Race.DEMON || target.isPlayer();
 		}
 		
 		public String getUnableToBeUsedDescription(GameCharacter target) {
@@ -2401,7 +2542,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
 		}
 	};
 	
@@ -2432,7 +2573,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SQUIRREL_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SQUIRREL_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2470,7 +2611,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2508,7 +2649,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_RABBIT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_RABBIT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2546,7 +2687,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_BAT_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_BAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2584,7 +2725,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_DOG_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_DOG_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2622,7 +2763,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HARPY, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HARPY, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2660,7 +2801,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HORSE_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HORSE_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2698,7 +2839,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_REINDEER_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_REINDEER_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2736,7 +2877,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_HUMAN, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_HUMAN, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2774,7 +2915,45 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_WOLF_MORPH, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_WOLF_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_FOX_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Fox-morph Essence",
+			"Bottled Fox-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceFoxMorph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorptionText(Colour.RACE_FOX_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2812,7 +2991,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.RACE_SLIME, user, target);
+			return getEssenceAbsorptionText(Colour.RACE_SLIME, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2831,8 +3010,8 @@ public class ItemType {
 	public static AbstractItemType HARPY_MATRIARCH_BIMBO_LOLLIPOP = new AbstractItemType(1250,
 			null,
 			false,
-			"[bimboHarpy.name]'s lollipop",
-			"[bimboHarpy.name]'s lollipops",
+			"[bimboHarpy.namePos] lollipop",
+			"[bimboHarpy.namePos] lollipops",
 			"A swirly lollipop that you got from the harpy matriarch [bimboHarpy.name]."
 				+ " Although it doesn't look out of the ordinary, you're pretty sure that eating it would result in a potent transformation...",
 			"bimboLollipop",
@@ -2864,7 +3043,7 @@ public class ItemType {
 					"Bringing the lollipop up to your [pc.lips+], you dart out your [pc.tongue] and give it a long, wet lick."
 						+ " An intense, sweet flavour fills your mouth, quite unlike anything you've ever tasted before."
 						+ " Before you know what you're doing, you're pressing your [pc.lips] up against the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it...",
-					"Bringing the lollipop up to [npc.name]'s [npc.lips+], you smile as [npc.she] darts out [npc.her] [npc.tongue] to give it a long, wet lick."
+					"Bringing the lollipop up to [npc.namePos] [npc.lips+], you smile as [npc.she] darts out [npc.her] [npc.tongue] to give it a long, wet lick."
 						+ " The intoxicating taste quickly overwhelms [npc.her] senses, and [npc.she] eagerly presses [npc.her] [npc.lips] up against the delicious candy,"
 						+ " letting out little whining noises as [npc.she] finds [npc.herself] unable to stop sucking and licking it...",
 					"[npc.Name] produces a swirly lollipop and, after quickly pulling off the wrapper, starts licking and sucking it...",
@@ -2878,8 +3057,8 @@ public class ItemType {
 	public static AbstractItemType HARPY_MATRIARCH_NYMPHO_LOLLIPOP = new AbstractItemType(1250,
 			null,
 			false,
-			"[nymphoHarpy.name]'s lollipop",
-			"[nymphoHarpy.name]'s lollipops",
+			"[nymphoHarpy.namePos] lollipop",
+			"[nymphoHarpy.namePos] lollipops",
 			"A cock-shaped lollipop that you got from the harpy matriarch [nymphoHarpy.name]."
 				+ " Although it looks to be made from regular candy, you're pretty sure that eating it would result in a potent transformation...",
 			"nymphoLollipop",
@@ -2911,7 +3090,7 @@ public class ItemType {
 					"Bringing the lollipop up to your [pc.lips+], you dart out your [pc.tongue] and give it a long, wet lick."
 						+ " An intense, sweet flavour fills your mouth, quite unlike anything you've ever tasted before."
 						+ " Before you know what you're doing, you're pushing the delicious, cock-shaped candy into your mouth, letting out lewd moans as you find yourself unable to stop sucking and licking it...",
-					"Bringing the lollipop up to [npc.name]'s [npc.lips+], you smile as [npc.she] darts out [npc.her] [npc.tongue] to give it a long, wet lick."
+					"Bringing the lollipop up to [npc.namePos] [npc.lips+], you smile as [npc.she] darts out [npc.her] [npc.tongue] to give it a long, wet lick."
 						+ " The intoxicating taste quickly overwhelms [npc.her] senses, and [npc.she] eagerly wraps [npc.her] [npc.lips] around the delicious, cock-shaped candy,"
 							+ " letting out lewd moans as [npc.she] finds [npc.herself] unable to stop sucking and licking it...",
 					"[npc.Name] produces a cock-shaped lollipop and, after quickly pulling off the wrapper, starts licking and sucking it...",
@@ -2924,8 +3103,8 @@ public class ItemType {
 	public static AbstractItemType HARPY_MATRIARCH_DOMINANT_PERFUME = new AbstractItemType(1250,
 			null,
 			false,
-			"[dominantHarpy.name]'s perfume",
-			"[dominantHarpy.name]'s perfumes",
+			"[dominantHarpy.namePos] perfume",
+			"[dominantHarpy.namePos] perfumes",
 			"A bottle of perfume that you got from the harpy matriarch [dominantHarpy.name]."
 				+ " Although it looks to contain normal perfume, you're pretty sure that using it would result in a potent transformation...",
 			"dominantPerfume",
@@ -2958,9 +3137,9 @@ public class ItemType {
 							+ " Although only a small amount of liquid shoots out, the entire bottle's contents are instantly drained, leaving you holding an empty vessel."
 							+ " As you look down at it in surprise, the strong, feminine scent rises up to overpower your senses,"
 							+ " and you find yourself letting out a desperate moan as the nature of the perfume's powerful enchantment starts to make itself known...",
-					"Bringing the bottle of perfume up to [npc.name]'s neck, you give it a little squirt."
+					"Bringing the bottle of perfume up to [npc.namePos] neck, you give it a little squirt."
 							+ " Although only a small amount of liquid shoots out, the entire bottle's contents are instantly drained, leaving you holding an empty vessel."
-							+ " As you look down at it in surprise, the strong, feminine scent rises up to overpower [npc.name]'s senses,"
+							+ " As you look down at it in surprise, the strong, feminine scent rises up to overpower [npc.namePos] senses,"
 							+ " and [npc.she] finds [npc.herself] letting out a desperate moan as the nature of the perfume's powerful enchantment starts to make itself known...",
 					"[npc.Name] produces a bottle of perfume and, after quickly pulling off the cap, squirts some onto [npc.her] neck...",
 					"[npc.Name] produces a bottle of perfume and, after quickly pulling off the cap, squirts some onto your neck."
@@ -2974,12 +3153,13 @@ public class ItemType {
 	
 	// Crafting outputs:
 	
-	public static AbstractItemType POTION = new AbstractItemType(500,
+	public static AbstractItemType POTION = new AbstractItemType(750,
 			"",
 			false,
 			"potion",
 			"potions",
-			"Refined potion.",
+			"Created by infusing arcane essences with a consumable item, potions such as these can hold a huge number of restorative effects or performance enhancements."
+					+ " As potion creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_potion_container",
 			Colour.CLOTHING_PINK,
 			null,
@@ -3015,19 +3195,20 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"First removing the bottle's stopper, you then bring the potion up to your waiting lips."
 						+ " A sweet smell rises from the opening, and, after gulping down the delicious liquid, you feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known...",
-					"First removing the bottle's stopper, you then bring the potion up to [npc.name]'s waiting lips, before forcing [npc.herHim] to drink it all down.",
+					"First removing the bottle's stopper, you then bring the potion up to [npc.namePos] waiting lips, before forcing [npc.herHim] to drink it all down.",
 					"[npc.Name] pulls out a potion of some sort, and, after quickly removing the bottle's stopper, [npc.she] promptly gulps downs the contents.",
 					"[npc.Name] brings the potion to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known...");
 		}
 	};
 	
-	public static AbstractItemType ELIXIR = new AbstractItemType(1000,
+	public static AbstractItemType ELIXIR = new AbstractItemType(1500,
 			"",
 			false,
 			"elixir",
 			"elixirs",
-			"Refined elixir.",
+			"Created by infusing arcane essences with a consumable item, elixirs such as these can hold a huge number of transformative effects."
+					+ " As elixir creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_elixir_container",
 			Colour.CLOTHING_PINK,
 			null,
@@ -3063,7 +3244,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"First removing the bottle's stopper, you then bring the elixir up to your waiting lips."
 						+ " A sweet smell rises from the opening, and, after gulping down the delicious liquid, you feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known...",
-					"First removing the bottle's stopper, you then bring the elixir up to [npc.name]'s waiting lips, before forcing [npc.herHim] to drink it all down.",
+					"First removing the bottle's stopper, you then bring the elixir up to [npc.namePos] waiting lips, before forcing [npc.herHim] to drink it all down.",
 					"[npc.Name] pulls out an elixir of some sort, and, after quickly removing the stopper, [npc.she] promptly gulps downs the contents.",
 					"[npc.Name] brings the elixir to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known...");
@@ -3151,7 +3332,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Untying the top of the used condom, you bring it up to your lips and swallow the slimy contents.",
-					"Untying the top of the used condom, you bring it up to [npc.name]'s [npc.lips], and force [npc.her] to swallow the slimy contents.",
+					"Untying the top of the used condom, you bring it up to [npc.namePos] [npc.lips], and force [npc.her] to swallow the slimy contents.",
 					"Untying the top of the used condom, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.",
 					"Untying the top of the used condom, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
 		}
@@ -3163,7 +3344,7 @@ public class ItemType {
 
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You can't think of a use for this. Maybe it's best to throw it away...</br>"
+			return "You can't think of a use for this. Maybe it's best to throw it away...<br/>"
 					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
 		}
 
@@ -3177,55 +3358,13 @@ public class ItemType {
 			return false;
 		}
 	};
-
-	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
-			"",
-			false,
-			"Arthur's Package",
-			"Arthur's Packages",
-			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
-			"arthursPackage",
-			Colour.ANDROGYNOUS,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			null,
-			null, null) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getUseName() {
-			return "inspect";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
-		}
-		
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-
-	};
 	
 	public static AbstractItemType ORIENTATION_HYPNO_WATCH = new AbstractItemType(50000,
 			"a",
 			false,
 			"Hypno-Watch",
 			"Hypno-Watches",
-			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of giving them a huge increase in corruption.",
+			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of increasing their corruption...",
 			"hypnoClockBase",
 			Colour.ANDROGYNOUS,
 			null,
@@ -3265,7 +3404,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Taking hold of the delicate chain, you start slowly swinging the Hypno-Watch back and forth, fixating your gaze on the swirling face as you allow the item's arcane power to seep into your mind...",
-					"Taking hold of the delicate chain, you start slowly swinging the Hypno-Watch back and forth in front of [npc.name]'s face, and,"
+					"Taking hold of the delicate chain, you start slowly swinging the Hypno-Watch back and forth in front of [npc.namePos] face, and,"
 							+ " just as you'd hoped, [npc.she] fixates [npc.her] gaze on the swirling face, allowing the item's arcane power to seep into [npc.her] mind...",
 					"Taking hold of the delicate chain, [npc.name] starts slowly swinging the Hypno-Watch back and forth, fixating [npc.her] gaze on the swirling face as [npc.she] allows the item's arcane power to seep into [npc.her] mind...",
 					"Taking hold of the delicate chain, [npc.name] starts slowly swinging the Hypno-Watch back and forth in front of your face,"
@@ -3296,7 +3435,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3309,7 +3449,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Popping the little pink pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
-					"Popping the little pink pill out of its foil wrapper, you bring it up to [npc.name]'s [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
+					"Popping the little pink pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
 					"[npc.Name] pops a Vixen's Virility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
 					"[npc.Name] pops a Vixen's Virility pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
 		}
@@ -3335,7 +3475,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM)) {
+					ItemTag.ATTRIBUTE_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3348,7 +3489,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
-					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.name]'s [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
+					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
 					"[npc.Name] pops a Promiscuity pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
 					"[npc.Name] pops a Promiscuity pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
 		}
@@ -3370,7 +3511,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.BAT_CAVERNS_SPAWN)) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3384,7 +3526,7 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Bringing the Moo Milker up to your breast, you place the suction cup over your [pc.nipple], before starting to pump the lever up and down."
 							+ " Your [pc.milk+] starts to squirt out into the attached beaker, and you can't help but let out a deeply satisfied sigh at the delightful sensation of milking yourself.",
-					"Bringing the Moo Milker up to [npc.name]'s breast, you place the suction cup over [npc.her] [npc.nipple], before starting to pump the lever up and down."
+					"Bringing the Moo Milker up to [npc.namePos] breast, you place the suction cup over [npc.her] [npc.nipple], before starting to pump the lever up and down."
 							+ " [npc.Her] [npc.milk+] starts to squirt out into the attached beaker, and [npc.she] can't help but let out a deeply satisfied sigh at the delightful sensation of being milked.",
 					"Bringing a Moo Milker up to [npc.her] breast, [npc.name] places the suction cup over [npc.her] [npc.nipple], before starting to pump the lever up and down."
 							+ " [npc.Her] [npc.milk+] starts to squirt out into the attached beaker, and [npc.she] can't help but let out a deeply satisfied sigh at the delightful sensation of milking [npc.herself].",
@@ -3408,7 +3550,7 @@ public class ItemType {
 				
 			} else {
 				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
-					return UtilText.parse(target, "You need to be able to access [npc.name]'s nipples in order to use this!");
+					return UtilText.parse(target, "You need to be able to access [npc.namePos] nipples in order to use this!");
 				} else {
 					return UtilText.parse(target, "[npc.Name] needs to have at least 1ml of milk stored in [npc.her] breasts in order to use this!");
 				}
@@ -3444,9 +3586,45 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You unscrew the top of the breast pump, and, bringing it up to your lips, you gulp down the contents.",
-					"You unscrew the top of the breast pump, and, bringing it up to [npc.name]'s [npc.lips], you force [npc.her] to gulp down the contents.",
+					"You unscrew the top of the breast pump, and, bringing it up to [npc.namePos] [npc.lips], you force [npc.her] to gulp down the contents.",
 					"Unscrewing the top of the breast pump, [npc.name] brings it up to [npc.her] [npc.lips], before swallowing down the contents.",
 					"Unscrewing the top of the breast pump, [npc.name] brings it up to your [pc.lips], before forcing you to gulp down the contents.");
+		}
+	};
+	
+	public static AbstractItemType PREGNANCY_TEST = new AbstractItemType(100,
+			"an",
+			false,
+			"Arcane Pregnancy Tester",
+			"Arcane Pregnancy Testers",
+			"A small plastic wand, no longer than 15cm, which has a digital readout embedded in the middle."
+					+ " The small instruction leaflet that came with it says to 'swipe the tester over the target's stomach to find out who the father is!'",
+			"pregnancy_test",
+			Colour.CLOTHING_WHITE,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You swipe the pregnancy tester over your stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"You swipe the pregnancy tester over [npc.namePos] stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over [npc.her] stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over your stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.");
 		}
 	};
 	
@@ -3467,7 +3645,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.MISC_TF_ITEM)) {
+					ItemTag.MISC_TF_ITEM,
+					ItemTag.SOLD_BY_RALPH)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3480,13 +3659,65 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Bringing the bottle up to your [pc.lips], you take the teat-like opening into your mouth, before greedily starting to suckle down the creamy liquid within.",
-					"Bringing the bottle up to [npc.name]'s [npc.lips], you push the teat-like opening into [npc.her] mouth, before forcing [npc.herHim] to suckle down the creamy liquid within.",
+					"Bringing the bottle up to [npc.namePos] [npc.lips], you push the teat-like opening into [npc.her] mouth, before forcing [npc.herHim] to suckle down the creamy liquid within.",
 					"[npc.Name] produces a bottle of 'Mother's Milk', and, taking the teat-like opening into [npc.her] mouth, [npc.she] greedily starts to suckle down the creamy liquid within.",
 					"[npc.Name] produces a bottle of 'Mother's Milk', and, pushing the teat-like opening into your mouth, [npc.she] forces you to suckle down the creamy liquid within.");
 		}
 	};
 	
-	public static AbstractItemType BOOK_CAT_MORPH = new AbstractItemType(250,
+	private static AbstractItemType createBookItem(int value,
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			String pathName,
+			Colour colourPrimary,
+			Colour colourSecondary,
+			Colour colourTertiary,
+			Rarity rarity,
+			TFEssence relatedEssence,
+			List<ItemEffect> effects,
+			List<ItemTag> itemTags) { 
+		return new AbstractItemType(value,
+				determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				pathName,
+				colourPrimary,
+				colourSecondary,
+				colourTertiary,
+				rarity,
+				relatedEssence,
+				effects,
+				itemTags) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isConsumedOnUse() {
+				return false;
+			}
+			
+			@Override
+			public String getUseName() {
+				return "read";
+			}
+			
+			@Override
+			public String getUseDescription(GameCharacter user, GameCharacter target) {
+				return getGenericUseDescription(user, target,
+						"Opening the book, you read its contents...",
+						"Opening the book, you force [npc.name] to read its contents...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then starts to read...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then forces you to read...");
+			}
+		};
+	}
+	
+	public static AbstractItemType BOOK_CAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Curious Kitties",
@@ -3499,32 +3730,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_COW_MORPH = createBookItem(250,
 			null,
 			false,
 			"Milking Cows",
@@ -3537,32 +3746,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_DEMON = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DEMON = createBookItem(250,
 			null,
 			false,
 			"Demonic Origins",
@@ -3575,31 +3762,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DEMON)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_IMP = new AbstractItemType(250,
+	public static AbstractItemType BOOK_IMP = createBookItem(250,
 			null,
 			false,
 			"Impish Fiends",
@@ -3612,31 +3777,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_IMP)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DOG_MORPH = createBookItem(250,
 			null,
 			false,
 			"Canine Culture",
@@ -3649,31 +3792,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_ALLIGATOR_MORPH = createBookItem(250,
 			null,
 			false,
 			"Rasselin' Gators",
@@ -3686,8 +3807,23 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK));
+
+	public static AbstractItemType BOOK_FOX_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Skulking Vulpines",
+			"Skulking Vulpines",
+			"A book about fox-morphs and their culture.",
+			"book_race_fox_morph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
+
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -3705,12 +3841,12 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Opening the book, you read its contents...",
 					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then forces you to read...");
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then forces you to read...");
 		}
 	};
 	
-	public static AbstractItemType BOOK_HARPY = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HARPY = createBookItem(250,
 			null,
 			false,
 			"All About Harpies",
@@ -3723,31 +3859,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HARPY)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HORSE_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HORSE_MORPH = createBookItem(250,
 			null,
 			false,
 			"Equine Encyclopedia",
@@ -3760,31 +3874,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_REINDEER_MORPH = createBookItem(250,
 			null,
 			false,
 			"The Eight",
@@ -3797,31 +3889,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HUMAN = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HUMAN = createBookItem(250,
 			null,
 			false,
 			"Concerning Humans",
@@ -3834,31 +3904,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SQUIRREL_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SQUIRREL_MORPH = createBookItem(250,
 			null,
 			false,
 			"Chasing Squirrels",
@@ -3871,31 +3919,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Causing Mischief",
@@ -3908,31 +3934,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RABBIT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RABBIT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Bunny Litters",
@@ -3945,31 +3949,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_BAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_BAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Flying Foxes",
@@ -3982,31 +3964,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_WOLF_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_WOLF_MORPH = createBookItem(250,
 			null,
 			false,
 			"Prowling Lupines",
@@ -4019,31 +3979,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SLIME = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SLIME = createBookItem(250,
 			null,
 			false,
 			"Slimy Fun",
@@ -4056,29 +3994,7 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SLIME)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
@@ -4297,7 +4213,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You take in a deep breath of the rose-scented fragrance as you spray a little squirt of the 'Rose Perfume' onto your neck.",
-					"You spray a little squirt of the 'Rose Perfume' onto [npc.name]'s neck.",
+					"You spray a little squirt of the 'Rose Perfume' onto [npc.namePos] neck.",
 					"[npc.Name] pulls out a bottle of 'Rose Perfume', and, after lifting it to [npc.her] neck, [npc.she] promptly sprays a little squirt onto [npc.her] [npc.skin].",
 					"[npc.Name] pulls out a bottle of 'Rose Perfume', and, after lifting it to your neck, [npc.she] sprays a little squirt onto your [pc.skin].");
 		}
@@ -4371,11 +4287,6 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "eat";
 		}
@@ -4383,13 +4294,177 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"You eat the eggplant. The bitter taste of disappointment overwhelmes you.",
-					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelmes you both.",
-					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelmes you both.");
+					"You eat the eggplant. The bitter taste of disappointment overwhelms you.",
+					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
+					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
 		}
 	};
-	
+
+
+	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
+			"",
+			false,
+			"Arthur's Package",
+			"Arthur's Packages",
+			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
+			"arthursPackage",
+			Colour.ANDROGYNOUS,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY = new AbstractItemType(0,
+			"",
+			false,
+			"Fyrsia's Key",
+			"Fyrsia's Keys",
+			"An arcane key that you obtained from Fyrsia, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey",
+			Colour.CLOTHING_SILVER,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_2 = new AbstractItemType(0,
+			"",
+			false,
+			"Jhortrax's Key",
+			"Jhortrax's Keys",
+			"An arcane key that you obtained from Jhortrax, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey2",
+			Colour.CLOTHING_STEEL,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	public static AbstractItemType IMP_FORTRESS_ARCANE_KEY_3 = new AbstractItemType(0,
+			"",
+			false,
+			"Hyorlyss's Key",
+			"Hyorlyss's Keys",
+			"An arcane key that you obtained from Hyorlyss, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
+			"impArcaneKey3",
+			Colour.CLOTHING_GOLD,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "You feel a weak arcane pulse being given off by the key as you turn it over in your [npc.hands].");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType LYSSIETHS_RING = new AbstractItemType(0,
+			"",
+			false,
+			"Lyssieth's Trapped Signet Ring",
+			"Lyssieth's Trapped Signet Rings",
+			"Beautifully crafted from rose gold, and encrusted with precious gemstones, this ring has been enchanted to enslave whoever puts it on."
+					+ " If you were able to trick 'The Dark Siren' into wearing it, you could earn an audience with Lyssieth without needing to fight.",
+			"lyssiethsRing",
+			Colour.CLOTHING_ROSE_GOLD,
+			Colour.CLOTHING_RED_DARK,
+			Colour.CLOTHING_ROSE_GOLD,
+			Rarity.QUEST,
+			null,
+			null, null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(user, "The ring feels warm to the touch, revealing the fact that it's carrying a potent enchantment. Maybe once all this is over, Lyssieth will allow you to keep it as a reward...");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	
 	// Standard non-racial transformatives:
@@ -4702,27 +4777,27 @@ public class ItemType {
 		return 1000;
 	}
 	
-	public static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
-	public static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
-	public static List<AbstractItemType> batCavernItems = new ArrayList<>();
-	public static List<AbstractItemType> essences = new ArrayList<>();
-	public static List<AbstractItemType> allItems = new ArrayList<>();
+	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
+	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
+	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> essences = new ArrayList<>();
+	private static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+	private static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
-	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
+	private static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
 	
 	public static AbstractItemType getSpellBookType(Spell s) {
 		return idToItemMap.get("SPELL_BOOK_"+s);
@@ -4818,19 +4893,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_EARTH, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, null);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_WATER, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, null);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_AIR, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, null);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_FIRE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, null);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_ARCANE, null);
+							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, null);
 							
 						}
 					}
@@ -4852,7 +4927,7 @@ public class ItemType {
 									+"</p>"
 									+ "<p>"
 										+ UtilText.parse(target,
-												"Reading through the spell book again, [npc.name] quickly discovers that [npc.she]'s already learned all there is to know about the spell '"+s.getName()+"'."
+												"Reading through the spell book again, [npc.name] quickly discovers that [npc.sheIs] already learned all there is to know about the spell '"+s.getName()+"'."
 												+ " Apart from some well-detailed diagrams of a demon casting this spell, there's nothing within the tome's pages to hold [npc.her] attention,"
 													+ " and [npc.she] closes it after just a couple of minutes, having not learned anything new...")
 									+ "</p>";
@@ -4871,8 +4946,8 @@ public class ItemType {
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ "You learn the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-										+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
-										+ "</br>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
+										+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+										+ "<br/>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
 									+ "</p>"
 									+raceKnowledgeGained;
 							
@@ -4890,7 +4965,7 @@ public class ItemType {
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ UtilText.parse(target, "[npc.Name] learns the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!")
-									+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+									+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
 								+ "</p>";
 						}
 					}
@@ -4946,6 +5021,7 @@ public class ItemType {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
+				case DARK_SIREN_BANEFUL_FISSURE:
 					break;
 			}
 			
@@ -4982,13 +5058,20 @@ public class ItemType {
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
-					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
+							&& !(target instanceof Elemental);
 				}
 		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
+						
+					} else if(target instanceof Elemental) {
+						return UtilText.parse(target, "[npc.Name], like all elementals, cannot learn spells from books."
+								+ " Instead, [npc.she] will need to focus on improving [npc.her] understanding of the arcane in order to learn new spells."
+								+ " (Elementals gain new spells via the perk tree.)");
+						
 					} else {
 						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
 					}
@@ -5035,7 +5118,7 @@ public class ItemType {
 						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 							target.incrementSpellUpgradePoints(school, 1);
 							return "<p style='text-align:center;'>"
-										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!</br>"
+										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!<br/>"
 										+ "<i>Having served its purpose, the scroll disappears in a flash of purple light!</i>"
 									+ "</p>";
 						}
@@ -5100,6 +5183,33 @@ public class ItemType {
 			
 			allItems.add(scroll);
 		}
+	}
+
+	public static List<AbstractItemType> getDominionAlleywayItems() {
+		return dominionAlleywayItems;
+	}
+	
+	public static List<AbstractItemType> getSubmissionTunnelItems() {
+		return submissionTunnelItems;
+	}
+	
+	public static List<AbstractItemType> getBatCavernItems() {
+		return batCavernItems;
+	}
+	public static List<AbstractItemType> getEssences() {
+		return essences;
+	}
+	
+	public static List<AbstractItemType> getAllItems() {
+		return allItems;
+	}
+	
+	public static Map<AbstractItemType, String> getItemToIdMap() {
+		return itemToIdMap;
+	}
+	
+	public static Map<String, AbstractItemType> getIdToItemMap() {
+		return idToItemMap;
 	}
 
 }

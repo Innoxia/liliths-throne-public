@@ -174,7 +174,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 10, 30) {
+	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Conclusion";
@@ -193,7 +193,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 10, 30) {
+	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; A room of his own";
@@ -201,7 +201,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.</br>"
+			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.<br/>"
 					+ "<i>Go into one of the empty rooms in Lilaya's House, and through the room management window, upgrade it to 'Arthur's Room'.</i>";
 		}
 
@@ -212,23 +212,78 @@ public enum Quest {
 	},
 	
 	
-	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 12, 30) {
+	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
-			return "Into the depths; The world of Submission";
+			return "Into Submission";
 		}
 
 		@Override
 		public String getDescription() {
 			return "Arthur was able to explain the mechanism by which you were transported into this new world, but he seemed to hold back on some of the details."
 					+ " He said that he'd explain everything fully once he knew for certain what was going on, but in order for that to happen, he'll need to talk to one of the seven elder Lilin."
-					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.</br>"
+					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.<br/>"
 					+ "<i>Travel down into the undercity of Submission and seek an audience with Lilaya's mother, Lyssieth.</i>";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "This is as far as the main quest goes for now! :3"; //TODO
+			return "Acting on Arthur's advice, you ventured down into Submission and discovered the location of Lyssieth's palace.";
+		}
+	},
+	
+	MAIN_2_B_SIRENS_CALL(QuestType.MAIN, 25, 300) {
+		@Override
+		public String getName() {
+			return "The Siren's Call";
+		}
+
+		@Override
+		public String getDescription() {
+			return "The guards at the gate to Lyssieth's palace told you that she's not receiving any visitors at the moment."
+					+ " The only way to gain an audience with her would be to take care of her troublesome daughter; 'The Dark Siren'."
+					+ " She's currently living in a stone fortress in one of the central tunnels here in Submission, from which she sends out gangs of imps to terrorise innocent citizens.</br>"
+					+ "If you're able to enslave her, either through combat or trickery, you'll have earned an audience with Lyssieth.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to enslave Lyssieth's troublesome daughter, and so earned an audience with her!";
+		}
+	},
+	
+	MAIN_2_C_SIRENS_FALL(QuestType.MAIN, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Siren's Fall";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Return to Lyssieth's palace and report to the guards that you've enslaved 'The Dark Siren'."
+					+ " This should be enough to grant you an audience with Lyssieth.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "For enslaving 'The Dark Siren', the guards at the gate to Lyssieth's palace gave you permission to enter and seek out an audience with her.";
+		}
+	},
+	
+	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
+		@Override
+		public String getName() {
+			return "Meeting A Lilin";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Travel to Lyssieth's throne room and try to finally get some answers about why you're here and how you can return to your old world.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Lyssieth revealed SOME SPOILERS. (These quests will be finished for 0.3)";
 		}
 	},
 
@@ -377,6 +432,27 @@ public enum Quest {
 		}
 	},
 	
+	// Accommodation:
+	
+	SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Lilaya the Landlady";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After getting to know one of the residents of Dominion's alleyways, you'd like to offer them a real home. Lilaya's mansion is full of empty rooms, so you should ask her if you could use one to house your new friend.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Lilaya gave you permission to use the empty rooms to house your friends and family, on the condition that you pay for the expenses that are incurred.";
+		}
+	},
+	
+	// Other:
+	
 	SIDE_HYPNO_WATCH_VICKY(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
@@ -416,7 +492,7 @@ public enum Quest {
 	},
 	
 	
-	SIDE_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Offer Nyan your help";
@@ -425,7 +501,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...</br>"
+					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
 					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
 		}
 
@@ -435,7 +511,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 0) {
 		@Override
 		public String getName() {
 			return "Confront the suppliers";
@@ -453,7 +529,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
 			return "Reward";
@@ -553,7 +629,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "When you first arrived in Submission, an enforcer informed you of an ongoing situation in the tunnels."
-					+ " Apparently, there are are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
+					+ " Apparently, there are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
 					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a one-thousand flame reward.";
 		}
 
@@ -628,7 +704,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You submitted to the Slime Queen, and allowed her to transform you into one of her subjects!";
+			return "You decided to help the Slime Queen with her plans, and agreed to trick the enforcers into believing that she's no longer a threat!";
 		}
 	},
 	
@@ -645,7 +721,8 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
+				+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
 		}
 	},
 	
@@ -657,13 +734,12 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "You decide to convince the Slime Queen to abandon her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "You convinced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
 	},
 	
@@ -692,13 +768,12 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "Force the Slime Queen to abandon her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "You forced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
 	},
 	

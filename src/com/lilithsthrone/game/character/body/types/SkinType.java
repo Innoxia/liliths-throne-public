@@ -7,7 +7,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum SkinType implements BodyPartTypeInterface {
@@ -19,11 +19,11 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	IMP(BodyCoveringType.IMP, Race.IMP),
-
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
@@ -50,6 +50,16 @@ public enum SkinType implements BodyPartTypeInterface {
 	private SkinType(BodyCoveringType coveringType, Race race) {
 		this.coveringType = coveringType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static SkinType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -96,7 +106,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return coveringType.getNamePlural(gc);
 		}
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case CAT_MORPH:
@@ -105,20 +116,20 @@ public enum SkinType implements BodyPartTypeInterface {
 				return "bovine";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case HARPY:
-				return "plume";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
+			case FOX_MORPH:
+				return "fox";
 			case SQUIRREL_MORPH:
-				return "fluffy";
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case RAT_MORPH:
@@ -146,8 +157,6 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
@@ -164,6 +173,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("fox-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("bat-like");
 			case RAT_MORPH:

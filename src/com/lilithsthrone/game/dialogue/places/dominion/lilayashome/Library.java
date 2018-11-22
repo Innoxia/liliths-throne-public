@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -13,8 +13,8 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.world.Cell;
@@ -22,7 +22,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -58,7 +58,7 @@ public class Library {
 					
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
 								" [npc.She] "));
@@ -67,7 +67,7 @@ public class Library {
 					switch(slave.getObedience()) {
 						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is not even bothering to pretend that [npc.she]'s working."
+										" is not even bothering to pretend that [npc.sheIs] working."
 									+ "</p>"));
 							break;
 						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
@@ -99,17 +99,19 @@ public class Library {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+			
 			if (index==0) {
 				return null;
 			 
 			} else if (index == 1) {
 				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS);
 
-			} else if(index-2<Main.game.getCharactersPresent().size()) {
-				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-2), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			} else if(index-2<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-2), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-2));
+						Main.game.setActiveNPC(charactersPresent.get(index-2));
 					}
 				};
 					
@@ -134,7 +136,10 @@ public class Library {
 					+ "Walking down one of the aisles, you see a great deal of organisation has gone into the design of the room, and upon closer inspection, you see that the shelves are immaculately clean;"
 						+ " evidence that a lot of care goes into its maintenance."
 					+ " As you walk, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
-					+ " Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading..."
+					+ " Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading."
+				+ "</p>"
+				+ "<p>"
+					+ "On the back wall at the end of the shelves is a huge map of the city of Dominion. You wonder if you should take a picture of it with your phone's camera."
 				+ "</p>";
 							
 		}
@@ -144,8 +149,11 @@ public class Library {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
-			} else if (books == 2) {
-				return new Response("City Map", "A large, framed map of Dominion hangs on one wall. Take a closer look.", DOMINION_MAP) {
+			}  else if (books == 2) {
+				return new Response("Spells", "A section of the library dedicated to spell books.", SPELL_BOOKS);
+
+			} else if (books == 5) {
+				return new Response("City Map", "A large, framed map of Dominion hangs on one wall. Take a picture of it.", DOMINION_MAP) {
 					@Override
 					public void effects() {
 						Cell[][] grid = Main.game.getWorlds().get(WorldType.DOMINION).getGrid();
@@ -157,23 +165,20 @@ public class Library {
 					}
 				};
 
-			}  else if (books == 3) {
+			}  else if (books == 6) {
 				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
 
-			}else if (books == 4) {
+			} else if (books == 7) {
 				return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
 
-			} else if (books == 5) {
+			} else if (books == 8) {
 				return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
 
-			} else if (books == 6) {
+			} else if (books == 9) {
 				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
 
-			} else if (books == 7) {
+			} else if (books == 10) {
 				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
-
-			} else if (books == 8) {
-				return new Response("Spells", "A section of the library dedicated to spell books.", SPELL_BOOKS);
 
 			} else if (books == 0) {
 				return new Response("Back", "Return to the main library menu.", LIBRARY);
@@ -440,7 +445,7 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
 					+ "</p>"
-					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION));
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -483,40 +488,40 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
-				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+				return bookResponse(ItemType.BOOK_HARPY, Subspecies.HARPY);
 
 			} else if (city == 2) {
-				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
+				return bookResponse(ItemType.BOOK_DEMON, Subspecies.DEMON);
 
 			} else if (city == 3) {
-				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
+				return bookResponse(ItemType.BOOK_DOG_MORPH, Subspecies.DOG_MORPH);
 
 			} else if (city == 4) {
-				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Subspecies.CAT_MORPH);
 
 			} else if (city == 5) {
-				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
+				return bookResponse(ItemType.BOOK_HORSE_MORPH, Subspecies.HORSE_MORPH);
 
 			} else if (city == 6) {
-				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Subspecies.WOLF_MORPH);
 
 			} else if (city == 7) {
-				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+				return bookResponse(ItemType.BOOK_HUMAN, Subspecies.HUMAN);
 
 			} else if (city == 8) {
-				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH);
+				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH);
 
 			} else if (city == 9) {
-				return bookResponse(ItemType.BOOK_BAT_MORPH, Race.BAT_MORPH);
+				return bookResponse(ItemType.BOOK_BAT_MORPH, Subspecies.BAT_MORPH);
 
 			} else if (city == 10) {
-				return bookResponse(ItemType.BOOK_IMP, Race.IMP);
+				return bookResponse(ItemType.BOOK_IMP, Subspecies.IMP);
 
 			} else if (city == 11) {
-				return bookResponse(ItemType.BOOK_SLIME, Race.SLIME);
+				return bookResponse(ItemType.BOOK_SLIME, Subspecies.SLIME);
 
 			} else if (city == 12) {
-				return bookResponse(ItemType.BOOK_RAT_MORPH, Race.RAT_MORPH);
+				return bookResponse(ItemType.BOOK_RAT_MORPH, Subspecies.RAT_MORPH);
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
@@ -552,16 +557,19 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int field) {
 			if (field == 1) {
-				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH);
 
 			} else if (field == 2) {
-				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+				return bookResponse(ItemType.BOOK_COW_MORPH, Subspecies.COW_MORPH);
 
 			} else if (field == 3) {
-				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Race.RABBIT_MORPH);
+				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Subspecies.RABBIT_MORPH);
 
 			} else if (field == 4) {
-				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
+				return bookResponse(ItemType.BOOK_FOX_MORPH, Subspecies.FOX_MORPH);
+
+			} else if (field == 5) {
+				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Subspecies.REINDEER_MORPH);
 
 			} else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
@@ -724,8 +732,8 @@ public class Library {
 //	
 //	};
 	
-	private static Response bookResponse(AbstractItemType book, Race race) {
-		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)) {
+	private static Response bookResponse(AbstractItemType book, Subspecies subspecies) {
+		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override
 				public void effects() {

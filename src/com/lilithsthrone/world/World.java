@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.main.Main;
@@ -15,7 +16,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public class World implements Serializable, XMLSaving {
@@ -56,29 +57,26 @@ public class World implements Serializable, XMLSaving {
 	}
 	
 	public static World loadFromXML(Element parentElement, Document doc) {
-		Cell[][] newGrid = new Cell[Integer.valueOf(parentElement.getAttribute("width"))][Integer.valueOf(parentElement.getAttribute("height"))];
-		
-		for(int i=0; i<((Element) parentElement.getElementsByTagName("grid").item(0)).getElementsByTagName("cell").getLength(); i++){
-			Element e = (Element) ((Element) parentElement.getElementsByTagName("grid").item(0)).getElementsByTagName("cell").item(i);
+		int width = Integer.valueOf(parentElement.getAttribute("width"));
+		int height = Integer.valueOf(parentElement.getAttribute("height"));
+		Cell[][] newGrid = new Cell[width][height];
+		NodeList cells = ((Element) parentElement.getElementsByTagName("grid").item(0)).getElementsByTagName("cell");
+		for(int i = 0; i < cells.getLength(); i++){
+			Element e = (Element) cells.item(i);
 			
 			Cell c = Cell.loadFromXML(e, doc);
 			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
 		}
 		
 		WorldType type = WorldType.EMPTY;
-		if(parentElement.getAttribute("worldType").equals("SEWERS")) {
+		String worldType = parentElement.getAttribute("worldType");
+		if(worldType.equals("SEWERS")) {
 			type = WorldType.SUBMISSION;
 		} else {
-			type = WorldType.valueOf(parentElement.getAttribute("worldType"));
+			type = WorldType.valueOf(worldType);
 		}
 		
-		World world = new World(
-				Integer.valueOf(parentElement.getAttribute("width")),
-				Integer.valueOf(parentElement.getAttribute("height")),
-				newGrid,
-				type);
-		
-		return world;
+		return new World(width, height, newGrid, type);
 	}
 
 	public Cell getCell(int i, int j) {
@@ -89,7 +87,12 @@ public class World implements Serializable, XMLSaving {
 	}
 
 	public Cell getCell(Vector2i vec) {
-		return grid[vec.getX()][vec.getY()];
+		try {
+			return grid[vec.getX()][vec.getY()];
+		} catch(Exception ex) {
+			System.err.println("Error in WorldType: "+this.getWorldType());
+			throw ex;
+		}
 	}
 	
 	/**
@@ -163,6 +166,26 @@ public class World implements Serializable, XMLSaving {
 		
 		return corridorCells.get(Util.random.nextInt(corridorCells.size()));
 	}
+	
+	public Cell getNearestCell(PlaceType place, Vector2i startLocation) {
+		Cell nearestCell = null;
+		float closestDistance = 10000f;
+		
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					float distance = (float) Math.sqrt(Math.pow(Math.abs(i-startLocation.getX()), 2) + Math.pow(Math.abs(j-startLocation.getY()), 2));
+					if(distance < closestDistance) {
+						nearestCell = grid[i][j];
+						closestDistance = distance;
+					}
+				}
+			}
+		}
+		
+		return nearestCell;
+	}
+	
 
 	public Cell[][] getCellGrid() {
 		return grid;

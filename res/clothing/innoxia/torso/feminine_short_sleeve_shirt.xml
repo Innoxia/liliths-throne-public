@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>200</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[feminine short-sleeved shirt]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[feminine short-sleeved shirts]]></namePlural> 
+		
+		<description><![CDATA[A form-fitting short-sleeved shirt, with a cut designed to fit comfortably on feminine figures.]]></description> 
+		
+		<physicalResistance>1</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>TORSO_UNDER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>feminine_short_sleeve_shirt.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_GREY"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	
+</clothing>

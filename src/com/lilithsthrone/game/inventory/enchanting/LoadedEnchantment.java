@@ -1,7 +1,11 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -22,6 +26,7 @@ public class LoadedEnchantment {
 	private AbstractItemType itemType;
 	private AbstractClothingType clothingType;
 	private AbstractWeaponType weaponType;
+	private AbstractTattooType tattooType;
 	private List<ItemEffect> effects;
 	
 	public LoadedEnchantment(String name, AbstractItemType itemType, List<ItemEffect> effects) {
@@ -29,6 +34,7 @@ public class LoadedEnchantment {
 		this.itemType = itemType;
 		this.clothingType = null;
 		this.weaponType = null;
+		this.tattooType = null;
 		this.effects = effects;
 	}
 	
@@ -37,6 +43,7 @@ public class LoadedEnchantment {
 		this.itemType = null;
 		this.clothingType = clothingType;
 		this.weaponType = null;
+		this.tattooType = null;
 		this.effects = effects;
 	}
 	
@@ -45,8 +52,20 @@ public class LoadedEnchantment {
 		this.itemType = null;
 		this.clothingType = null;
 		this.weaponType = weaponType;
+		this.tattooType = null;
 		this.effects = effects;
 	}
+	
+	public LoadedEnchantment(String name, AbstractTattooType tattooType, List<ItemEffect> effects) {
+		this.name = name;
+		this.itemType = null;
+		this.clothingType = null;
+		this.weaponType = null;
+		this.tattooType = tattooType;
+		this.effects = effects;
+	}
+	
+	
 
 	public String getName() {
 		return name;
@@ -65,18 +84,29 @@ public class LoadedEnchantment {
 			}
 			
 		} else if(clothingType!=null) {
+			List<AbstractClothing> clothingList = new ArrayList<>();
 			for(AbstractClothing c :  Main.game.getPlayer().getAllClothingInInventory()) {
-				if(c.getClothingType().equals(clothingType) && c.getEffects().isEmpty()) {
-					return c;
+				if(c.getClothingType().equals(clothingType) && c.isEnchantmentKnown()) {
+					if(c.getEffects().isEmpty()) {
+						return c;
+					} else {
+						clothingList.add(c);
+					}
 				}
 			}
+			if(!clothingList.isEmpty()) {
+				return clothingList.get(0);
+			}
 			
-		} else {
+		} else if(weaponType!=null) {
 			for(AbstractWeapon w :  Main.game.getPlayer().getAllWeaponsInInventory()) {
 				if(w.getWeaponType().equals(weaponType) && w.getEffects().isEmpty()) {
 					return w;
 				}
 			}
+			
+		} else if(tattooType!=null) {
+			return EnchantmentDialogue.getIngredient();
 		}
 		
 		return null;
@@ -97,12 +127,17 @@ public class LoadedEnchantment {
 			}
 			return clothingType.getSVGImage();
 			
-		} else {
+		} else if(weaponType!=null) {
 			if(item!=null) {
 				return ((AbstractWeapon)item).getSVGString();
 			}
 			return weaponType.getSVGImage();
+			
+		} else if(tattooType!=null) {
+			return ((Tattoo)item).getSVGString();
 		}
+		
+		return "";
 	}
 	
 	public AbstractItemType getItemType() {
@@ -115,6 +150,10 @@ public class LoadedEnchantment {
 
 	public AbstractWeaponType getWeaponType() {
 		return weaponType;
+	}
+
+	public AbstractTattooType getTattooType() {
+		return tattooType;
 	}
 
 	public List<ItemEffect> getEffects() {

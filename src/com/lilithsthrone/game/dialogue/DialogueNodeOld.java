@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue;
 import java.io.Serializable;
 
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -52,6 +53,9 @@ public abstract class DialogueNodeOld implements Serializable {
 	}
 
 	public String getLabel() {
+		if(Main.game.isStarted() && (label==null || label.isEmpty())) {
+			return Main.game.getPlayerCell().getPlace().getName();
+		}
 		return label;
 	}
 
@@ -76,6 +80,9 @@ public abstract class DialogueNodeOld implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Starts at 0.
+	 */
 	public String getResponseTabTitle(int index) {
 		return null;
 	}

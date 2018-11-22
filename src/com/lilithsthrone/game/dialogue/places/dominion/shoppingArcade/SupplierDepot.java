@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -11,6 +14,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -29,7 +33,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SupplierDepot {
 	
 	public static void applySuppliersBeatenEffects() {
-		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN));
+		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN));
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.supplierDepotDoorUnlocked, false);
 	}
 	
@@ -38,13 +42,13 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_OPEN");
 				
-			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+			} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_REFURBISHING");
 				
-			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
+			} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_CLOSED_NYAN_INFO");
 				
 			} else {
@@ -54,8 +58,8 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && Main.game.getPlayer().hasQuest(QuestLine.SIDE_NYAN_HELP)) {
-				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+			if (index == 1 && Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+				if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 					return new Response("Enter", "The door is firmly locked while the suppliers are moving back in.", null);
 					
 				} else {
@@ -85,7 +89,7 @@ public class SupplierDepot {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "RECEPTION_POPULATED"));
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.supplierDepotDoorUnlocked)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "RECEPTION_POPULATED_STAFF_DOOR"));
@@ -103,7 +107,7 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Exit", "Decide to leave the Depot for now. You can always come back at another time.") {
 						@Override
@@ -233,12 +237,15 @@ public class SupplierDepot {
 						public void effects() {
 							Main.game.getDialogueFlags().supplierStorageRoomsChecked.add(Main.game.getPlayer().getLocation());
 							
+							List<AbstractClothingType> clothingToGenerate = new ArrayList<>(ClothingType.getAllClothing());
+							clothingToGenerate.removeIf((clothing) -> !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN));
+							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())), false), false)
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())), false), false)
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())), false), false):"")
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())), false), false):""));
+									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
 						}
 					};
 				}
@@ -340,7 +347,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED");
 			}
 			
@@ -353,7 +360,7 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				if (index == 1) {
 					return new ResponseSex("Fuck Them",
 							UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Push Wolfgang and Karl down side-by-side in the doggy-style position, ready to have some fun with them..."),
@@ -364,8 +371,8 @@ public class SupplierDepot {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_WILLING_DOMMED_THEM,
-							UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_FUCK_THEM"));
+							null,
+							null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_FUCK_THEM"));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Get Fucked",
@@ -377,8 +384,8 @@ public class SupplierDepot {
 											new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 											new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-							AFTER_SEX_WILLING,
-							UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
+							null,
+							null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
 					
 				} else if (index == 0) {
 					return new ResponseEffectsOnly("Leave", "Let the pair know that you were just checking up on them, before heading back outside into the Shopping Arcade once again.") {
@@ -466,8 +473,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_FUCKED,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
+						null,
+						null, AFTER_SEX_FUCKED, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
 				
 			} else {
 				return null;
@@ -542,8 +549,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_WILLING,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_THANKS"));
+						null,
+						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_THANKS"));
 				
 			} else {
 				return null;
@@ -586,8 +593,8 @@ public class SupplierDepot {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-						AFTER_SEX_WILLING_DOMMED_THEM,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_FUCK_THEM"));
+						null,
+						null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_FUCK_THEM"));
 				
 			} else if (index == 3) {
 				return new ResponseSex("Get Fucked",
@@ -599,8 +606,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_WILLING,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_SUB_FUCKED"));
+						null,
+						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_SUB_FUCKED"));
 				
 			} else {
 				return null;
@@ -628,8 +635,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_FUCKED,
-						"");
+						null,
+						null, AFTER_SEX_FUCKED, "");
 				
 			} else {
 				return null;
@@ -647,7 +654,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "AFTER_SEX_WILLING_DOMMED_THEM_PACIFIED");
 			}
 
@@ -675,7 +682,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "AFTER_SEX_WILLING_PACIFIED");
 			}
 			

@@ -28,7 +28,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -39,11 +39,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.5
+ * @version 0.2.10
  * @author Innoxia
  */
 public class Lab {
-	
 	
 	public static final DialogueNodeOld LAB = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
 		private static final long serialVersionUID = 1L;
@@ -57,7 +56,7 @@ public class Lab {
 						+ "</p>"
 						+"<p style='text-align:center;'>"
 							+ "<i>"
-								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.</br></br>"
+								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.<br/><br/>"
 								+ "I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not."
 							+ "</i>"
 						+ "</p>"
@@ -125,7 +124,7 @@ public class Lab {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO check
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
 						UtilText.nodeContentSB.append(// pregnant
 								"<p>"
@@ -317,7 +316,7 @@ public class Lab {
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic aunt,"
 										+ " before letting out a little eek and jumping to her feet as she feigns surprise."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
@@ -355,7 +354,7 @@ public class Lab {
 								"<p>"
 									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as the half-demon's fingers continue working away between her legs."
 									+ " She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet."
-									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+									+ " [rose.speech(M-Mistress! [pc.NamePos] here!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Lilaya, upon hearing that, mirrors her maid's movements and jumps out of her chair."
@@ -401,11 +400,11 @@ public class Lab {
 								"Let Lilaya run her \"tests\" on you.",
 								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								null,
+								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -429,11 +428,11 @@ public class Lab {
 								null,
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-								Lilaya.AUNT_END_SEX,
-								"<p>"
+								new SMChair(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+								null,
+								null, Lilaya.AUNT_END_SEX, "<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 									+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 								+ "</p>"
@@ -471,15 +470,23 @@ public class Lab {
 						generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
 						
 					} else {
-						generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
-								if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE));
 								}
-							}
-						});
+							});
+							
+						} else {
+							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY_REPEAT){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
+								}
+							});
+						}
 					}
 				}
 				
@@ -531,6 +538,21 @@ public class Lab {
 						}
 					}
 				}
+
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+					if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+						generatedResponses.add(new Response("Accommodation", "You'll need to complete Lilaya's initial tests before you can ask her about inviting friends home!", null));
+						
+					} else {
+						generatedResponses.add(new Response("Accommodation", "Ask Lilaya about inviting your new friend to live in one of the many spare rooms in the mansion.", LILAYA_FRIEND_ACCOMMODATION){
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ACCOMMODATION, Quest.SIDE_UTIL_COMPLETE));
+							}
+						});
+					}
+				}
 				
 				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.lilayaDateTalk)
 						&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
@@ -570,7 +592,7 @@ public class Lab {
 							Main.game.getDialogueFlags().values.remove(DialogueFlagValue.roseToldOnYou);
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
 							Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-							Main.game.getLilaya().resetInventory();
+							Main.game.getLilaya().resetInventory(false);
 							
 							Main.game.getLilaya().equipClothingFromNowhere(
 									AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
@@ -852,7 +874,7 @@ public class Lab {
 						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind."
+						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassment is on her mind."
 						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
 					+ "</p>";
 		}
@@ -866,8 +888,8 @@ public class Lab {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-						"<p>"
+						null,
+						null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace."
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
@@ -888,8 +910,8 @@ public class Lab {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						Lilaya.AUNT_END_SEX_GEISHA,
-								"<p>"
+						null,
+								null, Lilaya.AUNT_END_SEX_GEISHA, "<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace."
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 								+ "</p>"
@@ -910,16 +932,11 @@ public class Lab {
 					@Override public void effects() {
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
-						Main.game.getLilaya().resetInventory();
+						Main.game.getLilaya().resetInventory(false);
 						
 						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 						
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
-						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothing(true, true, true, true);
 						
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
@@ -1394,7 +1411,7 @@ public class Lab {
 									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
 								+ "</p>"
 								+ "<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
+									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/><br/>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
 								+ "</div>"
 								+ Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE));
@@ -1849,11 +1866,11 @@ public class Lab {
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+						null,
+						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -2094,11 +2111,11 @@ public class Lab {
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
+						new SMChair(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))),
+						null,
+						null, Lilaya.AUNT_END_SEX, "<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -2211,6 +2228,27 @@ public class Lab {
 //			}
 //		}
 //	};
+	
+	
+	public static final DialogueNodeOld LILAYA_FRIEND_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_FRIEND_ACCOMMODATION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "You've now got Lilaya's permission to invite friends back home!", LAB_EXIT);
+
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
 
@@ -2330,197 +2368,153 @@ public class Lab {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (player.getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-				
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
-							+ " [pc.speech(Erm... Lilaya...)]"
-						+ "</p>"
-						+"<p>"
-							+ "[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks."
-						+ "</p>"
-						+"<p>"
-							+ "You aren't quite sure what to say, and look sheepishly at the floor as you hear Lilaya's footsteps drawing near."
-							+ " Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump."
-						+ "</p>");
-				
-				// Player has had sex with Lilaya before:
-				if(player.getSexPartnerStats(aunt) != null) {
-					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == aunt)) {
-						if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != aunt)) {
-							// Lilaya might be the 'father':
-							UtilText.nodeContentSB.append(
-								"<p>"
-									+"[pc.speech(Erm... Lilaya? Just so you know, you <i>might</i> be the one who got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
-								+ "</p>"
-								+ "<p>"
-									+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she might be the other parent to your children."
-								+ "</p>"
-								+"<p>"
-									+ "You feel very conscious of the fact that you just admitted to having had other sexual partners to Lilaya."
-									+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
-									+ UtilText.parsePlayerSpeech("Well... You don't mind do you? I mean, I still like you and everything...")
-								+ "</p>"
-								+ "<p>"
-									+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
-									+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
-									+ " Her cheeks go red as she starts to blush. "
-									+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
-								+ "</p>"
-								+ "<p>"
-									+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
-									+ " She seems to have thought that you were apologising about interrupting her and Rose, and you see that she isn't even thinking twice about you having sex with other people."
-									+ " After all, you suppose, she's quite happy to carry on pursuing her relationship with Rose, and it puts your mind at ease knowing that whatever you've got going with Lilaya isn't an exclusive deal."
-								+ "</p>");
-							
-						} else {
-							// Lilaya is definitely the 'father':
-							UtilText.nodeContentSB.append(
-									"<p>"
-										+"[pc.speech(Erm... Lilaya? Just so you know, you're definitely the one that got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
-									+ "</p>"
-									+ "<p>"
-									+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she's the \"father\" to your children."
-								+ "</p>");
-						}
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
+						+ " [pc.speech(Erm... Lilaya...)]"
+					+ "</p>"
+					+"<p>"
+						+ "[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks."
+					+ "</p>"
+					+"<p>"
+						+ "You aren't quite sure what to say, and look sheepishly at the floor as you hear Lilaya's footsteps drawing near."
+						+ " Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump."
+					+ "</p>");
+			
+			// Player has had sex with Lilaya before:
+			if(player.getSexPartnerStats(aunt) != null) {
+				if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == aunt)) {
+					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != aunt)) {
+						// Lilaya might be the 'father':
+						UtilText.nodeContentSB.append(
+							"<p>"
+								+"[pc.speech(Erm... Lilaya? Just so you know, you <i>might</i> be the one who got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
+							+ "</p>"
+							+ "<p>"
+								+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she might be the other parent to your children."
+							+ "</p>"
+							+"<p>"
+								+ "You feel very conscious of the fact that you just admitted to having had other sexual partners to Lilaya."
+								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
+								+ UtilText.parsePlayerSpeech("Well... You don't mind do you? I mean, I still like you and everything...")
+							+ "</p>"
+							+ "<p>"
+								+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
+								+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
+								+ " Her cheeks go red as she starts to blush. "
+								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
+							+ "</p>"
+							+ "<p>"
+								+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
+								+ " She seems to have thought that you were apologising about interrupting her and Rose, and you see that she isn't even thinking twice about you having sex with other people."
+								+ " After all, you suppose, she's quite happy to carry on pursuing her relationship with Rose, and it puts your mind at ease knowing that whatever you've got going with Lilaya isn't an exclusive deal."
+							+ "</p>");
 						
 					} else {
-						// Lilaya is definitely not the 'father':
+						// Lilaya is definitely the 'father':
 						UtilText.nodeContentSB.append(
 								"<p>"
-									+ "You feel very conscious of the fact that you're presenting clear evidence of having other sexual partners to Lilaya."
-									+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
-									+ UtilText.parsePlayerSpeech("Erm... Lilaya... You don't mind do you? I mean, I still like you and everything...")
+									+"[pc.speech(Erm... Lilaya? Just so you know, you're definitely the one that got me pregnant...)] you explain, looking down at your demonic aunt as she carries on feeling your stomach."
 								+ "</p>"
 								+ "<p>"
-									+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
-									+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
-									+ " Her cheeks go red as she starts to blush. "
-									+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
-								+ "</p>"
-								+ "<p>"
-									+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
-									+ " She seems to have thought that you were apologising about interrupting her and Rose, and you see that she isn't even thinking twice about you having sex with other people."
-									+ " After all, you suppose, she's quite happy to carry on pursuing her relationship with Rose, and it puts your mind at ease knowing that whatever you've got going with Lilaya isn't an exclusive deal."
-								+ "</p>");
+								+"[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all fazed by the fact that she's the \"father\" to your children."
+							+ "</p>");
 					}
 					
-				}
-
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you into her lab."
-							+ " You look around to see that Rose has vacated the area, leaving you alone with your demonic aunt."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you coming from another universe and everything!)]"
-							+ " she cries, pushing you down into a chair before running off to rummage around in some nearby boxes. As she does so, she shouts back to you over her shoulder, "
-							+ "[lilaya.speech(I'm guessing you're not aware of how pregnancies work here, huh?"
-									+ " Well, seeing as the arcane has a massive effect on it, I'm guessing it's pretty different than it is in your world!"
-									+ " Hmm... Where did it go?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Lilaya stops talking for a moment as she concentrates on searching through the boxes."
-							+ " You aren't given much time to think about what she's saying before you see her straighten up and turn around, and you see that she's holding another of those wand-like instruments in one hand as she"
-								+ " starts walking back over towards you."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane has a big influence on pregnancy speed around here,)]"
-							+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved. "
-							+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", aunt)
-						+ "</p>"
-						+ "<p>"
-							+ "As you try to assimilate the information Lilaya's giving you, the instrument in her hand starts giving off a faint pink glow, and, letting out a satisfied hum, she brings it down to your pregnant bump."
-							+ " Running the little wand up and down over your swollen belly, she starts making thoughtful humming sounds, and just as you're starting to worry about the puzzled expression that's covering her face,"
-								+ " the instrument suddenly releases a bright flash of pink light, and Lilaya lets out a relieved sigh."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(Well, that's a relief! Oh, right, I need to explain what's going on!)]"
-							+ " she says, putting the instrument down on a nearby table before turning back to face you. "
-							+ "[lilaya.speech(So, it turns out that your body has completely adapted to this world, and you're going to be obeying the same sort of rules for pregnancy as the rest of us!"
-									+ " What I'm trying to say is that you're not going to be pregnant for the better part of a year; it's going to be more like a few weeks."
-									+ " Oh, and also, the races of the children you're going to give birth to will be a split between your race, and the race of the father."
-									+ " Pretty exciting, huh?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "You look down at your pregnant belly, stroking it absent-mindedly as Lilaya's words sink in."
-							+ " As your thoughts turn to the process of bringing up a child in this strange world, you feel yourself starting to become overwhelmed by emotion, and you blurt out to Lilaya, "
-							+ "[pc.speech(B-but what do I do?! How am I meant to raise a child here?! A-And, what about the whole part of actually giving birth?! This is too much!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Much to your surprise, Lilaya's face momentarily scrunches up into a look of confusion, as though she doesn't quite know what you're talking about."
-							+ " Thankfully, after just a moment, she lets out an understanding sigh, and quickly moves to put your fears to rest. "
-							+ "[lilaya.speech(Aah, of course, the arcane is the thing responsible for the rapid growth as well..."
-									+ " I'm sure this will come as a major relief, but you don't have to worry about raising your children here; thanks to the arcane, they'll reach full maturity in just a couple of hours."
-									+ " The arcane grants them their mother's general knowledge about things, so they get all the information they need to make their own way in the world."
-									+ " There's no need for any 'raising' or anything, don't worry."
-									+ " Honestly, I don't even know how people would be able to cope without the arcane!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "As Lilaya finishes speaking, a huge wave of relief washes over you."
-							+ " You sink back into the chair, sighing deeply, before you remember your last concern about this whole process; the part about actually giving birth."
-							+ " Before you can ask Lilaya about it again, she continues, "
-						+ (player.hasStatusEffect(StatusEffect.PREGNANT_3)
-								? "[lilaya.speech(Oh, and don't worry about the whole giving birth part."
-										+ " I see that your belly has already finished growing, so I can help you to give birth whenever you're ready!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With your final question answered, you stand up from the chair, and thank Lilaya for all her help."
-										+ " She tells you not to worry about it, and to remember to come back to see her when you're ready to give birth."
-									+ "</p>"
-
-								: "[lilaya.speech(Oh, and don't worry about the whole giving birth part."
-										+ " When you're ready, just come back here and I'll talk you through it!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With your final question answered, you stand up from the chair, and thank Lilaya for all her help."
-										+ " She tells you not to worry about it, and to remember to come back to see her once your belly has finished growing."
-									+ "</p>"));
-						
-				return UtilText.nodeContentSB.toString();
-				
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
-							+ " [pc.speech(Erm... Lilaya...)]"
-						+ "</p>");
-
-				if(player.isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks."
-							+ "</p>");
 				} else {
+					// Lilaya is definitely not the 'father':
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ "[lilaya.speech(So, you're ready to do something about your little pregnancy problem, huh?)] she asks."
+								+ "You feel very conscious of the fact that you're presenting clear evidence of having other sexual partners to Lilaya."
+								+ " As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic aunt, "
+								+ UtilText.parsePlayerSpeech("Erm... Lilaya... You don't mind do you? I mean, I still like you and everything...")
+							+ "</p>"
+							+ "<p>"
+								+ "You look up to see a puzzled expression on Lilaya's face, and she momentarily stops feeling your stomach, leaving her hands to rest on your belly as she replies, "
+								+ UtilText.parseSpeech("Mind about what? Oh!", aunt)
+								+ " Her cheeks go red as she starts to blush. "
+								+ UtilText.parseSpeech("D-Don't worry about it! I-I mean... I still like you too... It's just that Rose and I have this special sort of relationship, y-you see?", aunt)
+							+ "</p>"
+							+ "<p>"
+								+ "For a moment, you're not quite sure what she's talking about, but then you realise that she completely misinterpreted what you were saying."
+								+ " She seems to have thought that you were apologising about interrupting her and Rose, and you see that she isn't even thinking twice about you having sex with other people."
+								+ " After all, you suppose, she's quite happy to carry on pursuing her relationship with Rose, and it puts your mind at ease knowing that whatever you've got going with Lilaya isn't an exclusive deal."
 							+ "</p>");
 				}
 				
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "You aren't quite sure what to say, and look sheepishly at the floor as you hear Lilaya's footsteps drawing near."
-							+ " Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump."
-						+ "</p>");
-
-				if(player.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "[lilaya.speech(I see your belly's already finished growing, so I can help you to give birth whenever you're ready!)]"
-								+ " she says, smiling at you as she carries on fondling your swollen bump."
-							+ "</p>");
-				} else {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "[lilaya.speech(You're not quite ready to give birth just yet... Come back when your belly's really nice and round!)]"
-								+ " she says, smiling at you as she carries on fondling your swollen bump."
-							+ "</p>");
-				}
-				
-				return UtilText.nodeContentSB.toString();
 			}
+
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "She suddenly breaks off from fondling your abdomen, and, grabbing your wrist, starts pulling you into her lab."
+						+ " You look around to see that Rose has vacated the area, leaving you alone with your demonic aunt."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you coming from another universe and everything!)]"
+						+ " she cries, pushing you down into a chair before running off to rummage around in some nearby boxes. As she does so, she shouts back to you over her shoulder, "
+						+ "[lilaya.speech(I'm guessing you're not aware of how pregnancies work here, huh?"
+								+ " Well, seeing as the arcane has a massive effect on it, I'm guessing it's pretty different than it is in your world!"
+								+ " Hmm... Where did it go?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Lilaya stops talking for a moment as she concentrates on searching through the boxes."
+						+ " You aren't given much time to think about what she's saying before you see her straighten up and turn around, and you see that she's holding another of those wand-like instruments in one hand as she"
+							+ " starts walking back over towards you."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(So, I'm guessing you've already realised that the arcane has a big influence on pregnancy speed around here,)]"
+						+ " she laughs, stroking your belly once more before stepping back and tinkering with some small dials on the instrument she's just retrieved. "
+						+ UtilText.parseSpeech("I've actually done a fair bit of research on the arcane's influence on pregnancies, so I know that without its presence, pregnancies should really be taking about nine months...", aunt)
+					+ "</p>"
+					+ "<p>"
+						+ "As you try to assimilate the information Lilaya's giving you, the instrument in her hand starts giving off a faint pink glow, and, letting out a satisfied hum, she brings it down to your pregnant bump."
+						+ " Running the little wand up and down over your swollen belly, she starts making thoughtful humming sounds, and just as you're starting to worry about the puzzled expression that's covering her face,"
+							+ " the instrument suddenly releases a bright flash of pink light, and Lilaya lets out a relieved sigh."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Well, that's a relief! Oh, right, I need to explain what's going on!)]"
+						+ " she says, putting the instrument down on a nearby table before turning back to face you. "
+						+ "[lilaya.speech(So, it turns out that your body has completely adapted to this world, and you're going to be obeying the same sort of rules for pregnancy as the rest of us!"
+								+ " What I'm trying to say is that you're not going to be pregnant for the better part of a year; it's going to be more like a few weeks."
+								+ " Oh, and also, the races of the children you're going to give birth to will be a split between your race, and the race of the father."
+								+ " Pretty exciting, huh?!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You look down at your pregnant belly, stroking it absent-mindedly as Lilaya's words sink in."
+						+ " As your thoughts turn to the process of bringing up a child in this strange world, you feel yourself starting to become overwhelmed by emotion, and you blurt out to Lilaya, "
+						+ "[pc.speech(B-but what do I do?! How am I meant to raise a child here?! A-And, what about the whole part of actually giving birth?! This is too much!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Much to your surprise, Lilaya's face momentarily scrunches up into a look of confusion, as though she doesn't quite know what you're talking about."
+						+ " Thankfully, after just a moment, she lets out an understanding sigh, and quickly moves to put your fears to rest. "
+						+ "[lilaya.speech(Aah, of course, the arcane is the thing responsible for the rapid growth as well..."
+								+ " I'm sure this will come as a major relief, but you don't have to worry about raising your children here; thanks to the arcane, they'll reach full maturity in just a couple of hours."
+								+ " The arcane grants them their mother's general knowledge about things, so they get all the information they need to make their own way in the world."
+								+ " There's no need for any 'raising' or anything, don't worry."
+								+ " Honestly, I don't even know how people would be able to cope without the arcane!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As Lilaya finishes speaking, a huge wave of relief washes over you."
+						+ " You sink back into the chair, sighing deeply, before you remember your last concern about this whole process; the part about actually giving birth."
+						+ " Before you can ask Lilaya about it again, she continues, "
+					+ (player.hasStatusEffect(StatusEffect.PREGNANT_3)
+							? "[lilaya.speech(Oh, and don't worry about the whole giving birth part."
+									+ " I see that your belly has already finished growing, so I can help you to give birth whenever you're ready!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "With your final question answered, you stand up from the chair, and thank Lilaya for all her help."
+									+ " She tells you not to worry about it, and to remember to come back to see her when you're ready to give birth."
+								+ "</p>"
+
+							: "[lilaya.speech(Oh, and don't worry about the whole giving birth part."
+									+ " When you're ready, just come back here and I'll talk you through it!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "With your final question answered, you stand up from the chair, and thank Lilaya for all her help."
+									+ " She tells you not to worry about it, and to remember to come back to see her once your belly has finished growing."
+								+ "</p>"));
+					
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -2566,6 +2560,62 @@ public class Lab {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld LILAYA_ASSISTS_PREGNANCY_REPEAT = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			PlayerCharacter player = Main.game.getPlayer();
+			
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Stepping forwards, you smile at your demonic aunt, before looking down and rubbing your belly."
+						+ " [pc.speech(Erm... Lilaya...)]"
+					+ "</p>");
+
+			if(player.isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks."
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[lilaya.speech(So, you're ready to do something about your little pregnancy problem, huh?)] she asks."
+						+ "</p>");
+			}
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "You aren't quite sure what to say, and look sheepishly at the floor as you hear Lilaya's footsteps drawing near."
+						+ " Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump."
+					+ "</p>");
+
+			if(player.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[lilaya.speech(I see your belly's already finished growing, so I can help you to give birth whenever you're ready!)]"
+							+ " she says, smiling at you as she carries on fondling your swollen bump."
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[lilaya.speech(You're not quite ready to give birth just yet... Come back when your belly's really nice and round!)]"
+							+ " she says, smiling at you as she carries on fondling your swollen bump."
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LILAYA_ASSISTS_PREGNANCY.getResponse(responseTab, index);
 		}
 	};
 	
@@ -2766,7 +2816,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "<i>"
 					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
-					+ "</br></br>");
+					+ "<br/><br/>");
 			
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
@@ -2776,23 +2826,27 @@ public class Lab {
 			
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
+							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+							+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
+						+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+							+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
+						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+						+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
+					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
+							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+							+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 				}
 			}
 			
@@ -3067,23 +3121,31 @@ public class Lab {
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+								+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+							+" crawling out."
 						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
 				
 			} else if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+								+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+							+" crawling out."
 						+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				
 			} else if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+								+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+							+" crawling out."
 						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
 				
 			} else {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" crawling out."
-								+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "
+								+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+							+" crawling out."
+						+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				
 			}
 						
@@ -3162,12 +3224,12 @@ public class Lab {
 
 					+ "<p style='text-align:center;'>"
 						+ "<i>"
-						+ "Hey [pc.name], congratulations! Everything went perfectly!</br>"
+						+ "Hey [pc.name], congratulations! Everything went perfectly!<br/>"
 						+ "I hope you don't mind, but I collected a lot of data about your aura while we were doing this!"
 						+ " I had to start analysing it straight away, and you were fast asleep anyway, so I hope you don't mind me leaving you there to rest."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "If you need anything, or perhaps if you'd like some more \"tests\", then you know where to find me!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ (Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount() > 1
 								?"P.S. I managed to get your kids together for a picture before they left, it's under this note!"
 								:"P.S. I got a picture of your kid before they left, it's under this note!")
@@ -3182,7 +3244,7 @@ public class Lab {
 					+ "In the picture you see:");
 
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather()))
 						+ "</b>");
 
@@ -3191,7 +3253,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3204,6 +3275,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3212,10 +3287,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3225,24 +3303,6 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3263,12 +3323,14 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
-								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleName()+ "</b>, who have their father's features."
-								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+ "</b>, who has his father's features."));
+								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getPluralMaleName(Main.game.getPlayer())
+									+ "</b>, who have their father's features."
+								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+									+ "</b>, who has his father's features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()))
 						+ "</b>");
 
@@ -3277,7 +3339,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3290,6 +3361,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3298,10 +3373,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3311,24 +3389,6 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3349,12 +3409,14 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
-								? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleName()+ "</b>, who have your features."
-								: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+ "</b>, who has your features."));
+						? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getPluralMaleName(Main.game.getPlayer())
+								+ "</b>, who have your features."
+							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularMaleName(Main.game.getPlayer())
+								+ "</b>, who has your features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()))
 						+ "</b>");
 
@@ -3363,7 +3425,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3376,6 +3447,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3384,10 +3459,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3397,24 +3475,6 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3435,12 +3495,14 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 1
-							? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleName()+ "</b>, who have their father's features."
-							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleNameSingular()+ "</b>, who has her father's features."));
+						? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getPluralFemaleName(Main.game.getPlayer())
+								+ "</b>, who have their father's features."
+							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+								+ "</b>, who has her father's features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()))
 						+ "</b>");
 
@@ -3449,7 +3511,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3462,6 +3533,10 @@ public class Lab {
 					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3470,10 +3545,13 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY: case HARPY_RAVEN:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HARPY_BALD_EAGLE:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3483,24 +3561,6 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3521,8 +3581,10 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 1
-							? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleName()+ "</b>, who have your features."
-							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleNameSingular()+ "</b>, who has your features."));
+						? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getPluralFemaleName(Main.game.getPlayer())
+								+ "</b>, who have your features."
+							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringSubspecies().getSingularFemaleName(Main.game.getPlayer())
+								+ "</b>, who has your features."));
 			}
 
 			litterSB.append("</p>"

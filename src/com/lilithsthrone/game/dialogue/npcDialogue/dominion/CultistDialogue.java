@@ -13,7 +13,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -74,11 +73,11 @@ public class CultistDialogue {
 									+ " [pc.speech(I don't have time right now.)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You see a brief flash of anger in [npc.name]'s [npc.eyes+], but it only lasts for a moment before the smile returns to her face."
+									+ "You see a brief flash of anger in [npc.namePos] [npc.eyes+], but it only lasts for a moment before the smile returns to her face."
 									+ " [npc.speech(Just remember to praise Lilith, or else we'll find out!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[npc.Name]'s words are followed by a little laugh, but despite her attempt to pass off her remark as a joke, you detect the distinct hint of malice in her tone."
+									+ "[npc.NamePos] words are followed by a little laugh, but despite her attempt to pass off her remark as a joke, you detect the distinct hint of malice in her tone."
 									+ " Not wanting to get caught up in conversation with this overbearing cultist, you turn around and carry on your way."
 								+ "</p>"));
 					}
@@ -93,9 +92,7 @@ public class CultistDialogue {
 					@Override
 					public void effects() {
 						// Pull up dress:
-						if(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER)!=null) {
-							Main.game.getActiveNPC().isAbleToBeDisplaced(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.PULLS_UP, true, true, Main.game.getActiveNPC());
-						}
+						Main.game.getActiveNPC().displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				
@@ -156,12 +153,12 @@ public class CultistDialogue {
 				
 			} else if(index==2) {
 				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.",
-						true, false,
+						true, true,
 						new SMCultistKneeling(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.KNEELING_RECEIVING_ORAL_CULTIST)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_CULTIST))),
-						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						"<p>"
+						null,
+						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, "<p>"
 							+ "You do as [npc.name] commands, and obediently drop to your knees in front of her."
 							+ " Looking down at your submissive form, the succubus cultist coos in delight,"
 							+ " [npc.speech(Good [pc.girl]! You're eager for my gift, aren't you?!)]"
@@ -194,19 +191,19 @@ public class CultistDialogue {
 				
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
-					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER),
+					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY),
 							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMAltarMissionary(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-							ENCOUNTER_CHAPEL_POST_VAGINAL_SEX,
-							"<p>"
+							null,
+							null, ENCOUNTER_CHAPEL_POST_VAGINAL_SEX, "<p>"
 								+ "You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster,"
 								+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 							+ "</p>"
 							+ "<p>"
-								+ "You slowly trace your fingers over your pussy, drawing [npc.name]'s eyes down between your [pc.legs+]."
+								+ "You slowly trace your fingers over your pussy, drawing [npc.namePos] eyes down between your [pc.legs+]."
 								+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 								+ " [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with imps soon enough!)]"
 							+ "</p>"
@@ -245,13 +242,13 @@ public class CultistDialogue {
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_ANAL_SEX,
-						"<p>"
+						null,
+						null, ENCOUNTER_CHAPEL_POST_ANAL_SEX, "<p>"
 							+ "You smirk at [npc.name], before stepping forwards and asking,"
 							+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You slowly turn to one side, tracing your fingers over your ass in order to draw [npc.name]'s eyes down to your rear end."
+							+ "You slowly turn to one side, tracing your fingers over your ass in order to draw [npc.namePos] eyes down to your rear end."
 							+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 							+ " [npc.speech(What better way to praise Lilith than by filling some slut's ass with my seed?!)]"
 						+ "</p>"
@@ -330,7 +327,7 @@ public class CultistDialogue {
 			return "<p>"
 						+ "Leaving [npc.name] panting and exhausted on the altar, you turn to make your exit."
 						+ " As you're walking towards the door, you notice that there's a spare Witch's outfit neatly folded on one of the empty benches."
-						+ " There's even a spare broomstick lying beside it, and you wonder if you should help yourself to these rare items as way of compensation for [npc.name]'s behaviour..."
+						+ " There's even a spare broomstick lying beside it, and you wonder if you should help yourself to these rare items as way of compensation for [npc.namePos] behaviour..."
 					+ "</p>"
 					+ "<p>"
 						+ "<i>Open your inventory to view the items.</i>"
@@ -420,9 +417,9 @@ public class CultistDialogue {
 						new SMAltarMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_DOM_SEX,
-						"<p>"
-							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.name]'s legs."
+						null,
+						null, ENCOUNTER_CHAPEL_POST_DOM_SEX, "<p>"
+							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.namePos] legs."
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you."
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
 						+ "</p>") {
@@ -438,9 +435,9 @@ public class CultistDialogue {
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
-						"<p>"
-							+ "As you pick up [npc.name]'s broomstick, you feel a powerful surge of arcane energy flowing into your body."
+						null,
+						null, ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX, "<p>"
+							+ "As you pick up [npc.namePos] broomstick, you feel a powerful surge of arcane energy flowing into your body."
 							+ " Without even needing to be told, you instantly know exactly how to harness the spells within this powerful weapon."
 							+" As you gain knowledge of the spell 'Witch's Seal', you realise that you have the opportunity to give [npc.name] a taste of her own medicine..."
 						+ "</p>"
@@ -518,10 +515,10 @@ public class CultistDialogue {
 						new SMAltarMissionarySealed(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))),
-						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+						null,
+						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
-								+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
+								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 								+ " [npc.speech(There we go! Now let's both find out how much you love being my fuck-toy!)]"
 							+ "</p>"

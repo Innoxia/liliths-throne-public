@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum EarType implements BodyPartTypeInterface {
@@ -22,17 +22,21 @@ public enum EarType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	IMP(BodyCoveringType.IMP, Race.IMP),
-	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	DOG_MORPH_POINTED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	DOG_MORPH_FOLDED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
+	
+	FOX_MORPH_BIG(BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
@@ -57,6 +61,16 @@ public enum EarType implements BodyPartTypeInterface {
 	private EarType(BodyCoveringType skinType, Race race) {
 		this.skinType = skinType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static EarType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -86,12 +100,12 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("pointed", "delicate");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "cat-like");
+			case CAT_MORPH_TUFTED:
+				return UtilText.returnStringAtRandom("tufted", "furry", "fur-coated", "cat-like");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("pointed", "demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("pointed", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "dog-like");
 			case DOG_MORPH_POINTED:
@@ -112,6 +126,10 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("pointed", "furry", "fur-coated", "fox-like");
+			case FOX_MORPH_BIG:
+				return UtilText.returnStringAtRandom("large", "fennec-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("large", "bat-like");
 			case RAT_MORPH:
@@ -123,17 +141,18 @@ public enum EarType implements BodyPartTypeInterface {
 		}
 		return "";
 	}
-	
+
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
 				return "angelic";
 			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_TUFTED:
+				return "tufted feline";
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_POINTED:
@@ -143,19 +162,23 @@ public enum EarType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return "bovine";
 			case SQUIRREL_MORPH:
-				return "furry";
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case HARPY:
-				return "avian";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case HUMAN:
 				return "human";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
+			case FOX_MORPH:
+				return "fox";
+			case FOX_MORPH_BIG:
+				return "large fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

@@ -11,7 +11,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum WorldType {
@@ -91,6 +91,7 @@ public enum WorldType {
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
+					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
 					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
@@ -190,9 +191,22 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
-					new Value<>(new Color(0xff00ff), PlaceType.SLAVER_ALLEY_MARKET_STALL),
+
+					new Value<>(new Color(0xff80ff), PlaceType.SLAVER_ALLEY_STALL_FEMALES),
+					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_STALL_MALES),
+					
+					new Value<>(new Color(0xff8000), PlaceType.SLAVER_ALLEY_STALL_ANAL),
+					new Value<>(new Color(0xff00ff), PlaceType.SLAVER_ALLEY_STALL_VAGINAL),
+					new Value<>(new Color(0xff8080), PlaceType.SLAVER_ALLEY_STALL_ORAL),
+					new Value<>(new Color(0x404040), PlaceType.SLAVER_ALLEY_STATUE),
+					
+					new Value<>(new Color(0x21bfc5), PlaceType.SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE),
+					new Value<>(new Color(0x004080), PlaceType.SLAVER_ALLEY_MARKET_STALL_BULK),
+					new Value<>(new Color(0x008080), PlaceType.SLAVER_ALLEY_CAFE),
+					
 					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
+					
 					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
 					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
 	
@@ -267,6 +281,30 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
+
+	NIGHTLIFE_CLUB("The Watering Hole",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
+					
+					new Value<>(new Color(0x808080), PlaceType.WATERING_HOLE_MAIN_AREA),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.WATERING_HOLE_SEATING_AREA),
+					new Value<>(new Color(0xff00ff), PlaceType.WATERING_HOLE_VIP_AREA),
+					new Value<>(new Color(0xff8000), PlaceType.WATERING_HOLE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.WATERING_HOLE_DANCE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.WATERING_HOLE_TOILETS)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	// Other:
 
 	SUBMISSION("Submission",
@@ -290,12 +328,67 @@ public enum WorldType {
 					new Value<>(new Color(0x000000), PlaceType.SUBMISSION_LILIN_PALACE_GATE),
 					new Value<>(new Color(0x404040), PlaceType.SUBMISSION_LILIN_PALACE_CAVERN),
 					
-					new Value<>(new Color(0x00ff00), PlaceType.SUBMISSION_IMP_FORTRESS_1),
-					new Value<>(new Color(0x32ff00), PlaceType.SUBMISSION_IMP_FORTRESS_2),
-					new Value<>(new Color(0x64ff00), PlaceType.SUBMISSION_IMP_FORTRESS_3),
-					new Value<>(new Color(0x96ff00), PlaceType.SUBMISSION_IMP_FORTRESS_4),
-					new Value<>(new Color(0xc8ff00), PlaceType.SUBMISSION_IMP_FORTRESS_5),
-					new Value<>(new Color(0xfaff00), PlaceType.SUBMISSION_IMP_FORTRESS_6))),
+					new Value<>(new Color(0x004fc9), PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA),
+					new Value<>(new Color(0x658cc9), PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA),
+					
+					new Value<>(new Color(0x6928c9), PlaceType.SUBMISSION_IMP_FORTRESS_DEMON),
+					new Value<>(new Color(0x8d65c9), PlaceType.SUBMISSION_IMP_TUNNELS_DEMON),
+					
+					new Value<>(new Color(0xa228c9), PlaceType.SUBMISSION_IMP_FORTRESS_FEMALES),
+					new Value<>(new Color(0xb065c9), PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES),
+					
+					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
+					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
+					)),
+
+	IMP_FORTRESS_ALPHA("Imp Fortress",
+			Colour.BASE_CRIMSON,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_ALPHA_KEEP))),
+
+	IMP_FORTRESS_DEMON("Imp Citadel",
+			Colour.BASE_PURPLE_DARK,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_DEMON_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
+					new Value<>(new Color(0x65b0c9), PlaceType.FORTRESS_DEMON_WELL),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_DEMON_KEEP),
+					new Value<>(new Color(0x808000), PlaceType.FORTRESS_DEMON_KEEP_THRONE_ROOM),
+					new Value<>(new Color(0x8000ff), PlaceType.FORTRESS_DEMON_CELLS),
+					
+					new Value<>(new Color(0x80ff00), PlaceType.FORTRESS_LAB),
+					new Value<>(new Color(0xff80ff), PlaceType.FORTRESS_DEMON_TREASURY_DOOR),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.FORTRESS_DEMON_TREASURY),
+					new Value<>(new Color(0xffff00), PlaceType.FORTRESS_DEMON_TREASURY_CLOTHES))),
+
+	IMP_FORTRESS_FEMALES("Imp Fortress",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_FEMALES_KEEP))),
+
+	IMP_FORTRESS_MALES("Imp Fortress",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
+					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
+					new Value<>(new Color(0xff8000), PlaceType.FORTRESS_MALES_KEEP))),
 
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,
@@ -352,6 +445,30 @@ public enum WorldType {
 					
 					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	GAMBLING_DEN("Gambling Den",
+			Colour.BASE_GOLD,
+			1,
+			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
+					
+					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.GAMBLING_DEN_PREGNANCY),
+					new Value<>(new Color(0xff00ff), PlaceType.GAMBLING_DEN_FUTA_PREGNANCY),
+					new Value<>(new Color(0xff8000), PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	JUNGLE(6,
 			"jungle",

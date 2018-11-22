@@ -13,11 +13,11 @@ public enum FurryPreference {
 	HUMAN("Disabled") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will be completely disabled in random encounters. If all feminine preferences are set to 'Disabled', random encounters will default to feminine humans.";
+			return "Feminine "+r.getNamePlural(null)+" will be completely disabled in random encounters. If all feminine preferences are set to 'Disabled', random encounters will default to feminine humans.";
 		}
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will be completely disabled in random encounters. If all masculine preferences are set to 'Disabled', random encounters will default to masculine humans.";
+			return "Masculine "+r.getNamePlural(null)+" will be completely disabled in random encounters. If all masculine preferences are set to 'Disabled', random encounters will default to masculine humans.";
 		}
 		@Override
 		public String getSVGImage(boolean disabled) {
@@ -29,12 +29,12 @@ public enum FurryPreference {
 	MINIMUM("Minimum") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will spawn with furry ears and eyes, and where applicable, furry tails, horns, antenna, and wings. They will <b>not</b> spawn with furry breasts or genitalia.";
+			return "Feminine "+r.getNamePlural(null)+" will spawn with furry ears and eyes, and where applicable, furry tails, horns, antenna, and wings. They will <b>not</b> spawn with furry breasts or genitalia.";
 		}
 
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will spawn with furry ears and eyes, and where applicable, furry tails, horns, antenna, and wings. They will <b>not</b> spawn with furry breasts or genitalia.";
+			return "Masculine "+r.getNamePlural(null)+" will spawn with furry ears and eyes, and where applicable, furry tails, horns, antenna, and wings. They will <b>not</b> spawn with furry breasts or genitalia.";
 		}
 
 		@Override
@@ -47,13 +47,13 @@ public enum FurryPreference {
 	REDUCED("Lesser") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+			return "Feminine "+r.getNamePlural(null)+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
 						+ " They also have the chance to spawn with furry breasts, genitalia, arms, and legs.";
 		}
 
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+			return "Masculine "+r.getNamePlural(null)+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
 					+ " They also have the chance to spawn with furry breasts, genitalia, arms, and legs.";
 		}
 
@@ -67,13 +67,13 @@ public enum FurryPreference {
 	NORMAL("Greater") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+			return "Feminine "+r.getNamePlural(null)+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
 					+ " They also have the chance to spawn with furry breasts, genitalia, arms, legs, skin/fur, and faces.";
 		}
 
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+			return "Masculine "+r.getNamePlural(null)+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
 					+ " They also have the chance to spawn with furry breasts, genitalia, arms, legs, skin/fur, and faces.";
 		}
 
@@ -87,12 +87,12 @@ public enum FurryPreference {
 	MAXIMUM("Maximum") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will <b>always</b> spawn with as many furry parts as is possible (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, legs, skin/fur, and face).";
+			return "Feminine "+r.getNamePlural(null)+" will <b>always</b> spawn with as many furry parts as is possible (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, legs, skin/fur, and face).";
 		}
 
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will <b>always</b> spawn with as many furry parts as is possible (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, legs, skin/fur, and face).";
+			return "Masculine "+r.getNamePlural(null)+" will <b>always</b> spawn with as many furry parts as is possible (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, legs, skin/fur, and face).";
 		}
 
 		@Override

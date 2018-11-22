@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -43,13 +44,13 @@ public enum ParserTarget {
 			"npc4",
 			"npc5",
 			"npc6"),
-			"The currently 'active' NPC.</br>"
-			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.</br>"
-			+ "If in <b>combat</b>, it returns your opponent.</br>"
-			+ "If in <b>sex</b>, it returns your partner.</br>"
+			"The currently 'active' NPC.<br/>"
+			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.<br/>"
+			+ "If in <b>combat</b>, it returns your opponent.<br/>"
+			+ "If in <b>sex</b>, it returns your partner.<br/>"
 			+ "<b>Otherwise</b>, it returns the most important NPC in the scene.") {
 				@Override
-				public GameCharacter getCharacter(String tag) {
+				public GameCharacter getCharacter(String tag) throws NullPointerException {
 					if(!UtilText.getSpecialNPCList().isEmpty()) {
 						if(tag.equalsIgnoreCase("npc")) {
 							return UtilText.getSpecialNPCList().get(0);
@@ -73,7 +74,12 @@ public enum ParserTarget {
 							return Main.game.getActiveNPC();
 							
 						} else if (!Main.game.getCharactersPresent().isEmpty()) {
-							return Main.game.getCharactersPresent().get(0);
+							List<NPC> charactersPresent = Main.game.getCharactersPresent();
+							if(tag.equalsIgnoreCase("npc")) {
+								return charactersPresent.get(0);
+							} else {
+								return charactersPresent.get(Math.min(charactersPresent.size()-1, Math.max(0, Integer.parseInt(tag.substring(3))-1)));
+							}
 							
 						} else {
 							throw new NullPointerException();
@@ -584,6 +590,116 @@ public enum ParserTarget {
 			return Main.game.getSlimeRoyalGuard();
 		}
 	},
+	
+	ROXY(Util.newArrayListOfValues("roxy"), "") {
+		public String getDescription() {
+			return Main.game.getRoxy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRoxy();
+		}
+	},
+	
+	AXEL(Util.newArrayListOfValues("axel"), "") {
+		public String getDescription() {
+			return Main.game.getAxel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAxel();
+		}
+	},
+	
+	EPONA(Util.newArrayListOfValues("epona"), "") {
+		public String getDescription() {
+			return Main.game.getEpona().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEpona();
+		}
+	},
+	
+	JULES(Util.newArrayListOfValues("jules"), "") {
+		public String getDescription() {
+			return Main.game.getJules().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getJules();
+		}
+	},
+	
+	KRUGER(Util.newArrayListOfValues("kruger"), "") {
+		public String getDescription() {
+			return Main.game.getKruger().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKruger();
+		}
+	},
+	
+	KALAHARI(Util.newArrayListOfValues("kalahari"), "") {
+		public String getDescription() {
+			return Main.game.getKalahari().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKalahari();
+		}
+	},
+	
+	IMP_FORTRESS_ALPHA_LEADER(Util.newArrayListOfValues("impAlphaLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressAlphaLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressAlphaLeader();
+		}
+	},
+	
+	IMP_FORTRESS_FEMALES_LEADER(Util.newArrayListOfValues("impFemalesLeader", "impFemaleLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressFemalesLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressFemalesLeader();
+		}
+	},
+	
+	IMP_FORTRESS_MALES_LEADER(Util.newArrayListOfValues("impMalesLeader", "impMaleLeader"), "") {
+		public String getDescription() {
+			return Main.game.getFortressMalesLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressMalesLeader();
+		}
+	},
+	
+	DARK_SIREN(Util.newArrayListOfValues("darkSiren"), "") {
+		public String getDescription() {
+			return Main.game.getFortressDemonLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getFortressDemonLeader();
+		}
+	},
 	;
 	
 	
@@ -603,5 +719,5 @@ public enum ParserTarget {
 		return description;
 	}
 	
-	public abstract GameCharacter getCharacter(String tag);
+	public abstract GameCharacter getCharacter(String tag) throws NullPointerException;
 }
