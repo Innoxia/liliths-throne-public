@@ -150,6 +150,44 @@
 	
 	
 	
+	
+	Combat moves should always include basics
+	Selection UI should grey out ones selected, not remove them
+	Attack buttons should have AP cost
+	Defend moves should always target self
+	
+	Have tabs:
+		Basic
+			1 Main weapon
+			2 Offhand Weaopn
+			3 Dual stike
+			4 Block
+			5 Wait
+			6 Seduce
+			7 Aversion
+			10 Repeat
+			11 Arcane Strike
+			12 Arcane Shield
+			14 Submit
+			0 Escape
+		Specials (9 in total)
+			1-3 chosen attacks
+			6-8 chosen attacks
+			11-13 chosen attacks
+			5 Wait
+			10 Repeat
+			14 Submit
+			0 Escape
+		Targeting
+			List all targets, starting with self
+	
+	
+	
+	
+	
+	
+	
+	
 	Somehow an NPC had been placed out of the map's boundaries in the upper floor of Angel's Kiss
 		I set the character to work in that job and engaged in a sex scene with them before they had left the room to go to that area.
 	
