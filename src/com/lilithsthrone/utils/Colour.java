@@ -328,6 +328,8 @@ public enum Colour {
 	CLOTHING_GREY(false, Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
 	CLOTHING_BLACK(false, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
 	
+	
+	CLOTHING_RED_VERY_DARK(false, Util.newColour(0x660016), Util.newColour(0x660016), "midnight red"),
 	CLOTHING_RED_DARK(false, Util.newColour(0x900020), Util.newColour(0x900020), "burgundy"),
 	CLOTHING_RED_BRIGHT(false, Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red"),
 	CLOTHING_RED(false, Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),
@@ -338,6 +340,7 @@ public enum Colour {
 	CLOTHING_ORANGE_DARK(false, Util.newColour(0xE56D00), Util.newColour(0xE56D00), "dark orange"),
 	CLOTHING_TAN(false, BaseColour.TAN, "tan"),
 	CLOTHING_YELLOW(false, Util.newColour(0xE2C360), Util.newColour(0xE2C360), "yellow"),
+	CLOTHING_YELLOW_DARK(false, Util.newColour(0x7F691A), Util.newColour(0x7F691A), "mustard yellow"),
 	CLOTHING_GREEN_LIME(false, Util.newColour(0xD0E37D), Util.newColour(0xD0E37D), "lime green"),
 	CLOTHING_GREEN(false, Util.newColour(0x74AA74), Util.newColour(0x74AA74), "green"),
 	CLOTHING_GREEN_DARK(false, Util.newColour(0x3B6F3D), Util.newColour(0x3B6F3D), "dark green"),
@@ -346,14 +349,19 @@ public enum Colour {
 	CLOTHING_BLUE_LIGHT(false, Util.newColour(0x72CFE3), Util.newColour(0x72CFE3), "light blue"),
 	CLOTHING_BLUE(false, Util.newColour(0x3971C6), Util.newColour(0x3971C6), "blue"),
 	CLOTHING_BLUE_DARK(false, Util.newColour(0x003C89), Util.newColour(0x003C89), "dark blue"),
+	CLOTHING_BLUE_VERY_DARK(false, Util.newColour(0x002C66), Util.newColour(0x002C66), "midnight blue"),
+	CLOTHING_PURPLE_VERY_DARK(false, Util.newColour(0x322145), Util.newColour(0x322145), "midnight purple"),
 	CLOTHING_PURPLE_DARK(false, Util.newColour(0x674A95), Util.newColour(0x674A95), "dark purple"),
 	CLOTHING_PURPLE(false, Util.newColour(0xA382D3), Util.newColour(0xA382D3), "purple"),
 	CLOTHING_PURPLE_LIGHT(false, Util.newColour(0xC58ED7), Util.newColour(0xC58ED7), "violet"),
 	CLOTHING_PERIWINKLE(false, BaseColour.PERIWINKLE, "periwinkle"),
 	CLOTHING_PINK_LIGHT(false, Util.newColour(0xF4B3F4), Util.newColour(0xF4B3F4), "light pink"),
 	CLOTHING_PINK(false, Util.newColour(0xD75086), Util.newColour(0xD75086), "pink"),
+	CLOTHING_PINK_DARK(false, Util.newColour(0xFF1493), Util.newColour(0xFF1493), "deep pink"),
+	CLOTHING_PINK_HOT(false, Util.newColour(0xff69b4), Util.newColour(0xff69b4), "hot pink"),
 	
-	CLOTHING_BLACK_STEEL(true, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
+	
+	CLOTHING_BLACK_STEEL(true, Util.newColour(0x333333), Util.newColour(0x333333), "black steel"),
 	CLOTHING_STEEL(true, Util.newColour(0x969696), Util.newColour(0x969696), "steel"),
 	CLOTHING_BRASS(true, Util.newColour(0xab8317), Util.newColour(0xab8317), "brass"),
 	CLOTHING_COPPER(true, Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")),

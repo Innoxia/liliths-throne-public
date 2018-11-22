@@ -57,7 +57,7 @@ public enum SlaveJob {
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
 			if(slave.getLocationPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
-				slave.moveToAdjacentMatchingCellType();
+				slave.moveToAdjacentMatchingCellType(false);
 			
 			} else {
 				// 50/50 of being upstairs or downstairs:

@@ -892,6 +892,9 @@ public class Game implements Serializable, XMLSaving {
 						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
 					}
 				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.1")) {
+					ImpCitadelDialogue.resetFortress();
+				}
 				
 				
 				Main.game.pendingSlaveInStocksReset = false;
@@ -1171,15 +1174,6 @@ public class Game implements Serializable, XMLSaving {
 			updateResponses();
 		}
 		
-		if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
-			Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
-			for(NPC npc : Main.game.getReindeerOverseers()) {
-				if(npc.getLocation()!=Main.game.getPlayer().getLocation()) {
-					npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-				}
-			}
-		}
-		
 		// Reset imp tunnels after 5 days if DS is defeated:
 		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			boolean alphaReset = this.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated) && ((this.getMinutesPassed() - this.getDialogueFlags().impFortressAlphaDefeatedTime) > 60*24*5);
@@ -1239,14 +1233,6 @@ public class Game implements Serializable, XMLSaving {
 			
 			// Slaver alley reset:
 			SlaverAlleyDialogue.dailyReset();
-			
-			// Reindeer:
-			for(NPC npc : Main.game.getReindeerOverseers()) {
-				if(npc.getLocationPlace().getPlaceType()==PlaceType.DOMINION_STREET && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
-					npc.moveToAdjacentMatchingCellType();
-					Main.game.getDialogueFlags().dailyReindeerReset(npc.getId());
-				}
-			}
 		}
 		
 		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {

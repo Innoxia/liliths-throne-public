@@ -48,6 +48,7 @@ public enum Combat {
 	private static NPC activeNPC;
 	private static GameCharacter targetedCombatant;
 	private static List<NPC> allies;
+	private static NPC enemyLeader;
 	private static List<NPC> enemies;
 	private static List<NPC> allCombatants;
 	private static Map<GameCharacter, Map<SpecialAttack, Integer>> cooldowns;
@@ -77,6 +78,7 @@ public enum Combat {
 	 */
 	public void initialiseCombat(
 			List<NPC> allies,
+			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
 
@@ -85,6 +87,7 @@ public enum Combat {
 		
 		allCombatants = new ArrayList<>();
 		Combat.allies = new ArrayList<>();
+		Combat.enemyLeader = enemyLeader;
 		Combat.enemies = new ArrayList<>();
 		
 		if(allies!=null){
@@ -370,7 +373,7 @@ public enum Combat {
 			}
 			
 			int money = Main.game.getPlayer().getMoney();
-			int moneyLoss = (-enemies.get(0).getLootMoney()/2)*enemies.size();
+			int moneyLoss = (-enemyLeader.getLootMoney()/2)*enemies.size();
 			Main.game.getPlayer().incrementMoney(moneyLoss);
 			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
 			
@@ -396,10 +399,12 @@ public enum Combat {
 		Main.game.setInCombat(false);
 
 		// Sort out effects after combat:
-		if (Main.game.getPlayer().getHealth() == 0)
+		if (Main.game.getPlayer().getHealth() == 0) {
 			Main.game.getPlayer().setHealth(5);
-		if (Main.game.getPlayer().getMana() == 0)
+		}
+		if (Main.game.getPlayer().getMana() == 0) {
 			Main.game.getPlayer().setMana(5);
+		}
 		
 		// Reset opponent resources to starting values:
 		for(NPC enemy : enemies) {
@@ -479,14 +484,14 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(true);
-							Main.game.setContent(enemies.get(0).endCombat(true, true));
+							Main.game.setContent(enemyLeader.endCombat(true, true));
 						}
 					};
 				} else {
 					return new Response("Continue", "Combat continues.", ENEMY_ATTACK){
 						@Override
 						public void effects() {
-							attackNPC(enemies.get(0));
+							attackNPC(enemyLeader);
 						}
 					};
 				}
@@ -517,7 +522,7 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(enemies.get(0),
+			return UtilText.parse(enemyLeader,
 							"<p>"
 									+ "Are you certain you want to <b>submit</b> to [npc.name]? <b>This will cause you to lose the fight, allowing [npc.herHim] to do anything [npc.she] wants with you!</b>"
 							+ "</p>");
@@ -527,7 +532,7 @@ public enum Combat {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Submit",
-						UtilText.parse(enemies.get(0),
+						UtilText.parse(enemyLeader,
 								"Submit to [npc.name]. <span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>"),
 						SUBMIT_CONFIRM){
 					@Override
@@ -570,11 +575,11 @@ public enum Combat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Continue", UtilText.parse(enemies.get(0), "You wait for [npc.name] to make a move.")){
+				return new ResponseEffectsOnly("Continue", UtilText.parse(enemyLeader, "You wait for [npc.name] to make a move.")){
 					@Override
 					public void effects() {
 						endCombat(false);
-						Main.game.setContent(enemies.get(0).endCombat(true, false));
+						Main.game.setContent(enemyLeader.endCombat(true, false));
 					}
 				};
 				
@@ -646,7 +651,7 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
-							enemies.get(0).applyEscapeCombatEffects();
+							enemyLeader.applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
@@ -657,11 +662,11 @@ public enum Combat {
 				
 			} else if (isEnemyPartyDefeated()) {
 				if (index == 1) {
-					return new ResponseEffectsOnly("Victory", UtilText.parse(enemies.get(0), "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
+					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
 						@Override
 						public void effects() {
 							endCombat(true);
-							Main.game.setContent(enemies.get(0).endCombat(true, true));
+							Main.game.setContent(enemyLeader.endCombat(true, true));
 						}
 					};
 				} else
@@ -673,7 +678,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(false);
-							Main.game.setContent(enemies.get(0).endCombat(true, false));
+							Main.game.setContent(enemyLeader.endCombat(true, false));
 						}
 					};
 				} else
@@ -869,7 +874,7 @@ public enum Combat {
 				};
 
 			}  else if (index == 9) {
-				return new Response("Submit", "Consider submitting to " + enemies.get(0).getName("the") + ".", SUBMIT);
+				return new Response("Submit", "Consider submitting to " + enemyLeader.getName("the") + ".", SUBMIT);
 
 			} else if (index == 10) {
 				switch (previousAction) {
@@ -1350,7 +1355,7 @@ public enum Combat {
 
 	private static void attackWait(GameCharacter attacker) {
 		attackStringBuilder = new StringBuilder(
-				UtilText.parse(enemies.get(0),
+				UtilText.parse(enemyLeader,
 				"<p>"
 					+ "You decide not to make a move, and instead try to brace yourself as best as possible against [npc.namePos] next attack."
 				+ "</p>"));
@@ -1359,7 +1364,7 @@ public enum Combat {
 	}
 	
 	private static void submit(GameCharacter attacker) {
-		attackStringBuilder = new StringBuilder(UtilText.parse(enemies.get(0),
+		attackStringBuilder = new StringBuilder(UtilText.parse(enemyLeader,
 				"<p>"
 					+ "You kneel in front of [npc.name], lowering your head in submission as you mutter,"
 					+ " [pc.speech(I don't want to fight any more, I submit.)]"
@@ -1733,7 +1738,7 @@ public enum Combat {
 					return enemy;
 				}
 			}
-			return enemies.get(0);
+			return enemyLeader;
 		}
 		
 		if(enemies.contains(attacker)) {

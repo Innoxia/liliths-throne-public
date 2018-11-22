@@ -57,7 +57,7 @@
 	</coreAtributes>
 
 	
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(hook)] the eyepatch's straps around [npc.her] [npc.ears], before positioning the pad over [npc.her] [npc.eye].]]>
     </self>
@@ -67,9 +67,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(hook)] the eyepatch's straps around [npc2.namePos] [npc2.ears], before firmly positioning the pad over [npc2.her] [npc2.eye].]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unloop)] the eyepatch's straps from around [npc.her] [npc.ears], before taking it off.]]>
     </self>
@@ -79,6 +79,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(tug)] the eyepatch's straps off of [npc2.namePos] [npc2.ears], before taking it off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

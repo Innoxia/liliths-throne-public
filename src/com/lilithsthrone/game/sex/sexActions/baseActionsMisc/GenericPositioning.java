@@ -971,10 +971,12 @@ public class GenericPositioning {
 		public void applyEffects() {
 			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
 			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
-				if(Sex.getActivePartner().equals(participant)) {
-					submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS);
-				} else {
-					submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				if(!Sex.isSpectator(participant)) {
+					if(Sex.getActivePartner().equals(participant)) {
+						submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					} else {
+						submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+					}
 				}
 			}
 			
@@ -1067,10 +1069,12 @@ public class GenericPositioning {
 		public void applyEffects() {
 			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
 			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
-				if(Sex.getActivePartner().equals(participant)) {
-					submissives.put(participant , SexPositionSlot.DOGGY_BEHIND);
-				} else {
-					submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				if(!Sex.isSpectator(participant)) {
+					if(Sex.getActivePartner().equals(participant)) {
+						submissives.put(participant , SexPositionSlot.DOGGY_BEHIND);
+					} else {
+						submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+					}
 				}
 			}
 			Sex.setSexManager(new SMDoggy(
@@ -1125,10 +1129,12 @@ public class GenericPositioning {
 		public void applyEffects() {
 			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
 			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
-				if(Sex.getActivePartner().equals(participant)) {
-					submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS);
-				} else {
-					submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				if(!Sex.isSpectator(participant)) {
+					if(Sex.getActivePartner().equals(participant)) {
+						submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					} else {
+						submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+					}
 				}
 			}
 			Sex.setSexManager(new SMDoggy(
@@ -1179,10 +1185,12 @@ public class GenericPositioning {
 		public void applyEffects() {
 			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
 			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
-				if(Sex.getActivePartner().equals(participant)) {
-					submissives.put(participant , SexPositionSlot.DOGGY_BEHIND_ORAL);
-				} else {
-					submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				if(!Sex.isSpectator(participant)) {
+					if(Sex.getActivePartner().equals(participant)) {
+						submissives.put(participant , SexPositionSlot.DOGGY_BEHIND_ORAL);
+					} else {
+						submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+					}
 				}
 			}
 			Sex.setSexManager(new SMDoggy(

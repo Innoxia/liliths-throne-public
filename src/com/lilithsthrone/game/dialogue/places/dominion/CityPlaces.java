@@ -220,7 +220,7 @@ public class CityPlaces {
 								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
 								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
 								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
+								+ " As the streets are so busy at this time, you find yourself having to occasionally push your way through the dense crowds."
 							+ "</p>"
 							+ "<p>"
 								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
@@ -823,8 +823,7 @@ public class CityPlaces {
 						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b><br/>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
 						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
-					+ "</p>"
-					+ getExtraStreetFeatures();
+					+ "</p>";
 		}
 
 		@Override

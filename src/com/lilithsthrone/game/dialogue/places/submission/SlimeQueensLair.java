@@ -136,6 +136,7 @@ public class SlimeQueensLair {
 				} else if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE) && index==2){
 					return new ResponseCombat("Fight",
 							"Decide to drop the act and attack [slimeFire.name] and [slimeIce.name]!",
+							Main.game.getSlimeGuardFire(),
 							Util.newArrayListOfValues(Main.game.getSlimeGuardFire(), Main.game.getSlimeGuardIce()),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(I can't believe you fell for my tale!)] You laugh, getting ready to fight the slime siblings. [pc.speech(I'll teach you not to be so gullible!)]"),
@@ -226,6 +227,7 @@ public class SlimeQueensLair {
 				if(index==1) {
 					return new ResponseCombat("Fight",
 							"Fight your way past these slimes!",
+							Main.game.getSlimeGuardFire(),
 							Util.newArrayListOfValues(Main.game.getSlimeGuardFire(), Main.game.getSlimeGuardIce()),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(If it's a fight you want, it's a fight you're going to get!)] you cry out, ready to fight the slime siblings."),
@@ -633,7 +635,7 @@ public class SlimeQueensLair {
 				} else if(index==2) {
 					return new ResponseCombat("Spar",
 							"Accept [slimeRoyalGuard.namePos] offer of a sparring match, with the agreement that the winner can do whatever they like with the loser's body.",
-							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+							Main.game.getSlimeRoyalGuard(),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
 									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms. [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
@@ -645,7 +647,7 @@ public class SlimeQueensLair {
 				if(index==1) {
 					return new ResponseCombat("Fight",
 							"Defend yourself against [slimeRoyalGuard.name].",
-							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+							Main.game.getSlimeRoyalGuard(),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(I've fought and defeated mightier foes than you!)] you cry out, readying yourself for a fight."),
 									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(No-one is mightier than I!)] [slimeRoyalGuard.name] bellows in response. [slimeRoyalGuard.speech(Prepare to be defeated!)]")));
@@ -707,7 +709,7 @@ public class SlimeQueensLair {
 			if(index==1) {
 				return new ResponseCombat("Fight",
 						"Defend yourself against [slimeRoyalGuard.name].",
-						Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+						Main.game.getSlimeRoyalGuard(),
 						Util.newHashMapOfValues(
 								new Value<>(Main.game.getPlayer(), "[pc.speech(Very well, I'll fight you,)] you say, stepping back and preparing for combat."),
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Excellent! Now, defend yourself!)] [slimeRoyalGuard.name] booms, before moving forwards to attack.")));
@@ -762,7 +764,7 @@ public class SlimeQueensLair {
 			if(index==1) {
 				return new ResponseCombat("Fight",
 						"Now that you've worn [slimeRoyalGuard.name] out, [slimeRoyalGuard.he] should be easier to beat!",
-						Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+						Main.game.getSlimeRoyalGuard(),
 						Util.newHashMapOfValues(
 								new Value<>(Main.game.getPlayer(), "[pc.speech(Sure, I'll take you on,)] you reply, reading yourself for a fight."),
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Prepare... Prepare to... defend yourself!)] [slimeRoyalGuard.name] pants, struggling to catch his breath.")));
@@ -824,7 +826,7 @@ public class SlimeQueensLair {
 			if(index==1) {
 				return new ResponseCombat("Fight",
 						"Now that you've worn [slimeRoyalGuard.name] out, [slimeRoyalGuard.he] should be easier to beat!",
-						Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+						Main.game.getSlimeRoyalGuard(),
 						Util.newHashMapOfValues(
 								new Value<>(Main.game.getPlayer(), "[pc.speech(Ok, I'll fight you...)] you sigh, preparing for combat."),
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(E-Excellent!)] [slimeRoyalGuard.name] replies, already flustered and turned on from your teasing.")));

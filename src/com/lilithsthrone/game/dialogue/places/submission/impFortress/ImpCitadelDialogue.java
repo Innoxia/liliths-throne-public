@@ -417,7 +417,7 @@ public class ImpCitadelDialogue {
 						
 					}
 					if(isCompanionDialogue()?index==4:index==3) {
-						return new ResponseCombat("Attack", "Change your mind about not wanting to fight the imps, and decide to teach them a lesson!", getImpGuards(), null);
+						return new ResponseCombat("Attack", "Change your mind about not wanting to fight the imps, and decide to teach them a lesson!", getImpGuardLeader(), getImpGuards(), null);
 					}
 				}
 				return null;
@@ -440,7 +440,7 @@ public class ImpCitadelDialogue {
 					}
 	
 				} else if(index==2) {
-					return new ResponseCombat("Attack", "Defend yourself against the imps!", getImpGuards(), null);
+					return new ResponseCombat("Attack", "Defend yourself against the imps!", getImpGuardLeader(), getImpGuards(), null);
 					
 				} else if(index==3) {
 					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -1366,7 +1366,7 @@ public class ImpCitadelDialogue {
 				}
 				
 			} else if(index==2) {
-				return new ResponseCombat("Fight imps", UtilText.parse(getBoss(), "Defend yourself against [npc.namePos] minions!"), getImpBossGroup(), null);
+				return new ResponseCombat("Fight imps", UtilText.parse(getBoss(), "Defend yourself against [npc.namePos] minions!"), (NPC) getBoss(), getImpBossGroup(), null);
 				
 			} else if(index==3) {
 				return new ResponseSex(isCompanionDialogue()?"Surrender (solo)":"Surrender",
@@ -1422,7 +1422,7 @@ public class ImpCitadelDialogue {
 				return new Response("Show ring", UtilText.parse(getBoss(), "Show [npc.name] that you have [npc.her] mother's ring, and with its power, you will easily be able to defeat [npc.herHim]!"), KEEP_CHALLENGE_RING);
 
 			} else if(index==2) {
-				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), getImpBossGroup(), null);
+				return new ResponseCombat("Duel", UtilText.parse(getBoss(), "Accept [npc.namePos] offer, and fight [npc.herHim] one-on-one!"), (NPC) getBoss(), getImpBossGroup(), null);
 				
 			}
 			return null;
@@ -1453,7 +1453,7 @@ public class ImpCitadelDialogue {
 						+ " <i style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>You can tell that [npc.sheWill] instantly put it on, thus enslaving [npc.herHim] without having to fight!</i>"), KEEP_CHALLENGE_RING_GIVEN);
 
 			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"), getImpBossGroup(), null);
+				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"), (NPC) getBoss(), getImpBossGroup(), null);
 				
 			}
 			return null;
@@ -1484,7 +1484,7 @@ public class ImpCitadelDialogue {
 						+ " <i style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>You can tell that [npc.sheWill] instantly put it on, thus enslaving [npc.herHim] without having to fight!</i>"), KEEP_CHALLENGE_RING);
 
 			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"), getImpBossGroup(), null);
+				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Defend yourself against [npc.name] and [npc.her] minions!"), (NPC) getBoss(), getImpBossGroup(), null);
 				
 			}
 			return null;

@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import com.lilithsthrone.utils.*;
@@ -170,6 +171,7 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -2323,6 +2325,7 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
 					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
+
 					NodeList sexPartnerEntries = e.getElementsByTagName("entry");
 					for(int j = 0; j < sexPartnerEntries.getLength(); j++){
 						Element e2 = ((Element)sexPartnerEntries.item(j));
@@ -9837,10 +9840,12 @@ public abstract class GameCharacter implements XMLSaving {
 			if(initialPenetration) {
 				if(Sex.getSexPositionSlot(characterPenetrating).isStanding(characterPenetrating)) {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
-							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.foot+] into [npc.namePos] groin, before starting to rub and press down on [npc.her] [npc.cock+].");
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.foot+] into [npc.namePos] groin, before starting to rub and press down on [npc.her] [npc.cock+].",
+							ParserTag.SEX_DESCRIPTION);
 				} else {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
-							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.feet+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] [npc2.a_footjob].");
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.feet+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] [npc2.a_footjob].",
+							ParserTag.SEX_DESCRIPTION);
 				}
 				
 			} else {
@@ -9853,10 +9858,12 @@ public abstract class GameCharacter implements XMLSaving {
 				if(Sex.getSexPositionSlot(characterPenetrated).isStanding(characterPenetrated)) {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.cock+] up against [npc.namePos] [npc.foot+],"
-									+ " before getting [npc.herHim] to start giving [npc2.herHim] [npc.a_footjob].");
+									+ " before getting [npc.herHim] to start giving [npc2.herHim] [npc.a_footjob].",
+									ParserTag.SEX_DESCRIPTION);
 				} else {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
-							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc.namePos] [npc.feet+] together, before sliding [npc2.her] [npc2.cock+] between them and starting to receive [npc.a_footjob].");
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc.namePos] [npc.feet+] together, before sliding [npc2.her] [npc2.cock+] between them and starting to receive [npc.a_footjob].",
+							ParserTag.SEX_DESCRIPTION);
 				}
 				
 			} else {
@@ -11026,7 +11033,7 @@ public abstract class GameCharacter implements XMLSaving {
 					"<p>"
 						+ "Due to the addictive properties of "+(charactersFluid==null?"":(charactersFluid.equals(this)?"[npc.her]":UtilText.parse(charactersFluid, "[npc.namePos]")))+" "+fluid.getName(charactersFluid)
 							+", [npc.name] [npc.verb(find)] [npc.herself] [style.colourArcane(craving)]"
-							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
+							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName()+"</span> "+fluid.getName(charactersFluid)+"!"
 					+ "</p>"));
 			
 			
@@ -11035,7 +11042,7 @@ public abstract class GameCharacter implements XMLSaving {
 			setLastTimeSatisfiedAddiction(fluid.getType(), Main.game.getMinutesPassed());
 				fluidIngestionSB.append(UtilText.parse(this, charactersFluid,
 						"<p>"
-							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)
+							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName()+"</span> "+fluid.getName(charactersFluid)
 								+" has been satisfied!"
 							+ (curedWithdrawal
 								?" [npc.She] [npc.verb(feel)] deeply grateful to "+(charactersFluid==null?"":UtilText.parse(charactersFluid, "[npc.namePos]"))+" for providing [npc.herHim] with what [npc.she] needed most..."
@@ -11736,101 +11743,58 @@ public abstract class GameCharacter implements XMLSaving {
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 		}
 		
+		if(isVisiblyPregnant()) {
+			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
+		}
+		
 		float pregnancyChance = 0;
 		
-		if((partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS) && partner.getAttributeValue(Attribute.VIRILITY)<=0)
-				|| (this.hasPerkAnywhereInTree(Perk.BARREN) && this.getAttributeValue(Attribute.FERTILITY)<=0)) {
-			pregnancyChance = 0;
-			
-		} else {
-			pregnancyChance = 0;
+		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
+		boolean selfFertile = getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN);
+		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt(cumQuantity).getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance /= 3;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
 		}
 		
-		if (!isAbleToBeImpregnated()) {
-			pregnancyChance = 0;
-		}
+		PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
 		
-		if(pregnancyChance<0) {
-			pregnancyChance=0;
-		}
-		
-		if(pregnancyChance>1) {
-			pregnancyChance=1;
-		}
-		
-		String s;
-		
-		if(isVisiblyPregnant()) {
-			s = PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
-			
-		} else {
-			PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
-			
-			this.addPotentialPartnerAsMother(pregPoss);
-			partner.addPotentialPartnerAsFather(pregPoss);
+		this.addPotentialPartnerAsMother(pregPoss);
+		partner.addPotentialPartnerAsFather(pregPoss);
 
-			if (pregnancyChance <= 0) {
-				s = PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<=0.15f) {
-				s = PregnancyDescriptor.LOW_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<=0.3f) {
-				s = PregnancyDescriptor.AVERAGE_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<1) {
-				s = PregnancyDescriptor.HIGH_CHANCE.getDescriptor(this, partner);
-			} else {
-				s = PregnancyDescriptor.CERTAINTY.getDescriptor(this, partner);
-			}
-		}
-		
-		if (!hasStatusEffect(StatusEffect.PREGNANT_0) && !isPregnant()) {
-			addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
-		}
-		
 		// Now roll for pregnancy:
 		if (!isPregnant()) {
+			if (!hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
+			}
 			if (Math.random() <= pregnancyChance) {
 				
-				int minimumNumberOfChildren = 1;
-				int maximumNumberOfChildren = 1;
+				Race litterSizeBasedOn = null;
 				
-				if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-					minimumNumberOfChildren = Race.SLIME.getNumberOfOffspringLow();
-					maximumNumberOfChildren = Race.SLIME.getNumberOfOffspringHigh();
-					
+				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
+					litterSizeBasedOn = Race.SLIME;
 				} else {
-					if(getVaginaType()==VaginaType.HUMAN) {
-						if(partner.getPenisType().getRace()==null) {
-							minimumNumberOfChildren = partner.getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = partner.getRace().getNumberOfOffspringHigh();
-						} else {
-							minimumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringHigh();
-						}
-						
+					VaginaType vaginaType = getVaginaType();
+					if (vaginaType == VaginaType.HUMAN) {
+						litterSizeBasedOn = Optional.ofNullable(partner.getPenisType().getRace()).orElseGet(partner::getRace);
 					} else {
-						if(getVaginaType().getRace()==null) {
-							minimumNumberOfChildren = getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = getRace().getNumberOfOffspringHigh();
-						} else {
-							minimumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringHigh();
-						}
+						litterSizeBasedOn = Optional.ofNullable(vaginaType.getRace()).orElseGet(this::getRace);
 					}
 				}
 				
-				if(partner.hasTraitActivated(Perk.FETISH_SEEDER)) {
-					maximumNumberOfChildren*=2;
+				int minimumNumberOfChildren = litterSizeBasedOn.getNumberOfOffspringLow();
+				int maximumNumberOfChildren = litterSizeBasedOn.getNumberOfOffspringHigh();
+				
+				if (partner.hasTraitActivated(Perk.FETISH_SEEDER)) {
+					maximumNumberOfChildren *= 2;
 				}
-				if(hasTraitActivated(Perk.FETISH_BROODMOTHER)) {
-					maximumNumberOfChildren*=2;
+				if (hasTraitActivated(Perk.FETISH_BROODMOTHER)) {
+					maximumNumberOfChildren *= 2;
 				}
 				
 				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt((maximumNumberOfChildren-minimumNumberOfChildren)+1);
 				
-				List<NPC> offspring = new ArrayList<>();
+				List<NPC> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
 					NPC npc = new NPCOffspring(this, partner);
 					offspring.add(npc);
@@ -11845,7 +11809,8 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return s;
+		return PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance)
+				.getDescriptor(this, partner);
 	}
 
 	public boolean isPregnant() {
@@ -12224,7 +12189,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param additionalPlaceTypes Any additional PlaceTypes that should be allowed for movement.
 	 * @return True if the character was moved.
 	 */
-	public boolean moveToAdjacentMatchingCellType(PlaceType... additionalPlaceTypes) {
+	public boolean moveToAdjacentMatchingCellType(boolean setAsHome, PlaceType... additionalPlaceTypes) {
 		World world = Main.game.getWorlds().get(this.getWorldLocation());
 		List<Vector2i> availableLocations = new ArrayList<>();
 		
@@ -12249,6 +12214,9 @@ public abstract class GameCharacter implements XMLSaving {
 			return false;
 		} else {
 			this.setLocation(availableLocations.get(Util.random.nextInt(availableLocations.size())));
+			if(setAsHome) {
+				this.setHomeLocation();
+			}
 			return true;
 		}
 	}

@@ -463,13 +463,14 @@ public enum Attack {
 				// Attacker modifiers:
 				damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f;
 				
-				if(attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && (defender!=null && defender.isFeminine())) {
-					damage *=1.1f;
+				if(defender!=null) {
+					if(attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine()) {
+						damage *=1.1f;
+					}
+					if(attacker.hasTrait(Perk.MALE_ATTRACTION, true) && !defender.isFeminine()) {
+						damage *=1.1f;
+					}
 				}
-				if(attacker.hasTrait(Perk.MALE_ATTRACTION, true) && (defender!=null && !defender.isFeminine())) {
-					damage *=1.1f;
-				}
-
 				if (damage < 1) {
 					damage = 1;
 				}
@@ -478,16 +479,16 @@ public enum Attack {
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
-				
-				if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
-						|| (attacker!=null && attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
-					damage*=0.5f;
+				if(attacker!=null) {
+					if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
+							|| (attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
+						damage*=0.5f;
+					}
+					if((defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
+							|| (attacker.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !defender.isFeminine())) {
+						damage*=0.5f;
+					}
 				}
-				if((defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
-						|| (attacker!=null && attacker.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !defender.isFeminine())) {
-					damage*=0.5f;
-				}
-				
 				if (damage < 1) {
 					damage = 1;
 				}

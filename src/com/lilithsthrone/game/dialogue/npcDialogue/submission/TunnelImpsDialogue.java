@@ -127,7 +127,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!isCompanionDialogue()) {
 				if (index == 1) {
-					return new ResponseCombat("Fight", "Stand up for yourself and fight this group of imps!", getImpGroup(), null);
+					return new ResponseCombat("Fight", "Stand up for yourself and fight this group of imps!", getImpLeader(), getImpGroup(), null);
 					
 				} else if (index == 2) {
 					return new Response("Offer money", "These imps are not interested in your money! You'll have to either fight or surrender yourself to them...", null);
@@ -153,7 +153,7 @@ public class TunnelImpsDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new ResponseCombat("Fight", UtilText.parse(getMainCompanion(), "Stand up for yourself and, with the help of [npc.name], fight the imps!"), getImpGroup(), null);
+					return new ResponseCombat("Fight", UtilText.parse(getMainCompanion(), "Stand up for yourself and, with the help of [npc.name], fight the imps!"), getImpLeader(), getImpGroup(), null);
 					
 				} else if (index == 2) {
 					return new Response("Offer money", "These imps are not interested in your money! You'll have to either fight or surrender yourself to them...", null);

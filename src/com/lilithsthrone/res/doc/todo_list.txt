@@ -113,92 +113,103 @@
 	
 	Patch notes:
 	
-	Artwork:
-		Added FriendlyAlienFriend's Nyan artwork.
-		Added Jam's Arthur artwork.
-		
 	Contributors:
-		Fixed a lot of typos, both in the code, as well as in-game dialogue. (#964 by Pimgd)
-	
-	Items:
-		Improved pencil skirt icon.
-		Added 'feminine short sleeved shirt' as a replacement for Lilaya's unisex shirt. (Sold by Nyan.)
+		Simplified getting data from XML. Refactored clothing mod loading from file. Fixed mod loading issue, so that when XML file is found invalid, the loading of it is halted, error logged and program continues trying loading other mods. (#657 by BlazingMagpie)
+		Tidied up pregnancy calculation code. (#736 by Pimgd)
+		Added sexual orientation preferences. (#766 by GalacticOtter)
+		Added condom durability code. (#903 by picobyte)
+		Fixed bug where occupants who have moved out get duplicated descriptions on Harpy Nest tiles. (#934 by KittenBarrage)
 	
 	Other:
-		<b>Reverted</b> currency display to the single 'flames' value. (It was a little too messy in many screens with the gold/silver/copper.)
-		Newly summoned elementals now share many appearance values with their summoner, and additionally spawn with wings large enough for them to fly.
-		Added 'pull down' displacements for skater, slip, and plunge dresses, where you shrug off the shoulder straps and pull the top down to reveal the chest area.
-		Cargo trousers can now be equipped/removed over shoes.
-		Slightly adjusted Lilaya's appearance, increasing her 'appears as' age to 32, her wing size from tiny to average, reduced her muscle from 'muscular' to 'lightly muscled', and fixed her legs to be human instead of demonic.
-		Removed Lilaya's headband (as I thought it would be uncomfortable for her to wear with her horns), gave her a watch, and she now wears an unbuttoned lab coat while in her lab.
-		Made minor changes to the prologue to reflect Lilaya's changes.
-		Increased maximum width of the UI's centre pane from 1000px to 1200px.
-		Increased starting money from 500 to 5000 flames.
-		Added metallic colours to all makeup. Disabled glowing makeup in character creation.
-		Added indication in transform menu that vagina cannot be transformed while pregnant.
-		Removed the 25 energy cost of milking yourself in a milking room.
-		Added options to pump fluids in slave's milking room into your vagina & anus. This can be used for self-insemination. There might be bugs if you remove your slave before self-impregnating with their cum.
-		Footjobs can now be given/received even if the feet are covered. Foot names are replaced with the name of the clothing touching the target's penis.
+		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 
 	
 	Bugs:
-		<b>Fixed</b> stored fluids in slave milking rooms not saving details about whose milk/cum/girlcum it was. <b>All saved fluids in slave milking rooms will be deleted when you load into this version</b> as a result of this fix, so please sell/drink all stored fluids before loading into this version.
-		Fixed issue where you couldn't stop self actions if you were a submissive partner in some sex scenes.
-		Fixed issue where after defeating an imp fortress's guards, you'd be unable to re-enter the fortress's 'entrance' tile.
-		Fixed background error being thrown when slaves were having sex with one another while you were in an unrelated sex scene.
-		Fixed clothing not being replaced after sex, but also added an option to turn on/off this behaviour in the content settings. (Clothing replacement is on by default.)
-		Fixed issue in one of the fortress sex scenes where the imps were being treated as both participants and spectators.
-		Fyrsia's groin is now correctly exposed at the start of the post-'brawler' scene's sex.
-		Fixed money formatting to correctly display negative values.
-		Fixed elemental perk tree's 'chill' perk applying +5/+5 ice damage/resistance instead of the intended +1/+1.
-		Fixed issue with Jhortrax's post-sex 'Collapse' button sometimes not responding.
-		Fixed issue where character imports would break if they were exported while in possession of a modded weapon that is no longer in your mods folder.
-		Fixed issue with inventory management where sometimes clicking on clothing in the bottom-right of the game would cause major bugs. (Most noticeable in slavery management.) 
-		Fixed parser errors in several of the 'generic NPC' dialogues.
-		Fixed major bug where attacking sadists and masochists who had full lust would cause the game to crash.
-		Fixed a bug where some special tease attacks would not work.
-		Fixed major issue where maximum energy and aura never reflected increases & decreases from enchanted clothing being worn or potions being consumed. Also changed energy/aura gained from physique/arcane and levels to apply to the 'bonus' value.
-		Fixed a cause of the issue where combat would keep repeating after beating Hyorlyss.
-		Fixed major issues with all imp fortress parsing if you cleared them with an elemental as your main companion.
-		Fixed a large amount of parsing errors in imp fortresses, mostly in the 'scare off' scenes after clearing the fortress through non-combat means.
-		Fixed more parser errors in imp fortresses, which were related to pacifying the guards, then clearing the fortress.
-		Imp fortress guards no longer respawn if the leader is already defeated.
-		Fixed issue where imp gate and boss guards would not spawn in fortresses until you'd entered and left once already. (If you didn't do the enter/leave, it was causing numerous parsing and background logic errors.)
-		Fixed some typos and grammatical errors.
-		Fixed errors occurring if you didn't have a companion with you when you used the non-combat bypass options in Fyrsia's and Hyorlyss's fortresses.
-		Elementals loaded in from versions prior to 0.2.11.9 will no longer have a non-elemental job perk. (Which was causing their physique to be 0.)
-		Fixed combat loss sex scenes with Hyorlyss not working.
-		Fixed issue with Hyorlyss's dominant sex scenes not starting if she couldn't get access to her groin.
-		Jinxed clothing equips after imp fortress combat-defeat sex has been moved to be applied when you click to 'Continue', so that the jinxed effect isn't prematurely displayed.
-		Lilaya will now correctly return to wearing her usual lab clothes after her geisha scenes.
-		Fixed some issues with status effects while in the character creation.
-		Fixed clothing mods that use the old equip/unequip description format having their equip/unequip text defaulting to the generic ones.
-		Fixed Jhortrax only having 10 arcane. (He now has 35.)
-		Fixed issue with the 'arcane cloud' spell not applying damage to targets who have the 'Desperate for sex' debuff.
-		Fixed lust damage from masochist and sadist fetishes not taking into account lust resistance.
-		Fixed 'seductive look' not being available for dominant partners in doggy style sex.
-		Fixed being able to use the 'Spread legs' action in missionary when targeting someone other than the character between your legs. 
-		Fixed incorrect display of slave's daily earnings when assigned to be milked.
-		Fixed shop overflow dropping on the floor, which was caused by too many modded weapons/clothing being used. (Available items are randomly chosen to be stocked, so if you don't see some of your mods, try again the next day.)
-		Fixed incorrect condom equip descriptions in sex.
-		'Biojuice Canister' and 'Bubblegum Lollipop' items are now correctly marked as being transformative, meaning that they cannot be used on non-slave unique NPCs.
-		Fixed quest clothing having enchantment postfixes automatically appended to the name.
-		Fixed issue with quest clothing and weapons not being placed into quest inventory if regular inventory was full.
-		Fixed another issue with masochist/sadist fetishes causing freezes in combat.
-		Fixed issue with lust damage information not being appended correctly in combat.
-		Fixed debug menu's transform options for legs/face/arms being limited.
-		Fixed parsing error when using the 'True Nympho' option in Hyorlyss's fortress.
+		Fixed parsing error in Hyorlyss's fortress.
+		Fixed issue with button tooltips when managing NPCs clothing in the inventory screen.
+		Fixed issue where if you had the sadist fetish, dealing damage would softlock combat.
+		Fixed issue with 'kneeling oral' position having incorrect description at start of sex.
+		Fixed background errors when saving a game after removing modding clothing/weapons from your mod folders.
+		Fixed reindeer overseers' interaction menu being available on their 'home' tile, but not the tile they're actually in. (Fixed by moving their home tile to always be the tile they're in.)
+		Fixed katherine and Kelly getting stuck on the stairs in Zaranix's home. (They move around the area after you're cleared that part of the main quest.)
+		Fixed some minor inconsistent descriptions, typos, and parsing errors.
+		Fixed issue where spectators would join the sex scene when switching to the doggy style position.
+		Fixed issue where combat in the imp fortresses would never end if you were playing on higher difficulties. Also fixed bug where post-combat sex could sometimes result in a never-ending masturbation scene.
+		Fixed fluids not being described correctly when you gained an addiction for them.
+		Fixed incorrect equip/unequip descriptions for all of the Siren's clothing, distressed jeans, hakama, gothic boots, and striped gloves.
+		Added correct association with oral fetishes to the 'Thrust into mouth' and 'Take into mouth' actions during paizuri.
+		Fixed incorrect title for the stop paizuri action.
+		Fixed issue with oral actions not being available in face sitting position is the one doing the sitting was interacting with their partner's groin in any way.
+		Fixed arcane elemental being described as being bound to air.
+		Fixed 'initial penetration' text when starting a footjob not taking into account any shoes/socks being worn.
+	
+	
+	
+	
+	
+	
+	use picobyte's condom code and run through all condom todos:
+	
+	track cum
+	inseminate action
+		Filled condoms keep track of the type of cum that they're holding, and can now be used to artificially inseminate characters.
+		The offspring of any resulting pregnancy will have traits based on the the cum's stored body values.
+		E.g. Obtaining a filled condom from a dog-boy, and then transforming him into a cat-girl, then impregnating her with the filled condom, will result in offspring inheriting traits from her old dog-boy body, as well as her new cat-girl one.
 		
-		
-		
-		
+	 I am planning on having two brands of condom.
+	  One that will be more expensive, but immune to breaking, and then one that will be cheaper, with a chance to break based on cum production. It will be possible to purposefully sabotage both of these types
+	
+	So, while riding cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum
+	
+	Also you never re-added the manual insemination option
+	
+	And there's the self impreg with used condoms thing that I hear people mention occasionally.
+	
+	Also there's a minor problem with removing the condom when you're having sex.
+	When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed,
+	 but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
+	
+	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
+	
+	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
+	
+	NPCs to use condoms
+	Need to refuse condoms if impregnation/pregnancy fetishes
+	Broken condom
+	
+	
+	
+	
+	
+	
+	Make belt unisex
+	
+	Sometimes when I remove the fetish for being raped. They will continue to have the resist pace as if they still have the fetish. Alexia here is also at maxed affection
+	
+	Suggestion: Have shower sex with people in your party so Rose can wash their clothes too.
+	
+	i tried to extract 5,599 arcane essences and my game almost crashed
+	
+	switch knuckle dusters & demonstones to unarmed
+	
+	Maybe if item rarity effected how many enchanting slots an item had, and not just what it was pre-enchanted with?
+	
+	When the witches won when I was male they only hotdogged me and then stopped hotdogging me, they never removed any of my clothes
+	
+	split hymen/virginity
 	
 	expand the colour system to define button colour and text colour so that can have dark colours for coverings
 	 
 	Reading "knocked up" no longer changes the dialouge with Lilaya and acts like you have no clue whats going on
 	 
+	This has probably already been reported, but randomly during sex, the partner will seemingly stop allowing any sex actions (any started sex action will be stopped by them immediately) until the sex scene is over. It doesn't seem linked to their desires or sex pace.
+	
+	I will be adding a way to assign slaves to sleep with you in your room very soon.
+	 
 	Add citadel text
 		Doorway has three intricate keyholes
 			Chuuni writing around it, revealing daughter of Lyssieth
+	
+	Add IMP_CITADEL_DEFEATED
 	
 	Chuuni + 3 leaders battle
 	
@@ -242,6 +253,8 @@
 	
 	
 	
+	
+	
 	all options disappeared except repeats during sex - due to spectator orgasming?
 		Need more testing to make sure it's fixed
 		
@@ -271,6 +284,8 @@
 	BDSM equips should append text saying you have something equipped now
 	
 	maps
+	
+	the dildo (discrete one it should) removes the 'exposed' flag for the vagina (Realistic one should be even more 'embarrasing' as it can be seen) and likewise anal plugs do as well.
 	
 	Stored cum should save all details needed to generate offspring
 	
@@ -632,10 +647,6 @@
 		Pinch nipples
 	
 	Expand slavery content. (Jobs, permissions, and management improvements.)
-	
-	NPCs to use condoms
-	Need to refuse condoms if impregnation/pregnancy fetishes
-	Broken condom
 	
 	foot content
 		Footjobs, foot worship, foot smothering, cum on soles as a pull out option
@@ -1094,12 +1105,8 @@ my character is a guy, so this is super confusing lol
 	And some slaves are stuck on the stats sheet as being ready for birthing
 		I think that they were both PCs I imported
 	
-	NPCs using condoms on self/player
-	
 	Add masturbation to most areas
 	
-	broken condom content
-		
 	adding a hide/show button for status effects
 		
 	Fix NPCs not being deleted
@@ -1240,10 +1247,6 @@ my character is a guy, so this is super confusing lol
 	
 	I'm planning on adding a special orgasm denial action, which I'll then allow NPCs with the denial fetish to use (I might split up the fetish into 'being denied' and 'denying others' variants).
 	
-	
-- I will be adding a way to assign slaves to sleep with you in your room very soon. :3
-- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working).
- I am planning on having two brands of condom. One that will be more expensive, but immune to breaking, and then one that will be cheaper, with a chance to break based on cum production. It will be possible to purposefully sabotage both of these types
 	
 	Brax weapon - has 0 arcane but can use arcane
 		Brax weapon & descriptions
@@ -1537,8 +1540,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	slime tails
 	
-	condom breaking
-
 	In Succubi's Secrets, there's an extra line of the basic skin colors. Only the top row can be used.
 	
 	after arthur reunite with liliya. you have to get arthur a room to proceed right?
@@ -1802,8 +1803,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	NPCs !!!STILL!!! making you stop penetration just before climax!!! (Stopped me eating her out)
 	
-	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
-	Please let us avoid fights with slimes using used condoms
 	
 	The special dialog with Lilaya about pregnancy when she is the on that impregnated you is missing. Plus the dialogue is missing where you got pregnant from someone else and went to Lilaya after you had sex with her.
 	
@@ -1818,7 +1817,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	(far in the future)There could be alchemist perk like there is Arcane weaver perk, and Transformation fetish would then instead offer you a stat boost for 1 hr or 2 whenever you transform someone (perhaps something like + 10~20% exp gain)
 	Similar buffs could then come for Orgasm denier[Bonuses to physical damage for few hours] and Self denial fetish[Seduction damage bonus]
 	
-	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
 	
 	since there is an option to be a squirter if you have a vagina, maybe you could add an option to squirt milk from nipples when reaching orgasm. It would be possible if the character is lactating and the ejaculation would decrease the amount of milk stored in the breasts.
 	
@@ -3737,11 +3735,6 @@ BlobHyperSweats1
 	Tattoos and slave customisation at Kate's place
 	
 	
-	I encountered a succubus, had my way with her after selecting preferences, then i clasped a slave collar onto her. she was sent to the slaver, but her and my stats on the right and left side remained. Also my and her items still remain visible. So it doesn't return you to the 'world view' screen after doing so
-	had a saved game right after defeating her, so i loaded that up, no sex this time, clasped slave collar and no problem. I'll see if I can try and get it to act up again.
-[05:52] GrimWaltz: I've narrowed the problem down. It seems that after choosing having sex with the succubus after defeating her and turning her into a slave, the game gets the problem. If you don't have sex with her but turn her into a slave there's no problem.
-[05:57] GrimWaltz: Also there's a minor problem with removing the condom when you're having sex. When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed, but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
-	
 	satisfying a slave's addiction should raise their affection
 	
 	is the unwilling fucktoy fetish supposed to make NPCs resist?
@@ -4244,8 +4237,7 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	
 	Lilaya sex behind incest
 	
-	: Also you never re-added the manual insemination option
-	And there's the self impreg with used condoms thing that I hear people mention occasionally.
+	
 	
 	Will we be able to change our tongue color at some point
 	
@@ -4310,8 +4302,6 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	When asking Lilaya about essences, the PC speaks about how "A piece of someone's essence broke off and shot into me", but you don't have to have actually seen this, since that conversation is now unlocked by Lilaya's "Tests".
 	
 	When using transformative on a slave in Slavery Administration some transformation descriptions mention Finch instead of target npc.
-	
-	Having 6/7+ (definately 7+) used condoms in inventory (with or without condom belt) and then talking with Ralph locks you into his intro, the only option that works is 'discount' and then that locks there without being able to refuse or proceed.
 	
 	big lag when it comes to buying and selling items en mass
 	
@@ -4490,8 +4480,6 @@ If I can give a suggestion, in these situations they could perform some frotting
 	
 	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
 	
-	 Just want to let you know that the condom belt bug still exists in 1.88.1 Once the player acquires more than 8 used condoms, the player's clothing inventory screen stops displaying. Consuming one to bring the number to 8 or lower allows the worn items to be seen again. This is not the worn inventory showing all blank boxes, but rather the worn not showing at all, and just showing like the default map.
-	
 	In the newest version, requesting a position your partner doesn't want usually causes them to break and do nothing for a while.
 	
 	in the latest version after clicking resume it resets all "my" fetishes
@@ -4587,10 +4575,6 @@ I'll add descriptions for tasting the lubrication types on your fingers; great i
 	
 	No options sometimes
 	
-	Have an interesting bug where all of my equipped items have disappeared. One moment they were there, now every slot is empty except for my on hand off hand weapons. Was using the condom belt and have 9 in inventory so far, but no item overflow occured.  
-I am pretty sure i didn't hit unequip all and then walk away from it, because there are none of my old items in my basic inventory.  
-Okay, just purchased and equipped a new condom belt, it vaporizes into the aether.  Drinking a condom made just the belt reappear, but adding a new condom this time caused the entire inventory (clothing equipped) to not show when i press the inventory button.
-	
 	need to get individual hand lubrications sorted
 	
 	I'll look into adding multiple types of horns for each race
@@ -4639,9 +4623,6 @@ Okay, just purchased and equipped a new condom belt, it vaporizes into the aethe
 	
 	Got a bug, when i was sucking a witches cock she said "Put out i don't want to taste your cum "
 	
-	So, while riding my son's cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum :stuck_out_tongue:
-	Also, condom belts when removed during sex are called microskirts
-	it was fixed by removing an item of clothing
 	
 	Add orgasm/pullout actions & cum-soaked effects
 	One of the annoying things NPCs can do is to pull away when they orgasm while being roughly fucked. This is merely text related but I don't want to be pulled out, I want them to deal with it without "pushing my hips away"
@@ -5264,13 +5245,7 @@ It lacks something before the period.
 	
 	Incest Content still says Not Implemented when selecting the fetish.
 		
-	
-	Condoms:
-		track cum
-		inseminate action
-			Filled condoms keep track of the type of cum that they're holding, and can now be used to artificially inseminate characters.
-			The offspring of any resulting pregnancy will have traits based on the the cum's stored body values.
-			E.g. Obtaining a filled condom from a dog-boy, and then transforming him into a cat-girl, then impregnating her with the filled condom, will result in offspring inheriting traits from her old dog-boy body, as well as her new cat-girl one.
+		
 		
 	Condense essences into just arcane essences
 	Use essences to unjinx something

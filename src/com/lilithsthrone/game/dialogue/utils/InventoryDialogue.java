@@ -3489,7 +3489,7 @@ public class InventoryDialogue {
 								} else if(inventoryFull) {
 									return new Response("Give (1)", UtilText.parse(inventoryNPC, "[npc.NamePos] inventory is already full!"), null);
 								}
-								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] the " + clothing.getClothingType() + " " + clothing.getName() + "."), INVENTORY_MENU){
+								return new Response("Give (1)", UtilText.parse(inventoryNPC, "Give [npc.name] the " + clothing.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(Main.game.getPlayer(), inventoryNPC, clothing, 1);
@@ -3921,7 +3921,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + clothing.getClothingType() + " " + clothing.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + clothing.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpClothing(Main.game.getPlayer(), clothing, 1);
@@ -4040,7 +4040,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (1)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take the " + clothing.getClothingType() + " " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
+								return new Response("Take (1)", UtilText.parse(inventoryNPC, "Take the " + clothing.getName() + " from [npc.name]."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, 1);
@@ -5029,7 +5029,6 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(
 														"<p>"
 															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
@@ -5037,6 +5036,7 @@ public class InventoryDialogue {
 														+ "<p style='text-align:center;'>"
 															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>");
+												clothing.setSealed(false);
 											}
 										};
 									} else {
@@ -5198,7 +5198,6 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												clothing.setSealed(false);
 												Sex.setUnequipClothingText(
 														"<p>"
 															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
@@ -5206,6 +5205,7 @@ public class InventoryDialogue {
 														+ "<p style='text-align:center;'>"
 															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>");
+												clothing.setSealed(false);
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);
@@ -5421,7 +5421,6 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(UtilText.parse(inventoryNPC,
 														"<p>"
 															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
@@ -5429,6 +5428,7 @@ public class InventoryDialogue {
 														+ "<p style='text-align:center;'>"
 															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>"));
+												clothing.setSealed(false);
 											}
 										};
 									} else {
@@ -5560,7 +5560,6 @@ public class InventoryDialogue {
 											@Override
 											public void effects() {
 												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												clothing.setSealed(false);
 												Sex.setUnequipClothingText(UtilText.parse(inventoryNPC,
 														"<p>"
 																+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
@@ -5568,6 +5567,7 @@ public class InventoryDialogue {
 														+ "<p style='text-align:center;'>"
 															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
 														+ "</p>"));
+												clothing.setSealed(false);
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 												Sex.setSexStarted(true);

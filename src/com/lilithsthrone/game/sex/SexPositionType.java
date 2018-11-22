@@ -271,7 +271,8 @@ public enum SexPositionType {
 	FACE_SITTING("Face-sitting",
 			true,
 			true,
-			Util.newArrayListOfValues(FaceSitting.class), Util.newHashMapOfValues(
+			Util.newArrayListOfValues(FaceSitting.class),
+			Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_SITTING_ON_FACE,
 							Util.newHashMapOfValues(
@@ -285,7 +286,8 @@ public enum SexPositionType {
 													SexActionPresets.tentacleToUpperTorso,
 													SexActionPresets.vaginaToMouth,
 													SexActionPresets.penisToMouth,
-													SexActionPresets.assToMouth), Util.newArrayListOfValues(
+													SexActionPresets.assToMouth),
+											Util.newArrayListOfValues(
 															OrgasmCumTarget.STOMACH,
 															OrgasmCumTarget.BREASTS,
 															OrgasmCumTarget.FACE,
@@ -1303,9 +1305,18 @@ public enum SexPositionType {
 				} else {
 					descriptionSB.append(" are");
 				}
-				descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL),
-						" kneeling on the floor in front of [npc.name]; "+(playerSub?"your":"their")+" faces just [unit.sizes] away from [npc.her] groin..."));
-				
+				try {
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL),
+							" kneeling on the floor in front of [npc.name]; "
+									+(playerSub
+											?"your"
+											:(performers.size()>1
+												?"their faces"
+												:UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), "[npc.her] [npc.face]")))
+									+" just [unit.sizes] away from [npc.her] groin..."));
+				} catch(Exception ex) {
+					descriptionSB.append(UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_RECEIVING_ORAL), "kneeling on the floor in front of [npc.name]."));
+				}
 			} else if(Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_SECOND)==null) { // Up to 6 doms on 1 sub
 				
 				List<String> receivers = new ArrayList<>();
@@ -3616,7 +3627,8 @@ public enum SexPositionType {
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING) {
 			// Block penis+non-appendage actions if target's penis is already in use:
-			if(this!=SexPositionType.SIXTY_NINE) {
+			if(this!=SexPositionType.SIXTY_NINE
+					&& this!=SexPositionType.FACE_SITTING) {
 				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
 						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
 						&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
@@ -3635,6 +3647,7 @@ public enum SexPositionType {
 			
 			// Block oral + groin actions if there is any groin action going on:
 			if(this!=SexPositionType.SIXTY_NINE
+				&& this!=SexPositionType.FACE_SITTING
 					&& ((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
 							&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
 						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)

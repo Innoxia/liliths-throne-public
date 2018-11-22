@@ -1888,128 +1888,119 @@ public class Sex {
 		// TODO Take into account condom being used on other penetrationTypes
 		for(GameCharacter cumProvider : Sex.getAllParticipants()) {
 			for(GameCharacter cumTarget :Sex.getAllParticipants()) {
-				if(cumProvider.equals(activeCharacter) || cumTarget.equals(activeCharacter)) {
-					if(cumProvider.getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
-						if (sexAction.getAreasCummedIn(cumProvider, cumTarget) != null) {
-							if(!cumProvider.isWearingCondom() || sexAction.ignoreCondom(cumProvider)){
-								Sex.incrementTimesCummedInside(cumProvider, cumTarget, 1);
-								
-								for(SexAreaInterface area : sexAction.getAreasCummedIn(cumProvider, cumTarget)) {
-									cumTarget.incrementCumCount(new SexType(SexParticipantType.NORMAL, area, SexAreaPenetration.PENIS));
-									cumProvider.incrementCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
-									if(area.isOrifice() && ((SexAreaOrifice)area).isInternalOrifice()) {
-										sexSB.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice)area, cumProvider.getPenisRawOrgasmCumQuantity()));
-									}
-								}
-							}
+
+				if (!cumProvider.equals(activeCharacter) && !cumTarget.equals(activeCharacter))
+					continue;
+
+				if (cumProvider.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE)
+					continue;
+
+				if (cumProvider.isWearingCondom() && !sexAction.testCondomRipped(cumProvider, cumTarget)) {
+					continue;
+				}
+
+				List<SexAreaInterface> cummedInAreas = sexAction.getAreasCummedIn(cumProvider, cumTarget);
+				if (cummedInAreas != null) {
+					for (SexAreaInterface area : cummedInAreas) {
+						cumTarget.incrementCumCount(
+								new SexType(SexParticipantType.NORMAL, area, SexAreaPenetration.PENIS));
+						cumProvider.incrementCumCount(
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
+						if (area.isOrifice() && ((SexAreaOrifice) area).isInternalOrifice()) {
+							sexSB.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()));
 						}
-						
-						if(sexAction.getAreasCummedOn(cumProvider, cumTarget)!=null) {
-							if(!cumProvider.isWearingCondom() || sexAction.ignoreCondom(cumProvider)){
-								for(CoverableArea area : sexAction.getAreasCummedOn(cumProvider, cumTarget)) {
-									switch(area) {
-										case NONE:
-											break;
-										case ASS:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.ASS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.ANUS);
-											}
-											break;
-										case ANUS:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.ANUS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.ANUS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.ANUS);
-											}
-											break;
-										case BREASTS: case NIPPLES:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.BREASTS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.BREASTS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.CHEST);
-											}
-											break;
-										case PENIS: case TESTICLES:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.GROIN);
-											}
-											break;
-										 case VAGINA: case MOUND:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.VAGINA)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.GROIN);
-											}
-											break;
-										case HAIR:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.HAIR)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.HAIR).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.HAIR);
-											}
-											break;
-										case HANDS:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.HANDS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.HANDS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.HAND);
-											}
-											break;
-										case FEET:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.FOOT);
-												cumTarget.addDirtySlot(InventorySlot.ANKLE);
-											}
-											break;
-										case LEGS: case THIGHS:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.LEGS)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.LEGS).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.LEG);
-											}
-											break;
-										case MOUTH: // Facial:
-											if(cumTarget.getClothingInSlot(InventorySlot.MOUTH)!=null) {
-												cumTarget.getClothingInSlot(InventorySlot.MOUTH).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.MOUTH);
-											}
-											if(cumTarget.getClothingInSlot(InventorySlot.EYES)!=null) {
-												cumTarget.getClothingInSlot(InventorySlot.EYES).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.EYES);
-											}
-											if(cumTarget.getClothingInSlot(InventorySlot.NECK)!=null) {
-												cumTarget.getClothingInSlot(InventorySlot.NECK).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.NECK);
-											}
-											
-											break;
-										case STOMACH:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.STOMACH).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.STOMACH);
-											}
-											break;
-										case BACK:
-											if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.BACK)!=null) {
-												cumTarget.getHighestZLayerCoverableArea(CoverableArea.BACK).setDirty(true);
-											} else {
-												cumTarget.addDirtySlot(InventorySlot.TORSO_OVER);
-											}
-											break;
-									}
-								}
+					}
+					Sex.incrementTimesCummedInside(cumProvider, cumTarget, 1);
+				}
+
+				List<CoverableArea> cummedOnAreas = sexAction.getAreasCummedOn(cumProvider, cumTarget);
+				if (cummedOnAreas == null)
+					continue;
+
+				for(CoverableArea area : cummedOnAreas) {
+
+					InventorySlot invSlot = InventorySlot.MOUTH;
+					switch(area) {
+						case NONE:
+							continue;
+	
+						case MOUTH: // Facial:
+							if(cumTarget.getClothingInSlot(InventorySlot.EYES)!=null) {
+								cumTarget.getClothingInSlot(InventorySlot.EYES).setDirty(true);
+							} else {
+								cumTarget.addDirtySlot(InventorySlot.EYES);
 							}
-						}
+							if(cumTarget.getClothingInSlot(InventorySlot.NECK)!=null) {
+								cumTarget.getClothingInSlot(InventorySlot.NECK).setDirty(true);
+							} else {
+								cumTarget.addDirtySlot(InventorySlot.NECK);
+							}
+							// invSlot = InventorySlot.MOUTH;
+							break;
+	
+						case FEET:
+							if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.FEET)==null) {
+								cumTarget.addDirtySlot(InventorySlot.ANKLE);
+								invSlot = InventorySlot.FOOT;
+							}
+							break;
+	
+						case HAIR:
+							invSlot = InventorySlot.HAIR;
+							break;
+	
+						case HANDS:
+							invSlot = InventorySlot.HAND;
+							break;
+	
+						case STOMACH:
+							invSlot = InventorySlot.STOMACH;
+							break;
+	
+						case BACK:
+							invSlot = InventorySlot.TORSO_OVER;
+							break;
+	
+						case ASS: case ANUS:
+							invSlot = InventorySlot.ANUS;
+							break;
+	
+						case NIPPLES:
+							area = CoverableArea.BREASTS;
+							invSlot = InventorySlot.CHEST;
+							break;
+						case BREASTS:
+							invSlot = InventorySlot.CHEST;
+							break;
+	
+						case TESTICLES:
+							area = CoverableArea.PENIS;
+							invSlot = InventorySlot.GROIN;
+							break;
+						case PENIS:
+							invSlot = InventorySlot.GROIN;
+							break;
+	
+						case MOUND:
+							area = CoverableArea.VAGINA;
+							invSlot = InventorySlot.GROIN;
+							break;
+						case VAGINA:
+							invSlot = InventorySlot.GROIN;
+							break;
+	
+						case THIGHS:
+							area = CoverableArea.LEGS;
+							invSlot = InventorySlot.LEG;
+							break;
+						case LEGS:
+							invSlot = InventorySlot.LEG;
+							break;
+					}
+					if (cumTarget.getHighestZLayerCoverableArea(area)!=null) {
+						cumTarget.getHighestZLayerCoverableArea(area).setDirty(true);
+					} else {
+						cumTarget.addDirtySlot(invSlot);
 					}
 				}
 			}
@@ -3171,6 +3162,10 @@ public class Sex {
 	
 	public static List<GameCharacter> getSubmissiveSpectators() {
 		return submissiveSpectators;
+	}
+	
+	public static boolean isSpectator(GameCharacter character) {
+		return dominantSpectators.contains(character) || submissiveSpectators.contains(character);
 	}
 
 	private static PlayerCharacter player() {

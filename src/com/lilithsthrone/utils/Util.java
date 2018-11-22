@@ -349,6 +349,10 @@ public class Util {
 			total+=i;
 		}
 		
+		if(total==0) {
+			return null;
+		}
+		
 		int choice = Util.random.nextInt(total) + 1;
 		
 		total = 0;

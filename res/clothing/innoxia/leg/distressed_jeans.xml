@@ -104,7 +104,7 @@
 		</itemTags>
 	</coreAtributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(step)] into the jeans, before pulling them up and fastening the button at [npc.her] waist.]]>
     </self>
@@ -114,9 +114,9 @@
     <otherRough>
       <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the jeans, before yanking them up and fastening the button at [npc2.her] waist.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc.her] jeans, before slipping them off.]]>
     </self>
@@ -126,6 +126,6 @@
     <otherRough>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] jeans, before yanking them off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>
