@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import org.w3c.dom.Comment;
@@ -11745,101 +11746,58 @@ public abstract class GameCharacter implements XMLSaving {
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 		}
 		
+		if(isVisiblyPregnant()) {
+			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
+		}
+		
 		float pregnancyChance = 0;
 		
-		if((partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS) && partner.getAttributeValue(Attribute.VIRILITY)<=0)
-				|| (this.hasPerkAnywhereInTree(Perk.BARREN) && this.getAttributeValue(Attribute.FERTILITY)<=0)) {
-			pregnancyChance = 0;
-			
-		} else {
-			pregnancyChance = 0;
+		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
+		boolean selfFertile = getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN);
+		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt(cumQuantity).getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance /= 3;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
 		}
 		
-		if (!isAbleToBeImpregnated()) {
-			pregnancyChance = 0;
-		}
+		PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
 		
-		if(pregnancyChance<0) {
-			pregnancyChance=0;
-		}
-		
-		if(pregnancyChance>1) {
-			pregnancyChance=1;
-		}
-		
-		String s;
-		
-		if(isVisiblyPregnant()) {
-			s = PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
-			
-		} else {
-			PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
-			
-			this.addPotentialPartnerAsMother(pregPoss);
-			partner.addPotentialPartnerAsFather(pregPoss);
+		this.addPotentialPartnerAsMother(pregPoss);
+		partner.addPotentialPartnerAsFather(pregPoss);
 
-			if (pregnancyChance <= 0) {
-				s = PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<=0.15f) {
-				s = PregnancyDescriptor.LOW_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<=0.3f) {
-				s = PregnancyDescriptor.AVERAGE_CHANCE.getDescriptor(this, partner);
-			} else if(pregnancyChance<1) {
-				s = PregnancyDescriptor.HIGH_CHANCE.getDescriptor(this, partner);
-			} else {
-				s = PregnancyDescriptor.CERTAINTY.getDescriptor(this, partner);
-			}
-		}
-		
-		if (!hasStatusEffect(StatusEffect.PREGNANT_0) && !isPregnant()) {
-			addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
-		}
-		
 		// Now roll for pregnancy:
 		if (!isPregnant()) {
+			if (!hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				addStatusEffect(StatusEffect.PREGNANT_0, 60 * (4 + Util.random.nextInt(5)));
+			}
 			if (Math.random() <= pregnancyChance) {
 				
-				int minimumNumberOfChildren = 1;
-				int maximumNumberOfChildren = 1;
+				Race litterSizeBasedOn = null;
 				
-				if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-					minimumNumberOfChildren = Race.SLIME.getNumberOfOffspringLow();
-					maximumNumberOfChildren = Race.SLIME.getNumberOfOffspringHigh();
-					
+				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
+					litterSizeBasedOn = Race.SLIME;
 				} else {
-					if(getVaginaType()==VaginaType.HUMAN) {
-						if(partner.getPenisType().getRace()==null) {
-							minimumNumberOfChildren = partner.getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = partner.getRace().getNumberOfOffspringHigh();
-						} else {
-							minimumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringHigh();
-						}
-						
+					VaginaType vaginaType = getVaginaType();
+					if (vaginaType == VaginaType.HUMAN) {
+						litterSizeBasedOn = Optional.ofNullable(partner.getPenisType().getRace()).orElseGet(partner::getRace);
 					} else {
-						if(getVaginaType().getRace()==null) {
-							minimumNumberOfChildren = getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = getRace().getNumberOfOffspringHigh();
-						} else {
-							minimumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow();
-							maximumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringHigh();
-						}
+						litterSizeBasedOn = Optional.ofNullable(vaginaType.getRace()).orElseGet(this::getRace);
 					}
 				}
 				
-				if(partner.hasTraitActivated(Perk.FETISH_SEEDER)) {
-					maximumNumberOfChildren*=2;
+				int minimumNumberOfChildren = litterSizeBasedOn.getNumberOfOffspringLow();
+				int maximumNumberOfChildren = litterSizeBasedOn.getNumberOfOffspringHigh();
+				
+				if (partner.hasTraitActivated(Perk.FETISH_SEEDER)) {
+					maximumNumberOfChildren *= 2;
 				}
-				if(hasTraitActivated(Perk.FETISH_BROODMOTHER)) {
-					maximumNumberOfChildren*=2;
+				if (hasTraitActivated(Perk.FETISH_BROODMOTHER)) {
+					maximumNumberOfChildren *= 2;
 				}
 				
 				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt((maximumNumberOfChildren-minimumNumberOfChildren)+1);
 				
-				List<NPC> offspring = new ArrayList<>();
+				List<NPC> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
 					NPC npc = new NPCOffspring(this, partner);
 					offspring.add(npc);
@@ -11854,7 +11812,8 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return s;
+		return PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance)
+				.getDescriptor(this, partner);
 	}
 
 	public boolean isPregnant() {
