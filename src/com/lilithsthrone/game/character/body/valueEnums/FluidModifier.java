@@ -11,6 +11,7 @@ public enum FluidModifier {
 	VISCOUS("viscous"),
 	STICKY("sticky"),
 	SLIMY("slimy"),
+	MINERAL_OIL("mineral oil"),
 	BUBBLING("bubbling"),
 	ALCOHOLIC("alcoholic"),
 	ADDICTIVE("addictive"),
