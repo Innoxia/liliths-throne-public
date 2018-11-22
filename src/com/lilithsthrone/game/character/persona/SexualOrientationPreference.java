@@ -1,8 +1,16 @@
 package com.lilithsthrone.game.character.persona;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
+/**
+ * @author GalacticOtter, Innoxia
+ * @since 0.2.12
+ * @version 0.2.12
+ */
 public enum SexualOrientationPreference {
 
 	ZERO_NONE("off", 0),
@@ -21,34 +29,16 @@ public enum SexualOrientationPreference {
 	}
 	
 	public static SexualOrientation getSexualOrientationFromUserPreferences(int gynephilicWeight, int ambiphilicWeight, int androphilicWeight) {
-		int gyne = Main.getProperties().orientationPreferencesMap.get(SexualOrientation.GYNEPHILIC) * gynephilicWeight;
-		int ambi = Main.getProperties().orientationPreferencesMap.get(SexualOrientation.AMBIPHILIC) * ambiphilicWeight;
-		int andro = Main.getProperties().orientationPreferencesMap.get(SexualOrientation.ANDROPHILIC) * androphilicWeight;
-		int total = gyne + ambi + andro;
-
-		if(total == 0) {
-			return SexualOrientation.AMBIPHILIC;
-		}
+		Map<SexualOrientation, Integer> orientationPreferencesMap = new HashMap<>();
+		orientationPreferencesMap.put(SexualOrientation.GYNEPHILIC, Main.getProperties().orientationPreferencesMap.get(SexualOrientation.GYNEPHILIC) * gynephilicWeight);
+		orientationPreferencesMap.put(SexualOrientation.AMBIPHILIC, Main.getProperties().orientationPreferencesMap.get(SexualOrientation.AMBIPHILIC) * ambiphilicWeight);
+		orientationPreferencesMap.put(SexualOrientation.ANDROPHILIC, Main.getProperties().orientationPreferencesMap.get(SexualOrientation.ANDROPHILIC) * androphilicWeight);
 		
-		int random = Util.random.nextInt(total)+1;
+		SexualOrientation orientation = Util.getRandomObjectFromWeightedMap(orientationPreferencesMap);
 		
-		int newTotal = 0;
-		
-		newTotal += gyne;
-		if(random <= newTotal) {
-			return SexualOrientation.GYNEPHILIC;
+		if(orientation!=null) {
+			return orientation;
 		}
-
-		newTotal += ambi;
-		if(random <= newTotal) {
-			return SexualOrientation.AMBIPHILIC;
-		}
-
-		newTotal += andro;
-		if(random <= newTotal) {
-			return SexualOrientation.ANDROPHILIC;
-		}
-
 		return SexualOrientation.AMBIPHILIC;
 	}
 	

@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.6
@@ -42,8 +43,8 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPartnerWantingToStopSex() {
-		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+		return Sex.getNumberOfOrgasms(Main.game.getRoxy())>=1;
 	}
 	
 }

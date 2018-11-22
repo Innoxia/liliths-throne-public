@@ -93,13 +93,13 @@ public class FingerAnus {
 									+ " to [npc2.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+].",
 
 
-							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.namePos] [npc2.ass] back against [npc.her] [npc.hand],"
-									+ " encouraging [npc.name] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.her] [npc2.ass] back against [npc.namePos] [npc.hand],"
+									+ " encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
-									+ " before eagerly bucking [npc2.her] [npc2.ass] back against [npc.namePos] [npc.hand] as [npc2.she] enthusiastically [npc2.verb(help)]"
+									+ " before eagerly bucking [npc2.her] [npc2.ass] back against [npc.her] [npc.hand] as [npc2.she] enthusiastically [npc2.verb(help)]"
 									+ " to [npc2.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
@@ -109,21 +109,21 @@ public class FingerAnus {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
-									+ " before violently bucking [npc2.namePos] [npc2.ass] back against [npc.her] [npc.hand] and roughly forcing [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+].",
+									+ " before violently bucking [npc2.her] [npc2.ass] back against [npc.her] [npc.hand] and roughly forcing [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+].",
 
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.namePos] [npc2.ass] back against [npc.namePos] [npc.hand],"
-									+ " roughly forcing [npc.name] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.her] [npc2.ass] back against [npc.namePos] [npc.hand],"
+									+ " roughly forcing [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
-									+ " eagerly bucking [npc2.namePos] [npc2.ass] back against [npc.her] [npc.hand] as [npc2.she] enthusiastically [npc2.verb(help)]"
+									+ " eagerly bucking [npc2.her] [npc2.ass] back against [npc.her] [npc.hand] as [npc2.she] enthusiastically [npc2.verb(help)]"
 									+ " to [npc2.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.namePos] [npc2.ass] back against [npc.her] [npc.hand],"
-									+ " desperately encouraging [npc.name] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+]."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.ass] back against [npc.namePos] [npc.hand],"
+									+ " desperately encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -131,8 +131,8 @@ public class FingerAnus {
 									+ " before bucking [npc2.her] [npc2.ass] back against [npc.her] [npc.hand] and helping to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.her] [npc2.ass] back against [npc.her] [npc.hand],"
-									+ " encouraging [npc.name] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.her] [npc2.ass] back against [npc.namePos] [npc.hand],"
+									+ " encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -410,7 +410,7 @@ public class FingerAnus {
 
 
 							"Pushing [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] [npc2.a_moan+] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, roughly slamming [npc2.her] [npc2.ass] back against [npc.namePos] touch, [npc2.name] [npc.verb(command)] [npc.herHim] to continue fingering [npc2.herHim].",
+									+ " and, roughly slamming [npc2.her] [npc2.ass] back against [npc.namePos] touch, [npc2.name] [npc2.verb(command)] [npc.herHim] to continue fingering [npc2.herHim].",
 
 
 							"Sliding [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.asshole+], [npc.namePos] touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan+],"
@@ -481,7 +481,7 @@ public class FingerAnus {
 
 
 							"Firmly pushing [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] [npc2.a_moan+] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, roughly slamming [npc2.her] [npc2.ass] back against [npc.her] touch, [npc2.name] [npc.verb(command)] [npc.name] to continue fingering [npc2.herHim].",
+									+ " and, roughly slamming [npc2.her] [npc2.ass] back against [npc.her] touch, [npc2.name] [npc2.verb(command)] [npc.name] to continue fingering [npc2.herHim].",
 
 
 							"Eagerly sliding [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.namePos] enthusiastic touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan+],"
@@ -614,10 +614,10 @@ public class FingerAnus {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] gasp as [npc.name] withdraws from [npc2.namePos] [npc2.asshole], before letting out [npc2.a_sob+] as [npc2.name] [npc.verb(continue)] to struggle against [npc.herHim].",
+							" [npc2.Name] gasp as [npc.name] withdraws from [npc2.namePos] [npc2.asshole], before letting out [npc2.a_sob+] as [npc2.name] [npc2.verb(continue)] to struggle against [npc.herHim].",
 
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to struggle against [npc.name] as [npc.she] withdraws from [npc2.namePos] [npc2.asshole+]."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle against [npc.name] as [npc.she] withdraws from [npc2.namePos] [npc2.asshole+]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -721,7 +721,7 @@ public class FingerAnus {
 									+ " [npc2.she] roughly [npc2.verb(curl)] [npc2.her] [npc2.fingers] up before starting to ruthlessly finger-fuck [npc.her] [npc.asshole+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " seeking to remind [npc.name] who's in charge as [npc2.she] starts roughly fingering [npc.her] [npc.asshole+]."));
+									+ " seeking to remind [npc.name] who's in charge as [npc2.she] [npc2.verb(start)] roughly fingering [npc.her] [npc.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -742,7 +742,7 @@ public class FingerAnus {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.fingers] inside of [npc.herHim],"
 									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] tries to pull [npc2.herself] free.",
 
-							" With [npc2.a_sob+], [npc2.name] starts struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
 									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] [npc2.fingers] deep into [npc.her] [npc.asshole+]."));
 					break;
 				default:

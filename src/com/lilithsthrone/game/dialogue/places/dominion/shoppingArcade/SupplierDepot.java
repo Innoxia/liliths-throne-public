@@ -321,6 +321,7 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "Immediately launch into combat!",
+						Main.game.getSupplierLeader(),
 						Util.newArrayListOfValues(
 								Main.game.getSupplierLeader(),
 								Main.game.getSupplierPartner()),
@@ -371,8 +372,8 @@ public class SupplierDepot {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_WILLING_DOMMED_THEM,
-							UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_FUCK_THEM"));
+							null,
+							null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_FUCK_THEM"));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Get Fucked",
@@ -384,8 +385,8 @@ public class SupplierDepot {
 											new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 											new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-							AFTER_SEX_WILLING,
-							UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
+							null,
+							null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
 					
 				} else if (index == 0) {
 					return new ResponseEffectsOnly("Leave", "Let the pair know that you were just checking up on them, before heading back outside into the Shopping Arcade once again.") {
@@ -441,6 +442,7 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "It looks as though you're left with no choice but to fight!",
+						Main.game.getSupplierLeader(),
 						Util.newArrayListOfValues(
 								Main.game.getSupplierLeader(),
 								Main.game.getSupplierPartner()),
@@ -473,8 +475,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_FUCKED,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
+						null,
+						null, AFTER_SEX_FUCKED, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_OFFER_BODY"));
 				
 			} else {
 				return null;
@@ -549,8 +551,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_WILLING,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_THANKS"));
+						null,
+						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_THANKS"));
 				
 			} else {
 				return null;
@@ -593,8 +595,8 @@ public class SupplierDepot {
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-						AFTER_SEX_WILLING_DOMMED_THEM,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_FUCK_THEM"));
+						null,
+						null, AFTER_SEX_WILLING_DOMMED_THEM, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_FUCK_THEM"));
 				
 			} else if (index == 3) {
 				return new ResponseSex("Get Fucked",
@@ -606,8 +608,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_WILLING,
-						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_SUB_FUCKED"));
+						null,
+						null, AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_SUB_FUCKED"));
 				
 			} else {
 				return null;
@@ -635,8 +637,8 @@ public class SupplierDepot {
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
 										new Value<>(Main.game.getSupplierPartner(), SexPositionSlot.DOGGY_INFRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						AFTER_SEX_FUCKED,
-						"");
+						null,
+						null, AFTER_SEX_FUCKED, "");
 				
 			} else {
 				return null;

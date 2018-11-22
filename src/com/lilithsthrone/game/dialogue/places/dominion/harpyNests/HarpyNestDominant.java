@@ -282,8 +282,8 @@ public class HarpyNestDominant {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							HARPY_NEST_DOMINANT_AFTER_SEX,
-							"<p>"
+							null,
+							null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 							+ "</p>"
@@ -563,8 +563,8 @@ public class HarpyNestDominant {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_DOMINANT_AFTER_SEX,
-						"<p>"
+						null,
+						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -580,7 +580,7 @@ public class HarpyNestDominant {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and start to walk back the way you came."
 									+ " You hear [harpyDominant.name] shouting at one of the harpies as you leave,"
-									+ " [harpyDominant.speech(<i>[pc.sheIs</i> the new leader around here, you worthless bitch! [harpyDominantCompanion.Name]! Looks like you've got a new fuck-toy!)]"
+									+ " [harpyDominant.speech(<i>[pc.SheIs]</i> the new leader around here, you worthless bitch! [harpyDominantCompanion.Name]! Looks like you've got a new fuck-toy!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue back across the main platform, quickly finding yourself on the outskirts of the nest once again."
@@ -870,8 +870,8 @@ public class HarpyNestDominant {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						HARPY_NEST_DOMINANT_AFTER_SEX,
-						"<p>"
+						null,
+						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -887,7 +887,7 @@ public class HarpyNestDominant {
 								"<p>"
 									+ "Deciding that your work here is done, you turn around and start to walk back the way you came."
 									+ " You hear [harpyDominant.name] shouting at one of the harpies as you leave,"
-									+ " [harpyDominant.speech(<i>[pc.sheIs</i> the new leader around here, you worthless bitch! [harpyDominantCompanion.Name]! Looks like you've got a new fuck-toy!)]"
+									+ " [harpyDominant.speech(<i>[pc.SheIs]</i> the new leader around here, you worthless bitch! [harpyDominantCompanion.Name]! Looks like you've got a new fuck-toy!)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Smirking as you hear that, you continue back across the main platform, quickly finding yourself on the outskirts of the nest once again."

@@ -227,14 +227,14 @@ public class PartnerSelfFingerAnus {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly slams [npc.her] [npc.fingers] deep inside [npc.her] [npc.asshole+], before starting to roughly finger [npc.her] [npc.ass].",
 					
-					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] ruthlessly fingers [npc.her] own [npc.ass].",
+					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] [npc.verb(start)] letting out a series of delighted [npc.moans] as [npc.she] ruthlessly fingers [npc.her] own [npc.ass].",
 					
-					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] starts "
+					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] [npc.verb(start)] "
 							+(Sex.getActivePartner().hasPenis()
 									?"roughly grinding [npc.her] fingertips up against [npc.her] prostate."
 									:"roughly grinding [npc.her] digits in and out of [npc.her] [npc.ass+]."),
 					
-					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+].");
+					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+].");
 		}
 
 	};

@@ -14,6 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
@@ -67,7 +68,7 @@ public class RalphOral {
 			UtilText.nodeContentSB.append("With Ralph's cock being as large as it is, you don't even need to lean forwards in order to start earning your discount."
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
-			if(Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM))
+			if(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM))
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty pre-cum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else
@@ -835,10 +836,11 @@ public class RalphOral {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedPartnerAction()!=PARTNER_COMMAND_START_ORAL)
+			if(Sex.getLastUsedSexAction(Main.game.getRalph())!=PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
-			else
+			} else {
 				return  SexActionPriority.NORMAL;
+			}
 		}
 
 		@Override
@@ -888,10 +890,11 @@ public class RalphOral {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedPartnerAction()==PARTNER_COMMAND_START_ORAL)
+			if(Sex.getLastUsedSexAction(Main.game.getRalph())==PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
-			else
+			} else {
 				return SexActionPriority.NORMAL;
+			}
 		}
 
 		@Override
@@ -1930,7 +1933,7 @@ public class RalphOral {
 		}
 		
 		@Override
-		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(!cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
 				if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);

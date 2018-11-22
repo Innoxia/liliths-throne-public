@@ -5,27 +5,37 @@ import java.time.Month;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -37,9 +47,9 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -54,100 +64,144 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public class Zaranix extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public Zaranix() {
 		this(false);
 	}
 	
 	public Zaranix(boolean isImported) {
-		super(new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
+		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				47, Month.JULY, 3,
-				15, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+				15, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 		
-		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.resetBody();
-			
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			
-			this.setAssVirgin(true);
-			this.setFaceVirgin(true);
-			this.setNippleVirgin(true);
-			this.setPenisVirgin(false);
-			
-			this.setLegType(LegType.DEMON_COMMON);
-	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_GREY, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
-
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.PHYSICAL));
-		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
+			resetBodyAfterVersion_2_10_5();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		}
+	}
 
-		if(this.getMainWeapon()==null) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.PHYSICAL));
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+
+		if(setPersona) {
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 40);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 90);
+	
+			this.setPersonality(Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
+	
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 		}
 		
-		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		
+		// Body
+		// Add full body reset as this method is called after leaving Zaranix's house:
+		this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 		this.setLegType(LegType.DEMON_COMMON);
-		
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-	}
-	
-	public void resetBody() {
-		this.setBody(Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_ORANGE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PURPLE), true);
-		
-		this.setHeight(Height.THREE_TALL.getMedianValue());
-		
+		this.setTailType(TailType.DEMON_COMMON);
+		this.setWingType(WingType.NONE);
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.STRAIGHT);
-		
+
+		// Core:
+		this.setHeight(190);
+		this.setFemininity(15);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		
+		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_ORANGE));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PURPLE), true);
 
-		this.setWingSize(WingSize.THREE_LARGE.getValue());
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.TWO_SHORT);
+		this.setHairStyle(HairStyle.NONE);
 
-		this.setAssVirgin(true);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setFacialHair(BodyHair.THREE_TRIMMED);
+
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+		
+		// Face:
 		this.setFaceVirgin(true);
+		// Leave as default
+		
+		// Chest:
 		this.setNippleVirgin(true);
+		// Leave as default
+		
+		// Ass:
+		this.setAssVirgin(true);
+		// Leave as default
+		
+		// Penis:
 		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisSize(18);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
+		this.setPenisCumStorage(550);
+		this.fillCumToMaxStorage();
+		// Leave cum as normal value
+		
+		// Vagina:
+		// No vagina
+		
+		// Feet:
+		// Foot shape
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+
+		this.unequipAllClothingIntoVoid(true);
+
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.PHYSICAL));
+		
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_GREY, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
+
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return true;
-	}
-	
-	@Override
-	public int getAppearsAsAge() {
-		return 32;
 	}
 	
 	@Override
@@ -242,7 +296,7 @@ public class Zaranix extends NPC {
 					+ "<p>"
 						+ "[zaranix.speech(If it were anyone else, I'd have refused to let you go, but I just realised who this [pc.race] is,)]"
 						+ " Zaranix says, stepping back and collapsing down into a nearby chair."
-						+ " [zaranix.speech(<i>[pc.sheIs</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
+						+ " [zaranix.speech(<i>[pc.SheIs]</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[arthur.speech(Bloody hell! So it's Lilaya who's behind this rescue?)]"
@@ -285,8 +339,8 @@ public class Zaranix extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
 							+ " you say, stepping towards the exhausted [zaranix.race],"
 							+ " [pc.speech(I think you owe me an apology...)]"
@@ -308,8 +362,8 @@ public class Zaranix extends NPC {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY,
-						"<p>"
+						null,
+						null, AFTER_SEX_VICTORY, "<p>"
 							+ "You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and, feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house,"
 								+ " you decide to try and make it up to [zaranix.herHim]."
 							+ " Looking down at [zaranix.her] crotch and biting your [pc.lip], you let out a pleading little whine,"
@@ -472,8 +526,8 @@ public class Zaranix extends NPC {
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+						null,
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
 							+ " Collapsing down in a nearby chair, he pulls you forwards on your knees as he spreads his legs, bringing your face right up against his crotch and booming,"
 							+ " [zaranix.speech(You're going to love my cock, slut!)]"
@@ -524,8 +578,8 @@ public class Zaranix extends NPC {
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+						null,
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
 							+ " Spreading his legs, he grins down at you,"
 							+ " [zaranix.speech(I bet you want to put those new lips of yours to use, don't you, my little cock-sucker?)]"
@@ -583,20 +637,22 @@ public class Zaranix extends NPC {
 	
 	// Sex:
 
-	public SexType getForeplayPreference() {
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
-		return super.getForeplayPreference();
+		return super.getForeplayPreference(target);
 	}
-	
-	public SexType getMainSexPreference() {
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 
-		return super.getMainSexPreference();
+		return super.getMainSexPreference(target);
 	}
 
 }

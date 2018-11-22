@@ -7,21 +7,20 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestsAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
@@ -30,12 +29,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.89
+ * @version 0.2.11
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public HarpyNestsAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
@@ -50,15 +47,16 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
-		super(null, "",
-				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				4, gender, RacialBody.HARPY, RaceStage.LESSER,
+		super(isImported, null, "",
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				4, gender, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setHomeLocation();
 			
 			// Set random level from 2 to 5:
 			setLevel(Util.random.nextInt(4) + 2);
@@ -67,15 +65,15 @@ public class HarpyNestsAttacker extends NPC {
 			// RACE & NAME:
 			if(this.hasPenis()) {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_P_B_SHEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_B_SHEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_TRAP, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			} else {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_V_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			}
 	
@@ -88,14 +86,14 @@ public class HarpyNestsAttacker extends NPC {
 			CharacterUtils.addFetishes(this);
 			
 			// BODY RANDOMISATION:
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 			
-			CharacterUtils.equipClothing(this, true, false);
+			equipClothing(true, true, true, true);
 			CharacterUtils.applyMakeup(this, true);
 	
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
@@ -109,6 +107,16 @@ public class HarpyNestsAttacker extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override
@@ -139,7 +147,11 @@ public class HarpyNestsAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return HarpyNestsAttackerDialogue.HARPY_ATTACKS;
+		if(Main.game.getPlayer().getCompanions().isEmpty()) {
+			return HarpyAttackerDialogue.HARPY_ATTACKS;
+		} else {
+			return HarpyAttackerDialogueCompanions.HARPY_ATTACKS;
+		}
 	}
 
 	// Combat:
@@ -147,14 +159,9 @@ public class HarpyNestsAttacker extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", HarpyAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", HarpyAttackerDialogue.AFTER_COMBAT_DEFEAT);
 		}
-	}
-
-	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		return getItemUseEffectsAllowingUse(item, user, target);
 	}
 }

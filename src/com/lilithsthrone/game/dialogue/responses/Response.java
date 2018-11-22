@@ -493,7 +493,7 @@ public class Response {
 			return false;
 		
 		for (Perk p : perksRequired) {
-			if(!Main.game.getPlayer().hasTrait(p, true)) {
+			if(!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
 				return true;
 			}
 		}

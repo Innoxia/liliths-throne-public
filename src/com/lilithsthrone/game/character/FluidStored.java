@@ -7,27 +7,48 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.2.7
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public class FluidStored implements XMLSaving {
 	
 	private String charactersFluidID;
+	private Subspecies cumSubspecies; // used for calculating pregnancy.
 	private FluidCum cum;
 	private FluidMilk milk;
 	private FluidGirlCum girlCum;
 	private int millilitres;
 	
-	public FluidStored(String charactersFluidID, FluidCum cum, int millilitres) {
+	public FluidStored(GameCharacter character, FluidCum cum, int millilitres) {
+		this.charactersFluidID = character.getId();
+		
+		this.cumSubspecies = character.getSubspecies();
+		this.cum = new FluidCum(cum.getType());
+		this.cum.clearFluidModifiers();
+		
+		this.cum.setFlavour(null, cum.getFlavour());
+		for(FluidModifier fm : cum.getFluidModifiers()) {
+			this.cum.addFluidModifier(null, fm);
+		}
+		for(ItemEffect ie : cum.getTransformativeEffects()) {
+			this.cum.addTransformativeEffect(ie);
+		}
+		
+		this.millilitres = millilitres;
+	}
+	
+	public FluidStored(String charactersFluidID, Subspecies cumSubspecies, FluidCum cum, int millilitres) {
 		this.charactersFluidID = charactersFluidID;
-
+		
+		this.cumSubspecies = cumSubspecies;
 		this.cum = new FluidCum(cum.getType());
 		this.cum.clearFluidModifiers();
 		
@@ -85,6 +106,7 @@ public class FluidStored implements XMLSaving {
 		CharacterUtils.addAttribute(doc, fluidStoredElement, "millilitres", String.valueOf(millilitres));
 		
 		if(isCum()) {
+			CharacterUtils.addAttribute(doc, fluidStoredElement, "cumSubspecies", cumSubspecies.toString());
 			cum.saveAsXML(fluidStoredElement, doc);
 		}
 		if(isMilk()) {
@@ -103,20 +125,37 @@ public class FluidStored implements XMLSaving {
 		int millimetres = Integer.parseInt(parentElement.getAttribute("millilitres"));
 		
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
-			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc, FluidType.MILK_HUMAN), millimetres);
+			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);
 		}
 		
 		if(parentElement.getElementsByTagName("cum").item(0)!=null) {
-			return new FluidStored(ID, FluidCum.loadFromXML(parentElement, doc, FluidType.CUM_HUMAN), millimetres);
+			Subspecies subspecies = Subspecies.HUMAN;
+			try {
+				subspecies = Subspecies.valueOf(parentElement.getAttribute("cumSubspecies"));
+			} catch(Exception ex) {
+			}
+			return new FluidStored(ID, subspecies, FluidCum.loadFromXML(parentElement, doc), millimetres);
 		}
 
-		return new FluidStored(ID, FluidGirlCum.loadFromXML(parentElement, doc, FluidType.GIRL_CUM_HUMAN), millimetres);
+		return new FluidStored(ID, FluidGirlCum.loadFromXML(parentElement, doc), millimetres);
 		
 	}
 	
 	
 	public String getCharactersFluidID() {
 		return charactersFluidID;
+	}
+	
+	public GameCharacter getFluidCharacter() {
+		if(charactersFluidID.equals(Main.game.getPlayer().getId())) {
+			return Main.game.getPlayer();
+		}
+		try {
+			return Main.game.getNPCById(charactersFluidID);
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+charactersFluidID+") returning null in method: getFluidCharacter()");
+			return null;
+		}
 	}
 	
 	public boolean isCum() {
@@ -139,6 +178,10 @@ public class FluidStored implements XMLSaving {
 			return milk;
 		}
 		return girlCum;
+	}
+
+	public Subspecies getCumSubspecies() {
+		return cumSubspecies;
 	}
 
 	public int getMillilitres() {

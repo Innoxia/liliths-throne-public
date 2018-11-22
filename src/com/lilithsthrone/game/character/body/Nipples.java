@@ -118,8 +118,8 @@ public class Nipples implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		if(Main.game.isInSex()) {
-			if(!Sex.getWetAreas(owner).get(SexAreaOrifice.NIPPLE).isEmpty()) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
 				descriptorList.add("wet");
 			}
 		}

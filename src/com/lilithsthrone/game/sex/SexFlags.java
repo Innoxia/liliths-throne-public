@@ -1,6 +1,10 @@
 package com.lilithsthrone.game.sex;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
@@ -22,7 +26,7 @@ public class SexFlags implements Serializable {
 	
 	// Generic:
 	public static boolean mutualOrgasmsAllowed;
-	public static boolean playerPreparedForOrgasm;
+	public static List<GameCharacter> playerPreparedForCharactersOrgasm;
 	public static boolean playerGrewDemonicCock;
 	public static boolean playerDeniedPartner;
 	
@@ -80,7 +84,7 @@ public class SexFlags implements Serializable {
 		partnerRequestedCreampie = false;
 		
 		mutualOrgasmsAllowed = true;
-		playerPreparedForOrgasm = false;
+		playerPreparedForCharactersOrgasm = new ArrayList<>();
 		
 		playerGrewDemonicCock = false;
 		playerDeniedPartner = false;

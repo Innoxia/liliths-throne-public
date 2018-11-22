@@ -5,9 +5,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -30,6 +31,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -70,7 +72,7 @@ public class HarpyNestOffspringDialogue {
 							+ "As you walk past a particularly busy harpy nest, [npc.a_fullRace(true)] suddenly jumps down in front of you, blocking your way."
 						+ "</p>");
 				
-				if(offspring().getHistory()==History.NPC_PROSTITUTE) { // Prostitute introduction:
+				if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) { // Prostitute introduction:
 					
 					int price =  CharacterUtils.getProstitutePrice(offspring());
 					
@@ -137,7 +139,7 @@ public class HarpyNestOffspringDialogue {
 				
 			} else { // Repeat encounter:
 				
-				if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+				if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "Knowing that [npc.name] lives in a nearby nest, you keep an eye out for your [npc.daughter] as you travel along the walkway."
@@ -217,9 +219,9 @@ public class HarpyNestOffspringDialogue {
 				UtilText.nodeContentSB.append("</p>");
 
 				boolean offspringPregnant = offspring().isVisiblyPregnant();
-				boolean reactedToOffspringPregnancy = offspring().isReactedToPregnancy();
+				boolean reactedToOffspringPregnancy = offspring().isCharacterReactedToPregnancy(Main.game.getPlayer());
 				boolean playerPregnant = Main.game.getPlayer().isVisiblyPregnant();
-				boolean reactedToPlayerPregnancy = offspring().isReactedToPlayerPregnancy();
+				boolean reactedToPlayerPregnancy = Main.game.getPlayer().isCharacterReactedToPregnancy(offspring());
 				
 				// Taking into account pregnancy reactions
 				if(offspringPregnant || playerPregnant) {
@@ -690,11 +692,11 @@ public class HarpyNestOffspringDialogue {
 									|| (!Main.game.getPlayer().isFeminine() && offspring().getSexualOrientation()==SexualOrientation.ANDROPHILIC)
 									|| (offspring().getSexualOrientation()==SexualOrientation.AMBIPHILIC))
 									|| offspring().hasFetish(Fetish.FETISH_INCEST)) {
-								//Incest fetish and not attracted to player, or attracted to player and no incest fetsh:
+								//Incest fetish and not attracted to player, or attracted to player and no incest fetish:
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -5));
 								
 							} else {
-								//Not attracted to player, and no incest fetsh:
+								//Not attracted to player, and no incest fetish:
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -20));
 							}
 							setOffspringFlags();
@@ -704,14 +706,14 @@ public class HarpyNestOffspringDialogue {
 				} if (index == 5) {
 					return new Response("Scold [npc.herHim]",
 							"Ask [npc.name] just what [npc.she] thinks [npc.sheIs] doing!"
-									+(offspring().getHistory()==History.NPC_PROSTITUTE
+									+(offspring().getHistory()==Occupation.NPC_PROSTITUTE
 											?" (This will voice disapproval about [npc.herHim] being a prostitute.)"
 											:" (This will voice disapproval about [npc.herHim] being a mugger.)"),
 							OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
 							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
-								if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+								if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief."
@@ -774,7 +776,7 @@ public class HarpyNestOffspringDialogue {
 										+ "</p>");
 								
 							} else {
-								if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+								if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "As you look [npc.name] up and down, you find yourself shaking your head in utter disbelief."
@@ -995,8 +997,8 @@ public class HarpyNestOffspringDialogue {
 	
 	private static void setOffspringFlags() {
 		offspring().setFlag(NPCFlagValue.flagOffspringIntroduced, true);
-		offspring().setReactedToPregnancy(true);
-		offspring().setReactedToPlayerPregnancy(true);
+		offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
 		Main.game.getDialogueFlags().offspringDialogueTokens = 2;
 	}
 	
@@ -1400,7 +1402,7 @@ public class HarpyNestOffspringDialogue {
 						public void effects() {
 							if(offspring().isAttractedTo(Main.game.getPlayer())) {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 20));
-							} else if(offspring().getHistory()!=History.NPC_PROSTITUTE){
+							} else if(offspring().getHistory()!=Occupation.NPC_PROSTITUTE){
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
 							}
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
@@ -1476,7 +1478,7 @@ public class HarpyNestOffspringDialogue {
 						+ " [pc.speech(Tell me about your life! How's everything going for you right now?)]"
 					+ "</p>");
 			
-			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+			if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 				if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 					UtilText.nodeContentSB.append(
 							"<p>"
@@ -1718,7 +1720,7 @@ public class HarpyNestOffspringDialogue {
 					"<p>"
 						+ "Thinking that it must be hard for [npc.name] to make a living up here in one of the nests, you decide to offer [npc.her] some words of encouragement,");
 			
-			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+			if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 				UtilText.nodeContentSB.append(
 						" [pc.speech(I know that it must be hard to try and make a living out here, so I just wanted you to know that I'm very proud of you, [npc.name].)]"
 						+ "</p>");
@@ -1784,7 +1786,7 @@ public class HarpyNestOffspringDialogue {
 					"<p>"
 						+ "Unimpressed by [npc.namePos] method of making a living, you decide to scold [npc.her] in the hopes that [npc.she]'ll change [npc.her] ways,");
 			
-			if(offspring().getHistory()==History.NPC_PROSTITUTE) {
+			if(offspring().getHistory()==Occupation.NPC_PROSTITUTE) {
 				UtilText.nodeContentSB.append(
 						" [pc.speech(I really don't want my [npc.daughter] working as a prostitute. You need to start thinking about getting a real job, [npc.name]!)]"
 						+ "</p>");
@@ -1858,7 +1860,7 @@ public class HarpyNestOffspringDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display: inline-block; padding:0 auto; margin:0 auto;vertical-align:middle;width:100%;'>"
 							+ "<p style='float:left; padding:0; margin:0; height:32px; line-height:32px;'>[npc.Name] will call you: </p>"
-							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInput' value='"+ UtilText.parseForHTMLDisplay(offspring().getPlayerPetName())+ "'></form>"
+							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInput' value='"+ UtilText.parseForHTMLDisplay(offspring().getPetName(Main.game.getPlayer()))+ "'></form>"
 							+ " <div class='SM-button' id='"+offspring().getId()+"_PET_NAME' style='float:left; width:auto; height:28px;'>"
 								+ "Rename"
 							+ "</div>"
@@ -1948,10 +1950,10 @@ public class HarpyNestOffspringDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "From the moment you entered [npc.namePos] apartment, you haven't been able to take your [pc.eyes] off of [npc.herHim]."
-						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmigly")+" at you once more, you can't help but act."
+						+ " The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles "+(offspring().isFeminine()?"sweetly":"charmingly")+" at you once more, you can't help but act."
 					+ "</p>");
 			
-			if(offspring().getHistory()==History.NPC_PROSTITUTE){
+			if(offspring().getHistory()==Occupation.NPC_PROSTITUTE){
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[pc.speech(So, [npc.name],)] you say, putting on your most seductive voice as you shuffle closer to [npc.herHim] on the sofa,"
@@ -1975,7 +1977,7 @@ public class HarpyNestOffspringDialogue {
 							+ "Reaching up to pull [npc.herHim] close, you eagerly return [npc.namePos] passionate kiss, and, right there in the middle of [npc.her] apartment, you show your [npc.daughter] just how much you love [npc.herHim]..."
 						+ "</p>");
 				
-			} else if(offspring().getHistory()==History.NPC_PROSTITUTE){
+			} else if(offspring().getHistory()==Occupation.NPC_PROSTITUTE){
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "A flicker of worry crosses [npc.namePos] face for a moment, but [npc.she] quickly regains [npc.her] composure."
@@ -2019,7 +2021,7 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_CONSENSUAL);
+							null, null, AFTER_SEX_CONSENSUAL);
 					
 				} else if (index == 2) {
 					return new ResponseSex("Submissive sex",
@@ -2028,13 +2030,13 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_CONSENSUAL);
+							null, null, AFTER_SEX_CONSENSUAL);
 					
 				} else {
 					return null;
 				}
 				
-			} else if(offspring().getHistory()==History.NPC_PROSTITUTE){
+			} else if(offspring().getHistory()==Occupation.NPC_PROSTITUTE){
 				if (index == 8) {
 					if(Main.game.getPlayer().getMoney()>=100) {
 						return new ResponseSex("Incestuous sex ("+UtilText.formatAsMoney(100, "span")+")",
@@ -2043,7 +2045,7 @@ public class HarpyNestOffspringDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SEX_CONSENSUAL);
+								null, null, AFTER_SEX_CONSENSUAL);
 					} else {
 						return new Response("Pay "+UtilText.formatAsMoneyUncoloured(100, "span"), "You don't have enough money...", null);
 					}
@@ -2056,7 +2058,7 @@ public class HarpyNestOffspringDialogue {
 								new SMStanding(
 										Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SEX_CONSENSUAL);
+								null, null, AFTER_SEX_CONSENSUAL);
 					} else {
 						return new Response("Pay "+UtilText.formatAsMoneyUncoloured(100, "span"), "You don't have enough money...", null);
 					}
@@ -2211,8 +2213,8 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down to take hold of one of [npc.namePos] [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2229,8 +2231,8 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace."
 							+ "</p>"
@@ -2261,7 +2263,7 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY, "<p>"
+							null, null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down to take hold of one of [npc.namePos] [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2286,8 +2288,8 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}	
 							},
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace."
 							+ "</p>"
@@ -2318,8 +2320,8 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down to take hold of one of [npc.namePos] [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2344,8 +2346,8 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}	
 							},
-							AFTER_SEX_VICTORY,
-							"<p>"
+							null,
+							null, AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace."
 							+ "</p>"
@@ -2369,8 +2371,8 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
 								+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
 								+ " [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]"
@@ -2552,8 +2554,8 @@ public class HarpyNestOffspringDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>"
@@ -2582,8 +2584,8 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>"
@@ -2611,8 +2613,8 @@ public class HarpyNestOffspringDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."
@@ -3017,6 +3019,8 @@ public class HarpyNestOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
+						Main.game.getPlayer().addSlave((NPC) Main.game.getActiveNPC());
+						Main.game.getActiveNPC().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 					}
 				};
 				

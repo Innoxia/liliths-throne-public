@@ -113,7 +113,12 @@ public class AbstractTattooType extends AbstractCoreType {
 				
 				Element clothingElement = (Element) doc.getElementsByTagName("tattoo").item(0);
 				
-				Element coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0);
+				Element coreAttributes;
+				if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
+					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0); // Support for old versions
+				} else {
+					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAttributes").item(0); // Fix typo
+				}
 				
 				List<InventorySlot> slotAvailability = new ArrayList<>();
 				NodeList slotAvailabilityNodeList = ((Element)coreAttributes.getElementsByTagName("slotAvailability").item(0)).getElementsByTagName("slot");

@@ -54,15 +54,31 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 		
 		return element;
 	}
+
+	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
+		return loadFromXML(parentElement, doc, null);
+	}
 	
+	/**
+	 * 
+	 * @param parentElement
+	 * @param doc
+	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
+	 */
 	public static FluidGirlCum loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
 
-		FluidType fluidType = baseType;
-		try {
-			fluidType = FluidType.valueOf(girlcum.getAttribute("type"));
-		} catch(Exception ex) {
+		FluidType fluidType = FluidType.GIRL_CUM_HUMAN;
+		
+		if(baseType!=null) {
+			fluidType = baseType;
+			
+		} else {
+			try {
+				fluidType = FluidType.getTypeFromString(girlcum.getAttribute("type"));
+			} catch(Exception ex) {
+			}
 		}
 		
 		FluidGirlCum fluidGirlcum = new FluidGirlCum(fluidType);

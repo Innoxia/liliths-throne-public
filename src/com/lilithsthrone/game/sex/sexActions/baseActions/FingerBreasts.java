@@ -111,7 +111,7 @@ public class FingerBreasts {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] at [npc.namePos] touch, before gently encouraging [npc.herHim] to [npc.verb(continue)] giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to [npc.verb(continue)] as [npc2.name] [npc2.verb(carry)] on making lewd little noises.",
+								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to continue [npc2.name] [npc2.verb(carry)] on making lewd little noises.",
 
 								" Softly [npc2.moaning] at [npc.namePos] touch, [npc2.name] gently [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -119,7 +119,7 @@ public class FingerBreasts {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] at [npc.namePos] touch, before eagerly encouraging [npc.herHim] to [npc.verb(continue)] giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to [npc.verb(continue)] as [npc2.name] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to continue [npc2.name] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -136,7 +136,7 @@ public class FingerBreasts {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] at [npc.namePos] touch, before eagerly encouraging [npc.herHim] to [npc.verb(continue)] giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to [npc.verb(continue)] as [npc2.name] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to continue [npc2.name] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -144,7 +144,7 @@ public class FingerBreasts {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] at [npc.namePos] touch, before encouraging [npc.herHim] to [npc.verb(continue)] giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to [npc.verb(continue)] as [npc2.name] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.her] chest out, imploring [npc.name] to continue [npc2.name] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -157,7 +157,7 @@ public class FingerBreasts {
 										+ " pleading for [npc.name] to leave [npc2.herHim] alone as [npc.she] [npc.verb(continue)] playing with [npc2.namePos] [npc2.breasts+].",
 
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at [npc.namePos] touch, and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+],"
-										+ " [npc2.name] [npc.verb(continue)] to struggle against [npc.herHim]."));
+										+ " [npc2.name] [npc2.verb(continue)] to struggle against [npc.herHim]."));
 						break;
 					default:
 						break;
@@ -252,7 +252,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response to [npc.namePos] touch,"
 										+ " before gently encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.name] to [npc.verb(continue)] as [npc2.she] [npc2.verb(carry)] on making lewd little noises.",
+								" With a soft [npc2.moan], [npc2.name] slowly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.name] to continue [npc2.she] [npc2.verb(carry)] on making lewd little noises.",
 
 								" Softly [npc2.moaning] at [npc.namePos] touch, [npc2.name] gently [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -261,7 +261,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before eagerly encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to [npc.verb(continue)] as [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -279,7 +279,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before eagerly encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to [npc.verb(continue)] as [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] eagerly [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -288,7 +288,7 @@ public class FingerBreasts {
 								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response to [npc.namePos] touch,"
 										+ " before encouraging [npc.herHim] to continue giving [npc2.her] [npc2.breasts+] [npc.her] full attention.",
 
-								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to [npc.verb(continue)] as [npc2.she] [npc2.verb(carry)] on making lewd noises.",
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.namePos] chest out, imploring [npc.herHim] to continue [npc2.she] [npc2.verb(carry)] on making lewd noises.",
 
 								" [npc2.Moaning+] at [npc.namePos] touch, [npc2.name] [npc2.verb(encourage)] [npc.herHim] to carry on playing with [npc2.her] [npc2.breasts+]."));
 						break;
@@ -301,7 +301,7 @@ public class FingerBreasts {
 										+ " pleading for [npc.namePos] to leave [npc2.herHim] alone as [npc.she] [npc.verb(continue)] playing with [npc2.her] [npc2.breasts+].",
 
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] in response to [npc.namePos] touch,"
-										+ " and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+], [npc2.name] [npc.verb(continue)] to struggle against [npc.herHim]."));
+										+ " and as [npc.she] carries on playing with [npc2.her] [npc2.breasts+], [npc2.name] [npc2.verb(continue)] to struggle against [npc.herHim]."));
 						break;
 					default:
 						break;
@@ -372,7 +372,7 @@ public class FingerBreasts {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc.name] to give your [npc2.breasts+] a good squeeze.";
+			return "Get [npc2.name] to give your [npc.breasts+] a good squeeze.";
 		}
 
 		@Override
@@ -498,7 +498,7 @@ public class FingerBreasts {
 								" With [npc2.a_moan+], [npc2.name] responds to [npc.namePos] move by sinking [npc2.her] [npc2.fingers] into the soft flesh of [npc.her] [npc.breasts].",
 
 								" [npc2.Moaning+], [npc2.name] [npc2.verb(start)] playing with [npc.namePos] [npc.breasts+],"
-										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
+										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc2.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -643,7 +643,7 @@ public class FingerBreasts {
 								" With [npc2.a_moan+], [npc2.name] responds to [npc.namePos] move by sinking [npc2.her] [npc2.fingers] into the soft flesh of [npc.her] [npc.breasts].",
 
 								" [npc2.Moaning+], [npc2.name] [npc2.verb(start)] playing with [npc.namePos] [npc.breasts+],"
-										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
+										+ " drawing pleasurable [npc.moans] from between [npc.her] [npc.lips] as [npc2.she] [npc2.verb(press)] [npc2.her] [npc2.fingers] into [npc.her] [npc.breasts]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

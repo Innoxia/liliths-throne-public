@@ -375,7 +375,7 @@
 		 [pc.speech(You'd <i>better</i> not tell Lilaya about all this. You'll be sorry if you do!)]
 	</p>
 	<p>
-		Completely unfazed by your aggressive action, Rose stares into your eyes and cooly replies,
+		Completely unfazed by your aggressive action, Rose stares into your eyes and coolly replies,
 		 [rose.speech(I don't think it's wise to threaten the property of the person whose house this is.
 		 I'll forget about what you just said, but don't you <i>dare</i> try anything like that again.)]
 	</p>

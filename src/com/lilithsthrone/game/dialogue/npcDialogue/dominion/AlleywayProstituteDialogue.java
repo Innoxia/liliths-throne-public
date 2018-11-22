@@ -74,7 +74,7 @@ public class AlleywayProstituteDialogue {
 				
 				if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) { // You've fought them before, so they're a little scared:
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
-						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+						if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(
 									"<p>"
 										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp."
@@ -132,7 +132,7 @@ public class AlleywayProstituteDialogue {
 					}
 				} else {
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
-						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+						if(!Main.game.getActiveNPC().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append(
 									"<p>"
 										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh."
@@ -234,6 +234,9 @@ public class AlleywayProstituteDialogue {
 				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[pc.speech(I'm not interested,)] you say, stepping around [npc.name] and continuing on your way."
@@ -258,8 +261,8 @@ public class AlleywayProstituteDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_PAID,
-							"<p>"
+							null,
+							null, AFTER_SEX_PAID, "<p>"
 									+ "[pc.speech(Sure, I could do with having a good time,)]"
 									+ " you reply, handing over "+cost+" flames to the [npc.race]."
 								+ "</p>"
@@ -286,6 +289,9 @@ public class AlleywayProstituteDialogue {
 								+ "</p>") {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementMoney(-cost);
 						}
 					};
@@ -304,8 +310,8 @@ public class AlleywayProstituteDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_PAID,
-							"<p>"
+							null,
+							null, AFTER_SEX_PAID, "<p>"
 								+ "[pc.speech(Sure, I could do with having a good time,)]"
 								+ " you reply,"
 								+ " [pc.speech(but only if you're on top...)]"
@@ -335,13 +341,24 @@ public class AlleywayProstituteDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementMoney(-cost);
 						}
 					};
 				}
 				
 			} else if (index == 4) {
-				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!", ALLEY_PROSTITUTE_FIGHT) {
+				return new Response("Attack",
+						"If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.sheIs] run afoul of the law, as you assume [npc.she] has, then [npc.sheIs] fair game!",
+						ALLEY_PROSTITUTE_FIGHT) {
+					@Override
+					public void effects() {
+						if(Main.game.getActiveNPC().isVisiblyPregnant()){
+							Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
+					}
 					@Override
 					public boolean isCombatHighlight() {
 						return true;
@@ -353,6 +370,9 @@ public class AlleywayProstituteDialogue {
 					return new Response("Angel's Kiss", "Offer [npc.name] a job at Angel's Kiss.", ALLEY_PROSTITUTE_SAVED) {
 						@Override
 						public void effects() {
+							if(Main.game.getActiveNPC().isVisiblyPregnant()){
+								Main.game.getActiveNPC().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().incrementKarma(25);
 							Main.game.getActiveNPC().setDescription(UtilText.parse(Main.game.getActiveNPC(), "You first found [npc.name] in the alleyways of Dominion, where [npc.she] was illegally selling [npc.her] body."
 									+ " You offered [npc.herHim] the chance to move and work out of Angel's Kiss; an offer that [npc.she] happily accepted."));
@@ -503,7 +523,7 @@ public class AlleywayProstituteDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY);
+						null, null, AFTER_SEX_VICTORY);
 				
 			} else if (index == 3) {
 				return new ResponseSex("Gentle fun",
@@ -520,7 +540,7 @@ public class AlleywayProstituteDialogue {
 								return null;
 							}
 						},
-						AFTER_SEX_VICTORY);
+						null, null, AFTER_SEX_VICTORY);
 				
 			} else if (index == 4) {
 				return new ResponseSex("Rough fun",
@@ -537,7 +557,7 @@ public class AlleywayProstituteDialogue {
 								return null;
 							}
 						},
-						AFTER_SEX_VICTORY);
+						null, null, AFTER_SEX_VICTORY);
 				
 			} else if (index == 5) {
 				return new ResponseSex("Submit",
@@ -548,8 +568,8 @@ public class AlleywayProstituteDialogue {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
+						null,
+						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 							+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 							+ " [pc.speech(Sorry... I don't know what I was thinking... Erm... Is there anything I can do to make it up to you?)]"
@@ -606,7 +626,7 @@ public class AlleywayProstituteDialogue {
 							+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once [npc.sheIs] had [npc.her] fun with you.</i>"
+							+ "<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.sheIs] sure to move on once [npc.sheHas] had [npc.her] fun with you.</i>"
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -640,8 +660,8 @@ public class AlleywayProstituteDialogue {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -661,8 +681,8 @@ public class AlleywayProstituteDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 							+ "</p>");
@@ -682,8 +702,8 @@ public class AlleywayProstituteDialogue {
 									return null;
 								}
 							},
-							AFTER_SEX_DEFEAT,
-							"<p>"
+							null,
+							null, AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go..."

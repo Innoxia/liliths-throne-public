@@ -11,6 +11,11 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.utils.Colour;
 
+/**
+ * @since 0.2.8
+ * @version 0.2.8
+ * @author Pimgd
+ */
 public class BodyCoveringTemplate {
 	public final String determiner; 
 	public final String namePlural;

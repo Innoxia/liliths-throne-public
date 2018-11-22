@@ -12,14 +12,14 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.slavery.SlaveEvent;
-import com.lilithsthrone.game.slavery.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.SlaveEventTag;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.87
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlaveryEventLogEntry implements Serializable, XMLSaving {
@@ -188,20 +188,24 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 			}
 		}
 		
-		GameCharacter slave = Main.game.getNPCById(slaveID);
-		if(slave!=null) {
-			return UtilText.parse(Main.game.getNPCById(slaveID), descriptionSB.toString());
-		} else {
+		try {
+			GameCharacter slave = Main.game.getNPCById(slaveID);
+			return UtilText.parse(slave, descriptionSB.toString());
+
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getDescription()");
 			return descriptionSB.toString();
 		}
 	}
 	
 	public String getSlaveName() {
-		GameCharacter slave = Main.game.getNPCById(slaveID);
-		if(slave==null) {
-			return "<b>Slave</b>";
-		} else {
+		try {
+			GameCharacter slave = Main.game.getNPCById(slaveID);
 			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b>";
+		
+		} catch (Exception e) {
+			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getSlaveName()");
+			return "<b>Slave</b>";
 		}
 	}
 	

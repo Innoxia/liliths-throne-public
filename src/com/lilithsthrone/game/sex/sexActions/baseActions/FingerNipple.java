@@ -207,7 +207,7 @@ public class FingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Pinch and tug at [npc.namePos] [npc2.nipples+] in order to coax [npc.her] [npc.milk+] out.";
+			return "Pinch and tug at [npc2.namePos] [npc2.nipples+] in order to coax [npc2.her] [npc2.milk+] out.";
 		}
 
 		@Override
@@ -568,7 +568,7 @@ public class FingerNipple {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breasts],"
-									+ " violently thrusting [npc2.her] chest out against [npc.her] touch as [npc2.she] [npc.verb(command)] [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
+									+ " violently thrusting [npc2.her] chest out against [npc.her] touch as [npc2.she] [npc2.verb(command)] [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] respond by violently thrusting [npc2.namePos] chest out,"
 									+ " commanding [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] breast."));
@@ -951,13 +951,13 @@ public class FingerNipple {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] gives [npc2.namePos] [npc2.breast] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before roughly yanking [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] gives [npc2.namePos] [npc2.breast] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
 					break;
@@ -966,9 +966,9 @@ public class FingerNipple {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc.verb(continue)] to struggle against [npc.name].",
+							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.name].",
 
-							" With [npc2.a_sob+], [npc2.name] [npc.verb(continue)] to protest and struggle in discomfort as [npc.name] holds [npc2.herHim] in place."));
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to protest and struggle in discomfort as [npc.name] holds [npc2.herHim] in place."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1073,7 +1073,7 @@ public class FingerNipple {
 									+ " [npc2.she] roughly [npc2.verb(curl)] [npc2.her] [npc2.fingers] up before starting to ruthlessly finger-fuck [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " seeking to remind [npc.herHim] who's in charge as [npc2.she] starts roughly fingering [npc.her] [npc.nipple+]."));
+									+ " seeking to remind [npc.herHim] who's in charge as [npc2.she] [npc2.verb(start)] roughly fingering [npc.her] [npc.nipple+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1094,7 +1094,7 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.fingers] inside of [npc.herHim],"
 									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] tries to pull [npc2.herself] free.",
 
-							" With [npc2.a_sob+], [npc2.name] starts struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
 									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] [npc2.fingers] deep into [npc.her] [npc.nipple+]."));
 					break;
 				default:

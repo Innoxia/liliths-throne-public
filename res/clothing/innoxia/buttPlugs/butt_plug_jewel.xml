@@ -22,6 +22,7 @@
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired>
 					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
 				  <bodyPart>ANUS</bodyPart>

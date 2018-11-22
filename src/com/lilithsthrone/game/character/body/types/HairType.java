@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum HairType implements BodyPartTypeInterface {
@@ -21,8 +21,6 @@ public enum HairType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.HAIR_ANGEL, Race.ANGEL),
 
 	DEMON_COMMON(BodyCoveringType.HAIR_DEMON, Race.DEMON),
-	
-	IMP(BodyCoveringType.HAIR_IMP, Race.IMP),
 
 	DOG_MORPH(BodyCoveringType.HAIR_CANINE_FUR, Race.DOG_MORPH),
 
@@ -59,6 +57,16 @@ public enum HairType implements BodyPartTypeInterface {
 	private HairType(BodyCoveringType coveringType, Race race) {
 		this.coveringType = coveringType;
 		this.race = race;
+	}
+
+	/**
+	 * Use instead of <i>valueOf()</i>.
+	 */
+	public static HairType getTypeFromString(String value) {
+		if(value.equals("IMP")) {
+			value = "DEMON_COMMON";
+		}
+		return valueOf(value);
 	}
 
 	@Override
@@ -118,8 +126,6 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
-			case IMP:
-				return UtilText.returnStringAtRandom("impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
@@ -158,6 +164,7 @@ public enum HairType implements BodyPartTypeInterface {
 		return race;
 	}
 
+	@Override
 	public String getTransformName() {
 		switch(this){
 			case ANGEL:
@@ -168,28 +175,26 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("feline sidefluff");
 			case DEMON_COMMON:
 				return "demonic";
-			case IMP:
-				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:
 				return "bovine";
 			case SQUIRREL_MORPH:
-				return "furry";
+				return "squirrel";
 			case ALLIGATOR_MORPH:
 				return "alligator";
 			case HARPY:
-				return "avian";
+				return "harpy";
 			case HORSE_MORPH:
 				return "equine";
 			case REINDEER_MORPH:
-				return "rangiferine";
+				return "reindeer";
 			case HUMAN:
 				return "human";
 			case LYCAN:
-				return "lupine";
+				return "wolf";
 			case FOX_MORPH:
-				return "vulpine";
+				return "fox";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>10000</value>
+		<determiner><![CDATA[the]]></determiner>
+		<name><![CDATA[Dark Siren's Amulet]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Amulets]]></namePlural>
+		<description><![CDATA[An enchanted amulet, created by the demon calling herself 'The Dark Siren'. Its vast power is enough to make a formidable sorceress out of even the most arcane-impaired human.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>NECK</slot>
+		<rarity>LEGENDARY</rarity>
+		<clothingSet>DARK_SIREN</clothingSet>
+		<imageName>siren_amulet.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>20</enchantmentLimit>
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK_STEEL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags/>
+	</coreAtributes>
+
+	
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the amulet's chain around [npc.her] neck, before letting out an evil laugh as [npc.she] [npc.verb(feel)] the immense, corruptive power seeping into [npc.her] mind.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the amulet's chain around [npc2.namePos] neck, which causes [npc2.herHim] to let out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the amulet's chain around [npc2.her] neck. Almost immediately, [npc2.name] [npc2.verb(let)] out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] amulet's chain, before lifting it up and over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of the amulet's chain, before lifting it up and over [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(grab)] the amulet's chain, before yanking it up and over [npc2.namePos] head.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

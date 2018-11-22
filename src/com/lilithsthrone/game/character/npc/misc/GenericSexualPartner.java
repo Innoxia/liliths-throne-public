@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,8 +26,12 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -41,8 +46,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class GenericSexualPartner extends NPC {
 
-	private static final long serialVersionUID = 1L;
-
 	public GenericSexualPartner() {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), false);
 	}
@@ -52,9 +55,9 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
-		super(null, "",
-				25, Month.JUNE, 15,
-				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(isImported, null, "",
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -87,34 +90,6 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_TIGER:
-					case SLIME_CAT_CARACAL:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_FOX:
-					case SLIME_FOX_FENNEC:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HARPY_BALD_EAGLE:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_BAT:
-					case SLIME_RAT:
-					case SLIME_WOLF:
-					case SLIME_RABBIT:
 						addToSubspeciesMap(1, gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
@@ -210,7 +185,7 @@ public class GenericSexualPartner extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
@@ -227,20 +202,18 @@ public class GenericSexualPartner extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			for (Attribute a : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().keySet()) {
-				attributes.put(a, RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getRandomVariance());
-			}
+			initAttributes();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -252,6 +225,16 @@ public class GenericSexualPartner extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setName(new NameTriplet("unknown male", "unknown female", "unknown female"));
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		// Not needed
 	}
 	
 	@Override
@@ -272,9 +255,67 @@ public class GenericSexualPartner extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
+	
+	private boolean playerRequested = false;
+	
+	@Override
+	public void generateSexChoices(GameCharacter target, SexType request) {
+		if(this.getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_TOILETS && Sex.getTurn()>1) {
+			playerRequested = true;
+		}
+		
+		super.generateSexChoices(target, request);
+	}
+	
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getSexPositionPreferences(target);
+		}
+		
+		sexPositionPreferences.clear();
+		
+		if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+		} else {
+			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+		}
+		
+		return sexPositionPreferences;
+	}
 
 	@Override
-	public void endSex() {
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getForeplayPreference(target);
+		}
+		
+		if(target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+		} else if(target.hasVagina()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+		} else {
+			return super.getForeplayPreference(target);
+		}
+	}
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+			return super.getMainSexPreference(target);
+		}
+		
+		if(this.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+			return getForeplayPreference(target);
+		}
+		
+		if(this.hasVagina() && target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+		} else if(target.hasPenis()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS);
+		}
+
+		return super.getMainSexPreference(target);
 	}
 	
 	@Override

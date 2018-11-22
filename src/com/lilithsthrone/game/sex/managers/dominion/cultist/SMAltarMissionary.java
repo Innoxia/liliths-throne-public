@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.universal.CultistSexActions;
+import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.main.Main;
 
 /**

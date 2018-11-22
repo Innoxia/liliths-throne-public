@@ -32,9 +32,10 @@ public class PartnerSelfTailMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.TAIL).isEmpty()
+			return !Sex.hasLubricationTypeFromAnyone(Sex.getActivePartner(), SexAreaPenetration.TAIL)
 					&& Sex.isInForeplay()
-					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPerformingSexArea()==SexAreaPenetration.TAIL);
+					&& (Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this))!=null
+						&& Sex.getActivePartner().getForeplayPreference(Sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.TAIL);
 		}
 		
 		@Override

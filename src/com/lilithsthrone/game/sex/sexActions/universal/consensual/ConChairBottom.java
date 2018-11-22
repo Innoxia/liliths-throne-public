@@ -393,7 +393,7 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, LubricationType.PARTNER_SALIVA);
+			Sex.addLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, Sex.getCharacterTargetedForSexAction(this), LubricationType.SALIVA);
 		}
 		
 		@Override
@@ -1539,7 +1539,7 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, LubricationType.PLAYER_SALIVA);
+			Sex.addLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, Sex.getCharacterTargetedForSexAction(this), LubricationType.SALIVA);
 		}
 		
 		@Override
@@ -1928,10 +1928,12 @@ public class ConChairBottom {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Spread legs";

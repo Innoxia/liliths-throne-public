@@ -16,10 +16,9 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -28,9 +27,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -46,13 +44,11 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.11
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
-
-	private static final long serialVersionUID = 1L;
-
+	
 	private String title;
 	
 	private int karma;
@@ -61,21 +57,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
 
-	private Set<Race> racesDiscoveredFromBook;
+	private Set<Subspecies> racesDiscoveredFromBook;
+	
+	protected List<String> friendlyOccupants;
 	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
 
 	private List<String> charactersEncountered;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, "", level, birthday, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
+		super(nameTriplet, "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		for(CoverableArea ca : CoverableArea.values()) {
-			playerKnowsAreas.add(ca);
-		}
 		
 		title = "The Human";
 		
@@ -99,12 +93,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		charactersEncountered = new ArrayList<>();
 
+		friendlyOccupants = new ArrayList<>();
+		
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
-		
-		this.addPerk(Perk.PHYSICAL_BASE);
-		this.addPerk(Perk.ARCANE_BASE);
 	}
 	
 	@Override
@@ -130,9 +123,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element innerElement = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(innerElement);
-		for(Race race : racesDiscoveredFromBook) {
-			if(race != null) {
-				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", race.toString());
+		for(Subspecies subspecies : racesDiscoveredFromBook) {
+			if(subspecies != null) {
+				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", subspecies.toString());
 			}
 		}
 		
@@ -151,6 +144,15 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, e, "quest", String.valueOf(entry.getValue()));
 		}
 		
+		Element friendlyOccupants = doc.createElement("friendlyOccupants");
+		playerSpecific.appendChild(friendlyOccupants);
+		for(String occupant : this.getFriendlyOccupants()) {
+			Element element = doc.createElement("occupant");
+			friendlyOccupants.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", occupant);
+		}
+		
 //		private SizedStack<ShopTransaction> buybackStack; TODO
 		
 //		Element slavesOwned = doc.createElement("slavesExported");
@@ -163,7 +165,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 
@@ -202,7 +204,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					NodeList races = racesDiscoveredElement.getElementsByTagName("race");
 					for(int i=0; i < races.getLength(); i++){
 						Element e = (Element) races.item(i);
-						character.addRaceDiscoveredFromBook(Race.valueOf(e.getAttribute("value")));
+						try {
+							character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
+						} catch(Exception ex) {
+						}
 					}
 				}
 			} catch(Exception ex) {
@@ -272,6 +277,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		try {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("friendlyOccupants").item(0)).getElementsByTagName("occupant").getLength(); i++){
+				Element e = ((Element)playerSpecificElement.getElementsByTagName("occupant").item(i));
+				
+				if(!e.getAttribute("id").equals("NOT_SET")) {
+					character.getFriendlyOccupants().add(e.getAttribute("id"));
+					CharacterUtils.appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
+				}
+			}
+		} catch(Exception ex) {	
+		}
 		
 //		// Slaves:
 //		
@@ -334,17 +350,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	@Override
-	public int getAppearsAsAge() {
+	public int getAppearsAsAgeValue() {
 		if(Main.game.isInNewWorld()) {
-			return getAge() - Game.TIME_SKIP_YEARS;
+			return getAgeValue() - Game.TIME_SKIP_YEARS;
 		}
-		return getAge();
+		return getAgeValue();
 	}
 
 	@Override
-	public int getAge() {
+	public int getAgeValue() {
 		if(Main.game.isInNewWorld()) {
-			return super.getAge();
+			return super.getAgeValue();
 		} else {
 			return (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow().minusYears(Game.TIME_SKIP_YEARS));
 		}
@@ -511,6 +527,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return isQuestCompleted(QuestLine.SIDE_SLAVERY) || Main.game.isDebugMode();
 	}
 	
+	public boolean isAbleToAccessRoomManagement() {
+		return isHasSlaverLicense() || isQuestCompleted(QuestLine.SIDE_ACCOMMODATION);
+	}
+	
 	public boolean isQuestProgressGreaterThan(QuestLine questLine, Quest quest) {
 		if(!hasQuest(questLine)) {
 			System.err.println("Player does not have Quest: "+quest.toString());
@@ -571,10 +591,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public List<GameCharacter> getCharactersEncounteredAsGameCharacters() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
-		for(String s : charactersEncountered) {
-			GameCharacter npc = Main.game.getNPCById(s);
-			if(npc!=null) {
+		for(String characterId : charactersEncountered) {
+			try {
+				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: getCharactersEncounteredAsGameCharacters()");
 			}
 		}
 		return npcsEncountered;
@@ -582,10 +604,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public void sortCharactersEncountered() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
-		for(String s : charactersEncountered) {
-			GameCharacter npc = Main.game.getNPCById(s);
-			if(npc!=null) {
+		for(String characterId : charactersEncountered) {
+			try {
+				GameCharacter npc = Main.game.getNPCById(characterId);
 				npcsEncountered.add(npc);
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+characterId+") returning null in method: sortCharactersEncountered()");
 			}
 		}
 		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
@@ -606,11 +630,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return buybackStack;
 	}
 
-	public boolean addRaceDiscoveredFromBook(Race race) {
-		return racesDiscoveredFromBook.add(race);
+	public boolean addRaceDiscoveredFromBook(Subspecies subspecies) {
+		return racesDiscoveredFromBook.add(subspecies);
 	}
 	
-	public Set<Race> getRacesDiscoveredFromBook() {
+	public Set<Subspecies> getRacesDiscoveredFromBook() {
 		return racesDiscoveredFromBook;
 	}
 
@@ -712,5 +736,20 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+
+	/**
+	 * Returns a list of NPCs either living in Lilaya's house or in an apartment known to the player.
+	 */
+	public List<String> getFriendlyOccupants() {
+		return friendlyOccupants;
+	}
+	
+	public boolean addFriendlyOccupant(NPC occupant) {
+		return friendlyOccupants.add(occupant.getId());
+	}
+	
+	public boolean removeFriendlyOccupant(GameCharacter occupant) {
+		return friendlyOccupants.remove(occupant.getId());
 	}
 }

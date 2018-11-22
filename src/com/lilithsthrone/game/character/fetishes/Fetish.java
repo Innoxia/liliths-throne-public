@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -896,14 +897,14 @@ public enum Fetish {
 	
 	FETISH_KINK_RECEIVING(60,
 			"kink curious",
-			"being given new fetishes",
+			"gaining fetishes",
 //			"fetish_transformation_receiving",
 			"fetish_kink_receiving",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					// Unclear what extra effects this fetish should provide, other than not taking corruption from recieving forced fetishes
+					// Unclear what extra effects this fetish should provide, other than not taking corruption from receiving forced fetishes
 					"<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Removes corruption gain when a fetish is forced on you.</span>"),
 			null) {
 
@@ -1028,8 +1029,7 @@ public enum Fetish {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
 			Util.newArrayListOfValues(
 					"<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>submissive tease</span>",
-					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>",
-					"Unlocks <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>submissive sex</span>"),
+					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>"),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1062,10 +1062,16 @@ public enum Fetish {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You always did have the hots for your aunt Lily...";
-			else
+			if (owner.isPlayer()) {
+				if(owner.getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+					return "You always did have the hots for your male cousin...";
+				} else {
+					return "You always did have the hots for your aunt Lily, as well as your female cousin...";
+				}
+				
+			} else {
 				return UtilText.parse(owner, "[npc.Name] has a fetish for incestuous sex.");
+			}
 		}
 
 		@Override
@@ -1118,6 +1124,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
+					"All dealt <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is increased by 5%",
 					"You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as "
 										+ "<span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>"),
 			null) {

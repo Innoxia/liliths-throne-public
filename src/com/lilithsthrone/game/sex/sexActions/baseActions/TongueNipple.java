@@ -137,10 +137,9 @@ public class TongueNipple {
 		public String applyEffectsString() {
 			return Sex.getCharacterPerformingAction().ingestFluid(
 						Sex.getCharacterTargetedForSexAction(this),
-						Sex.getCharacterTargetedForSexAction(this).getMilkType(),
+						Sex.getCharacterTargetedForSexAction(this).getMilk(),
 						SexAreaOrifice.MOUTH,
-						Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5,
-						Sex.getCharacterTargetedForSexAction(this).getMilk().getFluidModifiers())
+						Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5)
 					+ Sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5);
 		}
 	};
@@ -257,7 +256,7 @@ public class TongueNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" and [npc2.she] can't [npc.verb(help)] but [npc.verb(let)] out [npc2.a_moan+] as [npc2.she] frantically [npc2.verb(try)] to push [npc.name] away from [npc2.herHim].",
 
-							" and, desperately trying to pull away from [npc.namePos] [npc.breasts+], [npc2.she] [npc.verb(plead)] with [npc.herHim] to leave [npc2.herHim] alone."));
+							" and, desperately trying to pull away from [npc.namePos] [npc.breasts+], [npc2.she] [npc2.verb(plead)] with [npc.herHim] to leave [npc2.herHim] alone."));
 					break;
 			}
 		
@@ -268,10 +267,9 @@ public class TongueNipple {
 		public String applyEffectsString() {
 			return Sex.getCharacterTargetedForSexAction(this).ingestFluid(
 					Sex.getCharacterPerformingAction(),
-					Sex.getCharacterPerformingAction().getMilkType(),
+					Sex.getCharacterPerformingAction().getMilk(),
 					SexAreaOrifice.MOUTH,
-					Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5,
-					Sex.getCharacterPerformingAction().getMilk().getFluidModifiers())
+					Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5)
 				+ Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5);
 		}
 		

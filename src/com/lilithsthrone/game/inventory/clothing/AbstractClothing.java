@@ -99,7 +99,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			
 			if (chance <= 25) { // Jinxed:
 				
-				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.BOOST, 0));
+				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0));
 				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedNegativePotency(), 0));
 				if(chance <10) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedNegativePotency(), 0));
@@ -141,8 +141,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		patternTertiaryColour = Colour.CLOTHING_BLACK;
 		
 		displacedList = new ArrayList<>();
-
-		this.effects = effects;
+		if(effects!=null) {
+			this.effects = new ArrayList<>(effects);
+		} else {
+			this.effects = new ArrayList<>();
+		}
 
 		enchantmentKnown = false;
 	}
@@ -323,6 +326,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 							}
 						}
 						
+						for(TFModifier mod : TFModifier.getClothingMajorAttributeList()) {
+							if(mod.getAssociatedAttribute()==att) {
+								clothing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, mod, pot, 0));
+								break;
+							}
+						}
+						
 					} catch(Exception ex) {
 					}
 				}
@@ -463,7 +473,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			if (!this.getEffects().isEmpty()) {
 				descriptionSB.append("<p>Effects:");
 				for (ItemEffect e : this.getEffects()) {
-					if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
+					if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE
+							&& e.getPrimaryModifier()!=TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 						for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 							descriptionSB.append("<br/>"+ s);
 						}
@@ -486,9 +497,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		
 		descriptionSB.append("</p>");
 
-		if (getClothingType().getClothingSet() != null)
+		if (getClothingType().getClothingSet() != null) {
 			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"
 					+ getClothingType().getClothingSet().getName() + "</b> set." + "</p>");
+		}
 
 		return descriptionSB.toString();
 	}
@@ -507,10 +519,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	
 	@Override
 	public Rarity getRarity() {
-		if(rarity==Rarity.LEGENDARY) {
+		if(rarity==Rarity.LEGENDARY || rarity==Rarity.QUEST) {
 			return rarity;
 		}
-		if(this.getClothingType().getClothingSet()!=null || rarity==Rarity.RARE) {
+		if(this.getClothingType().getClothingSet()!=null || rarity==Rarity.EPIC) {
 			return Rarity.EPIC;
 		}
 		
@@ -627,7 +639,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	 *         "Gold circlet of anti-magic"
 	 */
 	public String getDisplayName(boolean withRarityColour) {
-		if(!this.getName().equalsIgnoreCase(this.getClothingType().getName())) { // If this item has a custom name, just display that:
+		
+		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getClothingType().getName().replaceAll("\u00A0"," "))) { // If this item has a custom name, just display that:
+//			for(int i=0;i<this.getName().toCharArray().length;i++) {
+//				System.out.print("["+Character.codePointAt(this.getName().toCharArray(), i)+"]");
+//			}
+//			System.out.println();
+//			for(int i=0;i<this.getClothingType().getName().toCharArray().length;i++) {
+//				System.out.print("["+Character.codePointAt(this.getClothingType().getName().toCharArray(), i)+"]");
+//			}
+//			System.out.println();
+//			System.out.println();
+			
 			return (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName());
@@ -638,7 +661,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName())
-				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
+				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.QUEST && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");
 	}
@@ -1044,7 +1067,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 
 	public void removeBadEnchantments() {
-		this.getEffects().removeIf(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE && e.getPotency().isNegative());
+		this.getEffects().removeIf(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) && e.getPotency().isNegative());
 	}
 
 	public boolean isSealed() {
@@ -1058,12 +1081,34 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setSealed(boolean sealed) {
 		if(sealed) {
-			this.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.BOOST, 0));
+			this.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.NONE, TFPotency.MINOR_BOOST, 0));
 		} else {
 			this.getEffects().removeIf(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_SEALING);
 		}
 	}
-
+	
+	public int getJinxRemovalCost() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+				switch(effect.getPotency()) {
+					case BOOST:
+						break;
+					case DRAIN:
+						return ItemEffect.SEALED_COST_DRAIN;
+					case MAJOR_BOOST:
+						break;
+					case MAJOR_DRAIN:
+						return ItemEffect.SEALED_COST_MAJOR_DRAIN;
+					case MINOR_BOOST:
+						return ItemEffect.SEALED_COST_MINOR_BOOST;
+					case MINOR_DRAIN:
+						return ItemEffect.SEALED_COST_MINOR_DRAIN;
+				}
+			}
+		}
+		return ItemEffect.SEALED_COST_MINOR_BOOST;
+	}
+	
 	public boolean isDirty() {
 		return cummedIn;
 	}
@@ -1147,7 +1192,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				} else if(ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BEHAVIOUR || ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BODY_PART) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
 					
-				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 					String name = (this.isBadEnchantment()?this.getCoreEnchantment().getNegativeEnchantment():this.getCoreEnchantment().getPositiveEnchantment());
 					return "of "+(coloured?"<"+tag+" style='color:"+this.getCoreEnchantment().getColour().toWebHexString()+";'>"+name+"</"+tag+">":name);
 					
@@ -1163,7 +1208,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 
 	public boolean isBadEnchantment() {
-		return this.getEffects().stream().anyMatch(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE && e.getPotency().isNegative());
+		return this.getEffects().stream().anyMatch(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) && e.getPotency().isNegative());
 	}
 
 	public boolean isEnslavementClothing() {
@@ -1178,18 +1223,23 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public void addEffect(ItemEffect effect) {
 		effects.add(effect);
 	}
+
+	public void removeEffect(ItemEffect effect) {
+		effects.remove(effect);
+	}
 	
 	@Override
 	public Map<Attribute, Integer> getAttributeModifiers() {
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
 				} else {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), ie.getPotency().getClothingBonusValue());
 				}
+				
 			}
 		}
 		

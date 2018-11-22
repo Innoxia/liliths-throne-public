@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>100</value> 
+		
+		<determiner><![CDATA[a pair of]]></determiner>
+		
+		<name><![CDATA[striped gloves]]></name>
+		
+		<namePlural pluralByDefault="true"><![CDATA[striped gloves]]></namePlural> 
+		
+		<description><![CDATA[A pair of long, fingerless gloves, which are made out of soft wool. Their most notable feature is the looping pattern of colourful stripes that they're decorated with.]]></description> 
+		
+		<physicalResistance>1</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>HAND</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>striped_gloves.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+		
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts/>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc.her] [npc.hands], before pulling them up to [npc.her] elbows.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] elbows.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(forces)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] elbows.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] elbows, before pulling free from [npc.her] [npc.hands].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] elbows, before pulling free from [npc2.her] [npc2.hands].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] elbows, before roughly pulling them free from [npc2.her] [npc2.hands].]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

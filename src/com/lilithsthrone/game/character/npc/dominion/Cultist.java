@@ -8,6 +8,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -22,7 +23,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
@@ -35,10 +36,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -51,12 +51,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.2.2
+ * @version 0.2.9
  * @author Innoxia
  */
 public class Cultist extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	private boolean requestedAnal = false;
 	private boolean sealedSex = false;
@@ -66,12 +64,12 @@ public class Cultist extends NPC {
 	}
 	
 	public Cultist(boolean isImported) {
-		super(null,
+		super(isImported, null,
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
 				Gender.F_P_V_B_FUTANARI,
-				RacialBody.DEMON,
+				Subspecies.DEMON,
 				RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.DOMINION,
@@ -83,6 +81,7 @@ public class Cultist extends NPC {
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			this.setHomeLocation();
 			
 			// BODY RANDOMISATION:
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
@@ -98,13 +97,14 @@ public class Cultist extends NPC {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 			}
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
+
+			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 			
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
 			this.setFaceVirgin(false);
 			this.setNippleVirgin(false);
-			this.setInternalTesticles(true);
 			this.setPenisVirgin(false);
 			
 			setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
@@ -115,68 +115,12 @@ public class Cultist extends NPC {
 					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
 			
 			// Set random inventory & weapons:
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(100);
 			
 			// CLOTHING:
 			
-			List<Colour> colours = new ArrayList<>();
-			colours.add(Colour.CLOTHING_ORANGE);
-			colours.add(Colour.CLOTHING_BLACK);
-			colours.add(Colour.CLOTHING_PURPLE);
-			colours.add(Colour.CLOTHING_PURPLE_LIGHT);
-			Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
-	
-			colours.clear();
-			colours.add(Colour.CLOTHING_WHITE);
-			colours.add(Colour.CLOTHING_BLACK);
-			Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
-			
-			
-			List<AbstractClothingType> clothingChoices = new ArrayList<>();
-			
-			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-			
-			clothingChoices.clear();
-			clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
-			clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-			
-			clothingChoices.clear();
-			clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
-	
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
-			
-			if(Math.random()>0.5f) {
-				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
-			} else {
-				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
-			}
-			
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
-			
-			// Makeup:
-			colours = Util.newArrayListOfValues(
-					Colour.COVERING_NONE,
-					Colour.COVERING_ORANGE,
-					Colour.COVERING_PURPLE,
-					Colour.COVERING_BLACK);
-			
-			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
-			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
-			
-			setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
-			setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-			setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
-			setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
-			
-			setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
-			setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
-			
+			equipClothing(true, true, true, true);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -192,6 +136,76 @@ public class Cultist extends NPC {
 		if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ZERO_HATE) {
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
+			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
+		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		List<Colour> colours = new ArrayList<>();
+		colours.add(Colour.CLOTHING_ORANGE);
+		colours.add(Colour.CLOTHING_BLACK);
+		colours.add(Colour.CLOTHING_PURPLE);
+		colours.add(Colour.CLOTHING_PURPLE_LIGHT);
+		Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
+
+		colours.clear();
+		colours.add(Colour.CLOTHING_WHITE);
+		colours.add(Colour.CLOTHING_BLACK);
+		Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
+		
+		
+		List<AbstractClothingType> clothingChoices = new ArrayList<>();
+		
+		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
+		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		
+		clothingChoices.clear();
+		clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		
+		clothingChoices.clear();
+		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
+
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
+		
+		if(Math.random()>0.5f) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
+		} else {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+		}
+		
+		if(addWeapons) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+		}
+		
+		// Makeup:
+		colours = Util.newArrayListOfValues(
+				Colour.COVERING_NONE,
+				Colour.COVERING_ORANGE,
+				Colour.COVERING_PURPLE,
+				Colour.COVERING_BLACK);
+		
+		Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
+		Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
+		
+		setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
+		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
+		setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
+		
+		setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
+		setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
 	}
 	
 	@Override
@@ -199,11 +213,6 @@ public class Cultist extends NPC {
 		return false;
 	}
 	
-	@Override
-	public int getAppearsAsAge() {
-		return Math.max(18, this.getAge()/2);
-	}
-
 	public boolean isSealedSex() {
 		return sealedSex;
 	}
@@ -218,10 +227,6 @@ public class Cultist extends NPC {
 
 	public void setRequestedAnal(boolean requestedAnal) {
 		this.requestedAnal = requestedAnal;
-	}
-
-	@Override
-	public void endSex() {
 	}
 
 	@Override
@@ -416,11 +421,12 @@ public class Cultist extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexAreaInterface area) {
+	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
 		return true;
 	}
-	
-	public Set<SexPositionSlot> getSexPositionPreferences() {
+
+	@Override
+	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
@@ -433,8 +439,9 @@ public class Cultist extends NPC {
 		
 		return sexPositionPreferences;
 	}
-	
-	public SexType getForeplayPreference() {
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
@@ -445,8 +452,9 @@ public class Cultist extends NPC {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 	}
-	
-	public SexType getMainSexPreference() {
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
@@ -479,7 +487,7 @@ public class Cultist extends NPC {
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
 				"You tear open the packet and roll the condom down the length of your [pc.penis].",
 				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length [npc.namePos] [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);

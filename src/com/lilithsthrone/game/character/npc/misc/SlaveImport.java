@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -23,33 +23,41 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.90
- * @version 0.1.98
+ * @version 0.2.11
  * @author Innoxia
  */
 public class SlaveImport extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public SlaveImport() {
 		this(false);
 	}
 	
 	public SlaveImport(boolean isImported) {
-		super(new NameTriplet("Slave"), "Generic slave.",
+		super(isImported, new NameTriplet("Slave"), "Generic slave.",
 				18, Month.JUNE, 10,
-				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
+				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL);
+		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		if(!this.getId().endsWith("SlaveImport")) {
 			this.setId(Main.game.getNextNPCId(SlaveImport.class));
 		}
 		
-		this.clearAllCompanionVariables();
+//		this.clearAllCompanionVariables();
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		// Not needed
 	}
 	
 	public void applyNewlyImportedSlaveVariables() {
@@ -100,10 +108,6 @@ public class SlaveImport extends NPC {
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
-	}
-
-	@Override
-	public void endSex() {
 	}
 
 }

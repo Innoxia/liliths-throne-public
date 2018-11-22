@@ -30,9 +30,9 @@ public class SexType implements Serializable, XMLSaving {
 	@Override
 	public boolean equals (Object o) {
 		if(o instanceof SexType){
-			if(((SexType)o).getAsParticipant().equals(getAsParticipant())
-				&& ((SexType)o).getPerformingSexArea().equals(getPerformingSexArea())
-				&& ((SexType)o).getTargetedSexArea().equals(getTargetedSexArea())){
+			if(((SexType)o).getAsParticipant() == getAsParticipant()
+				&& ((SexType)o).getPerformingSexArea() == getPerformingSexArea()
+				&& ((SexType)o).getTargetedSexArea() == getTargetedSexArea()){
 					return true;
 			}
 		}

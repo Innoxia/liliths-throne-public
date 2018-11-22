@@ -21,7 +21,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
@@ -33,6 +32,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
@@ -51,6 +51,8 @@ import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -66,17 +68,17 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.2.10
  * @author Innoxia
  */
 public enum PlaceType {
 	
 	
-	GENERIC_IMPASSABLE(null, null, null, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_IMPASSABLE("Impassable Tile", null, BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
 	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 
-	GENERIC_HOLDING_CELL("Holding cell", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
+	GENERIC_HOLDING_CELL("Unknown", "dominion/slaverAlleyIcon",  BaseColour.GREY, Colour.MAP_BACKGROUND, null, null, false, false, true, ""),
 	
 	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, false, true, false, "in Lily's Museum"),
 	
@@ -91,7 +93,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_STREET("Dominion Streets", null, null, Colour.MAP_BACKGROUND, CityPlaces.STREET, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
+	DOMINION_STREET("Dominion Streets", null, BaseColour.GREY, Colour.MAP_BACKGROUND, CityPlaces.STREET, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -102,7 +104,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
+	DOMINION_BOULEVARD("Dominion Boulevard", null, BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
@@ -136,7 +138,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_DEMON_HOME("Demon Home", null, null, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET, null, false, false, true, "in the streets of Demon Home") {
+	DOMINION_DEMON_HOME("Demon Home", null, BaseColour.PINK, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET, null, false, false, true, "in the streets of Demon Home") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return DOMINION_PLAZA.getSpeciesPopulatingArea();
@@ -161,7 +163,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_STREET_HARPY_NESTS("Dominion Streets", null, null, Colour.MAP_BACKGROUND_DARK, CityPlaces.STREET_SHADED, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
+	DOMINION_STREET_HARPY_NESTS("Dominion Streets", null, BaseColour.GREY, Colour.MAP_BACKGROUND_DARK, CityPlaces.STREET_SHADED, Encounter.DOMINION_STREET, false, false, true, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -461,32 +463,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -505,32 +486,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -549,32 +509,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -593,32 +532,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceUpgrade.getMilkingUpgrades();
-			}
-			
-			return PlaceUpgrade.getCoreRoomUpgrades();
+			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
-				
-			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-				
-			} else {
-				return SVGString;
-			}
+			return getLilayaRoomSVGString(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -962,7 +880,63 @@ public enum PlaceType {
 		}
 	},
 
-	SLAVER_ALLEY_MARKET_STALL("Slaver's Shop", "dominion/slaverAlley/marketStall", BaseColour.BLACK, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL, null, false, true, true, "in Slaver's Alley") {
+	SLAVER_ALLEY_STALL_FEMALES("A Woman's Touch", "dominion/slaverAlley/marketStallFemale", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_FEMALE, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_STALL_MALES("Iron & Steel", "dominion/slaverAlley/marketStallMale", BaseColour.BLUE_STEEL, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_MALE, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_STALL_ANAL("The Rear Entrance", "dominion/slaverAlley/marketStallAnal", BaseColour.ORANGE, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_ANAL, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_STALL_VAGINAL("White Lilies", "dominion/slaverAlley/marketStallVaginal", BaseColour.PINK, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_VAGINAL, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_STALL_ORAL("Viva Voce", "dominion/slaverAlley/marketStallOral", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_ORAL, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_STATUE("Statue of the Fallen Angel", "dominion/slaverAlley/marketStallStatue", BaseColour.BLACK, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_STATUE, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE("Zaibatsu Exchange", "dominion/slaverAlley/marketStallExclusive", BaseColour.GREY, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_EXCLUSIVE, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	SLAVER_ALLEY_MARKET_STALL_BULK("Royal Dominion Company", "dominion/slaverAlley/marketStallBulk", BaseColour.BLUE, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_BULK, null, false, true, true, "in Slaver's Alley") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+	
+	SLAVER_ALLEY_CAFE("Cafe", "dominion/slaverAlley/marketStallCafe", BaseColour.BROWN, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.MARKET_STALL_CAFE, null, false, true, true, "in Slaver's Alley") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
@@ -1042,7 +1016,7 @@ public enum PlaceType {
 		}
 	},
 
-	WATERING_HOLE_BAR("VIP Area", "dominion/nightLife/bar", BaseColour.ORANGE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_BAR, null, false, true, true, "in 'The Watering Hole'") {
+	WATERING_HOLE_BAR("Bar", "dominion/nightLife/bar", BaseColour.ORANGE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_BAR, null, false, true, true, "in 'The Watering Hole'") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
 			return Subspecies.getWorldSpecies().get(WorldType.NIGHTLIFE_CLUB);
@@ -1074,7 +1048,7 @@ public enum PlaceType {
 	},
 
 	SUBMISSION_TUNNELS("Tunnels", "submission/tunnelsIcon", BaseColour.BLACK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission"),
-	
+
 	SUBMISSION_BAT_CAVERNS("Bat Caverns", "submission/batCaverns", BaseColour.BLUE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.BAT_CAVERNS, null, false, true, true, "in Submission"), // Insert batman reference here.
 	
 	SUBMISSION_RAT_WARREN("Rat Warren", "submission/ratWarren", BaseColour.BROWN_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.RAT_WARREN, null, false, true, true, "in Submission"),
@@ -1083,14 +1057,117 @@ public enum PlaceType {
 	
 	SUBMISSION_LILIN_PALACE("Lyssieth's Palace", "submission/lilinPalace", BaseColour.PURPLE, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE, null, false, true, true, "in Submission"),
 	SUBMISSION_LILIN_PALACE_GATE("Lyssieth's Palace Gate", "submission/gate", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_GATE, null, false, true, true, "in Submission"),
-	SUBMISSION_LILIN_PALACE_CAVERN("Cavern", null, null, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_CAVERN, null, false, true, true, "in Submission"),
+	SUBMISSION_LILIN_PALACE_CAVERN("Cavern", null, BaseColour.GREY, Colour.MAP_BACKGROUND_DARK, SubmissionGenericPlaces.LILIN_PALACE_CAVERN, null, false, true, true, "in Submission"),
 
-	SUBMISSION_IMP_FORTRESS_1("Imp Fortress", "submission/impFortress1", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_1, null, false, true, true, "in Submission"),
-	SUBMISSION_IMP_FORTRESS_2("Imp Fortress", "submission/impFortress2", BaseColour.MAGENTA, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_2, null, false, true, true, "in Submission"),
-	SUBMISSION_IMP_FORTRESS_3("Imp Fortress", "submission/impFortress3", BaseColour.PINK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_3, null, false, true, true, "in Submission"),
-	SUBMISSION_IMP_FORTRESS_4("Imp Fortress", "submission/impFortress4", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_4, null, false, true, true, "in Submission"),
-	SUBMISSION_IMP_FORTRESS_5("Imp Fortress", "submission/impFortress5", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_5, null, false, true, true, "in Submission"),
-	SUBMISSION_IMP_FORTRESS_6("Imp Fortress", "submission/impFortress6", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_6, null, false, true, true, "in Submission"),
+	/**This fortress is <b>Alpha Imps</b>.*/
+	SUBMISSION_IMP_FORTRESS_ALPHA("Imp Fortress", "submission/impFortress1", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_ALPHA, null, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+				return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_GREEN_LIGHT);
+			}
+			return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_CRIMSON);
+		}
+	},
+	/**Associated fortress is <b>Alpha Imps</b>.*/
+	SUBMISSION_IMP_TUNNELS_ALPHA("Imp Tunnels", "submission/impTunnels1Icon", BaseColour.RED, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+				return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_GREY);
+			}
+			return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_RED);
+		}
+	},
+
+	FORTRESS_ALPHA_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Alpha Imp Fortress"),
+	FORTRESS_ALPHA_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Alpha Imp Fortress"),
+	FORTRESS_ALPHA_KEEP("Keep", "submission/impFortress/keep", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Alpha Imp Fortress"),
+
+	/**This fortress is <b>Demon-led Imps</b>.*/
+	SUBMISSION_IMP_FORTRESS_DEMON("Imp Citadel", "submission/impFortress2", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_DEMON, null, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+				return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_GREEN_LIGHT);
+			}
+			return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_PURPLE_DARK);
+		}
+	},
+	/**Associated fortress is <b>Demon-led Imps</b>.*/
+	SUBMISSION_IMP_TUNNELS_DEMON("Imp Tunnels", "submission/impTunnels2Icon", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
+				return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_GREY);
+			}
+			return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_PURPLE);
+		}
+	},
+
+	FORTRESS_DEMON_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpCitadelDialogue.ENTRANCE, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.COURTYARD, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_WELL("Well", "submission/impFortress/well", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, ImpCitadelDialogue.WELL, null, false, true, false, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_KEEP("Keep", "submission/impFortress/keep", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_KEEP_THRONE_ROOM("Throne Room", "submission/impFortress/throneRoom", BaseColour.PURPLE_DARK, Colour.MAP_BACKGROUND, ImpCitadelDialogue.KEEP_THRONE_ROOM, null, true, true, true, "in the Dark Siren's citadel"),
+	
+	FORTRESS_DEMON_CELLS("Cells", "submission/impFortress/cells", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ImpCitadelDialogue.CELLS, null, true, true, true, "in the Dark Siren's citadel"),
+	
+	FORTRESS_LAB("Laboratory", "submission/impFortress/laboratory", BaseColour.TEAL, Colour.MAP_BACKGROUND, ImpCitadelDialogue.LABORATORY, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY("Treasury", "submission/impFortress/treasury", BaseColour.GOLD, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY_DOOR("Treasury Door", "submission/impFortress/treasuryDoor", BaseColour.YELLOW, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_DOOR, null, true, true, true, "in the Dark Siren's citadel"),
+	FORTRESS_DEMON_TREASURY_CLOTHES("Treasury", "submission/impFortress/treasuryClothes", BaseColour.AQUA, Colour.MAP_BACKGROUND, ImpCitadelDialogue.TREASURY_CLOTHES, null, true, true, true, "in the Dark Siren's citadel"),
+
+	/**This fortress is <b>Female Imp Seducers</b>.*/
+	SUBMISSION_IMP_FORTRESS_FEMALES("Imp Fortress", "submission/impFortress3", BaseColour.PINK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_FEMALES, null, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+				return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_GREEN_LIGHT);
+			}
+			return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_PINK);
+		}
+	},
+	/**Associated fortress is <b>Female Imp Seducers</b>.*/
+	SUBMISSION_IMP_TUNNELS_FEMALES("Imp Tunnels", "submission/impTunnels3Icon", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+				return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_GREY);
+			}
+			return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_PINK_LIGHT);
+		}
+	},
+
+	FORTRESS_FEMALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Female Imp Fortress"),
+	FORTRESS_FEMALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Female Imp Fortress"),
+	FORTRESS_FEMALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.PINK, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Female Imp Fortress"),
+
+	/**This fortress is <b>Male Imp Brawlers</b>.*/
+	SUBMISSION_IMP_FORTRESS_MALES("Imp Fortress", "submission/impFortress4", BaseColour.BLUE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_MALES, null, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+				return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_GREEN_LIGHT);
+			}
+			return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_BLUE);
+		}
+	},
+	/**Associated fortress is <b>Male Imp Brawlers</b>.*/
+	SUBMISSION_IMP_TUNNELS_MALES("Imp Tunnels", "submission/impTunnels4Icon", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, true, true, true, "in Submission") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+				return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_GREY);
+			}
+			return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_BLUE_LIGHT);
+		}
+	},
+
+	FORTRESS_MALES_ENTRANCE("Gateway", "submission/impFortress/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, ImpFortressDialogue.ENTRANCE, null, false, true, false, "in the Male Imp Fortress"),
+	FORTRESS_MALES_COURTYARD("Courtyard", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ImpFortressDialogue.COURTYARD, null, false, true, false, "in the Male Imp Fortress"),
+	FORTRESS_MALES_KEEP("Keep", "submission/impFortress/keep", BaseColour.BLUE, Colour.MAP_BACKGROUND, ImpFortressDialogue.KEEP, null, true, true, true, "in the Male Imp Fortress"),
+	
 
 	SUBMISSION_ENTRANCE("Enforcer Checkpoint", "submission/submissionExit", BaseColour.BROWN, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.SEWER_ENTRANCE, null, false, true, true, "in Submission") {
 		@Override
@@ -1102,7 +1179,7 @@ public enum PlaceType {
 	// Bat caverns:
 
 	BAT_CAVERN_ENTRANCE("Winding Staircase", "submission/batCaverns/cavernStaircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, BatCaverns.STAIRCASE, null, false, true, true, "in the Bat Caverns"),
-	BAT_CAVERN_DARK("Dark Cavern", null, null, Colour.MAP_BACKGROUND, BatCaverns.CAVERN_DARK, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_DARK("Dark Cavern", null, BaseColour.GREY, Colour.MAP_BACKGROUND, BatCaverns.CAVERN_DARK, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_LIGHT("Bioluminescent Cavern", "submission/batCaverns/cavernBioluminescent", BaseColour.AQUA, Colour.MAP_BACKGROUND, BatCaverns.CAVERN_LIGHT, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER("Underground River", "submission/batCaverns/cavernRiver", BaseColour.BLUE, Colour.MAP_BACKGROUND, BatCaverns.RIVER, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER_CROSSING("Mushroom Bridge", "submission/batCaverns/cavernBridge", BaseColour.TEAL, Colour.MAP_BACKGROUND, BatCaverns.RIVER_BRIDGE, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
@@ -1110,7 +1187,7 @@ public enum PlaceType {
 	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/batCaverns/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, true, true, true, "beside Slime Lake"),
 	
 
-	SLIME_QUEENS_LAIR_CORRIDOR("Corridor", null, null, Colour.MAP_BACKGROUND, SlimeQueensLair.CORRIDOR, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, SlimeQueensLair.CORRIDOR, null, false, true, true, "in the Slime Queen's tower"),
 	SLIME_QUEENS_LAIR_ENTRANCE("Entrance Hall", "submission/slimeQueensLair/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.ENTRANCE, null, false, true, true, "in the Slime Queen's tower"),
 	SLIME_QUEENS_LAIR_STAIRS_UP("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_UP, null, false, true, true, "in the Slime Queen's tower"),
 	SLIME_QUEENS_LAIR_STAIRS_DOWN("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_DOWN, null, false, true, true, "in the Slime Queen's tower"),
@@ -1179,7 +1256,7 @@ public enum PlaceType {
 	protected DialogueNodeOld dialogue;
 	private Encounter encounterType;
 	private boolean dangerous, stormImmune, itemsDisappear;
-	private String virgintyLossDescription;
+	private String virginityLossDescription;
 
 	private static Map<String, String> SVGOverrides = new HashMap<>(); 
 	
@@ -1192,7 +1269,7 @@ public enum PlaceType {
 			boolean dangerous,
 			boolean stormImmune,
 			boolean itemsDisappear,
-			String virgintyLossDescription) {
+			String virginityLossDescription) {
 		
 		this.name = name;
 		this.colour = colour;
@@ -1202,7 +1279,7 @@ public enum PlaceType {
 		this.dangerous = dangerous;
 		this.stormImmune = stormImmune;
 		this.itemsDisappear = itemsDisappear;
-		this.virgintyLossDescription = virgintyLossDescription;
+		this.virginityLossDescription = virginityLossDescription;
 		
 		if(SVGPath!=null) {
 			try {
@@ -1354,7 +1431,42 @@ public enum PlaceType {
 		return new ArrayList<>();
 	}
 
-	public String getVirgintyLossDescription() {
-		return virgintyLossDescription;
+	public static ArrayList<PlaceUpgrade> getAvailableLilayaRoomPlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			return PlaceUpgrade.getGuestRoomUpgrades();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+			return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+			return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		
+		return PlaceUpgrade.getCoreRoomUpgrades();
+	}
+	
+	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
+		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomGuest", Colour.BASE_GREEN_LIGHT);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+			
+		} else {
+			return SVGString;
+		}
+	}
+
+	public String getVirginityLossDescription() {
+		return virginityLossDescription;
 	}
 }

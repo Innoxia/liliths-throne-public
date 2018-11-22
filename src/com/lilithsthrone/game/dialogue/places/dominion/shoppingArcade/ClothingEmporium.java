@@ -106,7 +106,7 @@ public class ClothingEmporium {
 
 		@Override
 		public String getAuthor() {
-			if(Main.game.getNyan().isPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+			if(Main.game.getNyan().isPregnant() && !Main.game.getNyan().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				return "Duner";
 			} else {
 				return "Innoxia";
@@ -115,7 +115,7 @@ public class ClothingEmporium {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getNyan().isVisiblyPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+			if(Main.game.getNyan().isVisiblyPregnant() && !Main.game.getNyan().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT_PREGNANT");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT");
@@ -148,7 +148,7 @@ public class ClothingEmporium {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 1f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTalkedTo, true);
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -165,7 +165,7 @@ public class ClothingEmporium {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 3f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanComplimented, true);
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -186,7 +186,7 @@ public class ClothingEmporium {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 4f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanFlirtedWith, true);
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -207,7 +207,7 @@ public class ClothingEmporium {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanKissed, true);
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -228,7 +228,7 @@ public class ClothingEmporium {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 6f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanMakeOut, true);
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -246,7 +246,7 @@ public class ClothingEmporium {
 								@Override
 								public void effects() {
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -267,12 +267,12 @@ public class ClothingEmporium {
 									new SMMissionary(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNyan(), SexPositionSlot.MISSIONARY_ON_BACK))),
-									END_SEX,
-									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
+									null,
+									null, END_SEX, UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
 								@Override
 								public void effects() {
 									if(Main.game.getNyan().isVisiblyPregnant()) {
-										Main.game.getNyan().setReactedToPregnancy(true);
+										Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
 								}
 							};
@@ -326,7 +326,7 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
 							if(Main.game.getNyan().isVisiblyPregnant()) {
-								Main.game.getNyan().setReactedToPregnancy(true);
+								Main.game.getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 							}
 						}
 					};
@@ -343,8 +343,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -354,8 +358,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleUnderwear())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleUnderwear()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -365,8 +373,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -376,8 +388,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -387,8 +403,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleLingerie())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleLingerie()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -398,8 +418,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonMaleAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -409,8 +433,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousClothing())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousClothing()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -420,8 +448,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousLingerie())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousLingerie()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -431,8 +463,12 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
 	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories())
+							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories()) {
+								if(Main.game.getNyan().isInventoryFull()) {
+									break;
+								}
 								Main.game.getNyan().addClothing(c, false);
+							}
 						}
 					};
 					
@@ -444,6 +480,9 @@ public class ClothingEmporium {
 								Main.game.getNyan().clearNonEquippedInventory();
 		
 								for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials()) {
+									if(Main.game.getNyan().isInventoryFull()) {
+										break;
+									}
 									Main.game.getNyan().addClothing(c, false);
 								}
 							}

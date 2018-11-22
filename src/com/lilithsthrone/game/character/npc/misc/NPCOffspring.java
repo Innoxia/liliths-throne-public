@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,18 +12,17 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionOffspringDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -30,29 +30,27 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.95
+ * @version 0.2.11
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	public NPCOffspring() {
 		this(false);
 	}
 	
 	public NPCOffspring(boolean isImported) {
-		super(null, "",
+		super(isImported, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(null, "",
-				18, Main.game.getDateNow().minusMonths(1).getMonth(), 1+Util.random.nextInt(25),
-				3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(false, null, "",
+				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		
 		this.setMother(mother);
@@ -66,11 +64,11 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = GenderPreference.getGenderFromUserPreferences();
+		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		
 		setBody(gender, mother, father);
 		
-		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
+		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
 
@@ -82,16 +80,12 @@ public class NPCOffspring extends NPC {
 		
 		CharacterUtils.addFetishes(this);
 		
-		// BODY RANDOMISATION:
-		
-		CharacterUtils.randomiseBody(this);
-		
 		// INVENTORY:
 		
-		resetInventory();
+		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.equipClothing(this, true, false);
+		equipClothing(true, true, true, true);
 		
 		CharacterUtils.applyMakeup(this, true);
 
@@ -115,6 +109,23 @@ public class NPCOffspring extends NPC {
 		} else {
 			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		}
+
+		if(this.getConceptionDate().isAfter(this.getBirthday())) {
+			this.setBirthday(this.getConceptionDate().plusMonths(2));
+			
+		} else if(Math.abs((int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday()))>300) {
+			this.setConceptionDate(this.getBirthday().minusMonths(2));
+		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	@Override
@@ -123,13 +134,15 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public String getPlayerPetName() {
-		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
+	public String getPetName(GameCharacter character) {
+		String playerPetName = getPetNameMap().get(Main.game.getPlayer().getId());
+		if(playerPetName==null || playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
 			if(Main.game.getPlayer().isFeminine()) {
 				return "Mom";
 			} else {
 				return "Dad";
 			}
+			
 		} else if (playerPetName.equalsIgnoreCase("Mommy") || playerPetName.equalsIgnoreCase("Daddy")) {
 			if(Main.game.getPlayer().isFeminine()) {
 				return "Mommy";
@@ -143,16 +156,17 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public String getDescription() {
-		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
+		int daysToBirth = (int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday());
+		
 		if(this.getMother()==null || this.getFather()==null) {
 			return "";
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
-						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
-						+(timeToBirth==0
+						+ " [npc.She] was conceived on "+Util.getStringOfLocalDateTime(this.getConceptionDate())+", and "
+						+(daysToBirth==0
 							?"later that same day"
-							:timeToBirth>1?Util.intToString(timeToBirth)+" days later":Util.intToString(timeToBirth)+" day later")
+							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
 						+(this.getMother().isPlayer()
 							?" you gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
@@ -203,11 +217,4 @@ public class NPCOffspring extends NPC {
 			}
 		}
 	}
-
-	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		return getItemUseEffectsAllowingUse(item, user, target);
-	}
-	
-	
 }

@@ -78,6 +78,10 @@ public enum Spell {
 
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"By the fires of eternity, I release this seal upon the maelstrom within! Come forth, flames of destruction!",
+													"From beyond the veil of flames, I hear the arcane's call! Through me, now is hell unleashed!",
+													"May the dark void shatter the ancient seals which keep the fires of hell itself at bay! Go forth, flaming fury!"),
 											"Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a ball of roiling flames before launching it at yourself!",
 											"Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a ball of roiling flames before launching it at [npc.name]!",
 											"",
@@ -143,7 +147,7 @@ public enum Spell {
 			false,
 			"Flash",
 			"flash",
-			"Crates a blinding flash of light that stuns the target.",
+			"Creates a blinding flash of light that stuns the target.",
 			0,
 			DamageVariance.LOW,
 			60,
@@ -181,6 +185,10 @@ public enum Spell {
 
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Locked away for a thousand years, the powers lying dormant within me have awoken! Now, bear witness to the blinding fury of a universe being born!",
+													"The light of a million stars are as nothing to the power that I now unleash! May my arcane seals be broken, and blind all who dare stand before me!",
+													"By fury of sun, and gaze of moon, may the heavens themselves bear witness to the power that I now unleash! Gaze upon the end of worlds, and despair!"),
 											"With a flick of your wrist, you summon a blinding flash of light right in front of your own face!",
 											"With a flick of your wrist, you summon a blinding flash of light right in front of [npc.namePos] face!",
 											"",
@@ -279,6 +287,10 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"By my power, shall glaciers melt, and a thousand suns be extinguished! Oh, fury of the stars, I call upon thee to shield your [npc.master]!",
+													"Know now that the flames of hell itself obey my every command, and from the fiery chasm of the dimension of flame, I summon forth the power to shield me from all harm!",
+													"By fire and fury, I unleash the infernal flames of the sun itself! Come now, arcane inferno, shield your [npc.master] from all that dare harm [npc.herHim]!"),
 											"With a swipe of your [pc.arm], you summon a protective cloak of arcane fire around yourself!",
 											"With a swipe of your [pc.arm], you summon a protective cloak of arcane fire around [npc.name]!",
 											"With a swipe of [npc.her] [npc.arm], [npc.name] summons a protective cloak of arcane fire around [npc.herself]!",
@@ -332,7 +344,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -343,7 +355,14 @@ public enum Spell {
 			if(elementalAlreadySummoned) {
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+									?Util.randomItemFrom(
+									Util.newArrayListOfValues(
+										"[npc.speech(By the ancient rites of flame, I summon forth hell and fury incarnate! Answer your [npc.master]'s call, [npc2.name], and, by the incineration of a million dimensions, be bound to my will!)] ",
+										"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! I call upon the dimension of flame itself, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+										"[npc.speech(Let fire consume, and the inferno within me be unleashed! Flame and fury, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+									:"")
+								+(caster.isPlayer()
 									?"With a flash of light and a burst of flames, you bind your elemental, [npc2.name], to the school of Fire!"
 									:"With a flash of light and a burst of flames, [npc1.name] binds [npc1.her] elemental, [npc2.name], to the school of Fire!"))
 					+"</p>");
@@ -352,7 +371,14 @@ public enum Spell {
 				caster.addCompanion(caster.getElemental());
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rites of flame, I summon forth hell and fury incarnate! Answer your [npc.master]'s call, [npc2.name], and, by the incineration of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! I call upon the dimension of flame itself, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let fire consume, and the inferno within me be unleashed! Flame and fury, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+(caster.isPlayer()
 									?"With a flash of light and a burst of flames, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"
 									:"With a flash of light and a burst of flames, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Fire!"))
 					+"</p>");
@@ -418,6 +444,10 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Witness now, the terror of the starless void! By hail of ice, and fury of the blizzard, let my arcane power be unleashed!",
+													"The seals within me have been broken, and by my power, now will the universe itself freeze! Hail, sleet, and ice, hear my call, and come forth!",
+													"From beyond the frozen void, now is my power unleashed! Crossing the boundary from the frozen realm of chaos, let my power be manifest!"),
 											"Summoning a swirling vortex of water from the moisture in the air, you focus your energy on freezing it in place, creating a shard of ice that you then launch at yourself!",
 											"Summoning a swirling vortex of water from the moisture in the air, you focus your energy on freezing it in place, creating a shard of ice that you then launch at [npc.name]!",
 											"",
@@ -505,6 +535,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(//TODO chuuni three from here
+													"May the heavens burst, and floods sweep the Earth! By the powers manifest within me, I tear open the skies, and deliver unto you your watery grave!"),
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above your own head!",
 											"With an upwards thrust of your [pc.arm], you summon forth a cloud of rain above [npc.namePos] head!",
 											"",
@@ -534,7 +566,7 @@ public enum Spell {
 		}
 	},
 
-	SOOTHING_WATERS(true,
+	SOOTHING_WATERS(false,
 			SpellSchool.WATER,
 			SpellType.DEFENSIVE,
 			DamageType.ICE,
@@ -561,6 +593,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"By stream and brook, river and sea, I call upon the eternal currents that know no end! I cast my power unto thee, and bring forth the fountain of eternal life!"),
 											"With a gentle swish of your [pc.hand], you summon forth an orb of healing water, which you quickly drink.",
 											"With a gentle swish of your [pc.hand], you summon forth an orb of healing water, which you send to [npc.name] to drink.",
 											"With a gentle swish of [npc.her] [npc.hand], [npc.name] summons forth an orb of healing water, which [npc.she] quickly drinks.",
@@ -690,7 +724,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -701,7 +735,14 @@ public enum Spell {
 			if(elementalAlreadySummoned) {
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of sea and sky, I summon forth the eternal torrent! Answer your [npc.master]'s call, [npc2.name], and, by the drowning of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May all waters be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the seas rise, and the tsunami within me be unleashed! Flood and deluge, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a huge splash, you bind your elemental, [npc2.name], to the school of Water!"
 									:"With a huge splash, [npc1.name] binds [npc1.her] elemental, [npc2.name], to the school of Water!"))
 					+"</p>");
@@ -710,7 +751,14 @@ public enum Spell {
 				caster.addCompanion(caster.getElemental());
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of sea and sky, I summon forth the eternal torrent! Answer your [npc.master]'s call, [npc2.name], and, by the drowning of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May all waters be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the seas rise, and the tsunami within me be unleashed! Flood and deluge, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a huge splash, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"
 									:"With a huge splash, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Water!"))
 					+"</p>");
@@ -780,6 +828,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Let seal be broken, and by true power be unleashed! Now, by haze and smog, the air itself obeys my command!"),
 											"With a sweeping motion of your [pc.arm], you summon forth a cloud of poison vapours around yourself!",
 											"With a sweeping motion of your [pc.arm], you summon forth a cloud of poison vapours around [npc.name]!",
 											"",
@@ -856,6 +906,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Darkness blacker than black! I call upon the eternal void, and by rift through time and space, is my power made manifest!"),
 											"With a clench of your fist, you summon forth a vacuum right next to yourself!",
 											"With a clench of your fist, you summon forth a vacuum right next to [npc.name]!",
 											"",
@@ -932,6 +984,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"The very air itself obeys my command! Now, may my true power be unleashed, and bind the wind itself to my will!"),
 											"Swishing both of your [pc.arms] up into the air, you summon forth a benevolent wind to help protect you!",
 											"Swishing both of your [pc.arms] up into the air, you summon forth a benevolent wind to help protect [npc.name]!",
 											"Swishing both of [npc.her] [npc.arms] up into the air, [npc.name] summons forth a benevolent wind to help protect [npc.herHim]!",
@@ -986,7 +1040,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -997,7 +1051,14 @@ public enum Spell {
 			if(elementalAlreadySummoned) {
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of wind and gale, I summon forth the hurricane itself! Answer your [npc.master]'s call, [npc2.name], and, by the offering of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the air itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the winds rise, and the hurricane within me be unleashed! Storm and chaos, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a tremendous gust of wind, you bind your elemental, [npc2.name], to the school of Air!"
 									:"With a tremendous gust of wind, [npc1.name] binds [npc1.her] elemental, [npc2.name], to the school of Air!"))
 					+"</p>");
@@ -1006,7 +1067,14 @@ public enum Spell {
 				caster.addCompanion(caster.getElemental());
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of wind and gale, I summon forth the hurricane itself! Answer your [npc.master]'s call, [npc2.name], and, by the offering of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the air itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the winds rise, and the hurricane within me be unleashed! Storm and chaos, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a tremendous gust of wind, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"
 									:"With a tremendous gust of wind, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Air!"))
 					+"</p>");
@@ -1069,6 +1137,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"May the mountains shake, and the earth be split asunder! My power now shall be unleashed, and the cosmic forces at my command deliver unto you your demise!"),
 											"With a downward, striking gesture, you summon forth a huge wave of pure force, which slams down on yourself!",
 											"With a downward, striking gesture, you summon forth a huge wave of pure force, which slams down on [npc.name]!",
 											"",
@@ -1169,6 +1239,8 @@ public enum Spell {
 
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"The cosmic forces of the universe obey my every command! With this dimensional vortex, shall I warp the boundaries of space and time!"),
 											"Raising your [pc.arms], you lift all manner of small objects in the immediate vicinity up into the air, before hurling them at yourself!",
 											"Raising your [pc.arms], you lift all manner of small objects in the immediate vicinity up into the air, before hurling them at [npc.name]!",
 											"",
@@ -1243,6 +1315,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"The confinement of my astral powers is at an end! By my power unleashed, the very Earth itself serves its [npc.master]'s call!"),
 											"Thrusting your [pc.hand] forwards, you summon forth a levitating stone shell to protect you from incoming attacks!",
 											"Thrusting your [pc.hand] forwards, you summon forth a levitating stone shell to protect [npc.name] from incoming attacks!",
 											"Thrusting [npc.her] [npc.hand] forwards, [npc.name] summons forth a levitating stone shell to protect [npc.herHim] from incoming attacks!",
@@ -1297,7 +1371,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -1308,7 +1382,14 @@ public enum Spell {
 			if(elementalAlreadySummoned) {
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of sand and stone, I summon forth the earthquake itself! Answer your [npc.master]'s call, [npc2.name], and, by the crushing of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the earth itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the earth shake, and the power within me be unleashed! Boulder and mountain, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a burst of rocks and debris, you bind your elemental, [npc2.name], to the school of Earth!"
 									:"With a burst of rocks and debris, [npc1.name] binds [npc1.her] elemental, [npc2.name], to the school of Earth!"))
 					+"</p>");
@@ -1317,7 +1398,14 @@ public enum Spell {
 				caster.addCompanion(caster.getElemental());
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of sand and stone, I summon forth the earthquake itself! Answer your [npc.master]'s call, [npc2.name], and, by the crushing of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the earth itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the earth shake, and the power within me be unleashed! Boulder and mountain, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a burst of rocks and debris, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"
 									:"With a burst of rocks and debris, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Earth!"))
 					+"</p>");
@@ -1388,6 +1476,8 @@ public enum Spell {
 
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"By the true nature of the arcane, do I deliver unto you the prophecy of Lilith herself! Behold, the fate that awaits all mortals who dare stand against me!"),
 											"You focus your arcane energy on projecting an arousing vision into your own mind",
 											"You focus your arcane energy on projecting an arousing vision into [npc.namePos] mind.",
 											"",
@@ -1400,7 +1490,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(damage>0) {
-					descriptionSB.append(target.incrementLust(damage));
+					descriptionSB.append(target.incrementLust(damage, true));
 				}
 				
 				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
@@ -1466,6 +1556,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Through wit and wile, I now shatter the boundaries of space and time! The heavens themselves shall hear my voice, and despair!"),
 											"You focus your arcane energy on enabling your thoughts to be projected into others' minds!",
 											"You focus your arcane energy on enabling [npc.namePos] thoughts to be projected into others' minds!",
 											"[npc.Name] focuses [npc.her] arcane energy on enabling [npc.her] thoughts to be projected into others' minds!",
@@ -1540,6 +1632,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Oh, dark seals containing my ultimate power, now be rend to pieces! Let arcane manifestations be summoned forth, to deliver unto my enemies their final judgement!"),
 											"With an upwards thrust of your [pc.arm], you summon forth an arcane cloud above your own head!",
 											"With an upwards thrust of your [pc.arm], you summon forth an arcane cloud above [npc.namePos] head!",
 											"",
@@ -1635,6 +1729,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"By Lilith's power, I do shatter the world's illusions! Let time and space be torn asunder, and by my arcane dominance, shall reality itself be warped to my will!"),
 											"Thrusting your [pc.hand] forwards, you summon forth an explosion of cleansing arcane energy upon yourself!",
 											"Thrusting your [pc.hand] forwards, you summon forth an explosion of cleansing arcane energy upon [npc.name]!",
 											"Thrusting [npc.her] [npc.hand] forwards, [npc.name] summons forth an explosion of cleansing arcane energy upon [npc.herself]!",
@@ -1712,7 +1808,9 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
-											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of your own items...",
+											Util.newArrayListOfValues(
+													"The fabric of space and time is mine to command! Cosmic dimensions, obey my command, and deliver unto me the assets of my hated foes!"),
+											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of your own items...", // ...
 											"Thrusting out your [pc.hand] and clenching your fist, you channel your arcane power into stealing one of [npc.namePos] items!",
 											"",
 											"Thrusting out [npc.her] [npc.hand] and clenching [npc.her] fist, [npc.name] channels [npc.her] arcane power into stealing one of your items!",
@@ -1732,6 +1830,7 @@ public enum Spell {
 						target.forceUnequipClothingIntoVoid(caster, clothingToSteal);
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
+										null,
 										"You stole your own "+clothingToSteal.getName()+"...",
 										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing, [npc.speech(Y-You pervert!)]",
 										"",
@@ -1754,10 +1853,6 @@ public enum Spell {
 							clothingToSteal = nonSealedClothing.get(Util.random.nextInt(nonSealedClothing.size()));
 						}
 						
-					} else if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
-						mainWeaponSteal = target.getMainWeapon()!=null;
-						offhandWeaponSteal = target.getOffhandWeapon()!=null;
-						
 					} else if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_1)) {
 						List<AbstractClothing> nonSealedOuterClothing = new ArrayList<>();
 						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -1769,9 +1864,16 @@ public enum Spell {
 							clothingToSteal = nonSealedOuterClothing.get(Util.random.nextInt(nonSealedOuterClothing.size()));
 						}
 						
-					} else {
-						stealItem = target.getInventorySlotsTaken()>0;
 					}
+					
+					if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
+						mainWeaponSteal = target.getMainWeapon()!=null;
+						offhandWeaponSteal = target.getOffhandWeapon()!=null;
+						
+					}
+					
+					stealItem = target.getInventorySlotsTaken()>0;
+					
 				
 					double rnd = Math.random();
 					
@@ -1780,6 +1882,7 @@ public enum Spell {
 						target.unequipMainWeapon(true);
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
+										null,
 										"You stole your own "+weapon.getName()+"...",
 										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
@@ -1793,6 +1896,7 @@ public enum Spell {
 						target.unequipOffhandWeapon(true);
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
+										null,
 										"You stole your own "+weapon.getName()+"...",
 										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
@@ -1819,6 +1923,7 @@ public enum Spell {
 							target.removeItem(item);
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
+											null,
 											"You stole your own "+item.getName()+"...",
 											"You stole [npc.namePos] "+item.getName()+" from out of [npc.her] inventory!",
 											"",
@@ -1831,6 +1936,7 @@ public enum Spell {
 							target.removeWeapon(weapon);
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
+											null,
 											"You stole your own "+weapon.getName()+"...",
 											"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] inventory!",
 											"",
@@ -1843,6 +1949,7 @@ public enum Spell {
 							target.removeClothing(clothing);
 							descriptionSB.append("<p>"
 									+ getCastDescription(caster, target,
+											null,
 											"You stole your own "+clothing.getName()+"...",
 											"You stole [npc.namePos] "+clothing.getName()+" from out of [npc.her] inventory!",
 											"",
@@ -1856,6 +1963,7 @@ public enum Spell {
 						target.forceUnequipClothingIntoVoid(caster, clothingToSteal);
 						descriptionSB.append("<p>"
 								+ getCastDescription(caster, target,
+										null,
 										"You stole your own "+clothingToSteal.getName()+"...",
 										"[npc.Name] lets out an embarrassed cry as you steal the "+clothingToSteal.getName()+" that [npc.sheIs] currently wearing!",
 										"",
@@ -1929,6 +2037,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Through a thousand dimensions, and across a million worlds, have I wandered! Distance and time are nothing more than the insignificant trappings of the ignorant masses!"),
 											"With a quick, cutting motion from one of your [pc.hands], you teleport behind your enemies!",
 											"With a quick, cutting motion from one of your [pc.hands], you teleport [npc.name] behind [npc.her] enemies!",
 											"With a quick, cutting motion from one of [npc.her] [npc.hands], [npc.name] teleports behind [npc.her] enemies!",
@@ -1996,6 +2106,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Through me, is Lilith made manifest! Across the gulf of time and space, her command is infinite, and does order you to obey!"),
 											"",
 											"Drawing an immense amount of power from your arcane aura, you project the words of Lilith herself into the mind of [npc.name], ordering [npc.herHim] to submit.",
 											"",
@@ -2013,10 +2125,10 @@ public enum Spell {
 					success = Math.random()<0.75f;
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_1)) {
-					success = Math.random()<0.5f && target.getRace().isVulnerableToArcaneStorm();
+					success = Math.random()<0.5f && target.isVulnerableToArcaneStorm();
 					
 				} else {
-					success = Math.random()<0.25f && target.getRace().isVulnerableToArcaneStorm();
+					success = Math.random()<0.25f && target.isVulnerableToArcaneStorm();
 				}
 				
 				descriptionSB.append("<p>");
@@ -2042,7 +2154,7 @@ public enum Spell {
 						descriptionSB.append(
 								"You shake your head and jump back as you resist the effects of Lilith's Command!");
 						
-					} else if(target.getRace().isVulnerableToArcaneStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
+					} else if(target.isVulnerableToArcaneStorm() || !caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] shakes [npc.her] head and jumps back as [npc.she] resists the effects of Lilith's Command!"));
 					} else {
 						descriptionSB.append(UtilText.parse(target, "[npc.Name] grins as [npc.she] taunts, [npc.speech(That cheap trick isn't going to affect [npc.a_race] like me!)]"));
@@ -2085,7 +2197,7 @@ public enum Spell {
 			descriptionSB.setLength(0);
 			
 			boolean elementalAlreadySummoned = false;
-			if(caster.getElemental()==null) {
+			if(!caster.hasDiscoveredElemental()) {
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.getCompanions().contains(caster.getElemental());
@@ -2096,7 +2208,14 @@ public enum Spell {
 			if(elementalAlreadySummoned) {
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of devil and demon, I summon forth the arcane itself! Answer your [npc.master]'s call, [npc2.name], and, by the conquest of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the arcane itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the arcane be mine, and the power within me be unleashed! The spirit of arcane itself, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a flash of purple arcane lightning, you bind your elemental, [npc2.name], to the school of Arcane!"
 									:"With a flash of purple arcane lightning, [npc1.name] binds [npc1.her] elemental, [npc2.name], to the school of Arcane!"))
 					+"</p>");
@@ -2105,7 +2224,14 @@ public enum Spell {
 				caster.addCompanion(caster.getElemental());
 				descriptionSB.append("<p>"
 						+UtilText.parse(caster, caster.getElemental(),
-								(caster.isPlayer()
+								(caster.hasTraitActivated(Perk.CHUUNI)
+										?Util.randomItemFrom(
+										Util.newArrayListOfValues(
+											"[npc.speech(By the ancient rite of devil and demon, I summon forth the arcane itself! Answer your [npc.master]'s call, [npc2.name], and, by the conquest of a million dimensions, be bound to my will!)] ",
+											"[npc.speech(May the powers sealed away within me for a thousand years now be unleashed! May the arcane itself be at my command, and, through our eternal contract, I summon you forth, [npc2.name]!)] ",
+											"[npc.speech(Let the arcane be mine, and the power within me be unleashed! The spirit of arcane itself, your [npc.master] calls! Obey, and be summoned forth, [npc2.name]!)] "))
+										:"")
+								+ (caster.isPlayer()
 									?"With a flash of purple arcane lightning, you summon forth your elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"
 									:"With a flash of purple arcane lightning, [npc1.name] summons forth [npc1.her] elemental, [npc2.name], by binding [npc2.herHim] to the school of Arcane!"))
 					+"</p>");
@@ -2154,6 +2280,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Let the seal which once contained my arcane power now obey my command! Render unto my foe the debilitating darkness of absolute submission, and bind them to their fate!"),
 										"",
 										"Concentrating on the arcane power within your broomstick, you summon forth a powerful seal, which traps [npc.name] in place!",
 										"",
@@ -2200,6 +2328,8 @@ public enum Spell {
 			
 			descriptionSB.append("<p>"
 									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Let reality itself be warped by my ultimate power! All who gaze upon my visage be bewitched, and see their heart's true desire!"),
 										"Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon yourself!",
 										"Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon [npc.name]!",
 										"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] casts a bewitching charm upon [npc.herself]!",
@@ -2212,6 +2342,68 @@ public enum Spell {
 			if(isHit) {
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
+			caster.incrementMana(-cost);
+			
+			return descriptionSB.toString();
+		}
+	},
+	
+
+	
+	DARK_SIREN_BANEFUL_FISSURE(false,
+			SpellSchool.AIR,
+			SpellType.OFFENSIVE,
+			DamageType.PHYSICAL,
+			false,
+			"Baneful Fissure",
+			"dark_siren_baneful_fissure",
+			"Creates a long-lasting fissure in the ground, from which poisonous vapours rise to choke and stifle all nearby enemies.",
+			10,
+			DamageVariance.NONE,
+			200,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BANEFUL_FISSURE, 10)),
+			null,
+			null,
+			Util.newArrayListOfValues(
+					"<b>25</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(10 turns)]",
+					"Affects [style.colourExcellent(all enemies)]")) {
+		
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			descriptionSB.setLength(0);
+
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append("<p>"
+									+getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Powers beneath the earth, obey your [npc.master]'s command! Rend unto the end of time a chasm of darkness, from which the suffocating miasma of toxic dimensions may pour forth!"),
+										"",
+										"Concentrating on the immense arcane power within your scythe, you smite down into the ground beneath [npc.namePos] [npc.feet], splitting the earth and summoning forth poison fumes!",
+										"",
+										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath your [pc.feet], splitting the earth and summoning forth poison fumes!",
+										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath [npc2.namePos] [npc2.feet], splitting the earth and summoning forth poison fumes!")
+								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, damage, true, isCritical));
+			
+			if(Combat.getEnemies().contains(target)) {
+				for(NPC combatant : Combat.getEnemies()) {
+					applyStatusEffects(caster, combatant, isCritical);
+					descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+				}
+			} else {
+				applyStatusEffects(caster, Main.game.getPlayer(), isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, Main.game.getPlayer(), isHit, isCritical));
+				for(NPC combatant : Combat.getAllies()) {
+					applyStatusEffects(caster, combatant, isCritical);
+					descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+				}
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
@@ -2614,28 +2806,35 @@ public enum Spell {
 	 * Utility method for returning appropriate cast description based on the identity of caster and target. Variable names should be self-explanatory.
 	 */
 	private static String getCastDescription(GameCharacter caster, GameCharacter target,
+			List<String> chuuniDialogue,
 			String playerSelfCast,
 			String playerCastOnNPC,
 			String NPCSelfCast,
 			String NPCCastOnPlayer,
 			String NPCCastOnNPC) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(caster.hasTraitActivated(Perk.CHUUNI) && chuuniDialogue!=null) {
+			sb.append(UtilText.parse(caster, target, "[npc.speech("+Util.randomItemFrom(chuuniDialogue))+")]</br>");
+		}
 		if(caster.isPlayer()) {
 			if(target.isPlayer()) {
-				return playerSelfCast;
+				sb.append(playerSelfCast);
 			} else {
-				return UtilText.parse(target, playerCastOnNPC);
+				sb.append(UtilText.parse(target, playerCastOnNPC));
 			}
 		} else {
 			if(target.isPlayer()) {
-				return UtilText.parse(caster, NPCCastOnPlayer);
+				sb.append(UtilText.parse(caster, NPCCastOnPlayer));
 			} else {
 				if(target.equals(caster)) {
-					return UtilText.parse(caster, NPCSelfCast);
+					sb.append(UtilText.parse(caster, NPCSelfCast));
 				} else {
-					return UtilText.parse(caster, target, NPCCastOnNPC);
+					sb.append(UtilText.parse(caster, target, NPCCastOnNPC));
 				}
 			}
 		}
+		return sb.toString();
 	}
 	
 	// Rendering:

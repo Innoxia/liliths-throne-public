@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.2.11
  * @author Innoxia
  */
 public class PlayerSelfFingerNipple {
@@ -30,10 +30,12 @@ public class PlayerSelfFingerNipple {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples (self)";
@@ -55,7 +57,10 @@ public class PlayerSelfFingerNipple {
 					
 					"You reach up to your breasts, and, with eager fingers, start to pinch and rub at your exposed nipples.",
 					
-					"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you."));
+					Sex.isMasturbation()
+						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
+						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:

@@ -37,8 +37,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class GamblingDenPatron extends NPC {
-
-	private static final long serialVersionUID = 1L;
 	
 	private DicePokerTable table;
 	
@@ -55,9 +53,9 @@ public class GamblingDenPatron extends NPC {
 	}
 	
 	public GamblingDenPatron(Gender gender, DicePokerTable table, boolean isImported) {
-		super(null, "",
-				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
+		super(isImported, null, "",
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, false);
 		
 		this.table = table;
@@ -68,8 +66,7 @@ public class GamblingDenPatron extends NPC {
 			
 			// RACE & NAME:
 			
-			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 50 : 20;
-			int otherSlimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 2 : 1;
+			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 100 : 50;
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
@@ -134,42 +131,12 @@ public class GamblingDenPatron extends NPC {
 					case SLIME:
 						addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 						break;
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HARPY_BALD_EAGLE:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_WOLF:
-					case SLIME_RAT:
-					case SLIME_BAT:
-					case SLIME_RABBIT:
-					case SLIME_FOX:
-					case SLIME_FOX_FENNEC:
-					case SLIME_CAT_CARACAL:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_TIGER:
-						addToSubspeciesMap(otherSlimeChance, gender, s, availableRaces);
-						break;
 				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(true);
@@ -185,21 +152,19 @@ public class GamblingDenPatron extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
 			CharacterUtils.generateItemsInInventory(this);
 	
-			CharacterUtils.equipClothing(this, true, false);
+			equipClothing(true, true, true, true);
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			for (Attribute a : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().keySet()) {
-				attributes.put(a, RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getRandomVariance());
-			}
+			initAttributes();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -229,6 +194,16 @@ public class GamblingDenPatron extends NPC {
 			this.setTable(DicePokerTable.valueOf(npcSpecificElement.getAttribute("value")));
 		} catch(Exception ex) {
 		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
 	}
 	
 	public DicePokerTable getTable() {

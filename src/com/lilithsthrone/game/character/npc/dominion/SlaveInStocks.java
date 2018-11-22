@@ -10,27 +10,24 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -42,8 +39,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class SlaveInStocks extends NPC {
-
-	private static final long serialVersionUID = 1L;
 
 	public SlaveInStocks() {
 		this(Gender.F_V_B_FEMALE, false);
@@ -58,9 +53,9 @@ public class SlaveInStocks extends NPC {
 	}
 	
 	public SlaveInStocks(Gender gender, boolean isImported) {
-		super(null, "",
-				Util.random.nextInt(21)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(isImported, null, "",
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false);
 
 		if(!isImported) {
@@ -85,34 +80,6 @@ public class SlaveInStocks extends NPC {
 					case FOX_ASCENDANT:
 					case FOX_ASCENDANT_FENNEC:
 					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_TIGER:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_CARACAL:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_DOG_BORDER_COLLIE:
-					case SLIME_FOX:
-					case SLIME_FOX_FENNEC:
-					case SLIME_HARPY:
-					case SLIME_HARPY_RAVEN:
-					case SLIME_HARPY_BALD_EAGLE:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_WOLF:
-					case SLIME_RAT:
-					case SLIME_BAT:
-					case SLIME_RABBIT:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
@@ -204,7 +171,7 @@ public class SlaveInStocks extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
@@ -215,16 +182,16 @@ public class SlaveInStocks extends NPC {
 			
 			if(this.isFeminine()) {
 				if(Math.random()>0.5f) {
-					this.setHistory(History.NPC_PROSTITUTE);
+					this.setHistory(Occupation.NPC_PROSTITUTE);
 					setSexualOrientation(SexualOrientation.AMBIPHILIC);
 					setName(Name.getRandomProstituteTriplet());
 					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
 				} else {
-					this.setHistory(History.NPC_MUGGER);
+					this.setHistory(Occupation.NPC_MUGGER);
 				}
 				
 			} else {
-				this.setHistory(History.NPC_MUGGER);
+				this.setHistory(Occupation.NPC_MUGGER);
 			}
 			
 			// ADDING FETISHES:
@@ -233,15 +200,15 @@ public class SlaveInStocks extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this);
+			CharacterUtils.randomiseBody(this, true);
 			
 			// INVENTORY:
 			
-			resetInventory();
+			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-	
-//			CharacterUtils.equipClothing(this, true, false);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
+
+			equipClothing(true, true, true, true);
+			
 			CharacterUtils.applyMakeup(this, true);
 			
 			this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
@@ -269,6 +236,16 @@ public class SlaveInStocks extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		// Not needed
+	}
+
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
+	}
 	
 	@Override
 	public boolean isUnique() {
@@ -277,7 +254,7 @@ public class SlaveInStocks extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==History.NPC_PROSTITUTE) {
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,
 						"[npc.NamePos] days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
@@ -315,18 +292,4 @@ public class SlaveInStocks extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null; //TODO
 	}
-
-	// Combat:
-
-	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		return getItemUseEffectsAllowingUse(item, user, target);
-	}
-
-	@Override
-	public Response endCombat(boolean applyEffects, boolean playerVictory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -115,6 +115,14 @@ public class BlockedParts implements Serializable, XMLSaving {
 
 		DisplacementType displacementType = DisplacementType.valueOf(parentElement.getElementsByTagName("displacementType").item(0).getTextContent());
 		
+		String errorCode = "Unknown Clothing";
+		Element clothingElement = ((Element) doc.getElementsByTagName("clothing").item(0));
+		if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
+			errorCode = ((Element) clothingElement.getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Support for old versions
+		} else {
+			errorCode = ((Element) clothingElement.getElementsByTagName("coreAttributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Fix typo
+		}
+		
 		List<ClothingAccess> loadedClothingAccessRequired = new ArrayList<>();
 		Element clothingAccessRequiredElement = (Element)parentElement.getElementsByTagName("clothingAccessRequired").item(0);
 		try {
@@ -123,7 +131,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessRequired.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 1 " + ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
+			System.err.println("BlockedParts loading failed. Code 1 " + errorCode);
 		}
 		
 		List<CoverableArea> loadedBlockedBodyParts = new ArrayList<>();
@@ -134,7 +142,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedBlockedBodyParts.add(CoverableArea.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 2 "+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
+			System.err.println("BlockedParts loading failed. Code 2 "+ errorCode);
 		}
 		
 		List<ClothingAccess> loadedClothingAccessBlocked = new ArrayList<>();
@@ -145,7 +153,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 				loadedClothingAccessBlocked.add(ClothingAccess.valueOf(e.getTextContent()));
 			}
 		} catch(Exception ex) {
-			System.err.println("BlockedParts loading failed. Code 3 "+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
+			System.err.println("BlockedParts loading failed. Code 3 "+ errorCode);
 		}
 		
 		List<InventorySlot> loadedConcealedSlots = new ArrayList<>();
@@ -159,7 +167,7 @@ public class BlockedParts implements Serializable, XMLSaving {
 					loadedConcealedSlots.add(InventorySlot.valueOf(e.getTextContent()));
 				}
 			} catch(Exception ex) {
-				System.err.println("BlockedParts loading failed. Code 4"+ ((Element)((Element) doc.getElementsByTagName("clothing").item(0)).getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent());
+				System.err.println("BlockedParts loading failed. Code 4"+ errorCode);
 			}
 		}
 		
