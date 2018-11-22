@@ -1282,7 +1282,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
 					+ "These options will determine the sexual orientation encounter rates of random NPCs."
-					+ " Note that the race and femininity of NPCs can have an influence on their orientation, but your preferences will be taken into account wherever possible.</br>"
+					+ " Note that the race and femininity of NPCs can have an influence on their orientation, and that some NPCs have pre-determined orientations, but your preferences will be taken into account wherever possible.</br>"
 					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom.</b>"
 					+ " (The different shades of each orientation are solely for recognition in the bars, and don't mean anything other than that.)"
 					+ "</div>"
