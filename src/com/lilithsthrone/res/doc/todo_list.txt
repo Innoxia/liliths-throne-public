@@ -157,7 +157,8 @@
 	 
 	Reading "knocked up" no longer changes the dialouge with Lilaya and acts like you have no clue whats going on
 	 
-	 
+	This has probably already been reported, but randomly during sex, the partner will seemingly stop allowing any sex actions (any started sex action will be stopped by them immediately) until the sex scene is over. It doesn't seem linked to their desires or sex pace.
+	
 	 
 	Add citadel text
 		Doorway has three intricate keyholes
