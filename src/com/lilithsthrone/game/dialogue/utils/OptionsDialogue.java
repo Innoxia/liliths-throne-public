@@ -26,6 +26,8 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -692,9 +694,12 @@ public class OptionsDialogue {
 			
 			} else if (index == 9) {
 				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
-			
+				
 			} else if (index == 10) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
+
+			} else if (index == 11) {
+				return new Response("Orientation preferences", "Set your preferred sexual orientation encounter rates.", ORIENTATION_PREFERENCE);
 			
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
@@ -1041,7 +1046,7 @@ public class OptionsDialogue {
 			} else if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
-			}else {
+			} else {
 				return null;
 			}
 		}
@@ -1180,7 +1185,7 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
-			}else {
+			} else {
 				return null;
 			}
 		}
@@ -1238,6 +1243,100 @@ public class OptionsDialogue {
 		sb.append(
 				getGenderRepresentation()
 				+"</div>");
+		
+		return sb.toString();
+	}
+
+	private static String getOrientationRepresentation() {
+		float total=0;
+		for(SexualOrientation o : SexualOrientation.values()) {
+			total+=Main.getProperties().orientationPreferencesMap.get(o);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(total==0) {
+			sb.append("<div style='width:100%;height:12px;background:"+Colour.ANDROGYNOUS.toWebHexString()+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+		} else {
+			sb.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+			for(SexualOrientation o : SexualOrientation.values()) {
+				sb.append("<div style='width:" + (Main.getProperties().orientationPreferencesMap.get(o)/total) * (100) + "%; height:12px; background:"
+						+ o.getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>");
+			}
+		}
+		
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	public static final DialogueNodeOld ORIENTATION_PREFERENCE = new DialogueNodeOld("Orientation preferences", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getHeaderContent(){
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+					+ "These options will determine the sexual orientation encounter rates of random NPCs."
+					+ " Note that the race and femininity of NPCs can have an influence on their orientation, but your preferences will be taken into account wherever possible.</br>"
+					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom.</b>"
+					+ " (The different shades of each orientation are solely for recognition in the bars, and don't mean anything other than that.)"
+					+ "</div>"
+		
+					+ "<div class='container-full-width' style='text-align:center;'>");
+			
+			UtilText.nodeContentSB.append(getOrientationPreferencesPanel(SexualOrientation.ANDROPHILIC));
+			UtilText.nodeContentSB.append(getOrientationPreferencesPanel(SexualOrientation.AMBIPHILIC));
+			UtilText.nodeContentSB.append(getOrientationPreferencesPanel(SexualOrientation.GYNEPHILIC));
+
+			UtilText.nodeContentSB.append(getOrientationRepresentation() + "</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			 if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
+		}
+	};
+
+	private static String getOrientationPreferencesPanel(SexualOrientation orient) {
+		Colour colour = orient.getColour();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
+				+ "<div style='display:inline-block; margin:0 auto;'>"
+					+ "<div style='width:140px; float:left;'><b style='color:"+colour.toWebHexString()+";'>" +Util.capitaliseSentence(orient.getName())+"</b></div>");
+		
+		for(SexualOrientationPreference preference : SexualOrientationPreference.values()) {
+			sb.append("<div id='"+preference+"_"+orient+"' class='preference-button"+(Main.getProperties().orientationPreferencesMap.get(orient)==preference.getValue()?" selected":"")+"'>"
+							+Util.capitaliseSentence(preference.getName())
+						+"</div>");
+		}
+						
+		sb.append("</div>"
+				+ "</div>"
+				+ "<hr></hr>");
 		
 		return sb.toString();
 	}
@@ -1589,7 +1688,7 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
-			}else {
+			} else {
 				return null;
 			}
 		}
