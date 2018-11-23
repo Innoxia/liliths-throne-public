@@ -9,6 +9,7 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -558,7 +559,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail1.svg");
 			foxTail1 = Util.inputStreamToString(is);
-			foxTail1 = Util.colourReplacement("foxTail1",
+			foxTail1 = SvgUtil.colourReplacement("foxTail1",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -566,7 +567,7 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail2.svg");
 			foxTail2 = Util.inputStreamToString(is);
-			foxTail2 = Util.colourReplacement("foxTail2",
+			foxTail2 = SvgUtil.colourReplacement("foxTail2",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -574,7 +575,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail3.svg");
 			foxTail3 = Util.inputStreamToString(is);
-			foxTail3 = Util.colourReplacement("foxTail3",
+			foxTail3 = SvgUtil.colourReplacement("foxTail3",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -582,7 +583,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail4.svg");
 			foxTail4 = Util.inputStreamToString(is);
-			foxTail4 = Util.colourReplacement("foxTail4",
+			foxTail4 = SvgUtil.colourReplacement("foxTail4",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -590,7 +591,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail5.svg");
 			foxTail5 = Util.inputStreamToString(is);
-			foxTail5 = Util.colourReplacement("foxTail5",
+			foxTail5 = SvgUtil.colourReplacement("foxTail5",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -598,7 +599,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail6.svg");
 			foxTail6 = Util.inputStreamToString(is);
-			foxTail6 = Util.colourReplacement("foxTail6",
+			foxTail6 = SvgUtil.colourReplacement("foxTail6",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -606,7 +607,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail7.svg");
 			foxTail7 = Util.inputStreamToString(is);
-			foxTail7 = Util.colourReplacement("foxTail7",
+			foxTail7 = SvgUtil.colourReplacement("foxTail7",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -614,7 +615,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail8.svg");
 			foxTail8 = Util.inputStreamToString(is);
-			foxTail8 = Util.colourReplacement("foxTail8",
+			foxTail8 = SvgUtil.colourReplacement("foxTail8",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -622,7 +623,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail9.svg");
 			foxTail9 = Util.inputStreamToString(is);
-			foxTail9 = Util.colourReplacement("foxTail9",
+			foxTail9 = SvgUtil.colourReplacement("foxTail9",
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
 					Colour.RACE_FOX_MORPH,
@@ -631,7 +632,7 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail1.svg");
 			foxTailDesaturated1 = Util.inputStreamToString(is);
-			foxTailDesaturated1 = Util.colourReplacement("foxTailDesaturated1",
+			foxTailDesaturated1 = SvgUtil.colourReplacement("foxTailDesaturated1",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -639,7 +640,7 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail2.svg");
 			foxTailDesaturated2 = Util.inputStreamToString(is);
-			foxTailDesaturated2 = Util.colourReplacement("foxTailDesaturated2",
+			foxTailDesaturated2 = SvgUtil.colourReplacement("foxTailDesaturated2",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -647,7 +648,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail3.svg");
 			foxTailDesaturated3 = Util.inputStreamToString(is);
-			foxTailDesaturated3 = Util.colourReplacement("foxTailDesaturated3",
+			foxTailDesaturated3 = SvgUtil.colourReplacement("foxTailDesaturated3",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -655,7 +656,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail4.svg");
 			foxTailDesaturated4 = Util.inputStreamToString(is);
-			foxTailDesaturated4 = Util.colourReplacement("foxTailDesaturated4",
+			foxTailDesaturated4 = SvgUtil.colourReplacement("foxTailDesaturated4",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -663,7 +664,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail5.svg");
 			foxTailDesaturated5 = Util.inputStreamToString(is);
-			foxTailDesaturated5 = Util.colourReplacement("foxTailDesaturated5",
+			foxTailDesaturated5 = SvgUtil.colourReplacement("foxTailDesaturated5",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -671,7 +672,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail6.svg");
 			foxTailDesaturated6 = Util.inputStreamToString(is);
-			foxTailDesaturated6 = Util.colourReplacement("foxTailDesaturated6",
+			foxTailDesaturated6 = SvgUtil.colourReplacement("foxTailDesaturated6",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -679,7 +680,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail7.svg");
 			foxTailDesaturated7 = Util.inputStreamToString(is);
-			foxTailDesaturated7 = Util.colourReplacement("foxTailDesaturated7",
+			foxTailDesaturated7 = SvgUtil.colourReplacement("foxTailDesaturated7",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -687,7 +688,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail8.svg");
 			foxTailDesaturated8 = Util.inputStreamToString(is);
-			foxTailDesaturated8 = Util.colourReplacement("foxTailDesaturated8",
+			foxTailDesaturated8 = SvgUtil.colourReplacement("foxTailDesaturated8",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -695,7 +696,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceFoxTail9.svg");
 			foxTailDesaturated9 = Util.inputStreamToString(is);
-			foxTailDesaturated9 = Util.colourReplacement("foxTailDesaturated9",
+			foxTailDesaturated9 = SvgUtil.colourReplacement("foxTailDesaturated9",
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
 					Colour.BASE_GREY,
@@ -814,11 +815,7 @@ public enum SVGImages {
 
 	private String setColour(String stringSVG, Colour colourShade) {
 		String s = stringSVG;
-		s = s.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-		s = s.replaceAll("#ff5555", colourShade.getShades()[1]);
-		s = s.replaceAll("#ff8080", colourShade.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colourShade.getShades()[3]);
-		s = s.replaceAll("#ffd5d5", colourShade.getShades()[4]);
+		s = SvgUtil.colourReplacement(null, colourShade, s);
 		return s;
 	}
 

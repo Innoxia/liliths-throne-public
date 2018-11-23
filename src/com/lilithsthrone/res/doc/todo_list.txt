@@ -125,6 +125,7 @@
 		Added font support for non-windows systems. (#919 by DJ4ddi)
 		Typo fixes in weapon files. (#965 by Pimgd)
 		Made improvements to NPC loading method, so games now load faster. (#949 by AlacoGit)
+		Made considerable optimizations to all svg images, which should speed up the game wherever lots of icons are rendered. (#940 by DJ4ddi)
 	
 	Other:
 		For clothing: Added a 'midnight' colour variation for purple, blue, and red. Also added 'deep pink', 'hot pink' and 'mustard yellow'. 

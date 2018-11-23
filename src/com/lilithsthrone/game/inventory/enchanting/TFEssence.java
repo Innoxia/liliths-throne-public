@@ -7,6 +7,7 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -46,19 +47,11 @@ public enum TFEssence {
 			String base = Util.inputStreamToString(is);
 			
 			String s = base;
-			s = s.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			s = s.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-			s = s.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+			s = SvgUtil.colourReplacement(this.toString(), Colour.BASE_GREY, s);
 			this.SVGStringUncoloured = s;
 
 			String s2 = base;
-			s2 = s2.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s2 = s2.replaceAll("#ff5555", this.colour.getShades()[1]);
-			s2 = s2.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s2 = s2.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-			s2 = s2.replaceAll("#ffd5d5", this.colour.getShades()[4]);
+			s2 = SvgUtil.colourReplacement(this.toString(), colour, s2);
 			this.SVGString = s2;
 
 			is.close();

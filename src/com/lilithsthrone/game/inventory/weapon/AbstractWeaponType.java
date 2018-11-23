@@ -35,6 +35,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -1006,7 +1007,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				is.close();
 			}
 			
-			s = Util.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
+			s = SvgUtil.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
 			
 			addSVGStringMapping(dt, colourPrimary, colourSecondary, s);
 			
@@ -1090,7 +1091,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				is.close();
 			}
 			
-			s = Util.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
+			s = SvgUtil.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
 			
 			addSVGStringEquippedMapping(dt, colourPrimary, colourSecondary, s);
 			

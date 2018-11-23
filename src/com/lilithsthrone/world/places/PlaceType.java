@@ -62,6 +62,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
@@ -820,7 +821,7 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return PlaceType.getSVGOverride("dominion/shoppingArcade/supplierDepot", Colour.BASE_GREEN);
+				return PlaceType.getSVGOverride(this.toString(), "dominion/shoppingArcade/supplierDepot", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
 			}
@@ -845,7 +846,7 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return PlaceType.getSVGOverride("dominion/shoppingArcade/exit", Colour.BASE_GREEN);
+				return PlaceType.getSVGOverride(this.toString(), "dominion/shoppingArcade/exit", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
 			}
@@ -1064,9 +1065,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
-				return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_GREEN_LIGHT);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impFortress1", Colour.BASE_GREEN_LIGHT);
 			}
-			return PlaceType.getSVGOverride("submission/impFortress1", Colour.BASE_CRIMSON);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impFortress1", Colour.BASE_CRIMSON);
 		}
 	},
 	/**Associated fortress is <b>Alpha Imps</b>.*/
@@ -1074,9 +1075,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
-				return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_GREY);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels1Icon", Colour.BASE_GREY);
 			}
-			return PlaceType.getSVGOverride("submission/impTunnels1Icon", Colour.BASE_RED);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels1Icon", Colour.BASE_RED);
 		}
 	},
 
@@ -1089,9 +1090,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
-				return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_GREEN_LIGHT);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impFortress2", Colour.BASE_GREEN_LIGHT);
 			}
-			return PlaceType.getSVGOverride("submission/impFortress2", Colour.BASE_PURPLE_DARK);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impFortress2", Colour.BASE_PURPLE_DARK);
 		}
 	},
 	/**Associated fortress is <b>Demon-led Imps</b>.*/
@@ -1099,9 +1100,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
-				return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_GREY);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels2Icon", Colour.BASE_GREY);
 			}
-			return PlaceType.getSVGOverride("submission/impTunnels2Icon", Colour.BASE_PURPLE);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels2Icon", Colour.BASE_PURPLE);
 		}
 	},
 
@@ -1123,9 +1124,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
-				return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_GREEN_LIGHT);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impFortress3", Colour.BASE_GREEN_LIGHT);
 			}
-			return PlaceType.getSVGOverride("submission/impFortress3", Colour.BASE_PINK);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impFortress3", Colour.BASE_PINK);
 		}
 	},
 	/**Associated fortress is <b>Female Imp Seducers</b>.*/
@@ -1133,9 +1134,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
-				return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_GREY);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels3Icon", Colour.BASE_GREY);
 			}
-			return PlaceType.getSVGOverride("submission/impTunnels3Icon", Colour.BASE_PINK_LIGHT);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels3Icon", Colour.BASE_PINK_LIGHT);
 		}
 	},
 
@@ -1148,9 +1149,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
-				return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_GREEN_LIGHT);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impFortress4", Colour.BASE_GREEN_LIGHT);
 			}
-			return PlaceType.getSVGOverride("submission/impFortress4", Colour.BASE_BLUE);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impFortress4", Colour.BASE_BLUE);
 		}
 	},
 	/**Associated fortress is <b>Male Imp Brawlers</b>.*/
@@ -1158,9 +1159,9 @@ public enum PlaceType {
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
-				return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_GREY);
+				return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels4Icon", Colour.BASE_GREY);
 			}
-			return PlaceType.getSVGOverride("submission/impTunnels4Icon", Colour.BASE_BLUE_LIGHT);
+			return PlaceType.getSVGOverride(this.toString(), "submission/impTunnels4Icon", Colour.BASE_BLUE_LIGHT);
 		}
 	},
 
@@ -1289,13 +1290,8 @@ public enum PlaceType {
 				}
 				String s = Util.inputStreamToString(is);
 				
-				if(colour!=null) {
-					s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
-					s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-					s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
-				}
+				s = SvgUtil.colourReplacement(this.toString(), colour, s);
+				
 				SVGString = s;
 	
 				is.close();
@@ -1359,7 +1355,7 @@ public enum PlaceType {
 		return itemsDisappear;
 	}
 	
-	private static String getSVGOverride(String pathName, Colour colour) {
+	private static String getSVGOverride(String id, String pathName, Colour colour) {
 		if(!SVGOverrides.keySet().contains(pathName+colour)) {
 			try {
 				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
@@ -1367,14 +1363,9 @@ public enum PlaceType {
 					System.err.println("Error! PlaceType icon file does not exist (Trying to read from '"+pathName+"')! (Code 2)");
 				}
 				String s = Util.inputStreamToString(is);
+
+				s = SvgUtil.colourReplacement(id, colour, s);
 				
-				if(colour!=null) {
-					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", colour.getShades()[1]);
-					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-				}
 				SVGOverrides.put(pathName+colour, s);
 	
 				is.close();
@@ -1450,16 +1441,16 @@ public enum PlaceType {
 	
 	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
 		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
-			return PlaceType.getSVGOverride("dominion/lilayasHome/roomGuest", Colour.BASE_GREEN_LIGHT);
+			return PlaceType.getSVGOverride(this.toString(), "dominion/lilayasHome/roomGuest", Colour.BASE_GREEN_LIGHT);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+			return PlaceType.getSVGOverride(this.toString(), "dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+			return PlaceType.getSVGOverride(this.toString(), "dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-			return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+			return PlaceType.getSVGOverride(this.toString(), "dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
 			
 		} else {
 			return SVGString;
