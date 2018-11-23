@@ -146,6 +146,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public String generateId() {
 		return "PC_" + UID.get();
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if (id.equals("PlayerCharacter")) return id; // Legacy ID
+		return "generic/" + getId();
+	}
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
