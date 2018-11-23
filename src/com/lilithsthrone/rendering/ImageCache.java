@@ -94,4 +94,12 @@ public enum ImageCache {
 		}
 		return image;
 	}
+
+	/**
+	 * Removes a file from the loading queue.
+	 * @param f The file to remove
+	 */
+	public void cancelQueue(File f) {
+		queue.remove(f);
+	}
 }

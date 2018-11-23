@@ -143,8 +143,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	public void generateId() {
-		id = "PC_" + UID.get();
+	public String generateId() {
+		return "PC_" + UID.get();
 	}
 	
 	@Override

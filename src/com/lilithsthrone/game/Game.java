@@ -791,48 +791,6 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) { // Update legacy IDs // FIXME update after merging
-					if (Main.game.getPlayer().getId().equals("PlayerCharacter")) {
-					    Main.game.getPlayer().generateId();
-                    }
-
-					Set<NPC> updateSet = new HashSet<>();
-					Main.game.NPCMap.forEach((id, npc) -> {
-						// If NPC has an old ID, create a new one and queue it for update
-						if (id.contains(",") || id.contains("-")) {
-							npc.generateId();
-							updateSet.add(npc);
-
-							// Move artwork for known generic NPCs
-							if (!npc.isUnique() && npc.isPlayerKnowsName()) {
-								String oldFolder = "res/images/characters/generic/" + npc.getNameIgnoresPlayerKnowledge();
-								String newFolder = "res/images/characters/" + npc.getArtworkFolderName();
-								if (Files.isDirectory(Paths.get(oldFolder))) {
-									if (FileUtils.moveDirectory(oldFolder, newFolder)) {
-										npc.loadImages();
-									} else {
-										System.err.println("Artwork migration for " + npc.getNameIgnoresPlayerKnowledge()
-												+ " (" + npc.getId() + ") failed.");
-									}
-								}
-							}
-						}
-					});
-
-					// Apply update by adding new ids as alias
-					for (NPC c : updateSet) {
-						if (c.isUnique()) {
-							// Override duplicate of unique NPC with loaded variant
-							Main.game.NPCMap.remove(c.getId());
-						}
-						Main.game.addNPC(c);
-					}
-
-					if (!updateSet.isEmpty()) {
-						Main.game.setRequestAutosave(true);
-					}
-				}
-				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.6")) { //Reset imp fortresses
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
 					ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);

@@ -66,6 +66,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -433,15 +434,15 @@ public abstract class GameCharacter implements XMLSaving {
 		genderIdentity = startingGender;
 		
 		initAttributes();
-		
+
 		if(nameTriplet==null) {
 			this.nameTriplet = Name.getRandomTriplet(this.getRace());
 		} else {
 			this.nameTriplet = nameTriplet;
 		}
 
-		generateId();
-		
+		id = generateId();
+
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLustNoText(getRestingLust());
@@ -2522,12 +2523,47 @@ public abstract class GameCharacter implements XMLSaving {
 		this.id = id;
 	}
 
-	public void generateId() {
+	/**
+	 * Generates a new locally unique identifier string for this NPC (see {@link UID}).
+	 * @return A string containing unique id.
+	 */
+	public String generateId() {
 		if (isUnique()) {
-			id = getClass().getSimpleName();
+			return getClass().getSimpleName();
 		} else {
 			String nameTag = getNameIgnoresPlayerKnowledge();
-			id = (nameTag.length() > 3 ? nameTag.substring(0, 3) : nameTag) + UID.get();
+			return (nameTag.length() > 3 ? nameTag.substring(0, 3) : nameTag) + UID.get();
+		}
+	}
+
+	/**
+	 * Applies a new id and moves artwork if necessary.
+	 * @param id The new id to apply
+	 */
+	public void changeId(String id) {
+		if (id != getId()) {
+			String oldArtworkFolder = null;
+			if (hasArtwork()) {
+				// Check previous artwork location (parent is the artist folder, so parent's parent is required)
+				File currentImage = getCurrentArtwork().getCurrentImage();
+				oldArtworkFolder = currentImage.getParentFile().getParent();
+				ImageCache.INSTANCE.cancelQueue(currentImage);
+			}
+
+			setId(id);
+
+			if (oldArtworkFolder != null) {
+				// Move artwork to new location and reload it
+				String newArtworkFolder = "res/images/characters/" + getArtworkFolderName();
+				if (Files.isDirectory(Paths.get(oldArtworkFolder))) {
+					if (FileUtils.moveDirectory(oldArtworkFolder, newArtworkFolder)) {
+						loadImages();
+					} else {
+						System.err.println("Artwork migration for " + getNameIgnoresPlayerKnowledge()
+								+ " (" + getId() + ") failed.");
+					}
+				}
+			}
 		}
 	}
 	
@@ -2750,9 +2786,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String getArtworkFolderName() {
-		// Get folder by class name if unique, character name without punctuation and control characters otherwise
-		return this.isUnique() ? this.getClass().getSimpleName()
-				: "generic/" + this.getNameIgnoresPlayerKnowledge();
+		if (isUnique()) return getClass().getSimpleName();
+		if (id.contains(",")) return "generic/" + getNameIgnoresPlayerKnowledge(); // Legacy IDs
+		return "generic/" + getId();
 	}
 
 	public boolean hasArtwork() {
