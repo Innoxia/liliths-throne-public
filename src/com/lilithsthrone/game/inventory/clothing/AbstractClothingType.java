@@ -40,6 +40,7 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import java.util.function.Consumer;
 
@@ -1553,13 +1554,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
 					s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 
 					if(!equippedVariant) {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
@@ -1577,7 +1578,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
 									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 									s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-									s = Util.colourReplacement(this.getId(), item.getColour(), null, null, s);
+									s = SvgUtil.colourReplacement(this.getId(), item.getColour(), null, null, s);
 									is.close();
 								}
 							}
@@ -1587,7 +1588,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						int i = 1;
@@ -1595,7 +1596,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
 							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-							s = Util.colourReplacement(this.getId(), c, null, null, s);
+							s = SvgUtil.colourReplacement(this.getId(), c, null, null, s);
 							is.close();
 							i++;
 						}
@@ -1635,7 +1636,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -1686,7 +1687,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -47,12 +48,8 @@ public enum FetishLevel {
 				System.err.println("Error! FetishLevel icon file does not exist (Trying to read from '"+pathName+"')!");
 			}
 			SVGImageOverlay = Util.inputStreamToString(is);
-
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff2a2a", Colour.BASE_PINK.getShades()[0]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff5555|#f55", Colour.BASE_PINK.getShades()[1]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff8080", Colour.BASE_PINK.getShades()[2]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffaaaa#faa", Colour.BASE_PINK.getShades()[3]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffd5d5", Colour.BASE_PINK.getShades()[4]);
+			
+			SVGImageOverlay = SvgUtil.colourReplacement(this.toString(), Colour.BASE_PINK, SVGImageOverlay);
 
 			is.close();
 
