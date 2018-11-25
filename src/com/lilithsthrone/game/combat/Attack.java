@@ -366,57 +366,50 @@ public enum Attack {
 		
 		return maxDamage;
 	}
-	
-	/**
-	 * Applies attacker and defender resistances and bonuses to the supplied attack value, then returns the result.
-	 * 
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
-	 * @return Modified damage value.
-	 */
-	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
-		float damage = attackersDamage;
-		boolean damageDoubledFromElemental = false;
-		
+
+	public static float getModifiedDamageImmunity(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
 		if(defender!=null && defender.isImmuneToDamageType(damageType)) {
 			return 0;
 		}
-			
-		if(attacker instanceof Elemental) {
-			switch(attacker.getBodyMaterial()) {
-				case AIR:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
-					break;
-				case ARCANE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF);
-					break;
-				case FIRE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);
-					break;
-				case FLESH:
-				case SLIME:
-					break;
-				case RUBBER:
-				case STONE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF);
-					break;
-				case ICE:
-				case WATER:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF);
-					break;
+
+		return damage;
+	}
+
+	public static float getModifiedDamageElemental(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
+		if(attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTAKC || attackType == SPELL){
+			boolean damageDoubledFromElemental = false;
+			if(attacker instanceof Elemental) {
+				switch(attacker.getBodyMaterial()) {
+					case AIR:
+						damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
+						break;
+					case ARCANE:
+						damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF);
+						break;
+					case FIRE:
+						damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);
+						break;
+					case FLESH:
+					case SLIME:
+						break;
+					case RUBBER:
+					case STONE:
+						damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF);
+						break;
+					case ICE:
+					case WATER:
+						damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF);
+						break;
+				}
 			}
+			if(damageDoubledFromElemental)
+				return damage*2;
 		}
-		
+		return damage;
+	}
+
+	public static float getModifiedDamagePhysical(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
 		if (attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTACK) {
-			
-			if(damageDoubledFromElemental) {
-				damage*=2;
-			}
 			
 			if (attacker != null) {
 				// Attacker modifiers:
@@ -437,12 +430,12 @@ public enum Attack {
 					damage = 1;
 				}
 			}
-			
-		} else if(attackType == SPELL) {
-			
-			if(damageDoubledFromElemental) {
-				damage*=2;
-			}
+		}
+		return damage;
+	}
+
+	public static float getModifiedDamageSpell(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
+		if(attackType == SPELL) {
 			
 			if (attacker != null) {
 				// Attacker modifiers:
@@ -457,7 +450,12 @@ public enum Attack {
 				
 			}
 			
-		} else {
+		}
+		return damage;
+	}
+
+	public static float getModifiedDamageSeduction(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
+    if(attackType==SEDUCTION){
 
 			if (attacker != null) {
 				// Attacker modifiers:
@@ -495,7 +493,10 @@ public enum Attack {
 			}
 
 		}
+		return damage;
+	}
 
+	public static float getModifiedDamageRacial(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
 		if (attacker != null && defender!=null) {
 			// Modifiers based on race resistance:
 			if(!defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
@@ -503,12 +504,46 @@ public enum Attack {
 			}
 			// Modifiers based on race damage:
 			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getRace().getDamageMultiplier()), 100)/100f;
-			
+		}
+
+		return damage;
+	}
+
+	public static float getModifiedDamageLevel(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
+		if (attacker != null && defender!=null) {
 			// Modifiers based on level:
 			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
 			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
 			damage = damage * (1 + (levelBoost/100));
 		}
+
+		return damage;
+	}
+	
+	/**
+	 * Applies attacker and defender resistances and bonuses to the supplied attack value, then returns the result.
+	 * 
+	 * 
+	 * @param attacker
+	 *            The attacking character.
+	 * @param defender
+	 *            The defending character.
+	 * @param attackType
+	 *            Type of this attack.
+	 * @return Modified damage value.
+	 */
+	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
+		float damage = attackersDamage;
+		
+		if( 0 == getModifiedDamageImmunity(attacker,defender,attackType,damageType,damage) )
+			return 0;
+
+		damage = getModifiedDamageElemental(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamagePhysical(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamageSpell(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamageSeduction(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamageRacial(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamageLevel(attacker,defender,attackType,damageType,damage);			
 		
 		return damage;
 	}
