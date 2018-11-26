@@ -455,7 +455,7 @@ public enum Attack {
 	}
 
 	public static float getModifiedDamageSeduction(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
-    if(attackType==SEDUCTION){
+		if(attackType==SEDUCTION){
 
 			if (attacker != null) {
 				// Attacker modifiers:
@@ -535,15 +535,15 @@ public enum Attack {
 	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
 		
-		if( 0 == Math.signum(getModifiedDamageImmunity(attacker,defender,attackType,damageType,damage)) )
+		if( 0 == Math.signum( getModifiedDamageImmunity(attacker, defender, attackType, damageType, damage) ) )
 			return 0;
 
-		damage = getModifiedDamageElemental(attacker,defender,attackType,damageType,damage);			
-		damage = getModifiedDamagePhysical(attacker,defender,attackType,damageType,damage);			
-		damage = getModifiedDamageSpell(attacker,defender,attackType,damageType,damage);			
-		damage = getModifiedDamageSeduction(attacker,defender,attackType,damageType,damage);			
-		damage = getModifiedDamageRacial(attacker,defender,attackType,damageType,damage);			
-		damage = getModifiedDamageLevel(attacker,defender,attackType,damageType,damage);			
+		damage = getModifiedDamageElemental(attacker, defender, attackType, damageType, damage);
+		damage = getModifiedDamagePhysical(attacker, defender, attackType, damageType, damage);
+		damage = getModifiedDamageSpell(attacker, defender, attackType, damageType, damage);
+		damage = getModifiedDamageSeduction(attacker, defender, attackType, damageType, damage);
+		damage = getModifiedDamageRacial(attacker, defender, attackType, damageType, damage);
+		damage = getModifiedDamageLevel(attacker, defender, attackType, damageType, damage);
 		
 		return damage;
 	}
