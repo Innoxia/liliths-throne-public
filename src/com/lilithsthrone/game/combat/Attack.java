@@ -50,7 +50,7 @@ public enum Attack {
 		
 		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
 		
-		return chanceToHit > 1 ? 1 : (chanceToHit < 0 ? 0 : chanceToHit);
+		return Math.max(0, Math.min(chanceToHit, 1));
 	}
 	
 	public static boolean rollForHit(GameCharacter attacker, GameCharacter defender) {
@@ -419,9 +419,7 @@ public enum Attack {
 				// Damage Type modifier:
 				damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f;
 
-				if (damage < 1) {
-					damage = 1;
-				}
+				damage = Math.max(1, damage);
 			}
 
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
@@ -429,9 +427,7 @@ public enum Attack {
 				// Damage Type modifier:
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 
-				if (damage < 1) {
-					damage = 1;
-				}
+				damage = Math.max(1, damage);
 			}
 			
 		} else if(attackType == SPELL) {
@@ -467,9 +463,7 @@ public enum Attack {
 						damage *=1.1f;
 					}
 				}
-				if (damage < 1) {
-					damage = 1;
-				}
+				damage = Math.max(1, damage);
 			}
 
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
@@ -485,9 +479,7 @@ public enum Attack {
 						damage*=0.5f;
 					}
 				}
-				if (damage < 1) {
-					damage = 1;
-				}
+				damage = Math.max(1, damage);
 			}
 
 		}
