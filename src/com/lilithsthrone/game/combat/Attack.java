@@ -46,12 +46,9 @@ public enum Attack {
 	 * @return Hit chance from 0 to 1, representing % chance to hit.
 	 */
 	public static float getHitChance(GameCharacter attacker, GameCharacter defender) {
-
-		// Calculate hit:
 		float chanceToHit = (100 - Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.MISS_CHANCE), 100))/100f;
 		
 		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
-		
 		return Math.max(0, Math.min(chanceToHit, 1));
 	}
 	
@@ -74,10 +71,6 @@ public enum Attack {
 		return Math.random() < (Util.getModifiedDropoffValue(criticalChance, 100)/100f);
 	}
 
-	/**
-	 * @param attacker
-	 * @return
-	 */
 	public static float getMeleeDamage(GameCharacter attacker, AbstractWeapon weapon) {
 		if (attacker == null) {
 			return 0;
@@ -89,10 +82,6 @@ public enum Attack {
 		}
 	}
 
-	/**
-	 * @param attacker
-	 * @return
-	 */
 	public static float getSeductionDamage(GameCharacter attacker) {
 		if (attacker == null) {
 			return 0;
@@ -109,14 +98,12 @@ public enum Attack {
 			finalDamage += Math.random()*difference;
 		}
 
-		// Is critical:
 		if (critical) {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 
 		finalDamage *= getDamageModifierForAttacker(attacker);
 
-		// Round float value to nearest 1 decimal place:
 		finalDamage = roundToNearestTenth(finalDamage);
 
 		if (attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn() == 0) {
@@ -182,7 +169,6 @@ public enum Attack {
 	private static float getMinimumSeductionDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
 		float damage = getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 0.9f);
 
-		// Round float value to nearest 1 decimal place:
 		return roundToNearestTenth(damage);
 	}
 
@@ -220,7 +206,6 @@ public enum Attack {
 	private static float getMaximumSeductionDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
 		float damage = getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 1.1f);
 
-		// Round float value to nearest 1 decimal place:
 		return roundToNearestTenth(damage);
 	}
 
@@ -250,21 +235,18 @@ public enum Attack {
 		Attribute governingAttribute = getGoverningAttributeFromWeapon(weapon);
 		damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(governingAttribute), 100)/100f;
 
-		// Round float value to nearest 1 decimal place:
 		return roundToNearestTenth(damage);
 	}
 
 	private static float getSpellDamage(GameCharacter caster, GameCharacter target, DamageType damageType, float damage, float variancePercentage) {
 		float maxDamage = getModifiedDamage(caster, target, Attack.SPELL, damageType, damage * variancePercentage);
 
-		// Round float value to nearest 1 decimal place:
 		return roundToNearestTenth(maxDamage);
 	}
 
 	private static float getSpecialAttackDamage(GameCharacter caster, GameCharacter target, DamageType damageType, float damage, float variancePercentage) {
 		float finalDamage = getModifiedDamage(caster, target, Attack.SPECIAL_ATTACK, damageType, damage * variancePercentage);
 
-		// Round float value to nearest 1 decimal place:
 		finalDamage = roundToNearestTenth(finalDamage);
 
 		finalDamage *= 1 + Util.getModifiedDropoffValue(caster.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
@@ -430,7 +412,7 @@ public enum Attack {
 		if (weapon.getWeaponType().isMelee()) {
 			return Attribute.DAMAGE_MELEE_WEAPON;
 		}
-		return Attribute.DAMAGE_RANGED_WEAPON; //assumed to be as such, anyway
+		return Attribute.DAMAGE_RANGED_WEAPON;
 	}
 
 	private static float getDamageModifierForAttacker(GameCharacter attacker) {
