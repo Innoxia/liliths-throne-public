@@ -169,15 +169,17 @@ public enum Attack {
 		float damage = 0;
 		
 		if (attackType == MAIN || attackType == OFFHAND) {
+			DamageType damageType = weapon == null
+					? attacker.getBodyMaterial().getUnarmedDamageType()
+					: weapon.getDamageType();
+			float variancePercentageLowerBound = weapon == null
+					? 1 - DamageVariance.MEDIUM.getPercentage()
+					: 1f - weapon.getWeaponType().getDamageVariance().getPercentage();
 			damage = getModifiedDamage(attacker,
 					defender,
 					attackType,
-					(weapon == null
-						? attacker.getBodyMaterial().getUnarmedDamageType()
-						: weapon.getDamageType()),
-					getMeleeDamage(attacker, weapon) * (weapon == null
-																? 1 - DamageVariance.MEDIUM.getPercentage()
-																: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
+					damageType,
+					getMeleeDamage(attacker, weapon) * variancePercentageLowerBound);
 
 			Attribute governingAttribute = getGoverningAttributeFromWeapon(weapon);
 			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(governingAttribute), 100)/100f;
@@ -210,8 +212,17 @@ public enum Attack {
 		float damage = 0;
 		
 		if (attackType == MAIN || attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
-					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
+			DamageType damageType = weapon == null
+					? attacker.getBodyMaterial().getUnarmedDamageType()
+					: weapon.getDamageType();
+			float variancePercentageUpperBound = weapon == null
+					? 1 + DamageVariance.MEDIUM.getPercentage()
+					: 1f + weapon.getWeaponType().getDamageVariance().getPercentage();
+			damage = getModifiedDamage(attacker,
+					defender,
+					attackType,
+					damageType,
+					getMeleeDamage(attacker, weapon) * variancePercentageUpperBound);
 
 			Attribute governingAttribute = getGoverningAttributeFromWeapon(weapon);
 			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(governingAttribute), 100)/100f;
