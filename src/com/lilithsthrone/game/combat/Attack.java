@@ -277,7 +277,7 @@ public enum Attack {
 		if (attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTACK) {
 			
 			if (damageDoubledFromElemental) {
-				damage*=2;
+				damage *= 2;
 			}
 			
 			if (attacker != null) {
@@ -299,7 +299,7 @@ public enum Attack {
 		} else if (attackType == SPELL) {
 			
 			if (damageDoubledFromElemental) {
-				damage*=2;
+				damage *= 2;
 			}
 			
 			if (attacker != null) {
@@ -323,10 +323,10 @@ public enum Attack {
 				
 				if (defender!=null) {
 					if (attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine()) {
-						damage *=1.1f;
+						damage *= 1.1f;
 					}
 					if (attacker.hasTrait(Perk.MALE_ATTRACTION, true) && !defender.isFeminine()) {
-						damage *=1.1f;
+						damage *= 1.1f;
 					}
 				}
 				damage = Math.max(1, damage);
@@ -336,13 +336,13 @@ public enum Attack {
 				// Defender modifiers:
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if (attacker!=null) {
-					if ((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
-							|| (attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
-						damage*=0.5f;
+					if ((defender.getSexualOrientation() == SexualOrientation.ANDROPHILIC && attacker.isFeminine())
+							|| (attacker.getSexualOrientation() == SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
+						damage *= 0.5f;
 					}
-					if ((defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
-							|| (attacker.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !defender.isFeminine())) {
-						damage*=0.5f;
+					if ((defender.getSexualOrientation() == SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
+							|| (attacker.getSexualOrientation() == SexualOrientation.GYNEPHILIC && !defender.isFeminine())) {
+						damage *= 0.5f;
 					}
 				}
 				damage = Math.max(1, damage);
@@ -350,7 +350,7 @@ public enum Attack {
 
 		}
 
-		if (attacker != null && defender!=null) {
+		if (attacker != null && defender != null) {
 			// Modifiers based on race resistance:
 			if (!defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getSubspecies().getResistanceMultiplier()), 100)/100f;
@@ -361,7 +361,7 @@ public enum Attack {
 			// Modifiers based on level:
 			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
 			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
-			damage = damage * (1 + (levelBoost/100));
+			damage *= 1 + (levelBoost / 100);
 		}
 		
 		return damage;
