@@ -267,38 +267,13 @@ public enum Attack {
 	 * @return Modified damage value.
 	 */
 	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
-		float damage = attackersDamage;
-		boolean damageDoubledFromElemental = false;
-		
 		if (defender != null && defender.isImmuneToDamageType(damageType)) {
 			return 0;
 		}
-			
-		if (attacker instanceof Elemental) {
-			switch(attacker.getBodyMaterial()) {
-				case AIR:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
-					break;
-				case ARCANE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF);
-					break;
-				case FIRE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);
-					break;
-				case FLESH:
-				case SLIME:
-					break;
-				case RUBBER:
-				case STONE:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF);
-					break;
-				case ICE:
-				case WATER:
-					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF);
-					break;
-			}
-		}
-		
+
+		float damage = attackersDamage;
+		boolean damageDoubledFromElemental = doesAttackerBenefitFromElementalServantBonus(attacker);
+
 		if (attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTACK) {
 			
 			if (damageDoubledFromElemental) {
@@ -390,6 +365,29 @@ public enum Attack {
 		}
 		
 		return damage;
+	}
+
+	private static boolean doesAttackerBenefitFromElementalServantBonus(GameCharacter attacker) {
+		if (attacker instanceof Elemental) {
+			switch(attacker.getBodyMaterial()) {
+				case AIR:
+					return ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
+				case ARCANE:
+					return ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF);
+				case FIRE:
+					return ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);
+				case FLESH:
+				case SLIME:
+					break;
+				case RUBBER:
+				case STONE:
+					return ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF);
+				case ICE:
+				case WATER:
+					return ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF);
+			}
+		}
+		return false;
 	}
 
 	private static float roundToNearestTenth(float value) {
