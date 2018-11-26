@@ -38,10 +38,6 @@ public enum Attack {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	/**
 	 * @param attacker The attacking character.
 	 * @param defender The defending character.
