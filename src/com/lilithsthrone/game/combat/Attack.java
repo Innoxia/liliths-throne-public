@@ -100,11 +100,7 @@ public enum Attack {
 		return 10;
 	}
 
-	public static float calculateDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, boolean critical) {
-
-		float minimumDamage = getMinimumDamage(attacker, defender, attackType);
-		float maximumDamage = getMaximumDamage(attacker, defender, attackType);
-
+	private static float calculateDamage(GameCharacter attacker, float minimumDamage, float maximumDamage, boolean critical) {
 		float difference = maximumDamage - minimumDamage;
 		float finalDamage = minimumDamage;
 
@@ -128,66 +124,27 @@ public enum Attack {
 		} else {
 			return finalDamage;
 		}
+	}
+
+	public static float calculateNormalDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, boolean critical) {
+		return calculateDamage(attacker,
+				getMinimumDamage(attacker, defender, attackType),
+				getMaximumDamage(attacker, defender, attackType),
+				critical);
 	}
 	
 	public static float calculateSpellDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
-
-		float minimumDamage = getMinimumSpellDamage(attacker, defender, damageType, damage, damageVariance);
-		float maximumDamage = getMaximumSpellDamage(attacker, defender, damageType, damage, damageVariance);
-
-		float difference = maximumDamage - minimumDamage;
-		float finalDamage = minimumDamage;
-		
-		// Add variation:
-		if (difference > 0) {
-			finalDamage += Math.random()*difference;
-		}
-
-		// Is critical:
-		if (critical) {
-			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
-		}
-
-		finalDamage *= getDamageModifierForAttacker(attacker);
-		
-		// Round float value to nearest 1 decimal place:
-		finalDamage = roundToNearestTenth(finalDamage);
-
-		if (attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn() == 0) {
-			return 2 * finalDamage;
-		} else {
-			return finalDamage;
-		}
+		return calculateDamage(attacker,
+				getMinimumSpellDamage(attacker, defender, damageType, damage, damageVariance),
+				getMaximumSpellDamage(attacker, defender, damageType, damage, damageVariance),
+				critical);
 	}
 
 	public static float calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
-
-		float minimumDamage = getMinimumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
-		float maximumDamage = getMaximumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
-
-		float difference = maximumDamage - minimumDamage;
-		float finalDamage = minimumDamage;
-		
-		// Add variation:
-		if (difference > 0) {
-			finalDamage += Math.random()*difference;
-		}
-
-		// Is critical:
-		if (critical) {
-			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
-		}
-
-		finalDamage *= getDamageModifierForAttacker(attacker);
-
-		// Round float value to nearest 1 decimal place:
-		finalDamage = roundToNearestTenth(finalDamage);
-
-		if (attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn() == 0) {
-			return 2 * finalDamage;
-		} else {
-			return finalDamage;
-		}
+		return calculateDamage(attacker,
+				getMinimumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance),
+				getMaximumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance),
+				critical);
 	}
 
 	/**
