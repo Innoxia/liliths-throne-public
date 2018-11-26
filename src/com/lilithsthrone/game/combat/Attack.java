@@ -535,7 +535,7 @@ public enum Attack {
 	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
 		
-		if( 0 == getModifiedDamageImmunity(attacker,defender,attackType,damageType,damage) )
+		if( 0 == Math.signum(getModifiedDamageImmunity(attacker,defender,attackType,damageType,damage)) )
 			return 0;
 
 		damage = getModifiedDamageElemental(attacker,defender,attackType,damageType,damage);			
