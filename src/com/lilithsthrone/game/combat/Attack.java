@@ -376,7 +376,7 @@ public enum Attack {
 	}
 
 	public static float getModifiedDamageElemental(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float damage) {
-		if(attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTAKC || attackType == SPELL){
+		if(attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTACK || attackType == SPELL){
 			boolean damageDoubledFromElemental = false;
 			if(attacker instanceof Elemental) {
 				switch(attacker.getBodyMaterial()) {
