@@ -204,6 +204,7 @@ public class PrologueMale extends NPC {
 	
 	@Override
 	public void endSex() {
+		Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_CROWDS);
 	}
 
 	@Override

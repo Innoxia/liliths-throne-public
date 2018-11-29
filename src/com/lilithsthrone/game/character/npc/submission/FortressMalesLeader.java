@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -366,6 +367,30 @@ public class FortressMalesLeader extends NPC {
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
+		
+		//This is the fight at the citadel:
+		if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_DEMON) {
+			if (victory) {
+				return new Response("", "", ImpCitadelDialogue.KEEP_CHALLENGE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "KEEP_CHALLENGE_LEADER_VICTORY", ImpCitadelDialogue.getAllCharacters()));
+					}
+				};
+				
+			} else {
+				return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_DEFEAT) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "KEEP_CHALLENGE_LEADER_DEFEAT", ImpCitadelDialogue.getAllCharacters()));
+					}
+				};
+			}
+		}
+		
+		// This is the fight in his fortress:
 		if (victory) {
 			return new Response("", "", ImpFortressDialogue.KEEP_AFTER_COMBAT_VICTORY) {
 				@Override

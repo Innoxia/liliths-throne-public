@@ -98,6 +98,8 @@ import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressDemonLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
@@ -639,7 +641,7 @@ public class Game implements Serializable, XMLSaving {
 									&& !worldType.equals("IMP_FORTRESS_MALES"))
 									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
 							&& (!worldType.equals("IMP_FORTRESS_DEMON")
-									|| !Main.isVersionOlderThan(loadingVersion, "0.2.12"))
+									|| !Main.isVersionOlderThan(loadingVersion, "0.2.12.5"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
@@ -668,7 +670,7 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES);
 						gen.worldGeneration(WorldType.IMP_FORTRESS_MALES);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.12")) {
+					if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
 						gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON);
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
@@ -872,11 +874,36 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.getKruger().setAffection(Main.game.getKalahari(), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 				}
 
-				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressDemonLeader.class))) {
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressAlphaLeader.class))) {
 					Main.game.addNPC(new FortressAlphaLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressDemonLeader.class))) {
 					Main.game.addNPC(new FortressDemonLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressFemalesLeader.class))) {
 					Main.game.addNPC(new FortressFemalesLeader(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(FortressMalesLeader.class))) {
 					Main.game.addNPC(new FortressMalesLeader(), false);
+				}
+
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) {
+					Main.game.addNPC(new SubmissionCitadelArcanist(), false);
+				}
+
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) {
+					Main.game.addNPC(new Lyssieth(), false);
+
+					Main.game.getLilaya().setAffection(Main.game.getLyssieth(), -60);
+					Main.game.getLilaya().setAffection(Main.game.getFortressDemonLeader(), 15);
+					Main.game.getLilaya().setMother(Main.game.getLyssieth());
+
+					Main.game.getFortressDemonLeader().setAffection(Main.game.getLyssieth(), -25);
+					Main.game.getFortressDemonLeader().setAffection(Main.game.getLilaya(), 35);
+					Main.game.getFortressDemonLeader().setMother(Main.game.getLyssieth());
+
+					Main.game.getLyssieth().setAffection(Main.game.getFortressDemonLeader(), 100);
+					Main.game.getLyssieth().setAffection(Main.game.getLilaya(), 100);
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
@@ -969,7 +996,7 @@ public class Game implements Serializable, XMLSaving {
 						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
 					}
 				}
-				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.1")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
 					ImpCitadelDialogue.resetFortress();
 				}
 				
@@ -1225,7 +1252,18 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new FortressDemonLeader(), false);
 			addNPC(new FortressFemalesLeader(), false);
 			addNPC(new FortressMalesLeader(), false);
+
+			addNPC(new SubmissionCitadelArcanist(), false);
+
+			addNPC(new Lyssieth(), false);
 			
+			getLilaya().setAffection(getLyssieth(), -60);
+			getLilaya().setAffection(getFortressDemonLeader(), 15);
+			getLilaya().setMother(getLyssieth());
+
+			getFortressDemonLeader().setAffection(getLyssieth(), -25);
+			getFortressDemonLeader().setAffection(getLilaya(), 35);
+			getFortressDemonLeader().setMother(getLyssieth());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -3370,6 +3408,24 @@ public class Game implements Serializable, XMLSaving {
 			return null;
 		}
 	}
+
+	public NPC getSubmissionCitadelArcanist() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(SubmissionCitadelArcanist.class));
+		} catch (Exception e) {
+			System.err.println("getSubmissionCitadelArcanist() returning null!");
+			return null;
+		}
+	}
+
+	public NPC getLyssieth() {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(Lyssieth.class));
+		} catch (Exception e) {
+			System.err.println("getLyssieth() returning null!");
+			return null;
+		}
+	}
 	
 	public NPC getGenericMaleNPC() {
 		try {
@@ -3625,7 +3681,9 @@ public class Game implements Serializable, XMLSaving {
 		if(Main.game.getPlayer()==null) {
 			return true;
 		}
-		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY;
+		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY
+				&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM
+					&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM_LOST;
 	}
 
 	public boolean isPrologueFinished() {
@@ -3771,6 +3829,15 @@ public class Game implements Serializable, XMLSaving {
 	public boolean isAssHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.assHairContent);
 	}
+	
+	public boolean isVoluntaryNTREnabled() {
+		return Main.getProperties().hasValue(PropertyValue.voluntaryNTR);
+	}
+
+	public boolean isInvoluntaryNTREnabled() {
+		return Main.getProperties().hasValue(PropertyValue.involuntaryNTR);
+	}
+	
 	
 	public boolean isRenderMap() {
 		return renderMap;

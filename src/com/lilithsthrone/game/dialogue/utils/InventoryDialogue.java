@@ -45,7 +45,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -292,7 +292,9 @@ public class InventoryDialogue {
 				case FULL_MANAGEMENT:
 					if (index == 1) {
 						if(inventoryNPC == null ) {
-							if(Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
+							if((Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 && !Main.game.getPlayerCell().getInventory().isAnyQuestItemPresent())
+									|| Main.game.isInCombat()
+									|| Main.game.isInSex()) {
 								return new Response("Take all", "Pick up everything on the ground.", null);
 								
 							} else {

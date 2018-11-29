@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -158,26 +158,31 @@ public enum DialogueFlagValue {
 	
 	// Submission:
 	impCitadelEncountered,
+	impCitadelArcanistEncountered,
+	impCitadelArcanistAcceptedTF,
+	impCitadelTreasurySearched,
+
+	impCitadelPrisonerMale,
+	impCitadelPrisonerFemale,
+	impCitadelPrisonerAlpha,
 	
 	impFortressAlphaGuardsPacified,
 	impFortressAlphaBossEncountered,
 	impFortressAlphaPacified,
 	impFortressAlphaDefeated,
-
+	
 	impFortressFemalesGuardsPacified,
 	impFortressFemalesBossEncountered,
 	impFortressFemalesPacified,
 	impFortressFemalesDefeated,
-
+	
 	impFortressMalesGuardsPacified,
 	impFortressMalesBossEncountered,
 	impFortressMalesPacified,
 	impFortressMalesDefeated,
-
-
-	impFortressDemonGuardsPacified,
+	
 	impFortressDemonBossEncountered,
 	impFortressDemonDefeated,
-	impFortressTransformedByGuards,
+	impFortressDemonImpsDefeated,
 	;
 }

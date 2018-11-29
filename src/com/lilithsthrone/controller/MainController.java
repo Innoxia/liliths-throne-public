@@ -1764,14 +1764,6 @@ public class MainController implements Initializable {
 			addEventListener(documentRight, id, "mouseenter", el2, false);
 		}
 		
-		for(NPC character : Main.game.getCharactersPresent()) {
-			id = "CHARACTERS_PRESENT_"+character.getId();
-			if (((EventTarget) documentRight.getElementById(id)) != null) {
-				((EventTarget) documentRight.getElementById(id)).addEventListener("click", e -> {
-					openCharactersPresent(character);
-				}, false);
-			}
-		}
 		if(Main.game.getPlayer()!=null) {
 			// Weapons on floor:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
@@ -1845,6 +1837,18 @@ public class MainController implements Initializable {
 			
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
+			
+			id = "PLACE_POPULATION";
+			if (((EventTarget) documentRight.getElementById(id)) != null) {
+				addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+				addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+						"Races Present",
+						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies(), true)+".",
+						(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().size()/3)*16);
+				addEventListener(documentRight, id, "mouseenter", el, false);
+			}
 		}
 		
 		charactersBeingRendered.remove(Main.game.getPlayer());

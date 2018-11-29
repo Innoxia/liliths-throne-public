@@ -195,7 +195,7 @@ public interface SexManagerInterface {
 	}
 
 	public default String getPublicSexStartingDescription() {
-		List<Subspecies> speciesPresent = Main.game.getPlayer().getLocationPlace().getPlaceType().getSpeciesPopulatingArea();
+		List<Subspecies> speciesPresent = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies();
 		if(speciesPresent!=null && !speciesPresent.isEmpty()) {
 			
 			List<Race> racesPresent = new ArrayList<>();

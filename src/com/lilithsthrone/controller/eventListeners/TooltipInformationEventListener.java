@@ -74,6 +74,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private LoadedEnchantment loadedEnchantment;
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
+	private int descriptionHeightOverride;
 	
 	private static final int LINE_HEIGHT= 16;
 
@@ -945,17 +946,17 @@ public class TooltipInformationEventListener implements EventListener {
 						"<div class='title'>"+title+"</div>"));
 				
 			} else if(title==null || title.isEmpty()) {
-				Main.mainController.setTooltipSize(360, 200);
+				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+32:200);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
-						"<div class='description' style='height:176px;'>"+description+"</div>"));
+						"<div class='description' style='height:"+(descriptionHeightOverride>0?(descriptionHeightOverride+26):"176")+"px;'>"+description+"</div>"));
 				
 			} else {
-				Main.mainController.setTooltipSize(360, 175);
+				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+32:175);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
 						"<div class='title'>"+title+"</div>"
-						+ "<div class='description'>" + description + "</div>"));
+						+ "<div class='description' "+(descriptionHeightOverride>0?"style='height:"+(descriptionHeightOverride+26)+"px;'":"")+">" + description + "</div>"));
 			}
 		}
 
@@ -1004,6 +1005,13 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.title = title;
 		this.description = description;
+
+		return this;
+	}
+
+	public TooltipInformationEventListener setInformation(String title, String description, int descriptionHeightOverride) {
+		setInformation(title, description);
+		this.descriptionHeightOverride = descriptionHeightOverride;
 
 		return this;
 	}
@@ -1162,5 +1170,6 @@ public class TooltipInformationEventListener implements EventListener {
 		copyInformation=false;
 		concealedSlot=null;
 		loadedEnchantment=null;
+		descriptionHeightOverride = 0;
 	}
 }

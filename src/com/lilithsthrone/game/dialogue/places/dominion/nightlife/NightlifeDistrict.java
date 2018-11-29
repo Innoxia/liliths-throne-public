@@ -968,7 +968,7 @@ public class NightlifeDistrict {
 				return new Response("Back", "Decide to look for a different gender.", WATERING_HOLE_SEARCH_GENDER);
 			}
 			int count = 1;
-			for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getSpeciesPopulatingArea()) {
+			for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies()) {
 				if(count==index) {
 					return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 							"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",

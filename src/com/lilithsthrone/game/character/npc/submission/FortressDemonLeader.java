@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -21,6 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -68,7 +68,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.2.12
  * @author Innoxia
  */
 public class FortressDemonLeader extends NPC {
@@ -79,14 +79,14 @@ public class FortressDemonLeader extends NPC {
 	
 	public FortressDemonLeader(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Zellyria", "Zellyria", "Zellyria"),
-				"The ruler of Submission's central imp citadel, 'The Dark Siren' has trained some of [npc.her] imp followers to be able to harness the arcane, making them more dangerous than most...",
+				new NameTriplet("Mhyralyss"),
+				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
-				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
-		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
 			this.setPlayerKnowsName(false);
-			this.setGenericName("Dark Siren");
+			this.setGenericName("dark siren");
 			this.addTrait(Perk.CHUUNI);
 			this.setEssenceCount(TFEssence.ARCANE, 10000);
 			
@@ -115,6 +115,7 @@ public class FortressDemonLeader extends NPC {
 			
 			this.addSpell(Spell.TELEKENETIC_SHOWER);
 			this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
+			
 		}
 	}
 
@@ -122,9 +123,12 @@ public class FortressDemonLeader extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
+			setName(new NameTriplet("Mhyralyss"));
+			this.setBody(Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL);
 			setStartingBody(true);
 			equipClothing(true, true, true, true);
+			this.setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 		}
 	}
 	
@@ -134,7 +138,7 @@ public class FortressDemonLeader extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 50);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
@@ -149,9 +153,10 @@ public class FortressDemonLeader extends NPC {
 			
 			this.setHistory(Occupation.NPC_MUGGER);
 			
+			this.clearFetishes();
+			
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 			this.addFetish(Fetish.FETISH_VOYEURIST);
-			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 		}
 		
 		
@@ -159,58 +164,58 @@ public class FortressDemonLeader extends NPC {
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setLegType(LegType.DEMON_COMMON);
-		this.setHornType(HornType.NONE);
+		this.setHornType(HornType.CURLED);
 
 		// Core:
-		this.setHeight(158);
-		this.setFemininity(75);
+		this.setHeight(153);
+		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_RED));
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PALE), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.EYE_IRISES_HETEROCHROMATIC, Colour.EYE_GREEN, false, Colour.EYE_PURPLE, true));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_WHITE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BROWN_DARK), true);
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.LOOSE);
 		
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
-		this.setPubicHair(BodyHair.ZERO_NONE);
+		this.setPubicHair(BodyHair.TWO_MANICURED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE));
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE_DARK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE_DARK));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
 //		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
 //		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
 		
 		// Face:
-		this.setFaceVirgin(false);
-		this.setLipSize(LipSize.TWO_FULL);
-		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setFaceVirgin(true);
+		this.setLipSize(LipSize.ONE_AVERAGE);
+		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(false);
+		this.setNippleVirgin(true);
 		this.setBreastSize(CupSize.AA.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.TWO_BIG);
-		this.setAreolaeSize(AreolaeSize.TWO_BIG);
+		this.setNippleSize(NippleSize.ONE_SMALL);
+		this.setAreolaeSize(AreolaeSize.ONE_SMALL);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(true);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.ONE_TINY);
+		this.setAssSize(AssSize.TWO_SMALL);
 		this.setHipSize(HipSize.THREE_GIRLY);
 		// Anus settings and modifiers
 		
@@ -223,12 +228,12 @@ public class FortressDemonLeader extends NPC {
 //		this.fillCumToMaxStorage();
 		
 		// Vagina:
-		this.setVaginaVirgin(false);
+		this.setVaginaVirgin(true);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
-		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaWetness(Wetness.TWO_MOIST);
 		this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
@@ -257,7 +262,7 @@ public class FortressDemonLeader extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		
 		if(addWeapons) {
-			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
 		}
 	}
 	
@@ -270,9 +275,10 @@ public class FortressDemonLeader extends NPC {
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
-					"[npc.NamePos] days of ruling over [npc.her] imp fortress are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
+					"[npc.NamePos] days of ruling over [npc.her] imp citadel as the 'Dark Siren' are now over."
+					+ " Having been enslaved, she is now legally the property of her mother, Lyssieth, and had been expressly forbidden from leaving her room without supervision."));
 		} else {
-			return (UtilText.parse(this, description));
+			return "The ruler of Submission's central imp citadel, this 'Dark Siren' is an incredibly powerful arcane user...";
 		}
 	}
 	
@@ -297,8 +303,7 @@ public class FortressDemonLeader extends NPC {
 	// Combat:
 	
 	public Attack attackType() {
-		
-		// If can cast spells, then do that:
+		//TODO need to limit scythe spell
 		if(!getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty() && Math.random()<0.75f) {
 			return Attack.SPELL;
 		}
@@ -310,8 +315,15 @@ public class FortressDemonLeader extends NPC {
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
 			return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_VICTORY);
+			
 		} else {
-			return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_DEFEAT);
+			return new Response("", "", ImpCitadelDialogue.KEEP_AFTER_COMBAT_DEFEAT) {
+				@Override
+				public void effects() {
+					Main.game.getTextStartStringBuilder().append(
+							UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "KEEP_CHALLENGE_BOSS_DEFEAT", ImpCitadelDialogue.getAllCharacters()));
+				}
+			};
 		}
 	}
 

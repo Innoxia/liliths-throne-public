@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTER_FORTRESS"><![CDATA[
+	<p>
+		You use your keys to open the stone gates, and enter the fortress.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GENERIC -->
+	
+	<htmlContent tag="GENERIC_IMPS_DEFEATED"><![CDATA[
+	<p>
+		The imps that once guarded the citadel have been defeated, and have all run away.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GENERIC_IMP_GUARDS"><![CDATA[
+	<p>
+		There are at least twenty imps and alpha-imps scattered around the courtyard. A few of them are simply loitering about, but most are engaged in simple tasks such as mending clothing, sparring, or cleaning. There are also a few who are openly having sex over in one corner.
+	</p>
+	<p>
+		None of these imps seem to be bothered about your presence, and you assume that it's because only someone with keys from the three demon leaders can gain access to the citadel, and therefore you must be an expected guest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE_RUINS"><![CDATA[
+	<p>
+		Although the gateway is mostly intact, there's a considerable amount of rubble and smashed rock piled up against the walls, and you're careful not to touch any of it in case you trigger another collapse.
+	</p>
+	<p>
+		From here, you look out over the rubble-strewn courtyard to see the ruined archway of the main keep. One of the huge wooden doors has completely splintered into pieces, while the other looks to be straining under the weight of the cracked masonry above.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		[style.italicsBad(Please be aware that all of the citadel text is currently placeholder, and that there might be bugs! A more polished version (0.2.12.6) will be out before the weekend is over!)]
+	</p>
+	<p>
+		The stone blocks from which the gateway and walls are constructed have been carved from the dark black stone of the cavern. Looking out across the inner courtyard, you see that the material has been obtained by mining out a large portion of the far wall. Carved into this recess, there's a huge stone archway, which houses a pair of huge, iron-reinforced wooden doors.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_FORTRESS"><![CDATA[
+	<p>
+		You leave the fortress and head back out into Submission.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- CHALLENGE -->
+	
+	<htmlContent tag="IMP_CHALLENGE"><![CDATA[
+	<p>
+		You ready yourself for battle, and shout out a challenge to all the imps in this citadel. They rush to attack you in defence of their fortress.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE"><![CDATA[
+	<p>
+		The six imps are no match for you, and you let out a triumphant laugh as the last of them falls to the floor, defeated.
+	</p>
+	<p>
+		Six more imps arrive from another part of the citadel, and jump forwards to attack!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_2"><![CDATA[
+	<p>
+		<i>This battle is far from over!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_3"><![CDATA[
+	<p>
+		<i>There are still a lot of imps remaining in the citadel!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_4"><![CDATA[
+	<p>
+		<i>It looks like you've beaten about half of the citadel's garrison!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_5"><![CDATA[
+	<p>
+		<i>There are almost no imp reinforcements left!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_CHALLENGE_CONTINUE_WAVE_6"><![CDATA[
+	<p>
+		<i>These are the very last defenders of the citadel!</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST"><![CDATA[
+	<p>
+		You have defeated the imp army! You feel as though imps will never be much of a threat to you again!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You look down at the six defeated imps before you. While you were dealing with this last wave, the others have all run off, abandoning their comrades to whatever fate you have in store for them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		You tell the imps to get out of here while they still can.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and push them into position, ready to fuck them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and gently move them into position, ready to have sex with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You decide to take advantage of the imps, and roughly force them into position, ready to give them a good, hard fuck...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You feel sorry for the imps, having been abandoned by their friends, and offer to let them use your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Defeat in lab:-->
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB"><![CDATA[
+	<p>
+		The imps have defeated you. [npc.Name] reappears and
+		#IF pc.isFeminine()
+		#THEN demands that you eat her out as punishment.
+		#ELSE tells the imps to fuck you as punishment.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_IN_LAB_NO_NON_CON"><![CDATA[
+	<p>
+		The imps have defeated you. [npc.Name] reappears and tells you that you're lucky your keys signify that you're a guest. She reluctantly tells the imps not to do anything to you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST"><![CDATA[
+	<p>
+		You obediently drop to your knees and prepare to eat [npc.name] out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_EAGER"><![CDATA[
+	<p>
+		You eagerly drop to your knees and prepare to eat [npc.name] out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_ARCANIST_RESIST"><![CDATA[
+	<p>
+		You try to resist as [npc.name] pushes you to your knees and prepares to make you eat [npc.herHim] out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_IMP_DEFEAT_ARCANIST_SEX"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] steps back and continues with [npc.her] work. [npc.She] dismisses you as no threat, and tells you not to start any trouble again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Defeat elsewhere:-->
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		The imps have defeated you, and seem to think that you were doing this in the hopes that they'd fuck you. They seem convinced that this is your fetish, and are more than happy to help indulge you in it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
+	<p>
+		The imps have defeated you. The leader tells you that you're lucky your keys signify that you're a guest. The imps reluctantly leave you to recover.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
+	<p>
+		You allow the imps to move you into position...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
+	<p>
+		You eagerly allow the imps to move you into position...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
+	<p>
+		Ignoring your struggles, the imps move you into position...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_IMP_DEFEAT_SEX"><![CDATA[
+	<p>
+		Having had their fun, the imps leave you collapsed on the floor to recover. They don't throw you out, as they still believe you were just fighting in order to get them to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		Having had your fun, you leave the imps to run off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT_RECOVER"><![CDATA[
+	<p>
+		You take a few minutes to catch your breath and reflect on what you could have done differently in the fight, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	<!-- COURTYARD -->
+	
+	<htmlContent tag="COURTYARD_RUINS"><![CDATA[
+	<p>
+		You find yourself standing in the rubble-strewn courtyard of [siren.namePos] ruined citadel. Large, dark cracks split the stone floor and ceiling, and you have to weave around fallen boulders and smashed craters in order to continue forwards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COURTYARD"><![CDATA[
+	<p>
+		The large, stone courtyard has been flatten and carved to resemble cobblestone, and it makes a nice change to be walking over such an even surface compared to the uneven floor of the cavern. The huge, imposing archway of the main keep overlooks this area.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+
+	
+	<!-- WELL -->
+	
+	<htmlContent tag="WELL_RUINS"><![CDATA[
+	<p>
+		Description of the ruined well. A large portion of the cave's ceiling has fallen on the place where it once was, leaving no indication that a well ever stood here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WELL"><![CDATA[
+	<p>
+		Description of the citadel's well. It looks to be completely functional, and from the splashes of water on the floor at its base, you can tell that is sees regular use.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- CELLS -->
+	
+	<htmlContent tag="CELLS_RUINS"><![CDATA[
+	<p>
+		Past the first few metres of the entranceway, the cells have completely caved-in. It's lucky there was nobody in there.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CELLS"><![CDATA[
+	<p>
+		A block of four cells have been carved out of the cave's black rock, with the front of each one covered by heavy iron bars.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CELLS_IMPS_DEFEATED"><![CDATA[
+	<p>
+		As all of the imps have been defeated, there's nobody in here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CELLS_IMP_GUARDS"><![CDATA[
+	<p>
+		There are a few imps loitering around in here, but they don't pay you much attention.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY -->
+	
+	<htmlContent tag="LABORATORY_RUINS"><![CDATA[
+	<p>
+		The rear half of the squat tower housing the citadel's laboratory has collapsed, but you're still able to venture a fair way inside before being halted by the rubble and debris.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY"><![CDATA[
+	<p>
+		A squat, one-story tower has been built in one side of the courtyard. It looks as though it was the original keep, before the current one was carved from the stone of the cave's wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS_DEFEATED"><![CDATA[
+	<p>
+		Following your victory, [citadelArcanist.name] and the imps that were stationed in this laboratory have all fled.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS"><![CDATA[
+	<p>
+		The interior reminds you of Lilaya's laboratory, and, while containing less equipment, this one looks to be far more productive. There's a potion production line, and you see a lesser-youko overseer working on enchanting various items of food and drink into transformative potions.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_IMPS_ARCANIST_MET"><![CDATA[
+	<p>
+		The interior reminds you of Lilaya's laboratory, and, while containing less equipment, this one looks to be far more productive. There's a potion production line, and you see the lesser-youko overseer, [citadelArcanist.name], working on enchanting various items of food and drink into transformative potions.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- LABORATORY -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST"><![CDATA[
+	<p>
+		You approach the arcanist, who introduces [npc.herself] as [npc.name].
+	</p>
+	<p>
+		#IF pc.getRace()==RACE_FOX_MORPH
+		#THEN
+			[npc.She] says that [npc.she] has a fox-girl TF potion, but as you're already a fox, she's unwilling to waste it on you.
+			#IF pc.isFeminine()
+			#THEN She says how she finds feminine foxes irresistible, and offers you a taste of her pussy.
+			#ELSE She says that she doesn't like masculinity, but if you come back having feminised yourself, she'd offer you a taste of her pussy.
+			#ENDIF
+		#ELSE
+			[npc.She] says that [npc.she] has a fox-girl TF potion that she wants to test. Asks if you'd like to have a taste.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_REPEAT"><![CDATA[
+	<p>
+		You approach [npc.name] again.
+	</p>
+	<p>
+		#IF pc.getRace()==RACE_FOX_MORPH
+		#THEN
+			[npc.She] says that [npc.she] has a fox-girl TF potion, but as you're already a fox, she's unwilling to waste it on you.
+			#IF pc.isFeminine()
+			#THEN She says how she finds feminine foxes irresistible, and offers you a taste of her pussy.
+			#ELSE She says that she doesn't like masculinity, but if you come back having feminised yourself, she'd offer you a taste of her pussy.
+			#ENDIF
+		#ELSE
+			[npc.She] says that [npc.she] has a fox-girl TF potion that she wants to test. Asks if you'd like to have a taste.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_REPEAT_NO_TF"><![CDATA[
+	<p>
+		You approach [npc.name] again.
+	</p>
+	<p>
+		#IF pc.isFeminine()
+		#THEN She says how she'd like to reward you for testing her potion, and offers you a taste of her pussy again.
+		#ELSE She says how she'd like to reward you for testing her potion, but she doesn't like masculinity. If you were to come back having feminised yourself, she'd offer you a taste of her pussy again.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Responses: -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_DECLINE"><![CDATA[
+	<p>
+		You decline the offer of the TF potion, and leave [npc.name] to her work.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ARCANIST_SOLO_START_SEX"><![CDATA[
+	<p>
+		You accept [npc.namePos] offer of performing oral sex on her, and drop to your knees.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ARCANIST_FIGHT_START"><![CDATA[
+	<p>
+		You think it's time to put a stop to [citadelArcanist.namePos] potion manufacturing, and attack! She disappears right before your eyes as you strike, and you realise that she was using an illusion to talk to you this whole time!
+	</p>
+	<p>
+		Her echoing laughter alerts the imps in the citadel, and you prepare to fight them off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- LABORATORY_ARCANIST_SOLO_TF -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF"><![CDATA[
+	<p>
+		You accept [npc2.namePos] offer, and drink the potion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX"><![CDATA[
+	<p>
+		[npc2.Name] is delighted with how it turned out, and steps up to rub against you, before offering to let you eat her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_SEX_DECLINED"><![CDATA[
+	<p>
+		You refuse [npc.namePos] offer of performing oral sex on her, and step back, leaving her to her work.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LABORATORY_ARCANIST_SOLO_TF_SEX_ACCEPTED"><![CDATA[
+	<p>
+		You accept [npc.namePos] offer of performing oral sex on her, and drop to your knees.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- LABORATORY_ARCANIST_POST_SEX -->
+	
+	<htmlContent tag="LABORATORY_ARCANIST_POST_SEX_SOLO"><![CDATA[
+	<p>
+		[npc.Name] pushes you away from her, before taunting you by asking if you were expecting to be allowed to orgasm.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- TREASURY -->
+	
+	<htmlContent tag="TREASURY_SEARCHED"><![CDATA[
+	<p>
+		The treasury is mostly caved-in. You've already found everything of value that was hidden amongst the rubble...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TREASURY"><![CDATA[
+	<p>
+		The treasury is mostly caved-in, but you might be able to find something of value if you were to spend some time searching amongst the rubble...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TREASURY_SEARCH"><![CDATA[
+	<p>
+		You spend a while searching through the rubble, and not only find a considerable amount of flames, but also a huge, undamaged wardrobe. Prying it open, you discover what appears to be a spare set of [siren.namePos] clothes, along with a matching twin to her scythe!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- KEEP -->
+	
+	<htmlContent tag="KEEP_DEFEATED"><![CDATA[
+	<p>
+		The keep is almost completely collapsed - it's a miracle everyone was able to escape unharmed. It looks like you could carefully climb over some of the rubble to gain access to the room behind where the Siren's throne once stood.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP"><![CDATA[
+	<p>
+		The keep is carved out of the stone wall of the cavern. You could use your keys to open the stone gates, or back away and return another time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_BACK_OFF"><![CDATA[
+	<p>
+		You decide to back off and return another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	<!-- KEEP_ENTRY -->
+	
+	<htmlContent tag="KEEP_ENTRY"><![CDATA[
+	<p>
+		You unlock the gates with your keys and enter the keep.
+	</p>
+	<p>
+		Find yourself in a stone hall, and, waiting for you, are the three demons that you met in the other fortresses. Behind them, on a raised dias, is a stone throne, and sitting on it is their leader, the Dark Siren.
+	</p>
+	<p>
+		She is a surprisingly small and young half-succubus - she appears to be just over 5 feet tall and no older than eighteen or nineteen. Unlike all the other succubi you've seen, she is lacking a sexy, womanly body. She has an almost completely-flat chest, a small ass, and girly hips.
+	</p>
+	<p>
+		She's wearing a witch's outfit, with a purple-trimmed cape. She's also got an impressive pentagram-themed amulet around her neck, and, curiously, a medicinal-looking, square, white eyepatch over her right eye.
+	</p>
+	<p>
+		She proceeds with some extremely embarrassing dialogue, part of which involves revealing her true name of '[siren.name]' to you.
+	</p>
+	<p>
+		You'll have to fight her demon lieutenants first!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RETURN"><![CDATA[
+	<p>
+		You unlock the gates with your keys and enter the keep.
+	</p>
+	<p>
+		Find yourself in a stone hall, and, waiting for you, are the three demons that you met in the other fortresses. Behind them, on a raised dias, is a stone throne, and sitting on it is their leader, the Dark Siren.
+	</p>
+	<p>
+		She is outraged that you escaped the cells, but you'll be back in there soon enough!
+	</p>
+	<p>
+		You'll have to fight her demon lieutenants first!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_ENTRY_RING"><![CDATA[
+	<p>
+		Telling the Siren about Lyssieth's ring would undoubtedly raise her suspicions. Once you've dealt with these demons, you could find an opportunity to trick her into wearing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE"><![CDATA[
+	<p>
+		You challenge the Siren to a duel. The demons visibly flinch from second-hand embarrassment, but you think they're just flinching from fear.
+	</p>
+	<p>
+		[siren.Name] orders her demon lieutenants to stand aside, and agrees to face you one-on-one!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KEEP_CHALLENGE_RING & Keep combat victory over demons: -->
+	
+	<htmlContent tag="KEEP_CHALLENGE_LEADER_VICTORY"><![CDATA[
+	<p>
+		You have defeated the demons!
+	</p>
+	<p>
+		[siren.Name] orders her demon lieutenants to stand aside, and prepares to face you one-on-one!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING"><![CDATA[
+	<p>
+		You could try to trick [siren.name] into wearing Lyssieth's ring!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_CHALLENGE_RING_TRICK -->
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK"><![CDATA[
+	<p>
+		You tell [npc.name] to surrender - after all, she stands no chance against someone with Lyssieth's power. You hold up the ring to show her what you mean.
+	</p>
+	<p>
+		[npc.Name] screams to give that back - it's her mother's, and you have no right to hold it!
+	</p>
+	<p>
+		You refuse, but continue holding it up in a way that would be easy to have it knocked from your [pc.hand]. [npc.Name] falls for your trick, and casts a weak version of slam to force the ring to the floor. She uses telekenesis to snatch it and put it on.
+	</p>
+	<p>
+		As the enslavement text appears in the air before her (saying special slave - direct transportation to Lyssieth), she realises she's been tricked, and just before she gets teleported to Lyssieth's palace, she casts Siren's call.
+	</p>
+	<p>
+		At first it appears as though all it caused was some discomfort from the loud screech, but the ground starts rumbling, and fissures start appearing in the ground. A huge chunk of rock falls from the ceiling and crushes her throne. The keep starts collapsing!
+	</p>
+	<p>
+		You turn to see the demon lieutenants rushing out of the door, and you hurry to follow them!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_RING_TRICK_ESCAPE"><![CDATA[
+	<p>
+		You run out of the keep to see that the last of the imps are rushing out of the main gateway. Dodging falling boulders and collapsing masonry, you manage to make it out in time.
+	</p>
+	<p>
+		As you exit the citadel, you come face-to-face with a group of Lyssieth's guard. (They'd been waiting in ambush to try and capture DS). They demand to know what happened.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- KEEP_COLLAPSE_ESCAPE -->
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
+	<p>
+		You explain what happened to the guard leader. She is thankful for apprehending DS for them, and says that if you ever have business with Lyssieth, she'll vouch for you. They then leave.
+	</p>
+	<p>
+		You wonder if you should explore the ruins...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<p>
+		You explain to the guards that you enslaved DS, and she should now be in Lyssieth's palace. One of them is carrying a strange purple stone, and she says that what you're saying is the truth.
+	</p>
+	<p>
+		 Their leader says that if you ever have business with Lyssieth, they'll vouch for you. They then leave.
+	</p>
+	<p>
+		You wonder if you should explore the ruins...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		As [npc.name] realises that she's about to be defeated, she takes off her eyepatch, and with the last of her energy, casts Siren's call.
+	</p>
+	<p>
+		At first it appears as though all it caused was some discomfort from the loud screech, but the ground starts rumbling, and fissures start appearing in the ground. A huge chunk of rock falls from the ceiling and crushes her throne (thankfully without [npc.name] sitting on it!). The citadel starts collapsing!
+	</p>
+	<p>
+		You turn to see the demon lieutenants rushing out of the door!
+	</p>
+	<p>
+		[npc.speech(H-Help!)] [npc.name] cries, clearly too exhausted to escape without aid...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT"><![CDATA[
+	<p>
+		You aren't willing to risk your life to save [npc.name]! You rush out of the door, leaving her behind.
+	</p>
+	<p>
+		Once out in the courtyard, you see [impMaleLeader.name] running back towards you. He rushes past you and charges into the collapsing citadel.
+	</p>
+	<p>
+		You run out of the keep to see that the last of the imps are rushing out of the main gateway. Dodging falling boulders and collapsing masonry, you manage to make it out in time.
+	</p>
+	<p>
+		As you exit the citadel, you come face-to-face with a group of Lyssieth's guard. (They'd been waiting in ambush to try and capture DS). As [impMaleLeader.name] exits the citadel, carrying [siren.name] in his arms, the guards push him away and arrest her.
+	</p>
+	<p>
+		They then demand to know what happened.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO"><![CDATA[
+	<p>
+		Even though she was your enemy a moment ago, you can't just leave [npc.name] behind like this! Dodging a falling chunk of the ceiling, you rush over to where she's lying on the floor, and pick her up. (TODO size difference description)
+	</p>
+	<p>
+		With [npc.name] in your [pc.arms], you run out of the keep to see that the last of the imps are rushing out of the main gateway. Dodging falling boulders and collapsing masonry, you manage to make it out in time.
+	</p>
+	<p>
+		Realising what you've just done, [siren.name] blushes as she looks up into your eyes. [siren.speech(Y-You saved me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_COMBAT_HERO_END"><![CDATA[
+	<p>
+		As you exit the citadel, you come face-to-face with a group of Lyssieth's guard. (They'd been waiting in ambush to try and capture DS). They order you to step back and move to arrest [siren.name]. You reall yhave no choice but to do as they say - even if you were able to defeat the guards, you really don't want to get on the wrong side of Lyssieth.
+	</p>
+	<p>
+		They then demand to know what happened.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- KEEP_AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="KEEP_CHALLENGE_LEADER_DEFEAT"><![CDATA[
+	<p>
+		The demons have defeated you!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_CHALLENGE_BOSS_DEFEAT"><![CDATA[
+	<p>
+		[npc.Name] has defeated you! She makes sure her demon lieutenants are ok, before sitting on her throne.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
+	<p>
+		[npc.Name] laughs, and, taking great pleasure from this, she orders her demon lieutenants to throw you out of the citadel.
+	</p>
+	<p>
+		As you're dragged out, she shouts that it was a lot of fun beating someone like you, and to come back when you've recovered, so she can beat you all over again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_NO_NON_CON_THROWN_OUT"><![CDATA[
+	<p>
+		The demons drag you out of the citadel, and the imps all laugh at you as you're thrown out of the gates.
+	</p>
+	<p>
+		Brushing yourself off, you prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_CHOICES"><![CDATA[
+	<p>
+		[npc.Name] laughs, and, taking great pleasure from this, she asks each of her demon lieutenants what they'd do with you if they had you as their bitch.
+	</p>
+	<p>
+		[impMaleLeader.Name] says he'd turn you into the imp's breeding bitch. He suggests that you could also be milked to generate income for [npc.name].
+	</p>
+	<p>
+		[impAlphaLeader.Name] says she'd punish you and turn you into a futa, so that you can be used as a fuck-toy. She suggests that you could be locked in bondage and forced to perform degrading acts for [npc.namePos] amusement.
+	</p>
+	<p>
+		[impFemalesLeader.Name] says she'd make sure you have a nice big cock and lots of cum, then use you as a female imp breeder. She suggests you could also be used to fuck any trespassers.
+	</p>
+	<p>
+		[npc.Name] tells you to choose your fate. If you refuse, she'll let the demons decide amongst themselves as to who gets to have fun with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

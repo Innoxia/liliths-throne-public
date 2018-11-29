@@ -151,7 +151,7 @@ public class Vicky extends NPC {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
 					break;
 			}
 		}

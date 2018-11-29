@@ -39,11 +39,14 @@
 		<damageVariance>LOW</damageVariance> 
 		
 		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
 		<spells>
-			<spell>DARK_SIREN_BANEFUL_FISSURE</spell>
+			<spell>DARK_SIREN_SIRENS_CALL</spell>
 		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>
@@ -66,7 +69,7 @@
 		</primaryColours> 
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours> 
-			<colour>CLOTHING_PURPLE</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		

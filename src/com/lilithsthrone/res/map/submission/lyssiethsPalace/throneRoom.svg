@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="throneRoomGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#throneRoomGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" d="M22.625 1041.362l3.41.063.034-1.69 13.469.204.06 1.736 3.402.063.25-17H40.5l-.125 7.25-15-.125.08-7.192-2.72.01z"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" d="M32.979 997.546s-9.29 8.67-9.354 14.521l-.088 8.037c4.343-.509 6.01 4.277 3.998 6.582l-.002 3.35 11.012.135.004-3.795c-2.24-3.733.405-6.453 3.972-6.408l.059-7.65c.044-5.65-9.602-14.772-9.602-14.772zm.156 4.666c1.01 3.258 1.331 10.043.094 12.969-1.692-3.147-1.113-9.904-.094-12.97zm3.625 2.031c1.01 3.259 1.331 10.044.094 12.969-1.692-3.147-1.113-9.904-.094-12.969zm-7.197-.318c1.01 3.258 1.331 10.043.093 12.968-1.692-3.146-1.112-9.904-.093-12.968z"/>
+        <ellipse cx="23.887" cy="1024.255" fill="#fff" stroke="#fff" stroke-linecap="square" stroke-linejoin="round" stroke-width="2.403" paint-order="stroke fill markers" rx="1.87" ry="1.716"/>
+        <ellipse cx="42.029" cy="1023.99" fill="#fff" stroke="#fff" stroke-linecap="square" stroke-linejoin="round" stroke-width="2.403" paint-order="stroke fill markers" rx="1.87" ry="1.716"/>
+    </g>
+</svg>

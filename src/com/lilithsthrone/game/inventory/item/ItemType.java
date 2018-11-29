@@ -3374,7 +3374,12 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
 		private static final long serialVersionUID = 1L;
-
+		
+		@Override
+		public boolean isFetishGiving() {
+			return true;
+		}
+		
 		@Override
 		public String getDeterminer() {
 			return UtilText.generateSingularDeterminer(this.getName(false));
@@ -4281,11 +4286,22 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
+			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
 
 		private static final long serialVersionUID = 1L;
+		
 
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.EGGPLANT_POTION;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return EGGPLANT_POTION;
+		}
+		
 		@Override
 		public String getUseName() {
 			return "eat";
@@ -4298,6 +4314,54 @@ public class ItemType {
 					"You force [npc.name] to eat the eggplant. The bitter taste of disappointment overwhelms you both.",
 					"[npc.Name] produces an eggplant, and then proceeds to eat it. The bitter taste of disappointment overwhelms you both.",
 					"[npc.Name] produces an eggplant, and then proceeds to force you to eat it. The bitter taste of disappointment overwhelms you both.");
+		}
+	};
+	
+	public static AbstractItemType EGGPLANT_POTION = new AbstractItemType(
+			250,
+			null,
+			false,
+			"Eggplant Potion",
+			"Eggplant Potions",
+			"A potion made from the bitter flesh of an eggplant. Just like the berry from which it was made, the bottle containing this potion sort of looks like a penis if you squint at it.",
+			"eggplant_potion",
+			Colour.GENERIC_ARCANE,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			null,
+			null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You drink the eggplant potion. The rich, complex flavour is surprisingly delicious.",
+					"You force [npc.name] to drink the eggplant potion. The rich, complex flavour is surprisingly delicious.",
+					"[npc.Name] produces an eggplant potion, and then proceeds to drink it. The rich, complex flavour is surprisingly delicious.",
+					"[npc.Name] produces an eggplant potion, and then proceeds to force you to drink it. The rich, complex flavour is surprisingly delicious.");
 		}
 	};
 
@@ -5021,7 +5085,7 @@ public class ItemType {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
 					break;
 			}
 			

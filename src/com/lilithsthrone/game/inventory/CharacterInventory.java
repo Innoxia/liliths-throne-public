@@ -377,6 +377,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
 	
+	public boolean isAnyQuestItemPresent() {
+		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
+	}
+	
 	
 	// -------------------- Items -------------------- //
 	

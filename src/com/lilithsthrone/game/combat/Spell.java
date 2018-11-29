@@ -2354,14 +2354,14 @@ public enum Spell {
 	
 
 	
-	DARK_SIREN_BANEFUL_FISSURE(false,
+	DARK_SIREN_SIRENS_CALL(false,
 			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
-			"Baneful Fissure",
-			"dark_siren_baneful_fissure",
-			"Creates a long-lasting fissure in the ground, from which poisonous vapours rise to choke and stifle all nearby enemies.",
+			"Siren's Call",
+			"dark_siren_sirens_call",
+			"Unleashes a reverberating scream, the power of which causes the ground to split open. From this fissure, poisonous vapours rise to choke and stifle all nearby enemies.",
 			10,
 			DamageVariance.NONE,
 			200,

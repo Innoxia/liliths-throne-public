@@ -207,8 +207,12 @@ public class ImpFortressDialogue {
 		banishImpGuards(fortress);
 		
 		clearBossGuards(fortress);
-		
-		getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+			getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		} else {
+			getBoss(fortress).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
+		}
 		
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			Main.game.getDialogueFlags().impFortressAlphaDefeatedTime = Main.game.getMinutesPassed();

@@ -1246,6 +1246,35 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType EGGPLANT_POTION = new AbstractItemEffectType(null,
+			Colour.BASE_PURPLE) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(TFModifier.TF_PENIS);
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(Race.HUMAN, primaryModifier);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(Race.HUMAN, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+	
 	public static AbstractItemEffectType GIFT_CHOCOLATES = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 30% [style.boldHealth(energy)]"),
 			Colour.ATTRIBUTE_HEALTH) {

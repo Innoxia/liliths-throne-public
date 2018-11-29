@@ -2661,7 +2661,11 @@ public abstract class GameCharacter implements XMLSaving {
 				for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 					try {
 						GameCharacter target = Main.game.getNPCById(entry.getKey());
-						if(!target.isPlayer()) {
+						if(!target.isPlayer()
+								&& (target.isUnique()
+										|| target.isRelatedTo(this)
+										|| (target.isSlave() && target.getOwner().isPlayer())
+										|| Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))) {
 							infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 						}
 					} catch (Exception e) {
@@ -3021,8 +3025,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
 			this.setPlayerKnowsName(true);
 		}
-		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
-			
+		if((nameTriplet==null || !this.isPlayerKnowsName()) && !isPlayer()) {
 			if(this.getGenericName()!=null && !this.getGenericName().isEmpty()) {
 				return this.getGenericName();
 			}
@@ -3047,6 +3050,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
+			if(!this.isPlayer() && (this.getSubspecies()==Subspecies.FOX_ASCENDANT || this.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+				return this.getSurname();
+			}
 			return getNameIgnoresPlayerKnowledge();
 		}
 	}
@@ -4167,6 +4173,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		
 		switch(this.getWorldLocation()) {
+			case MUSEUM:
+			case MUSEUM_LOST:
 			case ANGELS_KISS_FIRST_FLOOR:
 			case ANGELS_KISS_GROUND_FLOOR:
 			case BAT_CAVERNS:
@@ -4200,6 +4208,8 @@ public abstract class GameCharacter implements XMLSaving {
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
 				return "You can't have sex with [npc.name] in Zaranix's house!";
+			case LYSSIETH_PALACE:
+				return "You can't have sex with [npc.name] in Lyssieth's Palace!";
 		}
 		
 		if(charactersImmediatelyPresent) {

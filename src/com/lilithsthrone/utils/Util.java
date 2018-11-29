@@ -29,6 +29,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -844,6 +845,17 @@ public class Util {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
 		}
 		return utilitiesStringBuilder.toString();
+	}
+
+	public static String subspeciesToStringList(Collection<Subspecies> subspecies, boolean capitalise) {
+		return Util.toStringList(subspecies,
+				(Subspecies o) -> 
+				"<span style='color:"+o.getColour(null).toWebHexString()+";'>"
+					+(capitalise
+							?Util.capitaliseSentence(o.getNamePlural(null))
+							:o.getNamePlural(null))
+					+"</span>",
+				"and");
 	}
 
 	public static String clothesToStringList(Collection<AbstractClothing> clothingSet, boolean capitalise) {

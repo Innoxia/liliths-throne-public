@@ -6522,7 +6522,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return Spell.DARK_SIREN_BANEFUL_FISSURE.getSVGString();
+			return Spell.DARK_SIREN_SIRENS_CALL.getSVGString();
 		}
 		
 		@Override

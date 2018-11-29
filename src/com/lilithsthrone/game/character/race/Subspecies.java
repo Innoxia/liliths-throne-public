@@ -487,6 +487,9 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
+			}
 			switch(character.getTailCount()) {
 				case 1:
 					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
@@ -512,6 +515,9 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
+			}
 			switch(character.getTailCount()) {
 				case 1:
 					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
@@ -599,6 +605,9 @@ public enum Subspecies {
 		
 		@Override
 		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail9();
+			}
 			switch(character.getTailCount()) {
 				case 1:
 					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTail1();
@@ -624,6 +633,9 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated9();
+			}
 			switch(character.getTailCount()) {
 				case 1:
 					return SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDesaturated1();
@@ -1272,11 +1284,17 @@ public enum Subspecies {
 
 		@Override
 		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSlimeSVGString(null);
+			}
 			return Subspecies.getFleshSubspecies(character.getBody()).getSlimeSVGString(character);
 		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSVGStringDesaturated(null);
+			}
 			return Subspecies.getFleshSubspecies(character.getBody()).getSVGStringDesaturated(character);
 		}
 	},

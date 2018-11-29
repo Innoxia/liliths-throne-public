@@ -1717,7 +1717,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
-		if(!s.contains("id=\"patternLayer\"")) { // Making sure that the pattern layer exists.
+		if(!s.contains("patternLayer")) { // Making sure that the pattern layer exists.
 			return s;
 		}
 		
@@ -1732,7 +1732,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		String returnable;
 		
 		// Locating the "patternLayer".
-		int patternLayerStartIndex = s.indexOf("id=\"patternLayer\"");
+		int patternLayerStartIndex = s.indexOf("patternLayer");
 		int patternLayerEndIndex = s.indexOf("</g>", patternLayerStartIndex);
 		
 		// Setting up clip mask
