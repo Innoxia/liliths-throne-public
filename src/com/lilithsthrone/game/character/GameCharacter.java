@@ -11458,16 +11458,16 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public String incrementHealth(GameCharacter attacker, float increment) {
 		// Fetishes:
-		if(Main.game.isInCombat()) {
+		if(attacker!=null && increment < 0 && Main.game.isInCombat()) {
 			// Masochist:
-			if (isMasochist() && increment < 0) {
+			if ( isMasochist() ) {
 
 				this.setHealth(getHealth() + (increment*0.75f));
 				
 				this.incrementFetishExperience(Fetish.FETISH_MASOCHIST, 2);
 
 				float manaLoss = (Math.round((-increment*0.25f)*10))/10f;
-				manaLoss = Attack.getModifiedDamage(null, this, Attack.SEDUCTION, DamageType.LUST, manaLoss);
+				manaLoss = Attack.getModifiedDamageSeduction(attacker, this, Attack.SEDUCTION, DamageType.LUST, manaLoss);
 				
 				return (UtilText.parse(this,
 						"<p>"
@@ -11479,9 +11479,9 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				
 			// Sadist:
-			} else if (attacker!=null && attacker.hasFetish(Fetish.FETISH_SADIST) && increment < 0) {
+			} else if ( attacker.hasFetish(Fetish.FETISH_SADIST) ) {
 				float manaLoss = (Math.round((-increment*0.1f)*10))/10f;
-				manaLoss = Attack.getModifiedDamage(null, attacker, Attack.SEDUCTION, DamageType.LUST, manaLoss);
+				manaLoss = Attack.getModifiedDamageSeduction(this, attacker, Attack.SEDUCTION, DamageType.LUST, manaLoss);
 				
 				attacker.incrementFetishExperience(Fetish.FETISH_SADIST, 2);
 
@@ -11493,12 +11493,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ " <b>"+(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
 						+ "</p>"))
 						+incrementLust(manaLoss, false);
-				
-				
-				
-			} else {
-				setHealth(getHealth() + increment);
-				return "";
+
 			}
 			
 		} else {
