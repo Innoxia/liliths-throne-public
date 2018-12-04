@@ -1614,7 +1614,7 @@ public enum Subspecies {
 		for(int i=1; i<=9; i++) {
 			try {
 				String SVGStringBackground = "";
-				InputStream is = youkoIconMap.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+				InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
 				if(is==null) {
 					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'statusEffects/race/raceBackground')! (Code 1f)");
 				}
@@ -1633,7 +1633,7 @@ public enum Subspecies {
 		for(int i=1; i<=9; i++) {
 			try {
 				String SVGStringBackground = "";
-				InputStream is = youkoDesaturatedIconMap.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
+				InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/statusEffects/race/raceBackground.svg");
 				if(is==null) {
 					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'statusEffects/race/raceBackground')! (Code 2f)");
 				}
